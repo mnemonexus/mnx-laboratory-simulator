@@ -1,0 +1,387 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem46-electroplating-faraday",
+  "title": "Electroplating copper and the Faraday constant",
+  "summary": "Plate copper from copper(II) sulfate between copper electrodes at three currents, weigh the electrodes before and after, and calculate the Faraday constant from the charge passed and the mass deposited.",
+  "briefing": "Clean and weigh two copper strips. Clip them into the cell of 0.5 M copper(II) sulfate (acidified), the cathode on the negative terminal, and pass the current for 30 minutes, keeping it steady. Rinse the strips with water then propanone, dry and weigh them. Charge Q = It; the cathode gains m = QM/(2F) of copper (Cu²⁺ + 2e⁻ → Cu), so F = QM/(2m), with M = 63.55 g/mol.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "electroplating",
+      "Faraday constant",
+      "Faraday’s laws",
+      "electrolysis",
+      "charge",
+      "copper"
+    ],
+    "topics": [
+      "Electrolysis",
+      "Amount of substance"
+    ],
+    "concepts": [
+      {
+        "id": "faraday",
+        "label": "The mass deposited is proportional to the charge passed: one mole of electrons is 96 485 C"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Plate copper at a controlled current and weigh the electrodes"
+      },
+      {
+        "id": "o-calc",
+        "kind": "analysis",
+        "statement": "Calculate the Faraday constant and show mass is proportional to charge",
+        "goal": "g-faraday"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain why the anode loses what the cathode gains",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "cuso4",
+        "label": "Copper(II) sulfate, 0.5 M, with 0.1 M sulfuric acid",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-sulfate",
+            "conc": "0.5 mol/L"
+          },
+          {
+            "substance": "core:sulfuric-acid",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "psu",
+        "requires": {
+          "class": "core:dc-power-supply"
+        }
+      },
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each current in turn",
+        "forEach": {
+          "var": "r",
+          "in": "=[['i1','0.25 A for 30 minutes',0.25,30],['i2','0.50 A for 30 minutes',0.5,30],['i3','0.75 A for 30 minutes',0.75,30]]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-250ml",
+              "id": "='cell-' + r[0]",
+              "label": "='Plating cell: ' + r[1]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "cuso4",
+              "destination": "='cell-' + r[0]",
+              "volume": "150 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "an",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:electrode-holder",
+              "id": "='anode-' + r[0]",
+              "label": "='Anode: ' + r[1]"
+            }
+          },
+          {
+            "id": "an-strip",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "aq:copper-strip",
+              "destination": "='anode-' + r[0]",
+              "mass": "3 g"
+            }
+          },
+          {
+            "id": "ca",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:electrode-holder",
+              "id": "='cathode-' + r[0]",
+              "label": "='Cathode: ' + r[1]"
+            }
+          },
+          {
+            "id": "ca-strip",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "aq:copper-strip",
+              "destination": "='cathode-' + r[0]",
+              "mass": "3 g"
+            }
+          },
+          {
+            "id": "on-a0",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='anode-' + r[0]",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "wa0",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "off-a0",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='anode-' + r[0]"
+            }
+          },
+          {
+            "id": "on-c0",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='cathode-' + r[0]",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "wc0",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "off-c0",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='cathode-' + r[0]"
+            }
+          },
+          {
+            "id": "run",
+            "kind": "operation",
+            "ref": "core:electrolyse",
+            "params": {
+              "supply": "psu",
+              "cell": "='cell-' + r[0]",
+              "anode": "='anode-' + r[0]",
+              "cathode": "='cathode-' + r[0]",
+              "current": "=quantity(text(r[2]) + ' A')",
+              "duration": "=quantity(text(r[3]) + ' min')"
+            }
+          },
+          {
+            "id": "on-a1",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='anode-' + r[0]",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "wa1",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "off-a1",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='anode-' + r[0]"
+            }
+          },
+          {
+            "id": "on-c1",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='cathode-' + r[0]",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "wc1",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "off-c1",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='cathode-' + r[0]"
+            }
+          },
+          {
+            "id": "n-q",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='charge ' + r[0]",
+              "value": "=value(quantity(run.out.charge), 'C')"
+            }
+          },
+          {
+            "id": "n-gain",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='cathode gain ' + r[0]",
+              "value": "=value(quantity(wc1.out.value), 'g') - value(quantity(wc0.out.value), 'g')"
+            }
+          },
+          {
+            "id": "n-loss",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='anode loss ' + r[0]",
+              "value": "=value(quantity(wa0.out.value), 'g') - value(quantity(wa1.out.value), 'g')"
+            }
+          },
+          {
+            "id": "n-f",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='F ' + r[0]",
+              "value": "=value(quantity(run.out.charge), 'C') * 63.55 / (2 * (value(quantity(wc1.out.value), 'g') - value(quantity(wc0.out.value), 'g')))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the anode lose about as much as the cathode gains?",
+        "options": [
+          {
+            "id": "same-charge",
+            "label": "The same charge passes through both: each Cu atom leaving the anode gives up the two electrons that deposit a Cu atom at the cathode"
+          },
+          {
+            "id": "falls-off",
+            "label": "Copper falls off the anode onto the cathode"
+          },
+          {
+            "id": "coincidence",
+            "label": "It is a coincidence of the currents chosen"
+          }
+        ],
+        "correctWhen": "choice == 'same-charge'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-faraday",
+        "statement": "The Faraday constant comes out within 10 % of 96 485 C/mol at 0.5 A, and the mass deposited rises with the charge",
+        "check": "abs(first(recorded('F i2')) - 96485) < 9650 && first(recorded('cathode gain i1')) < first(recorded('cathode gain i2')) && first(recorded('cathode gain i2')) < first(recorded('cathode gain i3'))"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The anode loss is explained",
+        "check": "decision('why') == 'same-charge'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-balance",
+        "statement": "At 0.75 A the anode loses within 0.03 g of what the cathode gains",
+        "check": "abs(first(recorded('anode loss i3')) - first(recorded('cathode gain i3'))) < 0.03",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

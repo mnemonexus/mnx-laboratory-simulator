@@ -1,0 +1,418 @@
+[
+  {
+    "id": "bio:bca-colour-development",
+    "contract": "colour-development",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "trigger": [
+      "bio:bicinchoninic-acid",
+      "core:copper-ii-sulfate"
+    ],
+    "params": {
+      "product": "bio:bca-cu-complex",
+      "reagent": "core:copper-ii-sulfate",
+      "assay": "bca",
+      "halfSaturation": "1.2 mg/mL",
+      "rate37": "0.1 /min",
+      "q10": 2.5
+    },
+    "requires": [
+      "protein.assayResponse"
+    ],
+    "description": "Protein reduces Cu(II), and Cu(I) forms the purple BCA complex. The complex approaches an equilibrium that saturates with protein (c_eq = [Cu] × P / (P + K)) at a rate that rises with temperature (Q10). This gives the assay its mild curvature at the top and its dependence on time and temperature.",
+    "validity": {
+      "protein": "0..3 mg/mL",
+      "temperature": "15..60 Cel"
+    },
+    "provenance": {
+      "references": [
+        "Smith et al. 1985; colour keeps developing at room temperature (manufacturer protocols)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:bradford-colour-development",
+    "contract": "colour-development",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "trigger": [
+      "bio:coomassie-g250"
+    ],
+    "params": {
+      "product": "bio:coomassie-protein-complex",
+      "reagent": "bio:coomassie-g250",
+      "assay": "bradford",
+      "halfSaturation": "0.03 mg/mL",
+      "rate37": "2 /min",
+      "q10": 1.2
+    },
+    "requires": [
+      "protein.assayResponse"
+    ],
+    "description": "Coomassie G-250 binds protein and shifts from its brown free form (465 nm) to the blue bound form (595 nm). Binding is fast and saturates at low protein, and the free dye that remains still absorbs at 595 nm, so the curve bends early: the Bradford assay's narrow linear range comes from the model, not from a rule.",
+    "validity": {
+      "protein": "0..0.1 mg/mL",
+      "temperature": "15..40 Cel"
+    },
+    "provenance": {
+      "references": [
+        "Bradford 1976, Anal. Biochem. 72:248"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:enzyme-kinetics/mm-depletion",
+    "contract": "kinetics.enzymatic",
+    "tier": "T3",
+    "kind": "process",
+    "status": "experimental",
+    "requires": [
+      "enzyme"
+    ],
+    "description": "Rate = kcat × [E]active × product over substrates of [S]/(Km × (1 + Σ competitive [I]/Ki) + [S]), integrated over time with substrate depletion and product formation.",
+    "validity": {
+      "temperature": "15..45 Cel"
+    }
+  },
+  {
+    "id": "bio:ellman-benzyl-mercaptan",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:benzyl-mercaptan": 1,
+        "bio:dtnb": 1
+      },
+      "products": {
+        "bio:tnb": 1,
+        "bio:thiol-tnb-disulfide": 1
+      },
+      "k": 1000,
+      "at": "25 Cel",
+      "ea": "30 kJ/mol"
+    },
+    "description": "Benzyl mercaptan's SH group cuts DTNB, releasing yellow TNB²⁻ (412 nm). With 1 mM DTNB it is complete in seconds, so TNB follows the thiol as it is made.",
+    "provenance": {
+      "references": [
+        "Ellman's assay of free thiols"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ellman-allyl-mercaptan",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:allyl-mercaptan": 1,
+        "bio:dtnb": 1
+      },
+      "products": {
+        "bio:tnb": 1,
+        "bio:thiol-tnb-disulfide": 1
+      },
+      "k": 1000,
+      "at": "25 Cel",
+      "ea": "30 kJ/mol"
+    },
+    "description": "Allyl mercaptan's SH group cuts DTNB, releasing yellow TNB²⁻ (412 nm). With 1 mM DTNB it is complete in seconds, so TNB follows the thiol as it is made.",
+    "provenance": {
+      "references": [
+        "Ellman's assay of free thiols"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ellman-ethanethiol",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:ethanethiol": 1,
+        "bio:dtnb": 1
+      },
+      "products": {
+        "bio:tnb": 1,
+        "bio:thiol-tnb-disulfide": 1
+      },
+      "k": 1000,
+      "at": "25 Cel",
+      "ea": "30 kJ/mol"
+    },
+    "description": "Ethanethiol's SH group cuts DTNB, releasing yellow TNB²⁻ (412 nm). With 1 mM DTNB it is complete in seconds, so TNB follows the thiol as it is made.",
+    "provenance": {
+      "references": [
+        "Ellman's assay of free thiols"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ellman-methanethiol",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:methanethiol": 1,
+        "bio:dtnb": 1
+      },
+      "products": {
+        "bio:tnb": 1,
+        "bio:thiol-tnb-disulfide": 1
+      },
+      "k": 1000,
+      "at": "25 Cel",
+      "ea": "30 kJ/mol"
+    },
+    "description": "Methanethiol's SH group cuts DTNB, releasing yellow TNB²⁻ (412 nm). With 1 mM DTNB it is complete in seconds, so TNB follows the thiol as it is made.",
+    "provenance": {
+      "references": [
+        "Ellman's assay of free thiols"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dtnb-hydrolysis",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:dtnb": 1
+      },
+      "products": {
+        "bio:tnb": 1
+      },
+      "k": 5e-07,
+      "at": "25 Cel",
+      "ea": "60 kJ/mol"
+    },
+    "description": "At pH 8 DTNB slowly hydrolyses to TNB on its own: a blank without enzyme drifts upwards by a few ten-thousandths of an absorbance unit a minute.",
+    "provenance": {
+      "notes": "Illustrative rate for pH 8.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:benedict-glucose",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "core:glucose": 1,
+        "bio:benedict-copper": 2
+      },
+      "products": {
+        "bio:copper-i-oxide": 1,
+        "bio:oxidised-sugar": 1
+      },
+      "orders": {
+        "core:glucose": 1
+      },
+      "hydroxide": 1,
+      "k": 12,
+      "at": "100 Cel",
+      "ea": "120 kJ/mol"
+    },
+    "description": "A reducing sugar (glucose) reduces Benedict's copper(II) to copper(I) oxide when heated: first order in the sugar and in hydroxide (the sugar's ring opens and enolises in alkali), so nothing happens cold or in acid.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated so a 1 % solution goes orange-red within a few minutes in a boiling water bath.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:benedict-fructose",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "core:fructose": 1,
+        "bio:benedict-copper": 2
+      },
+      "products": {
+        "bio:copper-i-oxide": 1,
+        "bio:oxidised-sugar": 1
+      },
+      "orders": {
+        "core:fructose": 1
+      },
+      "hydroxide": 1,
+      "k": 15,
+      "at": "100 Cel",
+      "ea": "120 kJ/mol"
+    },
+    "description": "A reducing sugar (fructose) reduces Benedict's copper(II) to copper(I) oxide when heated: first order in the sugar and in hydroxide (the sugar's ring opens and enolises in alkali), so nothing happens cold or in acid.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated so a 1 % solution goes orange-red within a few minutes in a boiling water bath.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:benedict-galactose",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:galactose": 1,
+        "bio:benedict-copper": 2
+      },
+      "products": {
+        "bio:copper-i-oxide": 1,
+        "bio:oxidised-sugar": 1
+      },
+      "orders": {
+        "bio:galactose": 1
+      },
+      "hydroxide": 1,
+      "k": 10,
+      "at": "100 Cel",
+      "ea": "120 kJ/mol"
+    },
+    "description": "A reducing sugar (galactose) reduces Benedict's copper(II) to copper(I) oxide when heated: first order in the sugar and in hydroxide (the sugar's ring opens and enolises in alkali), so nothing happens cold or in acid.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated so a 1 % solution goes orange-red within a few minutes in a boiling water bath.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:benedict-maltose",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "core:maltose": 1,
+        "bio:benedict-copper": 2
+      },
+      "products": {
+        "bio:copper-i-oxide": 1,
+        "bio:oxidised-sugar": 1
+      },
+      "orders": {
+        "core:maltose": 1
+      },
+      "hydroxide": 1,
+      "k": 6,
+      "at": "100 Cel",
+      "ea": "120 kJ/mol"
+    },
+    "description": "A reducing sugar (maltose) reduces Benedict's copper(II) to copper(I) oxide when heated: first order in the sugar and in hydroxide (the sugar's ring opens and enolises in alkali), so nothing happens cold or in acid.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated so a 1 % solution goes orange-red within a few minutes in a boiling water bath.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:benedict-lactose",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "core:lactose": 1,
+        "bio:benedict-copper": 2
+      },
+      "products": {
+        "bio:copper-i-oxide": 1,
+        "bio:oxidised-sugar": 1
+      },
+      "orders": {
+        "core:lactose": 1
+      },
+      "hydroxide": 1,
+      "k": 5,
+      "at": "100 Cel",
+      "ea": "120 kJ/mol"
+    },
+    "description": "A reducing sugar (lactose) reduces Benedict's copper(II) to copper(I) oxide when heated: first order in the sugar and in hydroxide (the sugar's ring opens and enolises in alkali), so nothing happens cold or in acid.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated so a 1 % solution goes orange-red within a few minutes in a boiling water bath.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:sucrose-acid-hydrolysis",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "core:sucrose": 1,
+        "core:water": 1
+      },
+      "products": {
+        "core:glucose": 1,
+        "core:fructose": 1
+      },
+      "orders": {
+        "core:sucrose": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "k": 0.0001,
+      "at": "25 Cel",
+      "ea": "108 kJ/mol"
+    },
+    "description": "Acid splits sucrose (a non-reducing sugar) into glucose and fructose, which reduce Benedict’s reagent; slow cold, a minute or two when boiled with dilute hydrochloric acid.",
+    "provenance": {
+      "notes": "Ea about 108 kJ/mol (sucrose inversion); rate constant of the right order.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:biuret-colour-development",
+    "contract": "colour-development",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "trigger": [
+      "bio:biuret-copper"
+    ],
+    "params": {
+      "product": "bio:biuret-cu-complex",
+      "reagent": "bio:biuret-copper",
+      "assay": "biuret",
+      "halfSaturation": "30 mg/mL",
+      "rate37": "2 /min",
+      "q10": 1.5
+    },
+    "requires": [
+      "protein.assayResponse"
+    ],
+    "description": "Peptide bonds bind copper(II) in alkali as a violet complex: the more protein, the more of the copper turns from blue to violet, within a minute or two at room temperature. Free amino acids and sugars do not.",
+    "validity": {
+      "protein": "1..100 mg/mL",
+      "temperature": "15..40 Cel"
+    },
+    "provenance": {
+      "references": [
+        "Gornall, Bardawill and David 1949, J. Biol. Chem. 177:751"
+      ],
+      "review": "pending"
+    }
+  }
+]

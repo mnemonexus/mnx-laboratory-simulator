@@ -1,0 +1,9 @@
+{
+  "id": "micro",
+  "version": "0.1.0",
+  "label": "Microbiology",
+  "description": "Organisms, aseptic technique, smears, staining and microscopy. Loops, slides and microscopes live in core; this pack adds organisms, stains and techniques.",
+  "dependsOn": [
+    "core"
+  ]
+}

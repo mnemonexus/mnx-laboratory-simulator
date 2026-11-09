@@ -1,0 +1,80 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "core-pipette-calibration",
+  "version": "1.0.0",
+  "title": "Checking micropipettes by weighing",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:weigh" }, { "operation": "core:tare" }] },
+  "summary": "Dispense 100 µL of water ten times from each of two P200 pipettes onto an analytical balance, convert each mass to a volume, and work out each pipette's systematic error (accuracy) and coefficient of variation (precision) against the limits for a 200 µL pipette.",
+  "briefing": "Use the semi-micro balance (0.01 mg): at 100 µL a 0.1 mg balance adds about half as much scatter again as the pipette itself. Water's density here is 0.997 g/mL, so 100 µL should weigh 99.7 mg. The mean volume shows a pipette's systematic error; the spread of the ten volumes (as a coefficient of variation) shows its random error. At 100 µL a P200 should be within ±0.8 % systematic and 0.3 % random error. Re-tare before each pipette, and record the cumulative mass after each dispense.",
+  "context": {
+    "intendedContexts": ["practical-session", "spaced-recall"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["biosciences", "biochemistry", "chemistry"] },
+    "concepts": [{ "id": "accuracy-precision", "label": "Accuracy and precision (systematic and random error)" }],
+    "objectives": [
+      { "id": "o-weigh", "kind": "skill", "statement": "Weigh dispensed volumes on an analytical balance", "skills": ["core:micropipetting", "core:tare-and-weigh"] },
+      { "id": "o-errors", "kind": "analysis", "statement": "Calculate systematic and random error" },
+      { "id": "o-judge", "kind": "reasoning", "statement": "Decide which pipette needs recalibrating", "goal": "g-judge" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "water", "label": "Deionised water", "preparation": "core:water-deionised", "amount": "50 mL", "container": "core:beaker-100ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "balance", "requires": { "class": "core:balance-5dp" } },
+      { "id": "pa", "requires": { "class": "core:micropipette-p200" } },
+      { "id": "pb", "requires": { "class": "core:micropipette-p200" }, "truth": { "bias": "+4 %" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "vessel", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:beaker-100ml", "id": "vessel", "label": "Weighing beaker" } },
+      { "id": "on-pan", "kind": "operation", "ref": "core:place-in", "params": { "container": "vessel", "place": "balance" } },
+      { "id": "pipettes", "kind": "group", "objectives": ["o-weigh"], "forEach": { "var": "p", "in": "=['pa', 'pb']" },
+        "steps": [
+          { "id": "zero", "kind": "operation", "ref": "core:tare", "params": { "balance": "balance" } },
+          { "id": "dial", "kind": "operation", "ref": "core:set-volume", "params": { "pipette": "=p", "volume": "100 uL" } },
+          { "id": "tip", "kind": "operation", "ref": "core:attach-tip", "params": { "pipette": "=p" } },
+          { "id": "replicates", "kind": "group", "forEach": { "var": "i", "in": "=range(1, 10, 10)" },
+            "steps": [
+              { "id": "dispense", "kind": "operation", "ref": "core:transfer", "params": { "source": "water", "destination": "vessel", "volume": "100 uL", "tool": "=p" } },
+              { "id": "read", "kind": "operation", "ref": "core:weigh", "params": { "balance": "balance" } },
+              { "id": "note", "kind": "operation", "ref": "core:record", "params": { "field": "='mass-' + p", "value": "=value(quantity(read.out.value), 'mg')" } }
+            ] }
+        ] },
+      { "id": "errors", "kind": "group", "objectives": ["o-errors"], "forEach": { "var": "p", "in": "=['pa', 'pb']" },
+        "let": {
+          "m": "=recorded('mass-' + p)",
+          "v": "=map(range(0, 9, 10), (recorded('mass-' + p)[it] - if(it == 0, 0, recorded('mass-' + p)[it - 1])) / 0.997)"
+        },
+        "steps": [
+          { "id": "note-v", "kind": "operation", "ref": "core:record", "params": { "field": "='volumes-' + p", "value": "=v" } },
+          { "id": "note-sys", "kind": "operation", "ref": "core:record", "params": { "field": "='systematic-%-' + p", "value": "=(mean(v) - 100) / 100 * 100" } },
+          { "id": "note-cv", "kind": "operation", "ref": "core:record", "params": { "field": "='cv-%-' + p", "value": "=sd(v) / mean(v) * 100" } }
+        ] },
+      { "id": "which", "kind": "decision", "objectives": ["o-judge"], "prompt": "Against the limits (±0.8 % systematic, 0.3 % random at 100 µL), which pipette needs recalibrating?",
+        "options": [
+          { "id": "a", "label": "Pipette A" },
+          { "id": "b", "label": "Pipette B" },
+          { "id": "both", "label": "Both" },
+          { "id": "neither", "label": "Neither" }
+        ],
+        "correctWhen": "if(abs(first(recorded('systematic-%-pa'))) > 0.8 || first(recorded('cv-%-pa')) > 0.3, if(abs(first(recorded('systematic-%-pb'))) > 0.8 || first(recorded('cv-%-pb')) > 0.3, 'both', 'a'), if(abs(first(recorded('systematic-%-pb'))) > 0.8 || first(recorded('cv-%-pb')) > 0.3, 'b', 'neither'))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-judge", "statement": "Pipette B is found to deliver about 4 % too much (within 1 percentage point) and is sent for recalibration", "check": "abs(first(recorded('systematic-%-pb')) - 4) < 1 && (decision(which) == 'b' || decision(which) == 'both')" }
+    ],
+    "expectedObservations": [
+      { "id": "e-b-out", "statement": "Pipette B is outside the systematic limit while its precision is normal", "check": "first(recorded('systematic-%-pb')) > 0.8 && first(recorded('cv-%-pb')) < 0.5", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

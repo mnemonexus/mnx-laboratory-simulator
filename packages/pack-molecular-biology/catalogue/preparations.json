@@ -1,0 +1,882 @@
+[
+  {
+    "id": "molbio:pcr-master-mix-2x",
+    "label": "PCR master mix (2×)",
+    "components": [
+      {
+        "substance": "molbio:taq-polymerase",
+        "conc": "10 mg/L"
+      },
+      {
+        "substance": "molbio:dntp-mix",
+        "conc": "1.6 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "Taq polymerase, dNTPs (0.4 mM each), buffer and MgCl₂; buffer and magnesium are not modelled."
+  },
+  {
+    "id": "molbio:gfp-primer-mix",
+    "label": "GFP primer mix (10 µM each)",
+    "components": [
+      {
+        "substance": "molbio:gfp-forward-primer",
+        "conc": "10 uM"
+      },
+      {
+        "substance": "molbio:gfp-reverse-primer",
+        "conc": "10 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:loading-dye-6x",
+    "label": "Gel loading dye (6×)",
+    "components": [
+      {
+        "substance": "core:glycerol",
+        "conc": "378 g/L"
+      },
+      {
+        "substance": "core:bromophenol-blue",
+        "conc": "2.5 g/L"
+      },
+      {
+        "substance": "core:edta",
+        "conc": "60 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "30 % glycerol, 0.25 % bromophenol blue and 60 mM EDTA (which stops Mg-dependent enzymes)."
+  },
+  {
+    "id": "molbio:ladder-1kb-ready",
+    "label": "1 kb DNA ladder, ready to load",
+    "components": [
+      {
+        "substance": "molbio:ladder-1kb",
+        "conc": "100 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "63 g/L"
+      },
+      {
+        "substance": "core:bromophenol-blue",
+        "conc": "0.4 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "0.1 µg/µL in 1× loading dye: 5 µL per lane."
+  },
+  {
+    "id": "molbio:restriction-buffer-10x",
+    "label": "Restriction buffer (10×)",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "500 mM"
+      },
+      {
+        "substance": "core:magnesium-chloride",
+        "conc": "100 mM"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "500 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.9,
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "50 mM Tris-HCl, 10 mM MgCl₂ and 50 mM NaCl at 1× (one buffer for all four enzymes here)."
+  },
+  {
+    "id": "molbio:pbr322-stock",
+    "label": "pBR322 plasmid, 0.25 µg/µL in TE",
+    "components": [
+      {
+        "substance": "molbio:pbr322-plasmid",
+        "conc": "250 mg/L"
+      },
+      {
+        "substance": "core:tris",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:edta",
+        "conc": "1 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 8.0,
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:ecori-20u",
+    "label": "EcoRI, 20 U/µL",
+    "components": [
+      {
+        "substance": "molbio:ecori",
+        "conc": "20 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "630 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "20 U/µL in a 50 % glycerol storage buffer."
+  },
+  {
+    "id": "molbio:bamhi-20u",
+    "label": "BamHI, 20 U/µL",
+    "components": [
+      {
+        "substance": "molbio:bamhi",
+        "conc": "20 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "630 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "20 U/µL in a 50 % glycerol storage buffer."
+  },
+  {
+    "id": "molbio:psti-20u",
+    "label": "PstI, 20 U/µL",
+    "components": [
+      {
+        "substance": "molbio:psti",
+        "conc": "20 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "630 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "20 U/µL in a 50 % glycerol storage buffer."
+  },
+  {
+    "id": "molbio:hindiii-20u",
+    "label": "HindIII, 20 U/µL",
+    "components": [
+      {
+        "substance": "molbio:hindiii",
+        "conc": "20 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "630 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "20 U/µL in a 50 % glycerol storage buffer."
+  },
+  {
+    "id": "molbio:haeiii-10u",
+    "label": "HaeIII, 10 U/µL",
+    "components": [
+      {
+        "substance": "molbio:haeiii",
+        "conc": "10 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "630 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "10 U/µL in a 50 % glycerol storage buffer."
+  },
+  {
+    "id": "molbio:tas2r38-primer-mix",
+    "label": "TAS2R38 primer mix (10 µM each)",
+    "components": [
+      {
+        "substance": "molbio:tas2r38-forward-primer",
+        "conc": "10 uM"
+      },
+      {
+        "substance": "molbio:tas2r38-reverse-primer",
+        "conc": "10 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:ladder-50bp-ready",
+    "label": "50 bp ladder, ready to load",
+    "components": [
+      {
+        "substance": "molbio:ladder-50bp",
+        "conc": "100 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "126 g/L"
+      },
+      {
+        "substance": "core:bromophenol-blue",
+        "conc": "0.4 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "0.5 µg in 5 µL."
+  },
+  {
+    "id": "molbio:emsa-binding-buffer",
+    "label": "Binding buffer (10 % glycerol)",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "20 mM"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "126 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Glycerol so the samples sink into the wells; no dye, which can disturb binding."
+  },
+  {
+    "id": "molbio:laco-probe-2nm",
+    "label": "lacO probe, 2 nM",
+    "components": [
+      {
+        "substance": "molbio:laco-probe",
+        "conc": "2 nM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:laci-100nm",
+    "label": "LacI, 100 nM",
+    "components": [
+      {
+        "substance": "molbio:laci",
+        "conc": "100 nM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:iptg-10mm",
+    "label": "IPTG, 10 mM",
+    "components": [
+      {
+        "substance": "molbio:iptg",
+        "conc": "10 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:laco-competitor-1um",
+    "label": "Unlabelled lacO DNA, 1 µM",
+    "components": [
+      {
+        "substance": "molbio:laco-competitor",
+        "conc": "1 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:sybr-qpcr-master-mix-2x",
+    "label": "SYBR Green qPCR master mix (2×)",
+    "components": [
+      {
+        "substance": "molbio:taq-polymerase",
+        "conc": "10 mg/L"
+      },
+      {
+        "substance": "molbio:dntp-mix",
+        "conc": "1.6 mM"
+      },
+      {
+        "substance": "molbio:sybr-green-i",
+        "conc": "4 uM"
+      },
+      {
+        "substance": "core:magnesium-chloride",
+        "conc": "6 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "Hot-start Taq, dNTPs, MgCl2 and SYBR Green I at twice their working concentrations: mix 1 + 1 with primers, template and water."
+  },
+  {
+    "id": "molbio:gfp-qpcr-primer-mix",
+    "label": "GFP qPCR primer mix (10 µM each)",
+    "components": [
+      {
+        "substance": "molbio:gfp-qpcr-forward-primer",
+        "conc": "10 uM"
+      },
+      {
+        "substance": "molbio:gfp-qpcr-reverse-primer",
+        "conc": "10 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:pcr-master-mix-2x-no-dye",
+    "label": "PCR master mix (2×), no dye",
+    "components": [
+      {
+        "substance": "molbio:taq-polymerase",
+        "conc": "10 mg/L"
+      },
+      {
+        "substance": "molbio:dntp-mix",
+        "conc": "1.6 mM"
+      },
+      {
+        "substance": "core:magnesium-chloride",
+        "conc": "6 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "As the SYBR master mix, without the dye: the PCR works, but a real-time cycler sees nothing."
+  },
+  {
+    "id": "molbio:loading-dye-sucrose",
+    "label": "Loading dye (40 % w/v sucrose, 0.02 % bromophenol blue)",
+    "components": [
+      {
+        "substance": "core:sucrose",
+        "conc": "400 g/L"
+      },
+      {
+        "substance": "core:bromophenol-blue",
+        "conc": "0.2 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "Sucrose makes the sample dense enough to sink into the well; the dye shows how far the run has gone. No EDTA, so it does not stop a digest."
+  },
+  {
+    "id": "molbio:vector-3kb-stock",
+    "label": "Vector plasmid DNA, 250 ng/µL in TE",
+    "components": [
+      {
+        "substance": "molbio:vector-3kb",
+        "conc": "250 mg/L"
+      },
+      {
+        "substance": "core:tris",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:edta",
+        "conc": "1 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:recombinant-9kb-forward-stock",
+    "label": "Recombinant (forward) plasmid DNA, 250 ng/µL in TE",
+    "components": [
+      {
+        "substance": "molbio:recombinant-9kb-forward",
+        "conc": "250 mg/L"
+      },
+      {
+        "substance": "core:tris",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:edta",
+        "conc": "1 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:recombinant-9kb-reverse-stock",
+    "label": "Recombinant (reverse) plasmid DNA, 250 ng/µL in TE",
+    "components": [
+      {
+        "substance": "molbio:recombinant-9kb-reverse",
+        "conc": "250 mg/L"
+      },
+      {
+        "substance": "core:tris",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:edta",
+        "conc": "1 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:bla-tem-colony-pcr-mix",
+    "label": "blaTEM colony PCR reaction mix (1×)",
+    "components": [
+      {
+        "substance": "molbio:taq-polymerase",
+        "conc": "5 mg/L"
+      },
+      {
+        "substance": "molbio:dntp-mix",
+        "conc": "0.8 mM"
+      },
+      {
+        "substance": "molbio:bla-tem-forward-primer",
+        "conc": "0.5 uM"
+      },
+      {
+        "substance": "molbio:bla-tem-reverse-primer",
+        "conc": "0.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "Ready to use: add a touch of a colony. blaTEM primers giving 516 bp."
+  },
+  {
+    "id": "molbio:ladder-100bp",
+    "label": "100 bp DNA ladder (no dye)",
+    "components": [
+      {
+        "substance": "molbio:ladder-100bp",
+        "conc": "100 mg/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "Add loading dye before loading."
+  },
+  {
+    "id": "molbio:bla-tem-346-colony-pcr-mix",
+    "label": "blaTEM colony PCR reaction mix, pair B (1×)",
+    "components": [
+      {
+        "substance": "molbio:taq-polymerase",
+        "conc": "5 mg/L"
+      },
+      {
+        "substance": "molbio:dntp-mix",
+        "conc": "0.8 mM"
+      },
+      {
+        "substance": "molbio:bla-tem-b-forward-primer",
+        "conc": "0.5 uM"
+      },
+      {
+        "substance": "molbio:bla-tem-b-reverse-primer",
+        "conc": "0.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "Ready to use: add a touch of a colony. Primer pair B gives 346 bp."
+  },
+  {
+    "id": "molbio:p-putida-pcr-mix",
+    "label": "P. putida PCR reaction mix (1×)",
+    "components": [
+      {
+        "substance": "molbio:taq-polymerase",
+        "conc": "5 mg/L"
+      },
+      {
+        "substance": "molbio:dntp-mix",
+        "conc": "0.8 mM"
+      },
+      {
+        "substance": "molbio:p-putida-forward-primer",
+        "conc": "0.5 uM"
+      },
+      {
+        "substance": "molbio:p-putida-reverse-primer",
+        "conc": "0.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "Primers specific for Pseudomonas putida (618 bp), Taq, dNTPs and buffer."
+  },
+  {
+    "id": "molbio:pvuii-10u",
+    "label": "PvuII, 10 U/µL",
+    "components": [
+      {
+        "substance": "molbio:pvuii",
+        "conc": "10 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "630 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "10 U/µL in a 50 % glycerol storage buffer."
+  },
+  {
+    "id": "molbio:hinfi-10u",
+    "label": "HinfI, 10 U/µL",
+    "components": [
+      {
+        "substance": "molbio:hinfi",
+        "conc": "10 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "630 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "10 U/µL in a 50 % glycerol storage buffer."
+  },
+  {
+    "id": "molbio:hi-ab-primer-mix",
+    "label": "HiA-F + HiB-R primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:hi-hia-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:hi-hib-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-bg-primer-mix",
+    "label": "HiB-F + HiGam-R primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:hi-hib-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:hi-higam-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-hia-primer-mix",
+    "label": "HiA primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:hi-hia-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:hi-hia-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-hib-primer-mix",
+    "label": "HiB primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:hi-hib-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:hi-hib-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-higam-primer-mix",
+    "label": "HiGam primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:hi-higam-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:hi-higam-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-zy-primer-mix",
+    "label": "lacZ-F + lacY-R primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:lac-lacz-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:lac-lacy-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-ya-primer-mix",
+    "label": "lacY-F + lacA-R primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:lac-lacy-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:lac-laca-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-lacz-primer-mix",
+    "label": "lacZ primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:lac-lacz-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:lac-lacz-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-lacy-primer-mix",
+    "label": "lacY primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:lac-lacy-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:lac-lacy-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-laca-primer-mix",
+    "label": "lacA primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:lac-laca-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:lac-laca-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-gapa-primer-mix",
+    "label": "gapA primer mix (2.5 µM each)",
+    "components": [
+      {
+        "substance": "molbio:lac-gapa-f",
+        "conc": "2.5 uM"
+      },
+      {
+        "substance": "molbio:lac-gapa-r",
+        "conc": "2.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:phire-buffer-5x",
+    "label": "Phire reaction buffer (5×)",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "100 mM"
+      },
+      {
+        "substance": "core:magnesium-chloride",
+        "conc": "7.5 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "With magnesium; magnesium's effect on the PCR is not modelled."
+  },
+  {
+    "id": "molbio:phire-polymerase-stock",
+    "label": "Phire Hot Start II DNAP",
+    "components": [
+      {
+        "substance": "molbio:phire-hotstart-ii",
+        "conc": "500 mg/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "630 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:dntp-10mm",
+    "label": "dNTP mix (10 mM each)",
+    "components": [
+      {
+        "substance": "molbio:dntp-mix",
+        "conc": "40 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:phosphate-100mm-ph7",
+    "label": "Sodium phosphate buffer, 100 mM, pH 7",
+    "components": [
+      {
+        "substance": "core:disodium-hydrogen-phosphate",
+        "conc": "38.7 mM"
+      },
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "61.3 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.0,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Hydrogen phosphate and dihydrogen phosphate from Henderson–Hasselbalch with pKa 7.2."
+  },
+  {
+    "id": "molbio:l-acidophilus-pcr-mix",
+    "label": "L. acidophilus PCR reaction mix (1×)",
+    "components": [
+      {
+        "substance": "molbio:taq-polymerase",
+        "conc": "5 mg/L"
+      },
+      {
+        "substance": "molbio:dntp-mix",
+        "conc": "0.8 mM"
+      },
+      {
+        "substance": "molbio:l-acidophilus-forward-primer",
+        "conc": "0.5 uM"
+      },
+      {
+        "substance": "molbio:l-acidophilus-reverse-primer",
+        "conc": "0.5 uM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "Primers specific for Lactobacillus acidophilus (129 bp), Taq, dNTPs and buffer."
+  }
+]

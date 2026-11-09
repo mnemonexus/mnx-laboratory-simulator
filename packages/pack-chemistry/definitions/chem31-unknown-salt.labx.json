@@ -1,0 +1,614 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem31-unknown-salt",
+  "version": "1.0.0",
+  "title": "Identify an unknown salt",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:flame-test"
+      },
+      {
+        "operation": "core:connect-gas"
+      }
+    ]
+  },
+  "summary": "Identify the cation and the anion of an unknown salt by a flame test, sodium hydroxide and ammonia, an acid and limewater, silver nitrate and barium chloride. A different salt is drawn each run.",
+  "briefing": "You have a solution of one unknown salt. Test small portions, never the bottle: a flame test for the metal, sodium hydroxide and ammonia (a few drops, then in excess) for metal ions that form hydroxides, hydrochloric acid with the gas bubbled into limewater for a carbonate, nitric acid then silver nitrate for a halide, and hydrochloric acid then barium chloride for a sulfate. The acid comes first in the last two so that a carbonate cannot give a false precipitate. Put the results together to name the salt.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "qualitative analysis",
+      "unknown",
+      "ion tests",
+      "cation",
+      "anion",
+      "flame test",
+      "limewater",
+      "silver nitrate",
+      "barium chloride"
+    ],
+    "topics": [
+      "Identifying ions"
+    ],
+    "concepts": [
+      {
+        "id": "cation-tests",
+        "label": "Metal ions are identified by flame colour and hydroxide precipitates"
+      },
+      {
+        "id": "anion-tests",
+        "label": "Carbonate, halide and sulfate ions each have a test, done in acid"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-test",
+        "kind": "skill",
+        "statement": "Carry out the cation and anion tests on small portions of a sample",
+        "skills": [
+          "core:flame-test"
+        ]
+      },
+      {
+        "id": "o-identify",
+        "kind": "outcome",
+        "statement": "Name an unknown salt from its test results",
+        "goal": "g-identify"
+      },
+      {
+        "id": "o-reason",
+        "kind": "reasoning",
+        "statement": "Explain why the anion tests are acidified first",
+        "goal": "g-acid"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "unknown",
+        "label": "Unknown salt solution",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-sulfate",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "30 mL",
+        "container": "core:reagent-bottle-250ml",
+        "role": "unknown"
+      },
+      {
+        "id": "naoh",
+        "label": "Sodium hydroxide, 1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydroxide",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "nh3",
+        "label": "Ammonia solution, 2 M",
+        "contains": [
+          {
+            "substance": "aq:ammonia",
+            "conc": "2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "hno3",
+        "label": "Dilute nitric acid, 1 M",
+        "contains": [
+          {
+            "substance": "aq:nitric-acid",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "agno3",
+        "label": "Silver nitrate, 0.05 M",
+        "contains": [
+          {
+            "substance": "aq:silver-nitrate",
+            "conc": "0.05 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "hcl",
+        "label": "Dilute hydrochloric acid, 1 M",
+        "contains": [
+          {
+            "substance": "aq:hydrochloric-acid",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "bacl2",
+        "label": "Barium chloride, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:barium-chloride",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "limewater",
+        "label": "Limewater (saturated calcium hydroxide)",
+        "contains": [
+          {
+            "substance": "aq:calcium-hydroxide",
+            "conc": "0.020 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "wire",
+        "requires": {
+          "class": "core:flame-test-wire"
+        }
+      },
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "flame-group",
+        "kind": "group",
+        "title": "Flame test",
+        "objectives": [
+          "o-test"
+        ],
+        "steps": [
+          {
+            "id": "flame",
+            "kind": "operation",
+            "ref": "core:flame-test",
+            "params": {
+              "sample": "unknown",
+              "wire": "wire",
+              "view": "eye"
+            }
+          },
+          {
+            "id": "note-flame",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "seen-flame",
+              "value": "=flame.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "tests",
+        "kind": "group",
+        "title": "Tests in solution",
+        "objectives": [
+          "o-test"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['naoh','Sodium hydroxide, a few drops and then in excess',[['naoh','0.25 mL','drops'],['naoh','3 mL','excess']]],['nh3','Ammonia solution, a drop and then in excess',[['nh3','0.05 mL','drops'],['nh3','3 mL','excess']]],['halide','Dilute nitric acid, then silver nitrate',[['hno3','0.5 mL','acid'],['agno3','0.5 mL','silver']]],['sulfate','Dilute hydrochloric acid, then barium chloride',[['hcl','0.5 mL','acid'],['bacl2','0.5 mL','barium']]]]"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='tube-' + x[0]",
+              "label": "=x[1]"
+            }
+          },
+          {
+            "id": "sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "unknown",
+              "destination": "='tube-' + x[0]",
+              "volume": "2 mL",
+              "tool": "dropper"
+            }
+          },
+          {
+            "id": "additions",
+            "kind": "group",
+            "title": "Add the reagents in turn",
+            "forEach": {
+              "var": "y",
+              "in": "=x[2]"
+            },
+            "steps": [
+              {
+                "id": "add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=y[0]",
+                  "destination": "='tube-' + x[0]",
+                  "volume": "=quantity(y[1])",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "shake",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='tube-' + x[0]",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='tube-' + x[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x[0] + '-' + y[2]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "carbonate",
+        "kind": "group",
+        "title": "Acid, with the gas bubbled into limewater",
+        "objectives": [
+          "o-test"
+        ],
+        "steps": [
+          {
+            "id": "ctube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "tube-carbonate",
+              "label": "Unknown and acid"
+            }
+          },
+          {
+            "id": "lw",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "limewater-tube",
+              "label": "Limewater"
+            }
+          },
+          {
+            "id": "lw-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "limewater",
+              "destination": "limewater-tube",
+              "volume": "5 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "c-sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "unknown",
+              "destination": "tube-carbonate",
+              "volume": "5 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "c-acid",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hcl",
+              "destination": "tube-carbonate",
+              "volume": "3 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "bubble",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "tube-carbonate",
+              "into": "limewater-tube"
+            }
+          },
+          {
+            "id": "c-look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "tube-carbonate"
+            }
+          },
+          {
+            "id": "c-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "seen-acid",
+              "value": "=c-look.out.appearance"
+            }
+          },
+          {
+            "id": "bubbling",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 s"
+            }
+          },
+          {
+            "id": "unbung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "tube-carbonate"
+            }
+          },
+          {
+            "id": "lw-look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "limewater-tube"
+            }
+          },
+          {
+            "id": "lw-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "seen-limewater",
+              "value": "=lw-look.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "identify",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which salt is the unknown?",
+        "options": [
+          {
+            "id": "copper-ii-sulfate",
+            "label": "Copper(II) sulfate, CuSO₄"
+          },
+          {
+            "id": "copper-ii-chloride",
+            "label": "Copper(II) chloride, CuCl₂"
+          },
+          {
+            "id": "iron-ii-sulfate",
+            "label": "Iron(II) sulfate, FeSO₄"
+          },
+          {
+            "id": "zinc-sulfate",
+            "label": "Zinc sulfate, ZnSO₄"
+          },
+          {
+            "id": "aluminium-sulfate",
+            "label": "Aluminium sulfate, Al₂(SO₄)₃"
+          },
+          {
+            "id": "magnesium-chloride",
+            "label": "Magnesium chloride, MgCl₂"
+          },
+          {
+            "id": "calcium-chloride",
+            "label": "Calcium chloride, CaCl₂"
+          },
+          {
+            "id": "barium-chloride",
+            "label": "Barium chloride, BaCl₂"
+          },
+          {
+            "id": "lithium-chloride",
+            "label": "Lithium chloride, LiCl"
+          },
+          {
+            "id": "sodium-carbonate",
+            "label": "Sodium carbonate, Na₂CO₃"
+          },
+          {
+            "id": "sodium-sulfate",
+            "label": "Sodium sulfate, Na₂SO₄"
+          },
+          {
+            "id": "potassium-chloride",
+            "label": "Potassium chloride, KCl"
+          },
+          {
+            "id": "potassium-bromide",
+            "label": "Potassium bromide, KBr"
+          },
+          {
+            "id": "potassium-iodide",
+            "label": "Potassium iodide, KI"
+          }
+        ],
+        "correctWhen": "truth('amount', 'unknown', 'aq:' + choice) > 0 mol"
+      },
+      {
+        "id": "why-acid",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Why is the solution acidified before silver nitrate or barium chloride is added?",
+        "options": [
+          {
+            "id": "carbonate",
+            "label": "To remove carbonate ions, which would also give a precipitate (silver or barium carbonate)"
+          },
+          {
+            "id": "faster",
+            "label": "To make the precipitate form faster"
+          },
+          {
+            "id": "dissolve",
+            "label": "To dissolve the salt"
+          }
+        ],
+        "correctWhen": "'carbonate'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-identify",
+        "statement": "The unknown salt is named",
+        "check": "truth('amount', 'unknown', 'aq:' + decision('identify')) > 0 mol"
+      },
+      {
+        "id": "g-acid",
+        "statement": "Acidifying first is explained",
+        "check": "decision('why-acid') == 'carbonate'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-carbonate",
+        "statement": "Only a carbonate turns limewater milky",
+        "check": "if((truth('amount', 'unknown', 'aq:sodium-carbonate') > 0 mol), mentions(first(recorded('seen-limewater')), 'cloudy|milky|white'), !mentions(first(recorded('seen-limewater')), 'cloudy|milky|white'))",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-halide",
+        "statement": "Silver nitrate precipitates a halide (white chloride, cream bromide, yellow iodide) and nothing else",
+        "check": "if((truth('amount', 'unknown', 'aq:copper-ii-chloride') > 0 mol || truth('amount', 'unknown', 'aq:magnesium-chloride') > 0 mol || truth('amount', 'unknown', 'aq:calcium-chloride') > 0 mol || truth('amount', 'unknown', 'aq:barium-chloride') > 0 mol || truth('amount', 'unknown', 'aq:lithium-chloride') > 0 mol || truth('amount', 'unknown', 'aq:potassium-chloride') > 0 mol || truth('amount', 'unknown', 'aq:potassium-bromide') > 0 mol || truth('amount', 'unknown', 'aq:potassium-iodide') > 0 mol), mentions(first(recorded('seen-halide-silver')), 'precipitate|cloudy|suspension'), !mentions(first(recorded('seen-halide-silver')), 'precipitate|cloudy|suspension'))",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-sulfate",
+        "statement": "Barium chloride gives a white precipitate with a sulfate only",
+        "check": "if((truth('amount', 'unknown', 'aq:copper-ii-sulfate') > 0 mol || truth('amount', 'unknown', 'aq:iron-ii-sulfate') > 0 mol || truth('amount', 'unknown', 'aq:zinc-sulfate') > 0 mol || truth('amount', 'unknown', 'aq:aluminium-sulfate') > 0 mol || truth('amount', 'unknown', 'aq:sodium-sulfate') > 0 mol), mentions(first(recorded('seen-sulfate-barium')), 'white'), !mentions(first(recorded('seen-sulfate-barium')), 'precipitate|cloudy|suspension'))",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default",
+    "params": [
+      {
+        "path": "/materials/supplies/0/contains/0/substance",
+        "domain": [
+          "aq:copper-ii-sulfate",
+          "aq:copper-ii-chloride",
+          "aq:iron-ii-sulfate",
+          "aq:zinc-sulfate",
+          "aq:aluminium-sulfate",
+          "aq:magnesium-chloride",
+          "aq:calcium-chloride",
+          "aq:barium-chloride",
+          "aq:lithium-chloride",
+          "aq:sodium-carbonate",
+          "aq:sodium-sulfate",
+          "aq:potassium-chloride",
+          "aq:potassium-bromide",
+          "aq:potassium-iodide"
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

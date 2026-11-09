@@ -1,0 +1,521 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem33-iodine-clock",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "iodine clock",
+      "rate of reaction",
+      "order of reaction",
+      "persulfate",
+      "thiosulfate",
+      "starch",
+      "activation energy"
+    ],
+    "topics": [
+      "Rates of reaction",
+      "Kinetics"
+    ],
+    "concepts": [
+      {
+        "id": "clock",
+        "label": "A clock reaction times how long a fixed amount of product takes to form"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-time",
+        "kind": "skill",
+        "statement": "Time the appearance of the blue-black colour"
+      },
+      {
+        "id": "o-rate",
+        "kind": "analysis",
+        "statement": "{{rateObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain how the clock works",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "The iodine clock: the order with respect to iodide"
+    },
+    "summary": {
+      "default": "Time how long a persulfate–iodide mixture takes to turn starch blue-black with five iodide concentrations, and find the order of reaction with respect to iodide."
+    },
+    "briefing": {
+      "default": "Persulfate oxidises iodide slowly: S₂O₈²⁻ + 2I⁻ → 2SO₄²⁻ + I₂. A little thiosulfate in the flask turns each iodine straight back into iodide, so nothing shows until the thiosulfate is used up; then free iodine turns the starch blue-black. The same amount of iodine has formed each time, so 1 ÷ time measures the initial rate. Put the iodide (made up to 10 mL with water), 5 mL of thiosulfate and 1 mL of starch in a flask, add 10 mL of persulfate, swirl and start timing."
+    },
+    "runs": {
+      "default": "=[['i10','10 mL iodide',10,0,0],['i8','8 mL iodide + 2 mL water',8,2,0],['i6','6 mL iodide + 4 mL water',6,4,0],['i4','4 mL iodide + 6 mL water',4,6,0],['i2','2 mL iodide + 8 mL water',2,8,0]]"
+    },
+    "rateObjective": {
+      "default": "Find the order with respect to iodide"
+    },
+    "analysis": {
+      "default": [
+        {
+          "id": "fit",
+          "kind": "operation",
+          "ref": "core:fit",
+          "params": {
+            "x": "=[10, 8, 6, 4, 2]",
+            "y": "=map(['i10', 'i8', 'i6', 'i4', 'i2'], first(recorded('rate-' + it)))",
+            "model": "linear-through-origin",
+            "xLabel": "iodide volume / mL (out of 10)"
+          }
+        },
+        {
+          "id": "note-fit",
+          "kind": "operation",
+          "ref": "core:record",
+          "params": {
+            "field": "rate-per-mL",
+            "value": "=fit.out.fit.params.slope"
+          }
+        }
+      ]
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "The rate is proportional to the iodide concentration (first order): half the iodide, half the rate",
+            "check": "within(first(recorded('rate-i4')) / first(recorded('rate-i8')), 0.5, 15%) && within(first(recorded('rate-i2')) / first(recorded('rate-i4')), 0.5, 20%)"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The clock is explained",
+            "check": "decision('how') == 'thiosulfate'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-sudden",
+            "statement": "The colour appears suddenly: clear, then dark blue",
+            "check": "!mentions(first(recorded('seen-i10')), 'blue') && mentions(last(recorded('seen-i10')), 'blue')",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "ki",
+        "label": "Potassium iodide, 0.20 M",
+        "contains": [
+          {
+            "substance": "core:potassium-iodide",
+            "conc": "0.20 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "thio",
+        "label": "Sodium thiosulfate, 0.010 M",
+        "contains": [
+          {
+            "substance": "chem:sodium-thiosulfate",
+            "conc": "0.010 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "pers",
+        "label": "Potassium persulfate, 0.10 M",
+        "contains": [
+          {
+            "substance": "chem:potassium-persulfate",
+            "conc": "0.10 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "starch",
+        "label": "Starch indicator (1 %)",
+        "preparation": "chem:starch-indicator-1pct",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "30 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each mixture in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-time"
+        ],
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "='flask-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "ki-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ki",
+              "destination": "='flask-' + r[0]",
+              "volume": "=quantity(text(r[2]) + ' mL')"
+            }
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='flask-' + r[0]",
+              "volume": "=quantity(text(r[3]) + ' mL')"
+            },
+            "when": "r[3] > 0"
+          },
+          {
+            "id": "thio-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "thio",
+              "destination": "='flask-' + r[0]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "starch-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "starch",
+              "destination": "='flask-' + r[0]",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "pers-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "='persulfate-' + r[0]",
+              "label": "='Persulfate for ' + r[1]"
+            }
+          },
+          {
+            "id": "pers-out",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "pers",
+              "destination": "='persulfate-' + r[0]",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[4]) + ' Cel')"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "flask-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='flask-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "pers-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='persulfate-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "start",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='persulfate-' + r[0]",
+              "destination": "='flask-' + r[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='flask-' + r[0]",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "watch",
+            "kind": "group",
+            "title": "Watch for the blue-black, every 2 s",
+            "repeat": {
+              "until": "mentions(last(recorded('seen-' + r[0])), 'blue') || count(recorded('seen-' + r[0])) >= 150",
+              "max": 151
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "2 s"
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='flask-' + r[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + r[0]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "note-time",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='time-' + r[0]",
+              "value": "=2 * count(recorded('seen-' + r[0]))"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=1000 / (2 * count(recorded('seen-' + r[0])))"
+            }
+          },
+          {
+            "id": "flask-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='flask-' + r[0]"
+            },
+            "when": "r[4] > 0"
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "kind": "group",
+        "title": "Analyse",
+        "steps": "{{analysis}}"
+      },
+      {
+        "id": "how",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the blue-black colour appear suddenly rather than gradually?",
+        "options": [
+          {
+            "id": "thiosulfate",
+            "label": "Thiosulfate removes the iodine as fast as it forms until all the thiosulfate is used; only then can iodine build up and colour the starch"
+          },
+          {
+            "id": "starch-slow",
+            "label": "Starch takes time to react with iodine"
+          },
+          {
+            "id": "sudden",
+            "label": "The reaction between persulfate and iodide only starts after a delay"
+          }
+        ],
+        "correctWhen": "'thiosulfate'"
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "chem33-activation-energy",
+      "title": "The iodine clock: activation energy",
+      "summary": "Time the iodine clock at four temperatures and find the activation energy from an Arrhenius plot of ln(1/t) against 1/T.",
+      "briefing": "Warm the flask of iodide, thiosulfate and starch and the tube of persulfate in the water bath for ten minutes, mix them and time the blue-black. ln(rate) = ln A − Ea/RT, and 1/t stands for the rate, so a plot of ln(1/t) against 1/T has a gradient of −Ea/R.",
+      "values": {
+        "runs": "=[['t21','Room temperature (about 21 °C)',10,0,0],['t30','30 °C',10,0,30],['t40','40 °C',10,0,40],['t50','50 °C',10,0,50]]",
+        "rateObjective": "Find the activation energy from an Arrhenius plot",
+        "analysis": [
+          {
+            "id": "arrhenius",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=[1 / 294.15, 1 / 303.15, 1 / 313.15, 1 / 323.15]",
+              "y": "=map(['t21', 't30', 't40', 't50'], ln(first(recorded('rate-' + it))))",
+              "model": "linear",
+              "xLabel": "1/T / K⁻¹"
+            }
+          },
+          {
+            "id": "ea",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Ea-kJ",
+              "value": "=-arrhenius.out.fit.params.slope * 8.314 / 1000"
+            }
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The activation energy comes out between 40 and 70 kJ/mol",
+              "check": "first(recorded('Ea-kJ')) > 40 && first(recorded('Ea-kJ')) < 70"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The clock is explained",
+              "check": "decision('how') == 'thiosulfate'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-faster",
+              "statement": "Each rise in temperature shortens the time",
+              "check": "first(recorded('time-t21')) > first(recorded('time-t30')) && first(recorded('time-t30')) > first(recorded('time-t40')) && first(recorded('time-t40')) > first(recorded('time-t50'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "Arrhenius",
+        "activation energy",
+        "temperature"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

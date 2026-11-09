@@ -1,0 +1,10 @@
+{
+  // Tests, the CLI and build scripts around the core: same strictness, plus Node types.
+  "extends": "./lab-core/tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "resolveJsonModule": true
+  },
+  "include": ["lab-core/src", "lab-core/test", "pack-*/**/*.ts", "../apps/cli", "../vitest.config.ts"]
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+output/
+*.mnxpack
+*.log
+packages/lab-science-rust/target/
+.playwright-cli/
+screenshots/

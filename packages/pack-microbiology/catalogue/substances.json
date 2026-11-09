@@ -1,0 +1,1707 @@
+[
+  {
+    "id": "micro:staphylococcus-aureus-teaching-strain",
+    "identity": {
+      "name": "Staphylococcus aureus (BSL-1 teaching strain)",
+      "class": "organism",
+      "synonyms": [
+        "S. aureus"
+      ]
+    },
+    "organism": {
+      "gram": "positive",
+      "morphology": "cocci",
+      "arrangement": "clusters",
+      "bsl": 1,
+      "doublingTime": "30 min",
+      "colony": "golden-yellow, smooth, raised",
+      "markers": [
+        "catalase+",
+        "coagulase+",
+        "oxidase-",
+        "lactose+"
+      ],
+      "growth": {
+        "tMin": "7 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "46 Cel",
+        "maxDensity": "1e9 cells/mL"
+      },
+      "susceptibility": {
+        "micro:ampicillin": "0.12 ug/mL",
+        "micro:tetracycline": "1 ug/mL",
+        "micro:kanamycin": "4 ug/mL",
+        "micro:chloramphenicol": "8 ug/mL",
+        "micro:sulfamethoxazole": "64 ug/mL",
+        "micro:trimethoprim": "1 ug/mL",
+        "micro:streptomycin": "8 ug/mL",
+        "micro:gentamicin": "0.25 ug/mL",
+        "micro:carbenicillin": "1 ug/mL"
+      },
+      "oxygen": "facultative"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Gram-positive cocci in grape-like clusters; doubling about 30 min in rich broth at 37 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:staphylococcus-epidermidis",
+    "identity": {
+      "name": "Staphylococcus epidermidis",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "positive",
+      "morphology": "cocci",
+      "arrangement": "clusters",
+      "bsl": 1,
+      "doublingTime": "40 min",
+      "colony": "small, white, smooth, convex",
+      "markers": [
+        "catalase+",
+        "coagulase-",
+        "oxidase-",
+        "lactose-"
+      ],
+      "growth": {
+        "tMin": "7 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "46 Cel",
+        "maxDensity": "1e9 cells/mL"
+      },
+      "susceptibility": {
+        "micro:ampicillin": "0.12 ug/mL",
+        "micro:tetracycline": "1 ug/mL",
+        "micro:kanamycin": "4 ug/mL",
+        "micro:chloramphenicol": "8 ug/mL"
+      },
+      "oxygen": "facultative"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The commonest skin coloniser; white, non-haemolytic, coagulase-negative.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:escherichia-coli-k12",
+    "identity": {
+      "name": "Escherichia coli K-12",
+      "class": "organism",
+      "synonyms": [
+        "E. coli K-12"
+      ]
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "20 min",
+      "colony": "off-white, smooth, entire",
+      "markers": [
+        "lactose+",
+        "oxidase-",
+        "catalase+",
+        "methyl-red+"
+      ],
+      "growth": {
+        "tMin": "8 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "45 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "susceptibility": {
+        "micro:chloramphenicol": "2 ug/mL",
+        "micro:sulfamethoxazole": "32 ug/mL",
+        "micro:trimethoprim": "0.25 ug/mL",
+        "micro:streptomycin": "4 ug/mL",
+        "micro:gentamicin": "0.5 ug/mL",
+        "micro:carbenicillin": "4 ug/mL"
+      },
+      "oxygen": "facultative",
+      "proteins": [
+        {
+          "substance": "bio:ecoli-host-protein-60k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-45k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-25k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-15k",
+          "perCell": "37 fg"
+        }
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Gram-negative rods, singly or in pairs; doubling about 20 min in rich broth at 37 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:escherichia-coli-k12-ampr",
+    "identity": {
+      "name": "Escherichia coli K-12 carrying a bla plasmid",
+      "class": "organism",
+      "synonyms": [
+        "ampicillin-resistant E. coli"
+      ]
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "20 min",
+      "colony": "off-white, smooth, entire",
+      "markers": [
+        "lactose+",
+        "oxidase-",
+        "catalase+",
+        "ampR",
+        "methyl-red+"
+      ],
+      "growth": {
+        "tMin": "8 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "45 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "susceptibility": {
+        "micro:chloramphenicol": "2 ug/mL"
+      },
+      "oxygen": "facultative"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "K-12 with a β-lactamase (bla) plasmid: resistant to ampicillin far above the concentrations tested.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:crystal-violet",
+    "identity": {
+      "name": "Crystal violet",
+      "class": "dye",
+      "formula": "C25H30ClN3",
+      "synonyms": [
+        "gentian violet"
+      ]
+    },
+    "physical": {
+      "molarMass": "407.98 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [[400, 2000], [450, 3500], [500, 14000], [520, 26000], [540, 48000], [560, 60000], [575, 72000], [590, 87000], [600, 82000], [610, 62000], [620, 42000], [630, 24000], [650, 6500], [680, 1000], [720, 200]],
+      "colour": "violet"
+    },
+    "stain": {
+      "role": "primary",
+      "colour": "purple"
+    },
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H318",
+        "H351",
+        "H410"
+      ],
+      "wasteStream": "core:chemical-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Crystal violet cation in water: λmax 590 nm, ε about 8.7 × 10⁴ M⁻¹ cm⁻¹, with a shoulder near 540 nm (spectrum shape approximate)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:iodine",
+    "identity": {
+      "name": "Iodine",
+      "class": "small-molecule",
+      "formula": "I2"
+    },
+    "physical": {
+      "molarMass": "253.81 g/mol",
+      "phase": "solid"
+    },
+    "stain": {
+      "role": "mordant"
+    },
+    "hazard": {
+      "ghs": [
+        "H312",
+        "H332",
+        "H400"
+      ],
+      "wasteStream": "core:chemical-waste"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "micro:acetone",
+    "identity": {
+      "name": "Acetone",
+      "class": "solvent",
+      "formula": "C3H6O"
+    },
+    "physical": {
+      "molarMass": "58.08 g/mol",
+      "density": "784 g/L",
+      "phase": "liquid"
+    },
+    "stain": {
+      "role": "decolouriser"
+    },
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H319",
+        "H336"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "micro:safranin",
+    "identity": {
+      "name": "Safranin O",
+      "class": "dye",
+      "formula": "C20H19ClN4"
+    },
+    "physical": {
+      "molarMass": "350.84 g/mol",
+      "phase": "solid"
+    },
+    "stain": {
+      "role": "counterstain",
+      "colour": "pink"
+    },
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H319"
+      ],
+      "wasteStream": "core:chemical-waste"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "micro:escherichia-coli-hb101-competent",
+    "identity": {
+      "name": "Escherichia coli HB101, chemically competent (CaCl₂)",
+      "class": "organism",
+      "synonyms": [
+        "competent E. coli"
+      ]
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "20 min",
+      "colony": "off-white, smooth, entire",
+      "markers": [
+        "strR",
+        "methyl-red+"
+      ],
+      "competent": true,
+      "growth": {
+        "tMin": "8 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "45 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "oxygen": "facultative"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "HB101 is streptomycin resistant; teaching kits supply it competent in CaCl₂"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:bacillus-subtilis",
+    "identity": {
+      "name": "Bacillus subtilis",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "positive",
+      "morphology": "rods",
+      "arrangement": "chains",
+      "bsl": 1,
+      "doublingTime": "25 min",
+      "colony": "dull, rough, flat, irregular edge",
+      "growth": {
+        "tMin": "10 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "50 Cel",
+        "maxDensity": "1e9 cells/mL"
+      },
+      "markers": [
+        "catalase+"
+      ],
+      "oxygen": "aerobe"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "micro:ampicillin",
+    "identity": {
+      "name": "Ampicillin",
+      "class": "small-molecule",
+      "formula": "C16H19N3O4S"
+    },
+    "physical": {
+      "molarMass": "349.41 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "ampR",
+      "effective": "4 ug/mL",
+      "diffusion": "6e-10 m2/s"
+    },
+    "hazard": {
+      "ghs": [
+        "H317",
+        "H334"
+      ],
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "`effective` is the MIC for susceptible strains (E. coli K-12: typically 2–8 µg/mL). Selection plates use 100 µg/mL.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:l-arabinose",
+    "identity": {
+      "name": "L-Arabinose",
+      "class": "small-molecule",
+      "formula": "C5H10O5"
+    },
+    "physical": {
+      "molarMass": "150.13 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "micro:lb-nutrients",
+    "identity": {
+      "name": "LB nutrients (tryptone and yeast extract)",
+      "class": "matrix"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "medium": {
+      "nutrient": true,
+      "fullStrength": "15 g/L"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance: the molar mass is nominal, so only its mass concentration means anything.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:agar",
+    "identity": {
+      "name": "Agar",
+      "class": "matrix"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass nominal. Agar gels on cooling to about 32-40 °C and melts again only at about 85 °C; soft agar (0.3-0.7 %) still sets.",
+      "review": "pending"
+    },
+    "gel": {
+      "sets": "38 Cel",
+      "melts": "85 Cel",
+      "minConc": "3 g/L"
+    }
+  },
+  {
+    "id": "micro:saccharomyces-cerevisiae",
+    "identity": {
+      "name": "Saccharomyces cerevisiae (baker's yeast)",
+      "class": "organism"
+    },
+    "organism": {
+      "morphology": "yeast",
+      "arrangement": "single and budding",
+      "bsl": 1,
+      "doublingTime": "90 min",
+      "colony": "cream, smooth, glistening",
+      "growth": {
+        "tMin": "5 Cel",
+        "tOpt": "30 Cel",
+        "tMax": "40 Cel",
+        "maxDensity": "2e8 cells/mL"
+      },
+      "oxygen": "facultative"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "micro:trypan-blue",
+    "identity": {
+      "name": "Trypan blue",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "960.81 g/mol",
+      "phase": "solid"
+    },
+    "stain": {
+      "role": "vital",
+      "colour": "blue"
+    },
+    "hazard": {
+      "ghs": [
+        "H350"
+      ],
+      "wasteStream": "core:chemical-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Excluded by intact membranes: only dead cells stain blue"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:pseudomonas-fluorescens",
+    "identity": {
+      "name": "Pseudomonas fluorescens",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "40 min",
+      "colony": "cream, smooth, flat, with a green-yellow tinge",
+      "markers": [
+        "oxidase+",
+        "catalase+",
+        "lactose-",
+        "cfc-resistant"
+      ],
+      "growth": {
+        "tMin": "4 Cel",
+        "tOpt": "28 Cel",
+        "tMax": "36 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "oxygen": "aerobe"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Gram-negative rods; oxidase and catalase positive; does not ferment lactose; grows best near 25–30 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:micrococcus-luteus",
+    "identity": {
+      "name": "Micrococcus luteus",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "positive",
+      "morphology": "cocci",
+      "arrangement": "tetrads",
+      "bsl": 1,
+      "doublingTime": "60 min",
+      "colony": "bright yellow, smooth, convex",
+      "markers": [
+        "catalase+",
+        "oxidase+",
+        "lactose-"
+      ],
+      "growth": {
+        "tMin": "10 Cel",
+        "tOpt": "30 Cel",
+        "tMax": "40 Cel",
+        "maxDensity": "1e9 cells/mL"
+      },
+      "oxygen": "aerobe"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Gram-positive cocci in tetrads; catalase positive; oxidase positive (modified test); yellow colonies"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:lactococcus-lactis",
+    "identity": {
+      "name": "Lactococcus lactis",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "positive",
+      "morphology": "cocci",
+      "arrangement": "pairs and short chains",
+      "bsl": 1,
+      "doublingTime": "40 min",
+      "colony": "small, white, smooth",
+      "markers": [
+        "catalase-",
+        "oxidase-",
+        "lactose+"
+      ],
+      "growth": {
+        "tMin": "10 Cel",
+        "tOpt": "30 Cel",
+        "tMax": "40 Cel",
+        "maxDensity": "1e9 cells/mL"
+      },
+      "oxygen": "aerotolerant"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Gram-positive cocci in pairs and chains; catalase and oxidase negative"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:oxidase-reagent",
+    "identity": {
+      "name": "Tetramethyl-p-phenylenediamine (oxidase reagent)",
+      "class": "dye",
+      "synonyms": [
+        "TMPD"
+      ]
+    },
+    "physical": {
+      "molarMass": "164.25 g/mol",
+      "phase": "solid"
+    },
+    "spotTest": {
+      "marker": "oxidase+",
+      "positive": "deep purple within 10 seconds",
+      "negative": "no colour within 30 seconds"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "micro:macconkey-base",
+    "identity": {
+      "name": "MacConkey agar base (peptone, lactose, bile salts, crystal violet, neutral red)",
+      "class": "matrix"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "medium": {
+      "nutrient": true,
+      "fullStrength": "40 g/L",
+      "inhibits": {
+        "gram": "positive"
+      },
+      "differential": {
+        "marker": "lactose+",
+        "positive": "pink",
+        "negative": "colourless"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance for the whole base: bile salts and crystal violet stop Gram-positives; lactose fermenters acidify the neutral red and their colonies turn pink.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:tetracycline",
+    "identity": {
+      "name": "Tetracycline",
+      "class": "small-molecule",
+      "formula": "C22H24N2O8"
+    },
+    "physical": {
+      "molarMass": "444.43 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "tetR",
+      "effective": "2 ug/mL",
+      "diffusion": "5e-10 m2/s"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Typical MICs for susceptible E. coli and S. aureus from EUCAST MIC distributions (illustrative)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:kanamycin",
+    "identity": {
+      "name": "Kanamycin",
+      "class": "small-molecule",
+      "formula": "C18H36N4O11"
+    },
+    "physical": {
+      "molarMass": "484.50 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "kanR",
+      "effective": "4 ug/mL",
+      "diffusion": "5e-10 m2/s"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Typical MICs for susceptible E. coli and S. aureus from EUCAST MIC distributions (illustrative)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:chloramphenicol",
+    "identity": {
+      "name": "Chloramphenicol",
+      "class": "small-molecule",
+      "formula": "C11H12Cl2N2O5"
+    },
+    "physical": {
+      "molarMass": "323.13 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "camR",
+      "effective": "4 ug/mL",
+      "diffusion": "6e-10 m2/s"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Typical MICs for susceptible E. coli and S. aureus from EUCAST MIC distributions (illustrative)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:mueller-hinton-base",
+    "identity": {
+      "name": "Mueller–Hinton nutrients (beef infusion, casein hydrolysate, starch)",
+      "class": "matrix"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "medium": {
+      "nutrient": true,
+      "fullStrength": "21 g/L"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "The standard medium for disc diffusion testing: low in inhibitors of the common antibiotics"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:chlorella-vulgaris",
+    "identity": {
+      "name": "Chlorella vulgaris",
+      "class": "organism"
+    },
+    "organism": {
+      "morphology": "algae",
+      "arrangement": "single",
+      "size": "5 um",
+      "bsl": 1,
+      "doublingTime": "12 h",
+      "colony": "small, bright green, smooth",
+      "oxygen": "aerobe",
+      "growth": {
+        "tMin": "5 Cel",
+        "tOpt": "25 Cel",
+        "tMax": "35 Cel",
+        "maxDensity": "1e8 cells/mL"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A green, unicellular planktonic alga, typical of nutrient-enriched fresh water. Photosynthetic growth (light) is not modelled.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:desmodesmus-communis",
+    "identity": {
+      "name": "Desmodesmus communis (Scenedesmus)",
+      "class": "organism"
+    },
+    "organism": {
+      "morphology": "algae",
+      "arrangement": "flat groups of four",
+      "size": "4 um",
+      "bsl": 1,
+      "doublingTime": "15 h",
+      "colony": "small, green",
+      "oxygen": "aerobe",
+      "growth": {
+        "tMin": "5 Cel",
+        "tOpt": "25 Cel",
+        "tMax": "35 Cel",
+        "maxDensity": "5e7 cells/mL"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A green alga of flat four-celled colonies (coenobia), common in eutrophic rivers. Counted per cell.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:enterobacter-aerogenes",
+    "identity": {
+      "name": "Klebsiella (Enterobacter) aerogenes",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "30 min",
+      "colony": "cream, mucoid, raised",
+      "oxygen": "facultative",
+      "markers": [
+        "lactose+",
+        "methyl-red-",
+        "oxidase-",
+        "catalase+"
+      ],
+      "growth": {
+        "tMin": "10 Cel",
+        "tOpt": "35 Cel",
+        "tMax": "44 Cel",
+        "maxDensity": "2e9 cells/mL"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A coliform of soil, water and gut: ferments lactose but is methyl-red negative, so pink-purple without a sheen on EMB.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:emb-base",
+    "identity": {
+      "name": "EMB base (peptone, lactose, eosin Y, methylene blue)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "medium": {
+      "nutrient": true,
+      "fullStrength": "22.5 g/L",
+      "inhibits": {
+        "gram": "positive"
+      },
+      "differential": [
+        {
+          "marker": "methyl-red+",
+          "positive": "dark purple-black with a green metallic sheen"
+        },
+        {
+          "marker": "lactose+",
+          "positive": "pink-purple",
+          "negative": "colourless"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Eosin and methylene blue inhibit Gram-positives; vigorous lactose fermenters that make much acid (E. coli, methyl-red positive) precipitate the dyes with a metallic sheen, other lactose fermenters are pink-purple, non-fermenters colourless.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:pseudomonas-putida",
+    "identity": {
+      "name": "Pseudomonas putida",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "45 min",
+      "colony": "cream-white, smooth, flat",
+      "oxygen": "aerobe",
+      "markers": [
+        "oxidase+",
+        "catalase+",
+        "lactose-",
+        "cfc-resistant",
+        "alkane-degrader"
+      ],
+      "growth": {
+        "tMin": "4 Cel",
+        "tOpt": "30 Cel",
+        "tMax": "40 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "susceptibility": {
+        "micro:ampicillin": "512 ug/mL",
+        "micro:carbenicillin": "64 ug/mL",
+        "micro:chloramphenicol": "64 ug/mL",
+        "micro:tetracycline": "8 ug/mL",
+        "micro:kanamycin": "8 ug/mL",
+        "micro:streptomycin": "16 ug/mL",
+        "micro:gentamicin": "1 ug/mL",
+        "micro:trimethoprim": "128 ug/mL",
+        "micro:sulfamethoxazole": "512 ug/mL"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A soil pseudomonad that degrades alkanes (alk genes) and resists the CFC supplement; oxidase positive. Intrinsically resistant (a chromosomal β-lactamase, efflux, an outer membrane of low permeability) to ampicillin, chloramphenicol and the folate-pathway drugs; susceptible to the aminoglycosides (illustrative MICs).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:cfc-supplement",
+    "identity": {
+      "name": "CFC supplement (cetrimide, fucidin, cephaloridine)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "400 g/mol",
+      "phase": "solid"
+    },
+    "medium": {
+      "inhibits": {
+        "unless": "cfc-resistant"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Suppresses most bacteria other than pseudomonads.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:hexadecane",
+    "identity": {
+      "name": "Hexadecane",
+      "class": "small-molecule",
+      "formula": "C16H34"
+    },
+    "physical": {
+      "molarMass": "226.45 g/mol",
+      "density": "773 g/L",
+      "phase": "liquid"
+    },
+    "medium": {
+      "nutrient": true,
+      "fullStrength": "1 g/L",
+      "usableWith": "alkane-degrader"
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A diesel alkane: a sole carbon source only for organisms that can oxidise alkanes; biosurfactants they make emulsify it, so a culture growing on it goes cloudy.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:sulfamethoxazole",
+    "identity": {
+      "name": "Sulfamethoxazole",
+      "class": "small-molecule",
+      "formula": "C10H11N3O3S"
+    },
+    "physical": {
+      "molarMass": "253.28 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "sulR",
+      "effective": "32 ug/mL",
+      "diffusion": "6e-10 m2/s",
+      "interactions": {
+        "micro:trimethoprim": 0.3
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A sulfonamide: it competes with para-aminobenzoic acid at dihydropteroate synthase, the first committed step of folate synthesis. Bacteriostatic alone. MICs in rich broth such as LB (which supplies thymidine) are high: 16-64 µg/mL for E. coli, 32-128 for S. aureus (illustrative); resistance (sul1, sul2) is a drug-insensitive enzyme.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:trimethoprim",
+    "identity": {
+      "name": "Trimethoprim",
+      "class": "small-molecule",
+      "formula": "C14H18N4O3"
+    },
+    "physical": {
+      "molarMass": "290.32 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "tmpR",
+      "effective": "1 ug/mL",
+      "diffusion": "6e-10 m2/s",
+      "interactions": {
+        "micro:sulfamethoxazole": 0.3
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Inhibits bacterial dihydrofolate reductase, the next step of the folate pathway after the sulfonamides' target; with sulfamethoxazole it is co-trimoxazole. Typical MICs: E. coli about 0.25-0.5 µg/mL, S. aureus about 1 µg/mL (illustrative); resistance (dfrA) is a drug-insensitive enzyme. With sulfamethoxazole the two block successive steps of one pathway: synergy, with a fractional inhibitory concentration index of about 0.3 (illustrative; checkerboard values of 0.1-0.5 are typical).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:escherichia-coli-uti-tmpr",
+    "identity": {
+      "name": "Escherichia coli, urinary isolate carrying dfrA",
+      "class": "organism",
+      "synonyms": [
+        "trimethoprim-resistant E. coli"
+      ]
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "25 min",
+      "colony": "off-white, smooth, entire",
+      "markers": [
+        "lactose+",
+        "oxidase-",
+        "catalase+",
+        "methyl-red+",
+        "tmpR"
+      ],
+      "growth": {
+        "tMin": "8 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "45 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "susceptibility": {
+        "micro:sulfamethoxazole": "32 ug/mL"
+      },
+      "oxygen": "facultative"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Its dfrA gene makes a trimethoprim-insensitive dihydrofolate reductase: resistant far above 8 µg/mL; sulfamethoxazole acts on it as on K-12.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:streptomycin",
+    "identity": {
+      "name": "Streptomycin",
+      "class": "small-molecule",
+      "formula": "C21H39N7O12"
+    },
+    "physical": {
+      "molarMass": "581.57 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "strR",
+      "effective": "8 ug/mL",
+      "diffusion": "5e-10 m2/s"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aminoglycoside: binds the 30S ribosomal subunit and causes misreading; bactericidal. Typical MICs: E. coli 4-8 µg/mL, S. aureus 4-16 (illustrative).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:gentamicin",
+    "identity": {
+      "name": "Gentamicin",
+      "class": "small-molecule",
+      "formula": "C21H43N5O7"
+    },
+    "physical": {
+      "molarMass": "477.6 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "genR",
+      "effective": "1 ug/mL",
+      "diffusion": "5e-10 m2/s"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aminoglycoside (30S subunit); bactericidal and active against pseudomonads. Typical MICs: E. coli 0.25-1 µg/mL, S. aureus 0.12-0.5, P. putida about 1 (illustrative).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:carbenicillin",
+    "identity": {
+      "name": "Carbenicillin",
+      "class": "small-molecule",
+      "formula": "C17H18N2O6S"
+    },
+    "physical": {
+      "molarMass": "378.4 g/mol",
+      "phase": "solid"
+    },
+    "antibiotic": {
+      "resistance": "ampR",
+      "effective": "8 ug/mL",
+      "diffusion": "5e-10 m2/s"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A carboxypenicillin: like ampicillin it blocks cell-wall cross-linking and is destroyed by TEM β-lactamase (ampR), but it is more stable in plates and reaches some pseudomonads. Typical MICs: E. coli 4-8 µg/mL, S. aureus about 1 (penicillin-susceptible strains) (illustrative).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:escherichia-coli-bl21-patb",
+    "identity": {
+      "name": "E. coli BL21(DE3) carrying pET His6-ShPatB",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "20 min",
+      "colony": "off-white, smooth, entire",
+      "markers": [
+        "lactose+",
+        "oxidase-",
+        "catalase+",
+        "methyl-red+"
+      ],
+      "growth": {
+        "tMin": "8 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "45 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "oxygen": "facultative",
+      "proteins": [
+        {
+          "substance": "bio:ecoli-host-protein-60k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-45k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-25k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-15k",
+          "perCell": "37 fg"
+        }
+      ],
+      "plasmids": [
+        "molbio:pet-his-patb"
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "BL21(DE3), an expression strain with T7 RNA polymerase under lac control, carrying a pET vector (kanamycin resistant). Its proteome is four stand-in host proteins of about 37 fg each per cell.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:escherichia-coli-bl21-gfp",
+    "identity": {
+      "name": "E. coli BL21(DE3) carrying pET His6-GFP",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "20 min",
+      "colony": "off-white, smooth, entire",
+      "markers": [
+        "lactose+",
+        "oxidase-",
+        "catalase+",
+        "methyl-red+"
+      ],
+      "growth": {
+        "tMin": "8 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "45 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "oxygen": "facultative",
+      "proteins": [
+        {
+          "substance": "bio:ecoli-host-protein-60k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-45k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-25k",
+          "perCell": "37 fg"
+        },
+        {
+          "substance": "bio:ecoli-host-protein-15k",
+          "perCell": "37 fg"
+        }
+      ],
+      "plasmids": [
+        "molbio:pet-his-gfp"
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "BL21(DE3), an expression strain with T7 RNA polymerase under lac control, carrying a pET vector (kanamycin resistant). Its proteome is four stand-in host proteins of about 37 fg each per cell.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:salmonella-typhimurium-ta1535",
+    "identity": {
+      "name": "Salmonella Typhimurium TA1535",
+      "class": "organism",
+      "synonyms": [
+        "hisG46"
+      ]
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 2,
+      "oxygen": "facultative",
+      "doublingTime": "30 min",
+      "colony": "white, smooth, entire",
+      "markers": [
+        "his-",
+        "glucose+",
+        "lactose-",
+        "oxidase-",
+        "catalase+"
+      ],
+      "growth": {
+        "tMin": "7 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "46 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "requires": [
+        {
+          "substance": "micro:l-histidine",
+          "perCell": "3.4e-17 mol",
+          "ks": "0.5 uM"
+        },
+        {
+          "substance": "micro:biotin",
+          "perCell": "1e-21 mol",
+          "ks": "1 nM"
+        }
+      ],
+      "mutants": [
+        {
+          "to": "micro:salmonella-typhimurium-ta1535-revertant",
+          "kind": "base-substitution",
+          "rate": 2e-09,
+          "frequency": 6e-08
+        }
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An Ames tester strain: hisG46 is a missense mutation (proline for leucine) reverted by base-pair substitutions; rfa (a deep-rough outer membrane that lets large molecules in) and ΔuvrB (no excision repair; the deletion runs through bio, so it needs biotin). About 3.4e-17 mol histidine per cell (2.3 % of its protein). Spontaneous revertants about 10-20 per plate (illustrative).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:salmonella-typhimurium-ta1535-revertant",
+    "identity": {
+      "name": "Salmonella Typhimurium TA1535, His⁺ revertant",
+      "class": "organism",
+      "synonyms": [
+        "hisG46 reverted"
+      ]
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 2,
+      "oxygen": "facultative",
+      "doublingTime": "30 min",
+      "colony": "white, smooth, entire",
+      "markers": [
+        "his+",
+        "glucose+",
+        "lactose-",
+        "oxidase-",
+        "catalase+"
+      ],
+      "growth": {
+        "tMin": "7 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "46 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "requires": [
+        {
+          "substance": "micro:biotin",
+          "perCell": "1e-21 mol",
+          "ks": "1 nM"
+        }
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A His⁺ revertant of TA1535: it makes its own histidine again, so it grows into a colony on minimal glucose agar. Still ΔuvrB-bio: it needs biotin.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:salmonella-typhimurium-ta1538",
+    "identity": {
+      "name": "Salmonella Typhimurium TA1538",
+      "class": "organism",
+      "synonyms": [
+        "hisD3052"
+      ]
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 2,
+      "oxygen": "facultative",
+      "doublingTime": "30 min",
+      "colony": "white, smooth, entire",
+      "markers": [
+        "his-",
+        "glucose+",
+        "lactose-",
+        "oxidase-",
+        "catalase+"
+      ],
+      "growth": {
+        "tMin": "7 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "46 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "requires": [
+        {
+          "substance": "micro:l-histidine",
+          "perCell": "3.4e-17 mol",
+          "ks": "0.5 uM"
+        },
+        {
+          "substance": "micro:biotin",
+          "perCell": "1e-21 mol",
+          "ks": "1 nM"
+        }
+      ],
+      "mutants": [
+        {
+          "to": "micro:salmonella-typhimurium-ta1538-revertant",
+          "kind": "frameshift",
+          "rate": 3e-09,
+          "frequency": 1e-07
+        }
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An Ames tester strain: hisD3052 is a −1 frameshift in a run of repeated CG pairs, reverted by frameshift mutations; rfa and ΔuvrB-bio like TA1535. Spontaneous revertants about 15-30 per plate (illustrative).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:salmonella-typhimurium-ta1538-revertant",
+    "identity": {
+      "name": "Salmonella Typhimurium TA1538, His⁺ revertant",
+      "class": "organism",
+      "synonyms": [
+        "hisD3052 reverted"
+      ]
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 2,
+      "oxygen": "facultative",
+      "doublingTime": "30 min",
+      "colony": "white, smooth, entire",
+      "markers": [
+        "his+",
+        "glucose+",
+        "lactose-",
+        "oxidase-",
+        "catalase+"
+      ],
+      "growth": {
+        "tMin": "7 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "46 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "requires": [
+        {
+          "substance": "micro:biotin",
+          "perCell": "1e-21 mol",
+          "ks": "1 nM"
+        }
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A His⁺ revertant of TA1538 (the reading frame restored near the original frameshift). Still needs biotin.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:l-histidine",
+    "identity": {
+      "name": "L-Histidine",
+      "class": "small-molecule",
+      "formula": "C6H9N3O2"
+    },
+    "physical": {
+      "molarMass": "155.15 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An amino acid: a growth factor for histidine auxotrophs (His⁻ strains).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:biotin",
+    "identity": {
+      "name": "D-Biotin",
+      "class": "small-molecule",
+      "formula": "C10H16N2O3S",
+      "synonyms": [
+        "vitamin B7"
+      ]
+    },
+    "physical": {
+      "molarMass": "244.31 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A vitamin: a growth factor for strains that cannot make it (the Ames strains' uvrB deletion removes bio).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:sodium-azide",
+    "identity": {
+      "name": "Sodium azide",
+      "class": "salt",
+      "formula": "NaN3"
+    },
+    "physical": {
+      "molarMass": "65.01 g/mol",
+      "phase": "solid"
+    },
+    "mutagen": {
+      "potency": {
+        "base-substitution": 2.5e-07
+      },
+      "toxic": "20 uM",
+      "diffusion": "1.5e-9 m2/s"
+    },
+    "hazard": {
+      "ghs": [
+        "H300",
+        "H310",
+        "H373",
+        "H410"
+      ],
+      "wasteStream": "core:chemical-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Salmonella turns azide into azidoalanine, which causes base-pair substitutions: it reverts hisG46 (TA1535, TA100) and not frameshift alleles. The usual positive control without liver extract: about 1.5 µg per plate gives a few hundred revertants of TA1535 (potency illustrative). At millimolar levels it kills (it blocks cytochrome oxidase).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:4-nitro-o-phenylenediamine",
+    "identity": {
+      "name": "4-Nitro-o-phenylenediamine (4-NOPD)",
+      "class": "small-molecule",
+      "formula": "C6H7N3O2",
+      "synonyms": [
+        "4NOP",
+        "4-NOPD"
+      ]
+    },
+    "physical": {
+      "molarMass": "153.14 g/mol",
+      "phase": "solid"
+    },
+    "mutagen": {
+      "potency": {
+        "frameshift": 5e-08
+      },
+      "toxic": "100 uM",
+      "diffusion": "6e-10 m2/s"
+    },
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H317",
+        "H341"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A frameshift mutagen that needs no metabolic activation: the usual positive control for TA98 and TA1538 (10-20 µg per plate gives a few hundred revertants; potency illustrative); it does not revert base-substitution alleles. It barely dissolves in water.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:lactobacillus-acidophilus",
+    "identity": {
+      "name": "Lactobacillus acidophilus",
+      "class": "organism",
+      "synonyms": [
+        "L. acidophilus"
+      ]
+    },
+    "organism": {
+      "gram": "positive",
+      "morphology": "rods",
+      "arrangement": "chains",
+      "bsl": 1,
+      "doublingTime": "70 min",
+      "colony": "small, grey-white, rough, irregular",
+      "oxygen": "microaerophile",
+      "markers": [
+        "catalase-",
+        "oxidase-",
+        "lactose+",
+        "aciduric"
+      ],
+      "growth": {
+        "tMin": "20 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "48 Cel",
+        "maxDensity": "1e9 cells/mL"
+      }
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A homofermentative lactic acid bacterium of the gut and of probiotic products: long Gram-positive rods in chains, catalase negative, tolerant of acid and acetate, so it grows on MRS. Small rough colonies after two days at 37 °C.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:lacticaseibacillus-rhamnosus",
+    "identity": {
+      "name": "Lacticaseibacillus rhamnosus",
+      "class": "organism",
+      "synonyms": [
+        "Lactobacillus rhamnosus",
+        "L. rhamnosus"
+      ]
+    },
+    "organism": {
+      "gram": "positive",
+      "morphology": "rods",
+      "arrangement": "chains",
+      "bsl": 1,
+      "doublingTime": "55 min",
+      "colony": "larger, creamy white, smooth, convex",
+      "oxygen": "facultative",
+      "markers": [
+        "catalase-",
+        "oxidase-",
+        "lactose+",
+        "aciduric"
+      ],
+      "growth": {
+        "tMin": "15 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "45 Cel",
+        "maxDensity": "1e9 cells/mL"
+      }
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Another probiotic lactobacillus, common in capsules and fermented milks: short Gram-positive rods, grows on MRS with larger, smoother colonies than L. acidophilus.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:mrs-base",
+    "identity": {
+      "name": "MRS base (peptone, yeast and beef extract, glucose, Tween 80, citrate, acetate, Mg and Mn salts)",
+      "class": "matrix",
+      "synonyms": [
+        "de Man, Rogosa and Sharpe medium"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "medium": {
+      "nutrient": true,
+      "fullStrength": "52 g/L",
+      "inhibits": {
+        "unless": "aciduric"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance for the whole base. Rich enough for lactobacilli; its acetate at a low pH (about 5.4 once acidified) holds back most other bacteria, so E. coli does not grow on it.",
+      "review": "pending"
+    }
+  }
+]

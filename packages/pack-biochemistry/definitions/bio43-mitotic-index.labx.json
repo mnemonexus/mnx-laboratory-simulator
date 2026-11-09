@@ -1,0 +1,282 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio43-mitotic-index",
+  "version": "1.0.0",
+  "title": "Mitosis in a root tip: the mitotic index",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Count the cells at each stage of the cell cycle in five fields of a stained root tip squash at ×400, and work out the mitotic index and the share of time spent in each stage.",
+  "briefing": "In a growing root tip the cells near the tip are dividing. A stain for DNA shows the chromosomes: in interphase the nucleus looks evenly stained; in prophase the chromosomes condense into threads; in metaphase they line up across the middle; in anaphase the chromatids are pulled apart; in telophase two new nuclei form. Count the cells at each stage in five fields. Mitotic index = cells in mitosis ÷ all cells counted. The more cells at a stage, the longer that stage lasts.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "mitosis",
+      "mitotic index",
+      "cell cycle",
+      "root tip squash",
+      "microscope",
+      "chromosomes"
+    ],
+    "topics": [
+      "Cell division"
+    ],
+    "concepts": [
+      {
+        "id": "mitotic-index",
+        "label": "The share of cells in mitosis measures how fast a tissue is dividing"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-count",
+        "kind": "skill",
+        "statement": "Recognise and count cells at each stage of mitosis"
+      },
+      {
+        "id": "o-index",
+        "kind": "analysis",
+        "statement": "Calculate the mitotic index",
+        "goal": "g-index"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Relate the number at each stage to how long it lasts",
+        "goal": "g-stage"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": []
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:compound-microscope"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "slide",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:prepared-slide.root-tip",
+          "id": "root",
+          "label": "Root tip squash"
+        }
+      },
+      {
+        "id": "low",
+        "kind": "operation",
+        "ref": "core:configure",
+        "params": {
+          "instrument": "scope",
+          "objective": "10x",
+          "lamp": 0.5,
+          "illumination": "brightfield",
+          "condenser": "adjusted"
+        }
+      },
+      {
+        "id": "coarse",
+        "kind": "operation",
+        "ref": "core:focus",
+        "params": {
+          "instrument": "scope",
+          "subject": "root",
+          "knob": "coarse"
+        }
+      },
+      {
+        "id": "fine-low",
+        "kind": "operation",
+        "ref": "core:focus",
+        "params": {
+          "instrument": "scope",
+          "subject": "root",
+          "knob": "fine"
+        }
+      },
+      {
+        "id": "high",
+        "kind": "operation",
+        "ref": "core:configure",
+        "params": {
+          "instrument": "scope",
+          "objective": "40x",
+          "lamp": 0.65
+        }
+      },
+      {
+        "id": "fine-high",
+        "kind": "operation",
+        "ref": "core:focus",
+        "params": {
+          "instrument": "scope",
+          "subject": "root",
+          "knob": "fine"
+        }
+      },
+      {
+        "id": "fields",
+        "kind": "group",
+        "title": "Count five fields",
+        "objectives": [
+          "o-count"
+        ],
+        "forEach": {
+          "var": "n",
+          "in": "=[1, 2, 3, 4, 5]"
+        },
+        "steps": [
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "root"
+            }
+          },
+          {
+            "id": "note-interphase",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "interphase",
+              "value": "=sum(map(filter(look.out.counts, mentions(it[0], 'interphase')), it[1]))"
+            }
+          },
+          {
+            "id": "note-prophase",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "prophase",
+              "value": "=sum(map(filter(look.out.counts, mentions(it[0], 'prophase')), it[1]))"
+            }
+          },
+          {
+            "id": "note-metaphase",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "metaphase",
+              "value": "=sum(map(filter(look.out.counts, mentions(it[0], 'metaphase')), it[1]))"
+            }
+          },
+          {
+            "id": "note-anaphase",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "anaphase",
+              "value": "=sum(map(filter(look.out.counts, mentions(it[0], 'anaphase')), it[1]))"
+            }
+          },
+          {
+            "id": "note-telophase",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "telophase",
+              "value": "=sum(map(filter(look.out.counts, mentions(it[0], 'telophase')), it[1]))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "index",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mitotic-index",
+          "value": "=(sum(recorded('prophase')) + sum(recorded('metaphase')) + sum(recorded('anaphase')) + sum(recorded('telophase'))) / (sum(recorded('interphase')) + sum(recorded('prophase')) + sum(recorded('metaphase')) + sum(recorded('anaphase')) + sum(recorded('telophase')))"
+        }
+      },
+      {
+        "id": "shortest",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Which stage of mitosis is the shortest?",
+        "options": [
+          {
+            "id": "prophase",
+            "label": "Prophase"
+          },
+          {
+            "id": "metaphase",
+            "label": "Metaphase"
+          },
+          {
+            "id": "anaphase",
+            "label": "Anaphase"
+          },
+          {
+            "id": "telophase",
+            "label": "Telophase"
+          }
+        ],
+        "correctWhen": "sum(recorded(choice)) == min(map(['prophase', 'metaphase', 'anaphase', 'telophase'], sum(recorded(it))))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-index",
+        "statement": "The mitotic index is found, between 0.08 and 0.16",
+        "check": "first(recorded('mitotic-index')) > 0.08 && first(recorded('mitotic-index')) < 0.16"
+      },
+      {
+        "id": "g-stage",
+        "statement": "The shortest stage is the one with fewest cells",
+        "check": "sum(recorded(decision('shortest'))) == min(map(['prophase', 'metaphase', 'anaphase', 'telophase'], sum(recorded(it))))"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-interphase",
+        "statement": "Most cells are in interphase",
+        "check": "sum(recorded('interphase')) > 5 * sum(recorded('prophase'))",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

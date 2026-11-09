@@ -1,0 +1,3995 @@
+[
+  {
+    "id": "chem:phosphoric-acid",
+    "identity": {
+      "name": "Phosphoric acid",
+      "class": "small-molecule",
+      "formula": "H3PO4",
+      "synonyms": [
+        "orthophosphoric acid"
+      ]
+    },
+    "physical": {
+      "molarMass": "97.99 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        2.15,
+        7.2,
+        12.35
+      ],
+      "charge": 0,
+      "spectator": 0,
+      "dH": [
+        -7.9,
+        3.0,
+        15.0
+      ]
+    },
+    "ions": {
+      "aq:phosphate": 1
+    },
+    "hazard": {
+      "ghs": [
+        "H290",
+        "H314"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "pKa 2.15, 7.20 and 12.35 at 25 °C, as for the phosphate salts (Harris, Quantitative Chemical Analysis, appendix G)"
+      ],
+      "notes": "Triprotic. Titrated with sodium hydroxide it shows two equivalence points, to H₂PO₄⁻ near pH 4.7 and to HPO₄²⁻ near pH 9.7; the third proton is too weak to give a third.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:methanoic-acid",
+    "identity": {
+      "name": "Methanoic acid",
+      "class": "small-molecule",
+      "formula": "HCOOH",
+      "synonyms": [
+        "formic acid"
+      ]
+    },
+    "physical": {
+      "molarMass": "46.03 g/mol",
+      "density": "1220 g/L",
+      "phase": "liquid"
+    },
+    "acidBase": {
+      "pKa": [
+        3.75
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "ghs": [
+        "H226",
+        "H302",
+        "H314",
+        "H331"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "pKa 3.75 at 25 °C (Harris, Quantitative Chemical Analysis, appendix G: 3.745)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:propanoic-acid",
+    "identity": {
+      "name": "Propanoic acid",
+      "class": "small-molecule",
+      "formula": "CH3CH2COOH",
+      "synonyms": [
+        "propionic acid"
+      ]
+    },
+    "physical": {
+      "molarMass": "74.08 g/mol",
+      "density": "988 g/L",
+      "phase": "liquid"
+    },
+    "acidBase": {
+      "pKa": [
+        4.87
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "ghs": [
+        "H226",
+        "H314",
+        "H335"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "pKa 4.87 at 25 °C (Harris, Quantitative Chemical Analysis, appendix G: 4.874)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:oxalic-acid",
+    "identity": {
+      "name": "Oxalic acid",
+      "class": "small-molecule",
+      "formula": "H2C2O4",
+      "synonyms": [
+        "ethanedioic acid"
+      ]
+    },
+    "physical": {
+      "molarMass": "90.03 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        1.25,
+        4.27
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H312",
+        "H318"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "pKa 1.25 and 4.27 at 25 °C (Harris, Quantitative Chemical Analysis, appendix G: 1.250, 4.266)"
+      ],
+      "notes": "A reducing agent: acidified permanganate oxidises it to carbon dioxide, slowly when cold and until manganese(II) has built up (models chem:permanganate-oxalic-acid and -mn).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:sodium-oxalate",
+    "identity": {
+      "name": "Sodium oxalate",
+      "class": "salt",
+      "formula": "Na2C2O4",
+      "synonyms": [
+        "sodium ethanedioate"
+      ]
+    },
+    "physical": {
+      "molarMass": "134.00 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        1.25,
+        4.27
+      ],
+      "charge": 0,
+      "spectator": 2
+    },
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H312"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "A primary standard for permanganate (dried at 105 °C; anhydrous, non-hygroscopic)"
+      ],
+      "notes": "In sulfuric acid it is oxalic acid and sodium ions; permanganate oxidises it as it does oxalic acid.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:benzoic-acid",
+    "identity": {
+      "name": "Benzoic acid",
+      "class": "small-molecule",
+      "formula": "C7H6O2",
+      "xrefs": [
+        "CHEBI:30746"
+      ]
+    },
+    "physical": {
+      "molarMass": "122.12 g/mol",
+      "phase": "solid",
+      "meltingPoint": "122.4 Cel",
+      "enthalpyOfFusion": "18.0 kJ/mol",
+      "logP": 1.87
+    },
+    "solubility": {
+      "curve": [
+        {
+          "temperature": "0 Cel",
+          "conc": "1.7 g/L"
+        },
+        {
+          "temperature": "18 Cel",
+          "conc": "2.7 g/L"
+        },
+        {
+          "temperature": "25 Cel",
+          "conc": "3.44 g/L"
+        },
+        {
+          "temperature": "40 Cel",
+          "conc": "5.51 g/L"
+        },
+        {
+          "temperature": "75 Cel",
+          "conc": "21.45 g/L"
+        },
+        {
+          "temperature": "100 Cel",
+          "conc": "56.31 g/L"
+        }
+      ]
+    },
+    "acidBase": {
+      "pKa": [
+        4.2
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "ghs": [
+        "H315",
+        "H318",
+        "H372"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Water solubility 1.7–56 g/L from 0 to 100 °C; mp 122.4 °C; ΔHfus about 18 kJ/mol; pKa 4.20 (standard handbook values)"
+      ],
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1685,
+        1.0,
+        15
+      ],
+      [
+        1420,
+        0.4,
+        15
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        935,
+        0.4,
+        20
+      ],
+      [
+        710,
+        0.5,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:ethyl-acetate",
+    "identity": {
+      "name": "Ethyl ethanoate (ethyl acetate)",
+      "class": "small-molecule",
+      "formula": "C4H8O2"
+    },
+    "physical": {
+      "molarMass": "88.11 g/mol",
+      "density": "902 g/L",
+      "phase": "liquid",
+      "boilingPoint": "77.1 Cel",
+      "logP": 0.73,
+      "immiscible": {
+        "inWater": "83 g/L",
+        "holdsWater": "30 g/L"
+      }
+    },
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H319",
+        "H336"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "eluotropic": 0.48,
+    "provenance": {
+      "references": [
+        "Water dissolves about 8.3 g per 100 mL of ethyl acetate, and ethyl acetate about 3.3 % of water by mass, at 20 °C",
+        "log Kow 0.73; bp 77.1 °C"
+      ],
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2985,
+        0.3,
+        20
+      ],
+      [
+        1740,
+        1.0,
+        12
+      ],
+      [
+        1370,
+        0.4,
+        10
+      ],
+      [
+        1235,
+        0.9,
+        18
+      ],
+      [
+        1045,
+        0.6,
+        15
+      ]
+    ]
+  },
+  {
+    "id": "chem:hexane",
+    "identity": {
+      "name": "Hexane",
+      "class": "solvent",
+      "formula": "C6H14"
+    },
+    "physical": {
+      "molarMass": "86.18 g/mol",
+      "density": "655 g/L",
+      "phase": "liquid",
+      "boilingPoint": "68.7 Cel",
+      "enthalpyOfVaporisation": "30.5 kJ/mol"
+    },
+    "eluotropic": 0.01,
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H304",
+        "H315",
+        "H336",
+        "H361f",
+        "H373",
+        "H411"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "chem:aspirin",
+    "identity": {
+      "name": "Aspirin (acetylsalicylic acid)",
+      "class": "small-molecule",
+      "formula": "C9H8O4"
+    },
+    "physical": {
+      "molarMass": "180.16 g/mol",
+      "phase": "solid"
+    },
+    "adsorption": {
+      "silica": 4.53
+    },
+    "optics": {
+      "epsilon": [
+        [
+          220,
+          8000
+        ],
+        [
+          229,
+          8800
+        ],
+        [
+          240,
+          3000
+        ],
+        [
+          254,
+          800
+        ],
+        [
+          276,
+          1100
+        ],
+        [
+          300,
+          100
+        ],
+        [
+          320,
+          0
+        ]
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "S on silica set so that Rf is about 0.65 in ethyl acetate; UV bands at 229 and 276 nm.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:paracetamol",
+    "identity": {
+      "name": "Paracetamol (acetaminophen)",
+      "class": "small-molecule",
+      "formula": "C8H9NO2"
+    },
+    "physical": {
+      "molarMass": "151.16 g/mol",
+      "phase": "solid"
+    },
+    "adsorption": {
+      "silica": 4.89
+    },
+    "optics": {
+      "epsilon": [
+        [
+          220,
+          6000
+        ],
+        [
+          243,
+          10500
+        ],
+        [
+          254,
+          8000
+        ],
+        [
+          270,
+          2500
+        ],
+        [
+          300,
+          200
+        ],
+        [
+          320,
+          0
+        ]
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "S on silica set so that Rf is about 0.45 in ethyl acetate; UV band at 243 nm.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:caffeine",
+    "identity": {
+      "name": "Caffeine",
+      "class": "small-molecule",
+      "formula": "C8H10N4O2"
+    },
+    "physical": {
+      "molarMass": "194.19 g/mol",
+      "phase": "solid"
+    },
+    "adsorption": {
+      "silica": 5.4
+    },
+    "optics": {
+      "epsilon": [
+        [
+          220,
+          5000
+        ],
+        [
+          245,
+          2500
+        ],
+        [
+          254,
+          4000
+        ],
+        [
+          273,
+          9700
+        ],
+        [
+          290,
+          3000
+        ],
+        [
+          310,
+          100
+        ],
+        [
+          320,
+          0
+        ]
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "S on silica set so that Rf is about 0.2 in ethyl acetate; UV band at 273 nm.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:eriochrome-black-t",
+    "identity": {
+      "name": "Eriochrome Black T (sodium salt)",
+      "class": "indicator",
+      "formula": "C20H12N3NaO7S"
+    },
+    "physical": {
+      "molarMass": "461.38 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        6.3,
+        11.6
+      ],
+      "charge": -1,
+      "spectator": 1,
+      "forms": [
+        {
+          "epsilon": [
+            [
+              420,
+              4000
+            ],
+            [
+              470,
+              9000
+            ],
+            [
+              520,
+              13000
+            ],
+            [
+              552,
+              11000
+            ],
+            [
+              600,
+              3000
+            ],
+            [
+              650,
+              500
+            ]
+          ],
+          "colour": "red"
+        },
+        {
+          "epsilon": [
+            [
+              420,
+              1000
+            ],
+            [
+              470,
+              1500
+            ],
+            [
+              520,
+              3500
+            ],
+            [
+              552,
+              7000
+            ],
+            [
+              600,
+              13000
+            ],
+            [
+              650,
+              11000
+            ]
+          ],
+          "colour": "blue"
+        },
+        {
+          "epsilon": [
+            [
+              420,
+              8000
+            ],
+            [
+              470,
+              12000
+            ],
+            [
+              520,
+              6000
+            ],
+            [
+              552,
+              2000
+            ],
+            [
+              600,
+              500
+            ],
+            [
+              650,
+              100
+            ]
+          ],
+          "colour": "orange"
+        }
+      ]
+    },
+    "complexes": [
+      {
+        "ion": "Mg2+",
+        "logK": 7.0,
+        "epsilon": [
+          [
+            420,
+            3000
+          ],
+          [
+            470,
+            7000
+          ],
+          [
+            520,
+            15000
+          ],
+          [
+            552,
+            14000
+          ],
+          [
+            600,
+            4000
+          ],
+          [
+            650,
+            800
+          ]
+        ],
+        "colour": "wine red"
+      },
+      {
+        "ion": "Ca2+",
+        "logK": 5.4,
+        "epsilon": [
+          [
+            420,
+            3000
+          ],
+          [
+            470,
+            7000
+          ],
+          [
+            520,
+            15000
+          ],
+          [
+            552,
+            14000
+          ],
+          [
+            600,
+            4000
+          ],
+          [
+            650,
+            800
+          ]
+        ],
+        "colour": "wine red"
+      },
+      {
+        "ion": "Zn2+",
+        "logK": 12.9,
+        "epsilon": [
+          [
+            420,
+            3000
+          ],
+          [
+            470,
+            7000
+          ],
+          [
+            520,
+            15000
+          ],
+          [
+            552,
+            14000
+          ],
+          [
+            600,
+            4000
+          ],
+          [
+            650,
+            800
+          ]
+        ],
+        "colour": "wine red"
+      }
+    ],
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "pKa 6.3 and 11.6; log K(MgIn) 7.0, log K(CaIn) 5.4 (Harris, Quantitative Chemical Analysis, metal-ion indicators)",
+        "Absorption spectra are illustrative, shaped to the free (blue) and metal-bound (wine red) forms"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:iron-iii-nitrate",
+    "identity": {
+      "name": "Iron(III) nitrate nonahydrate",
+      "class": "salt",
+      "formula": "Fe(NO3)3·9H2O"
+    },
+    "physical": {
+      "molarMass": "404.00 g/mol",
+      "phase": "solid"
+    },
+    "cation": {
+      "ion": "Fe3+"
+    },
+    "hazard": {
+      "ghs": [
+        "H272",
+        "H315",
+        "H319"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Kept in nitric acid so the iron does not hydrolyse (hydrolysis is not modelled)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:potassium-thiocyanate",
+    "identity": {
+      "name": "Potassium thiocyanate",
+      "class": "salt",
+      "formula": "KSCN"
+    },
+    "physical": {
+      "molarMass": "97.18 g/mol",
+      "phase": "solid"
+    },
+    "complexes": [
+      {
+        "ion": "Fe3+",
+        "logK": 2.14,
+        "epsilon": [
+          [
+            400,
+            2900
+          ],
+          [
+            420,
+            3800
+          ],
+          [
+            447,
+            4700
+          ],
+          [
+            470,
+            4300
+          ],
+          [
+            500,
+            3000
+          ],
+          [
+            552,
+            900
+          ],
+          [
+            600,
+            150
+          ],
+          [
+            650,
+            20
+          ]
+        ],
+        "colour": "blood red"
+      }
+    ],
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "FeSCN²⁺: K ≈ 138 (log K 2.14) at 25 °C in about 0.5 M acid, and ε(447 nm) ≈ 4.7 × 10³ L mol⁻¹ cm⁻¹, as commonly used in teaching laboratories"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:ammonium-iron-ii-sulfate",
+    "identity": {
+      "name": "Ammonium iron(II) sulfate hexahydrate (Mohr's salt)",
+      "class": "salt",
+      "formula": "(NH4)2Fe(SO4)2·6H2O"
+    },
+    "physical": {
+      "molarMass": "392.14 g/mol",
+      "phase": "solid"
+    },
+    "cation": {
+      "ion": "Fe2+"
+    },
+    "redox": {
+      "couple": "Fe3+/Fe2+",
+      "electrons": 1,
+      "e0": 0.68,
+      "form": "reduced",
+      "partner": "chem:iron-iii-aq"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Standard potentials from standard tables (Bard, Parsons & Jordan, Standard Potentials in Aqueous Solution)",
+        "The formal potential of Fe³⁺/Fe²⁺ in 1 M sulfuric acid, 0.68 V (sulfate holds iron(III) more firmly)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:iron-iii-aq",
+    "identity": {
+      "name": "Iron(III), aqueous",
+      "class": "ion",
+      "formula": "Fe3+"
+    },
+    "physical": {
+      "molarMass": "55.85 g/mol"
+    },
+    "cation": {
+      "ion": "Fe3+"
+    },
+    "redox": {
+      "couple": "Fe3+/Fe2+",
+      "electrons": 1,
+      "e0": 0.68,
+      "form": "oxidised",
+      "partner": "chem:ammonium-iron-ii-sulfate"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "chem:ascorbic-acid",
+    "identity": {
+      "name": "Ascorbic acid (vitamin C)",
+      "class": "small-molecule",
+      "formula": "C6H8O6"
+    },
+    "physical": {
+      "molarMass": "176.12 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        4.1,
+        11.6
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "redox": {
+      "couple": "DHA/AA",
+      "electrons": 2,
+      "e0": 0.39,
+      "protons": 2,
+      "form": "reduced",
+      "partner": "chem:dehydroascorbic-acid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Standard potentials from standard tables (Bard, Parsons & Jordan, Standard Potentials in Aqueous Solution)",
+        "Dehydroascorbic acid/ascorbic acid, E° ≈ 0.39 V (two electrons, two protons)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:dehydroascorbic-acid",
+    "identity": {
+      "name": "Dehydroascorbic acid",
+      "class": "small-molecule",
+      "formula": "C6H6O6"
+    },
+    "physical": {
+      "molarMass": "174.11 g/mol",
+      "phase": "solid"
+    },
+    "redox": {
+      "couple": "DHA/AA",
+      "electrons": 2,
+      "e0": 0.39,
+      "protons": 2,
+      "form": "oxidised",
+      "partner": "chem:ascorbic-acid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "chem:sodium-nitrate",
+    "identity": {
+      "name": "Sodium nitrate",
+      "class": "salt",
+      "formula": "NaNO3"
+    },
+    "physical": {
+      "molarMass": "84.99 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "chem:sodium-nitrite",
+    "identity": {
+      "name": "Sodium nitrite",
+      "class": "salt",
+      "formula": "NaNO2"
+    },
+    "physical": {
+      "molarMass": "69.00 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "chem:ammonium-molybdate",
+    "identity": {
+      "name": "Ammonium molybdate tetrahydrate",
+      "class": "salt",
+      "formula": "(NH4)6Mo7O24·4H2O"
+    },
+    "physical": {
+      "molarMass": "1235.86 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "chem:zinc-dust",
+    "identity": {
+      "name": "Zinc powder",
+      "class": "particle",
+      "formula": "Zn"
+    },
+    "physical": {
+      "molarMass": "65.38 g/mol",
+      "density": "7140 g/L",
+      "phase": "solid",
+      "particleSize": "20 um"
+    },
+    "solubility": {
+      "maxConc": "1e-9 mol/L",
+      "precipitate": "fine"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Insoluble 20 µm grains: they stay suspended while the slurry is mixed and settle out of a few mL of water in about a minute once it stands.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:griess-reagent",
+    "identity": {
+      "name": "Griess reagent (sulfanilamide with N-(1-naphthyl)ethylenediamine)",
+      "class": "indicator",
+      "synonyms": [
+        "NED reagent"
+      ]
+    },
+    "physical": {
+      "molarMass": "259.2 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Modelled as one reagent (counted as NED); in acid, nitrite diazotises the sulfanilamide, which couples with NED to an azo dye.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:phosphomolybdenum-blue",
+    "identity": {
+      "name": "Phosphomolybdenum blue (reduced phosphomolybdate)",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "1900 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          500,
+          2000
+        ],
+        [
+          600,
+          6000
+        ],
+        [
+          700,
+          13000
+        ],
+        [
+          800,
+          19500
+        ],
+        [
+          840,
+          21000
+        ],
+        [
+          880,
+          22000
+        ],
+        [
+          950,
+          19000
+        ],
+        [
+          1000,
+          15000
+        ]
+      ],
+      "colour": "blue"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Murphy and Riley (1962): ε about 2.2 × 10⁴ L mol⁻¹ cm⁻¹ per mol P at 880 nm"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:griess-azo-dye",
+    "identity": {
+      "name": "Griess azo dye",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "390 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          420,
+          4000
+        ],
+        [
+          460,
+          12000
+        ],
+        [
+          500,
+          30000
+        ],
+        [
+          540,
+          40000
+        ],
+        [
+          548,
+          39500
+        ],
+        [
+          580,
+          26000
+        ],
+        [
+          620,
+          8000
+        ],
+        [
+          680,
+          1500
+        ]
+      ],
+      "colour": "pink-magenta"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Griess azo dye: λmax 540 nm, ε about 4 × 10⁴ L mol⁻¹ cm⁻¹"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:4-nitrophenyl-benzoate",
+    "identity": {
+      "name": "4-Nitrophenyl benzoate",
+      "class": "small-molecule",
+      "formula": "C13H9NO4",
+      "synonyms": [
+        "NBE (unsubstituted)"
+      ]
+    },
+    "physical": {
+      "molarMass": "243.21 g/mol",
+      "phase": "solid",
+      "logP": 3.4
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A 4-nitrophenyl benzoate ester (the parent, X = H): hydroxide attacks its carbonyl, releasing yellow 4-nitrophenolate. Colourless at 405 nm.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        3110,
+        0.1,
+        20
+      ],
+      [
+        1740,
+        1.0,
+        12
+      ],
+      [
+        1615,
+        0.3,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1490,
+        0.3,
+        10
+      ],
+      [
+        1265,
+        0.8,
+        20
+      ],
+      [
+        1205,
+        0.7,
+        20
+      ],
+      [
+        1060,
+        0.5,
+        15
+      ],
+      [
+        860,
+        0.4,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-nitrophenyl-3-methoxy-benzoate",
+    "identity": {
+      "name": "4-Nitrophenyl 3-methoxy-benzoate",
+      "class": "small-molecule",
+      "formula": "C14H11NO5",
+      "synonyms": [
+        "NBE (3-methoxy (m-OMe))"
+      ]
+    },
+    "physical": {
+      "molarMass": "273.24 g/mol",
+      "phase": "solid",
+      "logP": 3.5
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A 4-nitrophenyl benzoate ester, substituent 3-methoxy (m-OMe), Hammett sigma 0.12: hydroxide attacks its carbonyl, releasing yellow 4-nitrophenolate. Colourless at 405 nm.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        3110,
+        0.1,
+        20
+      ],
+      [
+        1741,
+        1.0,
+        12
+      ],
+      [
+        1615,
+        0.3,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1490,
+        0.3,
+        10
+      ],
+      [
+        1265,
+        0.8,
+        20
+      ],
+      [
+        1205,
+        0.7,
+        20
+      ],
+      [
+        1060,
+        0.5,
+        15
+      ],
+      [
+        860,
+        0.4,
+        10
+      ],
+      [
+        2840,
+        0.15,
+        20
+      ],
+      [
+        1040,
+        0.5,
+        15
+      ]
+    ]
+  },
+  {
+    "id": "chem:3-methoxy-benzoic-acid",
+    "identity": {
+      "name": "3-Methoxybenzoic acid",
+      "class": "small-molecule",
+      "formula": "C8H8O3"
+    },
+    "physical": {
+      "molarMass": "152.15 g/mol",
+      "phase": "solid",
+      "logP": 2.02
+    },
+    "acidBase": {
+      "pKa": [
+        4.08
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "pKa 4.20 − sigma (0.12): the Hammett definition, rho = 1 for benzoic acids.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1686,
+        1.0,
+        15
+      ],
+      [
+        1420,
+        0.4,
+        15
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        935,
+        0.4,
+        20
+      ],
+      [
+        710,
+        0.5,
+        10
+      ],
+      [
+        2840,
+        0.15,
+        20
+      ],
+      [
+        1040,
+        0.5,
+        15
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-nitrophenyl-3-methyl-benzoate",
+    "identity": {
+      "name": "4-Nitrophenyl 3-methyl-benzoate",
+      "class": "small-molecule",
+      "formula": "C14H11NO4",
+      "synonyms": [
+        "NBE (3-methyl (m-Me))"
+      ]
+    },
+    "physical": {
+      "molarMass": "257.24 g/mol",
+      "phase": "solid",
+      "logP": 3.9
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A 4-nitrophenyl benzoate ester, substituent 3-methyl (m-Me), Hammett sigma -0.07: hydroxide attacks its carbonyl, releasing yellow 4-nitrophenolate. Colourless at 405 nm.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        3110,
+        0.1,
+        20
+      ],
+      [
+        1739,
+        1.0,
+        12
+      ],
+      [
+        1615,
+        0.3,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1490,
+        0.3,
+        10
+      ],
+      [
+        1265,
+        0.8,
+        20
+      ],
+      [
+        1205,
+        0.7,
+        20
+      ],
+      [
+        1060,
+        0.5,
+        15
+      ],
+      [
+        860,
+        0.4,
+        10
+      ],
+      [
+        2925,
+        0.15,
+        20
+      ]
+    ]
+  },
+  {
+    "id": "chem:3-methyl-benzoic-acid",
+    "identity": {
+      "name": "3-Methylbenzoic acid",
+      "class": "small-molecule",
+      "formula": "C8H8O2"
+    },
+    "physical": {
+      "molarMass": "136.15 g/mol",
+      "phase": "solid",
+      "logP": 2.37
+    },
+    "acidBase": {
+      "pKa": [
+        4.27
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "pKa 4.20 − sigma (-0.07): the Hammett definition, rho = 1 for benzoic acids.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1684,
+        1.0,
+        15
+      ],
+      [
+        1420,
+        0.4,
+        15
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        935,
+        0.4,
+        20
+      ],
+      [
+        710,
+        0.5,
+        10
+      ],
+      [
+        2925,
+        0.15,
+        20
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-nitrophenyl-4-methyl-benzoate",
+    "identity": {
+      "name": "4-Nitrophenyl 4-methyl-benzoate",
+      "class": "small-molecule",
+      "formula": "C14H11NO4",
+      "synonyms": [
+        "NBE (4-methyl (p-Me))"
+      ]
+    },
+    "physical": {
+      "molarMass": "257.24 g/mol",
+      "phase": "solid",
+      "logP": 3.9
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A 4-nitrophenyl benzoate ester, substituent 4-methyl (p-Me), Hammett sigma -0.17: hydroxide attacks its carbonyl, releasing yellow 4-nitrophenolate. Colourless at 405 nm.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        3110,
+        0.1,
+        20
+      ],
+      [
+        1738,
+        1.0,
+        12
+      ],
+      [
+        1615,
+        0.3,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1490,
+        0.3,
+        10
+      ],
+      [
+        1265,
+        0.8,
+        20
+      ],
+      [
+        1205,
+        0.7,
+        20
+      ],
+      [
+        1060,
+        0.5,
+        15
+      ],
+      [
+        860,
+        0.4,
+        10
+      ],
+      [
+        2925,
+        0.15,
+        20
+      ],
+      [
+        820,
+        0.3,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-methyl-benzoic-acid",
+    "identity": {
+      "name": "4-Methylbenzoic acid",
+      "class": "small-molecule",
+      "formula": "C8H8O2"
+    },
+    "physical": {
+      "molarMass": "136.15 g/mol",
+      "phase": "solid",
+      "logP": 2.27
+    },
+    "acidBase": {
+      "pKa": [
+        4.37
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "pKa 4.20 − sigma (-0.17): the Hammett definition, rho = 1 for benzoic acids.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1683,
+        1.0,
+        15
+      ],
+      [
+        1420,
+        0.4,
+        15
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        935,
+        0.4,
+        20
+      ],
+      [
+        710,
+        0.5,
+        10
+      ],
+      [
+        2925,
+        0.15,
+        20
+      ],
+      [
+        820,
+        0.3,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-nitrophenyl-3-trifluoromethyl-benzoate",
+    "identity": {
+      "name": "4-Nitrophenyl 3-trifluoromethyl-benzoate",
+      "class": "small-molecule",
+      "formula": "C14H8F3NO4",
+      "synonyms": [
+        "NBE (3-trifluoromethyl (m-CF3))"
+      ]
+    },
+    "physical": {
+      "molarMass": "311.21 g/mol",
+      "phase": "solid",
+      "logP": 4.3
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A 4-nitrophenyl benzoate ester, substituent 3-trifluoromethyl (m-CF3), Hammett sigma 0.43: hydroxide attacks its carbonyl, releasing yellow 4-nitrophenolate. Colourless at 405 nm.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        3110,
+        0.1,
+        20
+      ],
+      [
+        1744,
+        1.0,
+        12
+      ],
+      [
+        1615,
+        0.3,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1490,
+        0.3,
+        10
+      ],
+      [
+        1265,
+        0.8,
+        20
+      ],
+      [
+        1205,
+        0.7,
+        20
+      ],
+      [
+        1060,
+        0.5,
+        15
+      ],
+      [
+        860,
+        0.4,
+        10
+      ],
+      [
+        1325,
+        0.8,
+        14
+      ],
+      [
+        1170,
+        0.6,
+        15
+      ],
+      [
+        1130,
+        0.7,
+        15
+      ]
+    ]
+  },
+  {
+    "id": "chem:3-trifluoromethyl-benzoic-acid",
+    "identity": {
+      "name": "3-(Trifluoromethyl)benzoic acid",
+      "class": "small-molecule",
+      "formula": "C8H5F3O2"
+    },
+    "physical": {
+      "molarMass": "190.12 g/mol",
+      "phase": "solid",
+      "logP": 2.95
+    },
+    "acidBase": {
+      "pKa": [
+        3.77
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "pKa 4.20 − sigma (0.43): the Hammett definition, rho = 1 for benzoic acids.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1689,
+        1.0,
+        15
+      ],
+      [
+        1420,
+        0.4,
+        15
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        935,
+        0.4,
+        20
+      ],
+      [
+        710,
+        0.5,
+        10
+      ],
+      [
+        1325,
+        0.8,
+        14
+      ],
+      [
+        1170,
+        0.6,
+        15
+      ],
+      [
+        1130,
+        0.7,
+        15
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-nitrophenyl-4-trifluoromethyl-benzoate",
+    "identity": {
+      "name": "4-Nitrophenyl 4-trifluoromethyl-benzoate",
+      "class": "small-molecule",
+      "formula": "C14H8F3NO4",
+      "synonyms": [
+        "NBE (4-trifluoromethyl (p-CF3))"
+      ]
+    },
+    "physical": {
+      "molarMass": "311.21 g/mol",
+      "phase": "solid",
+      "logP": 4.3
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A 4-nitrophenyl benzoate ester, substituent 4-trifluoromethyl (p-CF3), Hammett sigma 0.54: hydroxide attacks its carbonyl, releasing yellow 4-nitrophenolate. Colourless at 405 nm.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        3110,
+        0.1,
+        20
+      ],
+      [
+        1745,
+        1.0,
+        12
+      ],
+      [
+        1615,
+        0.3,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1490,
+        0.3,
+        10
+      ],
+      [
+        1265,
+        0.8,
+        20
+      ],
+      [
+        1205,
+        0.7,
+        20
+      ],
+      [
+        1060,
+        0.5,
+        15
+      ],
+      [
+        860,
+        0.4,
+        10
+      ],
+      [
+        1325,
+        0.8,
+        14
+      ],
+      [
+        1170,
+        0.6,
+        15
+      ],
+      [
+        1065,
+        0.7,
+        15
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-trifluoromethyl-benzoic-acid",
+    "identity": {
+      "name": "4-(Trifluoromethyl)benzoic acid",
+      "class": "small-molecule",
+      "formula": "C8H5F3O2"
+    },
+    "physical": {
+      "molarMass": "190.12 g/mol",
+      "phase": "solid",
+      "logP": 2.95
+    },
+    "acidBase": {
+      "pKa": [
+        3.66
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "pKa 4.20 − sigma (0.54): the Hammett definition, rho = 1 for benzoic acids.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1690,
+        1.0,
+        15
+      ],
+      [
+        1420,
+        0.4,
+        15
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        935,
+        0.4,
+        20
+      ],
+      [
+        710,
+        0.5,
+        10
+      ],
+      [
+        1325,
+        0.8,
+        14
+      ],
+      [
+        1170,
+        0.6,
+        15
+      ],
+      [
+        1065,
+        0.7,
+        15
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-nitrophenyl-4-chloro-benzoate",
+    "identity": {
+      "name": "4-Nitrophenyl 4-chloro-benzoate",
+      "class": "small-molecule",
+      "formula": "C13H8ClNO4",
+      "synonyms": [
+        "NBE (4-chloro (p-Cl))"
+      ]
+    },
+    "physical": {
+      "molarMass": "277.66 g/mol",
+      "phase": "solid",
+      "logP": 4.1
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A 4-nitrophenyl benzoate ester, substituent 4-chloro (p-Cl), Hammett sigma 0.23: hydroxide attacks its carbonyl, releasing yellow 4-nitrophenolate. Colourless at 405 nm.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        3110,
+        0.1,
+        20
+      ],
+      [
+        1742,
+        1.0,
+        12
+      ],
+      [
+        1615,
+        0.3,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1490,
+        0.3,
+        10
+      ],
+      [
+        1265,
+        0.8,
+        20
+      ],
+      [
+        1205,
+        0.7,
+        20
+      ],
+      [
+        1060,
+        0.5,
+        15
+      ],
+      [
+        860,
+        0.4,
+        10
+      ],
+      [
+        1090,
+        0.5,
+        12
+      ],
+      [
+        760,
+        0.4,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-chloro-benzoic-acid",
+    "identity": {
+      "name": "4-Chlorobenzoic acid",
+      "class": "small-molecule",
+      "formula": "C7H5ClO2"
+    },
+    "physical": {
+      "molarMass": "156.57 g/mol",
+      "phase": "solid",
+      "logP": 2.65
+    },
+    "acidBase": {
+      "pKa": [
+        3.97
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "pKa 4.20 − sigma (0.23): the Hammett definition, rho = 1 for benzoic acids.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1687,
+        1.0,
+        15
+      ],
+      [
+        1420,
+        0.4,
+        15
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        935,
+        0.4,
+        20
+      ],
+      [
+        710,
+        0.5,
+        10
+      ],
+      [
+        1090,
+        0.5,
+        12
+      ],
+      [
+        760,
+        0.4,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-nitrophenyl-3-chloro-benzoate",
+    "identity": {
+      "name": "4-Nitrophenyl 3-chloro-benzoate",
+      "class": "small-molecule",
+      "formula": "C13H8ClNO4",
+      "synonyms": [
+        "NBE (3-chloro (m-Cl))"
+      ]
+    },
+    "physical": {
+      "molarMass": "277.66 g/mol",
+      "phase": "solid",
+      "logP": 4.1
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A 4-nitrophenyl benzoate ester, substituent 3-chloro (m-Cl), Hammett sigma 0.37: hydroxide attacks its carbonyl, releasing yellow 4-nitrophenolate. Colourless at 405 nm.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        3110,
+        0.1,
+        20
+      ],
+      [
+        1744,
+        1.0,
+        12
+      ],
+      [
+        1615,
+        0.3,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1490,
+        0.3,
+        10
+      ],
+      [
+        1265,
+        0.8,
+        20
+      ],
+      [
+        1205,
+        0.7,
+        20
+      ],
+      [
+        1060,
+        0.5,
+        15
+      ],
+      [
+        860,
+        0.4,
+        10
+      ],
+      [
+        1080,
+        0.4,
+        12
+      ],
+      [
+        745,
+        0.5,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:3-chloro-benzoic-acid",
+    "identity": {
+      "name": "3-Chlorobenzoic acid",
+      "class": "small-molecule",
+      "formula": "C7H5ClO2"
+    },
+    "physical": {
+      "molarMass": "156.57 g/mol",
+      "phase": "solid",
+      "logP": 2.68
+    },
+    "acidBase": {
+      "pKa": [
+        3.83
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "pKa 4.20 − sigma (0.37): the Hammett definition, rho = 1 for benzoic acids.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1689,
+        1.0,
+        15
+      ],
+      [
+        1420,
+        0.4,
+        15
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        935,
+        0.4,
+        20
+      ],
+      [
+        710,
+        0.5,
+        10
+      ],
+      [
+        1080,
+        0.4,
+        12
+      ],
+      [
+        745,
+        0.5,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:4-nitrocinnamic-acid",
+    "identity": {
+      "name": "4-Nitrocinnamic acid",
+      "class": "small-molecule",
+      "formula": "C9H7NO4",
+      "synonyms": [
+        "(E)-3-(4-nitrophenyl)prop-2-enoic acid"
+      ],
+      "xrefs": [
+        "CAS:619-89-6"
+      ]
+    },
+    "physical": {
+      "molarMass": "193.16 g/mol",
+      "phase": "solid",
+      "meltingPoint": "289 Cel",
+      "logP": 1.9
+    },
+    "acidBase": {
+      "pKa": [
+        4.05
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pale yellow solid that melts with decomposition near 289 °C. A carboxylic acid (pKa about 4, cinnamic acid's 4.44 lowered by the nitro group): uncharged it goes into an organic solvent, as its anion into alkaline water.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2950,
+        0.7,
+        350
+      ],
+      [
+        1690,
+        1.0,
+        15
+      ],
+      [
+        1630,
+        0.6,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1290,
+        0.6,
+        15
+      ],
+      [
+        980,
+        0.4,
+        10
+      ],
+      [
+        840,
+        0.4,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:ethyl-4-nitrocinnamate",
+    "identity": {
+      "name": "Ethyl 4-nitrocinnamate",
+      "class": "small-molecule",
+      "formula": "C11H11NO4",
+      "synonyms": [
+        "Ethyl (E)-3-(4-nitrophenyl)prop-2-enoate"
+      ],
+      "xrefs": [
+        "CAS:953-26-4"
+      ]
+    },
+    "physical": {
+      "molarMass": "221.21 g/mol",
+      "phase": "solid",
+      "meltingPoint": "138.5 Cel",
+      "enthalpyOfFusion": "28 kJ/mol",
+      "logP": 2.9
+    },
+    "hazard": {
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "mp 137–140 °C (literature range)"
+      ],
+      "notes": "A pale yellow solid: the ethyl ester of 4-nitrocinnamic acid. Neutral, so a bicarbonate wash leaves it in the organic layer.",
+      "review": "pending"
+    },
+    "ir": [
+      [
+        2985,
+        0.2,
+        20
+      ],
+      [
+        1710,
+        1.0,
+        12
+      ],
+      [
+        1640,
+        0.6,
+        10
+      ],
+      [
+        1525,
+        0.9,
+        14
+      ],
+      [
+        1345,
+        0.9,
+        14
+      ],
+      [
+        1270,
+        0.7,
+        18
+      ],
+      [
+        1175,
+        0.8,
+        18
+      ],
+      [
+        1035,
+        0.4,
+        15
+      ],
+      [
+        980,
+        0.4,
+        10
+      ],
+      [
+        840,
+        0.4,
+        10
+      ]
+    ]
+  },
+  {
+    "id": "chem:tetrahydrofuran",
+    "identity": {
+      "name": "Tetrahydrofuran (THF)",
+      "class": "solvent",
+      "formula": "C4H8O",
+      "xrefs": [
+        "CAS:109-99-9"
+      ]
+    },
+    "physical": {
+      "molarMass": "72.11 g/mol",
+      "density": "889 g/L",
+      "phase": "liquid",
+      "boilingPoint": "66 Cel",
+      "logP": 0.46
+    },
+    "ir": [
+      [
+        2975,
+        0.4,
+        25
+      ],
+      [
+        2860,
+        0.35,
+        25
+      ],
+      [
+        1070,
+        0.9,
+        25
+      ],
+      [
+        910,
+        0.4,
+        15
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H302",
+        "H319",
+        "H335",
+        "H351"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Miscible with water: dried, it holds a few tens of ppm. In an ethyl acetate/water work-up most of it goes with the ethyl acetate.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:triethylamine",
+    "identity": {
+      "name": "Triethylamine",
+      "class": "small-molecule",
+      "formula": "C6H15N",
+      "xrefs": [
+        "CAS:121-44-8"
+      ]
+    },
+    "physical": {
+      "molarMass": "101.19 g/mol",
+      "density": "726 g/L",
+      "phase": "liquid",
+      "boilingPoint": "89.5 Cel",
+      "logP": 1.45
+    },
+    "acidBase": {
+      "pKa": [
+        10.75
+      ],
+      "charge": 1,
+      "spectator": 0
+    },
+    "ir": [
+      [
+        2970,
+        0.5,
+        25
+      ],
+      [
+        2800,
+        0.3,
+        30
+      ],
+      [
+        1380,
+        0.25,
+        15
+      ],
+      [
+        1210,
+        0.25,
+        20
+      ],
+      [
+        1070,
+        0.3,
+        20
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H302",
+        "H311",
+        "H331",
+        "H314",
+        "H335"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A base that takes up the HCl an acylation releases. Free, it goes into ethyl acetate; a dilute HCl wash protonates it and takes it into the water.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:triethylammonium-chloride",
+    "identity": {
+      "name": "Triethylammonium chloride",
+      "class": "salt",
+      "formula": "C6H16ClN",
+      "synonyms": [
+        "Triethylamine hydrochloride"
+      ]
+    },
+    "physical": {
+      "molarMass": "137.65 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        10.75
+      ],
+      "charge": 1,
+      "spectator": -1
+    },
+    "ir": [
+      [
+        2500,
+        0.8,
+        220
+      ],
+      [
+        1475,
+        0.3,
+        20
+      ],
+      [
+        1400,
+        0.25,
+        20
+      ]
+    ],
+    "status": "experimental",
+    "provenance": {
+      "notes": "The white salt that comes out of THF as an acylation with triethylamine runs; it dissolves in water at the quench.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:benzoyl-chloride",
+    "identity": {
+      "name": "Benzoyl chloride",
+      "class": "small-molecule",
+      "formula": "C7H5ClO"
+    },
+    "physical": {
+      "molarMass": "140.57 g/mol",
+      "density": "1211 g/L",
+      "phase": "liquid",
+      "boilingPoint": "200 Cel",
+      "logP": 2.57
+    },
+    "ir": [
+      [
+        1775,
+        1.0,
+        12
+      ],
+      [
+        1735,
+        0.4,
+        12
+      ],
+      [
+        1595,
+        0.3,
+        10
+      ],
+      [
+        1450,
+        0.3,
+        12
+      ],
+      [
+        1205,
+        0.6,
+        20
+      ],
+      [
+        875,
+        0.6,
+        15
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H314",
+        "H317",
+        "H331"
+      ],
+      "wasteStream": "core:chemical-waste.organic-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aroyl chloride: it acylates phenols with a base present, and water turns it to the acid and HCl. Fuming, corrosive: handled by syringe under nitrogen.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:3-methoxy-benzoyl-chloride",
+    "identity": {
+      "name": "3-methoxybenzoyl chloride",
+      "class": "small-molecule",
+      "formula": "C8H7ClO2"
+    },
+    "physical": {
+      "molarMass": "170.59 g/mol",
+      "density": "1214 g/L",
+      "phase": "liquid",
+      "boilingPoint": "200 Cel",
+      "logP": 2.72
+    },
+    "ir": [
+      [
+        1776,
+        1.0,
+        12
+      ],
+      [
+        1736,
+        0.4,
+        12
+      ],
+      [
+        1595,
+        0.3,
+        10
+      ],
+      [
+        1450,
+        0.3,
+        12
+      ],
+      [
+        1205,
+        0.6,
+        20
+      ],
+      [
+        875,
+        0.6,
+        15
+      ],
+      [
+        2840,
+        0.15,
+        20
+      ],
+      [
+        1040,
+        0.5,
+        15
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H314",
+        "H317",
+        "H331"
+      ],
+      "wasteStream": "core:chemical-waste.organic-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aroyl chloride, substituent Hammett sigma 0.12: it acylates phenols with a base present, and water turns it to the acid and HCl. Fuming, corrosive: handled by syringe under nitrogen.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:3-methyl-benzoyl-chloride",
+    "identity": {
+      "name": "3-methylbenzoyl chloride",
+      "class": "small-molecule",
+      "formula": "C8H7ClO"
+    },
+    "physical": {
+      "molarMass": "154.59 g/mol",
+      "density": "1173 g/L",
+      "phase": "liquid",
+      "boilingPoint": "200 Cel",
+      "logP": 3.07
+    },
+    "ir": [
+      [
+        1774,
+        1.0,
+        12
+      ],
+      [
+        1734,
+        0.4,
+        12
+      ],
+      [
+        1595,
+        0.3,
+        10
+      ],
+      [
+        1450,
+        0.3,
+        12
+      ],
+      [
+        1205,
+        0.6,
+        20
+      ],
+      [
+        875,
+        0.6,
+        15
+      ],
+      [
+        2925,
+        0.15,
+        20
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H314",
+        "H317",
+        "H331"
+      ],
+      "wasteStream": "core:chemical-waste.organic-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aroyl chloride, substituent Hammett sigma -0.07: it acylates phenols with a base present, and water turns it to the acid and HCl. Fuming, corrosive: handled by syringe under nitrogen.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:4-methyl-benzoyl-chloride",
+    "identity": {
+      "name": "4-methylbenzoyl chloride",
+      "class": "small-molecule",
+      "formula": "C8H7ClO"
+    },
+    "physical": {
+      "molarMass": "154.59 g/mol",
+      "density": "1169 g/L",
+      "phase": "liquid",
+      "boilingPoint": "200 Cel",
+      "logP": 2.97
+    },
+    "ir": [
+      [
+        1774,
+        1.0,
+        12
+      ],
+      [
+        1734,
+        0.4,
+        12
+      ],
+      [
+        1595,
+        0.3,
+        10
+      ],
+      [
+        1450,
+        0.3,
+        12
+      ],
+      [
+        1205,
+        0.6,
+        20
+      ],
+      [
+        875,
+        0.6,
+        15
+      ],
+      [
+        2925,
+        0.15,
+        20
+      ],
+      [
+        820,
+        0.3,
+        10
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H314",
+        "H317",
+        "H331"
+      ],
+      "wasteStream": "core:chemical-waste.organic-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aroyl chloride, substituent Hammett sigma -0.17: it acylates phenols with a base present, and water turns it to the acid and HCl. Fuming, corrosive: handled by syringe under nitrogen.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:3-trifluoromethyl-benzoyl-chloride",
+    "identity": {
+      "name": "3-trifluoromethylbenzoyl chloride",
+      "class": "small-molecule",
+      "formula": "C8H4ClF3O"
+    },
+    "physical": {
+      "molarMass": "208.56 g/mol",
+      "density": "1383 g/L",
+      "phase": "liquid",
+      "boilingPoint": "200 Cel",
+      "logP": 3.65
+    },
+    "ir": [
+      [
+        1778,
+        1.0,
+        12
+      ],
+      [
+        1738,
+        0.4,
+        12
+      ],
+      [
+        1595,
+        0.3,
+        10
+      ],
+      [
+        1450,
+        0.3,
+        12
+      ],
+      [
+        1205,
+        0.6,
+        20
+      ],
+      [
+        875,
+        0.6,
+        15
+      ],
+      [
+        1325,
+        0.8,
+        14
+      ],
+      [
+        1170,
+        0.6,
+        15
+      ],
+      [
+        1130,
+        0.7,
+        15
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H314",
+        "H317",
+        "H331"
+      ],
+      "wasteStream": "core:chemical-waste.organic-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aroyl chloride, substituent Hammett sigma 0.43: it acylates phenols with a base present, and water turns it to the acid and HCl. Fuming, corrosive: handled by syringe under nitrogen.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:4-trifluoromethyl-benzoyl-chloride",
+    "identity": {
+      "name": "4-trifluoromethylbenzoyl chloride",
+      "class": "small-molecule",
+      "formula": "C8H4ClF3O"
+    },
+    "physical": {
+      "molarMass": "208.56 g/mol",
+      "density": "1404 g/L",
+      "phase": "liquid",
+      "boilingPoint": "200 Cel",
+      "logP": 3.65
+    },
+    "ir": [
+      [
+        1779,
+        1.0,
+        12
+      ],
+      [
+        1739,
+        0.4,
+        12
+      ],
+      [
+        1595,
+        0.3,
+        10
+      ],
+      [
+        1450,
+        0.3,
+        12
+      ],
+      [
+        1205,
+        0.6,
+        20
+      ],
+      [
+        875,
+        0.6,
+        15
+      ],
+      [
+        1325,
+        0.8,
+        14
+      ],
+      [
+        1170,
+        0.6,
+        15
+      ],
+      [
+        1065,
+        0.7,
+        15
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H314",
+        "H317",
+        "H331"
+      ],
+      "wasteStream": "core:chemical-waste.organic-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aroyl chloride, substituent Hammett sigma 0.54: it acylates phenols with a base present, and water turns it to the acid and HCl. Fuming, corrosive: handled by syringe under nitrogen.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:4-chloro-benzoyl-chloride",
+    "identity": {
+      "name": "4-chlorobenzoyl chloride",
+      "class": "small-molecule",
+      "formula": "C7H4Cl2O"
+    },
+    "physical": {
+      "molarMass": "175.01 g/mol",
+      "density": "1365 g/L",
+      "phase": "liquid",
+      "boilingPoint": "200 Cel",
+      "logP": 3.35
+    },
+    "ir": [
+      [
+        1777,
+        1.0,
+        12
+      ],
+      [
+        1737,
+        0.4,
+        12
+      ],
+      [
+        1595,
+        0.3,
+        10
+      ],
+      [
+        1450,
+        0.3,
+        12
+      ],
+      [
+        1205,
+        0.6,
+        20
+      ],
+      [
+        875,
+        0.6,
+        15
+      ],
+      [
+        1090,
+        0.5,
+        12
+      ],
+      [
+        760,
+        0.4,
+        10
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H314",
+        "H317",
+        "H331"
+      ],
+      "wasteStream": "core:chemical-waste.organic-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aroyl chloride, substituent Hammett sigma 0.23: it acylates phenols with a base present, and water turns it to the acid and HCl. Fuming, corrosive: handled by syringe under nitrogen.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:3-chloro-benzoyl-chloride",
+    "identity": {
+      "name": "3-chlorobenzoyl chloride",
+      "class": "small-molecule",
+      "formula": "C7H4Cl2O"
+    },
+    "physical": {
+      "molarMass": "175.01 g/mol",
+      "density": "1367 g/L",
+      "phase": "liquid",
+      "boilingPoint": "200 Cel",
+      "logP": 3.38
+    },
+    "ir": [
+      [
+        1778,
+        1.0,
+        12
+      ],
+      [
+        1738,
+        0.4,
+        12
+      ],
+      [
+        1595,
+        0.3,
+        10
+      ],
+      [
+        1450,
+        0.3,
+        12
+      ],
+      [
+        1205,
+        0.6,
+        20
+      ],
+      [
+        875,
+        0.6,
+        15
+      ],
+      [
+        1080,
+        0.4,
+        12
+      ],
+      [
+        745,
+        0.5,
+        10
+      ]
+    ],
+    "hazard": {
+      "ghs": [
+        "H302",
+        "H314",
+        "H317",
+        "H331"
+      ],
+      "wasteStream": "core:chemical-waste.organic-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aroyl chloride, substituent Hammett sigma 0.37: it acylates phenols with a base present, and water turns it to the acid and HCl. Fuming, corrosive: handled by syringe under nitrogen.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:sodium-thiosulfate",
+    "identity": {
+      "name": "Sodium thiosulfate",
+      "class": "salt",
+      "formula": "Na2S2O3"
+    },
+    "physical": {
+      "molarMass": "158.11 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        0.6,
+        1.74
+      ],
+      "charge": 0,
+      "spectator": 2
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Thiosulfuric acid pKa about 0.6 and 1.74; in acid thiosulfate decomposes to sulfur and sulfur dioxide",
+        "S₄O₆²⁻/S₂O₃²⁻ E° = +0.08 V: thiosulfate reduces iodine to iodide at once"
+      ],
+      "review": "pending"
+    },
+    "redox": {
+      "couple": "S4O6/S2O3",
+      "electrons": 2,
+      "e0": 0.08,
+      "reducedPer": 2,
+      "form": "reduced",
+      "partner": "chem:sodium-tetrathionate"
+    }
+  },
+  {
+    "id": "chem:sulfur-colloid",
+    "identity": {
+      "name": "Sulfur (colloidal)",
+      "class": "particle",
+      "formula": "S"
+    },
+    "physical": {
+      "molarMass": "32.06 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "turbidity": 6
+    },
+    "look": {
+      "rgb": [
+        0.97,
+        0.94,
+        0.72
+      ],
+      "description": "pale yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Sulfur thrown out of solution as particles too fine to settle: a pale yellow cloud that hides a cross drawn under the flask (turbidity calibrated to that).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:sulfur-dioxide",
+    "identity": {
+      "name": "Sulfur dioxide (dissolved)",
+      "class": "small-molecule",
+      "formula": "SO2"
+    },
+    "physical": {
+      "molarMass": "64.07 g/mol",
+      "phase": "gas"
+    },
+    "acidBase": {
+      "pKa": [
+        1.86,
+        7.2
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "ghs": [
+        "H331",
+        "H314"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Sulfurous acid pKa 1.86 and 7.2"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:sodium-tetrathionate",
+    "identity": {
+      "name": "Sodium tetrathionate",
+      "class": "salt",
+      "formula": "Na2S4O6"
+    },
+    "physical": {
+      "molarMass": "270.24 g/mol",
+      "phase": "solid"
+    },
+    "redox": {
+      "couple": "S4O6/S2O3",
+      "electrons": 2,
+      "e0": 0.08,
+      "reducedPer": 2,
+      "form": "oxidised",
+      "partner": "chem:sodium-thiosulfate"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "chem:potassium-persulfate",
+    "identity": {
+      "name": "Potassium peroxodisulfate (persulfate)",
+      "class": "salt",
+      "formula": "K2S2O8"
+    },
+    "physical": {
+      "molarMass": "270.32 g/mol",
+      "phase": "solid"
+    },
+    "hazard": {
+      "ghs": [
+        "H272",
+        "H302",
+        "H315",
+        "H317",
+        "H319",
+        "H334",
+        "H335"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A strong but slow oxidising agent: it oxidises iodide to iodine at a measurable rate (kinetics model chem:persulfate-iodide), not instantly.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:potassium-sulfate",
+    "identity": {
+      "name": "Potassium sulfate",
+      "class": "salt",
+      "formula": "K2SO4"
+    },
+    "physical": {
+      "molarMass": "174.26 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "chem:sodium-hypochlorite",
+    "identity": {
+      "name": "Sodium hypochlorite (bleach)",
+      "class": "salt",
+      "formula": "NaOCl"
+    },
+    "physical": {
+      "molarMass": "74.44 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        7.53
+      ],
+      "charge": 0,
+      "spectator": 1
+    },
+    "redox": {
+      "couple": "ClO/Cl",
+      "electrons": 2,
+      "e0": 1.49,
+      "protons": 2,
+      "form": "oxidised",
+      "partner": "chem:hypochlorite-chloride"
+    },
+    "hazard": {
+      "ghs": [
+        "H314",
+        "H400"
+      ],
+      "wasteStream": "core:aqueous-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "HOCl + H⁺ + 2e⁻ → Cl⁻ + H₂O, E° = 1.49 V; HOCl pKa 7.53. Supplied as the sodium salt (OCl⁻), so in acid it is HOCl and two protons go with the two electrons"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:hypochlorite-chloride",
+    "identity": {
+      "name": "Chloride (from reduced hypochlorite)",
+      "class": "salt",
+      "formula": "NaCl"
+    },
+    "physical": {
+      "molarMass": "58.44 g/mol",
+      "phase": "solid"
+    },
+    "redox": {
+      "couple": "ClO/Cl",
+      "electrons": 2,
+      "e0": 1.49,
+      "protons": 2,
+      "form": "reduced",
+      "partner": "chem:sodium-hypochlorite"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The chloride a hypochlorite leaves when it oxidises something: kept apart from other chloride so that only this couple holds it.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:cyclohexene",
+    "identity": {
+      "name": "Cyclohexene",
+      "class": "solvent",
+      "formula": "C6H10"
+    },
+    "physical": {
+      "molarMass": "82.14 g/mol",
+      "density": "811 g/L",
+      "phase": "liquid",
+      "logP": 2.86,
+      "immiscible": {
+        "inWater": "0.2 g/L",
+        "holdsWater": "0.1 g/L"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An alkene: its C=C double bond adds bromine.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:cyclohexane",
+    "identity": {
+      "name": "Cyclohexane",
+      "class": "solvent",
+      "formula": "C6H12"
+    },
+    "physical": {
+      "molarMass": "84.16 g/mol",
+      "density": "779 g/L",
+      "phase": "liquid",
+      "logP": 3.44,
+      "immiscible": {
+        "inWater": "0.06 g/L",
+        "holdsWater": "0.1 g/L"
+      },
+      "boilingPoint": "80.7 Cel",
+      "enthalpyOfVaporisation": "31.5 kJ/mol"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An alkane: saturated, it does not react with bromine in the dark.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:dibromocyclohexane",
+    "identity": {
+      "name": "1,2-Dibromocyclohexane",
+      "class": "small-molecule",
+      "formula": "C6H10Br2"
+    },
+    "physical": {
+      "molarMass": "241.95 g/mol",
+      "phase": "liquid",
+      "logP": 3.6
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "What bromine adds to cyclohexene to give: colourless.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:bromine",
+    "identity": {
+      "name": "Bromine (in water)",
+      "class": "small-molecule",
+      "formula": "Br2"
+    },
+    "physical": {
+      "molarMass": "159.81 g/mol",
+      "phase": "liquid",
+      "logP": 1.03
+    },
+    "optics": {
+      "epsilon": [
+        [
+          350,
+          120
+        ],
+        [
+          390,
+          170
+        ],
+        [
+          420,
+          140
+        ],
+        [
+          450,
+          90
+        ],
+        [
+          500,
+          30
+        ],
+        [
+          550,
+          5
+        ],
+        [
+          600,
+          0
+        ]
+      ],
+      "colour": "orange"
+    },
+    "hazard": {
+      "ghs": [
+        "H314",
+        "H330",
+        "H400"
+      ],
+      "wasteStream": "core:chemical-waste.halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Bromine water is orange-yellow (Br₂ absorbs near 390 nm, ε about 170); it dissolves better in organic liquids, which it colours orange.",
+      "review": "pending"
+    },
+    "anodic": {
+      "from": "aq:bromide",
+      "count": 2,
+      "electrons": 2,
+      "e0": 1.087
+    }
+  },
+  {
+    "id": "chem:propan-2-ol",
+    "identity": {
+      "name": "Propan-2-ol",
+      "class": "small-molecule",
+      "formula": "C3H8O"
+    },
+    "physical": {
+      "molarMass": "60.10 g/mol",
+      "phase": "liquid",
+      "density": "786 g/L",
+      "logP": 0.05
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A secondary alcohol: oxidised to propanone.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:2-methylpropan-2-ol",
+    "identity": {
+      "name": "2-Methylpropan-2-ol",
+      "class": "small-molecule",
+      "formula": "C4H10O"
+    },
+    "physical": {
+      "molarMass": "74.12 g/mol",
+      "phase": "liquid",
+      "density": "775 g/L",
+      "logP": 0.35
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A tertiary alcohol: no hydrogen on the carbon carrying the OH, so acidified dichromate does not oxidise it.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:methanol",
+    "identity": {
+      "name": "Methanol",
+      "class": "small-molecule",
+      "formula": "CH4O"
+    },
+    "physical": {
+      "molarMass": "32.04 g/mol",
+      "phase": "liquid",
+      "density": "792 g/L",
+      "logP": -0.77,
+      "boilingPoint": "64.7 Cel",
+      "enthalpyOfVaporisation": "36.5 kJ/mol"
+    },
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H301",
+        "H311",
+        "H331",
+        "H370"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A primary alcohol with no CH₃–C: it gives no iodoform.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:ethanal",
+    "identity": {
+      "name": "Ethanal (acetaldehyde)",
+      "class": "small-molecule",
+      "formula": "C2H4O"
+    },
+    "physical": {
+      "molarMass": "44.05 g/mol",
+      "phase": "liquid",
+      "logP": -0.22
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An aldehyde: easily oxidised, so it reduces Tollens’ and Fehling’s reagents.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:propanone",
+    "identity": {
+      "name": "Propanone (acetone)",
+      "class": "small-molecule",
+      "formula": "C3H6O"
+    },
+    "physical": {
+      "molarMass": "58.08 g/mol",
+      "phase": "liquid",
+      "density": "784 g/L",
+      "logP": -0.24,
+      "boilingPoint": "56.1 Cel",
+      "enthalpyOfVaporisation": "30.5 kJ/mol"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A ketone: not oxidised by Tollens’ or Fehling’s; with its CH₃CO– group it gives iodoform.",
+      "review": "pending"
+    },
+    "eluotropic": 0.53
+  },
+  {
+    "id": "chem:ethanoate-product",
+    "identity": {
+      "name": "Ethanoic acid / ethanoate (from oxidation)",
+      "class": "small-molecule",
+      "formula": "C2H4O2"
+    },
+    "physical": {
+      "molarMass": "60.05 g/mol",
+      "phase": "liquid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "What an aldehyde is oxidised to.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:phenol",
+    "identity": {
+      "name": "Phenol",
+      "class": "small-molecule",
+      "formula": "C6H6O"
+    },
+    "physical": {
+      "molarMass": "94.11 g/mol",
+      "phase": "solid",
+      "logP": 1.46
+    },
+    "acidBase": {
+      "pKa": [
+        9.95
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "hazard": {
+      "ghs": [
+        "H301",
+        "H311",
+        "H314",
+        "H331",
+        "H341",
+        "H373"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Its OH on a benzene ring complexes iron(III) with a violet colour.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:iron-phenolate-complex",
+    "identity": {
+      "name": "Iron(III)–phenolate complex",
+      "class": "small-molecule",
+      "formula": "Fe(OC6H5)n"
+    },
+    "physical": {
+      "molarMass": "400 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          420,
+          150
+        ],
+        [
+          450,
+          250
+        ],
+        [
+          500,
+          800
+        ],
+        [
+          540,
+          1300
+        ],
+        [
+          560,
+          1400
+        ],
+        [
+          600,
+          900
+        ],
+        [
+          640,
+          250
+        ],
+        [
+          680,
+          40
+        ],
+        [
+          720,
+          10
+        ]
+      ],
+      "colour": "violet"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The violet complex of iron(III) with phenols (λmax near 560 nm).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:chromium-iii",
+    "identity": {
+      "name": "Chromium(III) (from reduced dichromate)",
+      "class": "small-molecule",
+      "formula": "Cr3+"
+    },
+    "physical": {
+      "molarMass": "52.00 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          14
+        ],
+        [
+          430,
+          18
+        ],
+        [
+          460,
+          10
+        ],
+        [
+          490,
+          3
+        ],
+        [
+          520,
+          2
+        ],
+        [
+          550,
+          5
+        ],
+        [
+          580,
+          12
+        ],
+        [
+          610,
+          18
+        ],
+        [
+          640,
+          15
+        ],
+        [
+          680,
+          7
+        ],
+        [
+          720,
+          3
+        ],
+        [
+          750,
+          2
+        ]
+      ],
+      "colour": "green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Cr(III) in sulfate solution, as [Cr(H₂O)₅SO₄]⁺ and the like: green, with bands near 430 and 610 nm and a window near 520 nm (the hexaaqua ion alone, bands at 408 and 575 nm, is violet).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:oxidised-alcohol",
+    "identity": {
+      "name": "Aldehyde or ketone (from an oxidised alcohol)",
+      "class": "small-molecule",
+      "formula": "R2CO"
+    },
+    "physical": {
+      "molarMass": "58 g/mol",
+      "phase": "liquid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "What acidified dichromate makes of a primary alcohol (an aldehyde) or a secondary one (a ketone).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:silver-mirror",
+    "identity": {
+      "name": "Silver (metal)",
+      "class": "salt",
+      "formula": "Ag"
+    },
+    "physical": {
+      "molarMass": "107.87 g/mol",
+      "density": "4000 g/L",
+      "phase": "solid",
+      "particleSize": "3 um"
+    },
+    "solubility": {
+      "maxConc": "1e-9 mol/L",
+      "precipitate": "fine"
+    },
+    "look": {
+      "rgb": [
+        0.5,
+        0.5,
+        0.53
+      ],
+      "description": "silver mirror on the glass"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Silver reduced from Tollens’ reagent: a mirror on clean glass, a grey-black precipitate otherwise.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:iodoform",
+    "identity": {
+      "name": "Triiodomethane (iodoform)",
+      "class": "salt",
+      "formula": "CHI3"
+    },
+    "physical": {
+      "molarMass": "393.73 g/mol",
+      "density": "4000 g/L",
+      "phase": "solid",
+      "particleSize": "3 um"
+    },
+    "solubility": {
+      "maxConc": "1e-9 mol/L",
+      "precipitate": "fine"
+    },
+    "look": {
+      "rgb": [
+        0.98,
+        0.86,
+        0.35
+      ],
+      "description": "pale yellow precipitate"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Pale yellow crystals with an antiseptic smell, from CH₃CO– compounds (and alcohols oxidised to them) with iodine in alkali.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:stearic-acid",
+    "identity": {
+      "name": "Stearic acid (octadecanoic acid)",
+      "class": "small-molecule",
+      "formula": "C18H36O2"
+    },
+    "physical": {
+      "molarMass": "284.48 g/mol",
+      "density": "847 g/L",
+      "phase": "solid",
+      "meltingPoint": "69.3 Cel",
+      "enthalpyOfFusion": "61.2 kJ/mol",
+      "specificHeat": 2.3,
+      "logP": 8.2
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Melting point 69.3 °C, enthalpy of fusion 61.2 kJ/mol, heat capacity of the melt about 2.3 J g⁻¹ K⁻¹"
+      ],
+      "notes": "A waxy fatty acid: molten above 69 °C, it freezes at a steady temperature as it cools (a cooling curve with a plateau).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:oleic-acid",
+    "identity": {
+      "name": "Oleic acid",
+      "class": "small-molecule",
+      "formula": "C18H34O2",
+      "synonyms": [
+        "cis-octadec-9-enoic acid"
+      ]
+    },
+    "physical": {
+      "molarMass": "282.46 g/mol",
+      "density": "895 g/L",
+      "phase": "liquid",
+      "logP": 7.6
+    },
+    "monolayer": {
+      "areaNm2": 0.48
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A fatty acid whose polar head sticks into water while its tail stands up: on a water surface it spreads into a film one molecule thick, each molecule taking about 0.48 nm². Its molecule is about 1.1 nm long.",
+      "review": "pending"
+    }
+  }
+]

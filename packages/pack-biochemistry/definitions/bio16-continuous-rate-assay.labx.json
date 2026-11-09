@@ -1,0 +1,516 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio16-continuous-rate-assay",
+  "version": "1.0.0",
+  "title": "Rates from a continuous assay: replicates and substrate concentration",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:make-up-to-mark"
+      },
+      {
+        "operation": "core:measure"
+      },
+      {
+        "operation": "core:transform"
+      }
+    ]
+  },
+  "summary": "Make a substrate solution from a stock and dilute it twice, start each reaction in the cuvette with alkaline phosphatase, follow the yellow product at 405 nm for four minutes, and take the initial rate from each trace. Four replicates at each of three concentrations give a mean and a spread, and show how the rate depends on the substrate.",
+  "briefing": "Alkaline phosphatase turns colourless p-nitrophenyl phosphate into yellow p-nitrophenolate, so the absorbance at 405 nm rises as the reaction runs. The slope of the early, straight part of the trace is the initial rate (ΔA per minute). Calculate the stock volume yourself: C₁V₁ = C₂V₂. Cover each cuvette with a square of Parafilm before you invert it, and start the trace as soon as it is mixed.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "bioscience",
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "initial-rate",
+        "label": "Initial rates from a continuous assay"
+      },
+      {
+        "id": "replicates",
+        "label": "Replicates: mean and standard deviation"
+      },
+      {
+        "id": "saturation",
+        "label": "Substrate saturation"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-dilute",
+        "kind": "skill",
+        "statement": "Make a solution from a stock in a volumetric flask, then dilute it with a measuring cylinder",
+        "skills": [
+          "core:make-up-to-volume"
+        ]
+      },
+      {
+        "id": "o-rates",
+        "kind": "analysis",
+        "statement": "Find initial rates from absorbance traces, and their mean and standard deviation",
+        "goal": "g-rates"
+      },
+      {
+        "id": "o-reason",
+        "kind": "reasoning",
+        "statement": "Explain how the rate depends on the substrate concentration",
+        "goal": "g-saturation"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "npp",
+        "label": "p-Nitrophenyl phosphate, 40 mM",
+        "contains": [
+          {
+            "substance": "bio:pnpp",
+            "conc": "40 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "2 mL",
+        "container": "core:microtube-2ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "ap",
+        "label": "Alkaline phosphatase, 12 µg/mL",
+        "contains": [
+          {
+            "substance": "bio:alkaline-phosphatase",
+            "conc": "12 mg/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "0.5 mL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "buffer",
+        "label": "Tris-HCl, 100 mM, pH 9.0",
+        "preparation": "core:tris-100mm-ph9.0",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "make",
+        "kind": "group",
+        "title": "50 mL of 0.8 mM substrate",
+        "objectives": [
+          "o-dilute"
+        ],
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-50ml",
+              "id": "flask",
+              "label": "0.8 mM substrate (flask)"
+            }
+          },
+          {
+            "id": "stock-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "npp",
+              "destination": "flask",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "make-up",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "flask",
+              "solvent": "buffer"
+            }
+          },
+          {
+            "id": "stopper",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "flask"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "flask",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "unstopper",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "flask"
+            }
+          },
+          {
+            "id": "conical",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "s08",
+              "label": "0.8 mM substrate"
+            }
+          },
+          {
+            "id": "pour",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "flask",
+              "destination": "s08",
+              "all": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "dilute",
+        "kind": "group",
+        "title": "0.4 mM and 0.2 mM by dilution",
+        "objectives": [
+          "o-dilute"
+        ],
+        "forEach": {
+          "var": "d",
+          "in": "=[['s04', '0.4 mM substrate', 'cyl-a', '8 mL', '8 mL'], ['s02', '0.2 mM substrate', 'cyl-b', '4 mL', '12 mL']]"
+        },
+        "steps": [
+          {
+            "id": "d-cylinder",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:measuring-cylinder-25ml",
+              "id": "=d[2]",
+              "label": "Measuring cylinder"
+            }
+          },
+          {
+            "id": "d-substrate",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "s08",
+              "destination": "=d[2]",
+              "volume": "=d[3]",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "d-buffer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "=d[2]",
+              "volume": "=d[4]",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "d-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "=d[0]",
+              "label": "=d[1]"
+            }
+          },
+          {
+            "id": "d-pour",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=d[2]",
+              "destination": "=d[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "d-swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=d[0]",
+              "method": "swirl",
+              "cycles": 5
+            }
+          }
+        ]
+      },
+      {
+        "id": "blank-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-macro-1cm",
+          "id": "c-blank",
+          "label": "Buffer blank"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "buffer",
+          "destination": "c-blank",
+          "volume": "2.5 mL"
+        }
+      },
+      {
+        "id": "zero",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-blank",
+          "wavelength": "405 nm"
+        }
+      },
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Four runs at each concentration",
+        "objectives": [
+          "o-rates"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['s08', '0.8', 1], ['s08', '0.8', 2], ['s08', '0.8', 3], ['s08', '0.8', 4], ['s04', '0.4', 1], ['s04', '0.4', 2], ['s04', '0.4', 3], ['s04', '0.4', 4], ['s02', '0.2', 1], ['s02', '0.2', 2], ['s02', '0.2', 3], ['s02', '0.2', 4]]"
+        },
+        "let": {
+          "cuvette": "='c-' + x[0] + '-' + text(x[2])"
+        },
+        "steps": [
+          {
+            "id": "cuvette",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "=cuvette"
+            }
+          },
+          {
+            "id": "substrate",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=cuvette",
+              "volume": "2.5 mL"
+            }
+          },
+          {
+            "id": "enzyme",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ap",
+              "destination": "=cuvette",
+              "volume": "25 uL"
+            }
+          },
+          {
+            "id": "cover",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=cuvette",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=cuvette",
+              "method": "invert",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "uncover",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=cuvette"
+            }
+          },
+          {
+            "id": "trace",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=cuvette",
+              "wavelength": "405 nm",
+              "mode": "kinetic",
+              "interval": "10 s",
+              "duration": "4 min"
+            }
+          },
+          {
+            "id": "rate",
+            "kind": "data",
+            "ref": "core:transform",
+            "params": {
+              "op": "initial-rate",
+              "input": "=trace.out.record",
+              "window": "3 min"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + x[1]",
+              "value": "=rate.out.values[cuvette]"
+            }
+          }
+        ]
+      },
+      {
+        "id": "summary",
+        "kind": "group",
+        "title": "Mean and standard deviation",
+        "objectives": [
+          "o-rates"
+        ],
+        "forEach": {
+          "var": "c",
+          "in": "=['0.8', '0.4', '0.2']"
+        },
+        "steps": [
+          {
+            "id": "mean",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='mean-' + c",
+              "value": "=mean(recorded('rate-' + c))"
+            }
+          },
+          {
+            "id": "sd",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='sd-' + c",
+              "value": "=sd(recorded('rate-' + c))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Doubling the substrate from 0.4 to 0.8 mM: what happened to the rate, and why?",
+        "options": [
+          {
+            "id": "proportional",
+            "label": "It doubled: the rate is proportional to the substrate concentration"
+          },
+          {
+            "id": "saturation",
+            "label": "It rose, but by less than double: the enzyme is approaching saturation"
+          },
+          {
+            "id": "fell",
+            "label": "It fell: too much substrate inhibits the enzyme"
+          }
+        ],
+        "correctWhen": "if(first(recorded('mean-0.8')) < first(recorded('mean-0.4')), 'fell', if(first(recorded('mean-0.8')) < 1.8 * first(recorded('mean-0.4')), 'saturation', 'proportional'))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-rates",
+        "statement": "The mean rate rises with the substrate concentration",
+        "check": "first(recorded('mean-0.8')) > first(recorded('mean-0.4')) && first(recorded('mean-0.4')) > first(recorded('mean-0.2'))"
+      },
+      {
+        "id": "g-saturation",
+        "statement": "The rate is recognised as rising less than in proportion to the substrate",
+        "check": "decision('why') == 'saturation'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-less-than-double",
+        "statement": "Doubling the substrate raises the rate by about a third to a half, not twofold",
+        "check": "first(recorded('mean-0.8')) < 1.7 * first(recorded('mean-0.4')) && first(recorded('mean-0.8')) > 1.15 * first(recorded('mean-0.4'))",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-replicates",
+        "statement": "Replicate rates agree within about 15 % (coefficient of variation)",
+        "check": "all(c in ['0.8', '0.4', '0.2']: first(recorded('sd-' + c)) < 0.15 * first(recorded('mean-' + c)))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

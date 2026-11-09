@@ -1,0 +1,1475 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem15-hammett-ester-hydrolysis",
+  "version": "1.0.0",
+  "title": "Substituent effects on ester hydrolysis: a Hammett plot from pseudo-first-order kinetics",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      },
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "Follow the hydrolysis of four 4-nitrophenyl benzoates (X = H, 4-Me, 4-Cl, 3-CF3) by the yellow 4-nitrophenolate they release at 405 nm, fit each trace for kobs, get the second-order rate constant from kobs against [OH⁻], and from a Hammett plot find ρ and what it says about the mechanism.",
+  "briefing": "With hydroxide in large excess the hydrolysis is pseudo-first order: A = b − c·e^(−kobs·t), and kobs = k[OH⁻]. Each run is 2.5 mL of 30 µM ester stock and 0.5 mL of NaOH, so [OH⁻] in the cuvette is a sixth of the solution's. Hammett σ: H 0, 4-Me −0.17, 4-Cl 0.23, 3-CF3 0.43; plot log(k/kH) against σ, slope ρ. Slower esters get stronger base so each run changes within four minutes.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "chemistry",
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "pseudo-first-order",
+        "label": "Pseudo-first-order kinetics"
+      },
+      {
+        "id": "hammett",
+        "label": "Linear free-energy relationships (Hammett)"
+      },
+      {
+        "id": "tetrahedral",
+        "label": "Hydroxide attack on an ester carbonyl"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-runs",
+        "kind": "skill",
+        "statement": "Make stocks and base series and record kinetic runs at 405 nm",
+        "skills": [
+          "core:make-up-to-volume",
+          "core:spectrophotometer-read"
+        ]
+      },
+      {
+        "id": "o-hammett",
+        "kind": "analysis",
+        "statement": "Fit kobs, then k, then ρ; interpret its sign",
+        "goal": "g-hammett"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "e-h",
+        "label": "4-Nitrophenyl benzoate",
+        "contains": [
+          {
+            "substance": "chem:4-nitrophenyl-benzoate",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "500 mg",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "e-me",
+        "label": "4-Nitrophenyl 4-methylbenzoate",
+        "contains": [
+          {
+            "substance": "chem:4-nitrophenyl-4-methyl-benzoate",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "500 mg",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "e-cl",
+        "label": "4-Nitrophenyl 4-chlorobenzoate",
+        "contains": [
+          {
+            "substance": "chem:4-nitrophenyl-4-chloro-benzoate",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "500 mg",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "e-cf3",
+        "label": "4-Nitrophenyl 3-(trifluoromethyl)benzoate",
+        "contains": [
+          {
+            "substance": "chem:4-nitrophenyl-3-trifluoromethyl-benzoate",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "500 mg",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "acetone",
+        "label": "Acetone",
+        "contains": [
+          {
+            "substance": "micro:acetone",
+            "conc": "13.5 M"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "aq-acetone",
+        "label": "50:50 acetone/water",
+        "preparation": "chem:acetone-water-50",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "naoh",
+        "label": "NaOH, 0.1 M",
+        "contains": [
+          {
+            "substance": "core:sodium-hydroxide",
+            "conc": "0.1 M"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "bases",
+        "kind": "group",
+        "title": "NaOH solutions from the 0.1 M stock (20 mL each)",
+        "steps": [
+          {
+            "id": "vf",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-25ml",
+              "id": "='naoh-' + text(x[0])",
+              "label": "='NaOH, ' + text(x[1]) + ' M'"
+            }
+          },
+          {
+            "id": "stock-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "naoh",
+              "destination": "='naoh-' + text(x[0])",
+              "volume": "=text(x[1] * 250) + ' mL'"
+            }
+          },
+          {
+            "id": "makeup",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "='naoh-' + text(x[0])",
+              "solvent": "water"
+            }
+          },
+          {
+            "id": "close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='naoh-' + text(x[0])"
+            }
+          },
+          {
+            "id": "inv",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='naoh-' + text(x[0])",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='naoh-' + text(x[0])"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[[0, 0.002], [1, 0.004], [2, 0.005], [3, 0.008], [4, 0.01], [5, 0.012], [6, 0.015], [7, 0.02], [8, 0.03], [9, 0.04], [10, 0.045], [11, 0.06]]"
+        },
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "stock-h",
+        "kind": "group",
+        "title": "0.15 mmol in 100 mL of acetone, then 0.5 mL to 25 mL with 50:50 acetone/water (30 µM)",
+        "steps": [
+          {
+            "id": "vf100-h",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-100ml",
+              "id": "conc-h",
+              "label": "Ester in acetone"
+            }
+          },
+          {
+            "id": "in-h",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "e-h",
+              "destination": "conc-h",
+              "mass": "36.5 mg"
+            }
+          },
+          {
+            "id": "mk-h",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "conc-h",
+              "solvent": "acetone"
+            }
+          },
+          {
+            "id": "cl1-h",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "conc-h"
+            }
+          },
+          {
+            "id": "mx1-h",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "conc-h",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "op1-h",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "conc-h"
+            }
+          },
+          {
+            "id": "vf25-h",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-25ml",
+              "id": "stock-h",
+              "label": "Ester stock, 30 µM"
+            }
+          },
+          {
+            "id": "al-h",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "conc-h",
+              "destination": "stock-h",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "dl-h",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "stock-h",
+              "solvent": "aq-acetone"
+            }
+          },
+          {
+            "id": "cl2-h",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "stock-h"
+            }
+          },
+          {
+            "id": "mx2-h",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "stock-h",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "op2-h",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "stock-h"
+            }
+          },
+          {
+            "id": "bl-h",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "bl-h",
+              "label": "Baseline"
+            }
+          },
+          {
+            "id": "blf-h",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock-h",
+              "destination": "bl-h",
+              "volume": "3 mL"
+            }
+          }
+        ],
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "runs-h",
+        "kind": "group",
+        "title": "Four runs: zero on the stock, 2.5 mL of stock and 0.5 mL of NaOH, read at 405 nm for 4 min and fitted",
+        "steps": [
+          {
+            "id": "zero-h",
+            "kind": "operation",
+            "ref": "core:calibrate",
+            "params": {
+              "instrument": "spec",
+              "mode": "blank",
+              "reference": "bl-h",
+              "wavelength": "405 nm"
+            }
+          },
+          {
+            "id": "cuv-h",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "='run-h-' + text(x[0])",
+              "label": "Run"
+            }
+          },
+          {
+            "id": "es-h",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock-h",
+              "destination": "='run-h-' + text(x[0])",
+              "volume": "2.5 mL"
+            }
+          },
+          {
+            "id": "ba-h",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='naoh-' + text(x[0])",
+              "destination": "='run-h-' + text(x[0])",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "cv-h",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='run-h-' + text(x[0])",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "mx-h",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='run-h-' + text(x[0])",
+              "method": "invert",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "uc-h",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='run-h-' + text(x[0])"
+            }
+          },
+          {
+            "id": "rd-h",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "='run-h-' + text(x[0])",
+              "wavelength": "405 nm",
+              "mode": "kinetic",
+              "interval": "3 s",
+              "duration": "4 min"
+            }
+          },
+          {
+            "id": "ft-h",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "model": "first-order",
+              "x": "=trace(rd-h).t",
+              "y": "=trace(rd-h).a"
+            }
+          },
+          {
+            "id": "ko-h",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "kobs-h",
+              "value": "=ft-h.out.fit.params.k"
+            }
+          },
+          {
+            "id": "oh-h",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "oh-h",
+              "value": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[[11, 0.01], [9, 0.006667], [7, 0.003333], [4, 0.001667]]"
+        },
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "k2-h",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-hammett"
+        ],
+        "params": {
+          "model": "linear-through-origin",
+          "x": "=recorded('oh-h')",
+          "y": "=recorded('kobs-h')"
+        }
+      },
+      {
+        "id": "k2n-h",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "k2-h",
+          "value": "=k2-h.out.fit.params.slope"
+        }
+      },
+      {
+        "id": "stock-me",
+        "kind": "group",
+        "title": "0.15 mmol in 100 mL of acetone, then 0.5 mL to 25 mL with 50:50 acetone/water (30 µM)",
+        "steps": [
+          {
+            "id": "vf100-me",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-100ml",
+              "id": "conc-me",
+              "label": "Ester in acetone"
+            }
+          },
+          {
+            "id": "in-me",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "e-me",
+              "destination": "conc-me",
+              "mass": "38.6 mg"
+            }
+          },
+          {
+            "id": "mk-me",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "conc-me",
+              "solvent": "acetone"
+            }
+          },
+          {
+            "id": "cl1-me",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "conc-me"
+            }
+          },
+          {
+            "id": "mx1-me",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "conc-me",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "op1-me",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "conc-me"
+            }
+          },
+          {
+            "id": "vf25-me",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-25ml",
+              "id": "stock-me",
+              "label": "Ester stock, 30 µM"
+            }
+          },
+          {
+            "id": "al-me",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "conc-me",
+              "destination": "stock-me",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "dl-me",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "stock-me",
+              "solvent": "aq-acetone"
+            }
+          },
+          {
+            "id": "cl2-me",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "stock-me"
+            }
+          },
+          {
+            "id": "mx2-me",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "stock-me",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "op2-me",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "stock-me"
+            }
+          },
+          {
+            "id": "bl-me",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "bl-me",
+              "label": "Baseline"
+            }
+          },
+          {
+            "id": "blf-me",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock-me",
+              "destination": "bl-me",
+              "volume": "3 mL"
+            }
+          }
+        ],
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "runs-me",
+        "kind": "group",
+        "title": "Four runs: zero on the stock, 2.5 mL of stock and 0.5 mL of NaOH, read at 405 nm for 4 min and fitted",
+        "steps": [
+          {
+            "id": "zero-me",
+            "kind": "operation",
+            "ref": "core:calibrate",
+            "params": {
+              "instrument": "spec",
+              "mode": "blank",
+              "reference": "bl-me",
+              "wavelength": "405 nm"
+            }
+          },
+          {
+            "id": "cuv-me",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "='run-me-' + text(x[0])",
+              "label": "Run"
+            }
+          },
+          {
+            "id": "es-me",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock-me",
+              "destination": "='run-me-' + text(x[0])",
+              "volume": "2.5 mL"
+            }
+          },
+          {
+            "id": "ba-me",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='naoh-' + text(x[0])",
+              "destination": "='run-me-' + text(x[0])",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "cv-me",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='run-me-' + text(x[0])",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "mx-me",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='run-me-' + text(x[0])",
+              "method": "invert",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "uc-me",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='run-me-' + text(x[0])"
+            }
+          },
+          {
+            "id": "rd-me",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "='run-me-' + text(x[0])",
+              "wavelength": "405 nm",
+              "mode": "kinetic",
+              "interval": "3 s",
+              "duration": "4 min"
+            }
+          },
+          {
+            "id": "ft-me",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "model": "first-order",
+              "x": "=trace(rd-me).t",
+              "y": "=trace(rd-me).a"
+            }
+          },
+          {
+            "id": "ko-me",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "kobs-me",
+              "value": "=ft-me.out.fit.params.k"
+            }
+          },
+          {
+            "id": "oh-me",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "oh-me",
+              "value": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[[11, 0.01], [10, 0.0075], [8, 0.005], [6, 0.0025]]"
+        },
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "k2-me",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-hammett"
+        ],
+        "params": {
+          "model": "linear-through-origin",
+          "x": "=recorded('oh-me')",
+          "y": "=recorded('kobs-me')"
+        }
+      },
+      {
+        "id": "k2n-me",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "k2-me",
+          "value": "=k2-me.out.fit.params.slope"
+        }
+      },
+      {
+        "id": "stock-cl",
+        "kind": "group",
+        "title": "0.15 mmol in 100 mL of acetone, then 0.5 mL to 25 mL with 50:50 acetone/water (30 µM)",
+        "steps": [
+          {
+            "id": "vf100-cl",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-100ml",
+              "id": "conc-cl",
+              "label": "Ester in acetone"
+            }
+          },
+          {
+            "id": "in-cl",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "e-cl",
+              "destination": "conc-cl",
+              "mass": "41.6 mg"
+            }
+          },
+          {
+            "id": "mk-cl",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "conc-cl",
+              "solvent": "acetone"
+            }
+          },
+          {
+            "id": "cl1-cl",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "conc-cl"
+            }
+          },
+          {
+            "id": "mx1-cl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "conc-cl",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "op1-cl",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "conc-cl"
+            }
+          },
+          {
+            "id": "vf25-cl",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-25ml",
+              "id": "stock-cl",
+              "label": "Ester stock, 30 µM"
+            }
+          },
+          {
+            "id": "al-cl",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "conc-cl",
+              "destination": "stock-cl",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "dl-cl",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "stock-cl",
+              "solvent": "aq-acetone"
+            }
+          },
+          {
+            "id": "cl2-cl",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "stock-cl"
+            }
+          },
+          {
+            "id": "mx2-cl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "stock-cl",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "op2-cl",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "stock-cl"
+            }
+          },
+          {
+            "id": "bl-cl",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "bl-cl",
+              "label": "Baseline"
+            }
+          },
+          {
+            "id": "blf-cl",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock-cl",
+              "destination": "bl-cl",
+              "volume": "3 mL"
+            }
+          }
+        ],
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "runs-cl",
+        "kind": "group",
+        "title": "Four runs: zero on the stock, 2.5 mL of stock and 0.5 mL of NaOH, read at 405 nm for 4 min and fitted",
+        "steps": [
+          {
+            "id": "zero-cl",
+            "kind": "operation",
+            "ref": "core:calibrate",
+            "params": {
+              "instrument": "spec",
+              "mode": "blank",
+              "reference": "bl-cl",
+              "wavelength": "405 nm"
+            }
+          },
+          {
+            "id": "cuv-cl",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "='run-cl-' + text(x[0])",
+              "label": "Run"
+            }
+          },
+          {
+            "id": "es-cl",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock-cl",
+              "destination": "='run-cl-' + text(x[0])",
+              "volume": "2.5 mL"
+            }
+          },
+          {
+            "id": "ba-cl",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='naoh-' + text(x[0])",
+              "destination": "='run-cl-' + text(x[0])",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "cv-cl",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='run-cl-' + text(x[0])",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "mx-cl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='run-cl-' + text(x[0])",
+              "method": "invert",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "uc-cl",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='run-cl-' + text(x[0])"
+            }
+          },
+          {
+            "id": "rd-cl",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "='run-cl-' + text(x[0])",
+              "wavelength": "405 nm",
+              "mode": "kinetic",
+              "interval": "3 s",
+              "duration": "4 min"
+            }
+          },
+          {
+            "id": "ft-cl",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "model": "first-order",
+              "x": "=trace(rd-cl).t",
+              "y": "=trace(rd-cl).a"
+            }
+          },
+          {
+            "id": "ko-cl",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "kobs-cl",
+              "value": "=ft-cl.out.fit.params.k"
+            }
+          },
+          {
+            "id": "oh-cl",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "oh-cl",
+              "value": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[[8, 0.005], [7, 0.003333], [4, 0.001667], [2, 0.000833]]"
+        },
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "k2-cl",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-hammett"
+        ],
+        "params": {
+          "model": "linear-through-origin",
+          "x": "=recorded('oh-cl')",
+          "y": "=recorded('kobs-cl')"
+        }
+      },
+      {
+        "id": "k2n-cl",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "k2-cl",
+          "value": "=k2-cl.out.fit.params.slope"
+        }
+      },
+      {
+        "id": "stock-cf3",
+        "kind": "group",
+        "title": "0.15 mmol in 100 mL of acetone, then 0.5 mL to 25 mL with 50:50 acetone/water (30 µM)",
+        "steps": [
+          {
+            "id": "vf100-cf3",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-100ml",
+              "id": "conc-cf3",
+              "label": "Ester in acetone"
+            }
+          },
+          {
+            "id": "in-cf3",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "e-cf3",
+              "destination": "conc-cf3",
+              "mass": "46.7 mg"
+            }
+          },
+          {
+            "id": "mk-cf3",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "conc-cf3",
+              "solvent": "acetone"
+            }
+          },
+          {
+            "id": "cl1-cf3",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "conc-cf3"
+            }
+          },
+          {
+            "id": "mx1-cf3",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "conc-cf3",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "op1-cf3",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "conc-cf3"
+            }
+          },
+          {
+            "id": "vf25-cf3",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-25ml",
+              "id": "stock-cf3",
+              "label": "Ester stock, 30 µM"
+            }
+          },
+          {
+            "id": "al-cf3",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "conc-cf3",
+              "destination": "stock-cf3",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "dl-cf3",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "stock-cf3",
+              "solvent": "aq-acetone"
+            }
+          },
+          {
+            "id": "cl2-cf3",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "stock-cf3"
+            }
+          },
+          {
+            "id": "mx2-cf3",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "stock-cf3",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "op2-cf3",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "stock-cf3"
+            }
+          },
+          {
+            "id": "bl-cf3",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "bl-cf3",
+              "label": "Baseline"
+            }
+          },
+          {
+            "id": "blf-cf3",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock-cf3",
+              "destination": "bl-cf3",
+              "volume": "3 mL"
+            }
+          }
+        ],
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "runs-cf3",
+        "kind": "group",
+        "title": "Four runs: zero on the stock, 2.5 mL of stock and 0.5 mL of NaOH, read at 405 nm for 4 min and fitted",
+        "steps": [
+          {
+            "id": "zero-cf3",
+            "kind": "operation",
+            "ref": "core:calibrate",
+            "params": {
+              "instrument": "spec",
+              "mode": "blank",
+              "reference": "bl-cf3",
+              "wavelength": "405 nm"
+            }
+          },
+          {
+            "id": "cuv-cf3",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "='run-cf3-' + text(x[0])",
+              "label": "Run"
+            }
+          },
+          {
+            "id": "es-cf3",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock-cf3",
+              "destination": "='run-cf3-' + text(x[0])",
+              "volume": "2.5 mL"
+            }
+          },
+          {
+            "id": "ba-cf3",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='naoh-' + text(x[0])",
+              "destination": "='run-cf3-' + text(x[0])",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "cv-cf3",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='run-cf3-' + text(x[0])",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "mx-cf3",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='run-cf3-' + text(x[0])",
+              "method": "invert",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "uc-cf3",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='run-cf3-' + text(x[0])"
+            }
+          },
+          {
+            "id": "rd-cf3",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "='run-cf3-' + text(x[0])",
+              "wavelength": "405 nm",
+              "mode": "kinetic",
+              "interval": "3 s",
+              "duration": "4 min"
+            }
+          },
+          {
+            "id": "ft-cf3",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "model": "first-order",
+              "x": "=trace(rd-cf3).t",
+              "y": "=trace(rd-cf3).a"
+            }
+          },
+          {
+            "id": "ko-cf3",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "kobs-cf3",
+              "value": "=ft-cf3.out.fit.params.k"
+            }
+          },
+          {
+            "id": "oh-cf3",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "oh-cf3",
+              "value": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[[5, 0.002], [3, 0.001333], [1, 0.000667], [0, 0.000333]]"
+        },
+        "objectives": [
+          "o-runs"
+        ]
+      },
+      {
+        "id": "k2-cf3",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-hammett"
+        ],
+        "params": {
+          "model": "linear-through-origin",
+          "x": "=recorded('oh-cf3')",
+          "y": "=recorded('kobs-cf3')"
+        }
+      },
+      {
+        "id": "k2n-cf3",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "k2-cf3",
+          "value": "=k2-cf3.out.fit.params.slope"
+        }
+      },
+      {
+        "id": "hammett",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-hammett"
+        ],
+        "params": {
+          "model": "linear",
+          "x": "=[0, -0.17, 0.23, 0.43]",
+          "y": "=[log10(first(recorded('k2-h')) / first(recorded('k2-h'))), log10(first(recorded('k2-me')) / first(recorded('k2-h'))), log10(first(recorded('k2-cl')) / first(recorded('k2-h'))), log10(first(recorded('k2-cf3')) / first(recorded('k2-h')))]"
+        }
+      },
+      {
+        "id": "rho",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "rho",
+          "value": "=hammett.out.fit.params.slope"
+        }
+      },
+      {
+        "id": "sign",
+        "kind": "decision",
+        "objectives": [
+          "o-hammett"
+        ],
+        "prompt": "What does the sign of ρ tell you about the rate-determining step?",
+        "options": [
+          {
+            "id": "negative-charge",
+            "label": "ρ > 0: negative charge builds up as hydroxide adds to the carbonyl, so electron-withdrawing groups stabilise the transition state"
+          },
+          {
+            "id": "positive-charge",
+            "label": "ρ < 0: positive charge builds up"
+          },
+          {
+            "id": "no-charge",
+            "label": "ρ ≈ 0: no charge develops"
+          }
+        ],
+        "correctWhen": "if(first(recorded('rho')) > 0.3, 'negative-charge', if(first(recorded('rho')) < -0.3, 'positive-charge', 'no-charge'))"
+      },
+      {
+        "id": "methyl",
+        "kind": "decision",
+        "objectives": [
+          "o-hammett"
+        ],
+        "prompt": "Why is the 4-methyl ester the slowest?",
+        "options": [
+          {
+            "id": "donates",
+            "label": "Methyl donates electrons, making the carbonyl carbon less electrophilic"
+          },
+          {
+            "id": "steric",
+            "label": "Methyl blocks the carbonyl sterically"
+          },
+          {
+            "id": "solubility",
+            "label": "It is less soluble"
+          }
+        ],
+        "correctWhen": "if(first(recorded('k2-me')) < first(recorded('k2-h')), 'donates', 'steric')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-hammett",
+        "statement": "ρ is found within 0.5 of 2 and its meaning read correctly",
+        "check": "between(first(recorded('rho')), 1.5, 2.5) && decision('sign') == 'negative-charge' && decision('methyl') == 'donates'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-order",
+        "statement": "The rate constants rank 3-CF3 > 4-Cl > H > 4-Me",
+        "check": "first(recorded('k2-cf3')) > first(recorded('k2-cl')) && first(recorded('k2-cl')) > first(recorded('k2-h')) && first(recorded('k2-h')) > first(recorded('k2-me'))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

@@ -1,0 +1,899 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio15-prophage-genes-from-data",
+  "version": "1.0.0",
+  "title": "A prophage gene from data: homology search and RNA-seq",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:test"
+      }
+    ]
+  },
+  "summary": "Decide from a BLASTp hit table and a prophage search whether a bacterium carries a Mu-like prophage with a Gam homologue, then from RNA-seq counts (rich against starvation medium, triplicates) whether that gene is transcribed and whether it belongs to the competence response.",
+  "briefing": "BLAST: a homologue needs a small E-value (below 10⁻⁵), more than about 25 % identity, and coverage of most of the query. RNA-seq: normalise to counts per million (library sizes differ), compare log2 fold changes, test with Welch's t-test on log values.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "molecular-biology",
+        "bioinformatics"
+      ]
+    },
+    "objectives": [
+      {
+        "id": "o-data",
+        "kind": "analysis",
+        "statement": "Analyse sequence-search and RNA-seq data",
+        "goal": "g-data"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed",
+    "steps": [
+      {
+        "id": "query",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "query",
+          "value": "phage Mu Gam"
+        }
+      },
+      {
+        "id": "hits",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "BLASTp-hits",
+          "value": [
+            {
+              "subject": "Prophage protein PP_3112",
+              "identity": 34.6,
+              "coverage": 91,
+              "evalue": 5e-18
+            },
+            {
+              "subject": "Recombinase RecT",
+              "identity": 21.3,
+              "coverage": 40,
+              "evalue": 0.3
+            },
+            {
+              "subject": "Hypothetical PP_0418",
+              "identity": 26.1,
+              "coverage": 22,
+              "evalue": 2.4
+            },
+            {
+              "subject": "Ku-like protein",
+              "identity": 18.9,
+              "coverage": 55,
+              "evalue": 0.05
+            }
+          ]
+        }
+      },
+      {
+        "id": "region",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "PHASTEST-region",
+          "value": {
+            "verdict": "intact",
+            "kb": 36.1,
+            "genes": [
+              "muA-like",
+              "muB-like",
+              "gam-like",
+              "tail",
+              "portal"
+            ]
+          }
+        }
+      },
+      {
+        "id": "homologues",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "homologues",
+          "value": "=map(filter(h in first(recorded('BLASTp-hits')): h.evalue < 1e-5 && h.identity > 25 && h.coverage > 70), it.subject)"
+        }
+      },
+      {
+        "id": "homologue",
+        "kind": "decision",
+        "prompt": "Does the genome encode a homologue of phage Mu Gam?",
+        "options": [
+          {
+            "id": "one",
+            "label": "Yes, one: a single hit with E below 10⁻⁵, more than 25 % identity over most of the query's length; the rest are chance matches"
+          },
+          {
+            "id": "none",
+            "label": "No homologue"
+          },
+          {
+            "id": "many",
+            "label": "Several homologues"
+          }
+        ],
+        "correctWhen": "if(len(first(recorded('homologues'))) == 1, 'one', if(len(first(recorded('homologues'))) == 0, 'none', 'many'))"
+      },
+      {
+        "id": "prophage-region",
+        "kind": "decision",
+        "prompt": "What does the prophage search say?",
+        "options": [
+          {
+            "id": "intact",
+            "label": "An intact Mu-like prophage region, its genes in the order of the phage's own map, the Gam homologue among them"
+          },
+          {
+            "id": "remnant",
+            "label": "Only a degraded remnant"
+          }
+        ],
+        "correctWhen": "if(first(recorded('PHASTEST-region')).verdict == 'intact' && first(recorded('PHASTEST-region')).kb > 30, 'intact', 'remnant')"
+      },
+      {
+        "id": "evalue",
+        "kind": "decision",
+        "prompt": "What does a BLAST E-value mean?",
+        "options": [
+          {
+            "id": "chance",
+            "label": "How many hits this good you would expect by chance in a database this size: the smaller, the less likely a chance match"
+          },
+          {
+            "id": "identity",
+            "label": "The percentage identity"
+          }
+        ],
+        "correctWhen": "'chance'"
+      },
+      {
+        "id": "libraries",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "samples",
+          "value": [
+            "t0-1",
+            "t0-2",
+            "t0-3",
+            "t30-1",
+            "t30-2",
+            "t30-3"
+          ]
+        }
+      },
+      {
+        "id": "matrix",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "counts",
+          "value": {
+            "comA": [
+              99,
+              115,
+              110,
+              4010,
+              5320,
+              5499
+            ],
+            "comE": [
+              133,
+              137,
+              153,
+              4957,
+              6931,
+              5424
+            ],
+            "pilA": [
+              45,
+              47,
+              70,
+              6181,
+              6018,
+              6610
+            ],
+            "rec2": [
+              65,
+              74,
+              98,
+              2271,
+              1797,
+              2632
+            ],
+            "dprA": [
+              114,
+              146,
+              156,
+              4178,
+              3913,
+              4696
+            ],
+            "sxy": [
+              245,
+              189,
+              266,
+              1491,
+              1768,
+              2097
+            ],
+            "gyrB": [
+              1734,
+              1988,
+              2444,
+              1714,
+              2150,
+              1928
+            ],
+            "rpoB": [
+              5751,
+              4790,
+              6998,
+              4748,
+              5465,
+              4827
+            ],
+            "infA": [
+              7714,
+              7368,
+              10921,
+              6734,
+              6584,
+              6225
+            ],
+            "muA-like": [
+              205,
+              215,
+              310,
+              181,
+              209,
+              221
+            ],
+            "muB-like": [
+              181,
+              195,
+              247,
+              181,
+              177,
+              203
+            ],
+            "gam-like": [
+              134,
+              161,
+              193,
+              128,
+              129,
+              135
+            ],
+            "(all other genes)": [
+              6245478,
+              6783437,
+              8599087,
+              6291476,
+              6498745,
+              6896427
+            ]
+          }
+        }
+      },
+      {
+        "id": "sizes",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "library-size",
+          "value": "=map(j in range(0, 5, 6): sum(g in ['comA', 'comE', 'pilA', 'rec2', 'dprA', 'sxy', 'gyrB', 'rpoB', 'infA', 'muA-like', 'muB-like', 'gam-like', '(all other genes)']: first(recorded('counts'))[g][j]))"
+        }
+      },
+      {
+        "id": "gene-coma",
+        "kind": "group",
+        "title": "comA: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-coma",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-comA",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['comA'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-coma",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-comA",
+              "value": "=ln(mean([first(recorded('CPM-comA'))[3], first(recorded('CPM-comA'))[4], first(recorded('CPM-comA'))[5]]) / mean([first(recorded('CPM-comA'))[0], first(recorded('CPM-comA'))[1], first(recorded('CPM-comA'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-coma",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-comA'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-comA'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-coma",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-comA",
+              "value": "=t-coma.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-come",
+        "kind": "group",
+        "title": "comE: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-come",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-comE",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['comE'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-come",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-comE",
+              "value": "=ln(mean([first(recorded('CPM-comE'))[3], first(recorded('CPM-comE'))[4], first(recorded('CPM-comE'))[5]]) / mean([first(recorded('CPM-comE'))[0], first(recorded('CPM-comE'))[1], first(recorded('CPM-comE'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-come",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-comE'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-comE'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-come",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-comE",
+              "value": "=t-come.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-pila",
+        "kind": "group",
+        "title": "pilA: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-pila",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-pilA",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['pilA'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-pila",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-pilA",
+              "value": "=ln(mean([first(recorded('CPM-pilA'))[3], first(recorded('CPM-pilA'))[4], first(recorded('CPM-pilA'))[5]]) / mean([first(recorded('CPM-pilA'))[0], first(recorded('CPM-pilA'))[1], first(recorded('CPM-pilA'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-pila",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-pilA'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-pilA'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-pila",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-pilA",
+              "value": "=t-pila.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-rec2",
+        "kind": "group",
+        "title": "rec2: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-rec2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-rec2",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['rec2'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-rec2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-rec2",
+              "value": "=ln(mean([first(recorded('CPM-rec2'))[3], first(recorded('CPM-rec2'))[4], first(recorded('CPM-rec2'))[5]]) / mean([first(recorded('CPM-rec2'))[0], first(recorded('CPM-rec2'))[1], first(recorded('CPM-rec2'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-rec2",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-rec2'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-rec2'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-rec2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-rec2",
+              "value": "=t-rec2.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-dpra",
+        "kind": "group",
+        "title": "dprA: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-dpra",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-dprA",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['dprA'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-dpra",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-dprA",
+              "value": "=ln(mean([first(recorded('CPM-dprA'))[3], first(recorded('CPM-dprA'))[4], first(recorded('CPM-dprA'))[5]]) / mean([first(recorded('CPM-dprA'))[0], first(recorded('CPM-dprA'))[1], first(recorded('CPM-dprA'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-dpra",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-dprA'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-dprA'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-dpra",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-dprA",
+              "value": "=t-dpra.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-sxy",
+        "kind": "group",
+        "title": "sxy: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-sxy",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-sxy",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['sxy'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-sxy",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-sxy",
+              "value": "=ln(mean([first(recorded('CPM-sxy'))[3], first(recorded('CPM-sxy'))[4], first(recorded('CPM-sxy'))[5]]) / mean([first(recorded('CPM-sxy'))[0], first(recorded('CPM-sxy'))[1], first(recorded('CPM-sxy'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-sxy",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-sxy'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-sxy'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-sxy",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-sxy",
+              "value": "=t-sxy.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-gyrb",
+        "kind": "group",
+        "title": "gyrB: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-gyrb",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-gyrB",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['gyrB'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-gyrb",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-gyrB",
+              "value": "=ln(mean([first(recorded('CPM-gyrB'))[3], first(recorded('CPM-gyrB'))[4], first(recorded('CPM-gyrB'))[5]]) / mean([first(recorded('CPM-gyrB'))[0], first(recorded('CPM-gyrB'))[1], first(recorded('CPM-gyrB'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-gyrb",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-gyrB'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-gyrB'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-gyrb",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-gyrB",
+              "value": "=t-gyrb.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-rpob",
+        "kind": "group",
+        "title": "rpoB: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-rpob",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-rpoB",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['rpoB'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-rpob",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-rpoB",
+              "value": "=ln(mean([first(recorded('CPM-rpoB'))[3], first(recorded('CPM-rpoB'))[4], first(recorded('CPM-rpoB'))[5]]) / mean([first(recorded('CPM-rpoB'))[0], first(recorded('CPM-rpoB'))[1], first(recorded('CPM-rpoB'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-rpob",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-rpoB'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-rpoB'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-rpob",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-rpoB",
+              "value": "=t-rpob.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-infa",
+        "kind": "group",
+        "title": "infA: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-infa",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-infA",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['infA'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-infa",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-infA",
+              "value": "=ln(mean([first(recorded('CPM-infA'))[3], first(recorded('CPM-infA'))[4], first(recorded('CPM-infA'))[5]]) / mean([first(recorded('CPM-infA'))[0], first(recorded('CPM-infA'))[1], first(recorded('CPM-infA'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-infa",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-infA'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-infA'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-infa",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-infA",
+              "value": "=t-infa.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-mua-like",
+        "kind": "group",
+        "title": "muA-like: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-mua-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-muA-like",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['muA-like'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-mua-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-muA-like",
+              "value": "=ln(mean([first(recorded('CPM-muA-like'))[3], first(recorded('CPM-muA-like'))[4], first(recorded('CPM-muA-like'))[5]]) / mean([first(recorded('CPM-muA-like'))[0], first(recorded('CPM-muA-like'))[1], first(recorded('CPM-muA-like'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-mua-like",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-muA-like'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-muA-like'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-mua-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-muA-like",
+              "value": "=t-mua-like.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-mub-like",
+        "kind": "group",
+        "title": "muB-like: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-mub-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-muB-like",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['muB-like'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-mub-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-muB-like",
+              "value": "=ln(mean([first(recorded('CPM-muB-like'))[3], first(recorded('CPM-muB-like'))[4], first(recorded('CPM-muB-like'))[5]]) / mean([first(recorded('CPM-muB-like'))[0], first(recorded('CPM-muB-like'))[1], first(recorded('CPM-muB-like'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-mub-like",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-muB-like'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-muB-like'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-mub-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-muB-like",
+              "value": "=t-mub-like.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gene-gam-like",
+        "kind": "group",
+        "title": "gam-like: counts per million, log2 fold change (t30/t0) and a Welch t-test on log2 CPM",
+        "steps": [
+          {
+            "id": "cpm-gam-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "CPM-gam-like",
+              "value": "=map(j in range(0, 5, 6): first(recorded('counts'))['gam-like'][j] / first(recorded('library-size'))[j] * 1e6)"
+            }
+          },
+          {
+            "id": "lfc-gam-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "log2FC-gam-like",
+              "value": "=ln(mean([first(recorded('CPM-gam-like'))[3], first(recorded('CPM-gam-like'))[4], first(recorded('CPM-gam-like'))[5]]) / mean([first(recorded('CPM-gam-like'))[0], first(recorded('CPM-gam-like'))[1], first(recorded('CPM-gam-like'))[2]])) / ln(2)"
+            }
+          },
+          {
+            "id": "t-gam-like",
+            "kind": "operation",
+            "ref": "core:test",
+            "params": {
+              "test": "welch-t",
+              "groups": "=[map(j in [0, 1, 2]: ln(first(recorded('CPM-gam-like'))[j] + 1)), map(j in [3, 4, 5]: ln(first(recorded('CPM-gam-like'))[j] + 1))]"
+            }
+          },
+          {
+            "id": "p-gam-like",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-gam-like",
+              "value": "=t-gam-like.out.p"
+            }
+          }
+        ]
+      },
+      {
+        "id": "induced",
+        "kind": "decision",
+        "prompt": "What happens to the competence genes 30 minutes after the switch to starvation medium?",
+        "options": [
+          {
+            "id": "induced",
+            "label": "They are strongly and significantly induced (log2 fold changes above 2, p < 0.05), while housekeeping genes stay flat: starvation switches on natural competence"
+          },
+          {
+            "id": "unchanged",
+            "label": "Nothing changes"
+          }
+        ],
+        "correctWhen": "if(first(recorded('log2FC-comA')) > 2 && first(recorded('p-comA')) < 0.05 && first(recorded('log2FC-comE')) > 2 && first(recorded('p-comE')) < 0.05 && first(recorded('log2FC-pilA')) > 2 && first(recorded('p-pilA')) < 0.05 && first(recorded('log2FC-rec2')) > 2 && first(recorded('p-rec2')) < 0.05 && first(recorded('log2FC-dprA')) > 2 && first(recorded('p-dprA')) < 0.05 && abs(first(recorded('log2FC-gyrB'))) < 1 && abs(first(recorded('log2FC-rpoB'))) < 1 && abs(first(recorded('log2FC-infA'))) < 1, 'induced', 'unchanged')"
+      },
+      {
+        "id": "normalise",
+        "kind": "decision",
+        "prompt": "Why convert counts to counts per million before comparing samples?",
+        "options": [
+          {
+            "id": "depth",
+            "label": "Libraries are sequenced to different depths, so raw counts differ with library size, not only expression"
+          },
+          {
+            "id": "none",
+            "label": "It makes no difference"
+          }
+        ],
+        "correctWhen": "if(max(first(recorded('library-size'))) > 1.2 * min(first(recorded('library-size'))), 'depth', 'none')"
+      },
+      {
+        "id": "prophage",
+        "kind": "decision",
+        "prompt": "Are the prophage genes transcribed, and are they part of the competence response?",
+        "options": [
+          {
+            "id": "expressed-not-induced",
+            "label": "Transcribed (tens of counts per million at both times) but not induced by starvation"
+          },
+          {
+            "id": "silent",
+            "label": "Not transcribed at all"
+          },
+          {
+            "id": "induced",
+            "label": "Induced with the competence genes"
+          }
+        ],
+        "correctWhen": "if(first(recorded('CPM-muA-like'))[0] > 5 && abs(first(recorded('log2FC-muA-like'))) < 1 && first(recorded('CPM-muB-like'))[0] > 5 && abs(first(recorded('log2FC-muB-like'))) < 1 && first(recorded('CPM-gam-like'))[0] > 5 && abs(first(recorded('log2FC-gam-like'))) < 1, 'expressed-not-induced', if(first(recorded('CPM-muA-like'))[0] <= 5 && first(recorded('CPM-muB-like'))[0] <= 5 && first(recorded('CPM-gam-like'))[0] <= 5, 'silent', 'induced'))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-data",
+        "statement": "Every judgement follows from the data",
+        "check": "decision('homologue') == 'one' && decision('prophage-region') == 'intact' && decision('evalue') == 'chance' && decision('induced') == 'induced' && decision('normalise') == 'depth' && decision('prophage') == 'expressed-not-induced'"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "ideal"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    },
+    "annotations": [
+      {
+        "path": "/procedure",
+        "class": "simulation-derived",
+        "note": "Illustrative hit table and counts matrix: one convincing homologue; competence genes induced 30-120-fold; prophage genes expressed but flat."
+      }
+    ]
+  }
+}

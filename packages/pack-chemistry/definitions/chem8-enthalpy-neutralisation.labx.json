@@ -1,0 +1,90 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem8-enthalpy-neutralisation",
+  "version": "1.0.0",
+  "title": "Enthalpy of neutralisation by calorimetry",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:measure" }, { "operation": "core:fit" }] },
+  "summary": "In a polystyrene-cup calorimeter, record the temperature of 50 mL of 1.0 M hydrochloric acid for three minutes, add 50 mL of 1.0 M sodium hydroxide and keep recording. Extrapolate the cooling line back to the moment of mixing to find the temperature rise, and work out the enthalpy of neutralisation. Repeat with ammonia.",
+  "briefing": "The heat released warms the 100 mL of solution: q = m c ΔT, taking 100 g and c = 4.18 J g⁻¹ K⁻¹. With 0.050 mol of water formed, ΔH = −q / n. The mixture starts to cool as soon as it has warmed, so extrapolate the later readings back to the time of mixing rather than taking the highest reading.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "calorimetry", "label": "Calorimetry and heat-loss correction" }, { "id": "neutralisation", "label": "Strong and weak bases" }],
+    "objectives": [
+      { "id": "o-measure", "kind": "skill", "statement": "Record a temperature–time curve in a calorimeter" },
+      { "id": "o-dh", "kind": "analysis", "statement": "Find the enthalpy of neutralisation within 10 %", "goal": "g-dh" },
+      { "id": "o-weak", "kind": "reasoning", "statement": "Explain why ammonia gives less heat" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "hcl", "label": "HCl, 1.0 M", "contains": [{ "substance": "core:hydrochloric-acid", "conc": "1.0 mol/L" }], "solvent": "core:water", "amount": "200 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "naoh", "label": "NaOH, 1.0 M", "contains": [{ "substance": "core:sodium-hydroxide", "conc": "1.0 mol/L" }], "solvent": "core:water", "amount": "100 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "ammonia", "label": "Ammonia, 1.0 M", "contains": [{ "substance": "core:ammonia", "conc": "1.0 mol/L" }], "solvent": "core:water", "amount": "100 mL", "container": "core:reagent-bottle-250ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [{ "id": "thermo", "requires": { "class": "core:thermometer-digital" } }]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "runs", "kind": "group", "objectives": ["o-measure"], "forEach": { "var": "r", "in": "=[['strong', 'naoh'], ['weak', 'ammonia']]" },
+        "let": { "cup": "='cup-' + r[0]", "base": "='base-' + r[0]" },
+        "steps": [
+          { "id": "fetch-cup", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:calorimeter-cup", "id": "=cup", "label": "='Calorimeter (' + r[1] + ')'" } },
+          { "id": "acid-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "hcl", "destination": "=cup", "volume": "50 mL", "tool": "pour" } },
+          { "id": "fetch-beaker", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:beaker-100ml", "id": "=base" } },
+          { "id": "base-out", "kind": "operation", "ref": "core:transfer", "params": { "source": "=r[1]", "destination": "=base", "volume": "50 mL", "tool": "pour" } },
+          { "id": "before", "kind": "group", "forEach": { "var": "k", "in": "=range(0, 5, 6)" },
+            "steps": [
+              { "id": "wait-before", "kind": "operation", "ref": "core:advance-time", "when": "k > 0", "params": { "duration": "30 s" } },
+              { "id": "read-before", "kind": "operation", "ref": "core:measure", "params": { "instrument": "thermo", "subject": "=cup" } },
+              { "id": "note-temp-before", "kind": "operation", "ref": "core:record", "params": { "field": "='T-' + r[0]", "value": "=read-before.out.value" } },
+              { "id": "note-t-before", "kind": "operation", "ref": "core:record", "params": { "field": "='t-' + r[0]", "value": "=k * 30" } }
+            ] },
+          { "id": "to-mixing", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "30 s" } },
+          { "id": "mix-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "=base", "destination": "=cup", "volume": "=volume(base) - 1 mL", "tool": "pour" } },
+          { "id": "stir", "kind": "operation", "ref": "core:mix", "params": { "container": "=cup", "method": "swirl", "cycles": 3 } },
+          { "id": "after", "kind": "group", "forEach": { "var": "k", "in": "=range(7, 20, 14)" },
+            "steps": [
+              { "id": "wait-after", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "30 s" } },
+              { "id": "read-after", "kind": "operation", "ref": "core:measure", "params": { "instrument": "thermo", "subject": "=cup" } },
+              { "id": "note-temp-after", "kind": "operation", "ref": "core:record", "params": { "field": "='T-' + r[0]", "value": "=read-after.out.value" } },
+              { "id": "note-t-after", "kind": "operation", "ref": "core:record", "params": { "field": "='t-' + r[0]", "value": "=k * 30" } }
+            ] }
+        ] },
+      { "id": "analysis", "kind": "group", "objectives": ["o-dh"], "forEach": { "var": "r", "in": "=['strong', 'weak']" },
+        "let": {
+          "T": "=recorded('T-' + r)",
+          "t": "=recorded('t-' + r)",
+          "late": "=filter(range(0, len(recorded('t-' + r)) - 1, len(recorded('t-' + r))), recorded('t-' + r)[it] >= 300)"
+        },
+        "steps": [
+          { "id": "cooling", "kind": "operation", "ref": "core:fit", "params": { "x": "=map(late, t[it])", "y": "=map(late, T[it])", "model": "linear" } },
+          { "id": "rise", "kind": "operation", "ref": "core:record", "params": { "field": "='dT-' + r", "value": "=cooling.out.fit.params.intercept + cooling.out.fit.params.slope * 180 - mean(map(range(0, 5, 6), T[it]))" } },
+          { "id": "dh", "kind": "operation", "ref": "core:record", "params": { "field": "='dH-kJ-' + r", "value": "=-(100 * 4.18 * first(recorded('dT-' + r))) / 0.050 / 1000" } }
+        ] },
+      { "id": "why", "kind": "decision", "objectives": ["o-weak"], "prompt": "Why does ammonia give out less heat than sodium hydroxide?",
+        "options": [
+          { "id": "ionisation", "label": "Some of the heat goes into taking the proton from NH₄⁺'s competitor: NH₃ + H⁺ releases less than OH⁻ + H⁺" },
+          { "id": "less-base", "label": "There is less base in ammonia solution" },
+          { "id": "heat-loss", "label": "More heat was lost in the second run" }
+        ],
+        "correctWhen": "'ionisation'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-dh", "statement": "ΔH for HCl + NaOH is within 10 % of −55.8 kJ/mol", "check": "within(first(recorded('dH-kJ-strong')), -55.8, 10%)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-rise", "statement": "Mixing warms the solution by about 6–7 K", "check": "between(first(recorded('dT-strong')), 5.5, 7.5)", "source": "reference-standard" },
+      { "id": "e-weak", "statement": "Ammonia gives less heat than sodium hydroxide", "check": "first(recorded('dH-kJ-weak')) > first(recorded('dH-kJ-strong')) + 2", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

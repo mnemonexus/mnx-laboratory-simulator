@@ -1,0 +1,569 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem55-cobalt-chloride-equilibrium",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "title": "Le Chatelier’s principle: the cobalt(II) chloride equilibrium",
+  "summary": "Shift the equilibrium between pink hexaaquacobalt(II) and blue tetrachlorocobaltate(II) by adding chloride, adding water, heating and cooling, and use the colour changes to find the sign of ΔH.",
+  "briefing": "Co(H₂O)₆²⁺ (pink) + 4Cl⁻ ⇌ CoCl₄²⁻ (blue) + 6H₂O. To 2 mL of 0.5 M cobalt(II) chloride add 6 mL of concentrated hydrochloric acid, then 10 mL of water. Make three tubes of 2 mL of 0.2 M cobalt(II) chloride with 0.9 mL of the acid (between the two colours, purple): stand one in a water bath at 80 °C, one in ice, and keep one at room temperature to compare. Wear goggles and gloves: concentrated acid is corrosive and cobalt salts are toxic.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "Le Chatelier",
+      "equilibrium",
+      "cobalt chloride",
+      "complex ions",
+      "enthalpy change",
+      "temperature"
+    ],
+    "topics": [
+      "Equilibrium",
+      "Transition metals"
+    ],
+    "concepts": [
+      {
+        "id": "lechatelier",
+        "label": "An equilibrium shifts to oppose a change: more chloride or heat (for an endothermic forward reaction) favours the blue complex"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-observe",
+        "kind": "skill",
+        "statement": "Observe the equilibrium shift with concentration and temperature"
+      },
+      {
+        "id": "o-shift",
+        "kind": "analysis",
+        "statement": "Explain the shifts with Le Chatelier’s principle",
+        "goal": "g-shift"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Deduce the sign of ΔH",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "cobalt",
+        "label": "Cobalt(II) chloride, 0.2 M (toxic)",
+        "contains": [
+          {
+            "substance": "aq:cobalt-ii-chloride",
+            "conc": "0.2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "cobalt-strong",
+        "label": "Cobalt(II) chloride, 0.5 M (toxic)",
+        "contains": [
+          {
+            "substance": "aq:cobalt-ii-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "hcl",
+        "label": "Hydrochloric acid, concentrated (10 M, corrosive)",
+        "contains": [
+          {
+            "substance": "core:hydrochloric-acid",
+            "conc": "10 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "80 Cel"
+        }
+      },
+      {
+        "id": "ice",
+        "requires": {
+          "class": "core:ice-bath"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "ppe",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "goggles"
+        }
+      },
+      {
+        "id": "gloves",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "gloves"
+        }
+      },
+      {
+        "id": "chloride",
+        "kind": "group",
+        "title": "Chloride, then water",
+        "objectives": [
+          "o-observe"
+        ],
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "a",
+              "label": "Cobalt chloride: acid, then water"
+            }
+          },
+          {
+            "id": "co",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "cobalt-strong",
+              "destination": "a",
+              "volume": "2 mL"
+            }
+          },
+          {
+            "id": "mix0",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "a",
+              "method": "swirl",
+              "cycles": 2
+            }
+          },
+          {
+            "id": "see0",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "a"
+            }
+          },
+          {
+            "id": "note0",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "start",
+              "value": "=see0.out.appearance"
+            }
+          },
+          {
+            "id": "acid",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hcl",
+              "destination": "a",
+              "volume": "6 mL"
+            }
+          },
+          {
+            "id": "mix1",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "a",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "see1",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "a"
+            }
+          },
+          {
+            "id": "note1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "with acid",
+              "value": "=see1.out.appearance"
+            }
+          },
+          {
+            "id": "dilute",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "a",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "mix2",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "a",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "see2",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "a"
+            }
+          },
+          {
+            "id": "note2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "with water",
+              "value": "=see2.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "temperature",
+        "kind": "group",
+        "title": "Hot and cold",
+        "objectives": [
+          "o-observe"
+        ],
+        "steps": [
+          {
+            "id": "bath-set",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "80 Cel"
+            }
+          },
+          {
+            "id": "tube-hot",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "hot",
+              "label": "Violet mixture: hot"
+            }
+          },
+          {
+            "id": "co-hot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "cobalt",
+              "destination": "hot",
+              "volume": "2 mL"
+            }
+          },
+          {
+            "id": "acid-hot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hcl",
+              "destination": "hot",
+              "volume": "0.9 mL"
+            }
+          },
+          {
+            "id": "mix-hot",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "hot",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "tube-cold",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "cold",
+              "label": "Violet mixture: cold"
+            }
+          },
+          {
+            "id": "co-cold",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "cobalt",
+              "destination": "cold",
+              "volume": "2 mL"
+            }
+          },
+          {
+            "id": "acid-cold",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hcl",
+              "destination": "cold",
+              "volume": "0.9 mL"
+            }
+          },
+          {
+            "id": "mix-cold",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "cold",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "tube-room",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "room",
+              "label": "Violet mixture: room"
+            }
+          },
+          {
+            "id": "co-room",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "cobalt",
+              "destination": "room",
+              "volume": "2 mL"
+            }
+          },
+          {
+            "id": "acid-room",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hcl",
+              "destination": "room",
+              "volume": "0.9 mL"
+            }
+          },
+          {
+            "id": "mix-room",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "room",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "in-hot",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "hot",
+              "place": "bath"
+            }
+          },
+          {
+            "id": "in-cold",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "cold",
+              "place": "ice"
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "seehot",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "hot"
+            }
+          },
+          {
+            "id": "notehot",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "hot",
+              "value": "=seehot.out.appearance"
+            }
+          },
+          {
+            "id": "seecold",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "cold"
+            }
+          },
+          {
+            "id": "notecold",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "cold",
+              "value": "=seecold.out.appearance"
+            }
+          },
+          {
+            "id": "seeroom",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "room"
+            }
+          },
+          {
+            "id": "noteroom",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "room temperature",
+              "value": "=seeroom.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "The mixture turns blue when heated. What does that tell you about the forward reaction (pink → blue)?",
+        "options": [
+          {
+            "id": "endo",
+            "label": "It is endothermic: heating shifts the equilibrium in the direction that takes in heat"
+          },
+          {
+            "id": "exo",
+            "label": "It is exothermic"
+          },
+          {
+            "id": "none",
+            "label": "Nothing: temperature only changes the rate"
+          }
+        ],
+        "correctWhen": "choice == 'endo'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-shift",
+        "statement": "Concentrated acid turns the red-pink solution blue and water turns it pink again; the hot tube is blue and the cold one pink",
+        "check": "mentions(first(recorded('start')), 'red') && mentions(first(recorded('with acid')), 'blue') && mentions(first(recorded('with water')), 'pink') && mentions(first(recorded('hot')), 'blue') && mentions(first(recorded('cold')), 'pink')"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The sign of ΔH is deduced",
+        "check": "decision('why') == 'endo'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-room",
+        "statement": "At room temperature the mixture is in between (violet or purple)",
+        "check": "!mentions(first(recorded('room temperature')), 'pink') || mentions(first(recorded('room temperature')), 'violet') || mentions(first(recorded('room temperature')), 'purple')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

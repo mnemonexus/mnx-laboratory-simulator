@@ -1,0 +1,77 @@
+[
+  {
+    "id": "micro:aseptic-technique",
+    "label": "Aseptic technique (flaming the loop, not contaminating cultures)",
+    "kind": "practice"
+  },
+  {
+    "id": "micro:smear-preparation",
+    "label": "Preparing a smear",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:heat-fixing",
+    "label": "Heat-fixing a smear",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:gram-stain",
+    "label": "Gram staining",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:brightfield-microscopy",
+    "label": "Brightfield microscopy",
+    "kind": "equipment"
+  },
+  {
+    "id": "micro:gram-interpretation",
+    "label": "Interpreting a Gram stain",
+    "kind": "reasoning"
+  },
+  {
+    "id": "micro:spread-plating",
+    "label": "Spread plating",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:colony-counting",
+    "label": "Counting colonies",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:mic-determination",
+    "label": "Reading a minimum inhibitory concentration",
+    "kind": "analysis"
+  },
+  {
+    "id": "micro:control-plates",
+    "label": "Interpreting control plates",
+    "kind": "reasoning"
+  },
+  {
+    "id": "micro:streak-plating",
+    "label": "Streaking for single colonies",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:haemocytometer",
+    "label": "Counting cells with a haemocytometer",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:stab-culture",
+    "label": "Stab cultures",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:environmental-sampling",
+    "label": "Sampling the environment for microbes",
+    "kind": "technique"
+  },
+  {
+    "id": "micro:top-agar-overlay",
+    "label": "Pouring cells in molten top agar",
+    "kind": "technique"
+  }
+]

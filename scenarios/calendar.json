@@ -1,0 +1,21 @@
+{
+  "title": "Calendar: a scheduled lab session",
+  "surface": "calendar",
+  "drive": [
+    {
+      "wait": 15000
+    },
+    {
+      "click": "[data-testid=experience-kinetics]"
+    },
+    {
+      "wait": 25000
+    },
+    {
+      "click": "[data-testid=end-session]"
+    },
+    {
+      "expect": "complete"
+    }
+  ]
+}

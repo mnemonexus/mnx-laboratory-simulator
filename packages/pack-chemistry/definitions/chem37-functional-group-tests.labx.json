@@ -1,0 +1,743 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem37-functional-group-tests",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "organic chemistry",
+      "functional group tests",
+      "test tube reactions"
+    ],
+    "topics": [
+      "Organic chemistry",
+      "Identifying functional groups"
+    ],
+    "concepts": [
+      {
+        "id": "functional-groups",
+        "label": "A functional group reacts the same way whatever molecule it is in"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-test",
+        "kind": "skill",
+        "statement": "Carry out the test safely, warming in a water bath where needed"
+      },
+      {
+        "id": "o-identify",
+        "kind": "outcome",
+        "statement": "Tell the compounds apart by their functional groups",
+        "goal": "g-identify"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP",
+      "T Level"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Testing for a C=C double bond with bromine water"
+    },
+    "summary": {
+      "default": "Shake cyclohexene and cyclohexane with bromine water: the alkene decolourises it, the alkane does not."
+    },
+    "briefing": {
+      "default": "Bromine water is orange. Bromine adds across the C=C double bond of an alkene, giving a colourless dibromo compound, so the colour goes at once. An alkane has no double bond and does not react in the dark: the bromine moves into the hydrocarbon layer, which turns orange. Put 1 mL of each hydrocarbon in a tube, add 2 mL of bromine water and shake (fume cupboard)."
+    },
+    "tubes": {
+      "default": "=[['ene','Cyclohexene and bromine water','cyclohexene',[['bromine',2,'bromine']],0,0],['ane','Cyclohexane and bromine water','cyclohexane',[['bromine',2,'bromine']],0,0]]"
+    },
+    "questions": {
+      "default": [
+        {
+          "id": "identify",
+          "kind": "decision",
+          "objectives": [
+            "o-identify"
+          ],
+          "prompt": "Which compound is unsaturated?",
+          "options": [
+            {
+              "id": "ene",
+              "label": "Cyclohexene"
+            },
+            {
+              "id": "ane",
+              "label": "Cyclohexane"
+            }
+          ],
+          "correctWhen": "'ene'"
+        }
+      ]
+    },
+    "goals": {
+      "default": [
+        {
+          "id": "g-identify",
+          "statement": "The unsaturated compound is identified",
+          "check": "decision('identify') == 'ene'"
+        }
+      ]
+    },
+    "observations": {
+      "default": [
+        {
+          "id": "e-bromine",
+          "statement": "Cyclohexene decolourises bromine water; with cyclohexane an orange layer stays",
+          "check": "!mentions(first(recorded('seen-ene')), 'orange') && mentions(first(recorded('seen-ane')), 'orange')",
+          "source": "reference-standard"
+        }
+      ]
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "cyclohexene",
+        "label": "Cyclohexene",
+        "contains": [
+          {
+            "substance": "chem:cyclohexene",
+            "conc": "811 g/L"
+          }
+        ],
+        "solvent": "chem:cyclohexene",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "cyclohexane",
+        "label": "Cyclohexane",
+        "contains": [
+          {
+            "substance": "chem:cyclohexane",
+            "conc": "779 g/L"
+          }
+        ],
+        "solvent": "chem:cyclohexane",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "bromine",
+        "label": "Bromine water (dilute)",
+        "contains": [
+          {
+            "substance": "chem:bromine",
+            "conc": "0.01 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "ethanol",
+        "label": "Ethanol, 1 M",
+        "contains": [
+          {
+            "substance": "core:ethanol",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "propan2ol",
+        "label": "Propan-2-ol, 1 M",
+        "contains": [
+          {
+            "substance": "chem:propan-2-ol",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "tertiary",
+        "label": "2-Methylpropan-2-ol, 1 M",
+        "contains": [
+          {
+            "substance": "chem:2-methylpropan-2-ol",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "methanol",
+        "label": "Methanol, 1 M",
+        "contains": [
+          {
+            "substance": "chem:methanol",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "ethanal",
+        "label": "Ethanal, 0.5 M",
+        "contains": [
+          {
+            "substance": "chem:ethanal",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "propanone",
+        "label": "Propanone, 0.5 M",
+        "contains": [
+          {
+            "substance": "chem:propanone",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "phenol",
+        "label": "Phenol, 0.1 M",
+        "contains": [
+          {
+            "substance": "chem:phenol",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "dichromate",
+        "label": "Acidified potassium dichromate (0.05 M in 1 M sulfuric acid)",
+        "contains": [
+          {
+            "substance": "aq:potassium-dichromate",
+            "conc": "0.05 mol/L"
+          },
+          {
+            "substance": "core:sulfuric-acid",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "tollens",
+        "label": "Tollens’ reagent (ammoniacal silver nitrate, freshly made)",
+        "contains": [
+          {
+            "substance": "aq:silver-nitrate",
+            "conc": "0.05 mol/L"
+          },
+          {
+            "substance": "aq:ammonia",
+            "conc": "2.0 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "fehling",
+        "label": "Fehling’s solution (A and B mixed)",
+        "contains": [
+          {
+            "substance": "bio:benedict-copper",
+            "conc": "0.07 mol/L"
+          },
+          {
+            "substance": "aq:sodium-hydroxide",
+            "conc": "1.25 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "iodine",
+        "label": "Iodine solution (0.1 M in potassium iodide)",
+        "contains": [
+          {
+            "substance": "core:iodine",
+            "conc": "0.1 mol/L"
+          },
+          {
+            "substance": "core:potassium-iodide",
+            "conc": "0.3 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "naoh",
+        "label": "Sodium hydroxide, 2 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydroxide",
+            "conc": "2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "fecl3",
+        "label": "Iron(III) chloride, 0.01 M (neutral)",
+        "contains": [
+          {
+            "substance": "aq:iron-iii-chloride",
+            "conc": "0.01 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "60 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "tubes",
+        "kind": "group",
+        "title": "Each test",
+        "objectives": [
+          "o-test"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "{{tubes}}"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='tube-' + x[0]",
+              "label": "=x[1]"
+            }
+          },
+          {
+            "id": "sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "='tube-' + x[0]",
+              "volume": "1 mL",
+              "tool": "dropper"
+            }
+          },
+          {
+            "id": "additions",
+            "kind": "group",
+            "title": "Add the reagents",
+            "forEach": {
+              "var": "y",
+              "in": "=x[3]"
+            },
+            "steps": [
+              {
+                "id": "add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=y[0]",
+                  "destination": "='tube-' + x[0]",
+                  "volume": "=quantity(text(y[1]) + ' mL')",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "shake",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='tube-' + x[0]",
+                  "method": "shake",
+                  "cycles": 5
+                }
+              }
+            ]
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(x[5]) + ' Cel')"
+            },
+            "when": "x[4] > 0 && x[5] > 0"
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + x[0]",
+              "place": "bath"
+            },
+            "when": "x[4] > 0 && x[5] > 0"
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "=quantity(text(x[4]) + ' min')"
+            },
+            "when": "x[4] > 0"
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='tube-' + x[0]"
+            },
+            "when": "x[4] > 0 && x[5] > 0"
+          },
+          {
+            "id": "stand",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 s"
+            },
+            "when": "x[4] == 0"
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "='tube-' + x[0]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + x[0]",
+              "value": "=look.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Identify",
+        "steps": "{{questions}}"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": "{{goals}}",
+    "expectedObservations": "{{observations}}"
+  },
+  "variants": [
+    {
+      "id": "chem37-alcohol-oxidation",
+      "title": "Primary, secondary and tertiary alcohols with acidified dichromate",
+      "summary": "Warm ethanol, propan-2-ol and 2-methylpropan-2-ol with acidified potassium dichromate: the primary and secondary alcohols turn it from orange to green, the tertiary does not.",
+      "briefing": "Acidified dichromate(VI) is an oxidising agent: orange Cr₂O₇²⁻ is reduced to green Cr³⁺ when it oxidises something. Primary alcohols are oxidised to aldehydes (and on to acids), secondary to ketones. A tertiary alcohol has no hydrogen on the carbon bearing the OH and is not oxidised. Add 2 mL of acidified dichromate to 1 mL of each and warm at 60 °C for five minutes.",
+      "values": {
+        "tubes": "=[['p1','Ethanol (primary)','ethanol',[['dichromate',2,'dichromate']],5,60],['p2','Propan-2-ol (secondary)','propan2ol',[['dichromate',2,'dichromate']],5,60],['p3','2-Methylpropan-2-ol (tertiary)','tertiary',[['dichromate',2,'dichromate']],5,60]]",
+        "questions": [
+          {
+            "id": "identify",
+            "kind": "decision",
+            "objectives": [
+              "o-identify"
+            ],
+            "prompt": "Which alcohol is tertiary?",
+            "options": [
+              {
+                "id": "p1",
+                "label": "Ethanol"
+              },
+              {
+                "id": "p2",
+                "label": "Propan-2-ol"
+              },
+              {
+                "id": "p3",
+                "label": "2-Methylpropan-2-ol"
+              }
+            ],
+            "correctWhen": "'p3'"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-identify",
+            "statement": "The tertiary alcohol is identified",
+            "check": "decision('identify') == 'p3'"
+          }
+        ],
+        "observations": [
+          {
+            "id": "e-colours",
+            "statement": "Ethanol and propan-2-ol turn the dichromate green; 2-methylpropan-2-ol leaves it orange",
+            "check": "mentions(first(recorded('seen-p1')), 'green') && mentions(first(recorded('seen-p2')), 'green') && mentions(first(recorded('seen-p3')), 'orange|red|yellow')",
+            "source": "reference-standard"
+          }
+        ]
+      },
+      "keywords": [
+        "alcohols",
+        "oxidation",
+        "dichromate",
+        "primary",
+        "secondary",
+        "tertiary"
+      ]
+    },
+    {
+      "id": "chem37-aldehydes-ketones",
+      "title": "Aldehydes and ketones: Tollens’ and Fehling’s tests",
+      "summary": "Warm ethanal and propanone with Tollens’ reagent and with Fehling’s solution: the aldehyde gives a silver mirror and a red precipitate, the ketone neither.",
+      "briefing": "Aldehydes are easily oxidised; ketones are not. Tollens’ reagent (ammoniacal silver nitrate) is reduced by an aldehyde to silver, which coats clean glass as a mirror (leave it five minutes; do not heat it strongly). Fehling’s solution (copper(II) in alkaline tartrate) is reduced to red copper(I) oxide (heat in a boiling water bath). Use 1 mL of each compound and 2 mL of reagent.",
+      "values": {
+        "tubes": "=[['al-t','Ethanal with Tollens’ reagent','ethanal',[['tollens',2,'tollens']],5,0],['one-t','Propanone with Tollens’ reagent','propanone',[['tollens',2,'tollens']],5,0],['al-f','Ethanal with Fehling’s solution','ethanal',[['fehling',2,'fehling']],5,90],['one-f','Propanone with Fehling’s solution','propanone',[['fehling',2,'fehling']],5,90]]",
+        "questions": [
+          {
+            "id": "identify",
+            "kind": "decision",
+            "objectives": [
+              "o-identify"
+            ],
+            "prompt": "Which compound is the aldehyde?",
+            "options": [
+              {
+                "id": "al",
+                "label": "The one labelled ethanal"
+              },
+              {
+                "id": "one",
+                "label": "The one labelled propanone"
+              }
+            ],
+            "correctWhen": "'al'"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-identify",
+            "statement": "The aldehyde is identified",
+            "check": "decision('identify') == 'al'"
+          }
+        ],
+        "observations": [
+          {
+            "id": "e-tests",
+            "statement": "Ethanal gives a silver mirror and a red precipitate; propanone gives neither",
+            "check": "mentions(first(recorded('seen-al-t')), 'precipitate') && !mentions(first(recorded('seen-one-t')), 'precipitate') && mentions(first(recorded('seen-al-f')), 'precipitate') && !mentions(first(recorded('seen-one-f')), 'precipitate')",
+            "source": "reference-standard"
+          }
+        ]
+      },
+      "keywords": [
+        "aldehyde",
+        "ketone",
+        "Tollens",
+        "silver mirror",
+        "Fehling",
+        "carbonyl"
+      ]
+    },
+    {
+      "id": "chem37-iodoform",
+      "title": "The iodoform test for CH₃CO– and CH₃CH(OH)–",
+      "summary": "Warm ethanol, propan-2-ol, propanone and methanol with iodine and sodium hydroxide: those with a methyl group next to a C=O (or next to a CH(OH) that is oxidised to one) give pale yellow iodoform.",
+      "briefing": "Iodine in alkali oxidises CH₃CH(OH)– to CH₃CO–, then replaces the three hydrogens of its methyl group by iodine and splits off CHI₃, triiodomethane (iodoform): pale yellow crystals with an antiseptic smell. Add 2 mL of iodine solution and then 1 mL of sodium hydroxide to 1 mL of each, and warm at 60 °C for five minutes.",
+      "values": {
+        "tubes": "=[['etoh','Ethanol','ethanol',[['iodine',2,'iodine'],['naoh',1,'alkali']],5,60],['ipa','Propan-2-ol','propan2ol',[['iodine',2,'iodine'],['naoh',1,'alkali']],5,60],['acetone','Propanone','propanone',[['iodine',2,'iodine'],['naoh',1,'alkali']],5,60],['meoh','Methanol','methanol',[['iodine',2,'iodine'],['naoh',1,'alkali']],5,60]]",
+        "questions": [
+          {
+            "id": "identify",
+            "kind": "decision",
+            "objectives": [
+              "o-identify"
+            ],
+            "prompt": "Which compound gives no iodoform?",
+            "options": [
+              {
+                "id": "etoh",
+                "label": "Ethanol"
+              },
+              {
+                "id": "ipa",
+                "label": "Propan-2-ol"
+              },
+              {
+                "id": "acetone",
+                "label": "Propanone"
+              },
+              {
+                "id": "meoh",
+                "label": "Methanol"
+              }
+            ],
+            "correctWhen": "'meoh'"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-identify",
+            "statement": "The compound without a CH₃CO– or CH₃CH(OH)– group is identified",
+            "check": "decision('identify') == 'meoh'"
+          }
+        ],
+        "observations": [
+          {
+            "id": "e-yellow",
+            "statement": "Ethanol, propan-2-ol and propanone give a pale yellow precipitate; methanol does not",
+            "check": "mentions(first(recorded('seen-etoh')), 'yellow precipitate') && mentions(first(recorded('seen-acetone')), 'yellow precipitate') && !mentions(first(recorded('seen-meoh')), 'precipitate')",
+            "source": "reference-standard"
+          }
+        ]
+      },
+      "keywords": [
+        "iodoform",
+        "triiodomethane",
+        "methyl ketone",
+        "alcohols"
+      ]
+    },
+    {
+      "id": "chem37-phenol",
+      "title": "Phenols with iron(III) chloride",
+      "summary": "Add neutral iron(III) chloride solution to phenol and to ethanol: the phenol turns violet, the alcohol does not.",
+      "briefing": "Phenols form a violet complex with iron(III); an OH on an alkyl chain (an alcohol) does not. Add a few drops of neutral iron(III) chloride to 1 mL of each.",
+      "values": {
+        "tubes": "=[['phenol','Phenol solution','phenol',[['fecl3',0.1,'iron']],0,0],['ethanol','Ethanol','ethanol',[['fecl3',0.1,'iron']],0,0]]",
+        "questions": [
+          {
+            "id": "identify",
+            "kind": "decision",
+            "objectives": [
+              "o-identify"
+            ],
+            "prompt": "Which solution contains a phenol?",
+            "options": [
+              {
+                "id": "phenol",
+                "label": "The violet one"
+              },
+              {
+                "id": "ethanol",
+                "label": "The one that stays yellow-orange"
+              }
+            ],
+            "correctWhen": "'phenol'"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-identify",
+            "statement": "The phenol is identified",
+            "check": "decision('identify') == 'phenol'"
+          }
+        ],
+        "observations": [
+          {
+            "id": "e-violet",
+            "statement": "Phenol turns violet with iron(III) chloride; ethanol does not",
+            "check": "mentions(first(recorded('seen-phenol')), 'violet|purple') && !mentions(first(recorded('seen-ethanol')), 'violet|purple')",
+            "source": "reference-standard"
+          }
+        ]
+      },
+      "keywords": [
+        "phenol",
+        "iron(III) chloride",
+        "aromatic"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

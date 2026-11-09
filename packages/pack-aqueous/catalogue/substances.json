@@ -1,0 +1,7386 @@
+[
+  {
+    "id": "aq:sodium",
+    "identity": {
+      "name": "Sodium ion",
+      "class": "ion",
+      "synonyms": [
+        "Na⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "21.982 g/mol"
+    },
+    "aqueous": {
+      "formula": "Na+",
+      "charge": 1,
+      "species": [],
+      "dHf": -240.12
+    },
+    "emission": {
+      "lines": [
+        {
+          "nm": 589,
+          "weight": 667
+        },
+        {
+          "nm": 589.6,
+          "weight": 333
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey. Flame emission: NIST line wavelengths, powers from Boltzmann factors at 2200 K; bands from flame spectra.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:potassium",
+    "identity": {
+      "name": "Potassium ion",
+      "class": "ion",
+      "synonyms": [
+        "K⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "38.09 g/mol"
+    },
+    "aqueous": {
+      "formula": "K+",
+      "charge": 1,
+      "species": [],
+      "dHf": -252.38
+    },
+    "emission": {
+      "lines": [
+        {
+          "nm": 766.5,
+          "weight": 2700
+        },
+        {
+          "nm": 769.9,
+          "weight": 1350
+        },
+        {
+          "nm": 404.4,
+          "weight": 0.04
+        },
+        {
+          "nm": 404.7,
+          "weight": 0.02
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey. Flame emission: NIST line wavelengths, powers from Boltzmann factors at 2200 K; bands from flame spectra.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lithium",
+    "identity": {
+      "name": "Lithium ion",
+      "class": "ion",
+      "synonyms": [
+        "Li⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "5.932 g/mol"
+    },
+    "aqueous": {
+      "formula": "Li+",
+      "charge": 1,
+      "species": [],
+      "dHf": -278.49
+    },
+    "emission": {
+      "lines": [
+        {
+          "nm": 670.8,
+          "weight": 450
+        },
+        {
+          "nm": 610.4,
+          "weight": 0.05
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey. Flame emission: NIST line wavelengths, powers from Boltzmann factors at 2200 K; bands from flame spectra.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:ammonium",
+    "identity": {
+      "name": "Ammonium ion",
+      "class": "ion",
+      "synonyms": [
+        "NH₄⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "17.031 g/mol"
+    },
+    "aqueous": {
+      "formula": "NH4+",
+      "charge": 1,
+      "species": [
+        {
+          "formula": "NH4SO4-",
+          "logK": 1.03,
+          "dH": 0,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "NH3",
+          "logK": -9.244,
+          "dH": 52,
+          "with": {
+            "H+": -1
+          }
+        }
+      ],
+      "dHf": -132.51
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:calcium",
+    "identity": {
+      "name": "Calcium ion",
+      "class": "ion",
+      "synonyms": [
+        "Ca²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "38.062 g/mol"
+    },
+    "aqueous": {
+      "formula": "Ca+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "CaOH+",
+          "logK": -12.697,
+          "dH": 64.11,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "CaF+",
+          "logK": 1.038,
+          "dH": 14,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "CaSO4",
+          "logK": 2.36,
+          "dH": 7.1,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "CaNH3+2",
+          "logK": -9.144,
+          "dH": 0,
+          "with": {
+            "aq:ammonium": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Ca(NH3)2+2",
+          "logK": -18.788,
+          "dH": 0,
+          "with": {
+            "aq:ammonium": 2,
+            "H+": -2
+          }
+        },
+        {
+          "formula": "CaNO3+",
+          "logK": 0.5,
+          "dH": -5.4,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "CaHPO4",
+          "logK": 15.035,
+          "dH": -3,
+          "with": {
+            "H+": 1,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "CaPO4-",
+          "logK": 6.46,
+          "dH": 12.9704,
+          "with": {
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "CaH2PO4+",
+          "logK": 20.923,
+          "dH": -6,
+          "with": {
+            "H+": 2,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "CaHCO3+",
+          "logK": 11.599,
+          "dH": 5.4,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Ca(Acetate)+",
+          "logK": 1.18,
+          "dH": 4,
+          "with": {
+            "aq:acetate": 1
+          }
+        }
+      ],
+      "dHf": -542.83
+    },
+    "emission": {
+      "lines": [
+        {
+          "nm": 422.7,
+          "weight": 2
+        },
+        {
+          "nm": 622,
+          "weight": 60,
+          "width": 12
+        },
+        {
+          "nm": 554,
+          "weight": 20,
+          "width": 8
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey. Flame emission: NIST line wavelengths, powers from Boltzmann factors at 2200 K; bands from flame spectra.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:magnesium",
+    "identity": {
+      "name": "Magnesium ion",
+      "class": "ion",
+      "synonyms": [
+        "Mg²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "22.289 g/mol"
+    },
+    "aqueous": {
+      "formula": "Mg+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "MgOH+",
+          "logK": -11.397,
+          "dH": 67.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "MgF+",
+          "logK": 2.05,
+          "dH": 13,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "MgSO4",
+          "logK": 2.26,
+          "dH": 5.8,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "MgPO4-",
+          "logK": 4.654,
+          "dH": 12.9704,
+          "with": {
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "MgH2PO4+",
+          "logK": 21.2561,
+          "dH": -4.6861,
+          "with": {
+            "H+": 2,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "MgHPO4",
+          "logK": 15.175,
+          "dH": -3,
+          "with": {
+            "H+": 1,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "MgCO3",
+          "logK": 2.92,
+          "dH": 12,
+          "with": {
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "MgHCO3+",
+          "logK": 11.339,
+          "dH": -10.6,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Mg(Acetate)+",
+          "logK": 1.27,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 1
+          }
+        }
+      ],
+      "metal": {
+        "deposit": "aq:magnesium-metal",
+        "e0": -2.37
+      },
+      "dHf": -466.85
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:barium",
+    "identity": {
+      "name": "Barium ion",
+      "class": "ion",
+      "synonyms": [
+        "Ba²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "135.311 g/mol"
+    },
+    "aqueous": {
+      "formula": "Ba+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "BaOH+",
+          "logK": -13.357,
+          "dH": 60.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "BaNH3+2",
+          "logK": -9.444,
+          "dH": 0,
+          "with": {
+            "aq:ammonium": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "BaNO3+",
+          "logK": 0.7,
+          "dH": -13,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "BaCO3",
+          "logK": 2.71,
+          "dH": 16,
+          "with": {
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "BaHCO3+",
+          "logK": 11.309,
+          "dH": 10.4,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Ba(Acetate)+",
+          "logK": 1.07,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 1
+          }
+        }
+      ],
+      "dHf": -537.64
+    },
+    "emission": {
+      "lines": [
+        {
+          "nm": 553.5,
+          "weight": 40
+        },
+        {
+          "nm": 487,
+          "weight": 5,
+          "width": 6
+        },
+        {
+          "nm": 513,
+          "weight": 15,
+          "width": 6
+        },
+        {
+          "nm": 524,
+          "weight": 15,
+          "width": 6
+        },
+        {
+          "nm": 580,
+          "weight": 8,
+          "width": 10
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey. Flame emission: NIST line wavelengths, powers from Boltzmann factors at 2200 K; bands from flame spectra.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:strontium",
+    "identity": {
+      "name": "Strontium ion",
+      "class": "ion",
+      "synonyms": [
+        "Sr²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "85.604 g/mol"
+    },
+    "aqueous": {
+      "formula": "Sr+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "SrOH+",
+          "logK": -13.177,
+          "dH": 60.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "SrF+",
+          "logK": 0.548,
+          "dH": 16,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "SrSO4",
+          "logK": 2.3,
+          "dH": 8,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "SrNH3+2",
+          "logK": -9.344,
+          "dH": 0,
+          "with": {
+            "aq:ammonium": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "SrNO3+",
+          "logK": 0.6,
+          "dH": -10,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "SrHPO4",
+          "logK": 14.8728,
+          "dH": 0,
+          "with": {
+            "H+": 1,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "SrH2PO4+",
+          "logK": 20.4019,
+          "dH": 0,
+          "with": {
+            "H+": 2,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "SrCO3",
+          "logK": 2.81,
+          "dH": 20,
+          "with": {
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "SrHCO3+",
+          "logK": 11.539,
+          "dH": 10.4,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Sr(Acetate)+",
+          "logK": 1.14,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 1
+          }
+        }
+      ],
+      "dHf": -545.8
+    },
+    "emission": {
+      "lines": [
+        {
+          "nm": 460.7,
+          "weight": 7
+        },
+        {
+          "nm": 606,
+          "weight": 50,
+          "width": 8
+        },
+        {
+          "nm": 646,
+          "weight": 25,
+          "width": 10
+        },
+        {
+          "nm": 682,
+          "weight": 60,
+          "width": 10
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey. Flame emission: NIST line wavelengths, powers from Boltzmann factors at 2200 K; bands from flame spectra.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:copper-ii",
+    "identity": {
+      "name": "Copper(II) ion",
+      "class": "ion",
+      "synonyms": [
+        "Cu²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "61.53 g/mol"
+    },
+    "aqueous": {
+      "formula": "Cu+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "CuOH+",
+          "logK": -7.497,
+          "dH": 35.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Cu(OH)2",
+          "logK": -16.194,
+          "dH": 0,
+          "with": {
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Cu(OH)3-",
+          "logK": -26.879,
+          "dH": 0,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "Cu(OH)4-2",
+          "logK": -39.98,
+          "dH": 0,
+          "with": {
+            "H+": -4
+          }
+        },
+        {
+          "formula": "Cu2(OH)2+2",
+          "logK": -10.594,
+          "dH": 76.62,
+          "with": {
+            "aq:copper-ii": 1,
+            "H+": -2
+          }
+        },
+        {
+          "formula": "CuF+",
+          "logK": 1.8,
+          "dH": 13,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "CuCl+",
+          "logK": 0.2,
+          "dH": 8.3,
+          "with": {
+            "aq:chloride": 1
+          }
+        },
+        {
+          "formula": "CuCl2",
+          "logK": -0.26,
+          "dH": 44.183,
+          "with": {
+            "aq:chloride": 2
+          }
+        },
+        {
+          "formula": "CuCl3-",
+          "logK": -2.29,
+          "dH": 57.279,
+          "with": {
+            "aq:chloride": 3
+          }
+        },
+        {
+          "formula": "CuCl4-2",
+          "logK": -4.59,
+          "dH": 32.5515,
+          "with": {
+            "aq:chloride": 4
+          }
+        },
+        {
+          "formula": "CuSO4",
+          "logK": 2.36,
+          "dH": 8.7,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "CuNH3+2",
+          "logK": -5.234,
+          "dH": -72,
+          "with": {
+            "aq:ammonium": 1,
+            "H+": -1
+          },
+          "epsilon": [
+            [
+              450,
+              1
+            ],
+            [
+              500,
+              3
+            ],
+            [
+              600,
+              15
+            ],
+            [
+              700,
+              26
+            ],
+            [
+              750,
+              27
+            ],
+            [
+              800,
+              24
+            ],
+            [
+              900,
+              15
+            ]
+          ],
+          "colour": "blue"
+        },
+        {
+          "formula": "CuNO3+",
+          "logK": 0.5,
+          "dH": -4.1,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "Cu(NO3)2",
+          "logK": -0.4,
+          "dH": 0,
+          "with": {
+            "aq:nitrate": 2
+          }
+        },
+        {
+          "formula": "CuCO3",
+          "logK": 6.77,
+          "dH": 0,
+          "with": {
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "CuHCO3+",
+          "logK": 12.129,
+          "dH": 0,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Cu(CO3)2-2",
+          "logK": 10.2,
+          "dH": 0,
+          "with": {
+            "aq:carbonate": 2
+          }
+        },
+        {
+          "formula": "Cu(Acetate)+",
+          "logK": 2.21,
+          "dH": 7.1,
+          "with": {
+            "aq:acetate": 1
+          }
+        },
+        {
+          "formula": "Cu(Acetate)2",
+          "logK": 3.4,
+          "dH": 12,
+          "with": {
+            "aq:acetate": 2
+          }
+        },
+        {
+          "formula": "Cu(Acetate)3-",
+          "logK": 3.9434,
+          "dH": 6.2,
+          "with": {
+            "aq:acetate": 3
+          }
+        },
+        {
+          "formula": "Cu(NH3)2+2",
+          "logK": -10.668,
+          "with": {
+            "aq:ammonium": 2,
+            "H+": -2
+          },
+          "epsilon": [
+            [
+              450,
+              2
+            ],
+            [
+              500,
+              6
+            ],
+            [
+              550,
+              18
+            ],
+            [
+              600,
+              30
+            ],
+            [
+              650,
+              36
+            ],
+            [
+              700,
+              34
+            ],
+            [
+              800,
+              22
+            ],
+            [
+              900,
+              12
+            ]
+          ],
+          "colour": "blue"
+        },
+        {
+          "formula": "Cu(NH3)3+2",
+          "logK": -17.532,
+          "with": {
+            "aq:ammonium": 3,
+            "H+": -3
+          },
+          "epsilon": [
+            [
+              450,
+              3
+            ],
+            [
+              500,
+              9
+            ],
+            [
+              550,
+              30
+            ],
+            [
+              600,
+              45
+            ],
+            [
+              650,
+              46
+            ],
+            [
+              700,
+              38
+            ],
+            [
+              800,
+              20
+            ],
+            [
+              900,
+              10
+            ]
+          ],
+          "colour": "deep blue"
+        },
+        {
+          "formula": "Cu(NH3)4+2",
+          "logK": -23.936,
+          "with": {
+            "aq:ammonium": 4,
+            "H+": -4
+          },
+          "epsilon": [
+            [
+              350,
+              120
+            ],
+            [
+              380,
+              25
+            ],
+            [
+              400,
+              8
+            ],
+            [
+              420,
+              4
+            ],
+            [
+              450,
+              3
+            ],
+            [
+              500,
+              12
+            ],
+            [
+              550,
+              35
+            ],
+            [
+              600,
+              52
+            ],
+            [
+              650,
+              47
+            ],
+            [
+              700,
+              32
+            ],
+            [
+              750,
+              20
+            ],
+            [
+              800,
+              13
+            ],
+            [
+              900,
+              8
+            ]
+          ],
+          "colour": "deep blue"
+        }
+      ],
+      "metal": {
+        "deposit": "aq:copper-metal",
+        "e0": 0.34
+      },
+      "dHf": 64.77
+    },
+    "optics": {
+      "epsilon": [
+        [
+          350,
+          1.2
+        ],
+        [
+          400,
+          0.3
+        ],
+        [
+          450,
+          0.15
+        ],
+        [
+          500,
+          0.35
+        ],
+        [
+          550,
+          1.4
+        ],
+        [
+          600,
+          4.2
+        ],
+        [
+          650,
+          7.5
+        ],
+        [
+          700,
+          10
+        ],
+        [
+          750,
+          11.6
+        ],
+        [
+          800,
+          12.2
+        ],
+        [
+          850,
+          12
+        ],
+        [
+          900,
+          11
+        ]
+      ],
+      "colour": "pale blue"
+    },
+    "emission": {
+      "lines": [
+        {
+          "nm": 535,
+          "weight": 15,
+          "width": 15
+        },
+        {
+          "nm": 435,
+          "weight": 12,
+          "width": 6,
+          "with": "aq:chloride"
+        },
+        {
+          "nm": 488,
+          "weight": 8,
+          "width": 5,
+          "with": "aq:chloride"
+        },
+        {
+          "nm": 498,
+          "weight": 8,
+          "width": 5,
+          "with": "aq:chloride"
+        },
+        {
+          "nm": 526,
+          "weight": 10,
+          "width": 6,
+          "with": "aq:chloride"
+        },
+        {
+          "nm": 538,
+          "weight": 10,
+          "width": 6,
+          "with": "aq:chloride"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey. Flame emission: NIST line wavelengths, powers from Boltzmann factors at 2200 K; bands from flame spectra.",
+      "review": "pending",
+      "references": [
+        "Cu(NH3)2+2: log β₂ 7.82 for Cu²⁺ + 2NH₃ (formation constants at I → 0, standard tables)",
+        "Cu(NH3)3+2: log β₃ 10.2 (standard tables)",
+        "Cu(NH3)4+2: Kf 1.1 × 10¹³ (log β₄ 13.04, standard tables); λmax 600 nm, ε ≈ 50"
+      ]
+    }
+  },
+  {
+    "id": "aq:silver",
+    "identity": {
+      "name": "Silver ion",
+      "class": "ion",
+      "synonyms": [
+        "Ag⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "106.86 g/mol"
+    },
+    "aqueous": {
+      "formula": "Ag+",
+      "charge": 1,
+      "species": [
+        {
+          "formula": "AgOH",
+          "logK": -11.997,
+          "dH": 0,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Ag(OH)2-",
+          "logK": -24.004,
+          "dH": 0,
+          "with": {
+            "H+": -2
+          }
+        },
+        {
+          "formula": "AgF",
+          "logK": 0.4,
+          "dH": 12,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "AgCl",
+          "logK": 3.31,
+          "dH": -12,
+          "with": {
+            "aq:chloride": 1
+          }
+        },
+        {
+          "formula": "AgCl2-",
+          "logK": 5.25,
+          "dH": -16,
+          "with": {
+            "aq:chloride": 2
+          }
+        },
+        {
+          "formula": "AgCl3-2",
+          "logK": 5.2,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 3
+          }
+        },
+        {
+          "formula": "AgCl4-3",
+          "logK": 5.51,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 4
+          }
+        },
+        {
+          "formula": "AgBr",
+          "logK": 4.6,
+          "dH": 0,
+          "with": {
+            "aq:bromide": 1
+          }
+        },
+        {
+          "formula": "AgBr2-",
+          "logK": 7.5,
+          "dH": 0,
+          "with": {
+            "aq:bromide": 2
+          }
+        },
+        {
+          "formula": "AgBr3-2",
+          "logK": 8.1,
+          "dH": 0,
+          "with": {
+            "aq:bromide": 3
+          }
+        },
+        {
+          "formula": "AgI",
+          "logK": 6.6,
+          "dH": 0,
+          "with": {
+            "aq:iodide": 1
+          }
+        },
+        {
+          "formula": "AgI2-",
+          "logK": 11.7,
+          "dH": 0,
+          "with": {
+            "aq:iodide": 2
+          }
+        },
+        {
+          "formula": "AgI3-2",
+          "logK": 12.6,
+          "dH": -122,
+          "with": {
+            "aq:iodide": 3
+          }
+        },
+        {
+          "formula": "AgI4-3",
+          "logK": 14.229,
+          "dH": 0,
+          "with": {
+            "aq:iodide": 4
+          }
+        },
+        {
+          "formula": "AgSO4-",
+          "logK": 1.3,
+          "dH": 6.2,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "AgNH3+",
+          "logK": -5.934,
+          "dH": -72,
+          "with": {
+            "aq:ammonium": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Ag(NH3)2+",
+          "logK": -11.268,
+          "dH": -160,
+          "with": {
+            "aq:ammonium": 2,
+            "H+": -2
+          }
+        },
+        {
+          "formula": "AgNO3",
+          "logK": -0.1,
+          "dH": 22.6,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "Ag(Acetate)",
+          "logK": 0.73,
+          "dH": 3,
+          "with": {
+            "aq:acetate": 1
+          }
+        },
+        {
+          "formula": "Ag(Acetate)2-",
+          "logK": 0.64,
+          "dH": 3,
+          "with": {
+            "aq:acetate": 2
+          }
+        }
+      ],
+      "metal": {
+        "deposit": "aq:silver-metal",
+        "e0": 0.8
+      },
+      "dHf": 105.579
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc",
+    "identity": {
+      "name": "Zinc ion",
+      "class": "ion",
+      "synonyms": [
+        "Zn²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "63.364 g/mol"
+    },
+    "aqueous": {
+      "formula": "Zn+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "ZnOH+",
+          "logK": -8.997,
+          "dH": 55.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Zn(OH)2",
+          "logK": -17.794,
+          "dH": 0,
+          "with": {
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Zn(OH)3-",
+          "logK": -28.091,
+          "dH": 0,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "Zn(OH)4-2",
+          "logK": -40.488,
+          "dH": 0,
+          "with": {
+            "H+": -4
+          }
+        },
+        {
+          "formula": "ZnF+",
+          "logK": 1.3,
+          "dH": 11,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "ZnCl+",
+          "logK": 0.4,
+          "dH": 5.4,
+          "with": {
+            "aq:chloride": 1
+          }
+        },
+        {
+          "formula": "ZnCl2",
+          "logK": 0.6,
+          "dH": 37,
+          "with": {
+            "aq:chloride": 2
+          }
+        },
+        {
+          "formula": "ZnCl3-",
+          "logK": 0.5,
+          "dH": 39.999,
+          "with": {
+            "aq:chloride": 3
+          }
+        },
+        {
+          "formula": "ZnCl4-2",
+          "logK": 0.199,
+          "dH": 45.8566,
+          "with": {
+            "aq:chloride": 4
+          }
+        },
+        {
+          "formula": "ZnOHCl",
+          "logK": -7.48,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "ZnBr+",
+          "logK": -0.07,
+          "dH": 1,
+          "with": {
+            "aq:bromide": 1
+          }
+        },
+        {
+          "formula": "ZnBr2",
+          "logK": -0.98,
+          "dH": 0,
+          "with": {
+            "aq:bromide": 2
+          }
+        },
+        {
+          "formula": "ZnI+",
+          "logK": -2.0427,
+          "dH": -4,
+          "with": {
+            "aq:iodide": 1
+          }
+        },
+        {
+          "formula": "ZnI2",
+          "logK": -1.69,
+          "dH": 0,
+          "with": {
+            "aq:iodide": 2
+          }
+        },
+        {
+          "formula": "ZnSO4",
+          "logK": 2.34,
+          "dH": 6.2,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "Zn(SO4)2-2",
+          "logK": 3.28,
+          "dH": 0,
+          "with": {
+            "aq:sulfate": 2
+          }
+        },
+        {
+          "formula": "ZnNO3+",
+          "logK": 0.4,
+          "dH": -4.6,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "Zn(NO3)2",
+          "logK": -0.3,
+          "dH": 0,
+          "with": {
+            "aq:nitrate": 2
+          }
+        },
+        {
+          "formula": "ZnCO3",
+          "logK": 4.76,
+          "dH": 0,
+          "with": {
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "ZnHCO3+",
+          "logK": 11.829,
+          "dH": 0,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Zn(Acetate)+",
+          "logK": 1.58,
+          "dH": 8.3,
+          "with": {
+            "aq:acetate": 1
+          }
+        },
+        {
+          "formula": "Zn(Acetate)2",
+          "logK": 2.6434,
+          "dH": 22,
+          "with": {
+            "aq:acetate": 2
+          }
+        },
+        {
+          "formula": "Zn(NH3)4+2",
+          "logK": -27.516,
+          "with": {
+            "aq:ammonium": 4,
+            "H+": -4
+          }
+        }
+      ],
+      "metal": {
+        "deposit": "aq:zinc-metal",
+        "e0": -0.76
+      },
+      "dHf": -153.89
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending",
+      "references": [
+        "Zn(NH3)4+2: Kf 2.9 × 10⁹ (log β₄ 9.46, standard tables)"
+      ]
+    }
+  },
+  {
+    "id": "aq:lead-ii",
+    "identity": {
+      "name": "Lead(II) ion",
+      "class": "ion",
+      "synonyms": [
+        "Pb²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "205.184 g/mol"
+    },
+    "aqueous": {
+      "formula": "Pb+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "PbOH+",
+          "logK": -7.597,
+          "dH": 0,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Pb(OH)2",
+          "logK": -17.094,
+          "dH": 0,
+          "with": {
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Pb(OH)3-",
+          "logK": -28.091,
+          "dH": 0,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "Pb2OH+3",
+          "logK": -6.397,
+          "dH": 0,
+          "with": {
+            "aq:lead-ii": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Pb3(OH)4+2",
+          "logK": -23.888,
+          "dH": 115.24,
+          "with": {
+            "aq:lead-ii": 2,
+            "H+": -4
+          }
+        },
+        {
+          "formula": "Pb(OH)4-2",
+          "logK": -39.699,
+          "dH": 0,
+          "with": {
+            "H+": -4
+          }
+        },
+        {
+          "formula": "Pb4(OH)4+4",
+          "logK": -19.988,
+          "dH": 88.24,
+          "with": {
+            "aq:lead-ii": 3,
+            "H+": -4
+          }
+        },
+        {
+          "formula": "PbF+",
+          "logK": 1.848,
+          "dH": 0,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "PbF2",
+          "logK": 3.142,
+          "dH": 0,
+          "with": {
+            "aq:fluoride": 2
+          }
+        },
+        {
+          "formula": "PbF3-",
+          "logK": 3.42,
+          "dH": 0,
+          "with": {
+            "aq:fluoride": 3
+          }
+        },
+        {
+          "formula": "PbF4-2",
+          "logK": 3.1,
+          "dH": 0,
+          "with": {
+            "aq:fluoride": 4
+          }
+        },
+        {
+          "formula": "PbCl+",
+          "logK": 1.55,
+          "dH": 8.7,
+          "with": {
+            "aq:chloride": 1
+          }
+        },
+        {
+          "formula": "PbCl2",
+          "logK": 2.2,
+          "dH": 12,
+          "with": {
+            "aq:chloride": 2
+          }
+        },
+        {
+          "formula": "PbCl3-",
+          "logK": 1.8,
+          "dH": 4,
+          "with": {
+            "aq:chloride": 3
+          }
+        },
+        {
+          "formula": "PbCl4-2",
+          "logK": 1.46,
+          "dH": 14.7695,
+          "with": {
+            "aq:chloride": 4
+          }
+        },
+        {
+          "formula": "PbBr+",
+          "logK": 1.7,
+          "dH": 8,
+          "with": {
+            "aq:bromide": 1
+          }
+        },
+        {
+          "formula": "PbBr2",
+          "logK": 2.6,
+          "dH": -4,
+          "with": {
+            "aq:bromide": 2
+          }
+        },
+        {
+          "formula": "PbI+",
+          "logK": 2,
+          "dH": 0,
+          "with": {
+            "aq:iodide": 1
+          }
+        },
+        {
+          "formula": "PbI2",
+          "logK": 3.2,
+          "dH": 0,
+          "with": {
+            "aq:iodide": 2
+          }
+        },
+        {
+          "formula": "PbSO4",
+          "logK": 2.69,
+          "dH": 0,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "Pb(SO4)2-2",
+          "logK": 3.47,
+          "dH": 0,
+          "with": {
+            "aq:sulfate": 2
+          }
+        },
+        {
+          "formula": "PbNO3+",
+          "logK": 1.17,
+          "dH": 2,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "Pb(NO3)2",
+          "logK": 1.4,
+          "dH": -6.6,
+          "with": {
+            "aq:nitrate": 2
+          }
+        },
+        {
+          "formula": "Pb(CO3)2-2",
+          "logK": 9.938,
+          "dH": 0,
+          "with": {
+            "aq:carbonate": 2
+          }
+        },
+        {
+          "formula": "PbCO3",
+          "logK": 6.478,
+          "dH": 0,
+          "with": {
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "PbHCO3+",
+          "logK": 13.2,
+          "dH": 0,
+          "with": {
+            "aq:carbonate": 1,
+            "H+": 1
+          }
+        },
+        {
+          "formula": "Pb(Acetate)+",
+          "logK": 2.68,
+          "dH": -0.4,
+          "with": {
+            "aq:acetate": 1
+          }
+        },
+        {
+          "formula": "Pb(Acetate)2",
+          "logK": 4.08,
+          "dH": -0.8,
+          "with": {
+            "aq:acetate": 2
+          }
+        }
+      ],
+      "metal": {
+        "deposit": "aq:lead-metal",
+        "e0": -0.13
+      },
+      "dHf": -1.7
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-ii",
+    "identity": {
+      "name": "Iron(II) ion",
+      "class": "ion",
+      "synonyms": [
+        "Fe²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "53.829 g/mol"
+    },
+    "aqueous": {
+      "formula": "Fe+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "FeOH+",
+          "logK": -9.397,
+          "dH": 55.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Fe(OH)2",
+          "logK": -20.494,
+          "dH": 119.62,
+          "with": {
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Fe(OH)3-",
+          "logK": -28.991,
+          "dH": 126.43,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "FeSO4",
+          "logK": 2.39,
+          "dH": 8,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "FeH2PO4+",
+          "logK": 22.273,
+          "dH": 0,
+          "with": {
+            "H+": 2,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "FeHPO4",
+          "logK": 15.975,
+          "dH": 0,
+          "with": {
+            "H+": 1,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "FeHCO3+",
+          "logK": 11.429,
+          "dH": 0,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Fe(Acetate)+",
+          "logK": 1.4,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 1
+          }
+        }
+      ],
+      "metal": {
+        "deposit": "aq:iron-metal",
+        "e0": -0.44
+      },
+      "dHf": -89.1
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          0.1
+        ],
+        [
+          500,
+          0.1
+        ],
+        [
+          600,
+          0.4
+        ],
+        [
+          700,
+          1
+        ],
+        [
+          800,
+          1.8
+        ],
+        [
+          900,
+          2.2
+        ]
+      ],
+      "colour": "pale green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-iii",
+    "identity": {
+      "name": "Iron(III) ion",
+      "class": "ion",
+      "synonyms": [
+        "Fe³⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "52.821 g/mol"
+    },
+    "aqueous": {
+      "formula": "Fe+3",
+      "charge": 3,
+      "species": [
+        {
+          "formula": "FeOH+2",
+          "logK": -2.187,
+          "dH": 41.81,
+          "with": {
+            "H+": -1
+          },
+          "epsilon": [
+            [
+              300,
+              2000
+            ],
+            [
+              340,
+              2400
+            ],
+            [
+              380,
+              1300
+            ],
+            [
+              400,
+              700
+            ],
+            [
+              420,
+              350
+            ],
+            [
+              450,
+              100
+            ],
+            [
+              500,
+              10
+            ],
+            [
+              550,
+              0
+            ]
+          ],
+          "colour": "yellow"
+        },
+        {
+          "formula": "Fe(OH)2+",
+          "logK": -4.594,
+          "dH": 0,
+          "with": {
+            "H+": -2
+          },
+          "epsilon": [
+            [
+              300,
+              2500
+            ],
+            [
+              350,
+              1500
+            ],
+            [
+              400,
+              600
+            ],
+            [
+              450,
+              150
+            ],
+            [
+              500,
+              20
+            ],
+            [
+              550,
+              0
+            ]
+          ],
+          "colour": "yellow-brown"
+        },
+        {
+          "formula": "Fe(OH)3",
+          "logK": -12.56,
+          "dH": 103.8,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "Fe(OH)4-",
+          "logK": -21.588,
+          "dH": 0,
+          "with": {
+            "H+": -4
+          }
+        },
+        {
+          "formula": "Fe2(OH)2+4",
+          "logK": -2.854,
+          "dH": 57.62,
+          "with": {
+            "aq:iron-iii": 1,
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Fe3(OH)4+5",
+          "logK": -6.288,
+          "dH": 65.24,
+          "with": {
+            "aq:iron-iii": 2,
+            "H+": -4
+          }
+        },
+        {
+          "formula": "FeF+2",
+          "logK": 6.04,
+          "dH": 10,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "FeF2+",
+          "logK": 10.4675,
+          "dH": 17,
+          "with": {
+            "aq:fluoride": 2
+          }
+        },
+        {
+          "formula": "FeF3",
+          "logK": 13.617,
+          "dH": 29,
+          "with": {
+            "aq:fluoride": 3
+          }
+        },
+        {
+          "formula": "FeCl+2",
+          "logK": 1.48,
+          "dH": 23,
+          "with": {
+            "aq:chloride": 1
+          },
+          "epsilon": [
+            [
+              300,
+              2500
+            ],
+            [
+              340,
+              2800
+            ],
+            [
+              380,
+              900
+            ],
+            [
+              400,
+              400
+            ],
+            [
+              450,
+              60
+            ],
+            [
+              500,
+              0
+            ]
+          ],
+          "colour": "yellow"
+        },
+        {
+          "formula": "FeCl2+",
+          "logK": 2.13,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 2
+          }
+        },
+        {
+          "formula": "FeCl3",
+          "logK": 1.13,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 3
+          }
+        },
+        {
+          "formula": "FeSO4+",
+          "logK": 4.05,
+          "dH": 25,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "Fe(SO4)2-",
+          "logK": 5.38,
+          "dH": 19.2,
+          "with": {
+            "aq:sulfate": 2
+          }
+        },
+        {
+          "formula": "FeNO3+2",
+          "logK": 1,
+          "dH": -37,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "FeH2PO4+2",
+          "logK": 23.8515,
+          "dH": 0,
+          "with": {
+            "H+": 2,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "FeHPO4+",
+          "logK": 22.292,
+          "dH": -30.5432,
+          "with": {
+            "H+": 1,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "Fe(Acetate)+2",
+          "logK": 4.0234,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 1
+          }
+        },
+        {
+          "formula": "Fe(Acetate)2+",
+          "logK": 7.5723,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 2
+          }
+        },
+        {
+          "formula": "Fe(Acetate)3",
+          "logK": 9.5867,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 3
+          }
+        },
+        {
+          "formula": "FeSCN+2",
+          "logK": 3.03,
+          "dH": -5,
+          "with": {
+            "aq:thiocyanate": 1
+          },
+          "epsilon": [
+            [
+              350,
+              1800
+            ],
+            [
+              400,
+              3800
+            ],
+            [
+              447,
+              4700
+            ],
+            [
+              480,
+              4300
+            ],
+            [
+              500,
+              3700
+            ],
+            [
+              530,
+              2500
+            ],
+            [
+              550,
+              1700
+            ],
+            [
+              580,
+              700
+            ],
+            [
+              600,
+              350
+            ],
+            [
+              650,
+              60
+            ],
+            [
+              700,
+              0
+            ]
+          ],
+          "colour": "red"
+        },
+        {
+          "formula": "Fe(SCN)2+",
+          "logK": 4.6,
+          "with": {
+            "aq:thiocyanate": 2
+          },
+          "epsilon": [
+            [
+              400,
+              4000
+            ],
+            [
+              460,
+              7000
+            ],
+            [
+              500,
+              6000
+            ],
+            [
+              550,
+              3000
+            ],
+            [
+              580,
+              1200
+            ],
+            [
+              600,
+              500
+            ],
+            [
+              650,
+              80
+            ],
+            [
+              700,
+              0
+            ]
+          ],
+          "colour": "red"
+        }
+      ],
+      "dHf": -48.5
+    },
+    "optics": {
+      "epsilon": [
+        [
+          300,
+          3000
+        ],
+        [
+          340,
+          1500
+        ],
+        [
+          380,
+          300
+        ],
+        [
+          400,
+          100
+        ],
+        [
+          420,
+          30
+        ],
+        [
+          450,
+          5
+        ],
+        [
+          500,
+          0
+        ]
+      ],
+      "colour": "pale yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending",
+      "references": [
+        "FeSCN+2: log K 3.03 (I → 0); λmax 447 nm, ε 4700, a broad band reaching 580 nm",
+        "Fe(SCN)2+: log β₂ 4.6"
+      ]
+    }
+  },
+  {
+    "id": "aq:manganese-ii",
+    "identity": {
+      "name": "Manganese(II) ion",
+      "class": "ion",
+      "synonyms": [
+        "Mn²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "52.922 g/mol"
+    },
+    "aqueous": {
+      "formula": "Mn+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "MnOH+",
+          "logK": -10.597,
+          "dH": 55.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Mn(OH)3-",
+          "logK": -34.8,
+          "dH": 0,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "Mn(OH)4-2",
+          "logK": -48.288,
+          "dH": 0,
+          "with": {
+            "H+": -4
+          }
+        },
+        {
+          "formula": "MnF+",
+          "logK": 1.6,
+          "dH": 11,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "MnCl+",
+          "logK": 0.1,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 1
+          }
+        },
+        {
+          "formula": "MnCl2",
+          "logK": 0.25,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 2
+          }
+        },
+        {
+          "formula": "MnCl3-",
+          "logK": -0.31,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 3
+          }
+        },
+        {
+          "formula": "MnSO4",
+          "logK": 2.25,
+          "dH": 8.7,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "MnNO3+",
+          "logK": 0.2,
+          "dH": 0,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "Mn(NO3)2",
+          "logK": 0.6,
+          "dH": -1.6569,
+          "with": {
+            "aq:nitrate": 2
+          }
+        },
+        {
+          "formula": "MnHCO3+",
+          "logK": 11.629,
+          "dH": -10.6,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Mn(Acetate)+",
+          "logK": 1.4,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 1
+          }
+        }
+      ],
+      "dHf": -220.75
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:aluminium",
+    "identity": {
+      "name": "Aluminium ion",
+      "class": "ion",
+      "synonyms": [
+        "Al³⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "23.958 g/mol"
+    },
+    "aqueous": {
+      "formula": "Al+3",
+      "charge": 3,
+      "species": [
+        {
+          "formula": "AlOH+2",
+          "logK": -4.997,
+          "dH": 47.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Al(OH)2+",
+          "logK": -10.094,
+          "dH": 0,
+          "with": {
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Al(OH)3",
+          "logK": -16.791,
+          "dH": 0,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "Al(OH)4-",
+          "logK": -22.688,
+          "dH": 173.24,
+          "with": {
+            "H+": -4
+          }
+        },
+        {
+          "formula": "AlF+2",
+          "logK": 7,
+          "dH": 4.6,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "AlF2+",
+          "logK": 12.6,
+          "dH": 8.3,
+          "with": {
+            "aq:fluoride": 2
+          }
+        },
+        {
+          "formula": "AlF3",
+          "logK": 16.7,
+          "dH": 8.7,
+          "with": {
+            "aq:fluoride": 3
+          }
+        },
+        {
+          "formula": "AlF4-",
+          "logK": 19.4,
+          "dH": 8.7,
+          "with": {
+            "aq:fluoride": 4
+          }
+        },
+        {
+          "formula": "AlSO4+",
+          "logK": 3.89,
+          "dH": 28,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "Al(SO4)2-",
+          "logK": 4.92,
+          "dH": 11.9,
+          "with": {
+            "aq:sulfate": 2
+          }
+        }
+      ],
+      "metal": {
+        "deposit": "aq:aluminium-metal",
+        "e0": -1.66
+      },
+      "dHf": -531
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:nickel-ii",
+    "identity": {
+      "name": "Nickel(II) ion",
+      "class": "ion",
+      "synonyms": [
+        "Ni²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "56.677 g/mol"
+    },
+    "aqueous": {
+      "formula": "Ni+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "NiOH+",
+          "logK": -9.897,
+          "dH": 51.81,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Ni(OH)2",
+          "logK": -18.994,
+          "dH": 0,
+          "with": {
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Ni(OH)3-",
+          "logK": -29.991,
+          "dH": 0,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "NiF+",
+          "logK": 1.4,
+          "dH": 7.1,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "NiCl+",
+          "logK": 0.408,
+          "dH": 2,
+          "with": {
+            "aq:chloride": 1
+          }
+        },
+        {
+          "formula": "NiCl2",
+          "logK": -1.89,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 2
+          }
+        },
+        {
+          "formula": "NiBr+",
+          "logK": 0.5,
+          "dH": 0,
+          "with": {
+            "aq:bromide": 1
+          }
+        },
+        {
+          "formula": "NiSO4",
+          "logK": 2.3,
+          "dH": 5.8,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "Ni(SO4)2-2",
+          "logK": 0.82,
+          "dH": 0,
+          "with": {
+            "aq:sulfate": 2
+          }
+        },
+        {
+          "formula": "NiNH3+2",
+          "logK": -6.514,
+          "dH": -67,
+          "with": {
+            "aq:ammonium": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Ni(NH3)2+2",
+          "logK": -13.598,
+          "dH": -111.6,
+          "with": {
+            "aq:ammonium": 2,
+            "H+": -2
+          }
+        },
+        {
+          "formula": "NiNO3+",
+          "logK": 0.4,
+          "dH": 0,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "NiCO3",
+          "logK": 4.5718,
+          "dH": 0,
+          "with": {
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "NiHCO3+",
+          "logK": 12.4199,
+          "dH": 0,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Ni(Acetate)+",
+          "logK": 1.37,
+          "dH": 8.7,
+          "with": {
+            "aq:acetate": 1
+          }
+        },
+        {
+          "formula": "Ni(Acetate)2",
+          "logK": 2.1,
+          "dH": 10,
+          "with": {
+            "aq:acetate": 2
+          }
+        },
+        {
+          "formula": "Ni(NH3)6+2",
+          "logK": -46.724,
+          "with": {
+            "aq:ammonium": 6,
+            "H+": -6
+          },
+          "epsilon": [
+            [
+              350,
+              5
+            ],
+            [
+              400,
+              2
+            ],
+            [
+              450,
+              0.5
+            ],
+            [
+              500,
+              2
+            ],
+            [
+              580,
+              6
+            ],
+            [
+              650,
+              3
+            ],
+            [
+              700,
+              1.5
+            ],
+            [
+              900,
+              4
+            ]
+          ],
+          "colour": "violet"
+        }
+      ],
+      "metal": {
+        "deposit": "aq:nickel-metal",
+        "e0": -0.25
+      },
+      "dHf": -54
+    },
+    "optics": {
+      "epsilon": [
+        [
+          350,
+          1.5
+        ],
+        [
+          395,
+          5.2
+        ],
+        [
+          450,
+          1
+        ],
+        [
+          500,
+          0.3
+        ],
+        [
+          600,
+          0.8
+        ],
+        [
+          656,
+          1.9
+        ],
+        [
+          720,
+          2.1
+        ],
+        [
+          800,
+          1.2
+        ]
+      ],
+      "colour": "green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending",
+      "references": [
+        "Ni(NH3)6+2: Kf 5.5 × 10⁸ (log β₆ 8.74, standard tables)"
+      ]
+    }
+  },
+  {
+    "id": "aq:cobalt-ii",
+    "identity": {
+      "name": "Cobalt(II) ion",
+      "class": "ion",
+      "synonyms": [
+        "Co²⁺"
+      ]
+    },
+    "physical": {
+      "molarMass": "56.917 g/mol"
+    },
+    "aqueous": {
+      "formula": "Co+2",
+      "charge": 2,
+      "species": [
+        {
+          "formula": "CoOH+",
+          "logK": -9.697,
+          "dH": 0,
+          "with": {
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Co(OH)2",
+          "logK": -18.794,
+          "dH": 0,
+          "with": {
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Co(OH)3-",
+          "logK": -31.491,
+          "dH": 0,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "Co(OH)4-2",
+          "logK": -46.288,
+          "dH": 0,
+          "with": {
+            "H+": -4
+          }
+        },
+        {
+          "formula": "Co2OH+3",
+          "logK": -10.997,
+          "dH": 0,
+          "with": {
+            "aq:cobalt-ii": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Co4(OH)4+4",
+          "logK": -30.488,
+          "dH": 0,
+          "with": {
+            "aq:cobalt-ii": 3,
+            "H+": -4
+          }
+        },
+        {
+          "formula": "CoOOH-",
+          "logK": -32.0915,
+          "dH": 260.454,
+          "with": {
+            "H+": -3
+          }
+        },
+        {
+          "formula": "CoF+",
+          "logK": 1.5,
+          "dH": 9.2,
+          "with": {
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "CoCl+",
+          "logK": 0.539,
+          "dH": 2,
+          "with": {
+            "aq:chloride": 1
+          },
+          "epsilon": [
+            [
+              400,
+              0.3
+            ],
+            [
+              450,
+              1.5
+            ],
+            [
+              480,
+              3.5
+            ],
+            [
+              510,
+              5
+            ],
+            [
+              530,
+              4.5
+            ],
+            [
+              560,
+              2.3
+            ],
+            [
+              600,
+              0.5
+            ],
+            [
+              650,
+              0.1
+            ]
+          ],
+          "colour": "pink"
+        },
+        {
+          "formula": "CoSO4",
+          "logK": 2.3,
+          "dH": 6.2,
+          "with": {
+            "aq:sulfate": 1
+          }
+        },
+        {
+          "formula": "Co(NH3)+2",
+          "logK": -7.164,
+          "dH": -65,
+          "with": {
+            "aq:ammonium": 1,
+            "H+": -1
+          }
+        },
+        {
+          "formula": "Co(NH3)2+2",
+          "logK": -14.778,
+          "dH": 0,
+          "with": {
+            "aq:ammonium": 2,
+            "H+": -2
+          }
+        },
+        {
+          "formula": "Co(NH3)3+2",
+          "logK": -22.922,
+          "dH": 0,
+          "with": {
+            "aq:ammonium": 3,
+            "H+": -3
+          }
+        },
+        {
+          "formula": "Co(NH3)4+2",
+          "logK": -31.446,
+          "dH": 0,
+          "with": {
+            "aq:ammonium": 4,
+            "H+": -4
+          }
+        },
+        {
+          "formula": "Co(NH3)5+2",
+          "logK": -40.47,
+          "dH": 0,
+          "with": {
+            "aq:ammonium": 5,
+            "H+": -5
+          }
+        },
+        {
+          "formula": "CoNO3+",
+          "logK": 0.2,
+          "dH": 0,
+          "with": {
+            "aq:nitrate": 1
+          }
+        },
+        {
+          "formula": "Co(NO3)2",
+          "logK": 0.5085,
+          "dH": 0,
+          "with": {
+            "aq:nitrate": 2
+          }
+        },
+        {
+          "formula": "CoHPO4",
+          "logK": 15.4128,
+          "dH": 0,
+          "with": {
+            "H+": 1,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "CoCO3",
+          "logK": 4.228,
+          "dH": 0,
+          "with": {
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "CoHCO3+",
+          "logK": 12.2199,
+          "dH": 0,
+          "with": {
+            "H+": 1,
+            "aq:carbonate": 1
+          }
+        },
+        {
+          "formula": "Co(Acetate)+",
+          "logK": 1.38,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 1
+          }
+        },
+        {
+          "formula": "Co(Acetate)2",
+          "logK": 0.7565,
+          "dH": 0,
+          "with": {
+            "aq:acetate": 2
+          }
+        },
+        {
+          "formula": "CoCl4-2",
+          "logK": -3.5,
+          "dH": 50,
+          "with": {
+            "aq:chloride": 4
+          },
+          "epsilon": [
+            [
+              420,
+              3
+            ],
+            [
+              450,
+              8
+            ],
+            [
+              480,
+              40
+            ],
+            [
+              500,
+              70
+            ],
+            [
+              525,
+              100
+            ],
+            [
+              550,
+              150
+            ],
+            [
+              580,
+              220
+            ],
+            [
+              600,
+              280
+            ],
+            [
+              630,
+              450
+            ],
+            [
+              665,
+              550
+            ],
+            [
+              690,
+              600
+            ],
+            [
+              720,
+              350
+            ],
+            [
+              750,
+              100
+            ],
+            [
+              800,
+              10
+            ]
+          ],
+          "colour": "deep blue"
+        }
+      ],
+      "metal": {
+        "deposit": "aq:cobalt-metal",
+        "e0": -0.28
+      },
+      "dHf": -58.2
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          0.3
+        ],
+        [
+          450,
+          1.5
+        ],
+        [
+          480,
+          3.5
+        ],
+        [
+          510,
+          4.8
+        ],
+        [
+          530,
+          4.3
+        ],
+        [
+          560,
+          2.2
+        ],
+        [
+          600,
+          0.5
+        ],
+        [
+          650,
+          0.1
+        ]
+      ],
+      "colour": "pink"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending",
+      "references": [
+        "CoCl4-2: Illustrative overall constant for Co(H₂O)₆²⁺ + 4Cl⁻ ⇌ CoCl₄²⁻ + 6H₂O, endothermic (blue on heating, pink on cooling); λmax 690 nm, ε ≈ 600"
+      ]
+    }
+  },
+  {
+    "id": "aq:chloride",
+    "identity": {
+      "name": "Chloride ion",
+      "class": "ion",
+      "synonyms": [
+        "Cl⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "36.458 g/mol"
+    },
+    "aqueous": {
+      "formula": "Cl-",
+      "charge": -1,
+      "species": [],
+      "dHf": -167.159
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:bromide",
+    "identity": {
+      "name": "Bromide ion",
+      "class": "ion",
+      "synonyms": [
+        "Br⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "80.912 g/mol"
+    },
+    "aqueous": {
+      "formula": "Br-",
+      "charge": -1,
+      "species": [],
+      "dHf": -121.55
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iodide",
+    "identity": {
+      "name": "Iodide ion",
+      "class": "ion",
+      "synonyms": [
+        "I⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "127.912 g/mol"
+    },
+    "aqueous": {
+      "formula": "I-",
+      "charge": -1,
+      "species": [],
+      "dHf": -55.19
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:fluoride",
+    "identity": {
+      "name": "Fluoride ion",
+      "class": "ion",
+      "synonyms": [
+        "F⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "20.006 g/mol"
+    },
+    "aqueous": {
+      "formula": "F-",
+      "charge": -1,
+      "species": [
+        {
+          "formula": "HF",
+          "logK": 3.17,
+          "dH": 13.3,
+          "with": {
+            "H+": 1
+          }
+        },
+        {
+          "formula": "HF2-",
+          "logK": 3.75,
+          "dH": 17.4,
+          "with": {
+            "H+": 1,
+            "aq:fluoride": 1
+          }
+        },
+        {
+          "formula": "H2F2",
+          "logK": 6.768,
+          "dH": 0,
+          "with": {
+            "aq:fluoride": 1,
+            "H+": 2
+          }
+        }
+      ],
+      "dHf": -332.63
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:nitrate",
+    "identity": {
+      "name": "Nitrate ion",
+      "class": "ion",
+      "synonyms": [
+        "NO₃⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "63.012 g/mol"
+    },
+    "aqueous": {
+      "formula": "NO3-",
+      "charge": -1,
+      "species": [],
+      "dHf": -205
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:sulfate",
+    "identity": {
+      "name": "Sulfate ion",
+      "class": "ion",
+      "synonyms": [
+        "SO₄²⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "98.072 g/mol"
+    },
+    "aqueous": {
+      "formula": "SO4-2",
+      "charge": -2,
+      "species": [
+        {
+          "formula": "HSO4-",
+          "logK": 1.99,
+          "dH": 22,
+          "with": {
+            "H+": 1
+          }
+        }
+      ],
+      "dHf": -909.27
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:carbonate",
+    "identity": {
+      "name": "Carbonate",
+      "class": "ion",
+      "synonyms": [
+        "CO₃²⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "62.024 g/mol"
+    },
+    "aqueous": {
+      "formula": "CO3-2",
+      "charge": -2,
+      "species": [
+        {
+          "formula": "HCO3-",
+          "logK": 10.329,
+          "dH": -14.6,
+          "with": {
+            "H+": 1
+          }
+        },
+        {
+          "formula": "H2CO3",
+          "logK": 16.681,
+          "dH": -23.76,
+          "with": {
+            "H+": 2
+          }
+        },
+        {
+          "formula": "CaCO3",
+          "logK": 3.2,
+          "dH": 16,
+          "with": {
+            "aq:calcium": 1
+          }
+        }
+      ],
+      "dHf": -677.14
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:phosphate",
+    "identity": {
+      "name": "Phosphate",
+      "class": "ion",
+      "synonyms": [
+        "PO₄³⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "97.994 g/mol"
+    },
+    "aqueous": {
+      "formula": "PO4-3",
+      "charge": -3,
+      "species": [
+        {
+          "formula": "HPO4-2",
+          "logK": 12.375,
+          "dH": -15,
+          "with": {
+            "H+": 1
+          }
+        },
+        {
+          "formula": "H2PO4-",
+          "logK": 19.573,
+          "dH": -18,
+          "with": {
+            "H+": 2
+          }
+        },
+        {
+          "formula": "H3PO4",
+          "logK": 21.721,
+          "dH": -10.1,
+          "with": {
+            "H+": 3
+          }
+        }
+      ],
+      "dHf": -1277.4
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:chromate",
+    "identity": {
+      "name": "Chromate ion",
+      "class": "ion",
+      "synonyms": [
+        "CrO₄²⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "118.008 g/mol"
+    },
+    "aqueous": {
+      "formula": "CrO4-2",
+      "charge": -2,
+      "species": [
+        {
+          "formula": "HCrO4-",
+          "logK": 6.51,
+          "dH": 2,
+          "with": {
+            "H+": 1
+          },
+          "epsilon": [
+            [
+              300,
+              2000
+            ],
+            [
+              350,
+              1600
+            ],
+            [
+              380,
+              900
+            ],
+            [
+              400,
+              650
+            ],
+            [
+              440,
+              320
+            ],
+            [
+              470,
+              220
+            ],
+            [
+              500,
+              110
+            ],
+            [
+              550,
+              10
+            ],
+            [
+              600,
+              0
+            ]
+          ],
+          "colour": "orange"
+        },
+        {
+          "formula": "H2CrO4",
+          "logK": 6.4188,
+          "dH": 39,
+          "with": {
+            "H+": 2
+          },
+          "epsilon": [
+            [
+              300,
+              2500
+            ],
+            [
+              350,
+              2400
+            ],
+            [
+              400,
+              1100
+            ],
+            [
+              450,
+              400
+            ],
+            [
+              500,
+              130
+            ],
+            [
+              550,
+              10
+            ],
+            [
+              600,
+              0
+            ]
+          ],
+          "colour": "orange"
+        },
+        {
+          "formula": "Cr2O7-2",
+          "logK": 14.56,
+          "dH": -15,
+          "with": {
+            "aq:chromate": 1,
+            "H+": 2
+          },
+          "epsilon": [
+            [
+              300,
+              2500
+            ],
+            [
+              350,
+              3150
+            ],
+            [
+              400,
+              1500
+            ],
+            [
+              440,
+              370
+            ],
+            [
+              470,
+              250
+            ],
+            [
+              500,
+              120
+            ],
+            [
+              550,
+              10
+            ],
+            [
+              600,
+              0
+            ]
+          ],
+          "colour": "orange"
+        },
+        {
+          "formula": "CrO3Cl-",
+          "logK": 7.3086,
+          "dH": 0,
+          "with": {
+            "aq:chloride": 1,
+            "H+": 2
+          },
+          "epsilon": [
+            [
+              300,
+              2500
+            ],
+            [
+              350,
+              2500
+            ],
+            [
+              400,
+              1200
+            ],
+            [
+              450,
+              450
+            ],
+            [
+              500,
+              150
+            ],
+            [
+              550,
+              15
+            ],
+            [
+              600,
+              0
+            ]
+          ],
+          "colour": "orange"
+        },
+        {
+          "formula": "CrO3SO4-2",
+          "logK": 8.9937,
+          "dH": 0,
+          "with": {
+            "aq:sulfate": 1,
+            "H+": 2
+          }
+        },
+        {
+          "formula": "CrO3H2PO4-",
+          "logK": 29.3634,
+          "dH": 0,
+          "with": {
+            "H+": 4,
+            "aq:phosphate": 1
+          }
+        },
+        {
+          "formula": "CrO3HPO4-2",
+          "logK": 26.6806,
+          "dH": 0,
+          "with": {
+            "H+": 3,
+            "aq:phosphate": 1
+          }
+        }
+      ],
+      "dHf": -881.15
+    },
+    "optics": {
+      "epsilon": [
+        [
+          300,
+          1500
+        ],
+        [
+          340,
+          3500
+        ],
+        [
+          372,
+          4830
+        ],
+        [
+          400,
+          3500
+        ],
+        [
+          420,
+          2000
+        ],
+        [
+          450,
+          500
+        ],
+        [
+          480,
+          80
+        ],
+        [
+          500,
+          0
+        ]
+      ],
+      "colour": "yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:acetate",
+    "identity": {
+      "name": "Ethanoate (acetate) ion",
+      "class": "ion",
+      "synonyms": [
+        "CH₃COO⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "60.052 g/mol"
+    },
+    "aqueous": {
+      "formula": "Acetate-",
+      "charge": -1,
+      "species": [
+        {
+          "formula": "H(Acetate)",
+          "logK": 4.757,
+          "dH": 0.41,
+          "with": {
+            "H+": 1
+          }
+        }
+      ],
+      "dHf": -486.01
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier: stands for its neutral acid or base, protons implicit. Species and constants from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:thiocyanate",
+    "identity": {
+      "name": "Thiocyanate ion",
+      "class": "ion",
+      "synonyms": [
+        "SCN⁻"
+      ]
+    },
+    "physical": {
+      "molarMass": "59.09 g/mol"
+    },
+    "aqueous": {
+      "formula": "SCN-",
+      "charge": -1,
+      "species": [],
+      "dHf": 76.44
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ion carrier (not in MINTEQ v4); its iron(III) complexes are from the literature.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-ii-hydroxide",
+    "identity": {
+      "name": "Lead(II) hydroxide",
+      "class": "salt",
+      "formula": "Pb(OH)2"
+    },
+    "physical": {
+      "molarMass": "241.214 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:lead-ii": 1
+    },
+    "solid": {
+      "logK": 8.15,
+      "dH": -58.5342,
+      "rgb": [
+        0.96,
+        0.96,
+        0.95
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Pb(OH)2\" (Pb(OH)2 + 2 H+ = Pb+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:aluminium-hydroxide",
+    "identity": {
+      "name": "Aluminium hydroxide",
+      "class": "salt",
+      "formula": "Al(OH)3"
+    },
+    "physical": {
+      "molarMass": "78.003 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "8 um"
+    },
+    "ions": {
+      "aq:aluminium": 1
+    },
+    "solid": {
+      "logK": 10.8,
+      "dH": -111,
+      "rgb": [
+        0.95,
+        0.95,
+        0.95
+      ],
+      "look": "gelatinous white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Al(OH)3(am)\" (Al(OH)3 + 3 H+ = Al+3 + 3 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc-hydroxide",
+    "identity": {
+      "name": "Zinc hydroxide",
+      "class": "salt",
+      "formula": "Zn(OH)2"
+    },
+    "physical": {
+      "molarMass": "99.394 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "8 um"
+    },
+    "ions": {
+      "aq:zinc": 1
+    },
+    "solid": {
+      "logK": 12.474,
+      "dH": -80.62,
+      "rgb": [
+        0.95,
+        0.95,
+        0.94
+      ],
+      "look": "gelatinous white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Zn(OH)2(am)\" (Zn(OH)2 + 2 H+ = Zn+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:copper-ii-hydroxide",
+    "identity": {
+      "name": "Copper(II) hydroxide",
+      "class": "salt",
+      "formula": "Cu(OH)2"
+    },
+    "physical": {
+      "molarMass": "97.56 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "8 um"
+    },
+    "ions": {
+      "aq:copper-ii": 1
+    },
+    "solid": {
+      "logK": 8.674,
+      "dH": -56.42,
+      "rgb": [
+        0.45,
+        0.72,
+        0.88
+      ],
+      "look": "gelatinous pale blue"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Cu(OH)2\" (Cu(OH)2 + 2 H+ = Cu+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:silver-oxide",
+    "identity": {
+      "name": "Silver oxide",
+      "class": "salt",
+      "formula": "Ag2O"
+    },
+    "physical": {
+      "molarMass": "231.735 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:silver": 2
+    },
+    "solid": {
+      "logK": 12.574,
+      "dH": -45.62,
+      "rgb": [
+        0.35,
+        0.25,
+        0.18
+      ],
+      "look": "brown"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Ag2O\" (Ag2O + 2 H+ = 2 Ag+ + H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:nickel-ii-hydroxide",
+    "identity": {
+      "name": "Nickel(II) hydroxide",
+      "class": "salt",
+      "formula": "Ni(OH)2"
+    },
+    "physical": {
+      "molarMass": "92.707 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "8 um"
+    },
+    "ions": {
+      "aq:nickel-ii": 1
+    },
+    "solid": {
+      "logK": 12.794,
+      "dH": -95.96,
+      "rgb": [
+        0.55,
+        0.75,
+        0.5
+      ],
+      "look": "gelatinous green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Ni(OH)2\" (Ni(OH)2 + 2 H+ = Ni+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:cobalt-ii-hydroxide",
+    "identity": {
+      "name": "Cobalt(II) hydroxide",
+      "class": "salt",
+      "formula": "Co(OH)2"
+    },
+    "physical": {
+      "molarMass": "92.947 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:cobalt-ii": 1
+    },
+    "solid": {
+      "logK": 13.094,
+      "dH": 0,
+      "rgb": [
+        0.35,
+        0.45,
+        0.75
+      ],
+      "look": "blue"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Co(OH)2\" (Co(OH)2 + 2 H+ = Co+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-ii-hydroxide",
+    "identity": {
+      "name": "Iron(II) hydroxide",
+      "class": "salt",
+      "formula": "Fe(OH)2"
+    },
+    "physical": {
+      "molarMass": "89.859 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "8 um"
+    },
+    "ions": {
+      "aq:iron-ii": 1
+    },
+    "solid": {
+      "logK": 13.564,
+      "dH": 0,
+      "rgb": [
+        0.42,
+        0.55,
+        0.38
+      ],
+      "look": "gelatinous dirty green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Fe(OH)2\" (Fe(OH)2 + 2 H+ = Fe+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-iii-hydroxide",
+    "identity": {
+      "name": "Iron(III) hydroxide",
+      "class": "salt",
+      "formula": "Fe(OH)3"
+    },
+    "physical": {
+      "molarMass": "106.866 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "8 um"
+    },
+    "ions": {
+      "aq:iron-iii": 1
+    },
+    "solid": {
+      "logK": 4.891,
+      "dH": -73.374,
+      "rgb": [
+        0.62,
+        0.3,
+        0.1
+      ],
+      "look": "gelatinous rust-brown"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Ferrihydrite\" (Fe(OH)3 + 3 H+ = Fe+3 + 3 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey. log K 4.891 of Fe(OH)3(a) from the WATEQ4F database (wateq4f.dat, PHREEQC distribution) in place of MINTEQ ferrihydrite (3.191): fresh precipitate is amorphous.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:manganese-ii-hydroxide",
+    "identity": {
+      "name": "Manganese(II) hydroxide",
+      "class": "salt",
+      "formula": "Mn(OH)2"
+    },
+    "physical": {
+      "molarMass": "88.952 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:manganese-ii": 1
+    },
+    "solid": {
+      "logK": 15.194,
+      "dH": -97.0099,
+      "rgb": [
+        0.92,
+        0.88,
+        0.84
+      ],
+      "look": "off-white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Pyrochroite\" (Mn(OH)2 + 2 H+ = Mn+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:magnesium-hydroxide",
+    "identity": {
+      "name": "Magnesium hydroxide",
+      "class": "salt",
+      "formula": "Mg(OH)2"
+    },
+    "physical": {
+      "molarMass": "58.319 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:magnesium": 1
+    },
+    "solid": {
+      "logK": 16.844,
+      "dH": -113.996,
+      "rgb": [
+        0.96,
+        0.96,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Brucite\" (Mg(OH)2 + 2 H+ = Mg+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:calcium-hydroxide",
+    "identity": {
+      "name": "Calcium hydroxide",
+      "class": "salt",
+      "formula": "Ca(OH)2"
+    },
+    "physical": {
+      "molarMass": "74.092 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:calcium": 1
+    },
+    "solid": {
+      "logK": 22.804,
+      "dH": -128.62,
+      "rgb": [
+        0.96,
+        0.96,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Portlandite\" (Ca(OH)2 + 2 H+ = Ca+2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:magnesium-fluoride",
+    "identity": {
+      "name": "Magnesium fluoride",
+      "class": "salt",
+      "formula": "MgF2"
+    },
+    "physical": {
+      "molarMass": "62.301 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:magnesium": 1,
+      "aq:fluoride": 2
+    },
+    "solid": {
+      "logK": -8.13,
+      "dH": -8,
+      "rgb": [
+        0.96,
+        0.96,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"MgF2\" (MgF2 = Mg+2 + 2 F-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:calcium-fluoride",
+    "identity": {
+      "name": "Calcium fluoride",
+      "class": "salt",
+      "formula": "CaF2"
+    },
+    "physical": {
+      "molarMass": "78.074 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:fluoride": 2
+    },
+    "solid": {
+      "logK": -10.5,
+      "dH": 8,
+      "rgb": [
+        0.96,
+        0.96,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Fluorite\" (CaF2 = Ca+2 + 2 F-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:barium-fluoride",
+    "identity": {
+      "name": "Barium fluoride",
+      "class": "salt",
+      "formula": "BaF2"
+    },
+    "physical": {
+      "molarMass": "175.323 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:barium": 1,
+      "aq:fluoride": 2
+    },
+    "solid": {
+      "logK": -5.82,
+      "dH": 4,
+      "rgb": [
+        0.96,
+        0.96,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"BaF2\" (BaF2 = Ba+2 + 2 F-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-ii-chloride",
+    "identity": {
+      "name": "Lead(II) chloride",
+      "class": "salt",
+      "formula": "PbCl2"
+    },
+    "physical": {
+      "molarMass": "278.1 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "25 um"
+    },
+    "ions": {
+      "aq:lead-ii": 1,
+      "aq:chloride": 2
+    },
+    "solid": {
+      "logK": -4.78,
+      "dH": 26.166,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white crystalline"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Cotunnite\" (PbCl2 = Pb+2 + 2 Cl-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:silver-chloride",
+    "identity": {
+      "name": "Silver chloride",
+      "class": "salt",
+      "formula": "AgCl"
+    },
+    "physical": {
+      "molarMass": "143.318 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "14 um"
+    },
+    "ions": {
+      "aq:silver": 1,
+      "aq:chloride": 1
+    },
+    "solid": {
+      "logK": -9.75,
+      "dH": 65.2,
+      "rgb": [
+        0.95,
+        0.95,
+        0.94
+      ],
+      "look": "curdy white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Cerargyrite\" (AgCl = Ag+ + Cl-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-ii-bromide",
+    "identity": {
+      "name": "Lead(II) bromide",
+      "class": "salt",
+      "formula": "PbBr2"
+    },
+    "physical": {
+      "molarMass": "367.008 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:lead-ii": 1,
+      "aq:bromide": 2
+    },
+    "solid": {
+      "logK": -5.3,
+      "dH": 35.499,
+      "rgb": [
+        0.97,
+        0.97,
+        0.95
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"PbBr2\" (PbBr2 = Pb+2 + 2 Br-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:silver-bromide",
+    "identity": {
+      "name": "Silver bromide",
+      "class": "salt",
+      "formula": "AgBr"
+    },
+    "physical": {
+      "molarMass": "187.772 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:silver": 1,
+      "aq:bromide": 1
+    },
+    "solid": {
+      "logK": -12.3,
+      "dH": 84.5,
+      "rgb": [
+        0.96,
+        0.93,
+        0.78
+      ],
+      "look": "cream"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Bromyrite\" (AgBr = Ag+ + Br-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-ii-iodide",
+    "identity": {
+      "name": "Lead(II) iodide",
+      "class": "salt",
+      "formula": "PbI2"
+    },
+    "physical": {
+      "molarMass": "461.008 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:lead-ii": 1,
+      "aq:iodide": 2
+    },
+    "solid": {
+      "logK": -8.1,
+      "dH": 62,
+      "rgb": [
+        0.98,
+        0.82,
+        0.1
+      ],
+      "look": "bright yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"PbI2\" (PbI2 = Pb+2 + 2 I-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:silver-iodide",
+    "identity": {
+      "name": "Silver iodide",
+      "class": "salt",
+      "formula": "AgI"
+    },
+    "physical": {
+      "molarMass": "234.772 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:silver": 1,
+      "aq:iodide": 1
+    },
+    "solid": {
+      "logK": -16.08,
+      "dH": 110,
+      "rgb": [
+        0.98,
+        0.94,
+        0.6
+      ],
+      "look": "pale yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Iodyrite\" (AgI = Ag+ + I-) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-ii-carbonate",
+    "identity": {
+      "name": "Lead(II) carbonate",
+      "class": "salt",
+      "formula": "PbCO3"
+    },
+    "physical": {
+      "molarMass": "267.208 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:lead-ii": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -13.13,
+      "dH": 24.79,
+      "rgb": [
+        0.97,
+        0.97,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Cerussite\" (PbCO3 = Pb+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc-carbonate",
+    "identity": {
+      "name": "Zinc carbonate",
+      "class": "salt",
+      "formula": "ZnCO3"
+    },
+    "physical": {
+      "molarMass": "125.388 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:zinc": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -10,
+      "dH": -15.84,
+      "rgb": [
+        0.97,
+        0.97,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Smithsonite\" (ZnCO3 = Zn+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:basic-copper-carbonate",
+    "identity": {
+      "name": "Basic copper(II) carbonate",
+      "class": "salt",
+      "formula": "Cu2(OH)2CO3"
+    },
+    "physical": {
+      "molarMass": "221.114 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:copper-ii": 2,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -5.306,
+      "dH": 76.38,
+      "rgb": [
+        0.25,
+        0.6,
+        0.5
+      ],
+      "look": "blue-green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Malachite\" (Cu2(OH)2CO3 + 2 H+ = 2 Cu+2 + 2 H2O + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:silver-carbonate",
+    "identity": {
+      "name": "Silver carbonate",
+      "class": "salt",
+      "formula": "Ag2CO3"
+    },
+    "physical": {
+      "molarMass": "275.744 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:silver": 2,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -11.09,
+      "dH": 42.15,
+      "rgb": [
+        0.96,
+        0.92,
+        0.7
+      ],
+      "look": "pale yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Ag2CO3\" (Ag2CO3 = 2 Ag+ + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:nickel-ii-carbonate",
+    "identity": {
+      "name": "Nickel(II) carbonate",
+      "class": "salt",
+      "formula": "NiCO3"
+    },
+    "physical": {
+      "molarMass": "118.701 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:nickel-ii": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -6.87,
+      "dH": -41.589,
+      "rgb": [
+        0.6,
+        0.8,
+        0.6
+      ],
+      "look": "pale green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"NiCO3\" (NiCO3 = Ni+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:cobalt-ii-carbonate",
+    "identity": {
+      "name": "Cobalt(II) carbonate",
+      "class": "salt",
+      "formula": "CoCO3"
+    },
+    "physical": {
+      "molarMass": "118.941 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:cobalt-ii": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -9.98,
+      "dH": -12.7612,
+      "rgb": [
+        0.85,
+        0.55,
+        0.65
+      ],
+      "look": "pink"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"CoCO3\" (CoCO3 = Co+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-ii-carbonate",
+    "identity": {
+      "name": "Iron(II) carbonate",
+      "class": "salt",
+      "formula": "FeCO3"
+    },
+    "physical": {
+      "molarMass": "115.853 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:iron-ii": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -10.24,
+      "dH": -16,
+      "rgb": [
+        0.85,
+        0.87,
+        0.8
+      ],
+      "look": "off-white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Siderite\" (FeCO3 = Fe+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:manganese-ii-carbonate",
+    "identity": {
+      "name": "Manganese(II) carbonate",
+      "class": "salt",
+      "formula": "MnCO3"
+    },
+    "physical": {
+      "molarMass": "114.946 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:manganese-ii": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -10.58,
+      "dH": -1.88,
+      "rgb": [
+        0.95,
+        0.85,
+        0.82
+      ],
+      "look": "pale pink"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Rhodochrosite\" (MnCO3 = Mn+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:magnesium-carbonate",
+    "identity": {
+      "name": "Magnesium carbonate",
+      "class": "salt",
+      "formula": "MgCO3·3H2O"
+    },
+    "physical": {
+      "molarMass": "138.358 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:magnesium": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -4.67,
+      "dH": -24.2212,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Nesquehonite\" (MgCO3:3H2O = Mg+2 + CO3-2 + 3 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:calcium-carbonate",
+    "identity": {
+      "name": "Calcium carbonate",
+      "class": "salt",
+      "formula": "CaCO3"
+    },
+    "physical": {
+      "molarMass": "100.086 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -8.48,
+      "dH": -8,
+      "rgb": [
+        0.97,
+        0.97,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Calcite\" (CaCO3 = Ca+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:strontium-carbonate",
+    "identity": {
+      "name": "Strontium carbonate",
+      "class": "salt",
+      "formula": "SrCO3"
+    },
+    "physical": {
+      "molarMass": "147.628 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:strontium": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -9.27,
+      "dH": 0,
+      "rgb": [
+        0.97,
+        0.97,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Strontianite\" (SrCO3 = Sr+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:barium-carbonate",
+    "identity": {
+      "name": "Barium carbonate",
+      "class": "salt",
+      "formula": "BaCO3"
+    },
+    "physical": {
+      "molarMass": "197.335 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:barium": 1,
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -8.57,
+      "dH": 4,
+      "rgb": [
+        0.97,
+        0.97,
+        0.96
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Witherite\" (BaCO3 = Ba+2 + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-ii-sulfate",
+    "identity": {
+      "name": "Lead(II) sulfate",
+      "class": "salt",
+      "formula": "PbSO4"
+    },
+    "physical": {
+      "molarMass": "303.256 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:lead-ii": 1,
+      "aq:sulfate": 1
+    },
+    "solid": {
+      "logK": -7.79,
+      "dH": 12,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Anglesite\" (PbSO4 = Pb+2 + SO4-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "solid": {
+      "logK": -2.2,
+      "dH": 6.025,
+      "rgb": [
+        0.2,
+        0.5,
+        0.88
+      ],
+      "look": "crystalline blue"
+    },
+    "id": "aq:copper-ii-sulfate-pentahydrate",
+    "identity": {
+      "name": "Copper(II) sulfate pentahydrate",
+      "class": "salt",
+      "formula": "CuSO4:5H2O"
+    },
+    "physical": {
+      "molarMass": "249.677 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "25 um"
+    },
+    "ions": {
+      "aq:copper-ii": 1,
+      "aq:sulfate": 1
+    },
+    "thermo": {
+      "dHf": -2279.65,
+      "water": 5
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:silver-sulfate",
+    "identity": {
+      "name": "Silver sulfate",
+      "class": "salt",
+      "formula": "Ag2SO4"
+    },
+    "physical": {
+      "molarMass": "311.792 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:silver": 2,
+      "aq:sulfate": 1
+    },
+    "solid": {
+      "logK": -4.82,
+      "dH": 17,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Ag2SO4\" (Ag2SO4 = 2 Ag+ + SO4-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:calcium-sulfate",
+    "identity": {
+      "name": "Calcium sulfate dihydrate",
+      "class": "salt",
+      "formula": "CaSO4·2H2O"
+    },
+    "physical": {
+      "molarMass": "172.164 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "25 um"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:sulfate": 1
+    },
+    "solid": {
+      "logK": -4.61,
+      "dH": 1,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white crystalline"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Gypsum\" (CaSO4:2H2O = Ca+2 + SO4-2 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:strontium-sulfate",
+    "identity": {
+      "name": "Strontium sulfate",
+      "class": "salt",
+      "formula": "SrSO4"
+    },
+    "physical": {
+      "molarMass": "183.676 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:strontium": 1,
+      "aq:sulfate": 1
+    },
+    "solid": {
+      "logK": -6.62,
+      "dH": 2,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Celestite\" (SrSO4 = Sr+2 + SO4-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:barium-sulfate",
+    "identity": {
+      "name": "Barium sulfate",
+      "class": "salt",
+      "formula": "BaSO4"
+    },
+    "physical": {
+      "molarMass": "233.383 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "4 um"
+    },
+    "ions": {
+      "aq:barium": 1,
+      "aq:sulfate": 1
+    },
+    "solid": {
+      "logK": -9.98,
+      "dH": 23,
+      "rgb": [
+        0.98,
+        0.98,
+        0.98
+      ],
+      "look": "fine white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Barite\" (BaSO4 = Ba+2 + SO4-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-ii-chromate",
+    "identity": {
+      "name": "Lead(II) chromate",
+      "class": "salt",
+      "formula": "PbCrO4"
+    },
+    "physical": {
+      "molarMass": "323.192 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:lead-ii": 1,
+      "aq:chromate": 1
+    },
+    "solid": {
+      "logK": -12.6,
+      "dH": 44.18,
+      "rgb": [
+        0.98,
+        0.8,
+        0.05
+      ],
+      "look": "bright yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"PbCrO4\" (PbCrO4 = Pb+2 + CrO4-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:silver-chromate",
+    "identity": {
+      "name": "Silver chromate",
+      "class": "salt",
+      "formula": "Ag2CrO4"
+    },
+    "physical": {
+      "molarMass": "331.728 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:silver": 2,
+      "aq:chromate": 1
+    },
+    "solid": {
+      "logK": -11.59,
+      "dH": 62,
+      "rgb": [
+        0.62,
+        0.2,
+        0.12
+      ],
+      "look": "brick red"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Ag2CrO4\" (Ag2CrO4 = 2 Ag+ + CrO4-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:strontium-chromate",
+    "identity": {
+      "name": "Strontium chromate",
+      "class": "salt",
+      "formula": "SrCrO4"
+    },
+    "physical": {
+      "molarMass": "203.612 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:strontium": 1,
+      "aq:chromate": 1
+    },
+    "solid": {
+      "logK": -4.65,
+      "dH": -10.1253,
+      "rgb": [
+        0.95,
+        0.86,
+        0.3
+      ],
+      "look": "yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"SrCrO4\" (SrCrO4 = Sr+2 + CrO4-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:barium-chromate",
+    "identity": {
+      "name": "Barium chromate",
+      "class": "salt",
+      "formula": "BaCrO4"
+    },
+    "physical": {
+      "molarMass": "253.319 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:barium": 1,
+      "aq:chromate": 1
+    },
+    "solid": {
+      "logK": -9.67,
+      "dH": 33,
+      "rgb": [
+        0.95,
+        0.85,
+        0.25
+      ],
+      "look": "yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"BaCrO4\" (BaCrO4 = Ba+2 + CrO4-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-ii-phosphate",
+    "identity": {
+      "name": "Lead(II) phosphate",
+      "class": "salt",
+      "formula": "Pb3(PO4)2"
+    },
+    "physical": {
+      "molarMass": "811.54 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:lead-ii": 3,
+      "aq:phosphate": 2
+    },
+    "solid": {
+      "logK": -43.53,
+      "dH": 0,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Pb3(PO4)2\" (Pb3(PO4)2 = 3 Pb+2 + 2 PO4-3) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc-phosphate",
+    "identity": {
+      "name": "Zinc phosphate",
+      "class": "salt",
+      "formula": "Zn3(PO4)2·4H2O"
+    },
+    "physical": {
+      "molarMass": "458.14 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:zinc": 3,
+      "aq:phosphate": 2
+    },
+    "solid": {
+      "logK": -35.42,
+      "dH": 0,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Zn3(PO4)2:4H2O\" (Zn3(PO4)2:4H2O = 3 Zn+2 + 2 PO4-3 + 4 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:copper-ii-phosphate",
+    "identity": {
+      "name": "Copper(II) phosphate",
+      "class": "salt",
+      "formula": "Cu3(PO4)2"
+    },
+    "physical": {
+      "molarMass": "380.578 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:copper-ii": 3,
+      "aq:phosphate": 2
+    },
+    "solid": {
+      "logK": -36.85,
+      "dH": 0,
+      "rgb": [
+        0.4,
+        0.7,
+        0.75
+      ],
+      "look": "blue-green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Cu3(PO4)2\" (Cu3(PO4)2 = 3 Cu+2 + 2 PO4-3) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:silver-phosphate",
+    "identity": {
+      "name": "Silver phosphate",
+      "class": "salt",
+      "formula": "Ag3PO4"
+    },
+    "physical": {
+      "molarMass": "418.574 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:silver": 3,
+      "aq:phosphate": 1
+    },
+    "solid": {
+      "logK": -17.59,
+      "dH": 0,
+      "rgb": [
+        0.95,
+        0.88,
+        0.35
+      ],
+      "look": "yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Ag3PO4\" (Ag3PO4 = 3 Ag+ + PO4-3) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-iii-phosphate",
+    "identity": {
+      "name": "Iron(III) phosphate",
+      "class": "salt",
+      "formula": "FePO4·2H2O"
+    },
+    "physical": {
+      "molarMass": "186.845 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:iron-iii": 1,
+      "aq:phosphate": 1
+    },
+    "solid": {
+      "logK": -26.4,
+      "dH": -9.3601,
+      "rgb": [
+        0.95,
+        0.9,
+        0.75
+      ],
+      "look": "pale yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Strengite\" (FePO4:2H2O = Fe+3 + PO4-3 + 2 H2O) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:magnesium-phosphate",
+    "identity": {
+      "name": "Magnesium phosphate",
+      "class": "salt",
+      "formula": "Mg3(PO4)2"
+    },
+    "physical": {
+      "molarMass": "262.855 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:magnesium": 3,
+      "aq:phosphate": 2
+    },
+    "solid": {
+      "logK": -23.28,
+      "dH": 0,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Mg3(PO4)2\" (Mg3(PO4)2 = 3 Mg+2 + 2 PO4-3) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:calcium-phosphate",
+    "identity": {
+      "name": "Calcium phosphate",
+      "class": "salt",
+      "formula": "Ca3(PO4)2"
+    },
+    "physical": {
+      "molarMass": "310.174 g/mol",
+      "phase": "solid",
+      "density": "3000 g/L",
+      "particleSize": "7 um"
+    },
+    "ions": {
+      "aq:calcium": 3,
+      "aq:phosphate": 2
+    },
+    "solid": {
+      "logK": -28.92,
+      "dH": 54,
+      "rgb": [
+        0.97,
+        0.97,
+        0.97
+      ],
+      "look": "white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"Ca3(PO4)2(beta)\" (Ca3(PO4)2 = 3 Ca+2 + 2 PO4-3) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:carbon-dioxide",
+    "identity": {
+      "name": "Carbon dioxide",
+      "class": "gas",
+      "formula": "CO2"
+    },
+    "physical": {
+      "molarMass": "44.009 g/mol",
+      "phase": "gas"
+    },
+    "ions": {
+      "aq:carbonate": 1
+    },
+    "solid": {
+      "logK": -18.147,
+      "dH": 4.06,
+      "rgb": [
+        1,
+        1,
+        1
+      ],
+      "look": "gas",
+      "phase": "gas"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Phase \"CO2(g)\" (CO2 + H2O = 2 H+ + CO3-2) from the MINTEQ v4 thermodynamic database (minteq.v4.dat, $Id 11091 2016-04-21), distributed with PHREEQC by the U.S. Geological Survey.",
+      "review": "pending"
+    },
+    "gas": {
+      "henry": 0.0339,
+      "dH": -19.4,
+      "species": "H2CO3"
+    }
+  },
+  {
+    "id": "aq:silver-nitrate",
+    "identity": {
+      "name": "Silver nitrate",
+      "class": "salt",
+      "formula": "AgNO3"
+    },
+    "physical": {
+      "molarMass": "169.872 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:silver": 1,
+      "aq:nitrate": 1
+    },
+    "thermo": {
+      "dHf": -124.39
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:barium-chloride",
+    "identity": {
+      "name": "Barium chloride",
+      "class": "salt",
+      "formula": "BaCl2"
+    },
+    "physical": {
+      "molarMass": "208.227 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:barium": 1,
+      "aq:chloride": 2
+    },
+    "thermo": {
+      "dHf": -858.6
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:barium-nitrate",
+    "identity": {
+      "name": "Barium nitrate",
+      "class": "salt",
+      "formula": "Ba(NO3)2"
+    },
+    "physical": {
+      "molarMass": "261.335 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:barium": 1,
+      "aq:nitrate": 2
+    },
+    "thermo": {
+      "dHf": -992.07
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:lead-ii-nitrate",
+    "identity": {
+      "name": "Lead(II) nitrate",
+      "class": "salt",
+      "formula": "Pb(NO3)2"
+    },
+    "physical": {
+      "molarMass": "331.208 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:lead-ii": 1,
+      "aq:nitrate": 2
+    },
+    "thermo": {
+      "dHf": -451.9
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:iron-iii-chloride",
+    "identity": {
+      "name": "Iron(III) chloride",
+      "class": "salt",
+      "formula": "FeCl3"
+    },
+    "physical": {
+      "molarMass": "162.195 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:iron-iii": 1,
+      "aq:chloride": 3
+    },
+    "thermo": {
+      "dHf": -399.49
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:iron-iii-nitrate",
+    "identity": {
+      "name": "Iron(III) nitrate",
+      "class": "salt",
+      "formula": "Fe(NO3)3"
+    },
+    "physical": {
+      "molarMass": "241.857 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:iron-iii": 1,
+      "aq:nitrate": 3
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:iron-ii-sulfate",
+    "identity": {
+      "name": "Iron(II) sulfate",
+      "class": "salt",
+      "formula": "FeSO4"
+    },
+    "physical": {
+      "molarMass": "151.901 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:iron-ii": 1,
+      "aq:sulfate": 1
+    },
+    "thermo": {
+      "dHf": -928.4
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:copper-ii-sulfate",
+    "identity": {
+      "name": "Copper(II) sulfate",
+      "class": "salt",
+      "formula": "CuSO4"
+    },
+    "physical": {
+      "molarMass": "159.602 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:copper-ii": 1,
+      "aq:sulfate": 1
+    },
+    "thermo": {
+      "dHf": -771.36
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:copper-ii-chloride",
+    "identity": {
+      "name": "Copper(II) chloride",
+      "class": "salt",
+      "formula": "CuCl2"
+    },
+    "physical": {
+      "molarMass": "134.446 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:copper-ii": 1,
+      "aq:chloride": 2
+    },
+    "thermo": {
+      "dHf": -220.1
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:copper-ii-nitrate",
+    "identity": {
+      "name": "Copper(II) nitrate",
+      "class": "salt",
+      "formula": "Cu(NO3)2"
+    },
+    "physical": {
+      "molarMass": "187.554 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:copper-ii": 1,
+      "aq:nitrate": 2
+    },
+    "thermo": {
+      "dHf": -302.9
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:zinc-sulfate",
+    "identity": {
+      "name": "Zinc sulfate",
+      "class": "salt",
+      "formula": "ZnSO4"
+    },
+    "physical": {
+      "molarMass": "161.436 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:zinc": 1,
+      "aq:sulfate": 1
+    },
+    "thermo": {
+      "dHf": -982.8
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:zinc-chloride",
+    "identity": {
+      "name": "Zinc chloride",
+      "class": "salt",
+      "formula": "ZnCl2"
+    },
+    "physical": {
+      "molarMass": "136.28 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:zinc": 1,
+      "aq:chloride": 2
+    },
+    "thermo": {
+      "dHf": -415.05
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:aluminium-sulfate",
+    "identity": {
+      "name": "Aluminium sulfate",
+      "class": "salt",
+      "formula": "Al2(SO4)3"
+    },
+    "physical": {
+      "molarMass": "342.132 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:aluminium": 2,
+      "aq:sulfate": 3
+    },
+    "thermo": {
+      "dHf": -3440.84
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:aluminium-chloride",
+    "identity": {
+      "name": "Aluminium chloride",
+      "class": "salt",
+      "formula": "AlCl3"
+    },
+    "physical": {
+      "molarMass": "133.332 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:aluminium": 1,
+      "aq:chloride": 3
+    },
+    "thermo": {
+      "dHf": -704.2
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:nickel-ii-sulfate",
+    "identity": {
+      "name": "Nickel(II) sulfate",
+      "class": "salt",
+      "formula": "NiSO4"
+    },
+    "physical": {
+      "molarMass": "154.749 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:nickel-ii": 1,
+      "aq:sulfate": 1
+    },
+    "thermo": {
+      "dHf": -872.91
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:cobalt-ii-chloride",
+    "identity": {
+      "name": "Cobalt(II) chloride",
+      "class": "salt",
+      "formula": "CoCl2"
+    },
+    "physical": {
+      "molarMass": "129.833 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:cobalt-ii": 1,
+      "aq:chloride": 2
+    },
+    "thermo": {
+      "dHf": -312.5
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:manganese-ii-sulfate",
+    "identity": {
+      "name": "Manganese(II) sulfate",
+      "class": "salt",
+      "formula": "MnSO4"
+    },
+    "physical": {
+      "molarMass": "150.994 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:manganese-ii": 1,
+      "aq:sulfate": 1
+    },
+    "thermo": {
+      "dHf": -1065.25
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:calcium-chloride",
+    "identity": {
+      "name": "Calcium chloride",
+      "class": "salt",
+      "formula": "CaCl2"
+    },
+    "physical": {
+      "molarMass": "110.978 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:chloride": 2
+    },
+    "thermo": {
+      "dHf": -795.8
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:calcium-nitrate",
+    "identity": {
+      "name": "Calcium nitrate",
+      "class": "salt",
+      "formula": "Ca(NO3)2"
+    },
+    "physical": {
+      "molarMass": "164.086 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:nitrate": 2
+    },
+    "thermo": {
+      "dHf": -938.39
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:magnesium-sulfate",
+    "identity": {
+      "name": "Magnesium sulfate",
+      "class": "salt",
+      "formula": "MgSO4"
+    },
+    "physical": {
+      "molarMass": "120.361 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:magnesium": 1,
+      "aq:sulfate": 1
+    },
+    "thermo": {
+      "dHf": -1284.9
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:magnesium-chloride",
+    "identity": {
+      "name": "Magnesium chloride",
+      "class": "salt",
+      "formula": "MgCl2"
+    },
+    "physical": {
+      "molarMass": "95.205 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:magnesium": 1,
+      "aq:chloride": 2
+    },
+    "thermo": {
+      "dHf": -641.32
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:strontium-chloride",
+    "identity": {
+      "name": "Strontium chloride",
+      "class": "salt",
+      "formula": "SrCl2"
+    },
+    "physical": {
+      "molarMass": "158.52 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:strontium": 1,
+      "aq:chloride": 2
+    },
+    "thermo": {
+      "dHf": -828.9
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:lithium-chloride",
+    "identity": {
+      "name": "Lithium chloride",
+      "class": "salt",
+      "formula": "LiCl"
+    },
+    "physical": {
+      "molarMass": "42.39 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:lithium": 1,
+      "aq:chloride": 1
+    },
+    "thermo": {
+      "dHf": -408.61
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-chloride",
+    "identity": {
+      "name": "Sodium chloride",
+      "class": "salt",
+      "formula": "NaCl"
+    },
+    "physical": {
+      "molarMass": "58.44 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 1,
+      "aq:chloride": 1
+    },
+    "thermo": {
+      "dHf": -411.15
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:potassium-chloride",
+    "identity": {
+      "name": "Potassium chloride",
+      "class": "salt",
+      "formula": "KCl"
+    },
+    "physical": {
+      "molarMass": "74.548 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:potassium": 1,
+      "aq:chloride": 1
+    },
+    "thermo": {
+      "dHf": -436.75
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:potassium-bromide",
+    "identity": {
+      "name": "Potassium bromide",
+      "class": "salt",
+      "formula": "KBr"
+    },
+    "physical": {
+      "molarMass": "119.002 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:potassium": 1,
+      "aq:bromide": 1
+    },
+    "thermo": {
+      "dHf": -393.8
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:potassium-iodide",
+    "identity": {
+      "name": "Potassium iodide",
+      "class": "salt",
+      "formula": "KI"
+    },
+    "physical": {
+      "molarMass": "166.002 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:potassium": 1,
+      "aq:iodide": 1
+    },
+    "thermo": {
+      "dHf": -327.9
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-fluoride",
+    "identity": {
+      "name": "Sodium fluoride",
+      "class": "salt",
+      "formula": "NaF"
+    },
+    "physical": {
+      "molarMass": "41.988 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 1,
+      "aq:fluoride": 1
+    },
+    "thermo": {
+      "dHf": -573.65
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-nitrate",
+    "identity": {
+      "name": "Sodium nitrate",
+      "class": "salt",
+      "formula": "NaNO3"
+    },
+    "physical": {
+      "molarMass": "84.994 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 1,
+      "aq:nitrate": 1
+    },
+    "thermo": {
+      "dHf": -467.85
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-sulfate",
+    "identity": {
+      "name": "Sodium sulfate",
+      "class": "salt",
+      "formula": "Na2SO4"
+    },
+    "physical": {
+      "molarMass": "142.036 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 2,
+      "aq:sulfate": 1
+    },
+    "thermo": {
+      "dHf": -1387.08
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-carbonate",
+    "identity": {
+      "name": "Sodium carbonate",
+      "class": "salt",
+      "formula": "Na2CO3"
+    },
+    "physical": {
+      "molarMass": "105.988 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 2,
+      "aq:carbonate": 1
+    },
+    "thermo": {
+      "dHf": -1130.68
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-hydrogencarbonate",
+    "identity": {
+      "name": "Sodium hydrogencarbonate",
+      "class": "salt",
+      "formula": "NaHCO3"
+    },
+    "physical": {
+      "molarMass": "84.006 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 1,
+      "aq:carbonate": 1
+    },
+    "thermo": {
+      "dHf": -950.81
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-phosphate",
+    "identity": {
+      "name": "Trisodium phosphate",
+      "class": "salt",
+      "formula": "Na3PO4"
+    },
+    "physical": {
+      "molarMass": "163.94 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 3,
+      "aq:phosphate": 1
+    },
+    "thermo": {
+      "dHf": -1917.4
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-hydroxide",
+    "identity": {
+      "name": "Sodium hydroxide",
+      "class": "salt",
+      "formula": "NaOH"
+    },
+    "physical": {
+      "molarMass": "39.997 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 1
+    },
+    "thermo": {
+      "dHf": -425.61,
+      "water": 1
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:potassium-hydroxide",
+    "identity": {
+      "name": "Potassium hydroxide",
+      "class": "salt",
+      "formula": "KOH"
+    },
+    "physical": {
+      "molarMass": "56.105 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:potassium": 1
+    },
+    "thermo": {
+      "dHf": -424.76,
+      "water": 1
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:hydrochloric-acid",
+    "identity": {
+      "name": "Hydrochloric acid",
+      "class": "salt",
+      "formula": "HCl"
+    },
+    "physical": {
+      "molarMass": "36.458 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:chloride": 1
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:nitric-acid",
+    "identity": {
+      "name": "Nitric acid",
+      "class": "salt",
+      "formula": "HNO3"
+    },
+    "physical": {
+      "molarMass": "63.012 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:nitrate": 1
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sulfuric-acid",
+    "identity": {
+      "name": "Sulfuric acid",
+      "class": "salt",
+      "formula": "H2SO4"
+    },
+    "physical": {
+      "molarMass": "98.072 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sulfate": 1
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:ammonia",
+    "identity": {
+      "name": "Ammonia",
+      "class": "salt",
+      "formula": "NH3"
+    },
+    "physical": {
+      "molarMass": "17.031 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:ammonium": 1
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:ammonium-chloride",
+    "identity": {
+      "name": "Ammonium chloride",
+      "class": "salt",
+      "formula": "NH4Cl"
+    },
+    "physical": {
+      "molarMass": "53.489 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:ammonium": 1,
+      "aq:chloride": 1
+    },
+    "thermo": {
+      "dHf": -314.43
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:potassium-chromate",
+    "identity": {
+      "name": "Potassium chromate",
+      "class": "salt",
+      "formula": "K2CrO4"
+    },
+    "physical": {
+      "molarMass": "194.188 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:potassium": 2,
+      "aq:chromate": 1
+    },
+    "thermo": {
+      "dHf": -1403.7
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:potassium-dichromate",
+    "identity": {
+      "name": "Potassium dichromate",
+      "class": "salt",
+      "formula": "K2Cr2O7"
+    },
+    "physical": {
+      "molarMass": "294.181 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:potassium": 2,
+      "aq:chromate": 2
+    },
+    "thermo": {
+      "dHf": -2061.5,
+      "water": -1
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:potassium-thiocyanate",
+    "identity": {
+      "name": "Potassium thiocyanate",
+      "class": "salt",
+      "formula": "KSCN"
+    },
+    "physical": {
+      "molarMass": "97.176 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:potassium": 1,
+      "aq:thiocyanate": 1
+    },
+    "thermo": {
+      "dHf": -200.16
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:sodium-ethanoate",
+    "identity": {
+      "name": "Sodium ethanoate",
+      "class": "salt",
+      "formula": "CH3COONa"
+    },
+    "physical": {
+      "molarMass": "82.034 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:sodium": 1,
+      "aq:acetate": 1
+    },
+    "thermo": {
+      "dHf": -708.81
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:ammonium-nitrate",
+    "identity": {
+      "name": "Ammonium nitrate",
+      "class": "salt",
+      "formula": "NH4NO3"
+    },
+    "physical": {
+      "molarMass": "80.043 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:ammonium": 1,
+      "aq:nitrate": 1
+    },
+    "thermo": {
+      "dHf": -365.56
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:potassium-nitrate",
+    "identity": {
+      "name": "Potassium nitrate",
+      "class": "salt",
+      "formula": "KNO3"
+    },
+    "physical": {
+      "molarMass": "101.102 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:potassium": 1,
+      "aq:nitrate": 1
+    },
+    "thermo": {
+      "dHf": -494.63
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "aq:magnesium-ribbon",
+    "identity": {
+      "name": "Magnesium ribbon",
+      "class": "metal",
+      "formula": "Mg"
+    },
+    "physical": {
+      "molarMass": "24.305 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:magnesium",
+      "charge": 2,
+      "e0": -2.37,
+      "acidK": 0.17,
+      "displaceK": 0.03,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.00575,
+      "shape": "sheet"
+    },
+    "look": {
+      "rgb": [
+        0.78,
+        0.78,
+        0.8
+      ],
+      "description": "a strip of shiny grey ribbon"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -2.37 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:magnesium-powder",
+    "identity": {
+      "name": "Magnesium powder",
+      "class": "metal",
+      "formula": "Mg"
+    },
+    "physical": {
+      "molarMass": "24.305 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:magnesium",
+      "charge": 2,
+      "e0": -2.37,
+      "acidK": 0.17,
+      "displaceK": 0.03,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.069
+    },
+    "look": {
+      "rgb": [
+        0.7,
+        0.7,
+        0.72
+      ],
+      "description": "grey powder"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -2.37 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc-granules",
+    "identity": {
+      "name": "Zinc granules",
+      "class": "metal",
+      "formula": "Zn"
+    },
+    "physical": {
+      "molarMass": "65.38 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:zinc",
+      "charge": 2,
+      "e0": -0.76,
+      "acidK": 0.02,
+      "displaceK": 0.05,
+      "ea": 45
+    },
+    "surface": {
+      "m2PerG": 0.00028
+    },
+    "look": {
+      "rgb": [
+        0.7,
+        0.72,
+        0.75
+      ],
+      "description": "dull grey granules"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.76 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc-powder",
+    "identity": {
+      "name": "Zinc powder",
+      "class": "metal",
+      "formula": "Zn"
+    },
+    "physical": {
+      "molarMass": "65.38 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:zinc",
+      "charge": 2,
+      "e0": -0.76,
+      "acidK": 0.02,
+      "displaceK": 0.05,
+      "ea": 45
+    },
+    "surface": {
+      "m2PerG": 0.0168
+    },
+    "look": {
+      "rgb": [
+        0.62,
+        0.64,
+        0.66
+      ],
+      "description": "grey powder"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.76 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-filings",
+    "identity": {
+      "name": "Iron filings",
+      "class": "metal",
+      "formula": "Fe"
+    },
+    "physical": {
+      "molarMass": "55.845 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:iron-ii",
+      "charge": 2,
+      "e0": -0.44,
+      "acidK": 0.004,
+      "displaceK": 0.005,
+      "ea": 50,
+      "corrodesTo": "aq:iron-iii"
+    },
+    "surface": {
+      "m2PerG": 0.0015
+    },
+    "look": {
+      "rgb": [
+        0.35,
+        0.35,
+        0.36
+      ],
+      "description": "dark grey filings"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.44 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:copper-turnings",
+    "identity": {
+      "name": "Copper turnings",
+      "class": "metal",
+      "formula": "Cu"
+    },
+    "physical": {
+      "molarMass": "63.546 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:copper-ii",
+      "charge": 2,
+      "e0": 0.34,
+      "displaceK": 0.02,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.0022
+    },
+    "look": {
+      "rgb": [
+        0.78,
+        0.45,
+        0.3
+      ],
+      "description": "pink-brown copper turnings"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential 0.34 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:aluminium-foil",
+    "identity": {
+      "name": "Aluminium foil",
+      "class": "metal",
+      "formula": "Al"
+    },
+    "physical": {
+      "molarMass": "26.982 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:aluminium",
+      "charge": 3,
+      "e0": -1.66,
+      "acidK": 0.004,
+      "displaceK": 0.002,
+      "ea": 50
+    },
+    "surface": {
+      "m2PerG": 0.046,
+      "shape": "sheet"
+    },
+    "look": {
+      "rgb": [
+        0.85,
+        0.86,
+        0.88
+      ],
+      "description": "crumpled aluminium foil"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -1.66 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc-strip",
+    "identity": {
+      "name": "Zinc strip (electrode)",
+      "class": "metal",
+      "formula": "Zn"
+    },
+    "physical": {
+      "molarMass": "65.38 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:zinc",
+      "charge": 2,
+      "e0": -0.76,
+      "acidK": 0.02,
+      "displaceK": 0.05,
+      "ea": 45
+    },
+    "surface": {
+      "m2PerG": 0.0011,
+      "shape": "sheet"
+    },
+    "look": {
+      "rgb": [
+        0.7,
+        0.72,
+        0.75
+      ],
+      "description": "a strip of dull grey zinc"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.76 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:copper-strip",
+    "identity": {
+      "name": "Copper strip (electrode)",
+      "class": "metal",
+      "formula": "Cu"
+    },
+    "physical": {
+      "molarMass": "63.546 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:copper-ii",
+      "charge": 2,
+      "e0": 0.34,
+      "displaceK": 0.02,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.0009,
+      "shape": "sheet"
+    },
+    "look": {
+      "rgb": [
+        0.82,
+        0.5,
+        0.35
+      ],
+      "description": "a strip of shiny pink-brown copper"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential 0.34 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-strip",
+    "identity": {
+      "name": "Lead strip (electrode)",
+      "class": "metal",
+      "formula": "Pb"
+    },
+    "physical": {
+      "molarMass": "207.2 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:lead-ii",
+      "charge": 2,
+      "e0": -0.13,
+      "acidK": 0.0005,
+      "displaceK": 0.005,
+      "ea": 50
+    },
+    "surface": {
+      "m2PerG": 0.0007,
+      "shape": "sheet"
+    },
+    "look": {
+      "rgb": [
+        0.5,
+        0.5,
+        0.53
+      ],
+      "description": "a strip of dull grey lead"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.13 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-nail",
+    "identity": {
+      "name": "Iron nail",
+      "class": "metal",
+      "formula": "Fe"
+    },
+    "physical": {
+      "molarMass": "55.845 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:iron-ii",
+      "charge": 2,
+      "e0": -0.44,
+      "acidK": 0.004,
+      "displaceK": 0.005,
+      "ea": 50,
+      "corrodesTo": "aq:iron-iii"
+    },
+    "surface": {
+      "m2PerG": 0.0002,
+      "shape": "rod"
+    },
+    "look": {
+      "rgb": [
+        0.45,
+        0.45,
+        0.47
+      ],
+      "description": "an iron nail"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.44 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:copper-metal",
+    "identity": {
+      "name": "Copper (deposit)",
+      "class": "metal",
+      "formula": "Cu"
+    },
+    "physical": {
+      "molarMass": "63.546 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:copper-ii",
+      "charge": 2,
+      "e0": 0.34,
+      "displaceK": 0.02,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.6,
+        0.3,
+        0.18
+      ],
+      "description": "a red-brown deposit"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential 0.34 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:silver-metal",
+    "identity": {
+      "name": "Silver (deposit)",
+      "class": "metal",
+      "formula": "Ag"
+    },
+    "physical": {
+      "molarMass": "107.868 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:silver",
+      "charge": 1,
+      "e0": 0.8,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.72,
+        0.72,
+        0.72
+      ],
+      "description": "grey silver crystals"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential 0.8 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:lead-metal",
+    "identity": {
+      "name": "Lead (deposit)",
+      "class": "metal",
+      "formula": "Pb"
+    },
+    "physical": {
+      "molarMass": "207.2 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:lead-ii",
+      "charge": 2,
+      "e0": -0.13,
+      "acidK": 0.0005,
+      "displaceK": 0.005,
+      "ea": 50
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.5,
+        0.5,
+        0.52
+      ],
+      "description": "a dark grey deposit"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.13 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:nickel-metal",
+    "identity": {
+      "name": "Nickel (deposit)",
+      "class": "metal",
+      "formula": "Ni"
+    },
+    "physical": {
+      "molarMass": "58.693 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:nickel-ii",
+      "charge": 2,
+      "e0": -0.25,
+      "acidK": 0.001,
+      "displaceK": 0.005,
+      "ea": 50
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.55,
+        0.55,
+        0.52
+      ],
+      "description": "a grey deposit"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.25 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:cobalt-metal",
+    "identity": {
+      "name": "Cobalt (deposit)",
+      "class": "metal",
+      "formula": "Co"
+    },
+    "physical": {
+      "molarMass": "58.933 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:cobalt-ii",
+      "charge": 2,
+      "e0": -0.28,
+      "acidK": 0.001,
+      "displaceK": 0.005,
+      "ea": 50
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.5,
+        0.5,
+        0.52
+      ],
+      "description": "a grey deposit"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.28 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:iron-metal",
+    "identity": {
+      "name": "Iron (deposit)",
+      "class": "metal",
+      "formula": "Fe"
+    },
+    "physical": {
+      "molarMass": "55.845 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:iron-ii",
+      "charge": 2,
+      "e0": -0.44,
+      "acidK": 0.004,
+      "displaceK": 0.005,
+      "ea": 50,
+      "corrodesTo": "aq:iron-iii"
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "description": "a black deposit"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.44 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc-metal",
+    "identity": {
+      "name": "Zinc (deposit)",
+      "class": "metal",
+      "formula": "Zn"
+    },
+    "physical": {
+      "molarMass": "65.38 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:zinc",
+      "charge": 2,
+      "e0": -0.76,
+      "acidK": 0.02,
+      "displaceK": 0.01,
+      "ea": 45
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.55,
+        0.56,
+        0.58
+      ],
+      "description": "a grey deposit"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -0.76 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:magnesium-metal",
+    "identity": {
+      "name": "Magnesium (deposit)",
+      "class": "metal",
+      "formula": "Mg"
+    },
+    "physical": {
+      "molarMass": "24.305 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:magnesium",
+      "charge": 2,
+      "e0": -2.37,
+      "acidK": 0.17,
+      "displaceK": 0.03,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.7,
+        0.7,
+        0.72
+      ],
+      "description": "a grey deposit"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -2.37 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:aluminium-metal",
+    "identity": {
+      "name": "Aluminium (deposit)",
+      "class": "metal",
+      "formula": "Al"
+    },
+    "physical": {
+      "molarMass": "26.982 g/mol",
+      "phase": "solid"
+    },
+    "metal": {
+      "ion": "aq:aluminium",
+      "charge": 3,
+      "e0": -1.66,
+      "acidK": 0.004,
+      "displaceK": 0.002,
+      "ea": 50
+    },
+    "surface": {
+      "m2PerG": 0.05
+    },
+    "look": {
+      "rgb": [
+        0.8,
+        0.8,
+        0.82
+      ],
+      "description": "a grey deposit"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Reacts at its surface (models/surface.ts): standard potential -1.66 V; rate constants illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:marble-chips",
+    "identity": {
+      "name": "Marble chips (calcium carbonate)",
+      "class": "salt",
+      "formula": "CaCO3"
+    },
+    "physical": {
+      "molarMass": "100.086 g/mol",
+      "phase": "solid",
+      "density": "2710 g/L"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:carbonate": 1
+    },
+    "thermo": {
+      "dHf": -1206.92
+    },
+    "dissolution": {
+      "k": 0.08,
+      "order": 1,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.00037
+    },
+    "look": {
+      "rgb": [
+        0.92,
+        0.92,
+        0.9
+      ],
+      "description": "white marble chips"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Dissolves at its surface in acid (models/surface.ts); its CO₂ bubbles out through the ionic model. Rate constant illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:marble-chips-small",
+    "identity": {
+      "name": "Small marble chips (calcium carbonate)",
+      "class": "salt",
+      "formula": "CaCO3"
+    },
+    "physical": {
+      "molarMass": "100.086 g/mol",
+      "phase": "solid",
+      "density": "2710 g/L"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:carbonate": 1
+    },
+    "thermo": {
+      "dHf": -1206.92
+    },
+    "dissolution": {
+      "k": 0.08,
+      "order": 1,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.00074
+    },
+    "look": {
+      "rgb": [
+        0.92,
+        0.92,
+        0.9
+      ],
+      "description": "small white marble chips"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Dissolves at its surface in acid (models/surface.ts); its CO₂ bubbles out through the ionic model. Rate constant illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:marble-chips-large",
+    "identity": {
+      "name": "Large marble chips (calcium carbonate)",
+      "class": "salt",
+      "formula": "CaCO3"
+    },
+    "physical": {
+      "molarMass": "100.086 g/mol",
+      "phase": "solid",
+      "density": "2710 g/L"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:carbonate": 1
+    },
+    "thermo": {
+      "dHf": -1206.92
+    },
+    "dissolution": {
+      "k": 0.08,
+      "order": 1,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.000185
+    },
+    "look": {
+      "rgb": [
+        0.92,
+        0.92,
+        0.9
+      ],
+      "description": "large white marble chips"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Dissolves at its surface in acid (models/surface.ts); its CO₂ bubbles out through the ionic model. Rate constant illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:powdered-marble",
+    "identity": {
+      "name": "Powdered marble (calcium carbonate)",
+      "class": "salt",
+      "formula": "CaCO3"
+    },
+    "physical": {
+      "molarMass": "100.086 g/mol",
+      "phase": "solid",
+      "density": "2710 g/L"
+    },
+    "ions": {
+      "aq:calcium": 1,
+      "aq:carbonate": 1
+    },
+    "thermo": {
+      "dHf": -1206.92
+    },
+    "dissolution": {
+      "k": 0.08,
+      "order": 1,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 0.011
+    },
+    "look": {
+      "rgb": [
+        0.95,
+        0.95,
+        0.93
+      ],
+      "description": "white powder"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Dissolves at its surface in acid (models/surface.ts); its CO₂ bubbles out through the ionic model. Rate constant illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:copper-ii-oxide",
+    "identity": {
+      "name": "Copper(II) oxide (powder)",
+      "class": "salt",
+      "formula": "CuO"
+    },
+    "physical": {
+      "molarMass": "79.545 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:copper-ii": 1
+    },
+    "thermo": {
+      "dHf": -157.3,
+      "water": 1
+    },
+    "dissolution": {
+      "k": 0.000004,
+      "order": 1,
+      "ea": 60
+    },
+    "surface": {
+      "m2PerG": 1
+    },
+    "look": {
+      "rgb": [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "description": "black powder"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Dissolves in acid at its surface (models/surface.ts). Rate constant and activation energy illustrative, calibrated to classroom timings; ΔfH° from the NBS tables.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:magnesium-oxide",
+    "identity": {
+      "name": "Magnesium oxide (powder)",
+      "class": "salt",
+      "formula": "MgO"
+    },
+    "physical": {
+      "molarMass": "40.304 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:magnesium": 1
+    },
+    "thermo": {
+      "dHf": -601.6,
+      "water": 1
+    },
+    "dissolution": {
+      "k": 0.0001,
+      "order": 1,
+      "ea": 40
+    },
+    "surface": {
+      "m2PerG": 1
+    },
+    "look": {
+      "rgb": [
+        0.97,
+        0.97,
+        0.96
+      ],
+      "description": "white powder"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Dissolves in acid at its surface (models/surface.ts). Rate constant and activation energy illustrative, calibrated to classroom timings; ΔfH° from the NBS tables.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:zinc-oxide",
+    "identity": {
+      "name": "Zinc oxide (powder)",
+      "class": "salt",
+      "formula": "ZnO"
+    },
+    "physical": {
+      "molarMass": "81.379 g/mol",
+      "phase": "solid"
+    },
+    "ions": {
+      "aq:zinc": 1
+    },
+    "thermo": {
+      "dHf": -350.5,
+      "water": 1
+    },
+    "dissolution": {
+      "k": 0.00002,
+      "order": 1,
+      "ea": 50
+    },
+    "surface": {
+      "m2PerG": 1
+    },
+    "look": {
+      "rgb": [
+        0.98,
+        0.98,
+        0.96
+      ],
+      "description": "white powder"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Dissolves in acid at its surface (models/surface.ts). Rate constant and activation energy illustrative, calibrated to classroom timings; ΔfH° from the NBS tables.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:manganese-dioxide",
+    "identity": {
+      "name": "Manganese(IV) oxide (powder)",
+      "class": "salt",
+      "formula": "MnO2"
+    },
+    "physical": {
+      "molarMass": "86.936 g/mol",
+      "phase": "solid"
+    },
+    "catalyst": {
+      "substrate": "core:hydrogen-peroxide",
+      "products": {
+        "core:water": 1,
+        "core:oxygen": 0.5
+      },
+      "k": 0.00013,
+      "ea": 50
+    },
+    "surface": {
+      "m2PerG": 5
+    },
+    "look": {
+      "rgb": [
+        0.16,
+        0.15,
+        0.14
+      ],
+      "description": "black powder"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A catalyst at its surface (models/surface.ts); not used up. Rate constant illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "aq:hydrogen",
+    "identity": {
+      "name": "Hydrogen",
+      "class": "gas",
+      "formula": "H2"
+    },
+    "physical": {
+      "molarMass": "2.016 g/mol",
+      "phase": "gas"
+    },
+    "status": "experimental",
+    "gas": {
+      "henry": 0.00078,
+      "dH": -4.2
+    }
+  },
+  {
+    "id": "aq:ammonia-gas",
+    "identity": {
+      "name": "Ammonia (gas)",
+      "class": "gas",
+      "formula": "NH3"
+    },
+    "physical": {
+      "molarMass": "17.031 g/mol",
+      "phase": "gas"
+    },
+    "status": "experimental",
+    "gas": {
+      "henry": 57,
+      "dH": -34,
+      "species": "NH3"
+    }
+  }
+]

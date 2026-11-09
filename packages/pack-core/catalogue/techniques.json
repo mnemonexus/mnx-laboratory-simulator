@@ -1,0 +1,1501 @@
+[
+  {
+    "id": "core:dilution-series",
+    "version": 1,
+    "status": "experimental",
+    "label": "Prepare a dilution series",
+    "description": "Prepare a set of concentrations by diluting a stock into separate vessels (each made directly from the stock, so errors do not propagate down the series).",
+    "purposes": [
+      "prepare.dilution-series",
+      "prepare.standard-series"
+    ],
+    "params": {
+      "stock": {
+        "type": "container",
+        "required": true
+      },
+      "diluent": {
+        "type": "container",
+        "required": true
+      },
+      "analyte": {
+        "type": "material",
+        "description": "The substance the targets refer to; default: the first component on the stock's label"
+      },
+      "targets": {
+        "type": "list",
+        "items": {
+          "type": "quantity"
+        },
+        "required": true
+      },
+      "volumeEach": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true
+      },
+      "method": {
+        "type": "enum",
+        "values": [
+          "parallel-from-stock"
+        ],
+        "default": "parallel-from-stock"
+      }
+    },
+    "roles": {
+      "vessels": {
+        "kind": "container",
+        "requires": {
+          "class": "core:tube",
+          "capacity": ">= 1.2 * volumeEach"
+        },
+        "prefer": [
+          "core:microtube-1.5ml"
+        ],
+        "count": "=len(targets)"
+      }
+    },
+    "derived": {
+      "stockConc": "=labelConc(stock, analyte)"
+    },
+    "steps": [
+      {
+        "id": "each",
+        "kind": "group",
+        "forEach": {
+          "var": "target",
+          "in": "=targets",
+          "index": "i"
+        },
+        "let": {
+          "sv": "=round(volumeEach * target / stockConc, 0.01 uL)",
+          "dv": "=volumeEach - sv"
+        },
+        "steps": [
+          {
+            "id": "label",
+            "kind": "operation",
+            "ref": "core:label",
+            "params": {
+              "container": "=vessels[i]",
+              "text": "=text(target)"
+            }
+          },
+          {
+            "id": "add-diluent",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=diluent",
+              "destination": "=vessels[i]",
+              "volume": "=dv"
+            },
+            "when": "dv > 0 uL"
+          },
+          {
+            "id": "add-stock",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=stock",
+              "destination": "=vessels[i]",
+              "volume": "=sv"
+            },
+            "when": "sv > 0 uL"
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=vessels[i]",
+              "method": "vortex"
+            },
+            "when": "sv > 0 uL && dv > 0 uL"
+          }
+        ]
+      }
+    ],
+    "outputs": {
+      "vessels": "=vessels",
+      "concentrations": "=targets"
+    },
+    "quality": [
+      {
+        "id": "fresh-tip-stock",
+        "statement": "A fresh tip for every transfer from the stock",
+        "check": "all(events(op='core:transfer', step='add-stock'), tipFresh || sameSourceAsLast)",
+        "severity": "major",
+        "skills": [
+          "core:micropipetting"
+        ],
+        "feedbackKind": "procedural"
+      },
+      {
+        "id": "pipette-in-range",
+        "statement": "Each volume measured with a pipette in its accurate range",
+        "check": "all(events(op='core:transfer'), inGoodRange)",
+        "severity": "minor",
+        "skills": [
+          "core:pipette-range-selection"
+        ],
+        "feedbackKind": "procedural"
+      },
+      {
+        "id": "mixed",
+        "statement": "Each standard mixed before it is used",
+        "check": "all(vessels, homogeneity(it) > 0.95)",
+        "severity": "major",
+        "skills": [
+          "core:dilution-series"
+        ],
+        "feedbackKind": "procedural"
+      }
+    ],
+    "errors": [
+      {
+        "id": "reused-tip",
+        "statement": "Tip reused between the stock and a standard",
+        "consequence": "The tip's film carries stock into the next standard (core:transfer carry-over channel): a small positive bias",
+        "tag": "tip-reuse"
+      },
+      {
+        "id": "unmixed",
+        "statement": "A standard not mixed",
+        "consequence": "The tube stays layered (core:mixing/strata); the sample drawn from it is too dilute or too concentrated",
+        "tag": "poor-mixing"
+      },
+      {
+        "id": "inverted-factor",
+        "statement": "Stock and diluent volumes swapped",
+        "consequence": "Concentrations far from the targets",
+        "tag": "dilution-factor-inversion"
+      }
+    ],
+    "skills": [
+      "core:dilution-series",
+      "core:dilution-planning",
+      "core:micropipetting"
+    ],
+    "support": {
+      "each": "For each standard, work out the stock volume (C₁V₁ = C₂V₂) and add diluent first, then stock, then mix.",
+      "add-diluent": "Add the diluent first, so the stock goes into liquid.",
+      "add-stock": "Use a fresh tip for each stock transfer.",
+      "mix": "Vortex briefly so the standard is uniform before you sample from it."
+    },
+    "presentation": {
+      "station": "bench.liquid-handling"
+    }
+  },
+  {
+    "id": "core:serial-dilution",
+    "version": 1,
+    "status": "experimental",
+    "label": "Serial dilution",
+    "description": "Each vessel is made from the previous one, so a constant factor applies down the series (and errors propagate). The last vessel keeps one transfer volume more than the others.",
+    "purposes": [
+      "prepare.dilution-series"
+    ],
+    "params": {
+      "stock": {
+        "type": "container",
+        "required": true
+      },
+      "diluent": {
+        "type": "container",
+        "required": true
+      },
+      "factor": {
+        "type": "number",
+        "required": true
+      },
+      "count": {
+        "type": "integer",
+        "required": true
+      },
+      "volumeEach": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true,
+        "description": "Volume left in each vessel after the transfer to the next"
+      }
+    },
+    "roles": {
+      "vessels": {
+        "kind": "container",
+        "requires": {
+          "class": "core:tube",
+          "capacity": ">= 1.2 * volumeEach * factor / (factor - 1)"
+        },
+        "prefer": [
+          "core:microtube-1.5ml"
+        ],
+        "count": "=count"
+      }
+    },
+    "derived": {
+      "transferVolume": "=round(volumeEach / (factor - 1), 0.01 uL)"
+    },
+    "steps": [
+      {
+        "id": "fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "forEach": {
+          "var": "v",
+          "in": "=vessels"
+        },
+        "params": {
+          "source": "=diluent",
+          "destination": "=v",
+          "volume": "=volumeEach"
+        }
+      },
+      {
+        "id": "first",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=stock",
+          "destination": "=vessels[0]",
+          "volume": "=transferVolume"
+        }
+      },
+      {
+        "id": "mix-first",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "=vessels[0]",
+          "method": "vortex"
+        }
+      },
+      {
+        "id": "down",
+        "kind": "group",
+        "forEach": {
+          "var": "n",
+          "in": "=range(1, count - 1, count - 1)"
+        },
+        "when": "count > 1",
+        "steps": [
+          {
+            "id": "carry",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=vessels[n - 1]",
+              "destination": "=vessels[n]",
+              "volume": "=transferVolume"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=vessels[n]",
+              "method": "vortex"
+            }
+          }
+        ]
+      }
+    ],
+    "outputs": {
+      "vessels": "=vessels"
+    },
+    "quality": [
+      {
+        "id": "fresh-tip-each",
+        "statement": "A fresh tip for each transfer down the series",
+        "check": "all(events(op='core:transfer', step='carry'), tipFresh || sameSourceAsLast)",
+        "severity": "major",
+        "skills": [
+          "core:micropipetting"
+        ],
+        "feedbackKind": "procedural"
+      },
+      {
+        "id": "mixed-each",
+        "statement": "Each vessel mixed before transferring from it",
+        "check": "all(vessels, homogeneity(it) > 0.95)",
+        "severity": "major",
+        "skills": [
+          "core:serial-dilution"
+        ],
+        "feedbackKind": "procedural"
+      }
+    ],
+    "errors": [
+      {
+        "id": "unmixed",
+        "statement": "A vessel not mixed before transferring on",
+        "consequence": "The error propagates to every later vessel",
+        "tag": "poor-mixing"
+      }
+    ],
+    "skills": [
+      "core:serial-dilution",
+      "core:dilution-planning",
+      "core:micropipetting"
+    ],
+    "presentation": {
+      "station": "bench.liquid-handling"
+    }
+  },
+  {
+    "id": "core:dilute-sample",
+    "version": 1,
+    "status": "experimental",
+    "label": "Dilute a sample",
+    "purposes": [
+      "combine.dilute"
+    ],
+    "params": {
+      "sample": {
+        "type": "container",
+        "required": true
+      },
+      "diluent": {
+        "type": "container",
+        "required": true
+      },
+      "factor": {
+        "type": "number",
+        "required": true
+      },
+      "finalVolume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "100 uL"
+      }
+    },
+    "roles": {
+      "vessel": {
+        "kind": "container",
+        "requires": {
+          "class": "core:tube",
+          "capacity": ">= 1.2 * finalVolume"
+        },
+        "prefer": [
+          "core:microtube-1.5ml"
+        ]
+      }
+    },
+    "derived": {
+      "sv": "=round(finalVolume / factor, 0.01 uL)",
+      "dv": "=finalVolume - sv"
+    },
+    "steps": [
+      {
+        "id": "label",
+        "kind": "operation",
+        "ref": "core:label",
+        "params": {
+          "container": "=vessel",
+          "text": "=labelOf(sample) + ' 1:' + text(factor)"
+        }
+      },
+      {
+        "id": "add-diluent",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=diluent",
+          "destination": "=vessel",
+          "volume": "=dv"
+        }
+      },
+      {
+        "id": "add-sample",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=sample",
+          "destination": "=vessel",
+          "volume": "=sv"
+        }
+      },
+      {
+        "id": "mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "=vessel",
+          "method": "vortex"
+        }
+      }
+    ],
+    "outputs": {
+      "vessel": "=vessel",
+      "factor": "=factor"
+    },
+    "skills": [
+      "core:dilute-sample",
+      "core:dilution-planning",
+      "core:micropipetting"
+    ]
+  },
+  {
+    "id": "core:plate-layout",
+    "version": 1,
+    "status": "experimental",
+    "label": "Design a plate layout",
+    "mode": "design",
+    "purposes": [
+      "plan.layout"
+    ],
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "groups": {
+        "type": "list",
+        "required": true,
+        "description": "[{ group, items, role }]: what goes on the plate"
+      },
+      "replicates": {
+        "type": "integer",
+        "default": 1
+      },
+      "blanks": {
+        "type": "integer",
+        "default": 0
+      },
+      "blankSource": {
+        "type": "container"
+      },
+      "order": {
+        "type": "enum",
+        "values": [
+          "row",
+          "column"
+        ],
+        "default": "row"
+      }
+    },
+    "steps": [
+      {
+        "id": "layout",
+        "kind": "operation",
+        "ref": "core:layout-plate",
+        "params": {
+          "plate": "=plate",
+          "groups": "=groups",
+          "replicates": "=replicates",
+          "blanks": "=blanks",
+          "blankSource": "=blankSource",
+          "order": "=order"
+        }
+      }
+    ],
+    "outputs": {
+      "layout": "=layout.out.layout"
+    },
+    "skills": [
+      "core:plate-layout",
+      "core:control-design"
+    ]
+  },
+  {
+    "id": "core:transfer-to-plate",
+    "version": 1,
+    "status": "experimental",
+    "label": "Load a plate",
+    "purposes": [
+      "transfer.to-plate"
+    ],
+    "params": {
+      "layout": {
+        "type": "record",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true
+      }
+    },
+    "steps": [
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "forEach": {
+          "var": "e",
+          "in": "=filter(layout.entries, item != null)"
+        },
+        "params": {
+          "source": "=e.item",
+          "destination": "=e.well",
+          "volume": "=volume"
+        }
+      }
+    ],
+    "outputs": {
+      "wells": "=map(layout.entries, well)"
+    },
+    "quality": [
+      {
+        "id": "fresh-tip-each-item",
+        "statement": "A fresh tip for each different standard or sample",
+        "check": "all(events(op='core:transfer', step='load'), tipFresh || sameSourceAsLast)",
+        "severity": "major",
+        "skills": [
+          "core:micropipetting"
+        ],
+        "feedbackKind": "procedural"
+      }
+    ],
+    "skills": [
+      "core:transfer-to-plate",
+      "core:micropipetting"
+    ],
+    "presentation": {
+      "station": "bench.liquid-handling"
+    }
+  },
+  {
+    "id": "core:dispense-reagent",
+    "version": 1,
+    "status": "experimental",
+    "label": "Dispense a reagent into wells or tubes",
+    "purposes": [
+      "transfer.to-plate",
+      "transfer.liquid"
+    ],
+    "params": {
+      "reagent": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true
+      },
+      "into": {
+        "type": "list",
+        "items": {
+          "type": "container"
+        },
+        "required": true
+      }
+    },
+    "steps": [
+      {
+        "id": "dispense",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "forEach": {
+          "var": "w",
+          "in": "=into"
+        },
+        "params": {
+          "source": "=reagent",
+          "destination": "=w",
+          "volume": "=volume"
+        }
+      }
+    ],
+    "skills": [
+      "core:dispense-reagent",
+      "core:micropipetting"
+    ]
+  },
+  {
+    "id": "core:incubate",
+    "version": 1,
+    "status": "experimental",
+    "label": "Incubate",
+    "purposes": [
+      "condition.incubate",
+      "condition.hold-temperature"
+    ],
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      },
+      "temperature": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "required": true
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "required": true
+      }
+    },
+    "roles": {
+      "place": {
+        "kind": "place",
+        "requires": {
+          "purpose": "condition.incubate",
+          "temperature": "=temperature"
+        }
+      }
+    },
+    "steps": [
+      {
+        "id": "set",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "=place",
+          "temperature": "=temperature"
+        },
+        "when": "adjustable(place)"
+      },
+      {
+        "id": "in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=container",
+          "place": "=place"
+        }
+      },
+      {
+        "id": "wait",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "=duration"
+        }
+      },
+      {
+        "id": "out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=container"
+        }
+      }
+    ],
+    "skills": [
+      "core:incubate"
+    ]
+  },
+  {
+    "id": "core:standard-curve-analysis",
+    "version": 1,
+    "status": "experimental",
+    "label": "Standard-curve analysis",
+    "mode": "data",
+    "description": "Subtract the blank, average replicates, fit the standards, and read the unknowns from the fit (corrected for dilution), flagging any outside the calibrated range.",
+    "purposes": [
+      "analyse-data.calibration",
+      "analyse.protein-concentration",
+      "analyse.concentration"
+    ],
+    "params": {
+      "reading": {
+        "type": "any",
+        "required": true,
+        "description": "The plate-read measurement record"
+      },
+      "layout": {
+        "type": "record",
+        "required": true
+      },
+      "standards": {
+        "type": "text",
+        "required": true,
+        "description": "The layout group holding the standards"
+      },
+      "standardConcs": {
+        "type": "list",
+        "items": {
+          "type": "quantity"
+        },
+        "required": true
+      },
+      "unknowns": {
+        "type": "list",
+        "items": {
+          "type": "text"
+        },
+        "required": true,
+        "description": "The layout groups to read from the fit: give each unknown its own group"
+      },
+      "model": {
+        "type": "enum",
+        "values": [
+          "linear",
+          "quadratic"
+        ],
+        "default": "linear"
+      },
+      "factors": {
+        "type": "record",
+        "description": "Dilution factor per layout group (default 1)"
+      }
+    },
+    "steps": [
+      {
+        "id": "corr",
+        "kind": "operation",
+        "ref": "core:transform",
+        "params": {
+          "op": "blank-subtract",
+          "input": "=reading",
+          "layout": "=layout"
+        }
+      },
+      {
+        "id": "avg",
+        "kind": "operation",
+        "ref": "core:transform",
+        "params": {
+          "op": "average-replicates",
+          "input": "=corr.out.values",
+          "layout": "=layout"
+        }
+      },
+      {
+        "id": "fit",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": "=standardConcs",
+          "y": "=map(filter(avg.out.groups, group == standards), mean)",
+          "model": "=model"
+        }
+      },
+      {
+        "id": "interp",
+        "kind": "operation",
+        "ref": "core:interpolate",
+        "params": {
+          "fit": "=fit.out.fit",
+          "points": "=filter(avg.out.groups, group in unknowns)",
+          "factors": "=factors"
+        }
+      }
+    ],
+    "outputs": {
+      "fit": "=fit.out.fit",
+      "results": "=interp.out.results"
+    },
+    "quality": [
+      {
+        "id": "blank-used",
+        "statement": "The blank was subtracted",
+        "check": "corr.out.blankCount > 0",
+        "severity": "major",
+        "skills": [
+          "core:calibration-analysis"
+        ],
+        "feedbackKind": "measurement"
+      },
+      {
+        "id": "unknowns-found",
+        "statement": "Every unknown named was found on the plate",
+        "check": "all(u in unknowns: exists(r in interp.out.results: r.group == u))",
+        "severity": "major",
+        "skills": [
+          "core:calibration-analysis"
+        ],
+        "feedbackKind": "measurement"
+      }
+    ],
+    "skills": [
+      "core:standard-curve-analysis",
+      "core:calibration-analysis",
+      "core:calibration-range"
+    ]
+  },
+  {
+    "id": "core:dispose-to-waste",
+    "version": 1,
+    "status": "experimental",
+    "label": "Dispose of a material",
+    "purposes": [
+      "dispose.chemical",
+      "dispose.aqueous",
+      "dispose.general"
+    ],
+    "params": {
+      "material": {
+        "type": "material",
+        "required": true
+      },
+      "stream": {
+        "type": "text",
+        "description": "Default: the definition's declared stream for this material, else its hazard facet"
+      }
+    },
+    "derived": {
+      "targets": "=containersWith(material)",
+      "streamUsed": "=coalesce(stream, wasteStreamFor(material))"
+    },
+    "steps": [
+      {
+        "id": "dispose",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "forEach": {
+          "var": "c",
+          "in": "=targets"
+        },
+        "params": {
+          "container": "=c",
+          "stream": "=streamUsed"
+        }
+      }
+    ],
+    "skills": [
+      "core:chemical-waste"
+    ]
+  },
+  {
+    "id": "core:weigh-by-difference",
+    "version": 1,
+    "status": "experimental",
+    "label": "Weigh by difference",
+    "description": "Weigh the container of solid, tip a portion into the destination, weigh the container again: the mass delivered is the difference, whatever stays on the spatula or boat.",
+    "purposes": [
+      "measure-out.mass"
+    ],
+    "params": {
+      "source": {
+        "type": "container",
+        "required": true,
+        "description": "The weighing bottle holding the solid"
+      },
+      "destination": {
+        "type": "container",
+        "required": true
+      },
+      "mass": {
+        "type": "quantity",
+        "dimension": "mass",
+        "required": true,
+        "description": "About how much to take"
+      }
+    },
+    "roles": {
+      "balance": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "measure.mass"
+        },
+        "prefer": [
+          "core:balance-4dp"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "on-first",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=source",
+          "place": "=balance"
+        }
+      },
+      {
+        "id": "first",
+        "kind": "operation",
+        "ref": "core:weigh",
+        "params": {
+          "balance": "=balance"
+        }
+      },
+      {
+        "id": "off-first",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=source"
+        }
+      },
+      {
+        "id": "tip",
+        "kind": "operation",
+        "ref": "core:add-solid",
+        "params": {
+          "substance": "=source",
+          "destination": "=destination",
+          "mass": "=mass"
+        }
+      },
+      {
+        "id": "on-second",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=source",
+          "place": "=balance"
+        }
+      },
+      {
+        "id": "second",
+        "kind": "operation",
+        "ref": "core:weigh",
+        "params": {
+          "balance": "=balance"
+        }
+      },
+      {
+        "id": "off-second",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=source"
+        }
+      }
+    ],
+    "outputs": {
+      "delivered": "=quantity(first.out.value) - quantity(second.out.value)"
+    },
+    "skills": [
+      "core:weigh-by-difference",
+      "core:tare-and-weigh"
+    ]
+  },
+  {
+    "id": "core:prepare-burette",
+    "version": 1,
+    "status": "experimental",
+    "label": "Prepare a burette",
+    "description": "Fill the burette with titrant to near the top and read the starting volume.",
+    "purposes": [
+      "prepare.burette"
+    ],
+    "params": {
+      "burette": {
+        "type": "container",
+        "required": true
+      },
+      "titrant": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "48 mL"
+      }
+    },
+    "steps": [
+      {
+        "id": "fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=titrant",
+          "destination": "=burette",
+          "volume": "=volume",
+          "tool": "pour"
+        }
+      },
+      {
+        "id": "start",
+        "kind": "operation",
+        "ref": "core:read-volume",
+        "params": {
+          "container": "=burette"
+        }
+      }
+    ],
+    "outputs": {
+      "initial": "=quantity(start.out.value)"
+    },
+    "skills": [
+      "core:prepare-burette",
+      "core:read-meniscus"
+    ]
+  },
+  {
+    "id": "core:titrate-to-endpoint",
+    "version": 1,
+    "status": "experimental",
+    "label": "Titrate to the end point",
+    "description": "Without an estimate, add titrant in steps until the indicator changes (a rough titration). With one, add quickly to about 1 mL short, then drop by drop, swirling, until the colour persists.",
+    "purposes": [
+      "analyse.titration"
+    ],
+    "params": {
+      "burette": {
+        "type": "container",
+        "required": true
+      },
+      "flask": {
+        "type": "container",
+        "required": true
+      },
+      "endColour": {
+        "type": "text",
+        "default": "pink",
+        "description": "The colour at the end point (for a precipitate, any of several names separated by |)"
+      },
+      "approx": {
+        "type": "quantity",
+        "dimension": "volume",
+        "description": "Expected titre (from a rough titration)"
+      },
+      "increment": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "0.5 mL"
+      },
+      "drop": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "0.05 mL"
+      },
+      "watch": {
+        "type": "enum",
+        "values": [
+          "solution",
+          "precipitate"
+        ],
+        "default": "solution",
+        "description": "What changes colour at the end point: the solution (an indicator) or the precipitate (chromate in a Mohr titration)"
+      }
+    },
+    "steps": [
+      {
+        "id": "rough",
+        "kind": "group",
+        "when": "approx == null",
+        "repeat": {
+          "until": "if(watch == \"precipitate\", mentions(precipitateColour(flask), endColour), colour(flask) == endColour)",
+          "max": 200
+        },
+        "steps": [
+          {
+            "id": "add",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=burette",
+              "destination": "=flask",
+              "volume": "=increment"
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=flask",
+              "method": "swirl"
+            }
+          }
+        ]
+      },
+      {
+        "id": "quick",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "when": "approx != null && approx > 1 mL",
+        "params": {
+          "source": "=burette",
+          "destination": "=flask",
+          "volume": "=approx - 1 mL"
+        }
+      },
+      {
+        "id": "settle",
+        "kind": "operation",
+        "ref": "core:mix",
+        "when": "approx != null",
+        "params": {
+          "container": "=flask",
+          "method": "swirl"
+        }
+      },
+      {
+        "id": "dropwise",
+        "kind": "group",
+        "when": "approx != null && !if(watch == \"precipitate\", mentions(precipitateColour(flask), endColour), colour(flask) == endColour)",
+        "repeat": {
+          "until": "if(watch == \"precipitate\", mentions(precipitateColour(flask), endColour), colour(flask) == endColour)",
+          "max": 400
+        },
+        "steps": [
+          {
+            "id": "add-drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=burette",
+              "destination": "=flask",
+              "volume": "=drop"
+            }
+          },
+          {
+            "id": "swirl-drop",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=flask",
+              "method": "swirl"
+            }
+          }
+        ]
+      }
+    ],
+    "quality": [
+      {
+        "id": "end-colour",
+        "statement": "Stopped at the end-point colour",
+        "check": "if(watch == \"precipitate\", mentions(precipitateColour(flask), endColour), colour(flask) == endColour)",
+        "severity": "major",
+        "skills": [
+          "core:titration"
+        ],
+        "feedbackKind": "procedural"
+      }
+    ],
+    "errors": [
+      {
+        "id": "overshoot",
+        "statement": "Titrant added too fast near the end point",
+        "consequence": "The titre is too large and the solution is deep pink (equilibrium.acid-base)",
+        "tag": "titration-endpoint-overshoot"
+      }
+    ],
+    "skills": [
+      "core:titration",
+      "core:burette-technique"
+    ]
+  },
+  {
+    "id": "core:load-rotor",
+    "version": 1,
+    "status": "experimental",
+    "label": "Load a centrifuge rotor in balance",
+    "description": "Place tubes in opposite pairs. With an odd number, make a balance tube of the same kind, filled with water to the same volume.",
+    "purposes": [
+      "separate.solid-from-liquid"
+    ],
+    "params": {
+      "tubes": {
+        "type": "list",
+        "items": {
+          "type": "container"
+        },
+        "required": true
+      },
+      "by": {
+        "type": "enum",
+        "values": [
+          "volume",
+          "mass"
+        ],
+        "default": "volume",
+        "description": "Fill the balance tube with water to the same volume, or to the same mass (for dense solutions)"
+      }
+    },
+    "roles": {
+      "rotor": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "separate.solid-from-liquid"
+        },
+        "prefer": [
+          "core:microcentrifuge-24"
+        ]
+      }
+    },
+    "derived": {
+      "odd": "=mod(count(tubes), 2) == 1"
+    },
+    "steps": [
+      {
+        "id": "balance-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "when": "odd",
+        "params": {
+          "equipment": "=equipmentOf(tubes[0])",
+          "id": "balance-tube",
+          "label": "Balance",
+          "fill": {
+            "preparation": "core:water-deionised",
+            "amount": "=if(by == 'mass', weight(tubes[0]) / (0.997 g/mL), volume(tubes[0]))"
+          }
+        }
+      },
+      {
+        "id": "close-balance",
+        "kind": "operation",
+        "ref": "core:close",
+        "when": "odd",
+        "params": {
+          "container": "balance-tube"
+        }
+      },
+      {
+        "id": "close",
+        "kind": "operation",
+        "ref": "core:close",
+        "forEach": {
+          "var": "t",
+          "in": "=tubes"
+        },
+        "params": {
+          "container": "=t"
+        }
+      },
+      {
+        "id": "pairs",
+        "kind": "group",
+        "let": {
+          "all": "=if(odd, tubes + ['balance-tube'], tubes)",
+          "half": "=count(all) / 2"
+        },
+        "steps": [
+          {
+            "id": "pair",
+            "kind": "group",
+            "forEach": {
+              "var": "k",
+              "in": "=range(0, half - 1, half)"
+            },
+            "steps": [
+              {
+                "id": "first",
+                "kind": "operation",
+                "ref": "core:place-in",
+                "params": {
+                  "container": "=all[2 * k]",
+                  "place": "=rotor",
+                  "position": "=k + 1"
+                }
+              },
+              {
+                "id": "opposite",
+                "kind": "operation",
+                "ref": "core:place-in",
+                "params": {
+                  "container": "=all[2 * k + 1]",
+                  "place": "=rotor",
+                  "position": "=k + 13"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "quality": [
+      {
+        "id": "balanced",
+        "statement": "The rotor is in balance",
+        "check": "rotorImbalance(rotor) <= 0.1 g",
+        "severity": "critical",
+        "skills": [
+          "core:centrifuge-balancing"
+        ],
+        "feedbackKind": "safety"
+      }
+    ],
+    "errors": [
+      {
+        "id": "unbalanced",
+        "statement": "Tubes not in opposite pairs, or no balance tube for an odd number",
+        "consequence": "The rotor runs out of balance: vibration, an automatic stop and an incident (core:centrifuge)",
+        "tag": "rotor-imbalance"
+      }
+    ],
+    "skills": [
+      "core:centrifuge-balancing"
+    ]
+  },
+  {
+    "id": "core:vacuum-filtration",
+    "version": 1,
+    "status": "experimental",
+    "label": "Collect a solid by vacuum filtration",
+    "description": "Pour the mixture onto a Büchner funnel under suction, then wash the cake with small portions of cold solvent, draining after each.",
+    "purposes": [
+      "separate.solid-from-liquid"
+    ],
+    "params": {
+      "source": {
+        "type": "container",
+        "required": true
+      },
+      "wash": {
+        "type": "container",
+        "description": "Cold solvent to wash the cake; omitted = no wash"
+      },
+      "washVolume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "5 mL"
+      },
+      "washes": {
+        "type": "integer",
+        "default": 2
+      }
+    },
+    "roles": {
+      "funnel": {
+        "kind": "container",
+        "requires": {
+          "purpose": "separate.solid-from-liquid"
+        },
+        "prefer": [
+          "core:buchner-funnel-70mm"
+        ]
+      },
+      "flask": {
+        "kind": "container",
+        "requires": {
+          "class": "core:filter-flask-250ml"
+        },
+        "prefer": [
+          "core:filter-flask-250ml"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "collect",
+        "kind": "operation",
+        "ref": "core:filter",
+        "params": {
+          "source": "=source",
+          "filter": "=funnel",
+          "filtrate": "=flask"
+        }
+      },
+      {
+        "id": "wash-cake",
+        "kind": "group",
+        "when": "wash != null",
+        "repeat": {
+          "times": "=washes"
+        },
+        "steps": [
+          {
+            "id": "add-wash",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=wash",
+              "destination": "=funnel",
+              "volume": "=washVolume",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "drain",
+            "kind": "operation",
+            "ref": "core:filter",
+            "params": {
+              "filter": "=funnel",
+              "filtrate": "=flask"
+            }
+          }
+        ]
+      }
+    ],
+    "outputs": {
+      "cake": "=funnel",
+      "filtrate": "=flask"
+    },
+    "errors": [
+      {
+        "id": "unwashed",
+        "statement": "The cake is not washed",
+        "consequence": "The mother liquor left in the cake dries onto the product with everything dissolved in it (core:filter)",
+        "tag": "unwashed-cake"
+      },
+      {
+        "id": "warm-wash",
+        "statement": "The cake is washed with warm or large portions of solvent",
+        "consequence": "The wash dissolves product: the yield falls (solubility model)",
+        "tag": "warm-wash"
+      }
+    ],
+    "skills": [
+      "core:vacuum-filtration"
+    ]
+  },
+  {
+    "id": "core:dry-solid",
+    "version": 1,
+    "status": "experimental",
+    "label": "Dry a solid product",
+    "description": "Scrape the solid onto a watch glass and dry it in a warm oven (or in air, more slowly).",
+    "purposes": [
+      "concentrate.dry"
+    ],
+    "params": {
+      "source": {
+        "type": "container",
+        "required": true
+      },
+      "method": {
+        "type": "enum",
+        "values": [
+          "air",
+          "heat"
+        ],
+        "default": "heat"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "20 min"
+      }
+    },
+    "roles": {
+      "dish": {
+        "kind": "container",
+        "requires": {
+          "purpose": "concentrate.dry"
+        },
+        "prefer": [
+          "core:watch-glass"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "scrape",
+        "kind": "operation",
+        "ref": "core:add-solid",
+        "params": {
+          "substance": "=source",
+          "destination": "=dish",
+          "all": true
+        }
+      },
+      {
+        "id": "dry",
+        "kind": "operation",
+        "ref": "core:dry",
+        "params": {
+          "container": "=dish",
+          "method": "=method",
+          "duration": "=duration"
+        }
+      }
+    ],
+    "outputs": {
+      "product": "=dish"
+    },
+    "errors": [
+      {
+        "id": "still-wet",
+        "statement": "The product is weighed or tested while still wet",
+        "consequence": "The mass reads high and the melting point is low and broad (core:dry, melting-point model)",
+        "tag": "wet-product"
+      }
+    ],
+    "skills": [
+      "core:drying"
+    ]
+  }
+]

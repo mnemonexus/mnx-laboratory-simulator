@@ -1,0 +1,533 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro10-algal-density",
+  "version": "1.0.0",
+  "title": "Algae in a river: concentrating and counting cells",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:centrifuge"
+      },
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Spin down the algae in 12 mL of water from above, at and below a sewage outfall, take each pellet up in 0.5 mL, count four 1 mm² squares of a haemocytometer twice for each, and work back to cells per mL of river water.",
+  "briefing": "River water holds too few algae to count directly: concentrate them first. Each large corner square of the haemocytometer is 1 mm² under a 0.1 mm coverslip gap, so it holds 0.1 mm³ (10⁻⁴ mL). Cells per mL of the concentrate = mean count per square × 10⁴; divide by the concentration factor for the river. Mix the concentrate just before each load, and count cells touching the top and left lines only.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "bioscience",
+        "ecology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "concentration-factor",
+        "label": "Concentrating a sample and correcting for it"
+      },
+      {
+        "id": "chamber-count",
+        "label": "Counting chambers"
+      },
+      {
+        "id": "eutrophication",
+        "label": "Nutrient enrichment"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-prepare",
+        "kind": "skill",
+        "statement": "Concentrate cells by centrifugation and resuspension, with a balanced rotor",
+        "skills": [
+          "core:centrifuge-balancing"
+        ]
+      },
+      {
+        "id": "o-count",
+        "kind": "skill",
+        "statement": "Load and count a haemocytometer, and calculate cells per mL",
+        "skills": [
+          "micro:haemocytometer"
+        ],
+        "goal": "g-count"
+      },
+      {
+        "id": "o-interpret",
+        "kind": "reasoning",
+        "statement": "Interpret algal densities around an outfall, and the error the calculation makes",
+        "goal": "g-interpret"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "site-a",
+        "label": "Site A (upstream)",
+        "role": "specimen",
+        "container": "core:reagent-bottle-50ml",
+        "amount": "40 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:chlorella-vulgaris",
+            "count": {
+              "vary": "1.2e4..1.8e4 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:desmodesmus-communis",
+            "count": {
+              "vary": "3e3..6e3 cells/mL"
+            }
+          }
+        ]
+      },
+      {
+        "id": "site-b",
+        "label": "Site B (outfall)",
+        "role": "specimen",
+        "container": "core:reagent-bottle-50ml",
+        "amount": "40 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:chlorella-vulgaris",
+            "count": {
+              "vary": "1e3..3e3 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:desmodesmus-communis",
+            "count": {
+              "vary": "5e2..1.5e3 cells/mL"
+            }
+          }
+        ]
+      },
+      {
+        "id": "site-c",
+        "label": "Site C (downstream)",
+        "role": "specimen",
+        "container": "core:reagent-bottle-50ml",
+        "amount": "40 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:chlorella-vulgaris",
+            "count": {
+              "vary": "4e4..6e4 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:desmodesmus-communis",
+            "count": {
+              "vary": "1e4..2e4 cells/mL"
+            }
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "centrifuge",
+        "requires": {
+          "class": "core:benchtop-centrifuge-4x50"
+        }
+      },
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:compound-microscope"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "concentrate",
+        "kind": "group",
+        "title": "Concentrate each sample 24-fold on paper: 12 mL spun down, taken up in 0.5 mL",
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-tube-15ml",
+              "id": "=x[0]",
+              "label": "=x[2]"
+            }
+          },
+          {
+            "id": "twelve",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "12 mL"
+            }
+          },
+          {
+            "id": "cap",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "load",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=x[0]",
+              "place": "centrifuge",
+              "position": "=x[3]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['tube-a', 'site-a', 'Site A', 1], ['tube-b', 'site-b', 'Site B', 2], ['tube-c', 'site-c', 'Site C', 3], ['tube-blank', 'water', 'Blank', 4]]"
+        },
+        "objectives": [
+          "o-prepare"
+        ]
+      },
+      {
+        "id": "spin",
+        "kind": "operation",
+        "ref": "core:centrifuge",
+        "params": {
+          "centrifuge": "centrifuge",
+          "rcf": "1000 [RCF]",
+          "duration": "5 min"
+        },
+        "objectives": [
+          "o-prepare"
+        ]
+      },
+      {
+        "id": "pot",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:beaker-100ml",
+          "id": "pot",
+          "label": "Waste"
+        }
+      },
+      {
+        "id": "take-up",
+        "kind": "group",
+        "title": "Pour off and resuspend",
+        "steps": [
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "uncap",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "pour-off",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "pot",
+              "all": true
+            }
+          },
+          {
+            "id": "half-ml",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=x[0]",
+              "volume": "500 uL"
+            }
+          },
+          {
+            "id": "vortex",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "vortex",
+              "cycles": 2
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['tube-a', 'site-a', 'Site A', 1], ['tube-b', 'site-b', 'Site B', 2], ['tube-c', 'site-c', 'Site C', 3], ['tube-blank', 'water', 'Blank', 4]]"
+        },
+        "objectives": [
+          "o-prepare"
+        ]
+      },
+      {
+        "id": "chamber",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:haemocytometer",
+          "id": "chamber",
+          "label": "Haemocytometer"
+        }
+      },
+      {
+        "id": "scope-on",
+        "kind": "operation",
+        "ref": "core:configure",
+        "params": {
+          "instrument": "scope",
+          "lamp": 0.5,
+          "objective": "10x",
+          "illumination": "ph1",
+          "condenser": "adjusted"
+        }
+      },
+      {
+        "id": "counts",
+        "kind": "group",
+        "title": "Two loads of each, four corner squares (1 mm² each) a load",
+        "steps": [
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "chamber",
+              "volume": "15 uL"
+            }
+          },
+          {
+            "id": "find",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "chamber",
+              "knob": "coarse"
+            }
+          },
+          {
+            "id": "sharpen",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "chamber",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "count",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "chamber",
+              "squares": 4
+            }
+          },
+          {
+            "id": "per-ml",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='per-mL-' + x[1]",
+              "value": "=mean(count.out.counts) * 1e4 / 24"
+            }
+          },
+          {
+            "id": "clean",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "chamber"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['tube-a', 'site-a', 1], ['tube-a', 'site-a', 2], ['tube-b', 'site-b', 1], ['tube-b', 'site-b', 2], ['tube-c', 'site-c', 1], ['tube-c', 'site-c', 2]]"
+        },
+        "objectives": [
+          "o-count"
+        ]
+      },
+      {
+        "id": "means",
+        "kind": "group",
+        "title": "Mean density of each site",
+        "steps": [
+          {
+            "id": "site-mean",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='mean-per-mL-' + x",
+              "value": "=mean(recorded('per-mL-' + x))"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['site-a', 'site-b', 'site-c']"
+        },
+        "objectives": [
+          "o-count"
+        ]
+      },
+      {
+        "id": "enriched",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Site B is the outfall of a sewage works; A is upstream of it and C downstream. Which site shows the algae responding to nutrients from the outfall?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A, upstream"
+          },
+          {
+            "id": "b",
+            "label": "B, the outfall itself"
+          },
+          {
+            "id": "c",
+            "label": "C, downstream: the effluent's nitrate and phosphate feed algae as the water moves on"
+          }
+        ],
+        "correctWhen": "if(first(recorded('mean-per-mL-site-c')) > first(recorded('mean-per-mL-site-a')) && first(recorded('mean-per-mL-site-c')) > first(recorded('mean-per-mL-site-b')), 'c', if(first(recorded('mean-per-mL-site-b')) > first(recorded('mean-per-mL-site-a')), 'b', 'a'))"
+      },
+      {
+        "id": "low",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "The calculation assumed every 12 mL ended up in 0.5 mL (24-fold). Pouring off leaves some liquid behind in the tube. What does that do to the estimate?",
+        "options": [
+          {
+            "id": "high",
+            "label": "It overestimates the density"
+          },
+          {
+            "id": "low",
+            "label": "It underestimates it: the cells are in a little more than 0.5 mL, so the real concentration factor is less than 24"
+          },
+          {
+            "id": "none",
+            "label": "Nothing: the pellet holds all the cells"
+          }
+        ],
+        "correctWhen": "'low'"
+      },
+      {
+        "id": "tidy-scope",
+        "kind": "operation",
+        "ref": "core:configure",
+        "params": {
+          "instrument": "scope",
+          "lamp": 0
+        }
+      },
+      {
+        "id": "discard",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "params": {
+          "container": "=x[0]",
+          "stream": "core:biohazard-waste"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=[['tube-a', 'site-a', 'Site A', 1], ['tube-b', 'site-b', 'Site B', 2], ['tube-c', 'site-c', 'Site C', 3], ['tube-blank', 'water', 'Blank', 4]]"
+        }
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-count",
+        "statement": "Each site's density is estimated within 30 % of the truth",
+        "check": "all(s in ['site-a', 'site-c']: abs(first(recorded('mean-per-mL-' + s)) - cells(s)) < 0.3 * cells(s))"
+      },
+      {
+        "id": "g-interpret",
+        "statement": "The downstream bloom and the calculation's low bias are both explained",
+        "check": "decision('enriched') == 'c' && decision('low') == 'low'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-low",
+        "statement": "The estimates come out a little low: the real concentration factor is nearer 20 than 24",
+        "check": "first(recorded('mean-per-mL-site-c')) < cells('site-c')",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

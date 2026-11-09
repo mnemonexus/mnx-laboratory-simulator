@@ -1,0 +1,1202 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro12-verify-a-strain",
+  "version": "1.0.0",
+  "title": "Is it what the label says? Checking two bioremediation cultures",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:spot-test"
+      },
+      {
+        "operation": "core:thermocycle"
+      },
+      {
+        "operation": "core:run-gel"
+      }
+    ]
+  },
+  "summary": "Two products are sold as Pseudomonas putida for cleaning up oil-contaminated soil. Gram stain them, grow them on Pseudomonas selective agar, test oxidase, offer them hexadecane as the only carbon source, and run a P. putida-specific PCR on boiled colonies; then decide what each really is.",
+  "briefing": "A bioaugmentation product is only worth adding if it is the organism claimed, and alive. Classical tests narrow the group: Gram-negative rods that are oxidase positive and grow on CFC agar are pseudomonads. Telling species apart needs a test of what this species does (here, growing on an alkane) or of its DNA (primers specific to P. putida, 618 bp). Run controls beside every test.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "microbiology",
+        "bioscience"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "identification",
+        "label": "Identifying bacteria"
+      },
+      {
+        "id": "discrimination",
+        "label": "Which tests discriminate"
+      },
+      {
+        "id": "bioremediation",
+        "label": "Bioaugmentation"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-tests",
+        "kind": "skill",
+        "statement": "Carry out classical and molecular identification tests with controls",
+        "skills": [
+          "micro:gram-stain",
+          "micro:aseptic-technique",
+          "molbio:pcr-setup"
+        ]
+      },
+      {
+        "id": "o-judge",
+        "kind": "reasoning",
+        "statement": "Weigh the evidence and decide what each product is",
+        "goal": "g-judge"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "product-a",
+        "label": "Product A (sold as P. putida)",
+        "role": "culture",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:nutrient-agar",
+        "contains": [
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "50 {colonies}"
+          }
+        ]
+      },
+      {
+        "id": "product-b",
+        "label": "Product B (sold as P. putida)",
+        "role": "culture",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:nutrient-agar",
+        "contains": [
+          {
+            "substance": "micro:pseudomonas-fluorescens",
+            "count": "50 {colonies}"
+          }
+        ]
+      },
+      {
+        "id": "ec-plate",
+        "label": "E. coli (control)",
+        "role": "control-negative",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:nutrient-agar",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "50 {colonies}"
+          }
+        ]
+      },
+      {
+        "id": "broth-a",
+        "label": "Product A, suspension",
+        "role": "culture",
+        "container": "core:universal-bottle-28ml",
+        "amount": "5 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "1e8 cells/mL"
+          }
+        ]
+      },
+      {
+        "id": "broth-b",
+        "label": "Product B, suspension",
+        "role": "culture",
+        "container": "core:universal-bottle-28ml",
+        "amount": "5 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:pseudomonas-fluorescens",
+            "count": "1e8 cells/mL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Sterile water",
+        "preparation": "core:water-deionised",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "crystal-violet",
+        "label": "Crystal violet",
+        "preparation": "micro:crystal-violet-stain",
+        "amount": "5 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "iodine",
+        "label": "Gram's iodine",
+        "preparation": "micro:grams-iodine",
+        "amount": "5 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "decolouriser",
+        "label": "Acetone–ethanol decolouriser",
+        "preparation": "micro:acetone-ethanol-decolouriser",
+        "amount": "5 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "safranin",
+        "label": "Safranin",
+        "preparation": "micro:safranin-stain",
+        "amount": "5 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "oxidase",
+        "label": "Oxidase reagent",
+        "preparation": "micro:oxidase-reagent-1pct",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "cfc",
+        "label": "Pseudomonas selective agar (CFC)",
+        "preparation": "micro:pseudomonas-cfc-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "hexadecane",
+        "label": "Hexadecane",
+        "contains": [
+          {
+            "substance": "micro:hexadecane",
+            "conc": "773 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "2 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "lysis",
+        "label": "Lysis buffer",
+        "preparation": "micro:y-per-lysis",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "dye",
+        "label": "Sucrose loading dye",
+        "preparation": "molbio:loading-dye-sucrose",
+        "amount": "60 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "ladder",
+        "label": "100 bp ladder",
+        "preparation": "molbio:ladder-100bp",
+        "amount": "12 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "flask-a",
+        "label": "Mineral medium",
+        "preparation": "micro:mineral-salts-medium",
+        "amount": "40 mL",
+        "container": "core:conical-flask-100ml"
+      },
+      {
+        "id": "flask-b",
+        "label": "Mineral medium",
+        "preparation": "micro:mineral-salts-medium",
+        "amount": "40 mL",
+        "container": "core:conical-flask-100ml"
+      },
+      {
+        "id": "flask-none",
+        "label": "Mineral medium",
+        "preparation": "micro:mineral-salts-medium",
+        "amount": "40 mL",
+        "container": "core:conical-flask-100ml"
+      },
+      {
+        "id": "pcr-a",
+        "label": "pcr-a",
+        "preparation": "molbio:p-putida-pcr-mix",
+        "amount": "18 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-b",
+        "label": "pcr-b",
+        "preparation": "molbio:p-putida-pcr-mix",
+        "amount": "18 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-ec",
+        "label": "pcr-ec",
+        "preparation": "molbio:p-putida-pcr-mix",
+        "amount": "18 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-water",
+        "label": "pcr-water",
+        "preparation": "molbio:p-putida-pcr-mix",
+        "amount": "18 uL",
+        "container": "core:pcr-tube-0.2ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "loop",
+        "requires": {
+          "class": "core:loop"
+        }
+      },
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:microscope"
+        }
+      },
+      {
+        "id": "warm",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "30 Cel"
+        }
+      },
+      {
+        "id": "shaker",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "25 Cel"
+        }
+      },
+      {
+        "id": "block",
+        "requires": {
+          "class": "core:heating-block",
+          "temperature": "98 Cel"
+        }
+      },
+      {
+        "id": "microfuge",
+        "requires": {
+          "class": "core:microcentrifuge-24"
+        }
+      },
+      {
+        "id": "cycler",
+        "requires": {
+          "class": "core:thermal-cycler-96-tube"
+        }
+      },
+      {
+        "id": "gel",
+        "requires": {
+          "class": "core:agarose-gel-1pct"
+        }
+      },
+      {
+        "id": "imager",
+        "requires": {
+          "class": "core:gel-imager-blue-light"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [
+      {
+        "id": "d1",
+        "title": "Set up every test"
+      },
+      {
+        "id": "d2",
+        "title": "Two days later: read and decide"
+      }
+    ],
+    "steps": [
+      {
+        "id": "gloves",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "gloves"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "films",
+        "kind": "group",
+        "title": "Films of both products and E. coli",
+        "steps": [
+          {
+            "id": "slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microscope-slide",
+              "id": "='slide-' + x[0]",
+              "label": "=x[0]"
+            }
+          },
+          {
+            "id": "drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='slide-' + x[0]",
+              "volume": "10 uL"
+            }
+          },
+          {
+            "id": "flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "smear",
+            "kind": "operation",
+            "ref": "core:pick-colony",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "loop",
+              "destination": "='slide-' + x[0]"
+            }
+          },
+          {
+            "id": "air",
+            "kind": "operation",
+            "ref": "core:dry",
+            "params": {
+              "container": "='slide-' + x[0]",
+              "method": "air"
+            }
+          },
+          {
+            "id": "fix",
+            "kind": "operation",
+            "ref": "core:dry",
+            "params": {
+              "container": "='slide-' + x[0]",
+              "method": "heat"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A', 'product-a'], ['B', 'product-b'], ['EC', 'ec-plate']]"
+        },
+        "objectives": [
+          "o-tests"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "gram",
+        "kind": "group",
+        "title": "Gram stain and look under oil",
+        "steps": [
+          {
+            "id": "cv",
+            "kind": "operation",
+            "ref": "core:flood",
+            "params": {
+              "container": "=x",
+              "reagent": "crystal-violet",
+              "duration": "60 s"
+            }
+          },
+          {
+            "id": "cv-wash",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "io",
+            "kind": "operation",
+            "ref": "core:flood",
+            "params": {
+              "container": "=x",
+              "reagent": "iodine",
+              "duration": "60 s"
+            }
+          },
+          {
+            "id": "io-wash",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "de",
+            "kind": "operation",
+            "ref": "core:flood",
+            "params": {
+              "container": "=x",
+              "reagent": "decolouriser",
+              "duration": "5 s"
+            }
+          },
+          {
+            "id": "de-wash",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "sa",
+            "kind": "operation",
+            "ref": "core:flood",
+            "params": {
+              "container": "=x",
+              "reagent": "safranin",
+              "duration": "45 s"
+            }
+          },
+          {
+            "id": "sa-wash",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x",
+              "objective": "100x-oil"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='gram-' + x",
+              "value": "=look.out.appearance"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['slide-A', 'slide-B', 'slide-EC']"
+        },
+        "objectives": [
+          "o-tests"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "cfc",
+        "kind": "group",
+        "title": "Pseudomonas selective agar, one patch each",
+        "steps": [
+          {
+            "id": "c-flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "c-pick",
+            "kind": "operation",
+            "ref": "core:pick-colony",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "c-streak",
+            "kind": "operation",
+            "ref": "core:streak",
+            "params": {
+              "plate": "cfc",
+              "tool": "loop",
+              "sector": "=x[2]",
+              "cross": false
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A', 'product-a', 1], ['B', 'product-b', 2], ['EC', 'ec-plate', 3]]"
+        },
+        "objectives": [
+          "o-tests"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "cfc-in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "cfc",
+          "place": "warm"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "oxidase",
+        "kind": "group",
+        "title": "Oxidase",
+        "steps": [
+          {
+            "id": "ox",
+            "kind": "operation",
+            "ref": "core:spot-test",
+            "params": {
+              "reagent": "oxidase",
+              "target": "=x[1]"
+            }
+          },
+          {
+            "id": "ox-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='oxidase-' + x[0]",
+              "value": "=ox.out.result"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A', 'product-a'], ['B', 'product-b'], ['EC', 'ec-plate']]"
+        },
+        "objectives": [
+          "o-tests"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "alkane",
+        "kind": "group",
+        "title": "Hexadecane as the only carbon source",
+        "steps": [
+          {
+            "id": "h-cells",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "h-oil",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hexadecane",
+              "destination": "=x[0]",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "h-shake",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=x[0]",
+              "place": "shaker"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['flask-a', 'broth-a'], ['flask-b', 'broth-b']]"
+        },
+        "objectives": [
+          "o-tests"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "blank-oil",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "hexadecane",
+          "destination": "flask-none",
+          "volume": "50 uL"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "blank-shake",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "flask-none",
+          "place": "shaker"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "extracts",
+        "kind": "group",
+        "title": "Boiled extracts of a colony of each",
+        "steps": [
+          {
+            "id": "e-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "='ext-' + x[0]",
+              "label": "='extract ' + x[0]"
+            }
+          },
+          {
+            "id": "e-buffer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "lysis",
+              "destination": "='ext-' + x[0]",
+              "volume": "30 uL"
+            }
+          },
+          {
+            "id": "e-clear",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "e-tip",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "e-pick",
+            "kind": "operation",
+            "ref": "core:pick-colony",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "p20",
+              "destination": "='ext-' + x[0]"
+            }
+          },
+          {
+            "id": "e-eject",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "e-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='ext-' + x[0]"
+            }
+          },
+          {
+            "id": "e-block",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='ext-' + x[0]",
+              "place": "block"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A', 'product-a'], ['B', 'product-b'], ['EC', 'ec-plate']]"
+        },
+        "objectives": [
+          "o-tests"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "boil",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "10 min"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "unblock",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=x"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['ext-A', 'ext-B', 'ext-EC']"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "rotor",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=x[0]",
+          "place": "microfuge",
+          "position": "=x[1]"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=[['ext-A', 1], ['ext-B', 9], ['ext-EC', 17]]"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "spin",
+        "kind": "operation",
+        "ref": "core:centrifuge",
+        "params": {
+          "centrifuge": "microfuge",
+          "rcf": "13000 [RCF]",
+          "duration": "2 min"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "pcr",
+        "kind": "group",
+        "title": "2 µL of supernatant into each PCR, and a water control",
+        "steps": [
+          {
+            "id": "p-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "p-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "p-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "2 uL"
+            }
+          },
+          {
+            "id": "p-cycler",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=x[1]",
+              "place": "cycler"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ext-A', 'pcr-a'], ['ext-B', 'pcr-b'], ['ext-EC', 'pcr-ec']]"
+        },
+        "objectives": [
+          "o-tests"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "ntc",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "pcr-water",
+          "volume": "2 uL"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "ntc-cycler",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "pcr-water",
+          "place": "cycler"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "cycle",
+        "kind": "operation",
+        "ref": "core:thermocycle",
+        "params": {
+          "cycler": "cycler",
+          "cycles": 32,
+          "extendTime": "45 s"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "two-days",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "48 h"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "dye",
+        "kind": "group",
+        "title": "Loading dye",
+        "steps": [
+          {
+            "id": "d-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dye",
+              "destination": "=x",
+              "volume": "4 uL"
+            }
+          },
+          {
+            "id": "d-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['pcr-a', 'pcr-b', 'pcr-ec', 'pcr-water', 'ladder']"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "load-ladder",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ladder",
+          "destination": "gel/A1",
+          "volume": "10 uL"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=x[0]",
+          "destination": "=x[1]",
+          "volume": "15 uL"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=[['pcr-a', 'gel/A2'], ['pcr-b', 'gel/A3'], ['pcr-ec', 'gel/A4'], ['pcr-water', 'gel/A5']]"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "gel",
+          "voltage": 100,
+          "duration": "50 min"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "imager",
+          "subject": "gel"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "sizing",
+        "kind": "group",
+        "title": "Bands",
+        "steps": [
+          {
+            "id": "size",
+            "kind": "technique",
+            "ref": "molbio:size-band",
+            "params": {
+              "ladderLane": "gel/A1",
+              "lane": "=x[1]",
+              "ladder": "molbio:ladder-100bp"
+            }
+          },
+          {
+            "id": "s-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='sizes-' + x[0]",
+              "value": "=size.out.sizes"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['pcr-a', 'gel/A2'], ['pcr-b', 'gel/A3'], ['pcr-ec', 'gel/A4'], ['pcr-water', 'gel/A5']]"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "cfc-out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "cfc"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "cfc-see",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "eye",
+          "subject": "cfc"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "cfc-note",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "cfc",
+          "value": "=cfc-see.out.appearance"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "flasks",
+        "kind": "group",
+        "title": "The hexadecane flasks",
+        "steps": [
+          {
+            "id": "f-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "f-see",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "=x"
+            }
+          },
+          {
+            "id": "f-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "=x",
+              "value": "=f-see.out.appearance"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['flask-a', 'flask-b', 'flask-none']"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "verdict-a",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-judge"
+        ],
+        "prompt": "Is product A the Pseudomonas putida it is sold as?",
+        "options": [
+          {
+            "id": "yes",
+            "label": "Yes: every test fits P. putida"
+          },
+          {
+            "id": "pseudomonad",
+            "label": "A pseudomonad, but not P. putida: it cannot grow on hexadecane and lacks the species' PCR product"
+          },
+          {
+            "id": "not-pseudomonad",
+            "label": "Not a pseudomonad at all"
+          }
+        ],
+        "correctWhen": "if(!mentions(first(recorded('cfc')), 'sector 1: confluent') || first(recorded('oxidase-A')) != 'positive', 'not-pseudomonad', if(any(first(recorded('sizes-pcr-a')), between(it, 560, 680)) && mentions(first(recorded('flask-a')), 'cloudy'), 'yes', 'pseudomonad'))"
+      },
+      {
+        "id": "verdict-b",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-judge"
+        ],
+        "prompt": "Is product B the Pseudomonas putida it is sold as?",
+        "options": [
+          {
+            "id": "yes",
+            "label": "Yes: every test fits P. putida"
+          },
+          {
+            "id": "pseudomonad",
+            "label": "A pseudomonad, but not P. putida: it cannot grow on hexadecane and lacks the species' PCR product"
+          },
+          {
+            "id": "not-pseudomonad",
+            "label": "Not a pseudomonad at all"
+          }
+        ],
+        "correctWhen": "if(!mentions(first(recorded('cfc')), 'sector 2: confluent') || first(recorded('oxidase-B')) != 'positive', 'not-pseudomonad', if(any(first(recorded('sizes-pcr-b')), between(it, 560, 680)) && mentions(first(recorded('flask-b')), 'cloudy'), 'yes', 'pseudomonad'))"
+      },
+      {
+        "id": "which-tests",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-judge"
+        ],
+        "prompt": "Which tests told the two products apart?",
+        "options": [
+          {
+            "id": "gram-oxidase",
+            "label": "The Gram stain and the oxidase test"
+          },
+          {
+            "id": "alkane-pcr",
+            "label": "Growth on hexadecane and the species-specific PCR: the others are shared by all pseudomonads"
+          },
+          {
+            "id": "cfc",
+            "label": "The selective agar"
+          }
+        ],
+        "correctWhen": "'alkane-pcr'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-judge",
+        "statement": "Product A is confirmed as P. putida, product B recognised as another pseudomonad, and the discriminating tests named",
+        "check": "decision('verdict-a') == 'yes' && decision('verdict-b') == 'pseudomonad' && decision('which-tests') == 'alkane-pcr'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-shared",
+        "statement": "Both products are Gram-negative rods, oxidase positive and grow on CFC agar",
+        "check": "mentions(first(recorded('gram-slide-A')), 'pink rods') && mentions(first(recorded('gram-slide-B')), 'pink rods') && first(recorded('oxidase-B')) == 'positive' && mentions(first(recorded('cfc')), 'sector 2: confluent')",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-controls",
+        "statement": "E. coli is stopped by CFC; the water PCR and the no-cells flask stay blank",
+        "check": "mentions(first(recorded('cfc')), 'sector 3: none') && !any(first(recorded('sizes-pcr-water')), between(it, 560, 680)) && !mentions(first(recorded('flask-none')), 'cloudy')",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

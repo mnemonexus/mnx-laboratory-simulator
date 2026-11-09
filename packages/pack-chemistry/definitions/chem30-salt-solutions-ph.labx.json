@@ -1,0 +1,738 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem30-salt-solutions-ph",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "pH",
+      "indicator",
+      "pH meter",
+      "acids and alkalis",
+      "salt hydrolysis"
+    ],
+    "topics": [
+      "Acids, bases and salts"
+    ],
+    "concepts": [
+      {
+        "id": "ph-scale",
+        "label": "pH measures how acidic or alkaline a solution is"
+      },
+      {
+        "id": "proton-transfer",
+        "label": "Acids give and bases take hydrogen ions"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Calibrate a pH meter and measure the pH of solutions",
+        "skills": [
+          "core:ph-meter-calibration"
+        ]
+      },
+      {
+        "id": "o-observe",
+        "kind": "outcome",
+        "statement": "Record indicator colours and pH readings for each solution"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "{{explainObjective}}",
+        "goal": "g-q1"
+      }
+    ],
+    "curricula": "{{curricula}}"
+  },
+  "parameters": {
+    "title": {
+      "default": "The pH of salt solutions"
+    },
+    "summary": {
+      "default": "Measure the pH of six salt solutions with a calibrated pH meter and universal indicator, and explain why some salts give acidic or alkaline solutions though no acid or alkali was added."
+    },
+    "briefing": {
+      "default": "Calibrate the pH meter with the pH 4 and pH 7 buffers. Pour about 20 mL of each 0.1 M salt solution into a beaker and read its pH, rinsing the electrode between readings. Put 5 mL of each solution in a test tube with two drops of universal indicator and note the colour. Some ions react with water: an ion that gives H⁺ to water makes the solution acidic, and one that takes H⁺ from water leaves OH⁻ and makes it alkaline."
+    },
+    "level": {
+      "default": "ages-16-19"
+    },
+    "curricula": {
+      "default": [
+        "A level",
+        "IB",
+        "AP",
+        "T Level"
+      ]
+    },
+    "samples": {
+      "default": "=['nacl', 'nh4cl', 'na2co3', 'naac', 'fecl3', 'alcl3']"
+    },
+    "indicators": {
+      "default": "=['ui']"
+    },
+    "explainObjective": {
+      "default": "Explain salt hydrolysis: which ions give hydrogen ions to water and which take them"
+    },
+    "questions": {
+      "default": [
+        {
+          "id": "q1",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Iron(III) chloride solution is acidic although no acid was added. Why?",
+          "options": [
+            {
+              "id": "hydrated-ion",
+              "label": "The small, highly charged Fe³⁺ ion pulls electrons from the water molecules bound to it, and they release H⁺"
+            },
+            {
+              "id": "chloride",
+              "label": "Chloride ions make solutions acidic"
+            },
+            {
+              "id": "contains-hcl",
+              "label": "The salt contains hydrochloric acid"
+            }
+          ],
+          "correctWhen": "'hydrated-ion'"
+        },
+        {
+          "id": "q2",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why is sodium carbonate solution alkaline?",
+          "options": [
+            {
+              "id": "base",
+              "label": "Carbonate ions take H⁺ from water molecules, leaving OH⁻ ions"
+            },
+            {
+              "id": "sodium",
+              "label": "Sodium is a metal, and metals make alkalis"
+            },
+            {
+              "id": "impure",
+              "label": "Sodium hydroxide is left over from making it"
+            }
+          ],
+          "correctWhen": "'base'"
+        },
+        {
+          "id": "q3",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Which salt gives a neutral solution, and why?",
+          "options": [
+            {
+              "id": "nacl",
+              "label": "Sodium chloride: neither Na⁺ nor Cl⁻ reacts with water"
+            },
+            {
+              "id": "nh4cl",
+              "label": "Ammonium chloride: NH₄⁺ and Cl⁻ cancel out"
+            },
+            {
+              "id": "naac",
+              "label": "Sodium ethanoate: it is made from an acid and an alkali"
+            }
+          ],
+          "correctWhen": "'nacl'"
+        }
+      ]
+    },
+    "goals": {
+      "default": [
+        {
+          "id": "g-q1",
+          "statement": "The acidity of iron(III) chloride is explained",
+          "check": "decision('q1') == 'hydrated-ion'"
+        },
+        {
+          "id": "g-q2",
+          "statement": "The alkalinity of sodium carbonate is explained",
+          "check": "decision('q2') == 'base'"
+        },
+        {
+          "id": "g-q3",
+          "statement": "The neutral salt is identified",
+          "check": "decision('q3') == 'nacl'"
+        }
+      ]
+    },
+    "observations": {
+      "default": [
+        {
+          "id": "e-acidic",
+          "statement": "Ammonium, aluminium and iron(III) chlorides are acidic; iron(III) chloride is the most acidic, below pH 3",
+          "check": "first(recorded('ph-nh4cl')) < 6 && first(recorded('ph-alcl3')) < 5 && first(recorded('ph-fecl3')) < 3",
+          "source": "reference-standard"
+        },
+        {
+          "id": "e-alkaline",
+          "statement": "Sodium ethanoate and sodium carbonate are alkaline; sodium carbonate is above pH 11",
+          "check": "first(recorded('ph-naac')) > 8 && first(recorded('ph-na2co3')) > 11",
+          "source": "reference-standard"
+        },
+        {
+          "id": "e-neutral",
+          "statement": "Sodium chloride is close to neutral",
+          "check": "abs(first(recorded('ph-nacl')) - 7) < 1",
+          "source": "reference-standard"
+        }
+      ]
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "nacl",
+        "label": "Sodium chloride, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "nh4cl",
+        "label": "Ammonium chloride, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:ammonium-chloride",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "na2co3",
+        "label": "Sodium carbonate, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-carbonate",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "naac",
+        "label": "Sodium ethanoate, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-ethanoate",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "fecl3",
+        "label": "Iron(III) chloride, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:iron-iii-chloride",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "alcl3",
+        "label": "Aluminium chloride, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:aluminium-chloride",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "hcl",
+        "label": "Hydrochloric acid, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:hydrochloric-acid",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "eth",
+        "label": "Ethanoic acid, 0.1 M",
+        "contains": [
+          {
+            "substance": "core:acetic-acid",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "bicarb",
+        "label": "Sodium hydrogencarbonate, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydrogencarbonate",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "nh3",
+        "label": "Ammonia solution, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:ammonia",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "naoh",
+        "label": "Sodium hydroxide, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydroxide",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "60 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "ui",
+        "label": "Universal indicator",
+        "preparation": "core:universal-indicator-solution",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "litmus",
+        "label": "Litmus solution",
+        "preparation": "core:litmus-solution",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "mo",
+        "label": "Methyl orange",
+        "preparation": "core:methyl-orange-indicator",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "pp",
+        "label": "Phenolphthalein",
+        "preparation": "core:phenolphthalein-indicator",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "btb",
+        "label": "Bromothymol blue",
+        "preparation": "core:bromothymol-blue-indicator",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "buf4",
+        "label": "pH 4.00 buffer",
+        "preparation": "core:ph-buffer-4",
+        "amount": "50 mL",
+        "container": "core:beaker-100ml"
+      },
+      {
+        "id": "buf7",
+        "label": "pH 7.00 buffer",
+        "preparation": "core:ph-buffer-7",
+        "amount": "50 mL",
+        "container": "core:beaker-100ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "meter",
+        "requires": {
+          "class": "core:ph-meter.benchtop"
+        }
+      },
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "calibrate",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "meter",
+          "mode": "two-point",
+          "buffers": [
+            "buf4",
+            "buf7"
+          ]
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "solutions",
+        "kind": "group",
+        "title": "Measure each solution and test it with indicator",
+        "forEach": {
+          "var": "x",
+          "in": "{{samples}}"
+        },
+        "objectives": [
+          "o-measure",
+          "o-observe"
+        ],
+        "steps": [
+          {
+            "id": "beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='b-' + x",
+              "label": "='Beaker ' + x"
+            }
+          },
+          {
+            "id": "pour",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x",
+              "destination": "='b-' + x",
+              "volume": "20 mL"
+            }
+          },
+          {
+            "id": "ph",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "meter",
+              "subject": "='b-' + x"
+            }
+          },
+          {
+            "id": "note-ph",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='ph-' + x",
+              "value": "=ph.out.value"
+            }
+          },
+          {
+            "id": "indicators",
+            "kind": "group",
+            "title": "Indicator colours",
+            "forEach": {
+              "var": "y",
+              "in": "{{indicators}}"
+            },
+            "steps": [
+              {
+                "id": "tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:test-tube",
+                  "id": "='t-' + x + '-' + y",
+                  "label": "=x + ' with ' + y"
+                }
+              },
+              {
+                "id": "sample",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=x",
+                  "destination": "='t-' + x + '-' + y",
+                  "volume": "5 mL"
+                }
+              },
+              {
+                "id": "drops",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=y",
+                  "destination": "='t-' + x + '-' + y",
+                  "volume": "0.1 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "shake",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='t-' + x + '-' + y",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='t-' + x + '-' + y"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x + '-' + y",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain your results",
+        "objectives": [
+          "o-explain"
+        ],
+        "steps": "{{questions}}"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": "{{goals}}",
+    "expectedObservations": "{{observations}}"
+  },
+  "variants": [
+    {
+      "id": "chem30-indicators",
+      "title": "Indicators and the pH scale",
+      "summary": "Test hydrochloric and ethanoic acids, water, sodium hydrogencarbonate, ammonia and sodium hydroxide with litmus, methyl orange, phenolphthalein, bromothymol blue and universal indicator, and compare the colours with pH-meter readings.",
+      "briefing": "Calibrate the pH meter with the pH 4 and pH 7 buffers and read the pH of each solution. Then put 5 mL of each solution into five test tubes and add two drops of a different indicator to each. Each indicator is a weak acid whose acid and base forms differ in colour, so it changes colour over its own narrow pH range. Universal indicator is a mixture that changes colour across the whole scale.",
+      "values": {
+        "level": "ages-14-16",
+        "curricula": [
+          "GCSE",
+          "IGCSE",
+          "BTEC",
+          "Access to HE"
+        ],
+        "samples": "=['hcl', 'eth', 'water', 'bicarb', 'nh3', 'naoh']",
+        "indicators": "=['litmus', 'mo', 'pp', 'btb', 'ui']",
+        "explainObjective": "Explain why indicators change colour over different pH ranges, and why a strong and a weak acid of the same concentration differ in pH",
+        "questions": [
+          {
+            "id": "q1",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why does universal indicator tell you more about a solution than litmus does?",
+            "options": [
+              {
+                "id": "mixture",
+                "label": "It is a mixture of indicators that change colour at different pHs, so it has a colour for each part of the scale"
+              },
+              {
+                "id": "stronger",
+                "label": "It reacts more strongly with acids"
+              },
+              {
+                "id": "concentrated",
+                "label": "It is more concentrated"
+              }
+            ],
+            "correctWhen": "'mixture'"
+          },
+          {
+            "id": "q2",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Phenolphthalein stays colourless in both water and ethanoic acid. What does that tell you?",
+            "options": [
+              {
+                "id": "not-alkaline",
+                "label": "Only that neither is alkaline: phenolphthalein is colourless below about pH 8.5"
+              },
+              {
+                "id": "both-acidic",
+                "label": "Both are acidic"
+              },
+              {
+                "id": "both-neutral",
+                "label": "Both are neutral"
+              }
+            ],
+            "correctWhen": "'not-alkaline'"
+          },
+          {
+            "id": "q3",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Hydrochloric and ethanoic acids are both 0.1 M. Why is ethanoic acid's pH higher?",
+            "options": [
+              {
+                "id": "weak",
+                "label": "Ethanoic acid is weak: only a small fraction of its molecules give up H⁺"
+              },
+              {
+                "id": "dilute",
+                "label": "It is more dilute"
+              },
+              {
+                "id": "organic",
+                "label": "Organic acids are always neutral"
+              }
+            ],
+            "correctWhen": "'weak'"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-q1",
+            "statement": "Universal indicator is explained",
+            "check": "decision('q1') == 'mixture'"
+          },
+          {
+            "id": "g-q2",
+            "statement": "Phenolphthalein's range is explained",
+            "check": "decision('q2') == 'not-alkaline'"
+          },
+          {
+            "id": "g-q3",
+            "statement": "Strong and weak acids are distinguished",
+            "check": "decision('q3') == 'weak'"
+          }
+        ],
+        "observations": [
+          {
+            "id": "e-ph",
+            "statement": "Hydrochloric acid reads about pH 1, ethanoic acid about pH 3 and sodium hydroxide about pH 13",
+            "check": "first(recorded('ph-hcl')) < 1.5 && abs(first(recorded('ph-eth')) - 2.9) < 0.4 && first(recorded('ph-naoh')) > 12.5",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-litmus",
+            "statement": "Litmus is red in the acids and blue in the alkalis",
+            "check": "mentions(first(recorded('seen-hcl-litmus')), 'red|pink') && mentions(first(recorded('seen-naoh-litmus')), 'blue|violet|purple')",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-indicators",
+            "statement": "Phenolphthalein turns pink only in alkali; methyl orange is red in acid and orange-yellow in alkali; bromothymol blue is yellow in acid and blue in alkali",
+            "check": "mentions(first(recorded('seen-naoh-pp')), 'pink|magenta|purple|red|violet') && first(recorded('seen-hcl-pp')) == 'clear' && mentions(first(recorded('seen-hcl-mo')), 'red|pink') && mentions(first(recorded('seen-naoh-mo')), 'yellow|orange') && !mentions(first(recorded('seen-naoh-mo')), 'red|pink') && mentions(first(recorded('seen-hcl-btb')), 'yellow') && mentions(first(recorded('seen-naoh-btb')), 'blue|violet')",
+            "source": "reference-standard"
+          }
+        ]
+      },
+      "keywords": [
+        "indicator",
+        "litmus",
+        "phenolphthalein",
+        "methyl orange",
+        "bromothymol blue",
+        "universal indicator",
+        "strong and weak acids"
+      ]
+    }
+  ],
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

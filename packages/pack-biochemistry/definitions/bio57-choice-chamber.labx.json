@@ -1,0 +1,417 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio57-choice-chamber",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "title": "{{title}}",
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "choice chamber",
+      "taxis",
+      "kinesis",
+      "behaviour",
+      "woodlice",
+      "chi-squared"
+    ],
+    "topics": [
+      "Behaviour",
+      "Ecology"
+    ],
+    "concepts": [
+      {
+        "id": "taxis",
+        "label": "Animals move towards conditions that suit them (taxis) or move more where conditions are poor (kinesis)"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-count",
+        "kind": "skill",
+        "statement": "Count animals on each side of a choice chamber over time"
+      },
+      {
+        "id": "o-test",
+        "kind": "analysis",
+        "statement": "Test for a preference with chi-squared",
+        "goal": "g-choice"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the behaviour’s survival value",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Choice chamber: woodlice and humidity"
+    },
+    "summary": {
+      "default": "Put 20 woodlice in a choice chamber with dry air on one side and humid air on the other, count them on each side every two minutes for ten minutes, and test the final counts against an even split."
+    },
+    "briefing": {
+      "default": "Put silica gel under the gauze on side 1 (dry) and damp paper on side 2 (humid); cover the whole chamber so both sides are equally dark. Put the woodlice in through the centre and count them on each side every 2 minutes. χ² against 10 : 10 has one degree of freedom: above 3.84, the preference is significant (p < 0.05). Handle the animals gently and return them afterwards."
+    },
+    "animal": {
+      "default": "bio:woodlice"
+    },
+    "h1": {
+      "default": "dry"
+    },
+    "l1": {
+      "default": "dark"
+    },
+    "h2": {
+      "default": "humid"
+    },
+    "l2": {
+      "default": "dark"
+    },
+    "preferred": {
+      "default": 2
+    },
+    "answer": {
+      "default": "water"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why do woodlice gather on the humid side?",
+        "options": [
+          {
+            "id": "water",
+            "label": "They lose water easily through their exoskeleton, so they move about until they reach humid places and slow down there"
+          },
+          {
+            "id": "food",
+            "label": "There is food on the humid side"
+          },
+          {
+            "id": "warm",
+            "label": "The humid side is warmer"
+          }
+        ],
+        "correctWhen": "choice == 'water'"
+      }
+    }
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "chamber",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:choice-chamber",
+          "id": "chamber",
+          "label": "Choice chamber"
+        }
+      },
+      {
+        "id": "side1",
+        "kind": "operation",
+        "ref": "core:set-chamber",
+        "params": {
+          "chamber": "chamber",
+          "side": 1,
+          "humidity": "{{h1}}",
+          "light": "{{l1}}"
+        }
+      },
+      {
+        "id": "side2",
+        "kind": "operation",
+        "ref": "core:set-chamber",
+        "params": {
+          "chamber": "chamber",
+          "side": 2,
+          "humidity": "{{h2}}",
+          "light": "{{l2}}"
+        }
+      },
+      {
+        "id": "animals",
+        "kind": "operation",
+        "ref": "core:add-animals",
+        "params": {
+          "organism": "{{animal}}",
+          "chamber": "chamber",
+          "count": 20
+        },
+        "objectives": [
+          "o-count"
+        ]
+      },
+      {
+        "id": "counts",
+        "kind": "group",
+        "title": "Count every 2 minutes",
+        "forEach": {
+          "var": "t",
+          "in": "=[2,4,6,8,10]"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "steps": [
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "2 min"
+            }
+          },
+          {
+            "id": "count",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "chamber"
+            }
+          },
+          {
+            "id": "n1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='side 1 at ' + text(t) + ' min'",
+              "value": "=count.out.side1"
+            }
+          },
+          {
+            "id": "n2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='side 2 at ' + text(t) + ' min'",
+              "value": "=count.out.side2"
+            }
+          }
+        ]
+      },
+      {
+        "id": "chi",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "chi-squared",
+          "value": "=(first(recorded('side 1 at 10 min')) - 10) * (first(recorded('side 1 at 10 min')) - 10) / 10 + (first(recorded('side 2 at 10 min')) - 10) * (first(recorded('side 2 at 10 min')) - 10) / 10"
+        },
+        "objectives": [
+          "o-test"
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-choice",
+        "statement": "After ten minutes most animals are on the side they prefer, a significant preference (χ² > 3.84)",
+        "check": "first(recorded('chi-squared')) > 3.84 && if({{preferred}} == 2, first(recorded('side 2 at 10 min')) > first(recorded('side 1 at 10 min')), first(recorded('side 1 at 10 min')) > first(recorded('side 2 at 10 min')))"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The behaviour is explained",
+        "check": "decision('why') == '{{answer}}'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-settle",
+        "statement": "The numbers settle within a few minutes",
+        "check": "abs(first(recorded('side 1 at 8 min')) - first(recorded('side 1 at 10 min'))) <= 6",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "bio57-choice-chamber-light",
+      "title": "Choice chamber: woodlice and light",
+      "summary": "Put 20 woodlice in a choice chamber with one side under black card and the other in the light, both humid, and test whether they prefer the dark.",
+      "briefing": "Damp paper under both sides; cover side 2 with black card. Count every 2 minutes for 10 minutes, then test against 10 : 10.",
+      "values": {
+        "title": "Choice chamber: woodlice and light",
+        "animal": "bio:woodlice",
+        "h1": "humid",
+        "l1": "light",
+        "h2": "humid",
+        "l2": "dark",
+        "preferred": 2,
+        "answer": "predators",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why do woodlice move into the dark?",
+          "options": [
+            {
+              "id": "predators",
+              "label": "Dark, sheltered places are usually also damp and hide them from predators"
+            },
+            {
+              "id": "eyes",
+              "label": "Light hurts their eyes"
+            },
+            {
+              "id": "cold",
+              "label": "The dark side is warmer"
+            }
+          ],
+          "correctWhen": "choice == 'predators'"
+        }
+      },
+      "keywords": [
+        "phototaxis",
+        "light"
+      ]
+    },
+    {
+      "id": "bio57-choice-chamber-maggots",
+      "title": "Choice chamber: maggots and light",
+      "summary": "Put 20 blowfly maggots in a choice chamber, one side covered, and test their response to light.",
+      "briefing": "Damp paper under both sides; cover side 2. Maggots move away from light (negative phototaxis), which takes them into the dark, damp interior of their food.",
+      "values": {
+        "title": "Choice chamber: maggots and light",
+        "animal": "bio:maggots",
+        "h1": "humid",
+        "l1": "light",
+        "h2": "humid",
+        "l2": "dark",
+        "preferred": 2,
+        "answer": "taxis",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "What kind of response is this?",
+          "options": [
+            {
+              "id": "taxis",
+              "label": "A taxis: they move directly away from the light"
+            },
+            {
+              "id": "kinesis",
+              "label": "A kinesis: they move faster in light, at random"
+            },
+            {
+              "id": "reflex",
+              "label": "A reflex"
+            }
+          ],
+          "correctWhen": "choice == 'taxis'"
+        }
+      },
+      "keywords": [
+        "phototaxis",
+        "maggots"
+      ]
+    },
+    {
+      "id": "bio57-choice-chamber-flies",
+      "title": "Choice chamber: fruit flies and light",
+      "summary": "Put 20 fruit flies in a choice chamber, one side covered, and test whether they move towards the light.",
+      "briefing": "Damp paper under both sides; cover side 2 with black card. Adult fruit flies fly towards light (positive phototaxis).",
+      "values": {
+        "title": "Choice chamber: fruit flies and light",
+        "animal": "bio:drosophila-melanogaster",
+        "h1": "humid",
+        "l1": "light",
+        "h2": "humid",
+        "l2": "dark",
+        "preferred": 1,
+        "answer": "positive",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Fruit flies gather in the light. What does this show?",
+          "options": [
+            {
+              "id": "positive",
+              "label": "Positive phototaxis: they move towards light"
+            },
+            {
+              "id": "negative",
+              "label": "Negative phototaxis"
+            },
+            {
+              "id": "none",
+              "label": "No preference"
+            }
+          ],
+          "correctWhen": "choice == 'positive'"
+        }
+      },
+      "keywords": [
+        "phototaxis",
+        "Drosophila"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

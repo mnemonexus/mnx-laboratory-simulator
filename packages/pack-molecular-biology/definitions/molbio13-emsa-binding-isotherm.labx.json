@@ -1,0 +1,499 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio13-emsa-binding-isotherm",
+  "version": "1.0.0",
+  "title": "A binding isotherm by EMSA: fitting the shift for an apparent Kd",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:run-gel"
+      },
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "Titrate a DNA-binding protein onto a 900 bp linear DNA at eight concentrations, run the reactions on an agarose gel, measure how far each band has shifted relative to the free DNA, fit a Langmuir isotherm for the maximal shift and an apparent Kd, and judge the fit by its residuals.",
+  "briefing": "The protein stock is 30 µM; a 3 µM working dilution serves the lowest points. In each lane the shift is 1 − (distance run) / (distance run by the free DNA, lane 3): 0 without protein, rising as protein loads onto the DNA. Fit shift = Rmax·[P]/(Kd + [P]).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry",
+        "molecular-biology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "emsa",
+        "label": "Electrophoretic mobility shift assays"
+      },
+      {
+        "id": "langmuir",
+        "label": "Binding isotherms and Kd"
+      },
+      {
+        "id": "residuals",
+        "label": "Residuals and model choice"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-emsa",
+        "kind": "skill",
+        "statement": "Set up a titration of binding reactions and run them on a gel",
+        "skills": [
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-fit",
+        "kind": "analysis",
+        "statement": "Fit a binding isotherm, read Kd and judge the fit",
+        "goal": "g-isotherm"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "protein",
+        "label": "Gam-like protein (Im9-HiGam), 30 µM monomer",
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "contains": [
+          {
+            "substance": "molbio:im9-higam",
+            "conc": "30 uM"
+          }
+        ],
+        "amount": "35 uL",
+        "container": "core:microtube-0.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "l900",
+        "label": "Linear DNA, 900 bp, 100 µg/mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:linear-dna-900bp",
+            "conc": "100 ug/mL"
+          }
+        ],
+        "amount": "25 uL",
+        "container": "core:microtube-0.5ml"
+      },
+      {
+        "id": "phosphate",
+        "label": "100 mM sodium phosphate pH 7",
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "400 uL",
+        "container": "core:microtube-0.5ml"
+      },
+      {
+        "id": "dye",
+        "label": "Loading dye (6×)",
+        "preparation": "molbio:loading-dye-6x",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "ladder",
+        "label": "1 kb ladder",
+        "preparation": "molbio:ladder-1kb-ready",
+        "amount": "20 uL",
+        "container": "core:microtube-0.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "gel",
+        "requires": {
+          "class": "core:agarose-gel-1.5pct-14"
+        }
+      },
+      {
+        "id": "imager",
+        "requires": {
+          "class": "core:gel-imager"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "working",
+        "kind": "group",
+        "title": "A 3 µM working dilution of the protein (5 µL into 45 µL of buffer) for the lowest points",
+        "steps": [
+          {
+            "id": "w-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-0.5ml",
+              "id": "protein-3",
+              "label": "Protein, 3 µM"
+            }
+          },
+          {
+            "id": "w-buf",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "phosphate",
+              "destination": "protein-3",
+              "volume": "45 uL"
+            }
+          },
+          {
+            "id": "w-p",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "protein",
+              "destination": "protein-3",
+              "volume": "5 uL"
+            }
+          },
+          {
+            "id": "w-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "protein-3",
+              "method": "pipette-mix",
+              "cycles": 5
+            }
+          }
+        ],
+        "objectives": [
+          "o-emsa"
+        ]
+      },
+      {
+        "id": "reactions",
+        "kind": "group",
+        "title": "20 µL binding reactions: buffer, 2 µL of the 900 bp DNA, then protein (0 to 4 µM)",
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-0.5ml",
+              "id": "=x[0]",
+              "label": "='Protein ' + text(x[1]) + ' µM'"
+            }
+          },
+          {
+            "id": "buffer-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "phosphate",
+              "destination": "=x[0]",
+              "volume": "=text(18 - x[3]) + ' uL'"
+            }
+          },
+          {
+            "id": "dna-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "l900",
+              "destination": "=x[0]",
+              "volume": "2 uL"
+            }
+          },
+          {
+            "id": "protein-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "=x[0]",
+              "volume": "=text(x[3]) + ' uL'"
+            },
+            "when": "x[3] > 0"
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "pipette-mix",
+              "cycles": 5
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['c0', 0, 'phosphate', 0], ['c0.25', 0.25, 'protein-3', 1.67], ['c0.5', 0.5, 'protein-3', 3.33], ['c1', 1, 'protein-3', 6.67], ['c1.5', 1.5, 'protein', 1.0], ['c2', 2, 'protein', 1.33], ['c3', 3, 'protein', 2.0], ['c4', 4, 'protein', 2.67]]"
+        },
+        "objectives": [
+          "o-emsa"
+        ]
+      },
+      {
+        "id": "bind",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "20 min"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "group",
+        "title": "Loading dye into each, then onto the gel (ladder in lane 2)",
+        "steps": [
+          {
+            "id": "dye-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dye",
+              "destination": "=x[0]",
+              "volume": "4 uL"
+            }
+          },
+          {
+            "id": "dye-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "pipette-mix",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "load-lane",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "20 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['c0', 'gel/A3'], ['c0.25', 'gel/A4'], ['c0.5', 'gel/A5'], ['c1', 'gel/A6'], ['c1.5', 'gel/A7'], ['c2', 'gel/A8'], ['c3', 'gel/A9'], ['c4', 'gel/A10']]"
+        },
+        "objectives": [
+          "o-emsa"
+        ]
+      },
+      {
+        "id": "ladder",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ladder",
+          "destination": "gel/A2",
+          "volume": "6 uL"
+        }
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "gel",
+          "voltage": 100,
+          "duration": "60 min"
+        }
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "imager",
+          "subject": "gel"
+        }
+      },
+      {
+        "id": "shift",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "shift",
+          "value": "=map(x in ['gel/A3', 'gel/A4', 'gel/A5', 'gel/A6', 'gel/A7', 'gel/A8', 'gel/A9', 'gel/A10']: 1 - value(first(bandsIn(x)), 'mm') / value(first(bandsIn('gel/A3')), 'mm'))"
+        },
+        "objectives": [
+          "o-fit"
+        ]
+      },
+      {
+        "id": "conc",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "conc-uM",
+          "value": [
+            0,
+            0.25,
+            0.5,
+            1,
+            1.5,
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      {
+        "id": "isotherm",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-fit"
+        ],
+        "params": {
+          "x": "=first(recorded('conc-uM'))",
+          "y": "=first(recorded('shift'))",
+          "model": "michaelis-menten"
+        }
+      },
+      {
+        "id": "rmax",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "shift-max",
+          "value": "=isotherm.out.fit.params.vmax"
+        },
+        "objectives": [
+          "o-fit"
+        ]
+      },
+      {
+        "id": "kd",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Kd-uM",
+          "value": "=isotherm.out.fit.params.km"
+        },
+        "objectives": [
+          "o-fit"
+        ]
+      },
+      {
+        "id": "residuals",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "residuals",
+          "value": "=isotherm.out.fit.residuals"
+        },
+        "objectives": [
+          "o-fit"
+        ]
+      },
+      {
+        "id": "two-params",
+        "kind": "decision",
+        "objectives": [
+          "o-fit"
+        ],
+        "prompt": "Why fit shift = Rmax·[P]/(Kd + [P]) with two parameters rather than add a third (an offset)?",
+        "options": [
+          {
+            "id": "zero",
+            "label": "The DNA without protein has no shift by definition, so the curve must pass through zero; a third parameter would always fit better without being justified"
+          },
+          {
+            "id": "better",
+            "label": "Three would be better: more parameters, better fit"
+          }
+        ],
+        "correctWhen": "if(abs(first(recorded('shift'))[0]) < 0.01, 'zero', 'better')"
+      },
+      {
+        "id": "residual-look",
+        "kind": "decision",
+        "objectives": [
+          "o-fit"
+        ],
+        "prompt": "What do the residuals tell you about the fit?",
+        "options": [
+          {
+            "id": "good",
+            "label": "They are small and scattered either side of zero with no trend: the isotherm describes the data"
+          },
+          {
+            "id": "trend",
+            "label": "They trend systematically: the model is wrong"
+          }
+        ],
+        "correctWhen": "if(max(map(first(recorded('residuals')), abs(it))) < 0.1 * first(recorded('shift-max')), 'good', 'trend')"
+      },
+      {
+        "id": "meaning",
+        "kind": "decision",
+        "objectives": [
+          "o-fit"
+        ],
+        "prompt": "What is the apparent Kd?",
+        "options": [
+          {
+            "id": "half",
+            "label": "The protein concentration that gives half the maximal shift: a measure of affinity (lower is tighter)"
+          },
+          {
+            "id": "max",
+            "label": "The concentration that saturates the DNA"
+          },
+          {
+            "id": "rate",
+            "label": "A rate constant"
+          }
+        ],
+        "correctWhen": "'half'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-isotherm",
+        "statement": "The isotherm is fitted, the apparent Kd is of the right order, and the fit is judged correctly",
+        "check": "between(first(recorded('Kd-uM')), 0.15, 2) && decision('two-params') == 'zero' && decision('residual-look') == 'good' && decision('meaning') == 'half'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-rises",
+        "statement": "The shift rises and levels off with protein",
+        "check": "first(recorded('shift'))[7] > first(recorded('shift'))[3] && first(recorded('shift'))[3] > first(recorded('shift'))[1] && (first(recorded('shift'))[7] - first(recorded('shift'))[5]) < (first(recorded('shift'))[3] - first(recorded('shift'))[1])",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

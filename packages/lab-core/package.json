@@ -1,0 +1,10 @@
+{
+  "name": "lab-core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Headless laboratory framework core: units, RNG, definition format, expression language, catalogue, kernel, models, analysis, compiler. No DOM, no Node APIs.",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

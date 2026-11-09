@@ -1,0 +1,18 @@
+{
+  "$comment": [
+    "Which catalogue packs (packages/pack-*/, by pack id) this add-on ships, and in which content asset.",
+    "npm run content (scripts/runtime/content.mjs) writes each bundle to assets/content/<file> (and public/assets/content/ for the dev server and the standalone build), with assets/content/index.json, which the add-on reads first.",
+    "manifest.json must declare every file it writes (the script says which are missing). A pack not named here goes into the bundle that lists \"*\"; without such a bundle it is left out of this add-on.",
+    "Each pack's dependsOn must ship too. Splitting the add-on family (docs/master-plan/02-platform-and-packaging.md, sections 2.1 and 2.2) gives each add-on its own build manifest beside its manifest.json: node scripts/runtime/content.mjs --addon <folder>."
+  ],
+  "addon": "biochemistry-lab",
+  "bundles": [
+    { "file": "core.json", "packs": ["core"] },
+    { "file": "aqueous.json", "packs": ["aq"] },
+    { "file": "biochemistry.json", "packs": ["bio"] },
+    { "file": "chemistry.json", "packs": ["chem"] },
+    { "file": "microbiology.json", "packs": ["micro"] },
+    { "file": "molecular-biology.json", "packs": ["molbio"] },
+    { "file": "other.json", "packs": ["*"] }
+  ]
+}

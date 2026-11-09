@@ -1,0 +1,250 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem49-charles-law",
+  "title": "Charles’s law: volume and temperature of a gas",
+  "summary": "Warm 40 mL of trapped air in a sealed syringe from 0 to 80 °C in water baths, read its volume at each temperature, and extrapolate to absolute zero.",
+  "briefing": "Trap 40 mL of air in the syringe and cap it; its plunger moves freely, so the gas stays at atmospheric pressure. Stand it in each bath for ten minutes and read the volume. At constant pressure V is proportional to the absolute temperature (Charles’s law): extrapolating the line of V against temperature back to V = 0 gives absolute zero.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry",
+        "physics"
+      ]
+    },
+    "keywords": [
+      "Charles’s law",
+      "absolute zero",
+      "kelvin",
+      "ideal gas"
+    ],
+    "topics": [
+      "Gases"
+    ],
+    "concepts": [
+      {
+        "id": "charles",
+        "label": "At constant pressure the volume of a gas is proportional to its absolute temperature"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the volume of a gas at several temperatures"
+      },
+      {
+        "id": "o-law",
+        "kind": "analysis",
+        "statement": "Show V/T is constant and find absolute zero",
+        "goal": "g-charles"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain absolute zero",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB"
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "ice",
+        "requires": {
+          "class": "core:ice-bath"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "syringe",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:gas-syringe-sealed",
+          "id": "syringe",
+          "label": "Sealed syringe"
+        }
+      },
+      {
+        "id": "trap",
+        "kind": "operation",
+        "ref": "core:trap-air",
+        "params": {
+          "container": "syringe",
+          "volume": "40 mL"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "baths",
+        "kind": "group",
+        "title": "Each temperature in turn",
+        "forEach": {
+          "var": "r",
+          "in": "=[['t0','Ice and water, 0 °C','ice',0],['t25','25 °C','bath',25],['t40','40 °C','bath',40],['t60','60 °C','bath',60],['t80','80 °C','bath',80]]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "set",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[3]) + ' Cel')"
+            },
+            "when": "r[2] == 'bath'"
+          },
+          {
+            "id": "in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "syringe",
+              "place": "=r[2]"
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "syringe"
+            }
+          },
+          {
+            "id": "n-v",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='V ' + r[0]",
+              "value": "=value(quantity(read.out.value), 'mL')"
+            }
+          },
+          {
+            "id": "n-vt",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='V/T ' + r[0]",
+              "value": "=value(quantity(read.out.value), 'mL') / (r[3] + 273.15)"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "syringe"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zero",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "absolute zero (°C)",
+          "value": "=0 - first(recorded('V t0')) * 80 / (first(recorded('V t80')) - first(recorded('V t0')))"
+        },
+        "objectives": [
+          "o-law"
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "What would happen to the gas at absolute zero, −273 °C?",
+        "options": [
+          {
+            "id": "still",
+            "label": "Its particles would stop moving, so (if it stayed a gas) it would take up no volume"
+          },
+          {
+            "id": "freeze",
+            "label": "It would freeze solid at that point"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing special: it would just be colder"
+          }
+        ],
+        "correctWhen": "choice == 'still'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-charles",
+        "statement": "V/T is the same within 2 % from 0 to 80 °C, and the extrapolation gives absolute zero within 20 °C of −273 °C",
+        "check": "abs(first(recorded('V/T t80')) / first(recorded('V/T t0')) - 1) < 0.02 && abs(first(recorded('absolute zero (°C)')) + 273) < 20"
+      },
+      {
+        "id": "g-explain",
+        "statement": "Absolute zero is explained",
+        "check": "decision('why') == 'still'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-rise",
+        "statement": "From 0 to 80 °C the gas expands by about 30 %",
+        "check": "abs(first(recorded('V t80')) / first(recorded('V t0')) - 1.29) < 0.04",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

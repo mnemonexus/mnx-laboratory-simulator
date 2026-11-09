@@ -1,0 +1,712 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio10-operon-rt-pcr",
+  "version": "1.0.0",
+  "title": "Is it an operon? RT-PCR across gene junctions",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:thermocycle"
+      },
+      {
+        "operation": "core:run-gel"
+      }
+    ]
+  },
+  "summary": "PCR on cDNA from E. coli grown with and without IPTG, with primers inside lacZ, lacY and lacA and across the junctions between them, a housekeeping gene (gapA), a no-RT control and genomic DNA, to show that lac is one inducible polycistronic mRNA.",
+  "briefing": "cDNA is made from a cell's mRNA, so a PCR product from it shows the gene was transcribed. A primer pair spanning the junction of two genes gives a product from cDNA only if one mRNA covers both: an operon. gapA, transcribed in every cell, shows each cDNA worked; the no-RT control (RNA taken through without reverse transcriptase) shows whether genomic DNA in the RNA could give bands too; genomic DNA shows the junction primers work. Use 22 cycles so that differences in amount stay visible.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "molecular-biology",
+        "microbiology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "rt-pcr",
+        "label": "RT-PCR: transcripts from cDNA"
+      },
+      {
+        "id": "operon",
+        "label": "Polycistronic mRNA and operons"
+      },
+      {
+        "id": "rt-controls",
+        "label": "No-RT and housekeeping controls"
+      },
+      {
+        "id": "end-point",
+        "label": "End-point PCR saturates"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-pcr",
+        "kind": "skill",
+        "statement": "Set up a master mix and many PCRs with their controls",
+        "skills": [
+          "molbio:pcr-setup",
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-gel",
+        "kind": "skill",
+        "statement": "Run and size the products on a gel",
+        "skills": [
+          "molbio:gel-electrophoresis"
+        ]
+      },
+      {
+        "id": "o-interpret",
+        "kind": "reasoning",
+        "statement": "Conclude on transcription, co-transcription and induction from the cDNA lanes and their controls",
+        "goal": "g-interpret"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "ind",
+        "label": "cDNA, cells grown with IPTG",
+        "role": "unknown",
+        "solvent": "core:water",
+        "amount": "20 uL",
+        "container": "core:microtube-1.5ml",
+        "contains": [
+          {
+            "substance": "molbio:ecoli-cdna-laczya",
+            "conc": "0.00057 ng/uL"
+          },
+          {
+            "substance": "molbio:ecoli-cdna-gapa",
+            "conc": "0.00012 ng/uL"
+          }
+        ]
+      },
+      {
+        "id": "un",
+        "label": "cDNA, cells grown without IPTG",
+        "role": "unknown",
+        "solvent": "core:water",
+        "amount": "20 uL",
+        "container": "core:microtube-1.5ml",
+        "contains": [
+          {
+            "substance": "molbio:ecoli-cdna-laczya",
+            "conc": "0.00000057 ng/uL"
+          },
+          {
+            "substance": "molbio:ecoli-cdna-gapa",
+            "conc": "0.00012 ng/uL"
+          }
+        ]
+      },
+      {
+        "id": "nort",
+        "label": "No-RT control (induced RNA, no reverse transcriptase)",
+        "role": "unknown",
+        "solvent": "core:water",
+        "amount": "20 uL",
+        "container": "core:microtube-1.5ml",
+        "contains": [
+          {
+            "substance": "molbio:ecoli-gdna-lac",
+            "conc": "0.00005 ng/uL"
+          }
+        ]
+      },
+      {
+        "id": "gdna",
+        "label": "E. coli K-12 genomic DNA (10 ng/µL)",
+        "role": "control-positive",
+        "solvent": "core:water",
+        "amount": "20 uL",
+        "container": "core:microtube-1.5ml",
+        "contains": [
+          {
+            "substance": "molbio:ecoli-gdna-lac",
+            "conc": "10 ng/uL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Nuclease-free water",
+        "preparation": "core:water-deionised",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "buffer",
+        "label": "Reaction buffer (5×)",
+        "preparation": "molbio:phire-buffer-5x",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "dntp",
+        "label": "dNTP mix (10 mM)",
+        "preparation": "molbio:dntp-10mm",
+        "amount": "20 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "phire",
+        "label": "Fast hot-start polymerase",
+        "preparation": "molbio:phire-polymerase-stock",
+        "amount": "20 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "primers-lacz",
+        "label": "Primer mix lacz",
+        "preparation": "molbio:lac-lacz-primer-mix",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "primers-lacy",
+        "label": "Primer mix lacy",
+        "preparation": "molbio:lac-lacy-primer-mix",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "primers-laca",
+        "label": "Primer mix laca",
+        "preparation": "molbio:lac-laca-primer-mix",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "primers-zy",
+        "label": "Primer mix zy",
+        "preparation": "molbio:lac-zy-primer-mix",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "primers-ya",
+        "label": "Primer mix ya",
+        "preparation": "molbio:lac-ya-primer-mix",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "primers-gapa",
+        "label": "Primer mix gapa",
+        "preparation": "molbio:lac-gapa-primer-mix",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "ladder",
+        "label": "100 bp ladder",
+        "preparation": "molbio:ladder-100bp",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "dye",
+        "label": "Loading dye (6×)",
+        "preparation": "molbio:loading-dye-6x",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "cycler",
+        "requires": {
+          "class": "core:thermal-cycler-96-tube"
+        }
+      },
+      {
+        "id": "gel",
+        "requires": {
+          "class": "core:agarose-gel-1.5pct-14"
+        }
+      },
+      {
+        "id": "imager",
+        "requires": {
+          "class": "core:gel-imager"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "mm-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-1.5ml",
+          "id": "mm",
+          "label": "Master mix (no template, no primers)"
+        }
+      },
+      {
+        "id": "master",
+        "kind": "group",
+        "title": "A master mix for 14 reactions",
+        "steps": [
+          {
+            "id": "mm-water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "mm",
+              "volume": "128.8 uL"
+            }
+          },
+          {
+            "id": "mm-buffer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "mm",
+              "volume": "56 uL"
+            }
+          },
+          {
+            "id": "mm-dntp",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dntp",
+              "destination": "mm",
+              "volume": "5.6 uL"
+            }
+          },
+          {
+            "id": "mm-pol",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "phire",
+              "destination": "mm",
+              "volume": "5.6 uL"
+            }
+          },
+          {
+            "id": "mm-flick",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "mm",
+              "method": "flick",
+              "cycles": 3
+            }
+          }
+        ],
+        "objectives": [
+          "o-pcr"
+        ]
+      },
+      {
+        "id": "reactions",
+        "kind": "group",
+        "title": "Each reaction: 14 µL of master mix, 2 µL of template and 4 µL of primer mix",
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:pcr-tube-0.2ml",
+              "id": "=x[0]",
+              "label": "=x[0]"
+            }
+          },
+          {
+            "id": "mm-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "mm",
+              "destination": "=x[0]",
+              "volume": "14 uL"
+            }
+          },
+          {
+            "id": "template",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "2 uL"
+            }
+          },
+          {
+            "id": "primers",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='primers-' + x[2]",
+              "destination": "=x[0]",
+              "volume": "4 uL"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "lid",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ind-z', 'ind', 'lacz'], ['ind-y', 'ind', 'lacy'], ['ind-a', 'ind', 'laca'], ['ind-zy', 'ind', 'zy'], ['ind-ya', 'ind', 'ya'], ['ind-gapa', 'ind', 'gapa'], ['un-z', 'un', 'lacz'], ['un-zy', 'un', 'zy'], ['un-gapa', 'un', 'gapa'], ['nort-z', 'nort', 'lacz'], ['nort-gapa', 'nort', 'gapa'], ['g-zy', 'gdna', 'zy'], ['g-ya', 'gdna', 'ya']]"
+        },
+        "objectives": [
+          "o-pcr"
+        ]
+      },
+      {
+        "id": "into-cycler",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=x",
+          "place": "cycler"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['ind-z', 'ind-y', 'ind-a', 'ind-zy', 'ind-ya', 'ind-gapa', 'un-z', 'un-zy', 'un-gapa', 'nort-z', 'nort-gapa', 'g-zy', 'g-ya']"
+        }
+      },
+      {
+        "id": "cycle",
+        "kind": "operation",
+        "ref": "core:thermocycle",
+        "params": {
+          "cycler": "cycler",
+          "cycles": 22,
+          "initialTime": "60 s",
+          "denatureTemperature": "98 Cel",
+          "denatureTime": "5 s",
+          "annealTemperature": "60 Cel",
+          "annealTime": "5 s",
+          "extendTemperature": "72 Cel",
+          "extendTime": "20 s",
+          "finalTime": "60 s"
+        },
+        "objectives": [
+          "o-pcr"
+        ]
+      },
+      {
+        "id": "out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=x"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['ind-z', 'ind-y', 'ind-a', 'ind-zy', 'ind-ya', 'ind-gapa', 'un-z', 'un-zy', 'un-gapa', 'nort-z', 'nort-gapa', 'g-zy', 'g-ya']"
+        }
+      },
+      {
+        "id": "dye",
+        "kind": "group",
+        "title": "Loading dye into every reaction",
+        "steps": [
+          {
+            "id": "open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "dye-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dye",
+              "destination": "=x",
+              "volume": "4 uL"
+            }
+          },
+          {
+            "id": "dye-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['ind-z', 'ind-y', 'ind-a', 'ind-zy', 'ind-ya', 'ind-gapa', 'un-z', 'un-zy', 'un-gapa', 'nort-z', 'nort-gapa', 'g-zy', 'g-ya']"
+        }
+      },
+      {
+        "id": "ladder-dye",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "dye",
+          "destination": "ladder",
+          "volume": "10 uL"
+        }
+      },
+      {
+        "id": "ladder-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "ladder",
+          "method": "flick",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "ladder-in",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ladder",
+          "destination": "gel/A1",
+          "volume": "10 uL"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=x[0]",
+          "destination": "=x[1]",
+          "volume": "20 uL"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=[['ind-z', 'gel/A2'], ['ind-y', 'gel/A3'], ['ind-a', 'gel/A4'], ['ind-zy', 'gel/A5'], ['ind-ya', 'gel/A6'], ['ind-gapa', 'gel/A7'], ['un-z', 'gel/A8'], ['un-zy', 'gel/A9'], ['un-gapa', 'gel/A10'], ['nort-z', 'gel/A11'], ['nort-gapa', 'gel/A12'], ['g-zy', 'gel/A13'], ['g-ya', 'gel/A14']]"
+        },
+        "objectives": [
+          "o-gel"
+        ]
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "gel",
+          "voltage": 100,
+          "duration": "45 min"
+        }
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "imager",
+          "subject": "gel"
+        }
+      },
+      {
+        "id": "sizing",
+        "kind": "group",
+        "title": "Size every lane's bands",
+        "steps": [
+          {
+            "id": "size",
+            "kind": "technique",
+            "ref": "molbio:size-band",
+            "params": {
+              "ladderLane": "gel/A1",
+              "lane": "=x[1]",
+              "ladder": "molbio:ladder-100bp"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='sizes-' + x[0]",
+              "value": "=size.out.sizes"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ind-z', 'gel/A2'], ['ind-y', 'gel/A3'], ['ind-a', 'gel/A4'], ['ind-zy', 'gel/A5'], ['ind-ya', 'gel/A6'], ['ind-gapa', 'gel/A7'], ['un-z', 'gel/A8'], ['un-zy', 'gel/A9'], ['un-gapa', 'gel/A10'], ['nort-z', 'gel/A11'], ['nort-gapa', 'gel/A12'], ['g-zy', 'gel/A13'], ['g-ya', 'gel/A14']]"
+        },
+        "objectives": [
+          "o-gel"
+        ]
+      },
+      {
+        "id": "operon",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "From the induced cDNA, are lacZ, lacY and lacA on one mRNA?",
+        "options": [
+          {
+            "id": "one",
+            "label": "Yes: both junctions (lacZ-lacY, lacY-lacA) amplify from cDNA, so one mRNA spans all three"
+          },
+          {
+            "id": "separate",
+            "label": "No: each gene has its own mRNA"
+          },
+          {
+            "id": "zy",
+            "label": "Only lacZ and lacY share an mRNA"
+          }
+        ],
+        "correctWhen": "if(any(first(recorded('sizes-ind-zy')), between(it, 496, 775)) && any(first(recorded('sizes-ind-ya')), between(it, 384, 600)), 'one', if(any(first(recorded('sizes-ind-zy')), between(it, 496, 775)), 'zy', 'separate'))"
+      },
+      {
+        "id": "induction",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Compare the induced and uninduced cDNA.",
+        "options": [
+          {
+            "id": "induced",
+            "label": "lac is transcribed far more after induction: lacZ shows from induced cDNA only, while gapA shows from both"
+          },
+          {
+            "id": "same",
+            "label": "lac is transcribed the same in both"
+          },
+          {
+            "id": "failed",
+            "label": "The uninduced cDNA failed: even gapA is missing"
+          }
+        ],
+        "correctWhen": "if(!any(first(recorded('sizes-un-gapa')), between(it, 160, 250)), 'failed', if(any(first(recorded('sizes-ind-z')), between(it, 144, 225)) && !any(first(recorded('sizes-un-z')), between(it, 144, 225)), 'induced', 'same'))"
+      },
+      {
+        "id": "no-rt",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "What do the no-RT reactions (the induced RNA without reverse transcriptase) show?",
+        "options": [
+          {
+            "id": "clean",
+            "label": "No bands: the cDNA bands come from RNA, not from genomic DNA left in the RNA"
+          },
+          {
+            "id": "contaminated",
+            "label": "Bands: genomic DNA in the RNA could explain the cDNA results"
+          }
+        ],
+        "correctWhen": "if(any(first(recorded('sizes-nort-z')), between(it, 144, 225)) || any(first(recorded('sizes-nort-gapa')), between(it, 160, 250)), 'contaminated', 'clean')"
+      },
+      {
+        "id": "cycles",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Why only 22 cycles, when 35 would give stronger bands?",
+        "options": [
+          {
+            "id": "plateau",
+            "label": "At 35 cycles even the uninduced cells' trace of lac mRNA, and any stray genomic DNA, amplify to full strength; fewer cycles keep differences in amount visible"
+          },
+          {
+            "id": "time",
+            "label": "To save time"
+          },
+          {
+            "id": "polymerase",
+            "label": "The polymerase does not last 35 cycles"
+          }
+        ],
+        "correctWhen": "'plateau'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-interpret",
+        "statement": "Operon, induction and both controls are read correctly",
+        "check": "decision('operon') == 'one' && decision('induction') == 'induced' && decision('no-rt') == 'clean' && decision('cycles') == 'plateau'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-junctions",
+        "statement": "Both junctions amplify from induced cDNA and from genomic DNA",
+        "check": "any(first(recorded('sizes-ind-zy')), between(it, 496, 775)) && any(first(recorded('sizes-ind-ya')), between(it, 384, 600)) && any(first(recorded('sizes-g-zy')), between(it, 496, 775)) && any(first(recorded('sizes-g-ya')), between(it, 384, 600))",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-induced",
+        "statement": "lacZ shows only from induced cDNA; gapA from both; the no-RT lanes are empty",
+        "check": "any(first(recorded('sizes-ind-z')), between(it, 144, 225)) && !any(first(recorded('sizes-un-z')), between(it, 144, 225)) && any(first(recorded('sizes-un-gapa')), between(it, 160, 250)) && !any(first(recorded('sizes-nort-z')), between(it, 144, 225))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

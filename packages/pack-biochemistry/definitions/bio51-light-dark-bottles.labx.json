@@ -1,0 +1,421 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio51-light-dark-bottles",
+  "version": "1.0.0",
+  "title": "Primary productivity: the light and dark bottle method",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Fill three BOD bottles with pond water, measure the oxygen in one at once, keep one in light and one in the dark for a day, and work out the respiration, net and gross primary productivity from their dissolved oxygen.",
+  "briefing": "Fill three BOD bottles from the same pond water, letting them overflow so no bubble is trapped, and stopper them. Measure the dissolved oxygen in the first now. Keep the second in a lit growth cabinet and the third in a dark cupboard, both at 21 °C, for 24 hours, then measure them. In the light bottle the algae photosynthesise and everything respires; in the dark bottle there is only respiration. Net productivity = light − initial; respiration = initial − dark; gross productivity = light − dark.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology",
+        "ecology"
+      ]
+    },
+    "keywords": [
+      "primary productivity",
+      "gross primary productivity",
+      "net primary productivity",
+      "respiration",
+      "dissolved oxygen",
+      "light and dark bottles",
+      "phytoplankton"
+    ],
+    "topics": [
+      "Ecosystems",
+      "Photosynthesis"
+    ],
+    "concepts": [
+      {
+        "id": "productivity",
+        "label": "Gross productivity is all the photosynthesis; net productivity is what is left after respiration"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure dissolved oxygen in sealed samples kept in light and dark"
+      },
+      {
+        "id": "o-calc",
+        "kind": "analysis",
+        "statement": "Calculate respiration, net and gross primary productivity",
+        "goal": "g-productivity"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain what the dark bottle measures",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "pond",
+        "label": "Pond water (air-saturated, with its plankton)",
+        "contains": [
+          {
+            "substance": "core:oxygen",
+            "conc": "0.28 mM"
+          },
+          {
+            "substance": "aq:sodium-hydrogencarbonate",
+            "conc": "2 mM"
+          },
+          {
+            "substance": "bio:phytoplankton",
+            "conc": "5 mg/L"
+          },
+          {
+            "substance": "bio:plankton-respiration",
+            "conc": "5 mg/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "do",
+        "requires": {
+          "class": "core:do-meter"
+        }
+      },
+      {
+        "id": "cabinet",
+        "requires": {
+          "class": "core:growth-cabinet"
+        }
+      },
+      {
+        "id": "dark",
+        "requires": {
+          "class": "core:dark-cupboard"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "fill",
+        "kind": "group",
+        "title": "Fill and stopper the bottles",
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "b-initial",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:bod-bottle-300ml",
+              "id": "initial",
+              "label": "Initial bottle"
+            }
+          },
+          {
+            "id": "b-light",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:bod-bottle-300ml",
+              "id": "light",
+              "label": "Light bottle"
+            }
+          },
+          {
+            "id": "b-dark",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:bod-bottle-300ml",
+              "id": "dark-bottle",
+              "label": "Dark bottle"
+            }
+          },
+          {
+            "id": "f-initial",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "pond",
+              "destination": "initial",
+              "brim": true
+            }
+          },
+          {
+            "id": "f-light",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "pond",
+              "destination": "light",
+              "brim": true
+            }
+          },
+          {
+            "id": "f-dark",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "pond",
+              "destination": "dark-bottle",
+              "brim": true
+            }
+          },
+          {
+            "id": "s-light",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "light"
+            }
+          },
+          {
+            "id": "s-dark",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "dark-bottle"
+            }
+          }
+        ]
+      },
+      {
+        "id": "do0",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "do",
+          "subject": "initial"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "n0",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "initial",
+          "value": "=value(quantity(do0.out.value), 'mg/L')"
+        }
+      },
+      {
+        "id": "cab",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "cabinet",
+          "temperature": "21 Cel"
+        }
+      },
+      {
+        "id": "to-light",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "light",
+          "place": "cabinet"
+        }
+      },
+      {
+        "id": "to-dark",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "dark-bottle",
+          "place": "dark"
+        }
+      },
+      {
+        "id": "day",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "24 h"
+        }
+      },
+      {
+        "id": "o-light",
+        "kind": "operation",
+        "ref": "core:open",
+        "params": {
+          "container": "light"
+        }
+      },
+      {
+        "id": "do-light",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "do",
+          "subject": "light"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "n-light",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "light",
+          "value": "=value(quantity(do-light.out.value), 'mg/L')"
+        }
+      },
+      {
+        "id": "o-dark",
+        "kind": "operation",
+        "ref": "core:open",
+        "params": {
+          "container": "dark-bottle"
+        }
+      },
+      {
+        "id": "do-dark",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "do",
+          "subject": "dark-bottle"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "n-dark",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "dark",
+          "value": "=value(quantity(do-dark.out.value), 'mg/L')"
+        }
+      },
+      {
+        "id": "net",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "net productivity (mg/L O2 per day)",
+          "value": "=first(recorded('light')) - first(recorded('initial'))"
+        },
+        "objectives": [
+          "o-calc"
+        ]
+      },
+      {
+        "id": "resp",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "respiration (mg/L O2 per day)",
+          "value": "=first(recorded('initial')) - first(recorded('dark'))"
+        },
+        "objectives": [
+          "o-calc"
+        ]
+      },
+      {
+        "id": "gross",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "gross productivity (mg/L O2 per day)",
+          "value": "=first(recorded('light')) - first(recorded('dark'))"
+        },
+        "objectives": [
+          "o-calc"
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the dark bottle lose oxygen?",
+        "options": [
+          {
+            "id": "respiration",
+            "label": "Everything in it respires, and with no light nothing photosynthesises to replace the oxygen"
+          },
+          {
+            "id": "leak",
+            "label": "Oxygen leaks out of the stopper"
+          },
+          {
+            "id": "cold",
+            "label": "The dark cupboard is colder"
+          }
+        ],
+        "correctWhen": "choice == 'respiration'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-productivity",
+        "statement": "Gross productivity exceeds net productivity, which is positive, by the respiration",
+        "check": "first(recorded('gross productivity (mg/L O2 per day)')) > first(recorded('net productivity (mg/L O2 per day)')) && first(recorded('net productivity (mg/L O2 per day)')) > 0 && first(recorded('respiration (mg/L O2 per day)')) > 0"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The dark bottle is explained",
+        "check": "decision('why') == 'respiration'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-light",
+        "statement": "The light bottle ends above air saturation (about 9 mg/L at 21 °C)",
+        "check": "first(recorded('light')) > 9.5",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-dark",
+        "statement": "The dark bottle ends below where it started",
+        "check": "first(recorded('dark')) < first(recorded('initial'))",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

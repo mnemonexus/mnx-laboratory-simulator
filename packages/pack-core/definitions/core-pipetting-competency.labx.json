@@ -1,0 +1,631 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "core-pipetting-competency",
+  "version": "1.0.0",
+  "title": "Micropipettes: choosing, using and proving them",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:attach-tip"
+      },
+      {
+        "operation": "core:set-volume"
+      },
+      {
+        "operation": "core:weigh"
+      }
+    ]
+  },
+  "summary": "Dispense three volumes of water with the pipette suited to each and check them on a balance. Pipette a viscous 50 % glycerol solution forward and in reverse and compare. Then pass a competency test: build exactly 1.000 mL of a four-part mixture in one tube and prove it by weight.",
+  "briefing": "Each micropipette is accurate only within its range, and least accurate near the bottom of it: choose the smallest pipette that holds the volume. Fit a fresh tip, set the volume, press to the first stop before entering the liquid, release slowly, and dispense to the second stop against the tube wall. A viscous liquid lags in the tip and coats it, so forward pipetting delivers short; reverse pipetting (press past the first stop to take up extra, dispense only to the first stop) leaves the excess behind. Water weighs 0.998 g per mL, 50 % (v/v) glycerol 1.130 g per mL.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "spaced-recall"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "bioscience",
+        "chemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "pipette-ranges",
+        "label": "Pipette ranges and accuracy"
+      },
+      {
+        "id": "viscous-liquids",
+        "label": "Pipetting viscous liquids"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-choose",
+        "kind": "skill",
+        "statement": "Choose and set the right pipette for each volume",
+        "skills": [
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-viscous",
+        "kind": "reasoning",
+        "statement": "Pipette a viscous liquid accurately",
+        "goal": "g-reverse"
+      },
+      {
+        "id": "o-test",
+        "kind": "outcome",
+        "statement": "Build 1.000 mL of a mixture within 1 %",
+        "goal": "g-test"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "glycerol",
+        "label": "Glycerol, 50 % (v/v)",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "core:glycerol",
+            "conc": "630.5 g/L"
+          }
+        ],
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "dye",
+        "label": "Blue dye, 0.1 %",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "core:brilliant-blue-fcf",
+            "conc": "1 g/L"
+          }
+        ],
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "salt",
+        "label": "Sodium chloride, 1 M",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "core:sodium-chloride",
+            "conc": "1 mol/L"
+          }
+        ],
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-4dp"
+        }
+      },
+      {
+        "id": "p20",
+        "requires": {
+          "class": "core:micropipette-p20"
+        }
+      },
+      {
+        "id": "p200",
+        "requires": {
+          "class": "core:micropipette-p200"
+        }
+      },
+      {
+        "id": "p1000",
+        "requires": {
+          "class": "core:micropipette-p1000"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "choosing",
+        "kind": "group",
+        "title": "Three volumes of water, each with its own pipette, weighed",
+        "objectives": [
+          "o-choose"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['p1000', 750], ['p200', 150], ['p20', 15]]"
+        },
+        "let": {
+          "tube": "='w-' + x[0]"
+        },
+        "steps": [
+          {
+            "id": "c-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=tube",
+              "label": "=text(x[1]) + ' µL of water'"
+            }
+          },
+          {
+            "id": "c-on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=tube",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "c-zero",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "c-dial",
+            "kind": "operation",
+            "ref": "core:set-volume",
+            "params": {
+              "pipette": "=x[0]",
+              "volume": "=x[1] * 1 uL"
+            }
+          },
+          {
+            "id": "c-tip",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "=x[0]"
+            }
+          },
+          {
+            "id": "c-dispense",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=tube",
+              "volume": "=x[1] * 1 uL",
+              "tool": "=x[0]"
+            }
+          },
+          {
+            "id": "c-read",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "c-off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=tube"
+            }
+          },
+          {
+            "id": "c-eject",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "=x[0]"
+            }
+          },
+          {
+            "id": "c-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "water-error-%",
+              "value": "=(value(quantity(c-read.out.value), 'g') / 0.998 * 1000 - x[1]) / x[1] * 100"
+            }
+          }
+        ]
+      },
+      {
+        "id": "viscous",
+        "kind": "group",
+        "title": "500 µL of 50 % glycerol, forward and reverse, weighed",
+        "objectives": [
+          "o-viscous"
+        ],
+        "forEach": {
+          "var": "m",
+          "in": "=['forward', 'reverse']"
+        },
+        "let": {
+          "tube": "='g-' + m"
+        },
+        "steps": [
+          {
+            "id": "v-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=tube",
+              "label": "='Glycerol, ' + m"
+            }
+          },
+          {
+            "id": "v-on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=tube",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "v-zero",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "v-dial",
+            "kind": "operation",
+            "ref": "core:set-volume",
+            "params": {
+              "pipette": "p1000",
+              "volume": "500 uL"
+            }
+          },
+          {
+            "id": "v-tip",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "p1000"
+            }
+          },
+          {
+            "id": "v-dispense",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "glycerol",
+              "destination": "=tube",
+              "volume": "500 uL",
+              "tool": "p1000",
+              "mode": "=m"
+            }
+          },
+          {
+            "id": "v-read",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "v-off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=tube"
+            }
+          },
+          {
+            "id": "v-eject",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p1000"
+            }
+          },
+          {
+            "id": "v-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='glycerol-error-%-' + m",
+              "value": "=(value(quantity(v-read.out.value), 'g') / 1.130 * 1000 - 500) / 500 * 100"
+            }
+          }
+        ]
+      },
+      {
+        "id": "which-mode",
+        "kind": "decision",
+        "objectives": [
+          "o-viscous"
+        ],
+        "prompt": "Which way of pipetting delivered the glycerol accurately, and why?",
+        "options": [
+          {
+            "id": "reverse",
+            "label": "Reverse: the extra taken up covers what lags in the tip and coats it"
+          },
+          {
+            "id": "forward",
+            "label": "Forward: the second stop blows out everything"
+          },
+          {
+            "id": "same",
+            "label": "Neither matters: the pipette is set to 500 µL either way"
+          }
+        ],
+        "correctWhen": "if(abs(first(recorded('glycerol-error-%-reverse'))) < abs(first(recorded('glycerol-error-%-forward'))), 'reverse', 'forward')"
+      },
+      {
+        "id": "test",
+        "kind": "group",
+        "title": "Competency test: 600 µL glycerol (reverse), 12 µL dye, 25 µL salt, water to 1.000 mL",
+        "objectives": [
+          "o-test"
+        ],
+        "steps": [
+          {
+            "id": "t-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "mix",
+              "label": "Test mixture"
+            }
+          },
+          {
+            "id": "t-on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "mix",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "t-zero",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "t-dial-g",
+            "kind": "operation",
+            "ref": "core:set-volume",
+            "params": {
+              "pipette": "p1000",
+              "volume": "600 uL"
+            }
+          },
+          {
+            "id": "t-tip-g",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "p1000"
+            }
+          },
+          {
+            "id": "t-add-g",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "glycerol",
+              "destination": "mix",
+              "volume": "600 uL",
+              "tool": "p1000",
+              "mode": "reverse"
+            }
+          },
+          {
+            "id": "t-eject-g",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p1000"
+            }
+          },
+          {
+            "id": "t-dial-d",
+            "kind": "operation",
+            "ref": "core:set-volume",
+            "params": {
+              "pipette": "p20",
+              "volume": "12 uL"
+            }
+          },
+          {
+            "id": "t-tip-d",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "t-add-d",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dye",
+              "destination": "mix",
+              "volume": "12 uL",
+              "tool": "p20"
+            }
+          },
+          {
+            "id": "t-eject-d",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "t-dial-s",
+            "kind": "operation",
+            "ref": "core:set-volume",
+            "params": {
+              "pipette": "p200",
+              "volume": "25 uL"
+            }
+          },
+          {
+            "id": "t-tip-s",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "p200"
+            }
+          },
+          {
+            "id": "t-add-s",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "salt",
+              "destination": "mix",
+              "volume": "25 uL",
+              "tool": "p200"
+            }
+          },
+          {
+            "id": "t-eject-s",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p200"
+            }
+          },
+          {
+            "id": "t-dial-w",
+            "kind": "operation",
+            "ref": "core:set-volume",
+            "params": {
+              "pipette": "p1000",
+              "volume": "363 uL"
+            }
+          },
+          {
+            "id": "t-tip-w",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "p1000"
+            }
+          },
+          {
+            "id": "t-add-w",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "mix",
+              "volume": "363 uL",
+              "tool": "p1000"
+            }
+          },
+          {
+            "id": "t-eject-w",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p1000"
+            }
+          },
+          {
+            "id": "t-read",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "t-note-mass",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "test-mass-g",
+              "value": "=value(quantity(t-read.out.value), 'g')"
+            }
+          },
+          {
+            "id": "t-note-error",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "test-error-%",
+              "value": "=(value(quantity(t-read.out.value), 'g') - (0.600 * 1.130 + 0.400 * 0.998)) / (0.600 * 1.130 + 0.400 * 0.998) * 100"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-reverse",
+        "statement": "Reverse pipetting is found to deliver the glycerol accurately (within 1 %)",
+        "check": "decision('which-mode') == 'reverse' && abs(first(recorded('glycerol-error-%-reverse'))) < 1"
+      },
+      {
+        "id": "g-test",
+        "statement": "The test mixture weighs within 1 % of what 1.000 mL of it should",
+        "check": "abs(first(recorded('test-error-%'))) < 1"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-water",
+        "statement": "Each water volume is within 2 % when pipetted with the right pipette",
+        "check": "all(recorded('water-error-%'), abs(it) < 2)",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-forward-short",
+        "statement": "Forward pipetting delivers the glycerol at least 2 % short",
+        "check": "first(recorded('glycerol-error-%-forward')) < -2",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

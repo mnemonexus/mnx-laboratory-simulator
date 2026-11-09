@@ -1,0 +1,276 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "bio56-allele-frequencies",
+  "title": "Allele frequencies over generations: the Hardy–Weinberg principle",
+  "summary": "Start a population with equal numbers of vestigial and wild-type alleles, let it breed for four generations, and estimate the frequency of the vestigial allele each generation from the proportion of vestigial flies.",
+  "briefing": "Cross vestigial and wild-type flies to give an F1 that are all heterozygous: the vestigial allele frequency q is 0.5. Each generation, move 50 females and 50 males at random into a fresh vial (with fewer, chance alone shifts the frequencies noticeably: genetic drift). With random mating, no selection and a large population, the allele frequencies stay the same (Hardy–Weinberg): q² of the flies are vestigial, so q = √(proportion vestigial).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology",
+        "genetics"
+      ]
+    },
+    "keywords": [
+      "Hardy–Weinberg",
+      "allele frequency",
+      "population genetics",
+      "genetic drift"
+    ],
+    "topics": [
+      "Inheritance"
+    ],
+    "concepts": [
+      {
+        "id": "hw",
+        "label": "Without selection, mutation, migration or drift, allele frequencies stay constant: p² + 2pq + q² = 1"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-cross",
+        "kind": "skill",
+        "statement": "Follow a fly population over generations"
+      },
+      {
+        "id": "o-ratio",
+        "kind": "analysis",
+        "statement": "Estimate the allele frequency each generation",
+        "goal": "g-ratio"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain why it stays (nearly) constant",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "lens",
+        "requires": {
+          "class": "core:hand-lens"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "25 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "warm",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "incubator",
+          "temperature": "25 Cel"
+        }
+      },
+      {
+        "id": "v-g1",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:fly-vial",
+          "id": "g1",
+          "label": "Generation 1 parents"
+        }
+      },
+      {
+        "id": "in-g1",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "g1",
+          "place": "incubator"
+        }
+      },
+      {
+        "id": "mothers",
+        "kind": "operation",
+        "ref": "core:add-flies",
+        "params": {
+          "strain": "bio:dros-vestigial",
+          "destination": "g1",
+          "females": 10
+        },
+        "objectives": [
+          "o-cross"
+        ]
+      },
+      {
+        "id": "fathers",
+        "kind": "operation",
+        "ref": "core:add-flies",
+        "params": {
+          "strain": "bio:dros-wild-type",
+          "destination": "g1",
+          "males": 10
+        },
+        "objectives": [
+          "o-cross"
+        ]
+      },
+      {
+        "id": "gen-g1",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "11 d"
+        }
+      },
+      {
+        "id": "generations",
+        "kind": "group",
+        "title": "Each generation in turn",
+        "forEach": {
+          "var": "g",
+          "in": "=[2,3,4]"
+        },
+        "objectives": [
+          "o-cross"
+        ],
+        "steps": [
+          {
+            "id": "fetch",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:fly-vial",
+              "id": "='g' + text(g)",
+              "label": "='Generation ' + text(g)"
+            }
+          },
+          {
+            "id": "in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='g' + text(g)",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "move",
+            "kind": "operation",
+            "ref": "core:transfer-flies",
+            "params": {
+              "source": "='g' + text(g - 1)",
+              "destination": "='g' + text(g)",
+              "females": 50,
+              "males": 50
+            }
+          },
+          {
+            "id": "breed",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "11 d"
+            }
+          },
+          {
+            "id": "score",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "lens",
+              "subject": "='g' + text(g)"
+            }
+          },
+          {
+            "id": "q",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='q in generation ' + text(g + 1)",
+              "value": "=sqrt(coalesce(score.out.counts['vestigial wings'], 0) / score.out.total)"
+            },
+            "objectives": [
+              "o-ratio"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the frequency of the vestigial allele stay close to 0.5?",
+        "options": [
+          {
+            "id": "hw",
+            "label": "Mating is random and nothing selects for or against either allele, so each generation passes on the same mix of alleles"
+          },
+          {
+            "id": "dominant",
+            "label": "Because the wild-type allele is dominant"
+          },
+          {
+            "id": "mutation",
+            "label": "New mutations keep it at 0.5"
+          }
+        ],
+        "correctWhen": "choice == 'hw'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-ratio",
+        "statement": "The estimated frequency of the vestigial allele stays between 0.35 and 0.65 in every generation",
+        "check": "all(map([first(recorded('q in generation 3')), first(recorded('q in generation 4')), first(recorded('q in generation 5'))], it > 0.35 && it < 0.65))"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The constancy is explained",
+        "check": "decision('why') == 'hw'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-quarter",
+        "statement": "About a quarter of each generation is vestigial",
+        "check": "abs(first(recorded('q in generation 3')) - 0.5) < 0.1",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

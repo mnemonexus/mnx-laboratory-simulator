@@ -1,0 +1,246 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem52-oil-film",
+  "title": "The size of a molecule and the Avogadro constant from an oil film",
+  "summary": "Drop a dilute solution of oleic acid in ethanol onto water dusted with powder, measure the circular film it spreads into, and estimate the length of an oleic acid molecule and the Avogadro constant.",
+  "briefing": "Fill the ripple tray with clean water and dust it lightly with lycopodium powder. Add one drop (0.020 mL) of 0.05 % oleic acid in ethanol from a dropper: the ethanol dissolves away and the oleic acid spreads into a film one molecule thick, pushing the powder back. Measure the film’s diameter after one, two and three drops. Volume of oleic acid = drops × 0.020 mL × 0.0005; its thickness d = volume ÷ area is the length of one molecule. Taking each molecule as a cube of side d, Nₐ ≈ (M/ρ)/d³ (M = 282 g/mol, ρ = 0.895 g/cm³).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry",
+        "physics"
+      ]
+    },
+    "keywords": [
+      "Avogadro constant",
+      "monolayer",
+      "oil film",
+      "molecular size",
+      "oleic acid"
+    ],
+    "topics": [
+      "Atoms and molecules",
+      "Amount of substance"
+    ],
+    "concepts": [
+      {
+        "id": "monolayer",
+        "label": "An oil spreads on water to a layer one molecule thick, so its area and volume give the size of a molecule"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the diameter of an oil film"
+      },
+      {
+        "id": "o-calc",
+        "kind": "analysis",
+        "statement": "Estimate the length of a molecule and the Avogadro constant",
+        "goal": "g-film"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain why the film is one molecule thick",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Clean tap water",
+        "preparation": "core:water-deionised",
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "oleic",
+        "label": "Oleic acid, 0.05 % (v/v) in ethanol",
+        "contains": [
+          {
+            "substance": "chem:oleic-acid",
+            "conc": "0.4475 g/L"
+          },
+          {
+            "substance": "core:ethanol",
+            "conc": "789 g/L"
+          }
+        ],
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "ruler",
+        "requires": {
+          "class": "core:ruler"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "tray",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:ripple-tray",
+          "id": "tray",
+          "label": "Ripple tray"
+        }
+      },
+      {
+        "id": "fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "tray",
+          "volume": "900 mL",
+          "tool": "pour"
+        }
+      },
+      {
+        "id": "drops",
+        "kind": "group",
+        "title": "One drop at a time",
+        "forEach": {
+          "var": "n",
+          "in": "=[1,2,3]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "oleic",
+              "destination": "tray",
+              "volume": "20 uL"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "ruler",
+              "subject": "tray"
+            }
+          },
+          {
+            "id": "n-d",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='diameter after ' + text(n)",
+              "value": "=value(quantity(measure.out.value), 'cm')"
+            }
+          },
+          {
+            "id": "n-t",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='thickness after ' + text(n)",
+              "value": "=n * 0.020 * 0.0005 / (3.14159 * (value(quantity(measure.out.value), 'cm') / 2) * (value(quantity(measure.out.value), 'cm') / 2)) * 10000000"
+            }
+          }
+        ]
+      },
+      {
+        "id": "na",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Avogadro constant estimate",
+          "value": "=(282.46 / 0.895) / (first(recorded('thickness after 3')) * 0.0000001 * first(recorded('thickness after 3')) * 0.0000001 * first(recorded('thickness after 3')) * 0.0000001)"
+        },
+        "objectives": [
+          "o-calc"
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why is the film taken to be one molecule thick?",
+        "options": [
+          {
+            "id": "spreads",
+            "label": "Oleic acid’s polar head is attracted to the water, so it spreads until every molecule touches the water"
+          },
+          {
+            "id": "evaporates",
+            "label": "The upper molecules evaporate"
+          },
+          {
+            "id": "powder",
+            "label": "The powder squashes it flat"
+          }
+        ],
+        "correctWhen": "choice == 'spreads'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-film",
+        "statement": "The molecule comes out between 0.5 and 2 nm long and the Avogadro constant within a factor of ten of 6 × 10²³",
+        "check": "first(recorded('thickness after 3')) > 0.5 && first(recorded('thickness after 3')) < 2 && first(recorded('Avogadro constant estimate')) > 6e22 && first(recorded('Avogadro constant estimate')) < 6e24"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The monolayer is explained",
+        "check": "decision('why') == 'spreads'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-area",
+        "statement": "The film’s area grows in proportion to the drops (the thickness stays the same)",
+        "check": "abs(first(recorded('thickness after 3')) / first(recorded('thickness after 1')) - 1) < 0.15",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

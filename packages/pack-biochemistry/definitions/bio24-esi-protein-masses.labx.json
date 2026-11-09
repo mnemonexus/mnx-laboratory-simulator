@@ -1,0 +1,376 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio24-esi-protein-masses",
+  "version": "1.0.0",
+  "title": "Masses by electrospray: a protein, its trapped intermediate, and the ion mode",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Read lysozyme's mass from its electrospray charge envelope, then that of lysozyme treated with a fluorosugar inhibitor, and from the difference say what is bound and how; compare positive and negative ion modes for the protein and for an oligonucleotide.",
+  "briefing": "Both proteins are desalted into 50 % acetonitrile with 0.1 % formic acid. In positive mode an ion with z protons is seen at m/z = (M + z × 1.00728)/z. Two neighbouring peaks of one envelope, p and the next lower one q (one charge more), give z = (q − 1.00728)/(p − q) and M = z(p − 1.00728). The inhibitor is a 2-deoxy-2-fluoro chitobioside; its sugar part is 409 Da.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "esi",
+        "label": "Electrospray ionisation and charge states"
+      },
+      {
+        "id": "intermediate",
+        "label": "Trapping covalent enzyme intermediates"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-mass",
+        "kind": "analysis",
+        "statement": "Work out a protein's mass from its charge envelope",
+        "goal": "g-ms"
+      },
+      {
+        "id": "o-reason",
+        "kind": "reasoning",
+        "statement": "Read a mass difference and choose an ion mode",
+        "goal": "g-ms"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "lysozyme",
+        "label": "Lysozyme, 20 µM",
+        "contains": [
+          {
+            "substance": "bio:lysozyme",
+            "conc": "20 uM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "treated",
+        "label": "Lysozyme after the fluorosugar inhibitor, 20 µM",
+        "contains": [
+          {
+            "substance": "bio:lysozyme-fluorosugar-adduct",
+            "conc": "20 uM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "oligo",
+        "label": "DNA oligonucleotide (20-mer), 20 µM",
+        "contains": [
+          {
+            "substance": "molbio:gfp-forward-primer",
+            "conc": "20 uM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "ms",
+        "requires": {
+          "class": "core:esi-ms"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "run-lys",
+        "kind": "operation",
+        "ref": "core:measure",
+        "objectives": [
+          "o-mass"
+        ],
+        "params": {
+          "instrument": "ms",
+          "subject": "lysozyme",
+          "polarity": "positive"
+        }
+      },
+      {
+        "id": "mass-lys",
+        "kind": "group",
+        "title": "Two neighbouring peaks of the envelope: the base peak p and the next one down in m/z, q, with one more charge; z = (q − H)/(p − q), M = z(p − H)",
+        "steps": [
+          {
+            "id": "p-lys",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-lys",
+              "value": "=run-lys.out.mz[first(filter(i in range(0, len(run-lys.out.mz) - 1, len(run-lys.out.mz)): run-lys.out.intensity[i] == max(run-lys.out.intensity)))]"
+            }
+          },
+          {
+            "id": "q-lys",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "q-lys",
+              "value": "=run-lys.out.mz[first(filter(i in range(0, len(run-lys.out.mz) - 1, len(run-lys.out.mz)): run-lys.out.intensity[i] == max(run-lys.out.intensity))) - 1]"
+            }
+          },
+          {
+            "id": "z-lys",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "z-lys",
+              "value": "=round((first(recorded('q-lys')) - 1.00728) / (first(recorded('p-lys')) - first(recorded('q-lys'))))"
+            }
+          },
+          {
+            "id": "m-lys",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "M-lys",
+              "value": "=first(recorded('z-lys')) * (first(recorded('p-lys')) - 1.00728)"
+            }
+          }
+        ],
+        "objectives": [
+          "o-mass"
+        ]
+      },
+      {
+        "id": "run-treated",
+        "kind": "operation",
+        "ref": "core:measure",
+        "objectives": [
+          "o-mass"
+        ],
+        "params": {
+          "instrument": "ms",
+          "subject": "treated",
+          "polarity": "positive"
+        }
+      },
+      {
+        "id": "mass-treated",
+        "kind": "group",
+        "title": "Two neighbouring peaks of the envelope: the base peak p and the next one down in m/z, q, with one more charge; z = (q − H)/(p − q), M = z(p − H)",
+        "steps": [
+          {
+            "id": "p-treated",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "p-treated",
+              "value": "=run-treated.out.mz[first(filter(i in range(0, len(run-treated.out.mz) - 1, len(run-treated.out.mz)): run-treated.out.intensity[i] == max(run-treated.out.intensity)))]"
+            }
+          },
+          {
+            "id": "q-treated",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "q-treated",
+              "value": "=run-treated.out.mz[first(filter(i in range(0, len(run-treated.out.mz) - 1, len(run-treated.out.mz)): run-treated.out.intensity[i] == max(run-treated.out.intensity))) - 1]"
+            }
+          },
+          {
+            "id": "z-treated",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "z-treated",
+              "value": "=round((first(recorded('q-treated')) - 1.00728) / (first(recorded('p-treated')) - first(recorded('q-treated'))))"
+            }
+          },
+          {
+            "id": "m-treated",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "M-treated",
+              "value": "=first(recorded('z-treated')) * (first(recorded('p-treated')) - 1.00728)"
+            }
+          }
+        ],
+        "objectives": [
+          "o-mass"
+        ]
+      },
+      {
+        "id": "delta",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mass-added",
+          "value": "=first(recorded('M-treated')) - first(recorded('M-lys'))"
+        },
+        "objectives": [
+          "o-mass"
+        ]
+      },
+      {
+        "id": "what-bound",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "The inhibitor's fluorochitobiosyl unit is 409 Da. What has happened to the treated enzyme?",
+        "options": [
+          {
+            "id": "one-covalent",
+            "label": "One unit is bound to each enzyme, covalently: it stays on through acidic acetonitrile, which would strip a non-covalent ligand (the trapped glycosyl-enzyme intermediate)"
+          },
+          {
+            "id": "two",
+            "label": "Two units are bound"
+          },
+          {
+            "id": "noncovalent",
+            "label": "It is bound non-covalently"
+          }
+        ],
+        "correctWhen": "if(abs(first(recorded('mass-added')) - 409) < 10, 'one-covalent', if(abs(first(recorded('mass-added')) - 818) < 10, 'two', 'noncovalent'))"
+      },
+      {
+        "id": "lys-neg",
+        "kind": "operation",
+        "ref": "core:measure",
+        "objectives": [
+          "o-mass"
+        ],
+        "params": {
+          "instrument": "ms",
+          "subject": "lysozyme",
+          "polarity": "negative"
+        }
+      },
+      {
+        "id": "dna-neg",
+        "kind": "operation",
+        "ref": "core:measure",
+        "objectives": [
+          "o-mass"
+        ],
+        "params": {
+          "instrument": "ms",
+          "subject": "oligo",
+          "polarity": "negative"
+        }
+      },
+      {
+        "id": "dna-pos",
+        "kind": "operation",
+        "ref": "core:measure",
+        "objectives": [
+          "o-mass"
+        ],
+        "params": {
+          "instrument": "ms",
+          "subject": "oligo",
+          "polarity": "positive"
+        }
+      },
+      {
+        "id": "modes",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Which ion mode suits each, judging by the total ion counts?",
+        "options": [
+          {
+            "id": "pos-neg",
+            "label": "Lysozyme positive (a basic protein, readily protonated), the oligonucleotide negative (its phosphates lose protons)"
+          },
+          {
+            "id": "same",
+            "label": "Both positive"
+          },
+          {
+            "id": "neg-pos",
+            "label": "Lysozyme negative, the oligonucleotide positive"
+          }
+        ],
+        "correctWhen": "if(run-lys.out.tic > lys-neg.out.tic && dna-neg.out.tic > dna-pos.out.tic, 'pos-neg', if(run-lys.out.tic > lys-neg.out.tic, 'same', 'neg-pos'))"
+      },
+      {
+        "id": "envelope",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Why does a protein give a whole series of peaks rather than one?",
+        "options": [
+          {
+            "id": "charges",
+            "label": "Each peak is the same molecule carrying a different number of protons: m/z = (M + zH)/z falls as z rises"
+          },
+          {
+            "id": "fragments",
+            "label": "Each is a fragment of the protein"
+          },
+          {
+            "id": "isomers",
+            "label": "Each is a different protein in the sample"
+          }
+        ],
+        "correctWhen": "if(first(recorded('z-lys')) > 3, 'charges', 'fragments')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-ms",
+        "statement": "Both masses are within 3 Da and the readings are interpreted correctly",
+        "check": "within(first(recorded('M-lys')), 14300, 3) && within(first(recorded('M-treated')), 14709, 3) && decision('what-bound') == 'one-covalent' && decision('modes') == 'pos-neg' && decision('envelope') == 'charges'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-shift",
+        "statement": "The treated enzyme is heavier by about 409 Da",
+        "check": "between(first(recorded('mass-added')), 400, 418)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

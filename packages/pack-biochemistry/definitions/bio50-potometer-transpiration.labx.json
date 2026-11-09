@@ -1,0 +1,515 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio50-potometer-transpiration",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "transpiration",
+      "potometer",
+      "stomata",
+      "water uptake",
+      "xylem"
+    ],
+    "topics": [
+      "Transport in plants"
+    ],
+    "concepts": [
+      {
+        "id": "transpiration",
+        "label": "Water evaporates from the leaves through the stomata and is replaced from the xylem"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the rate of water uptake by a shoot with a potometer"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "{{compareObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the result from how water vapour leaves the leaf",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Transpiration with a potometer: light intensity"
+    },
+    "summary": {
+      "default": "Measure the water a leafy shoot takes up in a potometer in the dark and at different distances from a lamp, and relate it to the opening of the stomata."
+    },
+    "briefing": {
+      "default": "Cut a 5 g leafy shoot under water (so no air enters the xylem) and seal it into the potometer, also under water. Dry the leaves. For each condition, leave the shoot five minutes to adjust, read the bubble on the capillary scale, and read it again five minutes later: the shoot takes up nearly all the water its leaves lose. Most of that water leaves through the stomata, which open in light."
+    },
+    "runs": {
+      "default": "=[['dark','In the dark','dark',0,0.5,'still',0],['d40','Lamp at 40 cm','lamp',40,0.5,'still',0],['d20','Lamp at 20 cm','lamp',20,0.5,'still',0],['d10','Lamp at 10 cm','lamp',10,0.5,'still',0]]"
+    },
+    "compareObjective": {
+      "default": "Relate the rate of water uptake to light intensity"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the shoot take up so little water in the dark?",
+        "options": [
+          {
+            "id": "stomata-closed",
+            "label": "Its stomata close in the dark, so little water vapour can leave the leaves"
+          },
+          {
+            "id": "no-photosynthesis",
+            "label": "It uses no water for photosynthesis in the dark"
+          },
+          {
+            "id": "cold",
+            "label": "The dark cupboard is colder"
+          }
+        ],
+        "correctWhen": "choice == 'stomata-closed'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "The rate rises from the dark to the lamp at 40 cm and to 10 cm",
+            "check": "first(recorded('rate-dark')) < first(recorded('rate-d40')) && first(recorded('rate-d40')) < first(recorded('rate-d10'))"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The dark result is explained",
+            "check": "decision('why') == 'stomata-closed'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-dark",
+            "statement": "In the dark the shoot takes up less than a third of what it does under the lamp at 20 cm",
+            "check": "first(recorded('rate-dark')) < first(recorded('rate-d20')) / 3",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Tap water (boiled and cooled)",
+        "preparation": "core:water-deionised",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "lamp",
+        "requires": {
+          "class": "core:lamp"
+        }
+      },
+      {
+        "id": "dark",
+        "requires": {
+          "class": "core:dark-cupboard"
+        }
+      },
+      {
+        "id": "cabinet",
+        "requires": {
+          "class": "core:growth-cabinet"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "setup",
+        "kind": "group",
+        "title": "Set up the potometer",
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "pot",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:potometer",
+              "id": "pot",
+              "label": "Potometer"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "pot",
+              "volume": "18 mL"
+            }
+          },
+          {
+            "id": "shoot",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "bio:leafy-shoot",
+              "destination": "pot",
+              "mass": "5 g"
+            }
+          }
+        ]
+      },
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each condition in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "lamp-set",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "lamp",
+              "distance": "=quantity(text(r[3]) + ' cm')"
+            },
+            "when": "r[3] > 0"
+          },
+          {
+            "id": "cabinet-set",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "cabinet",
+              "temperature": "=quantity(text(r[6]) + ' Cel')"
+            },
+            "when": "r[6] > 0"
+          },
+          {
+            "id": "air",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "=r[2]",
+              "humidity": "=r[4]",
+              "wind": "=r[5]"
+            }
+          },
+          {
+            "id": "place",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "pot",
+              "place": "=r[2]"
+            }
+          },
+          {
+            "id": "adjust",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "read0",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "pot"
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "read1",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "pot"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=(value(quantity(read1.out.value), 'mL') - value(quantity(read0.out.value), 'mL')) / 5"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "pot"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio50-potometer-wind",
+      "title": "Transpiration with a potometer: air movement",
+      "summary": "Measure the water a leafy shoot takes up 20 cm from a lamp in still air and with a fan on low and high.",
+      "briefing": "As for light intensity, with the lamp fixed at 20 cm and a fan blowing across the shoot. Water vapour diffuses out of the stomata into a thin layer of still, humid air over the leaf; moving air sweeps it away.",
+      "values": {
+        "runs": "=[['still','Still air','lamp',20,0.5,'still',0],['low','Fan on low','lamp',20,0.5,'low',0],['high','Fan on high','lamp',20,0.5,'high',0]]",
+        "compareObjective": "Relate the rate of water uptake to air movement",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the fan on high hardly raise the rate above the fan on low?",
+          "options": [
+            {
+              "id": "stomata-limit",
+              "label": "Once the humid air is swept away, the stomata limit how fast vapour can leave"
+            },
+            {
+              "id": "fan-weak",
+              "label": "The fan is no stronger on high"
+            },
+            {
+              "id": "leaves-cool",
+              "label": "The fan cools the leaves so they lose no water"
+            }
+          ],
+          "correctWhen": "choice == 'stomata-limit'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "Moving air raises the rate",
+              "check": "first(recorded('rate-still')) < first(recorded('rate-low')) && first(recorded('rate-still')) < first(recorded('rate-high'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The levelling off is explained",
+              "check": "decision('why') == 'stomata-limit'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-fan",
+              "statement": "The fan at least one and a half times the still-air rate",
+              "check": "first(recorded('rate-low')) > 1.5 * first(recorded('rate-still'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "wind",
+        "air movement",
+        "boundary layer",
+        "diffusion"
+      ]
+    },
+    {
+      "id": "bio50-potometer-humidity",
+      "title": "Transpiration with a potometer: humidity",
+      "summary": "Measure the water a leafy shoot takes up 20 cm from a lamp in open air, inside a bag with damp paper, and inside a bag with silica gel.",
+      "briefing": "As for light intensity, with the lamp fixed at 20 cm. A clear plastic bag over the shoot holds the air around it: damp paper in it makes the air nearly saturated, and silica gel dries it. Water vapour diffuses out of the leaf down the gradient between the saturated air spaces inside and the air outside.",
+      "values": {
+        "runs": "=[['dry','In a bag with silica gel','lamp',20,0.2,'still',0],['open','In the open air','lamp',20,0.5,'still',0],['humid','In a bag with damp paper','lamp',20,0.95,'still',0]]",
+        "compareObjective": "Relate the rate of water uptake to humidity",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the shoot take up so little water in the bag with damp paper?",
+          "options": [
+            {
+              "id": "gradient",
+              "label": "The air is nearly saturated, so there is little gradient of water vapour out of the leaf"
+            },
+            {
+              "id": "dark",
+              "label": "The bag keeps the light out"
+            },
+            {
+              "id": "no-air",
+              "label": "The shoot has no oxygen in the bag"
+            }
+          ],
+          "correctWhen": "choice == 'gradient'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The rate is highest in dry air and lowest in humid air",
+              "check": "first(recorded('rate-humid')) < first(recorded('rate-open')) && first(recorded('rate-open')) < first(recorded('rate-dry'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The humid result is explained",
+              "check": "decision('why') == 'gradient'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-humid",
+              "statement": "In the humid bag the rate falls to under a quarter of the open-air rate",
+              "check": "first(recorded('rate-humid')) < first(recorded('rate-open')) / 4",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "humidity",
+        "water potential gradient",
+        "diffusion"
+      ]
+    },
+    {
+      "id": "bio50-potometer-temperature",
+      "title": "Transpiration with a potometer: temperature",
+      "summary": "Measure the water a leafy shoot takes up in a lit growth cabinet at 10, 20 and 30 °C, the air at the same relative humidity.",
+      "briefing": "Stand the potometer in a lit growth cabinet and set its temperature. Warm air at the same relative humidity holds far more water vapour than cold air, so the gradient out of the leaf is steeper, and water molecules evaporate faster.",
+      "values": {
+        "runs": "=[['t10','10 °C','cabinet',0,0.5,'still',10],['t20','20 °C','cabinet',0,0.5,'still',20],['t30','30 °C','cabinet',0,0.5,'still',30]]",
+        "compareObjective": "Relate the rate of water uptake to temperature",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the rate nearly double from 20 to 30 °C?",
+          "options": [
+            {
+              "id": "vapour",
+              "label": "Warmer air can hold much more water vapour, so more evaporates and the gradient out of the leaf is steeper"
+            },
+            {
+              "id": "enzymes",
+              "label": "The enzymes that pump water work faster"
+            },
+            {
+              "id": "stomata-wider",
+              "label": "The stomata open wider when warm"
+            }
+          ],
+          "correctWhen": "choice == 'vapour'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The rate rises with temperature",
+              "check": "first(recorded('rate-t10')) < first(recorded('rate-t20')) && first(recorded('rate-t20')) < first(recorded('rate-t30'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The rise is explained",
+              "check": "decision('why') == 'vapour'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-steep",
+              "statement": "At 30 °C the rate is more than half as much again as at 20 °C",
+              "check": "first(recorded('rate-t30')) > 1.5 * first(recorded('rate-t20'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "temperature",
+        "evaporation",
+        "vapour pressure"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

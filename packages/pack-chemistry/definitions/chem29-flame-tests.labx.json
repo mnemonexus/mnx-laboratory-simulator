@@ -1,0 +1,527 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem29-flame-tests",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:flame-test"
+      }
+    ]
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "flame test",
+      "metal ions",
+      "emission",
+      "qualitative analysis",
+      "cobalt glass"
+    ],
+    "topics": [
+      "Identifying ions",
+      "Atomic structure"
+    ],
+    "concepts": [
+      {
+        "id": "emission",
+        "label": "Atoms emit light of their own wavelengths"
+      },
+      {
+        "id": "masking",
+        "label": "One element's light hiding another's"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-test",
+        "kind": "skill",
+        "statement": "Carry out a flame test, cleaning the wire between samples",
+        "skills": [
+          "core:flame-test"
+        ]
+      },
+      {
+        "id": "o-cobalt",
+        "kind": "reasoning",
+        "statement": "Explain why sodium hides potassium, and how cobalt glass helps",
+        "goal": "g-glass"
+      },
+      {
+        "id": "o-identify",
+        "kind": "outcome",
+        "statement": "Identify the metal ion in an unknown from its flame",
+        "goal": "g-identify"
+      },
+      {
+        "id": "o-reason",
+        "kind": "reasoning",
+        "statement": "Explain why the wire is cleaned",
+        "goal": "g-clean"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Flame tests for metal ions"
+    },
+    "summary": {
+      "default": "Find the flame colours of lithium, sodium, potassium, calcium, strontium, barium and copper, see how a trace of sodium hides potassium and how cobalt-blue glass shows it, then identify the metal in an unknown."
+    },
+    "briefing": {
+      "default": "Clean the nichrome wire by dipping it in concentrated hydrochloric acid and holding it in a roaring blue Bunsen flame until it gives no colour. Dip it in a solution and hold it at the edge of the flame: the metal's atoms, excited by the heat, give out light of their own wavelengths, which the eye sees as one colour. Clean the wire between samples. Look at the technical-grade potassium chloride by eye and through cobalt-blue glass, then test the unknown."
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "view": {
+      "default": "eye"
+    },
+    "knownCheck": {
+      "default": "mentions(first(recorded('seen-li')), 'crimson|red') && mentions(first(recorded('seen-na')), 'yellow') && mentions(first(recorded('seen-k')), 'lilac') && mentions(first(recorded('seen-ca')), 'orange-red') && mentions(first(recorded('seen-cu')), 'green')"
+    },
+    "knownStatement": {
+      "default": "Lithium crimson, sodium yellow-orange, potassium lilac, calcium orange-red, copper green"
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "li",
+        "label": "Lithium chloride solution",
+        "contains": [
+          {
+            "substance": "aq:lithium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "na",
+        "label": "Sodium chloride solution",
+        "contains": [
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "k",
+        "label": "Potassium chloride solution",
+        "contains": [
+          {
+            "substance": "aq:potassium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "ca",
+        "label": "Calcium chloride solution",
+        "contains": [
+          {
+            "substance": "aq:calcium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "sr",
+        "label": "Strontium chloride solution",
+        "contains": [
+          {
+            "substance": "aq:strontium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "ba",
+        "label": "Barium chloride solution",
+        "contains": [
+          {
+            "substance": "aq:barium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "cu",
+        "label": "Copper(II) chloride solution",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "kna",
+        "label": "Potassium chloride (technical grade)",
+        "contains": [
+          {
+            "substance": "aq:potassium-chloride",
+            "conc": "0.5 mol/L"
+          },
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "0.01 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "unknown",
+        "label": "Unknown solution X",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "aq:lithium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "wire",
+        "requires": {
+          "class": "core:flame-test-wire"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "knowns",
+        "kind": "group",
+        "title": "Test each known solution, cleaning the wire between them",
+        "forEach": {
+          "var": "x",
+          "in": "=['li', 'na', 'k', 'ca', 'sr', 'ba', 'cu']"
+        },
+        "objectives": [
+          "o-test"
+        ],
+        "steps": [
+          {
+            "id": "flame",
+            "kind": "operation",
+            "ref": "core:flame-test",
+            "params": {
+              "sample": "=x",
+              "wire": "wire",
+              "view": "{{view}}"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + x",
+              "value": "=flame.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "masking",
+        "kind": "group",
+        "title": "Potassium with a trace of sodium",
+        "objectives": [
+          "o-cobalt"
+        ],
+        "steps": [
+          {
+            "id": "by-eye",
+            "kind": "operation",
+            "ref": "core:flame-test",
+            "params": {
+              "sample": "kna",
+              "wire": "wire",
+              "view": "eye"
+            }
+          },
+          {
+            "id": "note-eye",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "seen-kna-eye",
+              "value": "=by-eye.out.appearance"
+            }
+          },
+          {
+            "id": "through-glass",
+            "kind": "operation",
+            "ref": "core:flame-test",
+            "params": {
+              "sample": "kna",
+              "wire": "wire",
+              "view": "cobalt-glass"
+            }
+          },
+          {
+            "id": "note-glass",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "seen-kna-glass",
+              "value": "=through-glass.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "unknown-test",
+        "kind": "group",
+        "title": "Test the unknown",
+        "objectives": [
+          "o-identify"
+        ],
+        "steps": [
+          {
+            "id": "flame-x",
+            "kind": "operation",
+            "ref": "core:flame-test",
+            "params": {
+              "sample": "unknown",
+              "wire": "wire",
+              "view": "{{view}}"
+            }
+          },
+          {
+            "id": "note-x",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "seen-unknown",
+              "value": "=flame-x.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "identify",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which metal ion is in the unknown solution?",
+        "options": [
+          {
+            "id": "lithium",
+            "label": "Lithium"
+          },
+          {
+            "id": "sodium",
+            "label": "Sodium"
+          },
+          {
+            "id": "potassium",
+            "label": "Potassium"
+          },
+          {
+            "id": "calcium",
+            "label": "Calcium"
+          },
+          {
+            "id": "strontium",
+            "label": "Strontium"
+          },
+          {
+            "id": "barium",
+            "label": "Barium"
+          },
+          {
+            "id": "copper-ii",
+            "label": "Copper"
+          }
+        ],
+        "correctWhen": "truth('amount', 'unknown', 'aq:' + choice + '-chloride') > 0 mol"
+      },
+      {
+        "id": "why-clean",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Why is the wire dipped in acid and heated before each test?",
+        "options": [
+          {
+            "id": "carry-over",
+            "label": "To remove what the last sample left on it, which would colour the flame too"
+          },
+          {
+            "id": "hotter",
+            "label": "To make the wire hot enough to work"
+          },
+          {
+            "id": "react",
+            "label": "The acid reacts with the sample to make the colour"
+          }
+        ],
+        "correctWhen": "'carry-over'"
+      },
+      {
+        "id": "why-glass",
+        "kind": "decision",
+        "objectives": [
+          "o-cobalt"
+        ],
+        "prompt": "Why does cobalt-blue glass help with the technical-grade potassium chloride?",
+        "options": [
+          {
+            "id": "hides-sodium",
+            "label": "Its blue absorbs sodium's yellow-orange, which swamps potassium's faint lilac, and lets the red and violet light through"
+          },
+          {
+            "id": "brighter",
+            "label": "It makes the flame brighter"
+          },
+          {
+            "id": "potassium-blue",
+            "label": "Potassium's flame is really blue"
+          }
+        ],
+        "correctWhen": "'hides-sodium'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-identify",
+        "statement": "The unknown's metal is identified",
+        "check": "truth('amount', 'unknown', 'aq:' + decision('identify') + '-chloride') > 0 mol"
+      },
+      {
+        "id": "g-clean",
+        "statement": "Cleaning the wire is explained",
+        "check": "decision('why-clean') == 'carry-over'"
+      },
+      {
+        "id": "g-glass",
+        "statement": "Cobalt glass is explained",
+        "check": "decision('why-glass') == 'hides-sodium'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-colours",
+        "statement": "{{knownStatement}}",
+        "check": "{{knownCheck}}",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-masking",
+        "statement": "The technical potassium chloride looks sodium-coloured by eye and lilac through cobalt glass",
+        "check": "mentions(first(recorded('seen-kna-eye')), 'yellow') && mentions(first(recorded('seen-kna-glass')), 'lilac|crimson')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "chem29-emission-spectra",
+      "title": "Emission spectra with a hand spectroscope",
+      "summary": "Look at the flames of metal salts through a hand spectroscope: each element gives bright lines at its own wavelengths (sodium's at 589 nm, lithium's at 671 nm) and some molecules bands. Identify an unknown from its lines.",
+      "values": {
+        "level": "ages-16-19",
+        "view": "spectroscope",
+        "briefing": "Clean the wire in concentrated hydrochloric acid and the flame, dip it in a solution and hold it at the edge of a roaring Bunsen flame while you look at the flame through a hand spectroscope. Each element's atoms emit only certain wavelengths, so you see bright lines on a dark background, not a continuous rainbow: read their wavelengths from the scale. Calcium, strontium and barium also give broader bands from molecules (CaOH, SrOH, BaOH) formed in the flame. Identify the unknown from its lines.",
+        "knownCheck": "mentions(first(recorded('seen-na')), '587 nm|588 nm|589 nm|590 nm|591 nm') && mentions(first(recorded('seen-li')), '669 nm|670 nm|671 nm|672 nm|673 nm')",
+        "knownStatement": "Sodium shows its yellow line near 589 nm, lithium its red line near 671 nm"
+      },
+      "keywords": [
+        "emission spectrum",
+        "line spectrum",
+        "spectroscope",
+        "atomic structure",
+        "energy levels"
+      ],
+      "curricula": [
+        "A level",
+        "IB",
+        "AP"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default",
+    "params": [
+      {
+        "path": "/materials/supplies/8/contains/0/substance",
+        "domain": [
+          "aq:lithium-chloride",
+          "aq:sodium-chloride",
+          "aq:potassium-chloride",
+          "aq:calcium-chloride",
+          "aq:strontium-chloride",
+          "aq:barium-chloride",
+          "aq:copper-ii-chloride"
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

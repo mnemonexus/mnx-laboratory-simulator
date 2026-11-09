@@ -1,0 +1,385 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio31-finding-a-binding-partner",
+  "version": "1.0.0",
+  "title": "Finding an unknown binding partner: crosslinking, pull-down and a peptide mass fingerprint",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:record"
+      }
+    ]
+  },
+  "summary": "Plan how to find the unknown partner of a 56 kDa cytosolic bait protein with an affinity tag and a maleimide crosslinker, then read the pull-down's SDS-PAGE against a bait-alone control and identify the partner's band from its tryptic peptide masses.",
+  "briefing": "Peptide masses are [M+H]⁺ from MALDI-ToF of the excised band after in-gel trypsin digestion. A peptide matches a candidate's in-silico digest when the two agree within 0.05. Two of the peaks, 842.51 and 2211.10, are trypsin digesting itself: leave them out. The crosslinker adds about 0.2 kDa.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "crosslinking",
+        "label": "Chemical crosslinking"
+      },
+      {
+        "id": "affinity-purification",
+        "label": "Affinity purification"
+      },
+      {
+        "id": "pmf",
+        "label": "Peptide mass fingerprinting"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-strategy",
+        "kind": "reasoning",
+        "statement": "Plan a crosslinking pull-down to find a binding partner",
+        "goal": "g-partner"
+      },
+      {
+        "id": "o-gel",
+        "kind": "analysis",
+        "statement": "Pick the partner's band against a bait-alone control",
+        "goal": "g-partner"
+      },
+      {
+        "id": "o-ms",
+        "kind": "analysis",
+        "statement": "Identify a protein from its peptide mass fingerprint",
+        "goal": "g-partner"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed",
+    "steps": [
+      {
+        "id": "why-crosslink",
+        "kind": "decision",
+        "prompt": "Why crosslink before purifying the bait?",
+        "options": [
+          {
+            "id": "transient",
+            "label": "To capture partners bound weakly or transiently, which would fall off during purification"
+          },
+          {
+            "id": "denature",
+            "label": "To denature the proteins for SDS-PAGE"
+          },
+          {
+            "id": "tag",
+            "label": "To attach the affinity tag"
+          }
+        ],
+        "correctWhen": "'transient'",
+        "objectives": [
+          "o-strategy"
+        ]
+      },
+      {
+        "id": "maleimide",
+        "kind": "decision",
+        "prompt": "A homo-bifunctional maleimide crosslinker joins proteins through which groups?",
+        "options": [
+          {
+            "id": "thiol",
+            "label": "Cysteine thiols, at neutral pH"
+          },
+          {
+            "id": "amine",
+            "label": "Lysine amines"
+          },
+          {
+            "id": "carboxyl",
+            "label": "Aspartate and glutamate carboxyls"
+          }
+        ],
+        "correctWhen": "'thiol'",
+        "objectives": [
+          "o-strategy"
+        ]
+      },
+      {
+        "id": "order",
+        "kind": "decision",
+        "prompt": "In what order do you work?",
+        "options": [
+          {
+            "id": "tag-xl-ap-gel-ms",
+            "label": "Express the tagged bait in cells lacking the untagged gene, crosslink, purify on the tag, run SDS-PAGE beside bait alone, excise the new bands, digest with trypsin, identify by MS"
+          },
+          {
+            "id": "gel-first",
+            "label": "Run the cell extract on SDS-PAGE, then crosslink the bands"
+          },
+          {
+            "id": "ms-first",
+            "label": "Digest the whole extract with trypsin and identify everything by MS"
+          }
+        ],
+        "correctWhen": "'tag-xl-ap-gel-ms'",
+        "objectives": [
+          "o-strategy"
+        ]
+      },
+      {
+        "id": "bait",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "bait-kDa",
+          "value": 56
+        }
+      },
+      {
+        "id": "bands-sample",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "bands-pulldown-kDa",
+          "value": [
+            56,
+            89.6,
+            112
+          ]
+        }
+      },
+      {
+        "id": "bands-control",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "bands-bait-alone-kDa",
+          "value": [
+            56,
+            112
+          ]
+        }
+      },
+      {
+        "id": "new-bands",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "new-bands-kDa",
+          "value": "=filter(first(recorded('bands-pulldown-kDa')), !any(c in first(recorded('bands-bait-alone-kDa')): abs(c - it) < 1))"
+        }
+      },
+      {
+        "id": "partner",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "partner-kDa",
+          "value": "=first(recorded('new-bands-kDa'))[0] - first(recorded('bait-kDa')) - 0.2"
+        }
+      },
+      {
+        "id": "control",
+        "kind": "decision",
+        "prompt": "Why is the 112 kDa band not the partner?",
+        "options": [
+          {
+            "id": "dimer",
+            "label": "It is in the bait-alone lane too: two baits crosslinked to each other"
+          },
+          {
+            "id": "partner",
+            "label": "It is the partner, twice the bait's size"
+          },
+          {
+            "id": "ladder",
+            "label": "It is a marker band"
+          }
+        ],
+        "correctWhen": "if(any(c in first(recorded('bands-bait-alone-kDa')): abs(c - 112) < 1), 'dimer', 'partner')",
+        "objectives": [
+          "o-gel"
+        ]
+      },
+      {
+        "id": "observed",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "observed-mz",
+          "value": [
+            842.51,
+            905.47,
+            1045.56,
+            1179.6,
+            1302.68,
+            1475.75,
+            1638.86,
+            2211.1
+          ]
+        }
+      },
+      {
+        "id": "autolysis",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "trypsin-autolysis-mz",
+          "value": [
+            842.51,
+            2211.1
+          ]
+        }
+      },
+      {
+        "id": "cand-p1",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "P1-tryptic-mz",
+          "value": [
+            905.47,
+            1045.56,
+            1179.6,
+            1302.68,
+            1475.75,
+            1638.86,
+            1822.93,
+            2050.02
+          ]
+        }
+      },
+      {
+        "id": "cand-p2",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "P2-tryptic-mz",
+          "value": [
+            876.44,
+            1045.53,
+            1236.62,
+            1414.7,
+            1590.81,
+            1903.97
+          ]
+        }
+      },
+      {
+        "id": "cand-p3",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "P3-tryptic-mz",
+          "value": [
+            905.49,
+            1120.57,
+            1179.66,
+            1350.69,
+            1702.88,
+            2311.15,
+            2546.28
+          ]
+        }
+      },
+      {
+        "id": "match-p1",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "P1-matches",
+          "value": "=count(m in first(recorded('observed-mz')): !any(a in first(recorded('trypsin-autolysis-mz')): abs(a - m) < 0.05) && any(t in first(recorded('P1-tryptic-mz')): abs(t - m) < 0.05))"
+        }
+      },
+      {
+        "id": "match-p2",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "P2-matches",
+          "value": "=count(m in first(recorded('observed-mz')): !any(a in first(recorded('trypsin-autolysis-mz')): abs(a - m) < 0.05) && any(t in first(recorded('P2-tryptic-mz')): abs(t - m) < 0.05))"
+        }
+      },
+      {
+        "id": "match-p3",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "P3-matches",
+          "value": "=count(m in first(recorded('observed-mz')): !any(a in first(recorded('trypsin-autolysis-mz')): abs(a - m) < 0.05) && any(t in first(recorded('P3-tryptic-mz')): abs(t - m) < 0.05))"
+        }
+      },
+      {
+        "id": "identity",
+        "kind": "decision",
+        "prompt": "Which candidate is the binding partner?",
+        "options": [
+          {
+            "id": "p1",
+            "label": "P1 (33.4 kDa)"
+          },
+          {
+            "id": "p2",
+            "label": "P2 (33.9 kDa)"
+          },
+          {
+            "id": "p3",
+            "label": "P3 (61.2 kDa)"
+          }
+        ],
+        "correctWhen": "if(first(recorded('P1-matches')) > first(recorded('P2-matches')) && first(recorded('P1-matches')) > first(recorded('P3-matches')) && abs(first(recorded('partner-kDa')) - 33.4) < 2, 'p1', 'p2')",
+        "objectives": [
+          "o-ms"
+        ]
+      },
+      {
+        "id": "msms",
+        "kind": "decision",
+        "prompt": "What would LC-MS/MS add to this peptide mass fingerprint?",
+        "options": [
+          {
+            "id": "sequence",
+            "label": "Partial sequences of the peptides (from their fragments), searched with the masses: more certain, and works on a mixture"
+          },
+          {
+            "id": "mass",
+            "label": "More accurate masses only"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing: the fingerprint already gives the sequence"
+          }
+        ],
+        "correctWhen": "'sequence'",
+        "objectives": [
+          "o-ms"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-partner",
+        "statement": "The strategy is sound, the partner's band found and the partner identified from its peptides",
+        "check": "decision('why-crosslink') == 'transient' && decision('maleimide') == 'thiol' && decision('order') == 'tag-xl-ap-gel-ms' && decision('control') == 'dimer' && decision('identity') == 'p1' && decision('msms') == 'sequence' && within(first(recorded('partner-kDa')), 33.4, 0.5) && first(recorded('P1-matches')) == 6"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "ideal"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

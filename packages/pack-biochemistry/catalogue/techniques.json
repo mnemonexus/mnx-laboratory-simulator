@@ -1,0 +1,444 @@
+[
+  {
+    "id": "bio:plate-absorbance-read",
+    "version": 1,
+    "status": "experimental",
+    "label": "Read absorbance on a plate reader",
+    "purposes": [
+      "measure.absorbance"
+    ],
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "wavelength": {
+        "type": "quantity",
+        "dimension": "length",
+        "required": true
+      }
+    },
+    "roles": {
+      "instrument": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "format": "96-well",
+          "wavelength": "=wavelength"
+        },
+        "prefer": [
+          "bio:plate-reader.generic"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=instrument",
+          "subject": "=plate",
+          "wavelength": "=wavelength",
+          "mode": "endpoint"
+        }
+      }
+    ],
+    "outputs": {
+      "reading": "=read.out.record"
+    },
+    "skills": [
+      "bio:plate-absorbance-read",
+      "bio:plate-reader-setup"
+    ]
+  },
+  {
+    "id": "bio:kinetic-absorbance-read",
+    "version": 1,
+    "status": "experimental",
+    "label": "Kinetic absorbance read on a plate reader",
+    "purposes": [
+      "measure.absorbance"
+    ],
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "wavelength": {
+        "type": "quantity",
+        "dimension": "length",
+        "required": true
+      },
+      "interval": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "15 s"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "5 min"
+      }
+    },
+    "roles": {
+      "instrument": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "format": "96-well",
+          "wavelength": "=wavelength"
+        },
+        "prefer": [
+          "bio:plate-reader.generic"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=instrument",
+          "subject": "=plate",
+          "wavelength": "=wavelength",
+          "mode": "kinetic",
+          "interval": "=interval",
+          "duration": "=duration"
+        }
+      }
+    ],
+    "outputs": {
+      "reading": "=read.out.record"
+    },
+    "skills": [
+      "bio:kinetic-absorbance-read",
+      "bio:plate-reader-setup"
+    ]
+  },
+  {
+    "id": "bio:initial-rate-analysis",
+    "version": 1,
+    "status": "experimental",
+    "label": "Initial rates from a kinetic read",
+    "mode": "data",
+    "purposes": [
+      "analyse-data.fit",
+      "analyse.enzyme-activity"
+    ],
+    "params": {
+      "reading": {
+        "type": "any",
+        "required": true
+      },
+      "layout": {
+        "type": "record",
+        "required": true
+      },
+      "window": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "1 min",
+        "description": "The early, linear part of each progress curve"
+      }
+    },
+    "steps": [
+      {
+        "id": "slopes",
+        "kind": "operation",
+        "ref": "core:transform",
+        "params": {
+          "op": "initial-rate",
+          "input": "=reading",
+          "window": "=window"
+        }
+      },
+      {
+        "id": "avg",
+        "kind": "operation",
+        "ref": "core:transform",
+        "params": {
+          "op": "average-replicates",
+          "input": "=slopes.out.values",
+          "layout": "=layout"
+        }
+      }
+    ],
+    "outputs": {
+      "groups": "=avg.out.groups",
+      "unit": "=slopes.out.unit"
+    },
+    "skills": [
+      "bio:initial-rate-analysis"
+    ]
+  },
+  {
+    "id": "bio:michaelis-menten-fit",
+    "version": 1,
+    "status": "experimental",
+    "label": "Michaelis–Menten fit",
+    "mode": "data",
+    "purposes": [
+      "analyse-data.fit"
+    ],
+    "params": {
+      "substrate": {
+        "type": "list",
+        "items": {
+          "type": "quantity"
+        },
+        "required": true,
+        "description": "Substrate concentrations in the reaction"
+      },
+      "rates": {
+        "type": "list",
+        "required": true
+      }
+    },
+    "steps": [
+      {
+        "id": "fit",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": "=substrate",
+          "y": "=rates",
+          "model": "michaelis-menten"
+        }
+      }
+    ],
+    "outputs": {
+      "fit": "=fit.out.fit"
+    },
+    "skills": [
+      "bio:michaelis-menten-fit"
+    ]
+  },
+  {
+    "id": "bio:salt-precipitate",
+    "version": 1,
+    "status": "experimental",
+    "label": "Precipitate a protein with ammonium sulfate",
+    "description": "Add saturated ammonium sulfate slowly with mixing to the chosen saturation, then leave on ice so the precipitate forms.",
+    "purposes": [
+      "separate.by-solubility",
+      "purify.protein"
+    ],
+    "params": {
+      "sample": {
+        "type": "container",
+        "required": true
+      },
+      "saturated": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true,
+        "description": "Volume of saturated solution: V × s / (100 − s)"
+      },
+      "onIce": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "15 min"
+      }
+    },
+    "roles": {
+      "ice": {
+        "kind": "place",
+        "requires": {
+          "purpose": "condition.cool"
+        },
+        "prefer": [
+          "core:ice-bucket"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "add-salt",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=saturated",
+          "destination": "=sample",
+          "volume": "=volume"
+        }
+      },
+      {
+        "id": "mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "=sample",
+          "method": "pipette-mix",
+          "cycles": 5
+        }
+      },
+      {
+        "id": "chill",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=sample",
+          "place": "=ice"
+        }
+      },
+      {
+        "id": "wait",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "=onIce"
+        }
+      },
+      {
+        "id": "out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=sample"
+        }
+      }
+    ],
+    "errors": [
+      {
+        "id": "too-little-salt",
+        "statement": "Too little ammonium sulfate",
+        "consequence": "The protein stays in solution and is thrown away with the supernatant (salting-out model)",
+        "tag": "under-saturated"
+      }
+    ],
+    "skills": [
+      "bio:salting-out"
+    ]
+  },
+  {
+    "id": "bio:sds-page",
+    "version": 1,
+    "status": "experimental",
+    "label": "Run and image an SDS-polyacrylamide gel",
+    "description": "Load the marker and the denatured samples (in SDS sample buffer) into the wells, run the gel towards the red electrode until the dye front nears the bottom, and image it.",
+    "purposes": [
+      "separate.by-size"
+    ],
+    "params": {
+      "gel": {
+        "type": "container",
+        "required": true
+      },
+      "ladder": {
+        "type": "container",
+        "required": true
+      },
+      "ladderLane": {
+        "type": "container",
+        "required": true
+      },
+      "loads": {
+        "type": "list",
+        "required": true,
+        "description": "Pairs [sample, lane]"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "10 uL"
+      },
+      "voltage": {
+        "type": "number",
+        "default": 200
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "40 min"
+      }
+    },
+    "roles": {
+      "imager": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "measure.band-size"
+        },
+        "prefer": [
+          "core:gel-imager"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "load-ladder",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=ladder",
+          "destination": "=ladderLane",
+          "volume": "5 uL"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "forEach": {
+          "var": "x",
+          "in": "=loads"
+        },
+        "params": {
+          "source": "=x[0]",
+          "destination": "=x[1]",
+          "volume": "=volume"
+        }
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "=gel",
+          "voltage": "=voltage",
+          "duration": "=duration"
+        }
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=imager",
+          "subject": "=gel"
+        }
+      }
+    ],
+    "outputs": {
+      "image": "=image.out.record"
+    },
+    "errors": [
+      {
+        "id": "no-sds",
+        "statement": "Samples not mixed with SDS sample buffer",
+        "consequence": "Native proteins do not resolve: no bands in those lanes (core:run-gel)",
+        "tag": "native-sample"
+      },
+      {
+        "id": "overload",
+        "statement": "Too much protein loaded",
+        "consequence": "Broad, saturated bands that cannot be sized well",
+        "tag": "overloaded"
+      },
+      {
+        "id": "overrun",
+        "statement": "Run too long",
+        "consequence": "Small proteins run off the bottom of the gel (core:run-gel)",
+        "tag": "gel-overrun"
+      }
+    ],
+    "skills": [
+      "bio:sds-page"
+    ]
+  }
+]

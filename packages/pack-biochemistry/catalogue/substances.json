@@ -1,0 +1,4280 @@
+[
+  {
+    "id": "bio:bovine-serum-albumin",
+    "identity": {
+      "name": "Bovine serum albumin (BSA)",
+      "class": "protein",
+      "synonyms": [
+        "BSA"
+      ],
+      "xrefs": [
+        "UniProt:P02769"
+      ]
+    },
+    "physical": {
+      "molarMass": "66430 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          250,
+          20000
+        ],
+        [
+          260,
+          24000
+        ],
+        [
+          270,
+          38000
+        ],
+        [
+          280,
+          43824
+        ],
+        [
+          290,
+          30000
+        ],
+        [
+          300,
+          8000
+        ],
+        [
+          310,
+          1000
+        ],
+        [
+          320,
+          0
+        ]
+      ]
+    },
+    "protein": {
+      "pI": 4.7,
+      "epsilon280": 43824,
+      "assayResponse": {
+        "bca": 1,
+        "bradford": 1,
+        "biuret": 1
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "ε280 = 43,824 M⁻¹ cm⁻¹ (sequence-based estimate)",
+        "Salting out with ammonium sulfate: log10 S (g/L) = 3.5 − 1.6 × [AS] (mol/L), so BSA comes out mostly between 50 and 70 % saturation (teaching values)"
+      ],
+      "review": "pending"
+    },
+    "stability": {
+      "halfLife4": "365 d",
+      "halfLife25": "60 d",
+      "halfLife37": "14 d"
+    },
+    "solubility": {
+      "saltingOut": {
+        "salt": "core:ammonium-sulfate",
+        "beta": 3.5,
+        "ks": 1.6
+      },
+      "precipitate": "fine"
+    }
+  },
+  {
+    "id": "bio:bicinchoninic-acid",
+    "identity": {
+      "name": "Bicinchoninic acid (disodium salt)",
+      "class": "small-molecule",
+      "synonyms": [
+        "BCA"
+      ]
+    },
+    "physical": {
+      "molarMass": "388.27 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          2
+        ],
+        [
+          562,
+          3.0
+        ],
+        [
+          700,
+          1
+        ]
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A small ε at 562 nm stands in for the working reagent's own background absorbance.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:bca-cu-complex",
+    "identity": {
+      "name": "Cu(I)–bicinchoninate complex (purple)",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "752 g/mol"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          450,
+          1500
+        ],
+        [
+          500,
+          4500
+        ],
+        [
+          540,
+          7000
+        ],
+        [
+          562,
+          7700
+        ],
+        [
+          600,
+          6000
+        ],
+        [
+          650,
+          2500
+        ],
+        [
+          700,
+          700
+        ],
+        [
+          750,
+          0
+        ]
+      ],
+      "colour": "purple"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "ε562 ≈ 7.7 × 10³ M⁻¹ cm⁻¹ for Cu(BCA)₂⁺ (Smith et al. 1985, Anal. Biochem. 150:76)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:nadh",
+    "identity": {
+      "name": "NADH",
+      "class": "small-molecule",
+      "xrefs": [
+        "CHEBI:16908"
+      ]
+    },
+    "physical": {
+      "molarMass": "709.4 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          250,
+          12000
+        ],
+        [
+          260,
+          14400
+        ],
+        [
+          280,
+          7000
+        ],
+        [
+          300,
+          3500
+        ],
+        [
+          320,
+          4800
+        ],
+        [
+          340,
+          6220
+        ],
+        [
+          360,
+          5000
+        ],
+        [
+          380,
+          1800
+        ],
+        [
+          400,
+          300
+        ],
+        [
+          420,
+          0
+        ]
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "ε340 = 6,220 M⁻¹ cm⁻¹ (Horecker and Kornberg 1948)"
+      ],
+      "notes": "First-order loss of NADH in solution at about pH 7.5.",
+      "review": "pending"
+    },
+    "stability": {
+      "halfLife4": "30 d",
+      "halfLife25": "40 h",
+      "halfLife37": "10 h"
+    }
+  },
+  {
+    "id": "bio:nad",
+    "identity": {
+      "name": "NAD⁺",
+      "class": "small-molecule",
+      "xrefs": [
+        "CHEBI:15846"
+      ]
+    },
+    "physical": {
+      "molarMass": "663.43 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          250,
+          15000
+        ],
+        [
+          260,
+          18000
+        ],
+        [
+          280,
+          4000
+        ],
+        [
+          300,
+          500
+        ],
+        [
+          320,
+          0
+        ]
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:pyruvate",
+    "identity": {
+      "name": "Sodium pyruvate",
+      "class": "small-molecule",
+      "formula": "C3H3NaO3"
+    },
+    "physical": {
+      "molarMass": "110.04 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:lactate",
+    "identity": {
+      "name": "Sodium L-lactate",
+      "class": "small-molecule",
+      "formula": "C3H5NaO3"
+    },
+    "physical": {
+      "molarMass": "112.06 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:oxamate",
+    "identity": {
+      "name": "Sodium oxamate",
+      "class": "small-molecule",
+      "formula": "C2H2NNaO3"
+    },
+    "physical": {
+      "molarMass": "111.03 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:ldh",
+    "identity": {
+      "name": "L-Lactate dehydrogenase (rabbit muscle)",
+      "class": "enzyme",
+      "synonyms": [
+        "LDH"
+      ]
+    },
+    "physical": {
+      "molarMass": "140000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "pI": 8.5,
+      "assayResponse": {
+        "bca": 1.05,
+        "bradford": 1.1
+      },
+      "subunits": [
+        {
+          "kDa": 35,
+          "count": 4
+        }
+      ],
+      "epsilon280": 203000
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:pyruvate",
+        "bio:nadh"
+      ],
+      "products": [
+        "bio:lactate",
+        "bio:nad"
+      ],
+      "kcat": "250 /s",
+      "km": {
+        "bio:pyruvate": "0.15 mM",
+        "bio:nadh": "0.015 mM"
+      },
+      "inhibitors": {
+        "bio:oxamate": {
+          "type": "competitive",
+          "ki": "0.04 mM"
+        }
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Teaching values of the right order for muscle LDH (pyruvate to lactate); kcat per active site. Not tied to one study.",
+      "review": "pending"
+    },
+    "stability": {
+      "halfLife4": "30 d",
+      "halfLife25": "48 h",
+      "halfLife37": "6 h",
+      "tm": "60 Cel"
+    }
+  },
+  {
+    "id": "bio:coomassie-g250",
+    "identity": {
+      "name": "Coomassie Brilliant Blue G-250 (free, acidic)",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "854.0 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          15000
+        ],
+        [
+          465,
+          26000
+        ],
+        [
+          520,
+          12000
+        ],
+        [
+          595,
+          5000
+        ],
+        [
+          650,
+          1500
+        ],
+        [
+          700,
+          0
+        ]
+      ],
+      "colour": "brown"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Approximate spectrum of the free dye in acidic reagent.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:coomassie-protein-complex",
+    "identity": {
+      "name": "Coomassie G-250 bound to protein (blue)",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "854.0 g/mol"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          465,
+          4000
+        ],
+        [
+          550,
+          15000
+        ],
+        [
+          595,
+          25000
+        ],
+        [
+          650,
+          12000
+        ],
+        [
+          700,
+          2000
+        ],
+        [
+          750,
+          0
+        ]
+      ],
+      "colour": "blue"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Effective ε of the bound form, chosen so a 1 mg/mL BSA standard gives a net A595 of about 0.6 in the microplate protocol.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:alkaline-phosphatase",
+    "identity": {
+      "name": "Alkaline phosphatase (calf intestinal)",
+      "class": "enzyme",
+      "synonyms": [
+        "ALP",
+        "CIP"
+      ]
+    },
+    "physical": {
+      "molarMass": "140000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      },
+      "subunits": [
+        {
+          "kDa": 70,
+          "count": 2
+        }
+      ]
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:pnpp"
+      ],
+      "products": [
+        "bio:p-nitrophenol",
+        "bio:phosphate"
+      ],
+      "kcat": "100 /s",
+      "km": {
+        "bio:pnpp": "0.5 mM"
+      },
+      "inhibitors": {
+        "bio:phosphate": {
+          "type": "competitive",
+          "ki": "1 mM"
+        },
+        "bio:l-phenylalanine": {
+          "type": "uncompetitive",
+          "ki": "1.5 mM"
+        }
+      },
+      "pHActivity": {
+        "acidPKa": 8.6,
+        "basePKa": 10.8
+      }
+    },
+    "stability": {
+      "halfLife25": "7 d",
+      "halfLife37": "2 d",
+      "tm": "58 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Teaching values of the right order: optimum near pH 9.7 with p-nitrophenyl phosphate; phosphate (a product) inhibits competitively. kcat is the limiting value; the observed one is lowered by the pH profile.",
+      "review": "pending",
+      "references": [
+        "L-phenylalanine is a classic uncompetitive inhibitor of intestinal alkaline phosphatase (binds the enzyme–substrate complex; Ki of the order of 1 mM)"
+      ]
+    }
+  },
+  {
+    "id": "bio:catalase",
+    "identity": {
+      "name": "Catalase (bovine liver)",
+      "class": "enzyme",
+      "synonyms": [
+        "hydrogen-peroxide oxidoreductase"
+      ]
+    },
+    "physical": {
+      "molarMass": "240000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      },
+      "subunits": [
+        {
+          "kDa": 60,
+          "count": 4
+        }
+      ]
+    },
+    "enzyme": {
+      "substrates": [
+        "core:hydrogen-peroxide"
+      ],
+      "products": [
+        "core:oxygen",
+        "core:water"
+      ],
+      "yields": {
+        "core:oxygen": 0.5,
+        "core:water": 1
+      },
+      "kcat": "216000 /s",
+      "km": {
+        "core:hydrogen-peroxide": "93 mM"
+      }
+    },
+    "stability": {
+      "halfLife25": "30 d",
+      "halfLife37": "2 d",
+      "tm": "56 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "2 H₂O₂ → 2 H₂O + O₂: one of the fastest enzymes, far from saturated at the peroxide concentrations used in class. kcat (per tetramer, four hemes) and Km of the order reported for bovine liver catalase (Switala and Loewen 2002); it denatures above about 55 °C.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:alkaline-phosphatase-high-activity",
+    "identity": {
+      "name": "Alkaline phosphatase (calf intestinal, high-activity grade)",
+      "class": "enzyme",
+      "synonyms": [
+        "CIP, high activity"
+      ]
+    },
+    "physical": {
+      "molarMass": "140000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      },
+      "subunits": [
+        {
+          "kDa": 70,
+          "count": 2
+        }
+      ]
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:pnpp"
+      ],
+      "products": [
+        "bio:p-nitrophenol",
+        "bio:phosphate"
+      ],
+      "kcat": "1300 /s",
+      "km": {
+        "bio:pnpp": "0.1 mM"
+      },
+      "inhibitors": {
+        "bio:phosphate": {
+          "type": "competitive",
+          "ki": "1 mM"
+        },
+        "bio:l-phenylalanine": {
+          "type": "uncompetitive",
+          "ki": "1.5 mM"
+        }
+      },
+      "pHActivity": {
+        "acidPKa": 8.6,
+        "basePKa": 10.8
+      }
+    },
+    "stability": {
+      "halfLife25": "7 d",
+      "halfLife37": "2 d",
+      "tm": "58 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A purer, more active preparation than the teaching-grade enzyme: about 300 U/mg on p-nitrophenyl phosphate at pH 9 in Tris at room temperature (commercial grades quote 2000 U/mg and more at pH 9.8, 37 °C, in diethanolamine); KM about 0.1 mM. Teaching values of the right order.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:pnpp",
+    "identity": {
+      "name": "4-Nitrophenyl phosphate (disodium salt)",
+      "class": "small-molecule",
+      "synonyms": [
+        "pNPP"
+      ]
+    },
+    "physical": {
+      "molarMass": "263.05 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          280,
+          6000
+        ],
+        [
+          310,
+          10000
+        ],
+        [
+          350,
+          2000
+        ],
+        [
+          400,
+          0
+        ]
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:p-nitrophenol",
+    "identity": {
+      "name": "4-Nitrophenol",
+      "class": "small-molecule",
+      "synonyms": [
+        "p-nitrophenol"
+      ]
+    },
+    "physical": {
+      "molarMass": "139.11 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        7.15
+      ],
+      "charge": 0,
+      "spectator": 0,
+      "forms": [
+        {
+          "epsilon": [
+            [
+              280,
+              4000
+            ],
+            [
+              317,
+              10000
+            ],
+            [
+              348,
+              5300
+            ],
+            [
+              350,
+              5000
+            ],
+            [
+              380,
+              1200
+            ],
+            [
+              400,
+              300
+            ],
+            [
+              450,
+              0
+            ]
+          ],
+          "colour": "colourless"
+        },
+        {
+          "epsilon": [
+            [
+              300,
+              1500
+            ],
+            [
+              348,
+              5300
+            ],
+            [
+              350,
+              5500
+            ],
+            [
+              380,
+              13000
+            ],
+            [
+              400,
+              18300
+            ],
+            [
+              405,
+              18000
+            ],
+            [
+              450,
+              9000
+            ],
+            [
+              500,
+              500
+            ],
+            [
+              550,
+              0
+            ]
+          ],
+          "colour": "yellow"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "The phenolate absorbs at 400–405 nm (ε ≈ 18,000 M⁻¹ cm⁻¹); the phenol does not. pKa 7.15.",
+        "4-Nitrophenol and 4-nitrophenolate share ε ≈ 5300 M⁻¹ cm⁻¹ at their isosbestic point, 348 nm"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:phosphate",
+    "identity": {
+      "name": "Inorganic phosphate (from the reaction)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "95.98 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Kept out of the acid–base model, at reaction amounts against a 50 mM buffer.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:sds",
+    "identity": {
+      "name": "Sodium dodecyl sulfate",
+      "class": "small-molecule",
+      "synonyms": [
+        "SDS"
+      ]
+    },
+    "physical": {
+      "molarMass": "288.38 g/mol",
+      "phase": "solid"
+    },
+    "detergent": {
+      "denaturing": true
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:lysozyme",
+    "identity": {
+      "name": "Lysozyme (hen egg white)",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "14300 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "pI": 11.35,
+      "assayResponse": {
+        "bca": 1.1,
+        "bradford": 0.8
+      },
+      "epsilon280": 37970
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:ovalbumin",
+    "identity": {
+      "name": "Ovalbumin",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "44300 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "pI": 4.5,
+      "assayResponse": {
+        "bca": 1,
+        "bradford": 0.6,
+        "biuret": 1
+      },
+      "epsilon280": 30590
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:protein-ladder",
+    "identity": {
+      "name": "Protein size marker (10–250 kDa)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "100000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "ladder": [
+        {
+          "kDa": 250,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 150,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 100,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 75,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 50,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 37,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 25,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 20,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 15,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 10,
+          "fraction": 0.1
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Ten bands of equal mass, already denatured; molar mass nominal (only the mass per band matters).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:cytochrome-c",
+    "identity": {
+      "name": "Cytochrome c (horse heart)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "12400 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "pI": 10.0,
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 0.9
+      }
+    },
+    "optics": {
+      "epsilon": [
+        [
+          250,
+          15000
+        ],
+        [
+          280,
+          23000
+        ],
+        [
+          320,
+          9000
+        ],
+        [
+          360,
+          30000
+        ],
+        [
+          410,
+          106000
+        ],
+        [
+          450,
+          15000
+        ],
+        [
+          520,
+          11000
+        ],
+        [
+          550,
+          9000
+        ],
+        [
+          600,
+          1000
+        ],
+        [
+          650,
+          0
+        ]
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Red: the haem's Soret band at 410 nm; ε280 about 23,000.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:tmb",
+    "identity": {
+      "name": "3,3',5,5'-Tetramethylbenzidine",
+      "class": "small-molecule",
+      "synonyms": [
+        "TMB"
+      ]
+    },
+    "physical": {
+      "molarMass": "240.34 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:tmb-oxidised",
+    "identity": {
+      "name": "Oxidised TMB",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "238.33 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        1.0
+      ],
+      "charge": 0,
+      "spectator": 0,
+      "forms": [
+        {
+          "epsilon": [
+            [
+              370,
+              10000
+            ],
+            [
+              400,
+              20000
+            ],
+            [
+              450,
+              59000
+            ],
+            [
+              500,
+              15000
+            ],
+            [
+              550,
+              1000
+            ],
+            [
+              600,
+              0
+            ]
+          ],
+          "colour": "yellow"
+        },
+        {
+          "epsilon": [
+            [
+              370,
+              39000
+            ],
+            [
+              450,
+              5000
+            ],
+            [
+              550,
+              15000
+            ],
+            [
+              600,
+              30000
+            ],
+            [
+              652,
+              39000
+            ],
+            [
+              700,
+              20000
+            ],
+            [
+              750,
+              5000
+            ]
+          ],
+          "colour": "blue"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The blue charge-transfer product of HRP (652 nm) turns into the yellow diimine (450 nm, ε 59,000) in strong acid; modelled as two forms of one product with an apparent pKa of 1.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:mouse-anti-ovalbumin",
+    "identity": {
+      "name": "Mouse anti-ovalbumin IgG (monoclonal)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "150000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 210000
+    },
+    "antibody": {
+      "target": "bio:ovalbumin",
+      "kd": "1 nM",
+      "kon": 100000
+    },
+    "tags": [
+      "mouse-igg"
+    ],
+    "status": "experimental"
+  },
+  {
+    "id": "bio:goat-anti-mouse-hrp",
+    "identity": {
+      "name": "Goat anti-mouse IgG, HRP conjugate",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "190000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 240000
+    },
+    "antibody": {
+      "target": "tag:mouse-igg",
+      "kd": "0.5 nM",
+      "kon": 100000
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:tmb",
+        "core:hydrogen-peroxide"
+      ],
+      "products": [
+        "bio:tmb-oxidised"
+      ],
+      "kcat": "600 /s",
+      "km": {
+        "bio:tmb": "0.4 mM",
+        "core:hydrogen-peroxide": "0.5 mM"
+      },
+      "pHActivity": {
+        "acidPKa": 3.5,
+        "basePKa": 9.5
+      }
+    },
+    "tags": [
+      "goat-igg"
+    ],
+    "status": "experimental",
+    "provenance": {
+      "notes": "IgG (150 kDa) with about one HRP (44 kDa); the HRP acts on TMB wherever the conjugate is, including on a well's wall.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:imidazole",
+    "identity": {
+      "name": "Imidazole",
+      "class": "small-molecule",
+      "formula": "C3H4N2"
+    },
+    "physical": {
+      "molarMass": "68.08 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        6.95
+      ],
+      "charge": 1,
+      "spectator": 0
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:gfp-his6",
+    "identity": {
+      "name": "Green fluorescent protein, His6-tagged",
+      "class": "protein",
+      "synonyms": [
+        "GFP-His6"
+      ]
+    },
+    "physical": {
+      "molarMass": "27500 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      }
+    },
+    "optics": {
+      "epsilon": [
+        [
+          250,
+          15000
+        ],
+        [
+          280,
+          22000
+        ],
+        [
+          300,
+          5000
+        ],
+        [
+          350,
+          4000
+        ],
+        [
+          395,
+          20000
+        ],
+        [
+          450,
+          25000
+        ],
+        [
+          488,
+          55000
+        ],
+        [
+          510,
+          15000
+        ],
+        [
+          540,
+          0
+        ]
+      ]
+    },
+    "tags": [
+      "his6"
+    ],
+    "status": "experimental",
+    "provenance": {
+      "notes": "Absorbs at 488 nm (ε about 55,000), so it can be followed by eye and by A488.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ecoli-host-protein-60k",
+    "identity": {
+      "name": "E. coli host protein (about 60 kDa)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "60000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 60000,
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A stand-in for the many proteins of a cleared lysate: four of them make a lysate lane look like one.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ecoli-host-protein-45k",
+    "identity": {
+      "name": "E. coli host protein (about 45 kDa)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "45000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 45000,
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A stand-in for the many proteins of a cleared lysate: four of them make a lysate lane look like one.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ecoli-host-protein-25k",
+    "identity": {
+      "name": "E. coli host protein (about 25 kDa)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "25000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 25000,
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A stand-in for the many proteins of a cleared lysate: four of them make a lysate lane look like one.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ecoli-host-protein-15k",
+    "identity": {
+      "name": "E. coli host protein (about 15 kDa)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "15000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 15000,
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A stand-in for the many proteins of a cleared lysate: four of them make a lysate lane look like one.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:protein-ladder-prestained",
+    "identity": {
+      "name": "Prestained protein marker (10–250 kDa)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "100000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "ladder": [
+        {
+          "kDa": 250,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 150,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 100,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 75,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 50,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 37,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 25,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 20,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 15,
+          "fraction": 0.1
+        },
+        {
+          "kDa": 10,
+          "fraction": 0.1
+        }
+      ],
+      "prestained": true
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "As the plain marker, but dyed: its bands show on a membrane without detection.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:mouse-anti-ldh",
+    "identity": {
+      "name": "Mouse anti-LDH IgG (monoclonal)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "150000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 210000
+    },
+    "antibody": {
+      "target": "bio:ldh",
+      "kd": "1 nM",
+      "kon": 100000
+    },
+    "tags": [
+      "mouse-igg"
+    ],
+    "status": "experimental",
+    "provenance": {
+      "notes": "Recognises LDH's chains, so it finds the 35 kDa band on a blot.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:l-phenylalanine",
+    "identity": {
+      "name": "L-Phenylalanine",
+      "class": "small-molecule",
+      "formula": "C9H11NO2"
+    },
+    "physical": {
+      "molarMass": "165.19 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:his-patb",
+    "identity": {
+      "name": "PatB (Staphylococcus hominis C-S β-lyase), His6-tagged",
+      "class": "enzyme",
+      "synonyms": [
+        "ShPatB"
+      ]
+    },
+    "physical": {
+      "molarMass": "88000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "pI": 5.6,
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      },
+      "subunits": [
+        {
+          "kDa": 44,
+          "count": 2
+        }
+      ],
+      "epsilon280": 90000
+    },
+    "tags": [
+      "his6"
+    ],
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pyridoxal-phosphate C-S β-lyase: it cleaves S-substituted cysteines to pyruvate, ammonia and a thiol (the volatile thiols of body odour). A dimer of 44 kDa chains with the tag (illustrative). Kinetic values are illustrative: the larger, more hydrophobic S-substituents bind and turn over best (benzyl > allyl > ethyl > methyl); L-cycloserine competes with the substrate and slowly inactivates the enzyme by its PLP.",
+      "review": "pending"
+    },
+    "stability": {
+      "halfLife4": "30 d",
+      "halfLife25": "72 h",
+      "halfLife37": "12 h",
+      "tm": "58 Cel"
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:s-benzyl-l-cysteine"
+      ],
+      "products": [
+        "bio:pyruvate",
+        "core:ammonia",
+        "bio:benzyl-mercaptan"
+      ],
+      "kcat": "1.5 /s",
+      "km": {
+        "bio:s-benzyl-l-cysteine": "0.4 mM"
+      },
+      "alternatives": [
+        {
+          "substrates": [
+            "bio:s-allyl-l-cysteine"
+          ],
+          "products": [
+            "bio:pyruvate",
+            "core:ammonia",
+            "bio:allyl-mercaptan"
+          ],
+          "kcat": "0.9 /s",
+          "km": {
+            "bio:s-allyl-l-cysteine": "0.8 mM"
+          }
+        },
+        {
+          "substrates": [
+            "bio:s-ethyl-l-cysteine"
+          ],
+          "products": [
+            "bio:pyruvate",
+            "core:ammonia",
+            "bio:ethanethiol"
+          ],
+          "kcat": "0.45 /s",
+          "km": {
+            "bio:s-ethyl-l-cysteine": "1.5 mM"
+          }
+        },
+        {
+          "substrates": [
+            "bio:s-methyl-l-cysteine"
+          ],
+          "products": [
+            "bio:pyruvate",
+            "core:ammonia",
+            "bio:methanethiol"
+          ],
+          "kcat": "0.15 /s",
+          "km": {
+            "bio:s-methyl-l-cysteine": "3 mM"
+          }
+        }
+      ],
+      "inhibitors": {
+        "bio:l-cycloserine": {
+          "type": "competitive",
+          "ki": "0.3 mM"
+        }
+      },
+      "inactivators": {
+        "bio:l-cycloserine": {
+          "kinact": "0.004 /s",
+          "ki": "1 mM"
+        }
+      },
+      "pHActivity": {
+        "acidPKa": 6.5,
+        "basePKa": 10.0
+      }
+    }
+  },
+  {
+    "id": "bio:dtt",
+    "identity": {
+      "name": "Dithiothreitol (DTT)",
+      "class": "small-molecule",
+      "formula": "C4H10O2S2"
+    },
+    "physical": {
+      "molarMass": "154.25 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A reducing agent: it breaks disulfide bonds, so the chains of a protein run apart in SDS-PAGE.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:s-benzyl-l-cysteine",
+    "identity": {
+      "name": "S-Benzyl-L-cysteine",
+      "class": "small-molecule",
+      "formula": "C10H13NO2S"
+    },
+    "physical": {
+      "molarMass": "211.28 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:benzyl-mercaptan",
+    "identity": {
+      "name": "Benzyl mercaptan",
+      "class": "small-molecule",
+      "formula": "C7H8S"
+    },
+    "physical": {
+      "molarMass": "124.2 g/mol",
+      "phase": "liquid"
+    },
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H302",
+        "H332"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated",
+      "containment": "fume-hood"
+    },
+    "provenance": {
+      "notes": "A volatile thiol with a strong smell; its SH group reacts with DTNB.",
+      "review": "pending"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:s-allyl-l-cysteine",
+    "identity": {
+      "name": "S-Allyl-L-cysteine",
+      "class": "small-molecule",
+      "formula": "C6H11NO2S"
+    },
+    "physical": {
+      "molarMass": "161.22 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:allyl-mercaptan",
+    "identity": {
+      "name": "Allyl mercaptan",
+      "class": "small-molecule",
+      "formula": "C3H6S"
+    },
+    "physical": {
+      "molarMass": "74.14 g/mol",
+      "phase": "liquid"
+    },
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H302",
+        "H332"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated",
+      "containment": "fume-hood"
+    },
+    "provenance": {
+      "notes": "A volatile thiol with a strong smell; its SH group reacts with DTNB.",
+      "review": "pending"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:s-ethyl-l-cysteine",
+    "identity": {
+      "name": "S-Ethyl-L-cysteine",
+      "class": "small-molecule",
+      "formula": "C5H11NO2S"
+    },
+    "physical": {
+      "molarMass": "149.21 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:ethanethiol",
+    "identity": {
+      "name": "Ethanethiol",
+      "class": "small-molecule",
+      "formula": "C2H6S"
+    },
+    "physical": {
+      "molarMass": "62.13 g/mol",
+      "phase": "liquid"
+    },
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H302",
+        "H332"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated",
+      "containment": "fume-hood"
+    },
+    "provenance": {
+      "notes": "A volatile thiol with a strong smell; its SH group reacts with DTNB.",
+      "review": "pending"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:s-methyl-l-cysteine",
+    "identity": {
+      "name": "S-Methyl-L-cysteine",
+      "class": "small-molecule",
+      "formula": "C4H9NO2S"
+    },
+    "physical": {
+      "molarMass": "135.18 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:methanethiol",
+    "identity": {
+      "name": "Methanethiol",
+      "class": "small-molecule",
+      "formula": "CH4S"
+    },
+    "physical": {
+      "molarMass": "48.11 g/mol",
+      "phase": "gas"
+    },
+    "hazard": {
+      "ghs": [
+        "H225",
+        "H302",
+        "H332"
+      ],
+      "wasteStream": "core:chemical-waste.organic-non-halogenated",
+      "containment": "fume-hood"
+    },
+    "provenance": {
+      "notes": "A volatile thiol with a strong smell; its SH group reacts with DTNB.",
+      "review": "pending"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:l-cycloserine",
+    "identity": {
+      "name": "L-Cycloserine",
+      "class": "small-molecule",
+      "formula": "C3H6N2O2"
+    },
+    "physical": {
+      "molarMass": "102.09 g/mol",
+      "phase": "solid"
+    },
+    "provenance": {
+      "notes": "An amino-acid analogue that binds pyridoxal-phosphate enzymes and slowly inactivates them.",
+      "review": "pending"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:dtnb",
+    "identity": {
+      "name": "DTNB (Ellman's reagent)",
+      "class": "small-molecule",
+      "formula": "C14H8N2O8S2"
+    },
+    "physical": {
+      "molarMass": "396.35 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          300,
+          9000
+        ],
+        [
+          325,
+          13000
+        ],
+        [
+          360,
+          5000
+        ],
+        [
+          400,
+          600
+        ],
+        [
+          412,
+          300
+        ],
+        [
+          450,
+          0
+        ]
+      ]
+    },
+    "provenance": {
+      "notes": "5,5'-Dithiobis(2-nitrobenzoic acid): a free thiol cuts its disulfide, releasing one yellow TNB per SH.",
+      "review": "pending"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:tnb",
+    "identity": {
+      "name": "TNB²⁻ (2-nitro-5-thiobenzoate)",
+      "class": "small-molecule",
+      "formula": "C7H3NO4S"
+    },
+    "physical": {
+      "molarMass": "197.17 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          340,
+          6000
+        ],
+        [
+          380,
+          10500
+        ],
+        [
+          412,
+          14150
+        ],
+        [
+          450,
+          9500
+        ],
+        [
+          500,
+          2000
+        ],
+        [
+          550,
+          0
+        ]
+      ]
+    },
+    "provenance": {
+      "references": [
+        "Molar absorptivity 14,150 M⁻¹cm⁻¹ at 412 nm (Riddles et al. 1979)"
+      ],
+      "review": "pending"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:thiol-tnb-disulfide",
+    "identity": {
+      "name": "Mixed disulfide of a thiol and TNB",
+      "class": "small-molecule",
+      "formula": ""
+    },
+    "physical": {
+      "molarMass": "320 g/mol",
+      "phase": "solid"
+    },
+    "provenance": {
+      "notes": "The other product of DTNB with a thiol; colourless at 412 nm.",
+      "review": "pending"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:polysorbate-20",
+    "identity": {
+      "name": "Polysorbate 20",
+      "class": "small-molecule",
+      "synonyms": [
+        "Tween 20"
+      ]
+    },
+    "physical": {
+      "molarMass": "1227.5 g/mol",
+      "phase": "liquid",
+      "density": "1100 g/L"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A mild non-ionic detergent: 0.05 % in wash buffers loosens what is only loosely stuck (not modelled).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:skimmed-milk-powder",
+    "identity": {
+      "name": "Skimmed milk powder",
+      "class": "protein",
+      "synonyms": [
+        "dried milk",
+        "Marvel"
+      ]
+    },
+    "physical": {
+      "molarMass": "25000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {},
+    "status": "experimental",
+    "provenance": {
+      "notes": "A cheap blocking agent: its proteins (mostly casein) coat what plastic is still free. A pseudo-substance: the molar mass is nominal, so only its mass means anything.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:recombinant-antigen",
+    "identity": {
+      "name": "Recombinant protein antigen (vaccine candidate)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "30000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "pI": 6.2
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A purified surface protein of a pathogen, made in bacteria: a vaccine candidate and an ELISA antigen (illustrative).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:goat-igg",
+    "identity": {
+      "name": "Goat IgG (serum, not specific)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "150000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 210000
+    },
+    "tags": [
+      "goat-igg"
+    ],
+    "status": "experimental",
+    "provenance": {
+      "notes": "The bulk of a goat serum's IgG (about 10 mg/mL), against everything but the antigen of interest: it sticks to bare plastic, so an unblocked well gives a background with an anti-goat conjugate.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:goat-anti-antigen-igg",
+    "identity": {
+      "name": "Goat IgG against the recombinant antigen (polyclonal)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "150000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 210000
+    },
+    "antibody": {
+      "target": "bio:recombinant-antigen",
+      "kd": "1 nM",
+      "kon": 100000
+    },
+    "tags": [
+      "goat-igg"
+    ],
+    "status": "experimental",
+    "provenance": {
+      "notes": "A serum's antigen-specific IgG, taken as one apparent affinity; a vaccine's effect is in how much of it there is (illustrative).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:donkey-anti-goat-hrp",
+    "identity": {
+      "name": "Donkey anti-goat IgG, HRP conjugate",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "190000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 240000
+    },
+    "antibody": {
+      "target": "tag:goat-igg",
+      "kd": "0.5 nM",
+      "kon": 100000
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:tmb",
+        "core:hydrogen-peroxide"
+      ],
+      "products": [
+        "bio:tmb-oxidised"
+      ],
+      "kcat": "600 /s",
+      "km": {
+        "bio:tmb": "0.4 mM",
+        "core:hydrogen-peroxide": "0.5 mM"
+      },
+      "pHActivity": {
+        "acidPKa": 3.5,
+        "basePKa": 9.5
+      },
+      "alternatives": [
+        {
+          "substrates": [
+            "bio:abts",
+            "core:hydrogen-peroxide"
+          ],
+          "products": [
+            "bio:abts-radical"
+          ],
+          "kcat": "1000 /s",
+          "km": {
+            "bio:abts": "0.5 mM",
+            "core:hydrogen-peroxide": "0.5 mM"
+          }
+        }
+      ]
+    },
+    "tags": [
+      "donkey-igg"
+    ],
+    "status": "experimental",
+    "provenance": {
+      "notes": "IgG with about one HRP; the peroxidase oxidises TMB (blue) or ABTS (green) wherever the conjugate is, including on a well's wall.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:abts",
+    "identity": {
+      "name": "ABTS (2,2′-azinobis(3-ethylbenzothiazoline-6-sulfonic acid), diammonium salt)",
+      "class": "small-molecule",
+      "synonyms": [
+        "ABTS"
+      ]
+    },
+    "physical": {
+      "molarMass": "548.68 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:abts-radical",
+    "identity": {
+      "name": "ABTS radical cation",
+      "class": "dye",
+      "synonyms": [
+        "ABTS•+"
+      ]
+    },
+    "physical": {
+      "molarMass": "514.6 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          340,
+          5000
+        ],
+        [
+          380,
+          20000
+        ],
+        [
+          405,
+          34700
+        ],
+        [
+          414,
+          36000
+        ],
+        [
+          450,
+          22000
+        ],
+        [
+          500,
+          4000
+        ],
+        [
+          600,
+          6000
+        ],
+        [
+          645,
+          13000
+        ],
+        [
+          734,
+          15000
+        ],
+        [
+          800,
+          9000
+        ]
+      ],
+      "colour": "green"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The green one-electron oxidation product of ABTS: ε414 36,000, ε405 about 34,700, ε734 15,000 M⁻¹ cm⁻¹; it stays green, so it needs no stop to be read (SDS stops the enzyme).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:blue-dextran",
+    "identity": {
+      "name": "Blue dextran 2000",
+      "class": "dye",
+      "synonyms": [
+        "blue dextran"
+      ]
+    },
+    "physical": {
+      "molarMass": "2000000 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          300000
+        ],
+        [
+          450,
+          500000
+        ],
+        [
+          500,
+          900000
+        ],
+        [
+          550,
+          1500000
+        ],
+        [
+          600,
+          1950000
+        ],
+        [
+          620,
+          2000000
+        ],
+        [
+          650,
+          1800000
+        ],
+        [
+          700,
+          900000
+        ],
+        [
+          750,
+          300000
+        ]
+      ],
+      "colour": "blue"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A dextran of about 2000 kDa carrying a blue dye: excluded from gel-filtration beads, it marks the void volume. Uncharged. About A620 = 1 for 1 mg/mL.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dnp-glycine",
+    "identity": {
+      "name": "N-(2,4-Dinitrophenyl)glycine",
+      "class": "small-molecule",
+      "formula": "C8H7N3O6",
+      "synonyms": [
+        "DNP-glycine"
+      ]
+    },
+    "physical": {
+      "molarMass": "241.16 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        3.4
+      ],
+      "charge": 0,
+      "spectator": 0
+    },
+    "optics": {
+      "epsilon": [
+        [
+          300,
+          9000
+        ],
+        [
+          340,
+          15000
+        ],
+        [
+          360,
+          17000
+        ],
+        [
+          380,
+          15000
+        ],
+        [
+          400,
+          9000
+        ],
+        [
+          420,
+          4500
+        ],
+        [
+          450,
+          1200
+        ],
+        [
+          480,
+          0
+        ]
+      ],
+      "colour": "yellow"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Yellow (λmax 360 nm); its carboxyl group (pKa about 3.4) makes it an anion above pH 4. Small enough to enter every gel-filtration pore.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:thyroglobulin",
+    "identity": {
+      "name": "Thyroglobulin (bovine)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "669000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 669000
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A gel-filtration standard: 669 kDa, the largest in the usual kit (A280 about 1.0 per mg/mL).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ferritin",
+    "identity": {
+      "name": "Ferritin (horse spleen)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "440000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 418000
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A gel-filtration standard: 440 kDa.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:transferrin",
+    "identity": {
+      "name": "Transferrin (human)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "81000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 89000
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A gel-filtration standard: 81 kDa (A280 about 1.1 per mg/mL).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:myoglobin",
+    "identity": {
+      "name": "Myoglobin (horse heart)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "17000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 13900
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A gel-filtration standard: 17 kDa.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:cyanocobalamin",
+    "identity": {
+      "name": "Vitamin B12 (cyanocobalamin)",
+      "class": "small-molecule",
+      "formula": "C63H88CoN14O14P"
+    },
+    "physical": {
+      "molarMass": "1355.37 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          250,
+          15000
+        ],
+        [
+          278,
+          16300
+        ],
+        [
+          300,
+          9000
+        ],
+        [
+          361,
+          27500
+        ],
+        [
+          420,
+          3000
+        ],
+        [
+          550,
+          8700
+        ],
+        [
+          600,
+          0
+        ]
+      ],
+      "colour": "red"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The small marker of a gel-filtration calibration (1355 Da): red, and it absorbs at 280 nm too.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:lysozyme-fluorosugar-adduct",
+    "identity": {
+      "name": "Lysozyme–2-fluorochitobiosyl adduct",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "14709 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "epsilon280": 37970
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Lysozyme with a 2-deoxy-2-fluoro chitobiosyl unit (409 Da) covalently on its catalytic aspartate: the glycosyl-enzyme intermediate, trapped because the fluorine slows its hydrolysis.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:ans",
+    "identity": {
+      "name": "1-Anilinonaphthalene-8-sulfonate (ANS)",
+      "class": "dye",
+      "synonyms": [
+        "8-anilino-1-naphthalenesulfonic acid"
+      ]
+    },
+    "physical": {
+      "molarMass": "299.34 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          230,
+          21000
+        ],
+        [
+          250,
+          14000
+        ],
+        [
+          260,
+          15500
+        ],
+        [
+          280,
+          9000
+        ],
+        [
+          300,
+          2500
+        ],
+        [
+          320,
+          3000
+        ],
+        [
+          350,
+          4950
+        ],
+        [
+          380,
+          2500
+        ],
+        [
+          410,
+          300
+        ],
+        [
+          430,
+          0
+        ]
+      ],
+      "colour": "colourless"
+    },
+    "fluorescence": {
+      "emission": 515,
+      "width": 38,
+      "yield": 0.004,
+      "bound": {
+        "to": "bio:bovine-serum-albumin",
+        "kd": "2 uM",
+        "sites": 3,
+        "yield": 0.4,
+        "emission": 470
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "ANS: ε350 about 4950 M⁻¹ cm⁻¹; quantum yield about 0.004 in water, emission near 515 nm; bound in hydrophobic pockets of serum albumin about 0.4, emission near 470 nm"
+      ],
+      "notes": "A hydrophobic probe: nearly dark in water, bright and blue-shifted when bound in a protein's hydrophobic pocket. BSA's sites taken as one class (3 per protein, Kd 2 µM), illustrative.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:4-nitrophenyl-beta-galactoside",
+    "identity": {
+      "name": "4-Nitrophenyl β-D-galactopyranoside",
+      "class": "small-molecule",
+      "formula": "C12H15NO8",
+      "synonyms": [
+        "4NβDG",
+        "pNP-β-Gal"
+      ],
+      "xrefs": [
+        "CAS:3150-24-1"
+      ]
+    },
+    "physical": {
+      "molarMass": "301.25 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          280,
+          4000
+        ],
+        [
+          305,
+          10000
+        ],
+        [
+          320,
+          9000
+        ],
+        [
+          350,
+          2000
+        ],
+        [
+          400,
+          0
+        ]
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A water-soluble chromogenic substrate for β-galactosidases: hydrolysis releases 4-nitrophenol, yellow once the pH is raised above its pKa. Colourless itself above 400 nm.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:galactose",
+    "identity": {
+      "name": "D-Galactose",
+      "class": "small-molecule",
+      "formula": "C6H12O6",
+      "xrefs": [
+        "CAS:59-23-4"
+      ]
+    },
+    "physical": {
+      "molarMass": "180.16 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:galc",
+    "identity": {
+      "name": "β-Galactocerebrosidase (GALC, mouse, recombinant)",
+      "class": "enzyme",
+      "synonyms": [
+        "GALC",
+        "galactosylceramidase"
+      ]
+    },
+    "physical": {
+      "molarMass": "80000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "assayResponse": {
+        "bca": 1.0,
+        "bradford": 1.0
+      },
+      "subunits": [
+        {
+          "kDa": 80,
+          "count": 1
+        }
+      ]
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:4-nitrophenyl-beta-galactoside"
+      ],
+      "products": [
+        "bio:p-nitrophenol",
+        "bio:galactose"
+      ],
+      "kcat": "0.5 /s",
+      "km": {
+        "bio:4-nitrophenyl-beta-galactoside": "2.5 mM"
+      },
+      "pHActivity": {
+        "acidPKa": 3.5,
+        "basePKa": 5.7
+      }
+    },
+    "stability": {
+      "halfLife25": "14 d",
+      "halfLife37": "2 d",
+      "tm": "60 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A lysosomal glycoside hydrolase whose structure has been followed through its reaction by timed crystal soaks. Teaching values of the right order (illustrative kcat and Km for the nitrophenyl substrate); the bell-shaped pH profile peaks near pH 4.6, so at neutral pH it turns over tens of times more slowly.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:benedict-copper",
+    "identity": {
+      "name": "Copper(II) citrate complex (Benedict’s reagent)",
+      "class": "salt"
+    },
+    "physical": {
+      "molarMass": "159.61 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          500,
+          0.5
+        ],
+        [
+          560,
+          3
+        ],
+        [
+          600,
+          12
+        ],
+        [
+          650,
+          30
+        ],
+        [
+          700,
+          45
+        ],
+        [
+          750,
+          50
+        ],
+        [
+          800,
+          48
+        ],
+        [
+          850,
+          40
+        ]
+      ],
+      "colour": "blue"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Cu(II) held by citrate in carbonate solution, so it stays dissolved in alkali; deep blue (approximate band, per copper).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:copper-i-oxide",
+    "identity": {
+      "name": "Copper(I) oxide",
+      "class": "salt",
+      "formula": "Cu2O"
+    },
+    "physical": {
+      "molarMass": "143.09 g/mol",
+      "density": "6000 g/L",
+      "phase": "solid",
+      "particleSize": "3 um"
+    },
+    "solubility": {
+      "maxConc": "1e-9 mol/L",
+      "precipitate": "fine"
+    },
+    "look": {
+      "rgb": [
+        0.9,
+        0.55,
+        0.12
+      ],
+      "description": "brick-red precipitate"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "What a reducing sugar makes of Benedict’s copper: a fine brick-red solid; little of it mixed with the blue reagent looks green, more yellow to orange.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:oxidised-sugar",
+    "identity": {
+      "name": "Sugar acid (an oxidised sugar)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "196 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Stands for the mixture of acids a reducing sugar gives when it reduces copper(II) in alkali.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:biuret-copper",
+    "identity": {
+      "name": "Copper(II) tartrate complex (biuret reagent)",
+      "class": "salt"
+    },
+    "physical": {
+      "molarMass": "159.61 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          450,
+          2
+        ],
+        [
+          550,
+          10
+        ],
+        [
+          600,
+          30
+        ],
+        [
+          650,
+          60
+        ],
+        [
+          700,
+          75
+        ],
+        [
+          750,
+          80
+        ],
+        [
+          800,
+          72
+        ]
+      ],
+      "colour": "blue"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Cu(II) kept in alkaline solution by tartrate: pale blue (approximate band, per copper).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:biuret-cu-complex",
+    "identity": {
+      "name": "Copper(II)–peptide complex (biuret, violet)",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "500 g/mol"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          40
+        ],
+        [
+          450,
+          90
+        ],
+        [
+          500,
+          260
+        ],
+        [
+          540,
+          400
+        ],
+        [
+          580,
+          340
+        ],
+        [
+          620,
+          200
+        ],
+        [
+          680,
+          90
+        ],
+        [
+          750,
+          40
+        ]
+      ],
+      "colour": "violet"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Cu(II) bound by four peptide nitrogens in alkali absorbs near 540 nm (Gornall et al. 1949); absorptivity per copper calibrated so that about 10 mg/mL of protein in the tube is distinctly violet"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:sudan-iii",
+    "identity": {
+      "name": "Sudan III",
+      "class": "dye",
+      "formula": "C22H16N4O"
+    },
+    "physical": {
+      "molarMass": "352.39 g/mol",
+      "phase": "solid",
+      "logP": 7.5
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          6000
+        ],
+        [
+          450,
+          15000
+        ],
+        [
+          490,
+          28000
+        ],
+        [
+          510,
+          31000
+        ],
+        [
+          540,
+          22000
+        ],
+        [
+          570,
+          8000
+        ],
+        [
+          600,
+          1500
+        ],
+        [
+          650,
+          0
+        ]
+      ],
+      "colour": "red"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A fat-soluble red azo dye: it moves into any oil or fat present and stains it red.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dcpip",
+    "identity": {
+      "name": "DCPIP (2,6-dichlorophenolindophenol), oxidised",
+      "class": "indicator",
+      "formula": "C12H7Cl2NO2"
+    },
+    "physical": {
+      "molarMass": "268.10 g/mol",
+      "phase": "solid"
+    },
+    "acidBase": {
+      "pKa": [
+        5.9
+      ],
+      "charge": 0,
+      "spectator": 1,
+      "forms": [
+        {
+          "epsilon": [
+            [
+              420,
+              1500
+            ],
+            [
+              470,
+              4500
+            ],
+            [
+              520,
+              7400
+            ],
+            [
+              560,
+              5500
+            ],
+            [
+              600,
+              2000
+            ],
+            [
+              650,
+              300
+            ],
+            [
+              700,
+              0
+            ]
+          ],
+          "colour": "pink"
+        },
+        {
+          "epsilon": [
+            [
+              450,
+              1500
+            ],
+            [
+              500,
+              4000
+            ],
+            [
+              550,
+              11000
+            ],
+            [
+              600,
+              21000
+            ],
+            [
+              640,
+              15000
+            ],
+            [
+              680,
+              5000
+            ],
+            [
+              720,
+              800
+            ]
+          ],
+          "colour": "blue"
+        }
+      ]
+    },
+    "redox": {
+      "couple": "DCPIP/DCPIPH2",
+      "electrons": 2,
+      "e0": 0.63,
+      "protons": 2,
+      "form": "oxidised",
+      "partner": "bio:dcpip-reduced"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "E°′ = +0.217 V at pH 7 (two electrons, two protons), so about 0.63 V at pH 0; blue anion ε600 about 2.1 × 10⁴ M⁻¹ cm⁻¹, pink in acid (pKa about 5.9); the reduced form is colourless"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dcpip-reduced",
+    "identity": {
+      "name": "DCPIP, reduced (leuco form)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "270.11 g/mol",
+      "phase": "solid"
+    },
+    "redox": {
+      "couple": "DCPIP/DCPIPH2",
+      "electrons": 2,
+      "e0": 0.63,
+      "protons": 2,
+      "form": "reduced",
+      "partner": "bio:dcpip"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:amylase",
+    "identity": {
+      "name": "α-Amylase",
+      "class": "enzyme",
+      "synonyms": [
+        "diastase",
+        "salivary amylase"
+      ]
+    },
+    "physical": {
+      "molarMass": "56000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "assayResponse": {
+        "bca": 1,
+        "bradford": 1,
+        "biuret": 1
+      }
+    },
+    "enzyme": {
+      "substrates": [
+        "core:starch-soluble"
+      ],
+      "products": [
+        "core:maltose"
+      ],
+      "yields": {
+        "core:maltose": 3
+      },
+      "kcat": "15 /s",
+      "km": {
+        "core:starch-soluble": "2 mM"
+      },
+      "pHActivity": {
+        "acidPKa": 5.3,
+        "basePKa": 8.3
+      }
+    },
+    "stability": {
+      "halfLife25": "30 d",
+      "halfLife37": "5 d",
+      "tm": "58 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Splits starch into maltose; rates per six-glucose helix turn (three maltoses). Optimum near pH 7 and, over a few minutes, about 40–50 °C; it denatures above about 55 °C. Rate constants illustrative, calibrated so 1 % starch loses its iodine colour in a few minutes at 37 °C.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:casein",
+    "identity": {
+      "name": "Casein (milk protein)",
+      "class": "protein"
+    },
+    "physical": {
+      "molarMass": "23000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "assayResponse": {
+        "biuret": 1,
+        "bca": 1,
+        "bradford": 0.5
+      }
+    },
+    "optics": {
+      "turbidity": 0.5
+    },
+    "look": {
+      "rgb": [
+        0.95,
+        0.95,
+        0.92
+      ],
+      "description": "milky white"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Milk’s main protein, held as micelles that scatter light: 1 % milk powder in water (about 3.5 mg/mL casein) is cloudy white, and milk itself opaque. Proteases cut it into peptides, which do not scatter, so the milk clears (turbidity calibrated to that look).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:peptides",
+    "identity": {
+      "name": "Peptides (from digested protein)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "1150 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "What a protease leaves of a protein: short, soluble peptides (a casein gives about twenty).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:trypsin",
+    "identity": {
+      "name": "Trypsin",
+      "class": "enzyme",
+      "synonyms": [
+        "protease"
+      ]
+    },
+    "physical": {
+      "molarMass": "23300 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "assayResponse": {
+        "bca": 1,
+        "bradford": 1,
+        "biuret": 1
+      }
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:casein"
+      ],
+      "products": [
+        "bio:peptides"
+      ],
+      "yields": {
+        "bio:peptides": 20
+      },
+      "kcat": "0.1 /s",
+      "km": {
+        "bio:casein": "0.05 mM"
+      },
+      "pHActivity": {
+        "acidPKa": 6.3,
+        "basePKa": 10.2
+      }
+    },
+    "stability": {
+      "halfLife25": "7 d",
+      "halfLife37": "1 d",
+      "tm": "55 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A protease from the pancreas: cuts casein into soluble peptides, best near pH 8, and denatures above about 50 °C. Rate constants illustrative, calibrated so 1 % trypsin clears 1 % milk powder in a few minutes at 35 °C.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:potato-tissue",
+    "identity": {
+      "name": "Potato tuber tissue (cut cylinders)",
+      "class": "specimen"
+    },
+    "physical": {
+      "molarMass": "1 g/mol",
+      "density": "1080 g/L",
+      "phase": "solid"
+    },
+    "tissue": {
+      "water": 0.8,
+      "osmolality": 0.45,
+      "waterPotential": -0.75,
+      "modulus": 5,
+      "exchangeTime": "40 min"
+    },
+    "look": {
+      "rgb": [
+        0.93,
+        0.88,
+        0.7
+      ],
+      "description": "potato cylinders"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance measured by mass (1 g/mol, so moles are grams). Cells of about 80 % water whose sap is about 0.45 osmol/kg, under turgor, so fresh tissue has a water potential near −0.75 MPa: isotonic with about 0.3 M sucrose (textbook range 0.25–0.35 M). Wall modulus and exchange time of the right order for 1 cm cylinders.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:beetroot-tissue",
+    "identity": {
+      "name": "Beetroot tissue (cut discs or cylinders)",
+      "class": "specimen"
+    },
+    "physical": {
+      "molarMass": "1 g/mol",
+      "density": "1050 g/L",
+      "phase": "solid"
+    },
+    "tissue": {
+      "water": 0.87,
+      "osmolality": 0.5,
+      "waterPotential": -0.9,
+      "modulus": 5,
+      "exchangeTime": "40 min",
+      "pigment": {
+        "substance": "bio:betanin",
+        "molPerG": 3e-7
+      },
+      "membranes": {
+        "tm": "60 Cel",
+        "width": 3.5,
+        "solvents": {
+          "core:ethanol": 0.25
+        }
+      }
+    },
+    "look": {
+      "rgb": [
+        0.45,
+        0.05,
+        0.2
+      ],
+      "description": "beetroot discs"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Measured by mass (1 g/mol). Its cells hold the red pigment betanin (about 0.15 mg/g) in their vacuoles behind two membranes; heat above about 50 °C or ethanol above about a quarter by volume destroys them, and the pigment leaks out.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:betanin",
+    "identity": {
+      "name": "Betanin (beetroot red)",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "550.5 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          5000
+        ],
+        [
+          450,
+          15000
+        ],
+        [
+          500,
+          45000
+        ],
+        [
+          538,
+          60000
+        ],
+        [
+          570,
+          35000
+        ],
+        [
+          600,
+          8000
+        ],
+        [
+          650,
+          500
+        ],
+        [
+          700,
+          0
+        ]
+      ],
+      "colour": "red-violet"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Betanin λmax 538 nm, ε about 6 × 10⁴ M⁻¹ cm⁻¹"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:bakers-yeast",
+    "identity": {
+      "name": "Baker’s yeast (dried, as its fermenting enzymes)",
+      "class": "enzyme",
+      "synonyms": [
+        "Saccharomyces cerevisiae",
+        "dried yeast"
+      ]
+    },
+    "physical": {
+      "molarMass": "100000 g/mol",
+      "phase": "solid"
+    },
+    "enzyme": {
+      "substrates": [
+        "core:glucose"
+      ],
+      "products": [
+        "core:ethanol",
+        "aq:carbon-dioxide"
+      ],
+      "yields": {
+        "core:ethanol": 2,
+        "aq:carbon-dioxide": 2
+      },
+      "kcat": "0.2 /s",
+      "km": {
+        "core:glucose": "5 mM"
+      },
+      "alternatives": [
+        {
+          "substrates": [
+            "core:fructose"
+          ],
+          "products": [
+            "core:ethanol",
+            "aq:carbon-dioxide"
+          ],
+          "yields": {
+            "core:ethanol": 2,
+            "aq:carbon-dioxide": 2
+          },
+          "kcat": "0.19 /s",
+          "km": {
+            "core:fructose": "5 mM"
+          }
+        },
+        {
+          "substrates": [
+            "core:sucrose"
+          ],
+          "products": [
+            "core:ethanol",
+            "aq:carbon-dioxide"
+          ],
+          "yields": {
+            "core:ethanol": 4,
+            "aq:carbon-dioxide": 4
+          },
+          "kcat": "0.14 /s",
+          "km": {
+            "core:sucrose": "5 mM"
+          }
+        },
+        {
+          "substrates": [
+            "core:maltose"
+          ],
+          "products": [
+            "core:ethanol",
+            "aq:carbon-dioxide"
+          ],
+          "yields": {
+            "core:ethanol": 4,
+            "aq:carbon-dioxide": 4
+          },
+          "kcat": "0.06 /s",
+          "km": {
+            "core:maltose": "5 mM"
+          }
+        },
+        {
+          "substrates": [
+            "core:glucose",
+            "bio:methylene-blue"
+          ],
+          "products": [
+            "bio:leuco-methylene-blue"
+          ],
+          "kcat": "0.002 /s",
+          "km": {
+            "core:glucose": "5 mM",
+            "bio:methylene-blue": "0.01 mM"
+          }
+        }
+      ]
+    },
+    "stability": {
+      "halfLife25": "10 d",
+      "halfLife37": "2 d",
+      "tm": "50 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance: the fermenting capacity of dried yeast by mass (nominal 100 kDa per unit). Anaerobically it turns glucose and fructose into ethanol and carbon dioxide (two of each), sucrose (split by invertase) and maltose (by maltase, more slowly) into four of each, and cannot use lactose or starch. Respiring cells also pass electrons to methylene blue, decolourising it. Heat above about 45–50 °C kills it. Rates illustrative, calibrated so 1 % yeast with 0.1 M glucose gives about two millilitres of gas a minute at 35 °C.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:methylene-blue",
+    "identity": {
+      "name": "Methylene blue",
+      "class": "dye",
+      "formula": "C16H18ClN3S"
+    },
+    "physical": {
+      "molarMass": "319.85 g/mol",
+      "phase": "solid"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          500,
+          3000
+        ],
+        [
+          550,
+          9000
+        ],
+        [
+          600,
+          40000
+        ],
+        [
+          630,
+          55000
+        ],
+        [
+          664,
+          74000
+        ],
+        [
+          700,
+          15000
+        ],
+        [
+          750,
+          1000
+        ]
+      ],
+      "colour": "blue"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Methylene blue λmax 664 nm, ε about 7.4 × 10⁴ M⁻¹ cm⁻¹; reduced (leuco) form colourless"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:leuco-methylene-blue",
+    "identity": {
+      "name": "Leucomethylene blue (reduced, colourless)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "285.4 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "bio:pondweed",
+    "identity": {
+      "name": "Pondweed (Elodea or Cabomba, as its photosynthesis)",
+      "class": "enzyme",
+      "synonyms": [
+        "Canadian pondweed",
+        "Elodea"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "enzyme": {
+      "substrates": [
+        "aq:carbonate"
+      ],
+      "products": [
+        "core:oxygen"
+      ],
+      "yields": {
+        "core:oxygen": 1
+      },
+      "kcat": "0.00014 /s",
+      "km": {
+        "aq:carbonate": "10 mM"
+      },
+      "light": {
+        "half": 300,
+        "action": {
+          "red": 1,
+          "blue": 0.85,
+          "green": 0.35
+        }
+      }
+    },
+    "stability": {
+      "halfLife25": "30 d",
+      "halfLife37": "1 d",
+      "tm": "38 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance measured by fresh mass (nominal 1000 g/mol): a sprig’s photosynthesis. It fixes dissolved inorganic carbon (from hydrogencarbonate) and gives off oxygen, faster in brighter light up to saturation (half at about 300 µmol m⁻² s⁻¹), red light best, blue nearly as good, green poorly; its enzymes speed up with warmth and fail above about 35–40 °C. Calibrated so 5 g in 0.1 M hydrogencarbonate 10 cm from the lamp gives about 0.3–0.4 mL of oxygen a minute.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:chloroplasts",
+    "identity": {
+      "name": "Chloroplast suspension (isolated from spinach, as its light reactions)",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "100000 g/mol",
+      "phase": "solid"
+    },
+    "enzyme": {
+      "substrates": [
+        "bio:dcpip"
+      ],
+      "products": [
+        "bio:dcpip-reduced"
+      ],
+      "kcat": "0.2 /s",
+      "km": {
+        "bio:dcpip": "0.02 mM"
+      },
+      "light": {
+        "half": 100,
+        "action": {
+          "red": 1,
+          "blue": 0.85,
+          "green": 0.35
+        }
+      }
+    },
+    "stability": {
+      "halfLife4": "2 d",
+      "halfLife25": "4 h",
+      "tm": "40 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Isolated chloroplasts in light pass electrons from water to an artificial acceptor, DCPIP, which turns colourless (the Hill reaction); no light, no reaction; boiled, they do nothing. Kept cold they last a day or two; at room temperature they lose activity over hours. Rate calibrated so the blue goes in a few minutes 20 cm from a lamp.",
+      "review": "pending"
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          90000
+        ],
+        [
+          430,
+          130000
+        ],
+        [
+          470,
+          60000
+        ],
+        [
+          500,
+          15000
+        ],
+        [
+          550,
+          10000
+        ],
+        [
+          600,
+          25000
+        ],
+        [
+          640,
+          60000
+        ],
+        [
+          662,
+          110000
+        ],
+        [
+          700,
+          10000
+        ],
+        [
+          750,
+          1000
+        ]
+      ],
+      "colour": "green"
+    }
+  },
+  {
+    "id": "bio:chlorophyll-a",
+    "identity": {
+      "name": "Chlorophyll a",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "893.5 g/mol",
+      "phase": "solid",
+      "logP": 9
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          60000
+        ],
+        [
+          430,
+          110000
+        ],
+        [
+          460,
+          20000
+        ],
+        [
+          500,
+          4000
+        ],
+        [
+          550,
+          3000
+        ],
+        [
+          600,
+          12000
+        ],
+        [
+          630,
+          18000
+        ],
+        [
+          662,
+          86000
+        ],
+        [
+          690,
+          15000
+        ],
+        [
+          720,
+          2000
+        ]
+      ],
+      "colour": "blue-green"
+    },
+    "adsorption": {
+      "silica": 0.53
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The main photosynthetic pigment: blue-green, bands at 430 and 662 nm; on silica in 9:1 hexane–propanone it runs at Rf about 0.55.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:chlorophyll-b",
+    "identity": {
+      "name": "Chlorophyll b",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "907.5 g/mol",
+      "phase": "solid",
+      "logP": 9
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          30000
+        ],
+        [
+          430,
+          60000
+        ],
+        [
+          453,
+          160000
+        ],
+        [
+          480,
+          40000
+        ],
+        [
+          520,
+          4000
+        ],
+        [
+          560,
+          5000
+        ],
+        [
+          600,
+          12000
+        ],
+        [
+          642,
+          57000
+        ],
+        [
+          670,
+          8000
+        ],
+        [
+          720,
+          1000
+        ]
+      ],
+      "colour": "yellow-green"
+    },
+    "adsorption": {
+      "silica": 0.71
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An accessory pigment: yellow-green, bands at 453 and 642 nm; more polar than chlorophyll a, so it runs lower (Rf about 0.45).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:beta-carotene",
+    "identity": {
+      "name": "β-Carotene",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "536.9 g/mol",
+      "phase": "solid",
+      "logP": 9
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          40000
+        ],
+        [
+          425,
+          100000
+        ],
+        [
+          450,
+          139000
+        ],
+        [
+          478,
+          125000
+        ],
+        [
+          500,
+          50000
+        ],
+        [
+          520,
+          5000
+        ],
+        [
+          550,
+          0
+        ]
+      ],
+      "colour": "orange"
+    },
+    "adsorption": {
+      "silica": -0.66
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An orange carotenoid with no polar groups: it runs almost with the solvent front (Rf about 0.95).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:xanthophyll",
+    "identity": {
+      "name": "Xanthophyll (lutein)",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "568.9 g/mol",
+      "phase": "solid",
+      "logP": 9
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          50000
+        ],
+        [
+          420,
+          100000
+        ],
+        [
+          445,
+          145000
+        ],
+        [
+          474,
+          130000
+        ],
+        [
+          495,
+          40000
+        ],
+        [
+          510,
+          5000
+        ],
+        [
+          530,
+          0
+        ]
+      ],
+      "colour": "yellow"
+    },
+    "adsorption": {
+      "silica": 0.35
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A yellow carotenoid with hydroxyl groups: more polar than carotene, Rf about 0.65.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:phaeophytin",
+    "identity": {
+      "name": "Phaeophytin a",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "871.2 g/mol",
+      "phase": "solid",
+      "logP": 9
+    },
+    "optics": {
+      "epsilon": [
+        [
+          400,
+          80000
+        ],
+        [
+          408,
+          110000
+        ],
+        [
+          450,
+          20000
+        ],
+        [
+          505,
+          12000
+        ],
+        [
+          535,
+          10000
+        ],
+        [
+          600,
+          8000
+        ],
+        [
+          665,
+          50000
+        ],
+        [
+          700,
+          3000
+        ]
+      ],
+      "colour": "grey"
+    },
+    "adsorption": {
+      "silica": 0.02
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Chlorophyll a that has lost its magnesium (in old or acidified extracts): olive-grey, Rf about 0.8.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:leafy-shoot",
+    "identity": {
+      "name": "Leafy shoot (privet or laurel, cut under water)",
+      "class": "specimen",
+      "synonyms": [
+        "shoot",
+        "cut shoot"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "transpiration": {
+      "area": 30,
+      "conductance": 0.3,
+      "lightHalf": 50,
+      "darkOpen": 0.1
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance: 1 g of shoot carries about 30 cm² of leaf (one side). Its stomata open to a conductance of 0.3 mol m⁻² s⁻¹ in good light, half open at 50 µmol m⁻² s⁻¹, and a tenth open in the dark. A 5 g shoot 20 cm from a lamp in still air at 20 °C and 50 % humidity takes up about 0.02 mL a minute.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:phytoplankton",
+    "identity": {
+      "name": "Phytoplankton (as their photosynthesis)",
+      "class": "enzyme",
+      "synonyms": [
+        "algae",
+        "microalgae"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "enzyme": {
+      "substrates": [
+        "aq:carbonate"
+      ],
+      "products": [
+        "core:oxygen"
+      ],
+      "yields": {
+        "core:oxygen": 1
+      },
+      "kcat": "0.0012 /s",
+      "km": {
+        "aq:carbonate": "0.5 mM"
+      },
+      "light": {
+        "half": 200,
+        "action": {
+          "red": 1,
+          "blue": 0.9,
+          "green": 0.4
+        }
+      }
+    },
+    "stability": {
+      "halfLife25": "30 d",
+      "halfLife37": "1 d",
+      "tm": "38 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-enzyme: the gross photosynthesis of the algae in pond water, oxygen from dissolved inorganic carbon. At 5 mg/L (as 1000 g/mol), 250 µmol m⁻² s⁻¹ and 21 °C in water with 2 mM hydrogencarbonate it gives off about 5.5 mg/L of oxygen a day. Algae concentrate carbon, so it saturates at low hydrogencarbonate (Km 0.5 mM).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:plankton-respiration",
+    "identity": {
+      "name": "Plankton and bacteria (as their respiration)",
+      "class": "enzyme",
+      "synonyms": [
+        "community respiration"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "enzyme": {
+      "substrates": [
+        "core:oxygen"
+      ],
+      "products": [
+        "aq:carbonate"
+      ],
+      "yields": {
+        "aq:carbonate": 1
+      },
+      "kcat": "0.00014 /s",
+      "km": {
+        "core:oxygen": "0.003 mM"
+      }
+    },
+    "stability": {
+      "halfLife25": "30 d",
+      "halfLife37": "1 d",
+      "tm": "40 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-enzyme: the aerobic respiration of everything living in pond water, using dissolved oxygen in light and dark alike and returning carbon dioxide. At 5 mg/L (as 1000 g/mol) and 21 °C it uses about 1.5 mg/L of oxygen a day; it slows only near anoxia (Km 3 µM).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:germinating-peas",
+    "identity": {
+      "name": "Germinating peas (soaked for two days)",
+      "class": "specimen",
+      "synonyms": [
+        "germinating seeds"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid",
+      "specificHeat": 3
+    },
+    "respiration": {
+      "rate": 0.25,
+      "q10": 2.2,
+      "rq": 1
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance: 1 g takes up about 0.25 µmol of oxygen a minute at 25 °C (0.37 mL an hour), doubling roughly every 9 °C (Q10 2.2), giving out as much carbon dioxide (RQ 1 for carbohydrate).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:boiled-peas",
+    "identity": {
+      "name": "Boiled peas (killed, rinsed in disinfectant)",
+      "class": "specimen",
+      "synonyms": [
+        "dead seeds"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid",
+      "specificHeat": 3
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The control: seeds killed by boiling, and rinsed in disinfectant so that microbes on them do not respire either.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:woodlice",
+    "identity": {
+      "name": "Woodlice",
+      "class": "specimen",
+      "synonyms": [
+        "Porcellio",
+        "Oniscus"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid",
+      "specificHeat": 3.3
+    },
+    "respiration": {
+      "rate": 0.2,
+      "q10": 2,
+      "rq": 0.9
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance: about 0.2 µmol of oxygen per gram a minute at 25 °C (0.3 mL an hour), RQ 0.9. Handle gently and return them afterwards.",
+      "review": "pending"
+    },
+    "taxis": {
+      "humid": 1.2,
+      "dark": 1
+    }
+  },
+  {
+    "id": "bio:maggots",
+    "identity": {
+      "name": "Blowfly larvae (maggots)",
+      "class": "specimen",
+      "synonyms": [
+        "maggots"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid",
+      "specificHeat": 3.3
+    },
+    "respiration": {
+      "rate": 0.6,
+      "q10": 2,
+      "rq": 0.9
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance: fast-growing larvae, about 0.6 µmol of oxygen per gram a minute at 25 °C.",
+      "review": "pending"
+    },
+    "taxis": {
+      "dark": 1.5
+    }
+  },
+  {
+    "id": "bio:drosophila-melanogaster",
+    "identity": {
+      "name": "Fruit fly (Drosophila melanogaster)",
+      "class": "specimen",
+      "synonyms": [
+        "Drosophila",
+        "fruit fly"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "genetics": {
+      "loci": [
+        {
+          "id": "b",
+          "name": "black",
+          "chromosome": "2",
+          "position": 48.5,
+          "mutantTrait": "black body"
+        },
+        {
+          "id": "vg",
+          "name": "vestigial",
+          "chromosome": "2",
+          "position": 67,
+          "mutantTrait": "vestigial wings"
+        },
+        {
+          "id": "e",
+          "name": "ebony",
+          "chromosome": "3",
+          "position": 70.7,
+          "mutantTrait": "ebony body"
+        },
+        {
+          "id": "w",
+          "name": "white",
+          "chromosome": "X",
+          "position": 1.5,
+          "mutantTrait": "white eyes"
+        }
+      ],
+      "sexChromosome": "X",
+      "maleRecombination": false,
+      "brood": 60,
+      "generationDays": 10
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Recessive mutations at their standard map positions (FlyBase): black (2-48.5) and vestigial (2-67.0) are 18.5 cM apart on chromosome 2; ebony (3-70.7) is on chromosome 3; white (1-1.5) on the X. Males do not cross over. Each female leaves about 60 adult offspring in a vial in about ten days at 25 °C.",
+      "review": "pending"
+    },
+    "taxis": {
+      "dark": -0.8
+    }
+  },
+  {
+    "id": "bio:dros-wild-type",
+    "identity": {
+      "name": "Fruit flies, wild type (Oregon-R)",
+      "class": "specimen"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "strain": {
+      "species": "bio:drosophila-melanogaster",
+      "alleles": {}
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A true-breeding stock: homozygous for its mutations (hemizygous for X-linked ones in males), wild type at the other loci.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dros-vestigial",
+    "identity": {
+      "name": "Fruit flies, vestigial wings (vg)",
+      "class": "specimen"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "strain": {
+      "species": "bio:drosophila-melanogaster",
+      "alleles": {
+        "vg": "vg"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A true-breeding stock: homozygous for its mutations (hemizygous for X-linked ones in males), wild type at the other loci.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dros-ebony",
+    "identity": {
+      "name": "Fruit flies, ebony body (e)",
+      "class": "specimen"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "strain": {
+      "species": "bio:drosophila-melanogaster",
+      "alleles": {
+        "e": "e"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A true-breeding stock: homozygous for its mutations (hemizygous for X-linked ones in males), wild type at the other loci.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dros-black-vestigial",
+    "identity": {
+      "name": "Fruit flies, black body and vestigial wings (b vg)",
+      "class": "specimen"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "strain": {
+      "species": "bio:drosophila-melanogaster",
+      "alleles": {
+        "b": "b",
+        "vg": "vg"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A true-breeding stock: homozygous for its mutations (hemizygous for X-linked ones in males), wild type at the other loci.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dros-white",
+    "identity": {
+      "name": "Fruit flies, white eyes (w)",
+      "class": "specimen"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "strain": {
+      "species": "bio:drosophila-melanogaster",
+      "alleles": {
+        "w": "w"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A true-breeding stock: homozygous for its mutations (hemizygous for X-linked ones in males), wild type at the other loci.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:dros-vestigial-ebony",
+    "identity": {
+      "name": "Fruit flies, vestigial wings and ebony body (vg; e)",
+      "class": "specimen"
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "strain": {
+      "species": "bio:drosophila-melanogaster",
+      "alleles": {
+        "vg": "vg",
+        "e": "e"
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A true-breeding stock: homozygous for its mutations (hemizygous for X-linked ones in males), wild type at the other loci.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:daphnia",
+    "identity": {
+      "name": "Water flea (Daphnia)",
+      "class": "specimen",
+      "synonyms": [
+        "Daphnia",
+        "water flea"
+      ]
+    },
+    "physical": {
+      "molarMass": "1000 g/mol",
+      "phase": "solid"
+    },
+    "heart": {
+      "bpm": 240,
+      "q10": 1.7,
+      "drugs": {
+        "chem:caffeine": {
+          "ec50": "2 mM",
+          "change": 0.5
+        },
+        "core:ethanol": {
+          "ec50": "0.3 mol/L",
+          "change": -0.8
+        }
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A pseudo-substance for a living water flea on a slide: its heart, seen through its transparent body, beats about 240 times a minute at 20 °C (Q10 1.7). Caffeine raises it (up to +50 %, half effect at 2 mM), ethanol lowers it (up to −80 %, half effect at 0.3 M, about 1.7 %). Return the animals to the pond water after a minute or two.",
+      "review": "pending"
+    }
+  }
+]

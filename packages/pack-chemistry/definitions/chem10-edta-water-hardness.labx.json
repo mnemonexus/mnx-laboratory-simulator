@@ -1,0 +1,93 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem10-edta-water-hardness",
+  "version": "1.0.0",
+  "title": "Water hardness by EDTA titration",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "core:titrate-to-endpoint" }] },
+  "summary": "Titrate 50.00 mL portions of a hard water sample, buffered at pH 10 with Eriochrome Black T, with 0.0100 M EDTA until the wine red turns blue. Find the total hardness (calcium and magnesium) in mg/L as CaCO₃.",
+  "briefing": "EDTA binds Ca²⁺ and Mg²⁺ one to one, and more firmly than the indicator does. Eriochrome Black T is wine red while it holds magnesium and blue when free at pH 10, so the colour changes when the EDTA has taken every metal ion, including the indicator's. Hardness (mg/L as CaCO₃) = moles of EDTA × 100.09 g/mol ÷ volume of water. The buffer matters: EDTA binds only in its fully deprotonated form, which is a useful share of it only at high pH.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "complexometric-titration", "label": "Complexometric titration" }, { "id": "conditional-constant", "label": "Conditional formation constants and pH" }],
+    "objectives": [
+      { "id": "o-titrate", "kind": "skill", "statement": "Titrate to a metal-indicator end point", "skills": ["core:burette-technique", "core:titration"] },
+      { "id": "o-hardness", "kind": "outcome", "statement": "Find the total hardness within 3 %", "goal": "g-hardness" },
+      { "id": "o-why", "kind": "reasoning", "statement": "Explain the role of the pH 10 buffer", "goal": "g-why" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "water-sample", "label": "Hard water sample", "role": "unknown", "solvent": "core:water",
+        "contains": [{ "substance": "core:calcium-chloride", "conc": { "vary": "1.5..2.5 mM" } }, { "substance": "core:magnesium-chloride", "conc": { "vary": "0.4..0.8 mM" } }],
+        "amount": "500 mL", "container": "core:reagent-bottle-1l" }
+    ],
+    "supplies": [
+      { "id": "edta", "label": "EDTA, 0.0100 M", "preparation": "chem:edta-0.0100m", "amount": "500 mL", "container": "core:reagent-bottle-1l" },
+      { "id": "buffer", "label": "Ammonia buffer, pH 10", "preparation": "chem:ammonia-buffer-ph10", "amount": "50 mL", "container": "core:reagent-bottle-50ml" },
+      { "id": "ebt", "label": "Eriochrome Black T indicator", "preparation": "chem:ebt-indicator", "amount": "10 mL", "container": "core:conical-tube-15ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "burette", "requires": { "class": "core:burette-50ml-class-a" } },
+      { "id": "pipette50", "requires": { "class": "core:volumetric-pipette-50ml" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "fill", "kind": "technique", "ref": "core:prepare-burette", "title": "Fill the burette with EDTA", "params": { "burette": "burette", "titrant": "edta", "volume": "48 mL" }, "objectives": ["o-titrate"] },
+      { "id": "rough", "kind": "group", "title": "Rough titration",
+        "steps": [
+          { "id": "rough-flask", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:conical-flask-250ml", "id": "flask-rough", "label": "Rough" } },
+          { "id": "rough-sample", "kind": "operation", "ref": "core:transfer", "params": { "source": "water-sample", "destination": "flask-rough", "volume": "50 mL", "tool": "pipette50" } },
+          { "id": "rough-buffer", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "flask-rough", "volume": "2 mL" } },
+          { "id": "rough-indicator", "kind": "operation", "ref": "core:transfer", "params": { "source": "ebt", "destination": "flask-rough", "volume": "150 uL" } },
+          { "id": "rough-mix", "kind": "operation", "ref": "core:mix", "params": { "container": "flask-rough", "method": "swirl", "cycles": 3 } },
+          { "id": "rough-start", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "rough-titrate", "kind": "technique", "ref": "core:titrate-to-endpoint", "params": { "burette": "burette", "flask": "flask-rough", "endColour": "blue" } },
+          { "id": "rough-end", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "rough-titre", "kind": "operation", "ref": "core:record", "params": { "field": "rough-titre", "value": "=quantity(rough-end.out.value) - quantity(rough-start.out.value)" } }
+        ] },
+      { "id": "accurate", "kind": "group", "title": "Three accurate titrations", "objectives": ["o-titrate"], "forEach": { "var": "n", "in": "=[1, 2, 3]" },
+        "let": { "flask": "='flask-' + text(n)" },
+        "steps": [
+          { "id": "get-flask", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:conical-flask-250ml", "id": "=flask", "label": "='Titration ' + text(n)" } },
+          { "id": "sample", "kind": "operation", "ref": "core:transfer", "params": { "source": "water-sample", "destination": "=flask", "volume": "50 mL", "tool": "pipette50" } },
+          { "id": "buffer-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "=flask", "volume": "2 mL" } },
+          { "id": "indicator-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "ebt", "destination": "=flask", "volume": "150 uL" } },
+          { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=flask", "method": "swirl", "cycles": 3 } },
+          { "id": "refill", "kind": "technique", "ref": "core:prepare-burette", "when": "volume(burette) < 25 mL", "params": { "burette": "burette", "titrant": "edta", "volume": "=48 mL - volume(burette)" } },
+          { "id": "start", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "titrate", "kind": "technique", "ref": "core:titrate-to-endpoint", "params": { "burette": "burette", "flask": "=flask", "endColour": "blue", "approx": "=first(recorded('rough-titre'))" } },
+          { "id": "end", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "titre", "kind": "operation", "ref": "core:record", "params": { "field": "titre", "value": "=quantity(end.out.value) - quantity(start.out.value)" } }
+        ] },
+      { "id": "hardness", "kind": "operation", "ref": "core:record", "objectives": ["o-hardness"], "title": "Mean hardness, mg/L as CaCO₃",
+        "params": { "field": "hardness-mg-per-L", "value": "=value(mean(recorded('titre')), 'L') * 0.0100 * 100.09 * 1000 / 0.050" } },
+      { "id": "why-buffer", "kind": "decision", "objectives": ["o-why"], "prompt": "Why is the titration buffered at pH 10?",
+        "options": [
+          { "id": "binding", "label": "EDTA binds only when fully deprotonated, which needs a high pH; and free Eriochrome Black T is blue there" },
+          { "id": "speed", "label": "The reaction is too slow at lower pH" },
+          { "id": "dissolve", "label": "Calcium and magnesium salts only dissolve at pH 10" }
+        ],
+        "correctWhen": "'binding'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-hardness", "statement": "Total hardness within 3 % of the truth",
+        "check": "within(first(recorded('hardness-mg-per-L')), (value(truth(conc, 'water-sample', 'core:calcium-chloride'), 'mol/L') + value(truth(conc, 'water-sample', 'core:magnesium-chloride'), 'mol/L')) * 100.09 * 1000, 3%)" },
+      { "id": "g-why", "statement": "The buffer's role is explained", "check": "decision('why-buffer') == 'binding'" }
+    ],
+    "expectedObservations": [
+      { "id": "e-blue", "statement": "Each accurate titration ends blue", "check": "all(n in [1, 2, 3]: colour('flask-' + text(n)) == 'blue')", "source": "reference-standard" },
+      { "id": "e-concordant", "statement": "The titres agree within 0.10 mL", "check": "max(recorded('titre')) - min(recorded('titre')) <= 0.10 mL", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

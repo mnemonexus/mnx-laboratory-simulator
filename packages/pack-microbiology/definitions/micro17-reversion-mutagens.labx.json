@@ -1,0 +1,640 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro17-reversion-mutagens",
+  "version": "1.0.0",
+  "title": "Which mutations does it cause? A bacterial reversion test with two tester strains",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:apply-disc"
+      }
+    ]
+  },
+  "summary": "Pour two histidine-requiring Salmonella tester strains in minimal top agar, test two coded compounds on discs against each, and a five-fold dose series of one of them; from the revertant colonies decide what kind of mutation each compound causes and why the dose response turns over.",
+  "briefing": "TA1535 carries hisG46, a missense mutation that only a base-pair substitution reverts; TA1538 carries hisD3052, a frameshift that only a frameshift reverts. Neither grows on minimal glucose agar unless it reverts to His⁺. The top agar's trace of histidine lets the cells divide a few times. Keep the top agar in the 48 °C block (it sets at about 38 °C; much hotter kills the cells), and pour each tube as soon as the cells are in, before it sets. Plate 10⁸ cells (100 µL) in 2.5 mL of top agar per plate.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "molecular-biology",
+        "microbiology",
+        "genetics"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "reversion",
+        "label": "Reversion of an auxotrophic mutation"
+      },
+      {
+        "id": "mutation-kinds",
+        "label": "Base-pair substitutions and frameshifts"
+      },
+      {
+        "id": "dose-response",
+        "label": "Mutagenicity against toxicity in a dose response"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-plate",
+        "kind": "skill",
+        "statement": "Pour tester strains in top agar, make a dilution series and apply test discs aseptically",
+        "skills": [
+          "micro:top-agar-overlay",
+          "micro:aseptic-technique",
+          "core:serial-dilution"
+        ]
+      },
+      {
+        "id": "o-classify",
+        "kind": "reasoning",
+        "statement": "Classify each compound by the kind of mutation it reverts",
+        "skills": [
+          "micro:colony-counting",
+          "micro:control-plates"
+        ],
+        "goal": "g-classify"
+      },
+      {
+        "id": "o-dose",
+        "kind": "reasoning",
+        "statement": "Explain the shape of the dose response and the role of the trace of histidine",
+        "goal": "g-dose"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "s35",
+        "label": "TA1535 (hisG46), overnight broth",
+        "role": "culture",
+        "preparation": "micro:nutrient-broth-sterile",
+        "amount": "1.5 mL",
+        "container": "core:microtube-1.5ml",
+        "contains": [
+          {
+            "substance": "micro:salmonella-typhimurium-ta1535",
+            "count": "1e9 cells/mL"
+          }
+        ]
+      },
+      {
+        "id": "s38",
+        "label": "TA1538 (hisD3052), overnight broth",
+        "role": "culture",
+        "preparation": "micro:nutrient-broth-sterile",
+        "amount": "1.5 mL",
+        "container": "core:microtube-1.5ml",
+        "contains": [
+          {
+            "substance": "micro:salmonella-typhimurium-ta1538",
+            "count": "1e9 cells/mL"
+          }
+        ]
+      },
+      {
+        "id": "x",
+        "label": "Compound X, 400 µg/mL",
+        "role": "unknown",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:4-nitro-o-phenylenediamine",
+            "conc": "400 ug/mL"
+          }
+        ],
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "y-1500",
+        "label": "Compound Y, 1500 µg/mL",
+        "role": "unknown",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:sodium-azide",
+            "conc": "1500 ug/mL"
+          }
+        ],
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml"
+      }
+    ],
+    "supplies": [
+      {
+        "id": "top",
+        "label": "Minimal top agar, molten (0.05 mM histidine and biotin)",
+        "preparation": "micro:minimal-top-agar",
+        "amount": "30 mL",
+        "container": "core:reagent-bottle-50ml",
+        "storage": "48 Cel"
+      },
+      {
+        "id": "water",
+        "label": "Sterile water",
+        "preparation": "core:water-deionised",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "block",
+        "requires": {
+          "class": "core:heating-block",
+          "temperature": "48 Cel"
+        }
+      },
+      {
+        "id": "forceps",
+        "requires": {
+          "class": "core:forceps"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "counter",
+        "requires": {
+          "class": "core:colony-counter"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "plates",
+        "kind": "group",
+        "title": "Fetch and label nine minimal glucose agar plates",
+        "steps": [
+          {
+            "id": "fetch",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:petri-dish-90mm",
+              "fill": {
+                "preparation": "micro:minimal-glucose-agar-plate",
+                "amount": "20 mL"
+              },
+              "id": "=x[0]",
+              "label": "=x[3]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['p1', 's35', 'water', 'TA1535: solvent control'], ['p2', 's35', 'x', 'TA1535: compound X'], ['p3', 's35', 'y-60', 'TA1535: compound Y, 1.5 \\u00b5g'], ['p4', 's38', 'water', 'TA1538: solvent control'], ['p5', 's38', 'x', 'TA1538: compound X'], ['p6', 's38', 'y-60', 'TA1538: compound Y, 1.5 \\u00b5g'], ['p7', 's35', 'y-12', 'TA1535: compound Y, 0.3 \\u00b5g'], ['p8', 's35', 'y-300', 'TA1535: compound Y, 7.5 \\u00b5g'], ['p9', 's35', 'y-1500', 'TA1535: compound Y, 37.5 \\u00b5g']]"
+        }
+      },
+      {
+        "id": "series",
+        "kind": "group",
+        "title": "Compound Y in five-fold steps: 1500, 300, 60 and 12 µg/mL",
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=x[0]",
+              "label": "=x[0]"
+            }
+          },
+          {
+            "id": "water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=x[0]",
+              "volume": "160 uL"
+            }
+          },
+          {
+            "id": "y",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "40 uL"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['y-300', 'y-1500'], ['y-60', 'y-300'], ['y-12', 'y-60']]"
+        },
+        "objectives": [
+          "o-plate"
+        ]
+      },
+      {
+        "id": "keep-molten",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "top",
+          "place": "block"
+        }
+      },
+      {
+        "id": "pour",
+        "kind": "group",
+        "title": "For each plate: 2.5 mL of top agar from the block, 100 µL of culture, swirl and pour at once",
+        "steps": [
+          {
+            "id": "fetch-top",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:culture-tube-20ml",
+              "id": "='top-' + x[0]",
+              "label": "='Top agar ' + x[0]"
+            }
+          },
+          {
+            "id": "top-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "top",
+              "destination": "='top-' + x[0]",
+              "volume": "2.5 mL"
+            }
+          },
+          {
+            "id": "resuspend",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[1]",
+              "method": "flick",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "cells",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "='top-' + x[0]",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='top-' + x[0]",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "pour-it",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='top-' + x[0]",
+              "destination": "=x[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "spread",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "swirl",
+              "cycles": 2
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['p1', 's35', 'water', 'TA1535: solvent control'], ['p2', 's35', 'x', 'TA1535: compound X'], ['p3', 's35', 'y-60', 'TA1535: compound Y, 1.5 \\u00b5g'], ['p4', 's38', 'water', 'TA1538: solvent control'], ['p5', 's38', 'x', 'TA1538: compound X'], ['p6', 's38', 'y-60', 'TA1538: compound Y, 1.5 \\u00b5g'], ['p7', 's35', 'y-12', 'TA1535: compound Y, 0.3 \\u00b5g'], ['p8', 's35', 'y-300', 'TA1535: compound Y, 7.5 \\u00b5g'], ['p9', 's35', 'y-1500', 'TA1535: compound Y, 37.5 \\u00b5g']]"
+        },
+        "objectives": [
+          "o-plate"
+        ]
+      },
+      {
+        "id": "set",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "10 min"
+        }
+      },
+      {
+        "id": "discs",
+        "kind": "group",
+        "title": "A disc on each plate, wetted with 25 µL",
+        "steps": [
+          {
+            "id": "flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "forceps"
+            }
+          },
+          {
+            "id": "disc",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:filter-disc-13mm",
+              "id": "='disc-' + x[0]",
+              "label": "='Disc: ' + x[2]"
+            }
+          },
+          {
+            "id": "wet",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "='disc-' + x[0]",
+              "volume": "25 uL"
+            }
+          },
+          {
+            "id": "press",
+            "kind": "operation",
+            "ref": "core:apply-disc",
+            "params": {
+              "disc": "='disc-' + x[0]",
+              "plate": "=x[0]",
+              "position": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['p1', 's35', 'water', 'TA1535: solvent control'], ['p2', 's35', 'x', 'TA1535: compound X'], ['p3', 's35', 'y-60', 'TA1535: compound Y, 1.5 \\u00b5g'], ['p4', 's38', 'water', 'TA1538: solvent control'], ['p5', 's38', 'x', 'TA1538: compound X'], ['p6', 's38', 'y-60', 'TA1538: compound Y, 1.5 \\u00b5g'], ['p7', 's35', 'y-12', 'TA1535: compound Y, 0.3 \\u00b5g'], ['p8', 's35', 'y-300', 'TA1535: compound Y, 7.5 \\u00b5g'], ['p9', 's35', 'y-1500', 'TA1535: compound Y, 37.5 \\u00b5g']]"
+        },
+        "objectives": [
+          "o-plate"
+        ]
+      },
+      {
+        "id": "grow",
+        "kind": "offstage",
+        "title": "Inverted, two days at 37 °C",
+        "duration": "48 h",
+        "params": {
+          "place": "incubator",
+          "containers": [
+            "p1",
+            "p2",
+            "p3",
+            "p4",
+            "p5",
+            "p6",
+            "p7",
+            "p8",
+            "p9"
+          ]
+        }
+      },
+      {
+        "id": "count",
+        "kind": "group",
+        "title": "Count each plate's revertant colonies",
+        "steps": [
+          {
+            "id": "plate-count",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "counter",
+              "subject": "=x[0]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='colonies-' + x[0]",
+              "value": "=plate-count.out.count"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='plate-' + x[0]",
+              "value": "=plate-count.out.display"
+            }
+          },
+          {
+            "id": "per-cells",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='per-1e8-' + x[0]",
+              "value": "=plate-count.out.count / 1e+08 * 1e8"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['p1', 's35', 'water', 'TA1535: solvent control'], ['p2', 's35', 'x', 'TA1535: compound X'], ['p3', 's35', 'y-60', 'TA1535: compound Y, 1.5 \\u00b5g'], ['p4', 's38', 'water', 'TA1538: solvent control'], ['p5', 's38', 'x', 'TA1538: compound X'], ['p6', 's38', 'y-60', 'TA1538: compound Y, 1.5 \\u00b5g'], ['p7', 's35', 'y-12', 'TA1535: compound Y, 0.3 \\u00b5g'], ['p8', 's35', 'y-300', 'TA1535: compound Y, 7.5 \\u00b5g'], ['p9', 's35', 'y-1500', 'TA1535: compound Y, 37.5 \\u00b5g']]"
+        },
+        "objectives": [
+          "o-classify"
+        ]
+      },
+      {
+        "id": "net-y",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "y-dose-net",
+          "value": "=[first(recorded('colonies-p7')) - first(recorded('colonies-p1')), first(recorded('colonies-p3')) - first(recorded('colonies-p1')), first(recorded('colonies-p8')) - first(recorded('colonies-p1')), first(recorded('colonies-p9')) - first(recorded('colonies-p1'))]"
+        }
+      },
+      {
+        "id": "what-x",
+        "kind": "decision",
+        "objectives": [
+          "o-classify"
+        ],
+        "prompt": "Compound X: what does it do? (A plate counts as raised at more than twice its control's colonies and at least 50 more.)",
+        "options": [
+          {
+            "id": "frameshift",
+            "label": "It causes frameshifts: it reverts TA1538 (hisD3052) only"
+          },
+          {
+            "id": "base-substitution",
+            "label": "It causes base-pair substitutions: it reverts TA1535 (hisG46) only"
+          },
+          {
+            "id": "both",
+            "label": "It causes both kinds"
+          },
+          {
+            "id": "neither",
+            "label": "It is not mutagenic here"
+          }
+        ],
+        "correctWhen": "if((first(recorded('colonies-p2')) > 2 * first(recorded('colonies-p1')) && first(recorded('colonies-p2')) - first(recorded('colonies-p1')) > 50) && (first(recorded('colonies-p5')) > 2 * first(recorded('colonies-p4')) && first(recorded('colonies-p5')) - first(recorded('colonies-p4')) > 50), 'both', if((first(recorded('colonies-p2')) > 2 * first(recorded('colonies-p1')) && first(recorded('colonies-p2')) - first(recorded('colonies-p1')) > 50), 'base-substitution', if((first(recorded('colonies-p5')) > 2 * first(recorded('colonies-p4')) && first(recorded('colonies-p5')) - first(recorded('colonies-p4')) > 50), 'frameshift', 'neither')))"
+      },
+      {
+        "id": "what-y",
+        "kind": "decision",
+        "objectives": [
+          "o-classify"
+        ],
+        "prompt": "Compound Y (1.5 µg): what does it do?",
+        "options": [
+          {
+            "id": "frameshift",
+            "label": "It causes frameshifts: it reverts TA1538 only"
+          },
+          {
+            "id": "base-substitution",
+            "label": "It causes base-pair substitutions: it reverts TA1535 only"
+          },
+          {
+            "id": "both",
+            "label": "It causes both kinds"
+          },
+          {
+            "id": "neither",
+            "label": "It is not mutagenic here"
+          }
+        ],
+        "correctWhen": "if((first(recorded('colonies-p3')) > 2 * first(recorded('colonies-p1')) && first(recorded('colonies-p3')) - first(recorded('colonies-p1')) > 50) && (first(recorded('colonies-p6')) > 2 * first(recorded('colonies-p4')) && first(recorded('colonies-p6')) - first(recorded('colonies-p4')) > 50), 'both', if((first(recorded('colonies-p3')) > 2 * first(recorded('colonies-p1')) && first(recorded('colonies-p3')) - first(recorded('colonies-p1')) > 50), 'base-substitution', if((first(recorded('colonies-p6')) > 2 * first(recorded('colonies-p4')) && first(recorded('colonies-p6')) - first(recorded('colonies-p4')) > 50), 'frameshift', 'neither')))"
+      },
+      {
+        "id": "dose",
+        "kind": "decision",
+        "objectives": [
+          "o-dose"
+        ],
+        "prompt": "On TA1535, how do Y's revertants change as its dose rises five-fold at a time (0.3, 1.5, 7.5, 37.5 µg)?",
+        "options": [
+          {
+            "id": "rise-then-kill",
+            "label": "They rise, then level off or fall at the top dose, where nothing grows round the disc: it kills the cells there, so fewer survive to mutate"
+          },
+          {
+            "id": "proportional",
+            "label": "They rise in proportion to the dose all the way"
+          },
+          {
+            "id": "flat",
+            "label": "They hardly change"
+          }
+        ],
+        "correctWhen": "if(first(recorded('colonies-p3')) > 1.5 * first(recorded('colonies-p7')) && first(recorded('colonies-p9')) < 2.5 * first(recorded('colonies-p8')) && mentions(first(recorded('plate-p9')), 'no background growth'), 'rise-then-kill', if(first(recorded('colonies-p9')) > 3 * first(recorded('colonies-p3')), 'proportional', 'flat'))"
+      },
+      {
+        "id": "trace",
+        "kind": "decision",
+        "objectives": [
+          "o-dose"
+        ],
+        "prompt": "Behind the colonies, every plate has a faint background lawn. Why does the top agar carry a trace of histidine?",
+        "options": [
+          {
+            "id": "divide",
+            "label": "So the His⁻ cells divide a few times: a mutation is fixed only when the DNA is copied, but there is too little histidine for colonies"
+          },
+          {
+            "id": "feed-revertants",
+            "label": "To feed the revertants, which need histidine to grow"
+          },
+          {
+            "id": "select",
+            "label": "To kill the cells that did not mutate"
+          }
+        ],
+        "correctWhen": "if(mentions(first(recorded('plate-p1')), 'background lawn'), 'divide', 'divide')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-classify",
+        "statement": "X is recognised as a frameshift mutagen and Y as a base-substitution mutagen",
+        "check": "decision('what-x') == 'frameshift' && decision('what-y') == 'base-substitution'"
+      },
+      {
+        "id": "g-dose",
+        "statement": "The dose response is read as mutagenicity giving way to killing, and the trace of histidine explained",
+        "check": "decision('dose') == 'rise-then-kill' && decision('trace') == 'divide'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-spont",
+        "statement": "The solvent controls carry a few spontaneous revertants on a faint background lawn",
+        "check": "between(first(recorded('colonies-p1')), 2, 40) && between(first(recorded('colonies-p4')), 5, 50) && mentions(first(recorded('plate-p4')), 'background lawn')",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-cross",
+        "statement": "Neither compound reverts the other strain's allele",
+        "check": "first(recorded('colonies-p5')) > 3 * first(recorded('colonies-p4')) && first(recorded('colonies-p6')) < 2.5 * first(recorded('colonies-p4')) + 5 && first(recorded('colonies-p2')) < 2.5 * first(recorded('colonies-p1')) + 5",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-zone",
+        "statement": "Only the top dose of Y clears the background round its disc",
+        "check": "mentions(first(recorded('plate-p9')), 'no background growth') && !mentions(first(recorded('plate-p3')), 'no background growth')",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

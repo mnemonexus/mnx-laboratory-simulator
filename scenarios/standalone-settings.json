@@ -1,0 +1,41 @@
+{
+  "title": "Standalone: Graphics quality set to Low, then changed to Medium while open",
+  "surface": "standalone",
+  "settings": {
+    "graphicsQuality": "low"
+  },
+  "drive": [
+    {
+      "wait": 15000
+    },
+    {
+      "click": "[aria-label='Graphics settings']"
+    },
+    {
+      "waitFor": "[data-preset=low][aria-pressed=true]"
+    },
+    {
+      "setting": {
+        "graphicsQuality": "medium"
+      }
+    },
+    {
+      "wait": 15000
+    },
+    {
+      "waitFor": "[data-preset=medium][aria-pressed=true]"
+    },
+    {
+      "click": "[data-testid=start-experience]"
+    },
+    {
+      "wait": 25000
+    },
+    {
+      "click": "[data-testid=end-session]"
+    },
+    {
+      "expect": "complete"
+    }
+  ]
+}

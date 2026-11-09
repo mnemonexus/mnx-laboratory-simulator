@@ -1,0 +1,871 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem19-acid-base-titration",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "core:titrate-to-endpoint"
+      },
+      {
+        "technique": "core:prepare-burette"
+      }
+    ]
+  },
+  "summary": "{{summary}}",
+  "briefing": "Rinse and fill the burette, pipette 25.0 mL of the sample into a conical flask, add three drops of {{indicatorName}}, and titrate until {{endDescription}}. A rough titration shows where the end point is; then titrate accurately, dropwise near the end, until at least two titres agree within 0.10 mL, and average the titres that agree. {{ratioNote}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "titration",
+      "burette",
+      "pipette",
+      "indicator",
+      "neutralisation",
+      "end point",
+      "volumetric analysis"
+    ],
+    "topics": [
+      "Titration",
+      "Acids and bases"
+    ],
+    "concepts": [
+      {
+        "id": "equivalence",
+        "label": "Equivalence point and end point"
+      },
+      {
+        "id": "indicators",
+        "label": "Choosing an indicator"
+      },
+      {
+        "id": "concordance",
+        "label": "Concordant titres"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-burette",
+        "kind": "skill",
+        "statement": "Fill, read and use a burette to a dropwise end point",
+        "skills": [
+          "core:burette-technique",
+          "core:titration"
+        ]
+      },
+      {
+        "id": "o-pipette",
+        "kind": "skill",
+        "statement": "Measure an aliquot with a volumetric pipette"
+      },
+      {
+        "id": "o-dilute",
+        "kind": "skill",
+        "statement": "Dilute a sample accurately in a volumetric flask"
+      },
+      {
+        "id": "o-conc",
+        "kind": "analysis",
+        "statement": "Calculate the sample's concentration from concordant titres",
+        "goal": "g-conc"
+      },
+      {
+        "id": "o-indicator",
+        "kind": "reasoning",
+        "statement": "Explain the choice of indicator",
+        "goal": "g-indicator"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "AP",
+      "BTEC",
+      "T Level"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Titrating a strong acid with a strong base"
+    },
+    "summary": {
+      "default": "Find the concentration of hydrochloric acid by titration with standard sodium hydroxide, using phenolphthalein."
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "analyte": {
+      "default": "core:hydrochloric-acid"
+    },
+    "analyteLabel": {
+      "default": "Hydrochloric acid, about 0.1 M"
+    },
+    "analyteConc": {
+      "default": "0.085..0.115 mol/L"
+    },
+    "titrantSubstance": {
+      "default": "core:sodium-hydroxide"
+    },
+    "titrantName": {
+      "default": "sodium hydroxide"
+    },
+    "titrantLabel": {
+      "default": "Sodium hydroxide, 0.1000 M (standard)"
+    },
+    "titrantConc": {
+      "default": "0.1000 mol/L"
+    },
+    "indicatorPrep": {
+      "default": "core:phenolphthalein-indicator"
+    },
+    "indicatorName": {
+      "default": "phenolphthalein"
+    },
+    "endColour": {
+      "default": "pink"
+    },
+    "endDescription": {
+      "default": "the indicator just turns pink"
+    },
+    "ratio": {
+      "default": 1,
+      "description": "Moles of titrant per mole of the sample's acid or base"
+    },
+    "ratioNote": {
+      "default": "Hydrochloric acid and sodium hydroxide react 1 : 1."
+    },
+    "dilution": {
+      "default": 1
+    },
+    "indicatorReason": {
+      "default": "any"
+    },
+    "watch": {
+      "default": "solution"
+    },
+    "indicatorOptions": {
+      "default": [
+        {
+          "id": "basic-end",
+          "label": "The equivalence point is alkaline (the salt of a weak acid), and it changes colour between pH 8 and 10"
+        },
+        {
+          "id": "acidic-end",
+          "label": "The equivalence point is acidic (the salt of a weak base), and it changes colour between pH 3 and 4.5"
+        },
+        {
+          "id": "any",
+          "label": "The pH changes very steeply through both indicators' ranges at the equivalence point, so either would do"
+        }
+      ]
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "sample",
+        "label": "{{analyteLabel}}",
+        "contains": [
+          {
+            "substance": "{{analyte}}",
+            "conc": {
+              "vary": "{{analyteConc}}"
+            }
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "titrant",
+        "label": "{{titrantLabel}}",
+        "contains": [
+          {
+            "substance": "{{titrantSubstance}}",
+            "conc": "{{titrantConc}}"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "indicator",
+        "label": "{{indicatorName}} indicator",
+        "preparation": "{{indicatorPrep}}",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "burette",
+        "requires": {
+          "class": "core:burette-50ml-class-a"
+        }
+      },
+      {
+        "id": "pipette25",
+        "requires": {
+          "class": "core:volumetric-pipette-25ml"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "fill",
+        "kind": "technique",
+        "ref": "core:prepare-burette",
+        "title": "Fill the burette with {{titrantName}}",
+        "params": {
+          "burette": "burette",
+          "titrant": "titrant",
+          "volume": "48 mL"
+        },
+        "objectives": [
+          "o-burette"
+        ]
+      },
+      {
+        "id": "dilute",
+        "kind": "group",
+        "title": "Dilute the sample {{dilution}} times",
+        "when": "{{dilution}} > 1",
+        "objectives": [
+          "o-dilute"
+        ],
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-250ml",
+              "id": "diluted",
+              "label": "Diluted sample"
+            }
+          },
+          {
+            "id": "portion",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "sample",
+              "destination": "diluted",
+              "volume": "=250 mL / {{dilution}}",
+              "tool": "pipette25"
+            }
+          },
+          {
+            "id": "make-up",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "diluted",
+              "solvent": "water"
+            }
+          },
+          {
+            "id": "stopper",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "diluted"
+            }
+          },
+          {
+            "id": "invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "diluted",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "unstopper",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "diluted"
+            }
+          }
+        ]
+      },
+      {
+        "id": "rough",
+        "kind": "group",
+        "title": "Rough titration",
+        "steps": [
+          {
+            "id": "rough-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "flask-rough",
+              "label": "Rough"
+            }
+          },
+          {
+            "id": "rough-aliquot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=if({{dilution}} > 1, 'diluted', 'sample')",
+              "destination": "flask-rough",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            }
+          },
+          {
+            "id": "rough-indicator",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "indicator",
+              "destination": "flask-rough",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "rough-start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "rough-titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "params": {
+              "burette": "burette",
+              "flask": "flask-rough",
+              "endColour": "{{endColour}}",
+              "watch": "{{watch}}"
+            }
+          },
+          {
+            "id": "rough-end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "rough-titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "rough-titre",
+              "value": "=quantity(rough-end.out.value) - quantity(rough-start.out.value)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "accurate",
+        "kind": "group",
+        "title": "Three accurate titrations",
+        "forEach": {
+          "var": "n",
+          "in": "=[1, 2, 3]"
+        },
+        "let": {
+          "flask": "='flask-' + text(n)"
+        },
+        "steps": [
+          {
+            "id": "get-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "=flask",
+              "label": "='Titration ' + text(count(recorded('titre')) + 1)"
+            }
+          },
+          {
+            "id": "aliquot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=if({{dilution}} > 1, 'diluted', 'sample')",
+              "destination": "=flask",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            },
+            "objectives": [
+              "o-pipette"
+            ]
+          },
+          {
+            "id": "indicator-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "indicator",
+              "destination": "=flask",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "refill",
+            "kind": "technique",
+            "ref": "core:prepare-burette",
+            "when": "volume(burette) < 30 mL",
+            "params": {
+              "burette": "burette",
+              "titrant": "titrant",
+              "volume": "=48 mL - volume(burette)"
+            }
+          },
+          {
+            "id": "start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "objectives": [
+              "o-burette"
+            ],
+            "params": {
+              "burette": "burette",
+              "flask": "=flask",
+              "endColour": "{{endColour}}",
+              "watch": "{{watch}}",
+              "approx": "=first(recorded('rough-titre'))"
+            }
+          },
+          {
+            "id": "end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "titre",
+              "value": "=quantity(end.out.value) - quantity(start.out.value)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "extra",
+        "kind": "group",
+        "title": "More titrations until two agree within 0.10 mL",
+        "when": "!concordant(recorded('titre'), 0.10 mL, 2)",
+        "repeat": {
+          "until": "concordant(recorded('titre'), 0.10 mL, 2)",
+          "max": 3
+        },
+        "let": {
+          "flask": "='flask-' + text(count(recorded('titre')) + 1)"
+        },
+        "steps": [
+          {
+            "id": "x-get-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "=flask",
+              "label": "='Titration ' + text(count(recorded('titre')) + 1)"
+            }
+          },
+          {
+            "id": "x-aliquot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=if({{dilution}} > 1, 'diluted', 'sample')",
+              "destination": "=flask",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            },
+            "objectives": [
+              "o-pipette"
+            ]
+          },
+          {
+            "id": "x-indicator-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "indicator",
+              "destination": "=flask",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "x-refill",
+            "kind": "technique",
+            "ref": "core:prepare-burette",
+            "when": "volume(burette) < 30 mL",
+            "params": {
+              "burette": "burette",
+              "titrant": "titrant",
+              "volume": "=48 mL - volume(burette)"
+            }
+          },
+          {
+            "id": "x-start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "x-titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "objectives": [
+              "o-burette"
+            ],
+            "params": {
+              "burette": "burette",
+              "flask": "=flask",
+              "endColour": "{{endColour}}",
+              "watch": "{{watch}}",
+              "approx": "=first(recorded('rough-titre'))"
+            }
+          },
+          {
+            "id": "x-end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "x-titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "titre",
+              "value": "=quantity(x-end.out.value) - quantity(x-start.out.value)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mean-titre",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mean-titre",
+          "value": "=concordantMean(recorded('titre'), 0.10 mL, 2)"
+        },
+        "objectives": [
+          "o-conc"
+        ]
+      },
+      {
+        "id": "report",
+        "kind": "operation",
+        "ref": "core:compute",
+        "title": "The sample's concentration",
+        "objectives": [
+          "o-conc"
+        ],
+        "params": {
+          "expression": "c * t / ratio / v * d",
+          "values": {
+            "c": "{{titrantConc}}",
+            "t": "=first(recorded('mean-titre'))",
+            "ratio": "{{ratio}}",
+            "v": "25 mL",
+            "d": "{{dilution}}"
+          },
+          "field": "conc",
+          "report": {
+            "quantity": "conc",
+            "sample": "sample"
+          }
+        }
+      },
+      {
+        "id": "indicator-choice",
+        "kind": "decision",
+        "objectives": [
+          "o-indicator"
+        ],
+        "prompt": "Why is {{indicatorName}} a suitable indicator here?",
+        "options": "{{indicatorOptions}}",
+        "correctWhen": "'{{indicatorReason}}'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-conc",
+        "statement": "The sample's concentration is within 1 % of the truth",
+        "check": "within(reported(conc, 'sample'), truth(conc, 'sample', '{{analyte}}'), 1%)"
+      },
+      {
+        "id": "g-concordant",
+        "statement": "At least two titres agree within 0.10 mL",
+        "check": "concordant(recorded('titre'), 0.10 mL, 2)"
+      },
+      {
+        "id": "g-indicator",
+        "statement": "The indicator choice is explained",
+        "check": "decision('indicator-choice') == '{{indicatorReason}}'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-end",
+        "statement": "Each accurate titration stops at the first permanent end-point colour",
+        "check": "all(n in [1, 2, 3]: if('{{watch}}' == 'precipitate', mentions(precipitateColour('flask-' + text(n)), '{{endColour}}'), colour('flask-' + text(n)) == '{{endColour}}'))",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-titre",
+        "statement": "Titres are between 10 and 40 mL",
+        "check": "all(recorded('titre'), it > 10 mL && it < 40 mL)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "chem19-weak-acid-titration",
+      "title": "Titrating a weak acid with a strong base",
+      "summary": "Find the concentration of ethanoic acid by titration with standard sodium hydroxide, and see why phenolphthalein, not methyl orange, is the indicator.",
+      "values": {
+        "level": "ages-16-19",
+        "analyte": "core:acetic-acid",
+        "analyteLabel": "Ethanoic acid, about 0.1 M",
+        "analyteConc": "0.080..0.120 mol/L",
+        "ratioNote": "Ethanoic acid and sodium hydroxide react 1 : 1.",
+        "indicatorReason": "basic-end"
+      },
+      "keywords": [
+        "weak acid",
+        "ethanoic acid",
+        "acetic acid"
+      ],
+      "curricula": [
+        "A level",
+        "IB",
+        "AP"
+      ]
+    },
+    {
+      "id": "chem19-weak-base-titration",
+      "title": "Titrating a weak base with a strong acid",
+      "summary": "Find the concentration of aqueous ammonia by titration with standard hydrochloric acid, using methyl orange.",
+      "values": {
+        "level": "ages-16-19",
+        "analyte": "core:ammonia",
+        "analyteLabel": "Aqueous ammonia, about 0.1 M",
+        "analyteConc": "0.080..0.120 mol/L",
+        "titrantSubstance": "core:hydrochloric-acid",
+        "titrantName": "hydrochloric acid",
+        "titrantLabel": "Hydrochloric acid, 0.1000 M (standard)",
+        "indicatorPrep": "core:methyl-orange-indicator",
+        "indicatorName": "methyl orange",
+        "endColour": "red",
+        "endDescription": "the methyl orange just turns red",
+        "ratioNote": "Ammonia and hydrochloric acid react 1 : 1; methyl orange turns from yellow through orange to red.",
+        "indicatorReason": "acidic-end"
+      },
+      "keywords": [
+        "weak base",
+        "ammonia",
+        "methyl orange"
+      ],
+      "curricula": [
+        "A level",
+        "IB",
+        "AP"
+      ]
+    },
+    {
+      "id": "chem19-vinegar",
+      "title": "How much ethanoic acid is in vinegar?",
+      "summary": "Dilute vinegar tenfold in a volumetric flask, titrate it with standard sodium hydroxide, and work out the ethanoic acid concentration of the vinegar itself.",
+      "values": {
+        "level": "ages-16-19",
+        "analyte": "core:acetic-acid",
+        "analyteLabel": "White vinegar",
+        "analyteConc": "0.78..0.90 mol/L",
+        "dilution": 10,
+        "ratioNote": "The vinegar is too concentrated to titrate directly, so dilute it first and multiply back.",
+        "indicatorReason": "basic-end"
+      },
+      "keywords": [
+        "vinegar",
+        "ethanoic acid",
+        "acetic acid",
+        "dilution",
+        "food analysis"
+      ],
+      "curricula": [
+        "GCSE",
+        "A level",
+        "IB",
+        "BTEC"
+      ]
+    },
+    {
+      "id": "chem19-sodium-carbonate",
+      "title": "Titrating sodium carbonate with hydrochloric acid",
+      "summary": "Find the concentration of a sodium carbonate solution by titration with standard hydrochloric acid to the methyl orange end point, where both protons have been taken up.",
+      "values": {
+        "level": "ages-16-19",
+        "analyte": "core:sodium-carbonate",
+        "analyteLabel": "Sodium carbonate solution, about 0.05 M",
+        "analyteConc": "0.040..0.060 mol/L",
+        "titrantSubstance": "core:hydrochloric-acid",
+        "titrantName": "hydrochloric acid",
+        "titrantLabel": "Hydrochloric acid, 0.1000 M (standard)",
+        "indicatorPrep": "core:methyl-orange-indicator",
+        "indicatorName": "methyl orange",
+        "endColour": "red",
+        "endDescription": "the methyl orange just turns red",
+        "ratio": 2,
+        "ratioNote": "Carbonate takes up two protons before methyl orange changes: Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂.",
+        "indicatorReason": "acidic-end"
+      },
+      "keywords": [
+        "carbonate",
+        "sodium carbonate",
+        "methyl orange",
+        "diprotic"
+      ],
+      "curricula": [
+        "A level",
+        "IB",
+        "BTEC"
+      ]
+    },
+    {
+      "id": "chem19-sulfuric-acid",
+      "title": "Titrating sulfuric acid with sodium hydroxide",
+      "summary": "Find the concentration of dilute sulfuric acid by titration with standard sodium hydroxide; each sulfuric acid gives two protons.",
+      "values": {
+        "level": "ages-14-16",
+        "analyte": "core:sulfuric-acid",
+        "analyteLabel": "Sulfuric acid, about 0.05 M",
+        "analyteConc": "0.040..0.060 mol/L",
+        "ratio": 2,
+        "ratioNote": "H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O: two moles of hydroxide per mole of acid.",
+        "indicatorReason": "any"
+      },
+      "keywords": [
+        "sulfuric acid",
+        "diprotic",
+        "strong acid"
+      ],
+      "curricula": [
+        "GCSE",
+        "A level",
+        "IB"
+      ]
+    },
+    {
+      "id": "chem19-mohr-chloride",
+      "title": "Chloride by the Mohr titration",
+      "summary": "Find the chloride concentration of a solution by titration with standard silver nitrate, using potassium chromate: the first permanent reddish tinge of silver chromate in the white silver chloride marks the end point.",
+      "values": {
+        "level": "ages-16-19",
+        "analyte": "aq:sodium-chloride",
+        "analyteLabel": "Chloride solution (sodium chloride), about 0.1 M",
+        "analyteConc": "0.080..0.120 mol/L",
+        "titrantSubstance": "aq:silver-nitrate",
+        "titrantName": "silver nitrate",
+        "titrantLabel": "Silver nitrate, 0.1000 M (standard)",
+        "indicatorPrep": "core:potassium-chromate-indicator",
+        "indicatorName": "potassium chromate",
+        "endColour": "orange|red|brown|pink",
+        "watch": "precipitate",
+        "endDescription": "the first permanent reddish-brown tinge of silver chromate shows in the white precipitate",
+        "ratioNote": "Silver and chloride react 1 : 1 as white silver chloride; only when the chloride is used up does red-brown silver chromate form.",
+        "indicatorReason": "chromate-after",
+        "indicatorOptions": [
+          {
+            "id": "chromate-after",
+            "label": "Silver chromate is more soluble than silver chloride, so it forms only once the chloride has all come out"
+          },
+          {
+            "id": "chromate-first",
+            "label": "Silver chromate comes out first and then turns white"
+          },
+          {
+            "id": "ph",
+            "label": "Chromate changes colour with pH at the equivalence point"
+          }
+        ]
+      },
+      "keywords": [
+        "Mohr titration",
+        "chloride",
+        "silver nitrate",
+        "potassium chromate",
+        "precipitation titration"
+      ],
+      "curricula": [
+        "A level",
+        "IB"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem3-beer-lambert-copper",
+  "version": "1.0.0",
+  "title": "Finding a copper(II) concentration with the Beer–Lambert law",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "core:dilution-series"
+      }
+    ]
+  },
+  "summary": "Make copper(II) sulfate standards from a stock, read their absorbance at 800 nm against a water blank, fit absorbance against concentration through the origin, and use the line to find the concentration of an unknown.",
+  "briefing": "Absorbance is proportional to concentration (A = εcl) while the solution is dilute enough. Blank the spectrophotometer with water, read each standard, and check that your line is straight before you trust it for the unknown.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "spaced-recall"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "beer-lambert",
+        "label": "The Beer–Lambert law"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-standards",
+        "kind": "skill",
+        "statement": "Prepare a set of standards",
+        "skills": [
+          "core:dilution-series",
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-read",
+        "kind": "skill",
+        "statement": "Blank and read a spectrophotometer",
+        "skills": [
+          "core:blanking",
+          "core:spectrophotometer-read"
+        ]
+      },
+      {
+        "id": "o-unknown",
+        "kind": "outcome",
+        "statement": "Find the unknown's concentration within 3 %",
+        "goal": "g-unknown"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "stock",
+        "label": "Copper(II) sulfate, 0.250 M",
+        "contains": [
+          {
+            "substance": "core:copper-ii-sulfate",
+            "conc": "0.250 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "unknown",
+        "label": "Unknown copper(II) solution",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "core:copper-ii-sulfate",
+            "conc": {
+              "vary": "0.060..0.180 mol/L"
+            }
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "standards",
+        "kind": "technique",
+        "ref": "core:dilution-series",
+        "objectives": [
+          "o-standards"
+        ],
+        "params": {
+          "stock": "stock",
+          "diluent": "water",
+          "targets": [
+            "0.050 mol/L",
+            "0.100 mol/L",
+            "0.150 mol/L",
+            "0.200 mol/L"
+          ],
+          "volumeEach": "1.4 mL"
+        }
+      },
+      {
+        "id": "blank-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-blank",
+          "label": "Blank"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "c-blank",
+          "volume": "1 mL"
+        }
+      },
+      {
+        "id": "blank",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "objectives": [
+          "o-read"
+        ],
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-blank",
+          "wavelength": "800 nm"
+        }
+      },
+      {
+        "id": "read-standards",
+        "kind": "group",
+        "objectives": [
+          "o-read"
+        ],
+        "forEach": {
+          "var": "i",
+          "in": "=[0, 1, 2, 3]"
+        },
+        "let": {
+          "cuvette": "='c-std-' + text(i + 1)"
+        },
+        "steps": [
+          {
+            "id": "cuvette",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-1cm",
+              "id": "=cuvette"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=standards.out.vessels[i]",
+              "destination": "=cuvette",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=cuvette",
+              "wavelength": "800 nm"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A-standard",
+              "value": "=read.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "unknown-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-unknown",
+          "label": "Unknown"
+        }
+      },
+      {
+        "id": "unknown-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "unknown",
+          "destination": "c-unknown",
+          "volume": "1 mL"
+        }
+      },
+      {
+        "id": "read-unknown",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "spec",
+          "subject": "c-unknown",
+          "wavelength": "800 nm"
+        }
+      },
+      {
+        "id": "fit",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": [
+            "0.050 mol/L",
+            "0.100 mol/L",
+            "0.150 mol/L",
+            "0.200 mol/L"
+          ],
+          "y": "=recorded('A-standard')",
+          "model": "linear-through-origin"
+        }
+      },
+      {
+        "id": "interpolate",
+        "kind": "operation",
+        "ref": "core:interpolate",
+        "params": {
+          "fit": "=fit.out.fit",
+          "points": [
+            "=read-unknown.out.value"
+          ]
+        }
+      },
+      {
+        "id": "report",
+        "kind": "operation",
+        "ref": "core:compute",
+        "params": {
+          "expression": "first(map(r, it.x)) * 1 mol/L",
+          "values": {
+            "r": "=interpolate.out.results"
+          },
+          "report": {
+            "quantity": "conc",
+            "sample": "unknown"
+          }
+        }
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-unknown",
+        "statement": "The unknown's concentration is within 3 % of the truth",
+        "check": "within(reported(conc, 'unknown'), truth(conc, 'unknown', 'core:copper-ii-sulfate'), 3%)"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-linear",
+        "statement": "The standards lie on a straight line (r² > 0.995)",
+        "check": "fit.out.fit.r2 > 0.995",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-epsilon",
+        "statement": "The slope gives ε at 800 nm of about 12 M⁻¹ cm⁻¹",
+        "check": "between(fit.out.fit.params.slope, 10, 14)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

@@ -1,0 +1,750 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio8-resistance-colony-pcr",
+  "version": "1.0.0",
+  "title": "Which bacteria carry a resistance gene? Colony PCR, a gel and an ampicillin test",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:thermocycle"
+      },
+      {
+        "operation": "core:run-gel"
+      },
+      {
+        "technique": "molbio:size-band"
+      }
+    ]
+  },
+  "summary": "Suspend four E. coli isolates from treated effluent and two control strains in water; test each suspension by colony PCR for the beta-lactamase gene blaTEM (516 bp) on a gel, and by growth in ampicillin broth; then compare genotype with phenotype.",
+  "briefing": "Touch a colony lightly with a sterile tip: too many cells in a PCR inhibit it. One suspension feeds both tests, so the PCR and the growth test are of the same colony. The PCR's controls tell you whether to trust it: the resistant strain must give the band, the sensitive strain and the no-template tube must not.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "molecular-biology",
+        "microbiology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "colony-pcr",
+        "label": "Colony PCR"
+      },
+      {
+        "id": "controls",
+        "label": "Positive and negative controls"
+      },
+      {
+        "id": "genotype-phenotype",
+        "label": "Genotype and phenotype"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-pcr",
+        "kind": "skill",
+        "statement": "Set up colony PCR with its controls",
+        "skills": [
+          "molbio:pcr-setup"
+        ]
+      },
+      {
+        "id": "o-gel",
+        "kind": "analysis",
+        "statement": "Read which reactions gave the 516 bp product",
+        "skills": [
+          "molbio:gel-electrophoresis",
+          "molbio:band-sizing"
+        ],
+        "goal": "g-gel"
+      },
+      {
+        "id": "o-phenotype",
+        "kind": "reasoning",
+        "statement": "Compare the gene with growth in ampicillin",
+        "goal": "g-phenotype"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "isolates",
+        "label": "E. coli isolates from treated effluent",
+        "role": "culture",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:nutrient-agar",
+        "contains": [
+          {
+            "substance": "molbio:escherichia-coli-wild-blatem",
+            "count": "12 {colonies}"
+          },
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "18 {colonies}"
+          }
+        ]
+      },
+      {
+        "id": "resistant-strain",
+        "label": "Control: a blaTEM strain",
+        "role": "control-positive",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:nutrient-agar",
+        "contains": [
+          {
+            "substance": "molbio:escherichia-coli-wild-blatem",
+            "count": "40 {colonies}"
+          }
+        ]
+      },
+      {
+        "id": "sensitive-strain",
+        "label": "Control: a sensitive strain",
+        "role": "control-negative",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:nutrient-agar",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "40 {colonies}"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Sterile water",
+        "preparation": "core:water-deionised",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "dye",
+        "label": "Sucrose loading dye",
+        "preparation": "molbio:loading-dye-sucrose",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "ladder",
+        "label": "100 bp ladder",
+        "preparation": "molbio:ladder-100bp",
+        "amount": "12 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-ntc",
+        "label": "PCR, no template",
+        "preparation": "molbio:bla-tem-colony-pcr-mix",
+        "amount": "19 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-c1",
+        "label": "PCR c1",
+        "preparation": "molbio:bla-tem-colony-pcr-mix",
+        "amount": "19 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "amp-c1",
+        "label": "LB + ampicillin c1",
+        "preparation": "micro:lb-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "conc": "100 mg/L"
+          }
+        ],
+        "amount": "2 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "pcr-c2",
+        "label": "PCR c2",
+        "preparation": "molbio:bla-tem-colony-pcr-mix",
+        "amount": "19 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "amp-c2",
+        "label": "LB + ampicillin c2",
+        "preparation": "micro:lb-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "conc": "100 mg/L"
+          }
+        ],
+        "amount": "2 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "pcr-c3",
+        "label": "PCR c3",
+        "preparation": "molbio:bla-tem-colony-pcr-mix",
+        "amount": "19 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "amp-c3",
+        "label": "LB + ampicillin c3",
+        "preparation": "micro:lb-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "conc": "100 mg/L"
+          }
+        ],
+        "amount": "2 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "pcr-c4",
+        "label": "PCR c4",
+        "preparation": "molbio:bla-tem-colony-pcr-mix",
+        "amount": "19 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "amp-c4",
+        "label": "LB + ampicillin c4",
+        "preparation": "micro:lb-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "conc": "100 mg/L"
+          }
+        ],
+        "amount": "2 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "pcr-pos",
+        "label": "PCR pos",
+        "preparation": "molbio:bla-tem-colony-pcr-mix",
+        "amount": "19 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "amp-pos",
+        "label": "LB + ampicillin pos",
+        "preparation": "micro:lb-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "conc": "100 mg/L"
+          }
+        ],
+        "amount": "2 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "pcr-neg",
+        "label": "PCR neg",
+        "preparation": "molbio:bla-tem-colony-pcr-mix",
+        "amount": "19 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "amp-neg",
+        "label": "LB + ampicillin neg",
+        "preparation": "micro:lb-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "conc": "100 mg/L"
+          }
+        ],
+        "amount": "2 mL",
+        "container": "core:culture-tube-20ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "cycler",
+        "requires": {
+          "class": "core:thermal-cycler-96-tube"
+        }
+      },
+      {
+        "id": "gel",
+        "requires": {
+          "class": "core:agarose-gel-2pct"
+        }
+      },
+      {
+        "id": "imager",
+        "requires": {
+          "class": "core:gel-imager-blue-light"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [
+      {
+        "id": "d1",
+        "title": "PCR, gel and the ampicillin test"
+      },
+      {
+        "id": "d2",
+        "title": "The next morning"
+      }
+    ],
+    "steps": [
+      {
+        "id": "suspend",
+        "kind": "group",
+        "title": "Each colony into 50 µL of water: one suspension for both tests",
+        "steps": [
+          {
+            "id": "s-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "='susp-' + x[0]",
+              "label": "='colony ' + x[0]"
+            }
+          },
+          {
+            "id": "s-water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='susp-' + x[0]",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "s-tip",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "s-pick",
+            "kind": "operation",
+            "ref": "core:pick-colony",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "p20",
+              "destination": "='susp-' + x[0]"
+            }
+          },
+          {
+            "id": "s-eject",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "s-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='susp-' + x[0]",
+              "method": "flick",
+              "cycles": 3
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['c1', 'isolates', 'gel/A2'], ['c2', 'isolates', 'gel/A3'], ['c3', 'isolates', 'gel/A4'], ['c4', 'isolates', 'gel/A5'], ['pos', 'resistant-strain', 'gel/A6'], ['neg', 'sensitive-strain', 'gel/A7']]"
+        },
+        "objectives": [
+          "o-pcr"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "pcr-setup",
+        "kind": "group",
+        "title": "1 µL of each suspension into 19 µL of colony-PCR mix",
+        "steps": [
+          {
+            "id": "p-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='susp-' + x[0]",
+              "destination": "='pcr-' + x[0]",
+              "volume": "1 uL"
+            }
+          },
+          {
+            "id": "p-cycler",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='pcr-' + x[0]",
+              "place": "cycler"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['c1', 'isolates', 'gel/A2'], ['c2', 'isolates', 'gel/A3'], ['c3', 'isolates', 'gel/A4'], ['c4', 'isolates', 'gel/A5'], ['pos', 'resistant-strain', 'gel/A6'], ['neg', 'sensitive-strain', 'gel/A7']]"
+        },
+        "objectives": [
+          "o-pcr"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "ntc-cycler",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "pcr-ntc",
+          "place": "cycler"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "cycle",
+        "kind": "operation",
+        "ref": "core:thermocycle",
+        "params": {
+          "cycler": "cycler",
+          "cycles": 30,
+          "annealTemperature": "56 Cel",
+          "extendTime": "45 s"
+        },
+        "session": "d1",
+        "objectives": [
+          "o-pcr"
+        ]
+      },
+      {
+        "id": "amp-test",
+        "kind": "group",
+        "title": "10 µL of each suspension into LB with ampicillin",
+        "steps": [
+          {
+            "id": "a-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='susp-' + x[0]",
+              "destination": "='amp-' + x[0]",
+              "volume": "10 uL"
+            }
+          },
+          {
+            "id": "a-incubate",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='amp-' + x[0]",
+              "place": "incubator"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['c1', 'isolates', 'gel/A2'], ['c2', 'isolates', 'gel/A3'], ['c3', 'isolates', 'gel/A4'], ['c4', 'isolates', 'gel/A5'], ['pos', 'resistant-strain', 'gel/A6'], ['neg', 'sensitive-strain', 'gel/A7']]"
+        },
+        "objectives": [
+          "o-phenotype"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "dye",
+        "kind": "group",
+        "title": "Loading dye into each PCR and the ladder",
+        "steps": [
+          {
+            "id": "d-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dye",
+              "destination": "=x",
+              "volume": "4 uL"
+            }
+          },
+          {
+            "id": "d-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['pcr-c1', 'pcr-c2', 'pcr-c3', 'pcr-c4', 'pcr-pos', 'pcr-neg', 'pcr-ntc', 'ladder']"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "load-ladder",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ladder",
+          "destination": "gel/A1",
+          "volume": "10 uL"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=x[0]",
+          "destination": "=x[1]",
+          "volume": "15 uL"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=[['pcr-c1', 'gel/A2'], ['pcr-c2', 'gel/A3'], ['pcr-c3', 'gel/A4'], ['pcr-c4', 'gel/A5'], ['pcr-pos', 'gel/A6'], ['pcr-neg', 'gel/A7'], ['pcr-ntc', 'gel/A8']]"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "gel",
+          "voltage": 100,
+          "duration": "40 min"
+        },
+        "session": "d1",
+        "objectives": [
+          "o-gel"
+        ]
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "imager",
+          "subject": "gel"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "sizing",
+        "kind": "group",
+        "title": "Size each lane's bands",
+        "steps": [
+          {
+            "id": "size",
+            "kind": "technique",
+            "ref": "molbio:size-band",
+            "params": {
+              "ladderLane": "gel/A1",
+              "lane": "=x[1]",
+              "ladder": "molbio:ladder-100bp"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='sizes-' + x[0]",
+              "value": "=size.out.sizes"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['c1', 'gel/A2'], ['c2', 'gel/A3'], ['c3', 'gel/A4'], ['c4', 'gel/A5'], ['pos', 'gel/A6'], ['neg', 'gel/A7'], ['ntc', 'gel/A8']]"
+        },
+        "objectives": [
+          "o-gel"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "overnight",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "18 h"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "amp-read",
+        "kind": "group",
+        "title": "Which grew in ampicillin?",
+        "steps": [
+          {
+            "id": "r-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='amp-' + x[0]"
+            }
+          },
+          {
+            "id": "r-look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "='amp-' + x[0]"
+            }
+          },
+          {
+            "id": "r-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='amp-' + x[0]",
+              "value": "=r-look.out.appearance"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['c1', 'isolates', 'gel/A2'], ['c2', 'isolates', 'gel/A3'], ['c3', 'isolates', 'gel/A4'], ['c4', 'isolates', 'gel/A5'], ['pos', 'resistant-strain', 'gel/A6'], ['neg', 'sensitive-strain', 'gel/A7']]"
+        },
+        "objectives": [
+          "o-phenotype"
+        ],
+        "session": "d2"
+      },
+      {
+        "id": "carriers",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "carriers",
+          "value": "=if(any(first(recorded('sizes-c1')), between(it, 470, 560)), 1, 0) + if(any(first(recorded('sizes-c2')), between(it, 470, 560)), 1, 0) + if(any(first(recorded('sizes-c3')), between(it, 470, 560)), 1, 0) + if(any(first(recorded('sizes-c4')), between(it, 470, 560)), 1, 0)"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "how-many",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-gel"
+        ],
+        "prompt": "How many of the four isolates carry blaTEM (a band at about 516 bp)?",
+        "options": [
+          {
+            "id": "0",
+            "label": "0"
+          },
+          {
+            "id": "1",
+            "label": "1"
+          },
+          {
+            "id": "2",
+            "label": "2"
+          },
+          {
+            "id": "3",
+            "label": "3"
+          },
+          {
+            "id": "4",
+            "label": "4"
+          }
+        ],
+        "correctWhen": "text(first(recorded('carriers')))"
+      },
+      {
+        "id": "agree",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-phenotype"
+        ],
+        "prompt": "Compare each isolate's PCR result with its growth in ampicillin. What do you find?",
+        "options": [
+          {
+            "id": "agree",
+            "label": "They agree: the isolates with the gene grew in ampicillin, the others did not"
+          },
+          {
+            "id": "disagree",
+            "label": "They disagree for at least one isolate: genotype and phenotype differ"
+          }
+        ],
+        "correctWhen": "if(any(first(recorded('sizes-c1')), between(it, 470, 560)) == mentions(first(recorded('amp-c1')), 'cloudy') && any(first(recorded('sizes-c2')), between(it, 470, 560)) == mentions(first(recorded('amp-c2')), 'cloudy') && any(first(recorded('sizes-c3')), between(it, 470, 560)) == mentions(first(recorded('amp-c3')), 'cloudy') && any(first(recorded('sizes-c4')), between(it, 470, 560)) == mentions(first(recorded('amp-c4')), 'cloudy'), 'agree', 'disagree')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-gel",
+        "statement": "The controls behave and the carriers are counted",
+        "check": "any(first(recorded('sizes-pos')), between(it, 470, 560)) && !any(first(recorded('sizes-neg')), between(it, 470, 560)) && len(first(recorded('sizes-ntc'))) == 0 && decision('how-many') == text(first(recorded('carriers')))"
+      },
+      {
+        "id": "g-phenotype",
+        "statement": "Genotype and phenotype are compared correctly",
+        "check": "decision('agree') == 'agree'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-controls",
+        "statement": "The resistant strain grows in ampicillin and the sensitive one does not",
+        "check": "mentions(first(recorded('amp-pos')), 'cloudy') && !mentions(first(recorded('amp-neg')), 'cloudy')",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

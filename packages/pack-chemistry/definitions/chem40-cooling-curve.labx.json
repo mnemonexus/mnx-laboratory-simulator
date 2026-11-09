@@ -1,0 +1,283 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem40-cooling-curve",
+  "version": "1.0.0",
+  "title": "Cooling curve of stearic acid",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:lift-out"
+      }
+    ]
+  },
+  "summary": "Melt stearic acid in a hot water bath, let it cool in air, reading its temperature every 30 seconds, and find its freezing point from the flat part of the cooling curve.",
+  "briefing": "Put about 5 g of stearic acid in a boiling tube with the thermometer and melt it in a water bath at 80 °C. Take it out and let it cool in air, reading the temperature every 30 seconds for 15 minutes. While the liquid freezes, the heat it gives out as its particles bond into a solid balances the heat lost to the air, so the temperature stays steady: that is its freezing (melting) point.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry",
+        "physics"
+      ]
+    },
+    "keywords": [
+      "cooling curve",
+      "freezing point",
+      "melting point",
+      "stearic acid",
+      "states of matter",
+      "latent heat"
+    ],
+    "topics": [
+      "States of matter"
+    ],
+    "concepts": [
+      {
+        "id": "plateau",
+        "label": "A pure substance freezes at a steady temperature, giving out latent heat"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Record temperature at regular intervals as a liquid cools and freezes"
+      },
+      {
+        "id": "o-plateau",
+        "kind": "analysis",
+        "statement": "Find the freezing point from the flat part of the cooling curve",
+        "goal": "g-freeze"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain why the temperature stays steady while it freezes",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": []
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "thermo",
+        "requires": {
+          "class": "core:thermometer-digital"
+        }
+      },
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "80 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "set-bath",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "bath",
+          "temperature": "80 Cel"
+        }
+      },
+      {
+        "id": "tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:boiling-tube",
+          "id": "tube",
+          "label": "Stearic acid"
+        }
+      },
+      {
+        "id": "add",
+        "kind": "operation",
+        "ref": "core:add-solid",
+        "params": {
+          "substance": "chem:stearic-acid",
+          "destination": "tube",
+          "mass": "5 g"
+        }
+      },
+      {
+        "id": "melt-in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "tube",
+          "place": "bath"
+        }
+      },
+      {
+        "id": "melt",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "10 min"
+        }
+      },
+      {
+        "id": "read-melt",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "thermo",
+          "subject": "tube"
+        }
+      },
+      {
+        "id": "out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "tube"
+        }
+      },
+      {
+        "id": "follow",
+        "kind": "group",
+        "title": "Read every 30 s for 15 minutes",
+        "forEach": {
+          "var": "n",
+          "in": "=range(0, 15, 31)"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 s"
+            },
+            "when": "n > 0"
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "thermo",
+              "subject": "tube"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "T",
+              "value": "=read.out.value"
+            }
+          },
+          {
+            "id": "note-t",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "t",
+              "value": "=n"
+            }
+          }
+        ]
+      },
+      {
+        "id": "plateau",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "freezing-point",
+          "value": "=mean(closest(recorded('T'), 8))"
+        },
+        "objectives": [
+          "o-plateau"
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the temperature stay almost constant for several minutes?",
+        "options": [
+          {
+            "id": "latent",
+            "label": "As the liquid freezes, bonds form between its particles and give out energy, which replaces the heat lost to the air"
+          },
+          {
+            "id": "insulated",
+            "label": "The boiling tube insulates it"
+          },
+          {
+            "id": "thermometer",
+            "label": "The thermometer cannot read lower"
+          }
+        ],
+        "correctWhen": "'latent'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-freeze",
+        "statement": "The freezing point is found within 2 °C of 69 °C",
+        "check": "abs(first(recorded('freezing-point')) - 69.3) < 2"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The plateau is explained",
+        "check": "decision('why') == 'latent'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-plateau",
+        "statement": "The temperature stays within a degree of 69 °C for at least two minutes, then falls again",
+        "check": "count(filter(recorded('T'), abs(it - 69.3) < 1)) >= 4 && last(recorded('T')) < 60",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

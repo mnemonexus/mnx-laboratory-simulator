@@ -1,0 +1,6 @@
+{
+  "id": "core",
+  "version": "0.1.0",
+  "label": "Core laboratory capabilities",
+  "description": "Cross-discipline foundations shipped in every add-on: the purpose taxonomy, the kernel's operations, liquid handling, weighing, glassware, plates, spectrophotometry, places, waste streams and general techniques."
+}

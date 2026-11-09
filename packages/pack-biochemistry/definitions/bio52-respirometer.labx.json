@@ -1,0 +1,430 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "bio52-respirometer",
+  "title": "{{title}}",
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "respiration",
+      "respirometer",
+      "oxygen uptake",
+      "soda lime",
+      "germinating seeds",
+      "respiratory quotient"
+    ],
+    "topics": [
+      "Respiration"
+    ],
+    "concepts": [
+      {
+        "id": "uptake",
+        "label": "Respiring organisms take up oxygen; with the carbon dioxide absorbed, the gas around them shrinks by the oxygen used"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the rate of oxygen uptake with a respirometer"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "{{compareObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the controls and the result",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Respirometer: oxygen uptake by germinating seeds"
+    },
+    "summary": {
+      "default": "Measure the oxygen taken up by germinating peas in a respirometer over soda lime, with boiled peas, a thermobarometer of glass beads, and peas without soda lime as controls."
+    },
+    "briefing": {
+      "default": "Put 3 g of soda lime in each tube under a gauze and 5 g of peas on it (or glass beads, or nothing over the soda lime for the thermobarometer). Seal each tube with the capillary bung, stand them in the water bath at 25 °C with the screw clips open for 10 minutes to reach the temperature, close the clips, read the scale, and read it again 10 minutes later. Oxygen uptake = fall in gas volume ÷ time ÷ mass."
+    },
+    "runs": {
+      "default": "=[['live','Germinating peas over soda lime','bio:germinating-peas',true,false,25],['dead','Boiled peas over soda lime','bio:boiled-peas',true,false,25],['beads','Glass beads over soda lime (thermobarometer)','',true,true,25],['no-lime','Germinating peas, no soda lime','bio:germinating-peas',false,false,25]]"
+    },
+    "compareObjective": {
+      "default": "Compare oxygen uptake by living and dead seeds, and with and without soda lime"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the drop hardly move when there is no soda lime?",
+        "options": [
+          {
+            "id": "co2",
+            "label": "The seeds give out about as much carbon dioxide as the oxygen they take up, so the volume of gas stays nearly the same"
+          },
+          {
+            "id": "dead",
+            "label": "Without soda lime the seeds cannot respire"
+          },
+          {
+            "id": "leak",
+            "label": "The tube leaks"
+          }
+        ],
+        "correctWhen": "choice == 'co2'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "Germinating peas take up oxygen; boiled peas and glass beads do not; without soda lime the volume hardly changes",
+            "check": "first(recorded('uptake live')) > 0.002 && abs(first(recorded('uptake dead'))) < 0.0005 && abs(first(recorded('uptake beads'))) < 0.0005 && abs(first(recorded('uptake no-lime'))) < 0.2 * first(recorded('uptake live'))"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The control without soda lime is explained",
+            "check": "decision('why') == 'co2'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-rate",
+            "statement": "Germinating peas take up about 0.006 mL of oxygen per gram a minute at 25 °C",
+            "check": "first(recorded('uptake live')) > 0.003 && first(recorded('uptake live')) < 0.01",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each tube in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "fetch",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:respirometer",
+              "id": "='tube-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "lime",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "core:soda-lime",
+              "destination": "='tube-' + r[0]",
+              "mass": "3 g"
+            },
+            "when": "r[3]"
+          },
+          {
+            "id": "organisms",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[2]",
+              "destination": "='tube-' + r[0]",
+              "mass": "5 g"
+            },
+            "when": "r[2] != ''"
+          },
+          {
+            "id": "beads",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "core:glass-beads",
+              "destination": "='tube-' + r[0]",
+              "mass": "5 g"
+            },
+            "when": "r[4]"
+          },
+          {
+            "id": "seal",
+            "kind": "operation",
+            "ref": "core:trap-air",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "volume": "20 mL"
+            }
+          },
+          {
+            "id": "bath-set",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[5]) + ' Cel')"
+            }
+          },
+          {
+            "id": "in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "place": "bath"
+            }
+          },
+          {
+            "id": "equilibrate",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "clip",
+            "kind": "operation",
+            "ref": "core:trap-air",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "volume": "20 mL"
+            }
+          },
+          {
+            "id": "read0",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "='tube-' + r[0]"
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "read1",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "='tube-' + r[0]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='uptake ' + r[0]",
+              "value": "=(value(quantity(read0.out.value), 'mL') - value(quantity(read1.out.value), 'mL')) / 50"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='tube-' + r[0]"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio52-respirometer-animals",
+      "title": "Respirometer: seeds and small animals",
+      "summary": "Compare the oxygen uptake per gram of germinating peas, woodlice and maggots in respirometers over soda lime, with a thermobarometer.",
+      "briefing": "As for germinating seeds, with 5 g of woodlice or maggots on the gauze instead (handle them gently; return them after the experiment). Express each rate per gram so the organisms can be compared.",
+      "values": {
+        "runs": "=[['peas','Germinating peas','bio:germinating-peas',true,false,25],['woodlice','Woodlice','bio:woodlice',true,false,25],['maggots','Maggots','bio:maggots',true,false,25],['beads','Glass beads (thermobarometer)','',true,true,25]]",
+        "compareObjective": "Compare the rates of respiration of different organisms",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why do maggots take up oxygen faster per gram than woodlice?",
+          "options": [
+            {
+              "id": "growth",
+              "label": "They are growing fast and very active, so they need more ATP per gram"
+            },
+            {
+              "id": "bigger",
+              "label": "They are bigger"
+            },
+            {
+              "id": "soda",
+              "label": "They react with the soda lime"
+            }
+          ],
+          "correctWhen": "choice == 'growth'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "Maggots respire fastest per gram; the thermobarometer does not move",
+              "check": "first(recorded('uptake maggots')) > first(recorded('uptake peas')) && first(recorded('uptake maggots')) > first(recorded('uptake woodlice')) && abs(first(recorded('uptake beads'))) < 0.0005"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The maggots’ rate is explained",
+              "check": "decision('why') == 'growth'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-woodlice",
+              "statement": "Woodlice take up about 0.005 mL per gram a minute",
+              "check": "first(recorded('uptake woodlice')) > 0.002 && first(recorded('uptake woodlice')) < 0.008",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "small animals",
+        "woodlice",
+        "maggots"
+      ]
+    },
+    {
+      "id": "bio52-respirometer-temperature",
+      "title": "Respirometer: the effect of temperature on respiration",
+      "summary": "Measure the oxygen uptake of germinating peas over soda lime at 25, 30, 35 and 40 °C and find the temperature coefficient Q10.",
+      "briefing": "As for germinating seeds, with each tube in a water bath at a different temperature. Q10 = rate at (T + 10) ÷ rate at T.",
+      "values": {
+        "runs": "=[['t25','25 °C','bio:germinating-peas',true,false,25],['t30','30 °C','bio:germinating-peas',true,false,30],['t35','35 °C','bio:germinating-peas',true,false,35],['t40','40 °C','bio:germinating-peas',true,false,40]]",
+        "compareObjective": "Relate the rate of respiration to temperature",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the rate about double for each 10 °C rise?",
+          "options": [
+            {
+              "id": "enzymes",
+              "label": "Respiration is catalysed by enzymes, whose reactions speed up as more molecules have enough energy to react"
+            },
+            {
+              "id": "oxygen",
+              "label": "Warm water holds more oxygen"
+            },
+            {
+              "id": "expand",
+              "label": "The gas expands"
+            }
+          ],
+          "correctWhen": "choice == 'enzymes'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The rate rises with temperature, with Q10 between 1.6 and 3 from 25 to 35 °C",
+              "check": "first(recorded('uptake t25')) < first(recorded('uptake t30')) && first(recorded('uptake t30')) < first(recorded('uptake t35')) && first(recorded('uptake t35')) < first(recorded('uptake t40')) && first(recorded('uptake t35')) / first(recorded('uptake t25')) > 1.6 && first(recorded('uptake t35')) / first(recorded('uptake t25')) < 3"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The rise is explained",
+              "check": "decision('why') == 'enzymes'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-40",
+              "statement": "At 40 °C the peas take up about twice as much as at 30 °C",
+              "check": "first(recorded('uptake t40')) / first(recorded('uptake t30')) > 1.6",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "temperature",
+        "Q10"
+      ]
+    }
+  ]
+}

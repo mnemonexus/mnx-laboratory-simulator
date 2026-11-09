@@ -1,0 +1,456 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio15-inhibition-global-fit",
+  "version": "1.0.0",
+  "title": "Which kind of inhibitor? A global fit of alkaline phosphatase rates",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "bio:kinetic-absorbance-read"
+      },
+      {
+        "technique": "bio:initial-rate-analysis"
+      },
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "Measure alkaline phosphatase's initial rates on pNPP at seven substrate concentrations, with no L-phenylalanine and with 2 and 6 mM. Fit all 21 rates at once to each inhibition mechanism, keep the one the data support best, and report its constants.",
+  "briefing": "A competitive inhibitor binds only the free enzyme, so it raises the apparent Km and leaves Vmax. An uncompetitive one binds only the enzyme–substrate complex and lowers both by the same factor. A non-competitive one binds both alike and lowers Vmax only, and a mixed one binds both unequally. Separate Michaelis–Menten fits at each inhibitor concentration give noisy apparent constants. A global fit asks one set of constants to explain every rate, and the AICc (lower is better; more than about 4 lower is a clear preference) weighs the mixed model's extra constant against its better fit.",
+  "context": {
+    "intendedContexts": [
+      "practical-session"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "inhibition-mechanisms",
+        "label": "Mechanisms of reversible inhibition"
+      },
+      {
+        "id": "global-fitting",
+        "label": "Global fitting and model selection"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-assay",
+        "kind": "skill",
+        "statement": "Measure initial rates across substrate and inhibitor concentrations",
+        "skills": [
+          "bio:plate-absorbance-read",
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-fit",
+        "kind": "analysis",
+        "statement": "Fit every rate at once and choose the mechanism",
+        "goal": "g-constant"
+      },
+      {
+        "id": "o-type",
+        "kind": "reasoning",
+        "statement": "Name the mechanism and what it means for the enzyme",
+        "goal": "g-type"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "buffer",
+        "label": "Glycine–NaOH pH 10.0",
+        "preparation": "bio:glycine-naoh-50mm-ph10.0",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "pnpp",
+        "label": "pNPP, 40 mM",
+        "contains": [
+          {
+            "substance": "bio:pnpp",
+            "conc": "40 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "phe20",
+        "label": "L-Phenylalanine, 20 mM",
+        "contains": [
+          {
+            "substance": "bio:l-phenylalanine",
+            "conc": "20 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "phe60",
+        "label": "L-Phenylalanine, 60 mM",
+        "contains": [
+          {
+            "substance": "bio:l-phenylalanine",
+            "conc": "60 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "enzyme",
+        "label": "Alkaline phosphatase, 4 µg/mL",
+        "contains": [
+          {
+            "substance": "bio:alkaline-phosphatase",
+            "conc": "4 mg/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml",
+        "storage": "0 Cel"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "reader",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "wavelength": "405 nm",
+          "format": "96-well"
+        }
+      },
+      {
+        "id": "plate",
+        "requires": {
+          "class": "core:microplate-96"
+        }
+      },
+      {
+        "id": "plate2",
+        "requires": {
+          "class": "core:microplate-96"
+        }
+      },
+      {
+        "id": "plate3",
+        "requires": {
+          "class": "core:microplate-96"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "series",
+        "kind": "technique",
+        "ref": "core:dilution-series",
+        "title": "The pNPP series (ten times the final concentration)",
+        "objectives": [
+          "o-assay"
+        ],
+        "params": {
+          "stock": "pnpp",
+          "diluent": "buffer",
+          "analyte": "bio:pnpp",
+          "targets": [
+            "1 mM",
+            "2 mM",
+            "4 mM",
+            "8 mM",
+            "16 mM",
+            "24 mM",
+            "32 mM"
+          ],
+          "volumeEach": "200 uL"
+        }
+      },
+      {
+        "id": "conditions",
+        "kind": "group",
+        "objectives": [
+          "o-assay"
+        ],
+        "forEach": {
+          "var": "c",
+          "in": "=[['none', 'plate', 0], ['phe2', 'plate2', 2], ['phe6', 'plate3', 6]]"
+        },
+        "steps": [
+          {
+            "id": "layout",
+            "kind": "design",
+            "ref": "core:plate-layout",
+            "params": {
+              "plate": "=c[1]",
+              "groups": [
+                {
+                  "group": "substrate",
+                  "items": "=series.out.vessels",
+                  "role": "sample"
+                }
+              ],
+              "replicates": 3
+            }
+          },
+          {
+            "id": "add-buffer",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "buffer",
+              "volume": "=if(c[2] == 0, 160 uL, 140 uL)",
+              "into": "=map(layout.out.layout.entries, well)"
+            }
+          },
+          {
+            "id": "add-inhibitor",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "when": "c[2] > 0",
+            "params": {
+              "reagent": "=if(c[2] == 2, 'phe20', 'phe60')",
+              "volume": "20 uL",
+              "into": "=map(layout.out.layout.entries, well)"
+            }
+          },
+          {
+            "id": "add-substrate",
+            "kind": "technique",
+            "ref": "core:transfer-to-plate",
+            "params": {
+              "layout": "=layout.out.layout",
+              "volume": "20 uL"
+            }
+          },
+          {
+            "id": "start",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "title": "Start the reactions with enzyme",
+            "params": {
+              "reagent": "enzyme",
+              "volume": "20 uL",
+              "into": "=map(layout.out.layout.entries, well)"
+            }
+          },
+          {
+            "id": "shake",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=c[1]",
+              "method": "shake"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "technique",
+            "ref": "bio:kinetic-absorbance-read",
+            "title": "Read A405 every 10 s for 4 min",
+            "params": {
+              "plate": "=c[1]",
+              "wavelength": "405 nm",
+              "interval": "10 s",
+              "duration": "4 min"
+            },
+            "bind": {
+              "instrument": "reader"
+            }
+          },
+          {
+            "id": "rates",
+            "kind": "data",
+            "ref": "bio:initial-rate-analysis",
+            "params": {
+              "reading": "=read.out.reading",
+              "layout": "=layout.out.layout",
+              "window": "90 s"
+            }
+          },
+          {
+            "id": "keep",
+            "kind": "group",
+            "forEach": {
+              "var": "k",
+              "in": "=range(0, 6, 7)"
+            },
+            "steps": [
+              {
+                "id": "note-s",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "s",
+                  "value": "=series.out.concentrations[k] / 10"
+                }
+              },
+              {
+                "id": "note-i",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "i",
+                  "value": "=quantity(text(c[2]) + ' mM')"
+                }
+              },
+              {
+                "id": "note-v",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "v",
+                  "value": "=rates.out.groups[k].mean"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "global",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-fit"
+        ],
+        "params": {
+          "x": "=recorded('s')",
+          "z": "=recorded('i')",
+          "y": "=recorded('v')",
+          "model": "inhibition"
+        }
+      },
+      {
+        "id": "results",
+        "kind": "group",
+        "objectives": [
+          "o-fit"
+        ],
+        "steps": [
+          {
+            "id": "note-model",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "mechanism",
+              "value": "=fit(global).model"
+            }
+          },
+          {
+            "id": "note-margin",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "AICc-margin",
+              "value": "=fit(global).params.margin"
+            }
+          },
+          {
+            "id": "note-km",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Km-mM",
+              "value": "=fit(global).params.km"
+            }
+          },
+          {
+            "id": "note-kip",
+            "kind": "operation",
+            "ref": "core:record",
+            "when": "fit(global).model == 'inhibition-uncompetitive'",
+            "params": {
+              "field": "KiPrime-mM",
+              "value": "=fit(global).params.kiPrime"
+            }
+          }
+        ]
+      },
+      {
+        "id": "type",
+        "kind": "decision",
+        "objectives": [
+          "o-type"
+        ],
+        "prompt": "What kind of inhibitor is L-phenylalanine for this enzyme, and what does that say about where it binds?",
+        "options": [
+          {
+            "id": "competitive",
+            "label": "Competitive: it competes with pNPP for the free enzyme's active site"
+          },
+          {
+            "id": "uncompetitive",
+            "label": "Uncompetitive: it binds only once pNPP is bound, to the enzyme–substrate complex"
+          },
+          {
+            "id": "noncompetitive",
+            "label": "Non-competitive: it binds free enzyme and complex alike, away from the active site"
+          },
+          {
+            "id": "mixed",
+            "label": "Mixed: it binds both, but not equally"
+          }
+        ],
+        "correctWhen": "if(fit(global).model == 'inhibition-competitive', 'competitive', if(fit(global).model == 'inhibition-uncompetitive', 'uncompetitive', if(fit(global).model == 'inhibition-noncompetitive', 'noncompetitive', 'mixed')))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-type",
+        "statement": "L-phenylalanine is found to be uncompetitive",
+        "check": "decision('type') == 'uncompetitive'"
+      },
+      {
+        "id": "g-constant",
+        "statement": "Its constant (Ki′, from the enzyme–substrate complex) is within 25 % of 1.5 mM",
+        "check": "within(first(recorded('KiPrime-mM')), 1.5, 25%)"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-clear",
+        "statement": "The data prefer the uncompetitive model clearly (the next best is at least 2 AICc worse)",
+        "check": "first(recorded('AICc-margin')) >= 2",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-km",
+        "statement": "The global Km is near pNPP's 0.5 mM",
+        "check": "within(first(recorded('Km-mM')), 0.5, 25%)",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

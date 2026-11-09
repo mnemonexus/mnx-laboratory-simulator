@@ -1,0 +1,802 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro16-checkerboard-synergy",
+  "version": "1.0.0",
+  "title": "Better together? Checkerboards for two antibiotic pairs",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:transfer"
+      },
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Two broth checkerboards against E. coli: trimethoprim across sulfamethoxazole, and gentamicin across streptomycin. Read the turbidity after a night at 37 °C, find each drug's MIC alone and the fractional inhibitory concentration index (FICI) of each pair, and decide which pair is synergistic.",
+  "briefing": "In a checkerboard one drug is halved along the columns and the other down the rows, so every well holds a different pair of concentrations; the first column and the first row hold one drug alone. For each clear well, FIC = a / MIC(a) + b / MIC(b); the FICI is the lowest. 0.5 or less is synergy, above 4 antagonism, and anything between is no interaction (two drugs acting like more of one give 1). Each well gets 50 µL of each drug at four times its final strength and 100 µL of cells; A11 is the growth control and A12 broth alone.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "biomedical-science",
+        "microbiology",
+        "pharmacology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "fici",
+        "label": "The fractional inhibitory concentration index"
+      },
+      {
+        "id": "synergy",
+        "label": "Synergy, additivity and antagonism"
+      },
+      {
+        "id": "sequential-blockade",
+        "label": "Sequential blockade of a pathway"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-board",
+        "kind": "skill",
+        "statement": "Set up a two-drug checkerboard from four-times-strength series",
+        "skills": [
+          "core:serial-dilution",
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-read",
+        "kind": "skill",
+        "statement": "Read each drug's MIC and compute the FICI",
+        "skills": [
+          "micro:mic-determination"
+        ],
+        "goal": "g-read"
+      },
+      {
+        "id": "o-interpret",
+        "kind": "reasoning",
+        "statement": "Classify each pair's interaction and explain it from their targets",
+        "goal": "g-interpret"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "ecoli",
+        "label": "E. coli K-12, 1 × 10⁶ CFU/mL",
+        "role": "culture",
+        "preparation": "micro:mueller-hinton-broth",
+        "amount": "15 mL",
+        "container": "core:conical-tube-15ml",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "1e6 cells/mL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "broth",
+        "label": "Mueller-Hinton broth",
+        "preparation": "micro:mueller-hinton-broth",
+        "amount": "40 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "tmp",
+        "label": "Trimethoprim, 1 mg/mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:trimethoprim",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "smx",
+        "label": "Sulfamethoxazole, 1 mg/mL in 2 % DMSO/Tris",
+        "preparation": "micro:dmso-tris-2pct",
+        "contains": [
+          {
+            "substance": "micro:sulfamethoxazole",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "gen",
+        "label": "Gentamicin, 1 mg/mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:gentamicin",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "str",
+        "label": "Streptomycin, 1 mg/mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:streptomycin",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "plate-1",
+        "requires": {
+          "class": "core:microplate-96"
+        }
+      },
+      {
+        "id": "plate-2",
+        "requires": {
+          "class": "core:microplate-96"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "reader",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "wavelength": "600 nm",
+          "format": "96-well"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "series-1",
+        "kind": "group",
+        "title": "Board 1: four-times-strength series of trimethoprim (columns) and sulfamethoxazole (rows), in broth",
+        "steps": [
+          {
+            "id": "tube-1",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=x[0]",
+              "label": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['tmp-c2'], ['tmp-c3'], ['tmp-c4'], ['tmp-c5'], ['tmp-c6'], ['tmp-c7'], ['tmp-c8'], ['tmp-c9'], ['smx-rB'], ['smx-rC'], ['smx-rD'], ['smx-rE'], ['smx-rF'], ['smx-rG'], ['smx-rH']]"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "tops-1",
+        "kind": "group",
+        "title": "The top of each series, 1 mL",
+        "steps": [
+          {
+            "id": "t-broth-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "broth",
+              "destination": "=x[0]",
+              "volume": "=x[2]"
+            }
+          },
+          {
+            "id": "t-stock-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "=x[3]"
+            }
+          },
+          {
+            "id": "t-mix-1",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['tmp-c9', 'tmp', '996 uL', '4 uL'], ['smx-rH', 'smx', '744 uL', '256 uL']]"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "halves-1",
+        "kind": "group",
+        "title": "Halve down each series",
+        "steps": [
+          {
+            "id": "h-broth-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "broth",
+              "destination": "=x[1]",
+              "volume": "500 uL"
+            }
+          },
+          {
+            "id": "h-carry-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "500 uL"
+            }
+          },
+          {
+            "id": "h-mix-1",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[1]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['tmp-c9', 'tmp-c8'], ['tmp-c8', 'tmp-c7'], ['tmp-c7', 'tmp-c6'], ['tmp-c6', 'tmp-c5'], ['tmp-c5', 'tmp-c4'], ['tmp-c4', 'tmp-c3'], ['tmp-c3', 'tmp-c2'], ['smx-rH', 'smx-rG'], ['smx-rG', 'smx-rF'], ['smx-rF', 'smx-rE'], ['smx-rE', 'smx-rD'], ['smx-rD', 'smx-rC'], ['smx-rC', 'smx-rB']]"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "fill-1",
+        "kind": "group",
+        "title": "50 µL of the column's drug and 50 µL of the row's into every well of the board",
+        "steps": [
+          {
+            "id": "f-in-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "50 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['broth', 'plate-1/A1'], ['tmp-c2', 'plate-1/A2'], ['tmp-c3', 'plate-1/A3'], ['tmp-c4', 'plate-1/A4'], ['tmp-c5', 'plate-1/A5'], ['tmp-c6', 'plate-1/A6'], ['tmp-c7', 'plate-1/A7'], ['tmp-c8', 'plate-1/A8'], ['tmp-c9', 'plate-1/A9'], ['broth', 'plate-1/B1'], ['tmp-c2', 'plate-1/B2'], ['tmp-c3', 'plate-1/B3'], ['tmp-c4', 'plate-1/B4'], ['tmp-c5', 'plate-1/B5'], ['tmp-c6', 'plate-1/B6'], ['tmp-c7', 'plate-1/B7'], ['tmp-c8', 'plate-1/B8'], ['tmp-c9', 'plate-1/B9'], ['broth', 'plate-1/C1'], ['tmp-c2', 'plate-1/C2'], ['tmp-c3', 'plate-1/C3'], ['tmp-c4', 'plate-1/C4'], ['tmp-c5', 'plate-1/C5'], ['tmp-c6', 'plate-1/C6'], ['tmp-c7', 'plate-1/C7'], ['tmp-c8', 'plate-1/C8'], ['tmp-c9', 'plate-1/C9'], ['broth', 'plate-1/D1'], ['tmp-c2', 'plate-1/D2'], ['tmp-c3', 'plate-1/D3'], ['tmp-c4', 'plate-1/D4'], ['tmp-c5', 'plate-1/D5'], ['tmp-c6', 'plate-1/D6'], ['tmp-c7', 'plate-1/D7'], ['tmp-c8', 'plate-1/D8'], ['tmp-c9', 'plate-1/D9'], ['broth', 'plate-1/E1'], ['tmp-c2', 'plate-1/E2'], ['tmp-c3', 'plate-1/E3'], ['tmp-c4', 'plate-1/E4'], ['tmp-c5', 'plate-1/E5'], ['tmp-c6', 'plate-1/E6'], ['tmp-c7', 'plate-1/E7'], ['tmp-c8', 'plate-1/E8'], ['tmp-c9', 'plate-1/E9'], ['broth', 'plate-1/F1'], ['tmp-c2', 'plate-1/F2'], ['tmp-c3', 'plate-1/F3'], ['tmp-c4', 'plate-1/F4'], ['tmp-c5', 'plate-1/F5'], ['tmp-c6', 'plate-1/F6'], ['tmp-c7', 'plate-1/F7'], ['tmp-c8', 'plate-1/F8'], ['tmp-c9', 'plate-1/F9'], ['broth', 'plate-1/G1'], ['tmp-c2', 'plate-1/G2'], ['tmp-c3', 'plate-1/G3'], ['tmp-c4', 'plate-1/G4'], ['tmp-c5', 'plate-1/G5'], ['tmp-c6', 'plate-1/G6'], ['tmp-c7', 'plate-1/G7'], ['tmp-c8', 'plate-1/G8'], ['tmp-c9', 'plate-1/G9'], ['broth', 'plate-1/H1'], ['tmp-c2', 'plate-1/H2'], ['tmp-c3', 'plate-1/H3'], ['tmp-c4', 'plate-1/H4'], ['tmp-c5', 'plate-1/H5'], ['tmp-c6', 'plate-1/H6'], ['tmp-c7', 'plate-1/H7'], ['tmp-c8', 'plate-1/H8'], ['tmp-c9', 'plate-1/H9'], ['broth', 'plate-1/A1'], ['broth', 'plate-1/A2'], ['broth', 'plate-1/A3'], ['broth', 'plate-1/A4'], ['broth', 'plate-1/A5'], ['broth', 'plate-1/A6'], ['broth', 'plate-1/A7'], ['broth', 'plate-1/A8'], ['broth', 'plate-1/A9'], ['smx-rB', 'plate-1/B1'], ['smx-rB', 'plate-1/B2'], ['smx-rB', 'plate-1/B3'], ['smx-rB', 'plate-1/B4'], ['smx-rB', 'plate-1/B5'], ['smx-rB', 'plate-1/B6'], ['smx-rB', 'plate-1/B7'], ['smx-rB', 'plate-1/B8'], ['smx-rB', 'plate-1/B9'], ['smx-rC', 'plate-1/C1'], ['smx-rC', 'plate-1/C2'], ['smx-rC', 'plate-1/C3'], ['smx-rC', 'plate-1/C4'], ['smx-rC', 'plate-1/C5'], ['smx-rC', 'plate-1/C6'], ['smx-rC', 'plate-1/C7'], ['smx-rC', 'plate-1/C8'], ['smx-rC', 'plate-1/C9'], ['smx-rD', 'plate-1/D1'], ['smx-rD', 'plate-1/D2'], ['smx-rD', 'plate-1/D3'], ['smx-rD', 'plate-1/D4'], ['smx-rD', 'plate-1/D5'], ['smx-rD', 'plate-1/D6'], ['smx-rD', 'plate-1/D7'], ['smx-rD', 'plate-1/D8'], ['smx-rD', 'plate-1/D9'], ['smx-rE', 'plate-1/E1'], ['smx-rE', 'plate-1/E2'], ['smx-rE', 'plate-1/E3'], ['smx-rE', 'plate-1/E4'], ['smx-rE', 'plate-1/E5'], ['smx-rE', 'plate-1/E6'], ['smx-rE', 'plate-1/E7'], ['smx-rE', 'plate-1/E8'], ['smx-rE', 'plate-1/E9'], ['smx-rF', 'plate-1/F1'], ['smx-rF', 'plate-1/F2'], ['smx-rF', 'plate-1/F3'], ['smx-rF', 'plate-1/F4'], ['smx-rF', 'plate-1/F5'], ['smx-rF', 'plate-1/F6'], ['smx-rF', 'plate-1/F7'], ['smx-rF', 'plate-1/F8'], ['smx-rF', 'plate-1/F9'], ['smx-rG', 'plate-1/G1'], ['smx-rG', 'plate-1/G2'], ['smx-rG', 'plate-1/G3'], ['smx-rG', 'plate-1/G4'], ['smx-rG', 'plate-1/G5'], ['smx-rG', 'plate-1/G6'], ['smx-rG', 'plate-1/G7'], ['smx-rG', 'plate-1/G8'], ['smx-rG', 'plate-1/G9'], ['smx-rH', 'plate-1/H1'], ['smx-rH', 'plate-1/H2'], ['smx-rH', 'plate-1/H3'], ['smx-rH', 'plate-1/H4'], ['smx-rH', 'plate-1/H5'], ['smx-rH', 'plate-1/H6'], ['smx-rH', 'plate-1/H7'], ['smx-rH', 'plate-1/H8'], ['smx-rH', 'plate-1/H9']]"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "sterile-1",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "broth",
+          "destination": "plate-1/A12",
+          "volume": "200 uL"
+        }
+      },
+      {
+        "id": "growth-1",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "broth",
+          "destination": "plate-1/A11",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "series-2",
+        "kind": "group",
+        "title": "Board 2: four-times-strength series of gentamicin (columns) and streptomycin (rows), in broth",
+        "steps": [
+          {
+            "id": "tube-2",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=x[0]",
+              "label": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['gen-c2'], ['gen-c3'], ['gen-c4'], ['gen-c5'], ['gen-c6'], ['gen-c7'], ['gen-c8'], ['gen-c9'], ['str-rB'], ['str-rC'], ['str-rD'], ['str-rE'], ['str-rF'], ['str-rG'], ['str-rH']]"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "tops-2",
+        "kind": "group",
+        "title": "The top of each series, 1 mL",
+        "steps": [
+          {
+            "id": "t-broth-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "broth",
+              "destination": "=x[0]",
+              "volume": "=x[2]"
+            }
+          },
+          {
+            "id": "t-stock-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "=x[3]"
+            }
+          },
+          {
+            "id": "t-mix-2",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['gen-c9', 'gen', '992 uL', '8 uL'], ['str-rH', 'str', '936 uL', '64 uL']]"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "halves-2",
+        "kind": "group",
+        "title": "Halve down each series",
+        "steps": [
+          {
+            "id": "h-broth-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "broth",
+              "destination": "=x[1]",
+              "volume": "500 uL"
+            }
+          },
+          {
+            "id": "h-carry-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "500 uL"
+            }
+          },
+          {
+            "id": "h-mix-2",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[1]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['gen-c9', 'gen-c8'], ['gen-c8', 'gen-c7'], ['gen-c7', 'gen-c6'], ['gen-c6', 'gen-c5'], ['gen-c5', 'gen-c4'], ['gen-c4', 'gen-c3'], ['gen-c3', 'gen-c2'], ['str-rH', 'str-rG'], ['str-rG', 'str-rF'], ['str-rF', 'str-rE'], ['str-rE', 'str-rD'], ['str-rD', 'str-rC'], ['str-rC', 'str-rB']]"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "fill-2",
+        "kind": "group",
+        "title": "50 µL of the column's drug and 50 µL of the row's into every well of the board",
+        "steps": [
+          {
+            "id": "f-in-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "50 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['broth', 'plate-2/A1'], ['gen-c2', 'plate-2/A2'], ['gen-c3', 'plate-2/A3'], ['gen-c4', 'plate-2/A4'], ['gen-c5', 'plate-2/A5'], ['gen-c6', 'plate-2/A6'], ['gen-c7', 'plate-2/A7'], ['gen-c8', 'plate-2/A8'], ['gen-c9', 'plate-2/A9'], ['broth', 'plate-2/B1'], ['gen-c2', 'plate-2/B2'], ['gen-c3', 'plate-2/B3'], ['gen-c4', 'plate-2/B4'], ['gen-c5', 'plate-2/B5'], ['gen-c6', 'plate-2/B6'], ['gen-c7', 'plate-2/B7'], ['gen-c8', 'plate-2/B8'], ['gen-c9', 'plate-2/B9'], ['broth', 'plate-2/C1'], ['gen-c2', 'plate-2/C2'], ['gen-c3', 'plate-2/C3'], ['gen-c4', 'plate-2/C4'], ['gen-c5', 'plate-2/C5'], ['gen-c6', 'plate-2/C6'], ['gen-c7', 'plate-2/C7'], ['gen-c8', 'plate-2/C8'], ['gen-c9', 'plate-2/C9'], ['broth', 'plate-2/D1'], ['gen-c2', 'plate-2/D2'], ['gen-c3', 'plate-2/D3'], ['gen-c4', 'plate-2/D4'], ['gen-c5', 'plate-2/D5'], ['gen-c6', 'plate-2/D6'], ['gen-c7', 'plate-2/D7'], ['gen-c8', 'plate-2/D8'], ['gen-c9', 'plate-2/D9'], ['broth', 'plate-2/E1'], ['gen-c2', 'plate-2/E2'], ['gen-c3', 'plate-2/E3'], ['gen-c4', 'plate-2/E4'], ['gen-c5', 'plate-2/E5'], ['gen-c6', 'plate-2/E6'], ['gen-c7', 'plate-2/E7'], ['gen-c8', 'plate-2/E8'], ['gen-c9', 'plate-2/E9'], ['broth', 'plate-2/F1'], ['gen-c2', 'plate-2/F2'], ['gen-c3', 'plate-2/F3'], ['gen-c4', 'plate-2/F4'], ['gen-c5', 'plate-2/F5'], ['gen-c6', 'plate-2/F6'], ['gen-c7', 'plate-2/F7'], ['gen-c8', 'plate-2/F8'], ['gen-c9', 'plate-2/F9'], ['broth', 'plate-2/G1'], ['gen-c2', 'plate-2/G2'], ['gen-c3', 'plate-2/G3'], ['gen-c4', 'plate-2/G4'], ['gen-c5', 'plate-2/G5'], ['gen-c6', 'plate-2/G6'], ['gen-c7', 'plate-2/G7'], ['gen-c8', 'plate-2/G8'], ['gen-c9', 'plate-2/G9'], ['broth', 'plate-2/H1'], ['gen-c2', 'plate-2/H2'], ['gen-c3', 'plate-2/H3'], ['gen-c4', 'plate-2/H4'], ['gen-c5', 'plate-2/H5'], ['gen-c6', 'plate-2/H6'], ['gen-c7', 'plate-2/H7'], ['gen-c8', 'plate-2/H8'], ['gen-c9', 'plate-2/H9'], ['broth', 'plate-2/A1'], ['broth', 'plate-2/A2'], ['broth', 'plate-2/A3'], ['broth', 'plate-2/A4'], ['broth', 'plate-2/A5'], ['broth', 'plate-2/A6'], ['broth', 'plate-2/A7'], ['broth', 'plate-2/A8'], ['broth', 'plate-2/A9'], ['str-rB', 'plate-2/B1'], ['str-rB', 'plate-2/B2'], ['str-rB', 'plate-2/B3'], ['str-rB', 'plate-2/B4'], ['str-rB', 'plate-2/B5'], ['str-rB', 'plate-2/B6'], ['str-rB', 'plate-2/B7'], ['str-rB', 'plate-2/B8'], ['str-rB', 'plate-2/B9'], ['str-rC', 'plate-2/C1'], ['str-rC', 'plate-2/C2'], ['str-rC', 'plate-2/C3'], ['str-rC', 'plate-2/C4'], ['str-rC', 'plate-2/C5'], ['str-rC', 'plate-2/C6'], ['str-rC', 'plate-2/C7'], ['str-rC', 'plate-2/C8'], ['str-rC', 'plate-2/C9'], ['str-rD', 'plate-2/D1'], ['str-rD', 'plate-2/D2'], ['str-rD', 'plate-2/D3'], ['str-rD', 'plate-2/D4'], ['str-rD', 'plate-2/D5'], ['str-rD', 'plate-2/D6'], ['str-rD', 'plate-2/D7'], ['str-rD', 'plate-2/D8'], ['str-rD', 'plate-2/D9'], ['str-rE', 'plate-2/E1'], ['str-rE', 'plate-2/E2'], ['str-rE', 'plate-2/E3'], ['str-rE', 'plate-2/E4'], ['str-rE', 'plate-2/E5'], ['str-rE', 'plate-2/E6'], ['str-rE', 'plate-2/E7'], ['str-rE', 'plate-2/E8'], ['str-rE', 'plate-2/E9'], ['str-rF', 'plate-2/F1'], ['str-rF', 'plate-2/F2'], ['str-rF', 'plate-2/F3'], ['str-rF', 'plate-2/F4'], ['str-rF', 'plate-2/F5'], ['str-rF', 'plate-2/F6'], ['str-rF', 'plate-2/F7'], ['str-rF', 'plate-2/F8'], ['str-rF', 'plate-2/F9'], ['str-rG', 'plate-2/G1'], ['str-rG', 'plate-2/G2'], ['str-rG', 'plate-2/G3'], ['str-rG', 'plate-2/G4'], ['str-rG', 'plate-2/G5'], ['str-rG', 'plate-2/G6'], ['str-rG', 'plate-2/G7'], ['str-rG', 'plate-2/G8'], ['str-rG', 'plate-2/G9'], ['str-rH', 'plate-2/H1'], ['str-rH', 'plate-2/H2'], ['str-rH', 'plate-2/H3'], ['str-rH', 'plate-2/H4'], ['str-rH', 'plate-2/H5'], ['str-rH', 'plate-2/H6'], ['str-rH', 'plate-2/H7'], ['str-rH', 'plate-2/H8'], ['str-rH', 'plate-2/H9']]"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "sterile-2",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "broth",
+          "destination": "plate-2/A12",
+          "volume": "200 uL"
+        }
+      },
+      {
+        "id": "growth-2",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "broth",
+          "destination": "plate-2/A11",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "resuspend",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "ecoli",
+          "method": "vortex",
+          "cycles": 1
+        }
+      },
+      {
+        "id": "inoculate",
+        "kind": "group",
+        "title": "100 µL of E. coli into every board well and the growth control",
+        "steps": [
+          {
+            "id": "cells-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ecoli",
+              "destination": "=x",
+              "volume": "100 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['plate-1/A1', 'plate-1/A2', 'plate-1/A3', 'plate-1/A4', 'plate-1/A5', 'plate-1/A6', 'plate-1/A7', 'plate-1/A8', 'plate-1/A9', 'plate-1/B1', 'plate-1/B2', 'plate-1/B3', 'plate-1/B4', 'plate-1/B5', 'plate-1/B6', 'plate-1/B7', 'plate-1/B8', 'plate-1/B9', 'plate-1/C1', 'plate-1/C2', 'plate-1/C3', 'plate-1/C4', 'plate-1/C5', 'plate-1/C6', 'plate-1/C7', 'plate-1/C8', 'plate-1/C9', 'plate-1/D1', 'plate-1/D2', 'plate-1/D3', 'plate-1/D4', 'plate-1/D5', 'plate-1/D6', 'plate-1/D7', 'plate-1/D8', 'plate-1/D9', 'plate-1/E1', 'plate-1/E2', 'plate-1/E3', 'plate-1/E4', 'plate-1/E5', 'plate-1/E6', 'plate-1/E7', 'plate-1/E8', 'plate-1/E9', 'plate-1/F1', 'plate-1/F2', 'plate-1/F3', 'plate-1/F4', 'plate-1/F5', 'plate-1/F6', 'plate-1/F7', 'plate-1/F8', 'plate-1/F9', 'plate-1/G1', 'plate-1/G2', 'plate-1/G3', 'plate-1/G4', 'plate-1/G5', 'plate-1/G6', 'plate-1/G7', 'plate-1/G8', 'plate-1/G9', 'plate-1/H1', 'plate-1/H2', 'plate-1/H3', 'plate-1/H4', 'plate-1/H5', 'plate-1/H6', 'plate-1/H7', 'plate-1/H8', 'plate-1/H9', 'plate-2/A1', 'plate-2/A2', 'plate-2/A3', 'plate-2/A4', 'plate-2/A5', 'plate-2/A6', 'plate-2/A7', 'plate-2/A8', 'plate-2/A9', 'plate-2/B1', 'plate-2/B2', 'plate-2/B3', 'plate-2/B4', 'plate-2/B5', 'plate-2/B6', 'plate-2/B7', 'plate-2/B8', 'plate-2/B9', 'plate-2/C1', 'plate-2/C2', 'plate-2/C3', 'plate-2/C4', 'plate-2/C5', 'plate-2/C6', 'plate-2/C7', 'plate-2/C8', 'plate-2/C9', 'plate-2/D1', 'plate-2/D2', 'plate-2/D3', 'plate-2/D4', 'plate-2/D5', 'plate-2/D6', 'plate-2/D7', 'plate-2/D8', 'plate-2/D9', 'plate-2/E1', 'plate-2/E2', 'plate-2/E3', 'plate-2/E4', 'plate-2/E5', 'plate-2/E6', 'plate-2/E7', 'plate-2/E8', 'plate-2/E9', 'plate-2/F1', 'plate-2/F2', 'plate-2/F3', 'plate-2/F4', 'plate-2/F5', 'plate-2/F6', 'plate-2/F7', 'plate-2/F8', 'plate-2/F9', 'plate-2/G1', 'plate-2/G2', 'plate-2/G3', 'plate-2/G4', 'plate-2/G5', 'plate-2/G6', 'plate-2/G7', 'plate-2/G8', 'plate-2/G9', 'plate-2/H1', 'plate-2/H2', 'plate-2/H3', 'plate-2/H4', 'plate-2/H5', 'plate-2/H6', 'plate-2/H7', 'plate-2/H8', 'plate-2/H9', 'plate-1/A11', 'plate-2/A11']"
+        },
+        "objectives": [
+          "o-board"
+        ]
+      },
+      {
+        "id": "shake-plate-1",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "plate-1",
+          "method": "shake"
+        }
+      },
+      {
+        "id": "shake-plate-2",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "plate-2",
+          "method": "shake"
+        }
+      },
+      {
+        "id": "overnight",
+        "kind": "offstage",
+        "title": "Overnight at 37 °C",
+        "duration": "18 h",
+        "params": {
+          "place": "incubator",
+          "containers": [
+            "plate-1",
+            "plate-2"
+          ]
+        }
+      },
+      {
+        "id": "read-1",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "reader",
+          "subject": "plate-1",
+          "wavelength": "600 nm"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "growth-ok-1",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "growth-1",
+          "value": "=reading(read-1, 'plate-1/A11') - reading(read-1, 'plate-1/A12')"
+        }
+      },
+      {
+        "id": "mic-a-1",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mic-tmp",
+          "value": "=if(count(filter([[2, 0.0078125], [3, 0.015625], [4, 0.03125], [5, 0.0625], [6, 0.125], [7, 0.25], [8, 0.5], [9, 1.0]], reading(read-1, 'plate-1/A' + text(it[0])) - reading(read-1, 'plate-1/A12') < 0.05)) == 0, 2, min(map(filter([[2, 0.0078125], [3, 0.015625], [4, 0.03125], [5, 0.0625], [6, 0.125], [7, 0.25], [8, 0.5], [9, 1.0]], reading(read-1, 'plate-1/A' + text(it[0])) - reading(read-1, 'plate-1/A12') < 0.05), it[1])))"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "mic-b-1",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mic-smx",
+          "value": "=if(count(filter([['B', 0.5], ['C', 1.0], ['D', 2.0], ['E', 4.0], ['F', 8.0], ['G', 16.0], ['H', 32.0]], reading(read-1, 'plate-1/' + it[0] + '1') - reading(read-1, 'plate-1/A12') < 0.05)) == 0, 128, min(map(filter([['B', 0.5], ['C', 1.0], ['D', 2.0], ['E', 4.0], ['F', 8.0], ['G', 16.0], ['H', 32.0]], reading(read-1, 'plate-1/' + it[0] + '1') - reading(read-1, 'plate-1/A12') < 0.05), it[1])))"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "fici-1",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "fici-tmp-smx",
+          "value": "=min(list(1, min(map(filter([['B', 2, 0.0078125, 0.5], ['B', 3, 0.015625, 0.5], ['B', 4, 0.03125, 0.5], ['B', 5, 0.0625, 0.5], ['B', 6, 0.125, 0.5], ['B', 7, 0.25, 0.5], ['B', 8, 0.5, 0.5], ['B', 9, 1.0, 0.5], ['C', 2, 0.0078125, 1.0], ['C', 3, 0.015625, 1.0], ['C', 4, 0.03125, 1.0], ['C', 5, 0.0625, 1.0], ['C', 6, 0.125, 1.0], ['C', 7, 0.25, 1.0], ['C', 8, 0.5, 1.0], ['C', 9, 1.0, 1.0], ['D', 2, 0.0078125, 2.0], ['D', 3, 0.015625, 2.0], ['D', 4, 0.03125, 2.0], ['D', 5, 0.0625, 2.0], ['D', 6, 0.125, 2.0], ['D', 7, 0.25, 2.0], ['D', 8, 0.5, 2.0], ['D', 9, 1.0, 2.0], ['E', 2, 0.0078125, 4.0], ['E', 3, 0.015625, 4.0], ['E', 4, 0.03125, 4.0], ['E', 5, 0.0625, 4.0], ['E', 6, 0.125, 4.0], ['E', 7, 0.25, 4.0], ['E', 8, 0.5, 4.0], ['E', 9, 1.0, 4.0], ['F', 2, 0.0078125, 8.0], ['F', 3, 0.015625, 8.0], ['F', 4, 0.03125, 8.0], ['F', 5, 0.0625, 8.0], ['F', 6, 0.125, 8.0], ['F', 7, 0.25, 8.0], ['F', 8, 0.5, 8.0], ['F', 9, 1.0, 8.0], ['G', 2, 0.0078125, 16.0], ['G', 3, 0.015625, 16.0], ['G', 4, 0.03125, 16.0], ['G', 5, 0.0625, 16.0], ['G', 6, 0.125, 16.0], ['G', 7, 0.25, 16.0], ['G', 8, 0.5, 16.0], ['G', 9, 1.0, 16.0], ['H', 2, 0.0078125, 32.0], ['H', 3, 0.015625, 32.0], ['H', 4, 0.03125, 32.0], ['H', 5, 0.0625, 32.0], ['H', 6, 0.125, 32.0], ['H', 7, 0.25, 32.0], ['H', 8, 0.5, 32.0], ['H', 9, 1.0, 32.0]], reading(read-1, 'plate-1/' + it[0] + text(it[1])) - reading(read-1, 'plate-1/A12') < 0.05), it[2] / first(recorded('mic-tmp')) + it[3] / first(recorded('mic-smx'))))))"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "read-2",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "reader",
+          "subject": "plate-2",
+          "wavelength": "600 nm"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "growth-ok-2",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "growth-2",
+          "value": "=reading(read-2, 'plate-2/A11') - reading(read-2, 'plate-2/A12')"
+        }
+      },
+      {
+        "id": "mic-a-2",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mic-gen",
+          "value": "=if(count(filter([[2, 0.015625], [3, 0.03125], [4, 0.0625], [5, 0.125], [6, 0.25], [7, 0.5], [8, 1.0], [9, 2.0]], reading(read-2, 'plate-2/A' + text(it[0])) - reading(read-2, 'plate-2/A12') < 0.05)) == 0, 4, min(map(filter([[2, 0.015625], [3, 0.03125], [4, 0.0625], [5, 0.125], [6, 0.25], [7, 0.5], [8, 1.0], [9, 2.0]], reading(read-2, 'plate-2/A' + text(it[0])) - reading(read-2, 'plate-2/A12') < 0.05), it[1])))"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "mic-b-2",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mic-str",
+          "value": "=if(count(filter([['B', 0.125], ['C', 0.25], ['D', 0.5], ['E', 1.0], ['F', 2.0], ['G', 4.0], ['H', 8.0]], reading(read-2, 'plate-2/' + it[0] + '1') - reading(read-2, 'plate-2/A12') < 0.05)) == 0, 32, min(map(filter([['B', 0.125], ['C', 0.25], ['D', 0.5], ['E', 1.0], ['F', 2.0], ['G', 4.0], ['H', 8.0]], reading(read-2, 'plate-2/' + it[0] + '1') - reading(read-2, 'plate-2/A12') < 0.05), it[1])))"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "fici-2",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "fici-gen-str",
+          "value": "=min(list(1, min(map(filter([['B', 2, 0.015625, 0.125], ['B', 3, 0.03125, 0.125], ['B', 4, 0.0625, 0.125], ['B', 5, 0.125, 0.125], ['B', 6, 0.25, 0.125], ['B', 7, 0.5, 0.125], ['B', 8, 1.0, 0.125], ['B', 9, 2.0, 0.125], ['C', 2, 0.015625, 0.25], ['C', 3, 0.03125, 0.25], ['C', 4, 0.0625, 0.25], ['C', 5, 0.125, 0.25], ['C', 6, 0.25, 0.25], ['C', 7, 0.5, 0.25], ['C', 8, 1.0, 0.25], ['C', 9, 2.0, 0.25], ['D', 2, 0.015625, 0.5], ['D', 3, 0.03125, 0.5], ['D', 4, 0.0625, 0.5], ['D', 5, 0.125, 0.5], ['D', 6, 0.25, 0.5], ['D', 7, 0.5, 0.5], ['D', 8, 1.0, 0.5], ['D', 9, 2.0, 0.5], ['E', 2, 0.015625, 1.0], ['E', 3, 0.03125, 1.0], ['E', 4, 0.0625, 1.0], ['E', 5, 0.125, 1.0], ['E', 6, 0.25, 1.0], ['E', 7, 0.5, 1.0], ['E', 8, 1.0, 1.0], ['E', 9, 2.0, 1.0], ['F', 2, 0.015625, 2.0], ['F', 3, 0.03125, 2.0], ['F', 4, 0.0625, 2.0], ['F', 5, 0.125, 2.0], ['F', 6, 0.25, 2.0], ['F', 7, 0.5, 2.0], ['F', 8, 1.0, 2.0], ['F', 9, 2.0, 2.0], ['G', 2, 0.015625, 4.0], ['G', 3, 0.03125, 4.0], ['G', 4, 0.0625, 4.0], ['G', 5, 0.125, 4.0], ['G', 6, 0.25, 4.0], ['G', 7, 0.5, 4.0], ['G', 8, 1.0, 4.0], ['G', 9, 2.0, 4.0], ['H', 2, 0.015625, 8.0], ['H', 3, 0.03125, 8.0], ['H', 4, 0.0625, 8.0], ['H', 5, 0.125, 8.0], ['H', 6, 0.25, 8.0], ['H', 7, 0.5, 8.0], ['H', 8, 1.0, 8.0], ['H', 9, 2.0, 8.0]], reading(read-2, 'plate-2/' + it[0] + text(it[1])) - reading(read-2, 'plate-2/A12') < 0.05), it[2] / first(recorded('mic-gen')) + it[3] / first(recorded('mic-str'))))))"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "pair-1",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Trimethoprim with sulfamethoxazole: what does the FICI show?",
+        "options": [
+          {
+            "id": "synergy",
+            "label": "Synergy (FICI 0.5 or less): together they inhibit at far lower doses"
+          },
+          {
+            "id": "indifferent",
+            "label": "No interaction (FICI above 0.5 up to 4): additive or indifferent"
+          },
+          {
+            "id": "antagonism",
+            "label": "Antagonism (FICI above 4)"
+          }
+        ],
+        "correctWhen": "if(first(recorded('fici-tmp-smx')) <= 0.5, 'synergy', if(first(recorded('fici-tmp-smx')) > 4, 'antagonism', 'indifferent'))"
+      },
+      {
+        "id": "pair-2",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Gentamicin with streptomycin: what does the FICI show?",
+        "options": [
+          {
+            "id": "synergy",
+            "label": "Synergy (FICI 0.5 or less): together they inhibit at far lower doses"
+          },
+          {
+            "id": "indifferent",
+            "label": "No interaction (FICI above 0.5 up to 4): additive or indifferent"
+          },
+          {
+            "id": "antagonism",
+            "label": "Antagonism (FICI above 4)"
+          }
+        ],
+        "correctWhen": "if(first(recorded('fici-gen-str')) <= 0.5, 'synergy', if(first(recorded('fici-gen-str')) > 4, 'antagonism', 'indifferent'))"
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Why might the first pair interact and the second not?",
+        "options": [
+          {
+            "id": "pathway",
+            "label": "Trimethoprim and sulfamethoxazole block two successive steps of folate synthesis; the two aminoglycosides share one target, so together they act like more of one drug"
+          },
+          {
+            "id": "dose",
+            "label": "The second pair was used at too low a dose"
+          },
+          {
+            "id": "gram",
+            "label": "Aminoglycosides only work on Gram-positive bacteria"
+          }
+        ],
+        "correctWhen": "'pathway'"
+      },
+      {
+        "id": "bag",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "params": {
+          "container": "=x",
+          "stream": "core:biohazard-waste"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['plate-1', 'plate-2']"
+        }
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-read",
+        "statement": "The single-drug MICs are within one dilution of trimethoprim 0.25, sulfamethoxazole 32, gentamicin 0.5 and streptomycin 4 µg/mL",
+        "check": "between(first(recorded('mic-tmp')), 0.125, 0.5) && between(first(recorded('mic-smx')), 16, 64) && between(first(recorded('mic-gen')), 0.25, 1) && between(first(recorded('mic-str')), 2, 8)"
+      },
+      {
+        "id": "g-interpret",
+        "statement": "Both pairs are classified from their FICIs, and the difference is explained",
+        "check": "decision('pair-1') == if(first(recorded('fici-tmp-smx')) <= 0.5, 'synergy', if(first(recorded('fici-tmp-smx')) > 4, 'antagonism', 'indifferent')) && decision('pair-2') == if(first(recorded('fici-gen-str')) <= 0.5, 'synergy', if(first(recorded('fici-gen-str')) > 4, 'antagonism', 'indifferent')) && decision('why') == 'pathway'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-synergy",
+        "statement": "Trimethoprim with sulfamethoxazole is synergistic (FICI about 0.4); the two aminoglycosides are additive (about 1)",
+        "check": "first(recorded('fici-tmp-smx')) <= 0.5 && first(recorded('fici-gen-str')) > 0.5",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-controls",
+        "statement": "Both growth controls are turbid and the broth-only wells clear",
+        "check": "first(recorded('growth-1')) > 0.2 && first(recorded('growth-2')) > 0.2",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

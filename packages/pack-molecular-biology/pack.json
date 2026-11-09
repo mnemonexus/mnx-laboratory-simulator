@@ -1,0 +1,10 @@
+{
+  "id": "molbio",
+  "version": "0.1.0",
+  "label": "Molecular biology",
+  "description": "Plasmids, transformation and (later) PCR and gels. Organisms, media and plating live in micro.",
+  "dependsOn": [
+    "core",
+    "micro"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Standalone: end the session before doing anything (not counted as a use)",
+  "surface": "standalone",
+  "drive": [
+    { "wait": 15000 },
+    { "waitFor": "[data-testid=start-experience]" },
+    { "click": "[data-testid=end-session]" },
+    { "expect": "exit" }
+  ]
+}

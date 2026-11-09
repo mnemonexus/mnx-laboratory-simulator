@@ -1,0 +1,725 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio1-bca-protein-assay",
+  "version": "1.0.0",
+  "title": "Protein concentration by BCA assay",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "core:dilution-series"
+      },
+      {
+        "purpose": "measure.absorbance",
+        "params": {
+          "wavelength": "562 nm"
+        },
+        "format": "96-well"
+      },
+      {
+        "processModel": "bio:bca-colour-development",
+        "minTier": "T2"
+      }
+    ]
+  },
+  "summary": "Make a BSA standard series, assay it with two unknowns in a 96-well plate, and read the unknowns from the standard curve. One unknown is too concentrated and must be diluted and re-assayed.",
+  "briefing": "Proteins reduce Cu(II) to Cu(I) in alkaline solution, and Cu(I) forms a purple complex with bicinchoninic acid (BCA) that absorbs at 562 nm. You will prepare BSA standards, run them alongside two unknown samples, and use the standard curve to find the unknowns' concentrations.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "biochemistry",
+        "biomedical-science"
+      ]
+    },
+    "prerequisites": {
+      "skills": [
+        "core:micropipetting"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "beer-lambert",
+        "label": "Beer–Lambert law"
+      },
+      {
+        "id": "calibration",
+        "label": "Calibration with standards"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-standards",
+        "kind": "skill",
+        "statement": "Prepare a BSA standard series",
+        "skills": [
+          "core:dilution-series",
+          "core:micropipetting"
+        ],
+        "weight": 2
+      },
+      {
+        "id": "o-quantify",
+        "kind": "outcome",
+        "statement": "Determine the protein concentration of U1 and U2",
+        "goal": "g-unknowns",
+        "weight": 3
+      },
+      {
+        "id": "o-range",
+        "kind": "reasoning",
+        "statement": "Recognise and correct a sample outside the calibrated range",
+        "skills": [
+          "core:calibration-range"
+        ],
+        "weight": 2
+      },
+      {
+        "id": "o-safety",
+        "kind": "practice",
+        "statement": "Dispose of copper-containing waste correctly",
+        "skills": [
+          "core:chemical-waste"
+        ],
+        "weight": 1
+      }
+    ]
+  },
+  "materials": {
+    "substances": [
+      {
+        "id": "bsa",
+        "ref": "bio:bovine-serum-albumin"
+      }
+    ],
+    "supplies": [
+      {
+        "id": "bsa-stock",
+        "label": "BSA standard, 2.0 mg/mL",
+        "contains": [
+          {
+            "substance": "bsa",
+            "conc": "2.0 mg/mL"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "bca-wr",
+        "label": "BCA working reagent",
+        "preparation": "bio:bca-working-reagent",
+        "amount": "25 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "pbs",
+        "label": "PBS",
+        "preparation": "core:pbs-1x",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ],
+    "samples": [
+      {
+        "id": "u1",
+        "label": "Unknown U1",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "bsa",
+            "conc": {
+              "vary": "0.3..1.4 mg/mL"
+            }
+          }
+        ],
+        "amount": "200 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "u2",
+        "label": "Unknown U2",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "bsa",
+            "conc": {
+              "vary": "2.5..3.8 mg/mL"
+            }
+          }
+        ],
+        "amount": "200 uL",
+        "container": "core:microtube-1.5ml"
+      }
+    ],
+    "waste": [
+      {
+        "stream": "core:chemical-waste.heavy-metal",
+        "accepts": [
+          "bca-wr"
+        ]
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "reader",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "wavelength": "562 nm",
+          "format": "96-well"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "purpose": "condition.incubate",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "plate",
+        "requires": {
+          "class": "core:microplate-96"
+        }
+      }
+    ],
+    "prescribed": [
+      {
+        "role": "reader",
+        "asNamed": "BMG CLARIOstar plate reader",
+        "class": "bio:plate-reader.multimode"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "standards",
+        "kind": "technique",
+        "ref": "core:dilution-series",
+        "title": "Prepare BSA standards",
+        "params": {
+          "stock": "bsa-stock",
+          "diluent": "pbs",
+          "analyte": "bsa",
+          "targets": [
+            "0 mg/mL",
+            "0.125 mg/mL",
+            "0.25 mg/mL",
+            "0.5 mg/mL",
+            "1.0 mg/mL",
+            "2.0 mg/mL"
+          ],
+          "volumeEach": "150 uL",
+          "method": "parallel-from-stock"
+        },
+        "objectives": [
+          "o-standards"
+        ]
+      },
+      {
+        "id": "plate-map",
+        "kind": "design",
+        "ref": "core:plate-layout",
+        "title": "Plan the plate",
+        "params": {
+          "plate": "plate",
+          "groups": [
+            {
+              "group": "standards",
+              "items": "=standards.out.vessels",
+              "role": "standard"
+            },
+            {
+              "group": "u1",
+              "items": [
+                "u1"
+              ],
+              "role": "unknown"
+            },
+            {
+              "group": "u2",
+              "items": [
+                "u2"
+              ],
+              "role": "unknown"
+            }
+          ],
+          "replicates": 2,
+          "blanks": 2,
+          "blankSource": "pbs"
+        },
+        "after": [
+          "standards"
+        ],
+        "order": "advisory"
+      },
+      {
+        "id": "load",
+        "kind": "technique",
+        "ref": "core:transfer-to-plate",
+        "title": "Load standards, unknowns and blanks",
+        "params": {
+          "layout": "=plate-map.out.layout",
+          "volume": "25 uL"
+        },
+        "after": [
+          "plate-map"
+        ]
+      },
+      {
+        "id": "reagent",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "title": "Add working reagent",
+        "params": {
+          "reagent": "bca-wr",
+          "volume": "200 uL",
+          "into": "=load.out.wells"
+        },
+        "after": [
+          "load"
+        ]
+      },
+      {
+        "id": "incubate",
+        "kind": "technique",
+        "ref": "core:incubate",
+        "title": "Incubate at 37 °C for 30 minutes",
+        "params": {
+          "container": "plate",
+          "temperature": "37 Cel",
+          "duration": "30 min"
+        },
+        "bind": {
+          "place": "incubator"
+        },
+        "background": true,
+        "after": [
+          "reagent"
+        ]
+      },
+      {
+        "id": "read",
+        "kind": "technique",
+        "ref": "bio:plate-absorbance-read",
+        "title": "Read at 562 nm",
+        "params": {
+          "plate": "plate",
+          "wavelength": "562 nm"
+        },
+        "bind": {
+          "instrument": "reader"
+        },
+        "after": [
+          "incubate"
+        ]
+      },
+      {
+        "id": "range-check",
+        "kind": "decision",
+        "prompt": "Are all unknowns within the standard range?",
+        "options": [
+          {
+            "id": "ok",
+            "label": "Yes, proceed to analysis"
+          },
+          {
+            "id": "dilute",
+            "label": "No, dilute and re-assay",
+            "then": "rework"
+          }
+        ],
+        "correctWhen": "all(s in samples(role='unknown'): reading(read, s) <= max(readings(read, role='standard')))",
+        "objectives": [
+          "o-range"
+        ],
+        "after": [
+          "read"
+        ]
+      },
+      {
+        "id": "rework",
+        "kind": "group",
+        "title": "Dilute U2 and re-assay it with the standards",
+        "when": "decision(range-check) == 'dilute'",
+        "steps": [
+          {
+            "id": "rd",
+            "kind": "technique",
+            "ref": "core:dilute-sample",
+            "params": {
+              "sample": "u2",
+              "diluent": "pbs",
+              "factor": "=choose(learner, 4)",
+              "finalVolume": "100 uL"
+            }
+          },
+          {
+            "id": "p2",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microplate-96",
+              "id": "plate-2",
+              "label": "Plate 2"
+            }
+          },
+          {
+            "id": "rmap",
+            "kind": "design",
+            "ref": "core:plate-layout",
+            "params": {
+              "plate": "plate-2",
+              "groups": [
+                {
+                  "group": "standards",
+                  "items": "=standards.out.vessels",
+                  "role": "standard"
+                },
+                {
+                  "group": "u2-diluted",
+                  "items": [
+                    "=rd.out.vessel"
+                  ],
+                  "role": "unknown"
+                }
+              ],
+              "replicates": 2,
+              "blanks": 2,
+              "blankSource": "pbs"
+            }
+          },
+          {
+            "id": "rl",
+            "kind": "technique",
+            "ref": "core:transfer-to-plate",
+            "params": {
+              "layout": "=rmap.out.layout",
+              "volume": "25 uL"
+            }
+          },
+          {
+            "id": "rr",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "bca-wr",
+              "volume": "200 uL",
+              "into": "=rl.out.wells"
+            }
+          },
+          {
+            "id": "ri",
+            "kind": "technique",
+            "ref": "core:incubate",
+            "params": {
+              "container": "plate-2",
+              "temperature": "37 Cel",
+              "duration": "30 min"
+            },
+            "bind": {
+              "place": "incubator"
+            },
+            "background": true
+          },
+          {
+            "id": "rrd",
+            "kind": "technique",
+            "ref": "bio:plate-absorbance-read",
+            "params": {
+              "plate": "plate-2",
+              "wavelength": "562 nm"
+            },
+            "bind": {
+              "instrument": "reader"
+            }
+          },
+          {
+            "id": "ra",
+            "kind": "data",
+            "ref": "core:standard-curve-analysis",
+            "params": {
+              "reading": "=rrd.out.reading",
+              "layout": "=rmap.out.layout",
+              "standards": "standards",
+              "standardConcs": "=standards.out.concentrations",
+              "unknowns": [
+                "u2-diluted"
+              ],
+              "model": "quadratic",
+              "factors": {
+                "u2-diluted": "=rd.out.factor"
+              }
+            }
+          }
+        ],
+        "after": [
+          "range-check"
+        ]
+      },
+      {
+        "id": "analyse",
+        "kind": "data",
+        "ref": "core:standard-curve-analysis",
+        "title": "Standard curve and unknowns",
+        "params": {
+          "reading": "=read.out.reading",
+          "layout": "=plate-map.out.layout",
+          "standards": "standards",
+          "standardConcs": "=standards.out.concentrations",
+          "unknowns": [
+            "u1",
+            "u2"
+          ],
+          "model": "quadratic"
+        },
+        "objectives": [
+          "o-quantify"
+        ],
+        "after": [
+          "read"
+        ]
+      },
+      {
+        "id": "dispose",
+        "kind": "purpose",
+        "ref": "dispose.chemical",
+        "title": "Dispose of the plates",
+        "params": {
+          "material": "bca-wr"
+        },
+        "objectives": [
+          "o-safety"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-unknowns",
+        "statement": "Each unknown has a reported concentration within 10 % of the truth",
+        "check": "all(s in samples(role='unknown'): within(reported(conc, s), truth(conc, s, bsa), 10%))"
+      },
+      {
+        "id": "g-valid",
+        "statement": "The calibration is valid",
+        "check": "validity() in ['valid', 'valid-with-limitations']"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-colour",
+        "at": "analyse",
+        "statement": "The standards' absorbance rises smoothly with concentration (calibration r² > 0.99)",
+        "check": "fit(analyse).r2 > 0.99",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-u2",
+        "at": "read",
+        "statement": "U2 reads above the top standard",
+        "check": "reading(read, 'u2') > max(readings(read, role='standard'))",
+        "source": "author-choice"
+      }
+    ]
+  },
+  "data": {
+    "datasets": [
+      {
+        "id": "abs562",
+        "from": "read",
+        "description": "Endpoint absorbance at 562 nm"
+      }
+    ],
+    "notebook": {
+      "sections": [
+        "plan",
+        "samples",
+        "measurements",
+        "calculations",
+        "graphs",
+        "conclusions"
+      ],
+      "required": [
+        {
+          "id": "nb-dilutions",
+          "section": "calculations",
+          "prompt": "Volumes of stock and diluent for each standard"
+        }
+      ],
+      "manualRecording": [
+        {
+          "measurement": "abs562",
+          "mode": "auto"
+        }
+      ]
+    },
+    "calculations": [
+      {
+        "id": "c-conc",
+        "statement": "Concentration of each unknown, corrected for any dilution",
+        "inputs": [
+          "abs562",
+          "fit:analyse"
+        ],
+        "answer": {
+          "unit": "mg/mL",
+          "per": "sample"
+        },
+        "accept": {
+          "fromOwnData": "2%",
+          "fromTruth": "15%"
+        }
+      }
+    ],
+    "graphs": [
+      {
+        "id": "gr-curve",
+        "kind": "scatter-with-fit",
+        "x": "standard concentration (mg/mL)",
+        "y": "blank-corrected A562",
+        "fit": [
+          "linear",
+          "quadratic"
+        ],
+        "learnerBuilds": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-u2",
+        "kind": "claim-evidence",
+        "prompt": "Why was U2's first reading unusable, and what did you do?",
+        "rubric": "mentions(answer, 'range|saturat|above the top standard|above top standard') && mentions(answer, 'dilut')"
+      },
+      {
+        "id": "q-validity",
+        "kind": "validity-statement",
+        "prompt": "How valid is your calibration?"
+      }
+    ]
+  },
+  "assessment": {
+    "emphasis": {
+      "procedure": 0.2,
+      "technique": 0.2,
+      "outcome": 0.25,
+      "analysis": 0.2,
+      "interpretation": 0.15,
+      "safety": "gate"
+    },
+    "criteria": [
+      {
+        "id": "k-blank",
+        "statement": "Blank wells included and used",
+        "check": "exists(wells(role='blank')) && used(blank, analyse)",
+        "objective": "o-quantify",
+        "severity": "major",
+        "feedback": {
+          "kind": "measurement",
+          "timing": "review"
+        }
+      },
+      {
+        "id": "k-range",
+        "statement": "No unknown reported from outside the calibrated range",
+        "check": "!any(s in samples(role='unknown'): extrapolated(s))",
+        "objective": "o-range",
+        "severity": "major",
+        "feedback": {
+          "kind": "measurement",
+          "timing": "review"
+        },
+        "tags": [
+          "calibration-extrapolation"
+        ]
+      },
+      {
+        "id": "k-waste",
+        "statement": "Copper waste into the heavy-metal stream",
+        "check": "count(disposals(material='bca-wr')) > 0 && all(disposals(material='bca-wr'), stream == 'core:chemical-waste.heavy-metal')",
+        "objective": "o-safety",
+        "severity": "minor",
+        "feedback": {
+          "kind": "practice",
+          "timing": "by-competence"
+        }
+      }
+    ],
+    "validity": [
+      {
+        "when": "!exists(wells(role='blank'))",
+        "cap": "partially-interpretable",
+        "reason": "No blank: the calibration carries a background offset"
+      },
+      {
+        "when": "any(s in samples(role='unknown'): extrapolated(s))",
+        "cap": "valid-with-limitations",
+        "reason": "An unknown was read from outside the calibrated range"
+      }
+    ],
+    "evidence": {
+      "checkpoints": [
+        "standards",
+        "read",
+        "analyse"
+      ],
+      "criteria": "all"
+    }
+  },
+  "variation": {
+    "constraints": [
+      "between(truth(conc, 'u1', 'bsa'), 0.125 mg/mL, 2.0 mg/mL)",
+      "truth(conc, 'u2', 'bsa') > 2.0 mg/mL"
+    ],
+    "faults": [
+      {
+        "id": "f-old-reagent",
+        "probability": 0,
+        "apply": {
+          "supply": "bca-wr",
+          "truth": {
+            "activityFactor": 0.6
+          }
+        },
+        "diagnostics": [
+          "fresh-reagent-comparison",
+          "standard-curve-slope"
+        ]
+      }
+    ],
+    "noise": "default"
+  },
+  "presentation": {
+    "scope": "room",
+    "time": {
+      "incubate": "accelerate"
+    }
+  },
+  "provenance": {
+    "defaultClass": "author-choice",
+    "annotations": [
+      {
+        "path": "/procedure/steps/6",
+        "class": "author-choice",
+        "note": "The range check and re-assay are part of the exercise: U2 is deliberately above the top standard."
+      }
+    ],
+    "review": {
+      "status": "draft"
+    }
+  }
+}

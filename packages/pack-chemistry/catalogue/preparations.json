@@ -1,0 +1,243 @@
+[
+  {
+    "id": "chem:ammonia-buffer-ph10",
+    "label": "Ammonia–ammonium chloride buffer, pH 10",
+    "components": [
+      {
+        "substance": "core:ammonia",
+        "conc": "1.8 M"
+      },
+      {
+        "substance": "core:ammonium-chloride",
+        "conc": "0.32 M"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "Holds an EDTA titration near pH 10, where EDTA binds magnesium and calcium firmly and Eriochrome Black T is blue when free."
+  },
+  {
+    "id": "chem:edta-0.0100m",
+    "label": "EDTA (disodium salt), 0.0100 M",
+    "components": [
+      {
+        "substance": "core:edta",
+        "conc": "10.0 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental"
+  },
+  {
+    "id": "chem:ebt-indicator",
+    "label": "Eriochrome Black T indicator, 0.5 % (w/v)",
+    "components": [
+      {
+        "substance": "chem:eriochrome-black-t",
+        "conc": "5 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental"
+  },
+  {
+    "id": "chem:kmno4-0.0200m",
+    "label": "Potassium permanganate, 0.0200 M",
+    "components": [
+      {
+        "substance": "core:potassium-permanganate",
+        "conc": "20.0 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "Standardised against sodium oxalate; kept in a dark bottle."
+  },
+  {
+    "id": "chem:sulfuric-acid-1m",
+    "label": "Sulfuric acid, 1 M",
+    "components": [
+      {
+        "substance": "core:sulfuric-acid",
+        "conc": "1.0 mol/L"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental"
+  },
+  {
+    "id": "chem:iodine-0.00500m",
+    "label": "Iodine, 0.00500 M in 0.05 M potassium iodide",
+    "components": [
+      {
+        "substance": "core:iodine",
+        "conc": "5.00 mM"
+      },
+      {
+        "substance": "core:potassium-iodide",
+        "conc": "50 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Iodide keeps the iodine in solution (as triiodide); standardised against thiosulfate."
+  },
+  {
+    "id": "chem:starch-indicator-1pct",
+    "label": "Starch indicator, 1 % (w/v)",
+    "components": [
+      {
+        "substance": "core:starch-soluble",
+        "conc": "10 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "Freshly made: it turns blue-black with the faintest excess of iodine."
+  },
+  {
+    "id": "chem:phosphate-standard-10mgl",
+    "label": "Phosphate standard, 10 mg/L PO₄³⁻",
+    "components": [
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "0.1053 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "KH₂PO₄: 10 mg/L as phosphate (94.97 g/mol)."
+  },
+  {
+    "id": "chem:nitrate-standard-180mgl",
+    "label": "Nitrate standard, 180 mg/L NO₃⁻",
+    "components": [
+      {
+        "substance": "chem:sodium-nitrate",
+        "conc": "2.903 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "NaNO₃: 180 mg/L as nitrate (62.00 g/mol)."
+  },
+  {
+    "id": "chem:molybdate-reagent",
+    "label": "Ammonium molybdate reagent (acidified)",
+    "components": [
+      {
+        "substance": "chem:ammonium-molybdate",
+        "conc": "4 g/L"
+      },
+      {
+        "substance": "core:sulfuric-acid",
+        "conc": "0.5 M"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental"
+  },
+  {
+    "id": "chem:ascorbic-acid-0.1m",
+    "label": "Ascorbic acid, 0.1 M (fresh)",
+    "components": [
+      {
+        "substance": "chem:ascorbic-acid",
+        "conc": "0.1 M"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental"
+  },
+  {
+    "id": "chem:zinc-slurry",
+    "label": "Zinc slurry (zinc dust, NaCl, glycerol)",
+    "components": [
+      {
+        "substance": "chem:zinc-dust",
+        "conc": "200 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "50 g/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "400 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "Mix well before taking any: the dust settles."
+  },
+  {
+    "id": "chem:griess-reagent",
+    "label": "NED (Griess) reagent",
+    "components": [
+      {
+        "substance": "chem:griess-reagent",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:sulfuric-acid",
+        "conc": "0.3 M"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental"
+  },
+  {
+    "id": "chem:acetone-water-50",
+    "label": "50:50 acetone/water",
+    "components": [
+      {
+        "substance": "micro:acetone",
+        "conc": "6.75 M"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Half acetone by volume: it dissolves the esters and lets hydroxide reach them."
+  },
+  {
+    "id": "chem:lioh-0.05m",
+    "label": "Aqueous LiOH, 0.05 M",
+    "components": [
+      {
+        "substance": "core:lithium-hydroxide",
+        "conc": "0.05 M"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "chem:naoh-0.05m",
+    "label": "Aqueous NaOH, 0.05 M",
+    "components": [
+      {
+        "substance": "core:sodium-hydroxide",
+        "conc": "0.05 M"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "chem:koh-0.05m",
+    "label": "Aqueous KOH, 0.05 M",
+    "components": [
+      {
+        "substance": "core:potassium-hydroxide",
+        "conc": "0.05 M"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  }
+]

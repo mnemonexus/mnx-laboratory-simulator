@@ -1,0 +1,482 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem11-iron-thiocyanate-equilibrium",
+  "version": "1.0.0",
+  "title": "An equilibrium constant by colorimetry: iron(III) thiocyanate",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:fit"
+      },
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Calibrate the absorbance of FeSCN²⁺ at 447 nm with standards in a large excess of Fe³⁺, then measure five mixtures of 1.00 mM Fe³⁺ with 0.2–1.0 mM SCN⁻ and calculate Kc = [FeSCN²⁺] / ([Fe³⁺][SCN⁻]) for each.",
+  "briefing": "Fe³⁺ + SCN⁻ ⇌ FeSCN²⁺ (blood red). In the standards Fe³⁺ is 0.100 M, so nearly all the thiocyanate is complexed and [FeSCN²⁺] ≈ [SCN⁻]₀: they calibrate ε·b. In each mixture, [FeSCN²⁺] = A / (ε·b), and the free Fe³⁺ and SCN⁻ are what is left of each: Kc = x / ((c(Fe)₀ − x)(c(SCN)₀ − x)). Every solution is made to 10.00 mL in 0.5 M nitric acid, which stops iron(III) hydrolysing.",
+  "context": {
+    "intendedContexts": [
+      "practical-session"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "equilibrium-constant",
+        "label": "Equilibrium constants from measured concentrations"
+      },
+      {
+        "id": "beer-lambert",
+        "label": "The Beer–Lambert law"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-calibrate",
+        "kind": "skill",
+        "statement": "Calibrate a spectrophotometer with standards",
+        "skills": [
+          "core:blanking",
+          "core:spectrophotometer-read"
+        ]
+      },
+      {
+        "id": "o-kc",
+        "kind": "outcome",
+        "statement": "Find Kc within 25 %",
+        "goal": "g-kc"
+      },
+      {
+        "id": "o-excess",
+        "kind": "reasoning",
+        "statement": "Explain why the standards use a large excess of Fe³⁺",
+        "goal": "g-excess"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "fe-high",
+        "label": "Fe(NO₃)₃, 0.200 M in 0.5 M HNO₃",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "chem:iron-iii-nitrate",
+            "conc": "0.200 mol/L"
+          },
+          {
+            "substance": "core:nitric-acid",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "fe-low",
+        "label": "Fe(NO₃)₃, 2.00 mM in 0.5 M HNO₃",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "chem:iron-iii-nitrate",
+            "conc": "2.00 mM"
+          },
+          {
+            "substance": "core:nitric-acid",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "scn",
+        "label": "KSCN, 2.00 mM",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "chem:potassium-thiocyanate",
+            "conc": "2.00 mM"
+          }
+        ],
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "acid",
+        "label": "HNO₃, 0.5 M",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "core:nitric-acid",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "standards",
+        "kind": "group",
+        "title": "Standards: 5.00 mL of 0.200 M Fe³⁺, 0.2–1.0 mL of SCN⁻, acid to 10 mL",
+        "objectives": [
+          "o-calibrate"
+        ],
+        "forEach": {
+          "var": "s",
+          "in": "=[[1, 0.2], [2, 0.4], [3, 0.6], [4, 0.8], [5, 1.0]]"
+        },
+        "let": {
+          "tube": "='std-' + text(s[0])"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-tube-15ml",
+              "id": "=tube",
+              "label": "='Standard ' + text(s[0])"
+            }
+          },
+          {
+            "id": "iron",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "fe-high",
+              "destination": "=tube",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "thiocyanate",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "scn",
+              "destination": "=tube",
+              "volume": "=s[1] * 1 mL"
+            }
+          },
+          {
+            "id": "make-up",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "acid",
+              "destination": "=tube",
+              "volume": "=(5 - s[1]) * 1 mL"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=tube",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "mixtures",
+        "kind": "group",
+        "title": "Equilibrium mixtures: 5.00 mL of 2.00 mM Fe³⁺, 1–5 mL of SCN⁻, acid to 10 mL",
+        "forEach": {
+          "var": "m",
+          "in": "=[1, 2, 3, 4, 5]"
+        },
+        "let": {
+          "tube": "='mix-' + text(m)"
+        },
+        "steps": [
+          {
+            "id": "m-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-tube-15ml",
+              "id": "=tube",
+              "label": "='Mixture ' + text(m)"
+            }
+          },
+          {
+            "id": "m-iron",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "fe-low",
+              "destination": "=tube",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "m-thiocyanate",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "scn",
+              "destination": "=tube",
+              "volume": "=m * 1 mL"
+            }
+          },
+          {
+            "id": "m-make-up",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "when": "m < 5",
+            "params": {
+              "source": "acid",
+              "destination": "=tube",
+              "volume": "=(5 - m) * 1 mL"
+            }
+          },
+          {
+            "id": "m-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=tube",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "blank-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-blank",
+          "label": "Blank"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "acid",
+          "destination": "c-blank",
+          "volume": "1 mL"
+        }
+      },
+      {
+        "id": "zero",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "objectives": [
+          "o-calibrate"
+        ],
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-blank",
+          "wavelength": "447 nm"
+        }
+      },
+      {
+        "id": "reads",
+        "kind": "group",
+        "objectives": [
+          "o-calibrate"
+        ],
+        "forEach": {
+          "var": "t",
+          "in": "=['std-1', 'std-2', 'std-3', 'std-4', 'std-5', 'mix-1', 'mix-2', 'mix-3', 'mix-4', 'mix-5']"
+        },
+        "let": {
+          "cuvette": "='c-' + t"
+        },
+        "steps": [
+          {
+            "id": "cuvette",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-1cm",
+              "id": "=cuvette"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=t",
+              "destination": "=cuvette",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "a447",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=cuvette",
+              "wavelength": "447 nm"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='A-' + t",
+              "value": "=a447.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "calibration",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-calibrate"
+        ],
+        "params": {
+          "x": [
+            "4.0e-5 mol/L",
+            "8.0e-5 mol/L",
+            "1.2e-4 mol/L",
+            "1.6e-4 mol/L",
+            "2.0e-4 mol/L"
+          ],
+          "y": "=map(['std-1', 'std-2', 'std-3', 'std-4', 'std-5'], first(recorded('A-' + it)))",
+          "model": "linear-through-origin"
+        }
+      },
+      {
+        "id": "constants",
+        "kind": "group",
+        "objectives": [
+          "o-kc"
+        ],
+        "forEach": {
+          "var": "m",
+          "in": "=[1, 2, 3, 4, 5]"
+        },
+        "let": {
+          "x": "=first(recorded('A-mix-' + text(m))) / fit(calibration).params.slope",
+          "fe0": "=1.00e-3",
+          "scn0": "=2.00e-4 * m"
+        },
+        "steps": [
+          {
+            "id": "note-kc",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kc",
+              "value": "=x / ((fe0 - x) * (scn0 - x))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mean-kc",
+        "kind": "operation",
+        "ref": "core:record",
+        "objectives": [
+          "o-kc"
+        ],
+        "params": {
+          "field": "Kc-mean",
+          "value": "=mean(recorded('Kc'))"
+        }
+      },
+      {
+        "id": "excess",
+        "kind": "decision",
+        "objectives": [
+          "o-excess"
+        ],
+        "prompt": "Why are the standards made with 0.200 M Fe³⁺ rather than 2 mM?",
+        "options": [
+          {
+            "id": "drive",
+            "label": "The large excess drives nearly all the thiocyanate into FeSCN²⁺, so its concentration is known"
+          },
+          {
+            "id": "colour",
+            "label": "Fe³⁺ itself absorbs at 447 nm and must be matched"
+          },
+          {
+            "id": "rate",
+            "label": "The complex forms too slowly otherwise"
+          }
+        ],
+        "correctWhen": "'drive'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-kc",
+        "statement": "The mean Kc is within 25 % of the true value (138 at this acidity)",
+        "check": "within(first(recorded('Kc-mean')), 138, 25%)"
+      },
+      {
+        "id": "g-excess",
+        "statement": "The calibration's assumption is explained",
+        "check": "decision('excess') == 'drive'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-constant",
+        "statement": "Kc is about the same in every mixture (it is a constant)",
+        "check": "(max(recorded('Kc')) - min(recorded('Kc'))) / mean(recorded('Kc')) < 0.2",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-high",
+        "statement": "Kc comes out a little high: even in 0.1 M Fe³⁺ the standards are only about 93 % complexed, so ε·b is underestimated",
+        "check": "first(recorded('Kc-mean')) > 138",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

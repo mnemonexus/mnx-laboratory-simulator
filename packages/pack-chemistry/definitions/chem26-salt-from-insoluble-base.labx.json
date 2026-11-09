@@ -1,0 +1,552 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem26-salt-from-insoluble-base",
+  "version": "1.0.0",
+  "title": "Making copper(II) sulfate crystals from copper(II) oxide",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:filter"
+      },
+      {
+        "operation": "core:dry"
+      }
+    ]
+  },
+  "summary": "Warm sulfuric acid, add copper(II) oxide until some is left over, filter off the excess, evaporate the blue filtrate and let it cool so that copper(II) sulfate crystals grow; dry and weigh them for a percentage yield.",
+  "briefing": "CuO + H₂SO₄ → CuSO₄ + H₂O. The black oxide dissolves only slowly in cold acid; warm it to about 70 °C. Add the oxide in excess so that no acid is left, then filter. Evaporate about three quarters of the water and leave the solution to cool: as it becomes saturated, blue crystals of CuSO₄·5H₂O grow. 25 mL of 1.0 M acid can give at most 0.025 mol of crystals (6.24 g).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "salt preparation",
+      "copper sulfate",
+      "copper oxide",
+      "crystallisation",
+      "filtration",
+      "percentage yield",
+      "insoluble base"
+    ],
+    "topics": [
+      "Salts",
+      "Acids and bases"
+    ],
+    "curricula": [
+      "GCSE",
+      "BTEC"
+    ],
+    "concepts": [
+      {
+        "id": "salts",
+        "label": "Making a soluble salt from an insoluble base"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-method",
+        "kind": "skill",
+        "statement": "Prepare a pure, dry sample of a soluble salt"
+      },
+      {
+        "id": "o-yield",
+        "kind": "analysis",
+        "statement": "Calculate a percentage yield",
+        "goal": "g-yield"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the steps of the method",
+        "goal": "g-explain"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "acid",
+        "label": "Sulfuric acid, 1.0 M",
+        "contains": [
+          {
+            "substance": "aq:sulfuric-acid",
+            "conc": "1.0 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "cuo",
+        "label": "Copper(II) oxide powder",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-oxide",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "20 g",
+        "container": "core:weighing-bottle"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "70 Cel"
+        }
+      },
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "beaker",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:beaker-100ml",
+          "id": "b",
+          "label": "Reaction beaker"
+        }
+      },
+      {
+        "id": "acid-in",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "acid",
+          "destination": "b",
+          "volume": "25 mL",
+          "tool": "pour"
+        },
+        "objectives": [
+          "o-method"
+        ]
+      },
+      {
+        "id": "set-bath",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "bath",
+          "temperature": "70 Cel"
+        }
+      },
+      {
+        "id": "into-bath",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "b",
+          "place": "bath"
+        }
+      },
+      {
+        "id": "warm",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "5 min"
+        }
+      },
+      {
+        "id": "oxide-in",
+        "kind": "operation",
+        "ref": "core:add-solid",
+        "params": {
+          "substance": "cuo",
+          "destination": "b",
+          "mass": "2.5 g"
+        }
+      },
+      {
+        "id": "react",
+        "kind": "group",
+        "title": "Stir while it reacts",
+        "forEach": {
+          "var": "k",
+          "in": "=range(1, 5, 5)"
+        },
+        "steps": [
+          {
+            "id": "stir",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "b",
+              "method": "stir",
+              "cycles": 2
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "2 min"
+            }
+          }
+        ]
+      },
+      {
+        "id": "look-mix",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "eye",
+          "subject": "b"
+        }
+      },
+      {
+        "id": "note-mix",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "seen-mixture",
+          "value": "=look-mix.out.appearance"
+        }
+      },
+      {
+        "id": "out-of-bath",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "b"
+        }
+      },
+      {
+        "id": "funnel",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:filter-funnel",
+          "id": "funnel",
+          "label": "Filter funnel"
+        }
+      },
+      {
+        "id": "basin",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:beaker-100ml",
+          "id": "basin",
+          "label": "Evaporating basin"
+        }
+      },
+      {
+        "id": "filter",
+        "kind": "operation",
+        "ref": "core:filter",
+        "params": {
+          "source": "b",
+          "filter": "funnel",
+          "filtrate": "basin"
+        },
+        "objectives": [
+          "o-method"
+        ]
+      },
+      {
+        "id": "look-filtrate",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "eye",
+          "subject": "basin"
+        }
+      },
+      {
+        "id": "note-filtrate",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "seen-filtrate",
+          "value": "=look-filtrate.out.appearance"
+        }
+      },
+      {
+        "id": "evaporate",
+        "kind": "operation",
+        "ref": "core:dry",
+        "params": {
+          "container": "basin",
+          "method": "heat",
+          "duration": "95 min"
+        }
+      },
+      {
+        "id": "cool",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "60 min"
+        }
+      },
+      {
+        "id": "look-crystals",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "eye",
+          "subject": "basin"
+        }
+      },
+      {
+        "id": "note-crystals",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "seen-crystals",
+          "value": "=look-crystals.out.appearance"
+        }
+      },
+      {
+        "id": "funnel-2",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:filter-funnel",
+          "id": "funnel-2",
+          "label": "Funnel for the crystals"
+        }
+      },
+      {
+        "id": "mother",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:beaker-100ml",
+          "id": "mother",
+          "label": "Mother liquor"
+        }
+      },
+      {
+        "id": "collect",
+        "kind": "operation",
+        "ref": "core:filter",
+        "params": {
+          "source": "basin",
+          "filter": "funnel-2",
+          "filtrate": "mother"
+        }
+      },
+      {
+        "id": "dry-crystals",
+        "kind": "operation",
+        "ref": "core:dry",
+        "params": {
+          "container": "funnel-2",
+          "method": "air"
+        }
+      },
+      {
+        "id": "glass",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:watch-glass",
+          "id": "glass",
+          "label": "Watch glass"
+        }
+      },
+      {
+        "id": "glass-on",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "glass",
+          "place": "balance"
+        }
+      },
+      {
+        "id": "tare",
+        "kind": "operation",
+        "ref": "core:tare",
+        "params": {
+          "balance": "balance"
+        }
+      },
+      {
+        "id": "glass-off",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "glass"
+        }
+      },
+      {
+        "id": "crystals-on",
+        "kind": "operation",
+        "ref": "core:add-solid",
+        "params": {
+          "substance": "funnel-2",
+          "destination": "glass",
+          "all": true
+        }
+      },
+      {
+        "id": "glass-back",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "glass",
+          "place": "balance"
+        }
+      },
+      {
+        "id": "weigh",
+        "kind": "operation",
+        "ref": "core:weigh",
+        "params": {
+          "balance": "balance"
+        }
+      },
+      {
+        "id": "note-mass",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "crystals-g",
+          "value": "=value(quantity(weigh.out.value), 'g')"
+        },
+        "objectives": [
+          "o-yield"
+        ]
+      },
+      {
+        "id": "yield",
+        "kind": "operation",
+        "ref": "core:compute",
+        "params": {
+          "expression": "100 * m / (0.025 * 249.68)",
+          "values": {
+            "m": "=first(recorded('crystals-g'))"
+          },
+          "field": "yield-percent"
+        },
+        "objectives": [
+          "o-yield"
+        ]
+      },
+      {
+        "id": "why-excess",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why is copper(II) oxide added until some is left over?",
+        "options": [
+          {
+            "id": "use-acid",
+            "label": "So that all the acid is used up: the excess solid is easy to filter off, leftover acid is not"
+          },
+          {
+            "id": "faster",
+            "label": "To make the crystals grow faster"
+          },
+          {
+            "id": "colour",
+            "label": "To make the solution bluer"
+          }
+        ],
+        "correctWhen": "choice == 'use-acid'"
+      },
+      {
+        "id": "why-not-dry",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why evaporate only part of the water and let the rest cool, rather than boil it dry?",
+        "options": [
+          {
+            "id": "hydrate",
+            "label": "Crystals grow as the saturated solution cools; boiling dry would leave a powder without its water of crystallisation, and impurities with it"
+          },
+          {
+            "id": "safer",
+            "label": "Only because boiling is dangerous"
+          },
+          {
+            "id": "no-difference",
+            "label": "It makes no difference"
+          }
+        ],
+        "correctWhen": "choice == 'hydrate'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-yield",
+        "statement": "Blue crystals are made with a yield between 20 and 90 %",
+        "check": "between(first(recorded('yield-percent')), 20, 90)"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The excess base and the crystallisation are explained",
+        "check": "decision(why-excess) == 'use-acid' && decision(why-not-dry) == 'hydrate'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-excess",
+        "statement": "Black oxide is left over in a blue solution",
+        "check": "mentions(first(recorded('seen-mixture')), 'black') && mentions(first(recorded('seen-mixture')), 'blue')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-filtrate",
+        "statement": "The filtrate is a clear blue solution",
+        "check": "mentions(first(recorded('seen-filtrate')), 'blue') && !mentions(first(recorded('seen-filtrate')), 'black')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-crystals",
+        "statement": "Blue crystals grow as it cools",
+        "check": "mentions(first(recorded('seen-crystals')), 'crystalline blue')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

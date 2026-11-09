@@ -1,0 +1,125 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio7-phosphatase-temperature-optimum",
+  "version": "1.0.0",
+  "title": "The temperature optimum of alkaline phosphatase",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:measure" }] },
+  "summary": "Run alkaline phosphatase on pNPP at pH 10 for 10 minutes at temperatures from 25 to 65 °C, stop with sodium hydroxide, read the p-nitrophenolate at 405 nm and find the temperature at which the most product is made. Then test whether heat damage is undone by cooling.",
+  "briefing": "Warming speeds the reaction, but above some temperature the enzyme unfolds faster than it works, so over a fixed time the yield peaks and then falls. Bring the buffer and substrate to temperature before adding the enzyme. Unfolding is not reversed by cooling: the last tube tests that.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["biochemistry", "biosciences"] },
+    "concepts": [{ "id": "temperature-optimum", "label": "Rate and denaturation make an apparent optimum" }, { "id": "irreversible", "label": "Irreversible heat inactivation" }],
+    "objectives": [
+      { "id": "o-assay", "kind": "skill", "statement": "Run a timed assay at a set temperature", "skills": ["core:micropipetting", "core:spectrophotometer-read", "core:blanking"] },
+      { "id": "o-optimum", "kind": "analysis", "statement": "Find the apparent temperature optimum", "goal": "g-optimum" },
+      { "id": "o-irreversible", "kind": "reasoning", "statement": "Decide whether heat inactivation is reversible" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "buffer", "label": "Glycine–NaOH pH 10.0", "preparation": "bio:glycine-naoh-50mm-ph10.0", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "pnpp", "label": "pNPP, 10 mM", "preparation": "bio:pnpp-10mm", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "enzyme", "label": "Alkaline phosphatase, 1 µg/mL", "contains": [{ "substance": "bio:alkaline-phosphatase", "conc": "1 mg/L" }], "solvent": "core:water", "amount": "1.2 mL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "water", "label": "Deionised water", "preparation": "core:water-deionised", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "stop", "label": "NaOH, 1 M (stop)", "preparation": "bio:naoh-1m-stop", "amount": "5 mL", "container": "core:conical-tube-15ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "spec", "requires": { "class": "core:spectrophotometer.visible-single-beam" } },
+      { "id": "bath", "requires": { "class": "core:water-bath", "temperature": "37 Cel" } },
+      { "id": "ice", "requires": { "class": "core:ice-bucket" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "runs", "kind": "group", "title": "One tube at each temperature", "objectives": ["o-assay"],
+        "forEach": { "var": "T", "in": "=[25, 30, 37, 45, 55, 65]" },
+        "let": { "tube": "='r' + text(T)" },
+        "steps": [
+          { "id": "set", "kind": "operation", "ref": "core:set-environment", "params": { "device": "bath", "temperature": "=quantity(text(T) + ' Cel')" } },
+          { "id": "fetch-tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=tube", "label": "=text(T) + ' °C'" } },
+          { "id": "add-buffer", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "=tube", "volume": "800 uL" } },
+          { "id": "add-pnpp", "kind": "operation", "ref": "core:transfer", "params": { "source": "pnpp", "destination": "=tube", "volume": "100 uL" } },
+          { "id": "warm", "kind": "operation", "ref": "core:place-in", "params": { "container": "=tube", "place": "bath" } },
+          { "id": "prewarm", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "5 min" } },
+          { "id": "add-enzyme", "kind": "operation", "ref": "core:transfer", "params": { "source": "enzyme", "destination": "=tube", "volume": "100 uL" } },
+          { "id": "mix-start", "kind": "operation", "ref": "core:mix", "params": { "container": "=tube", "method": "vortex", "cycles": 1 } },
+          { "id": "react", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "10 min" } },
+          { "id": "add-stop", "kind": "operation", "ref": "core:transfer", "params": { "source": "stop", "destination": "=tube", "volume": "100 uL" } },
+          { "id": "mix-stop", "kind": "operation", "ref": "core:mix", "params": { "container": "=tube", "method": "vortex", "cycles": 1 } },
+          { "id": "out", "kind": "operation", "ref": "core:remove-from", "params": { "container": "=tube" } }
+        ] },
+      { "id": "heat-test", "kind": "group", "title": "Heat the enzyme first, then assay it at 37 °C", "objectives": ["o-irreversible"],
+        "steps": [
+          { "id": "set-hot", "kind": "operation", "ref": "core:set-environment", "params": { "device": "bath", "temperature": "65 Cel" } },
+          { "id": "fetch-heated", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "heated", "label": "Enzyme, 65 °C for 10 min" } },
+          { "id": "aliquot", "kind": "operation", "ref": "core:transfer", "params": { "source": "enzyme", "destination": "heated", "volume": "200 uL" } },
+          { "id": "heat", "kind": "operation", "ref": "core:place-in", "params": { "container": "heated", "place": "bath" } },
+          { "id": "hold", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "10 min" } },
+          { "id": "cool", "kind": "operation", "ref": "core:place-in", "params": { "container": "heated", "place": "ice" } },
+          { "id": "set-37", "kind": "operation", "ref": "core:set-environment", "params": { "device": "bath", "temperature": "37 Cel" } },
+          { "id": "fetch-assay", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "rheated", "label": "Heated enzyme at 37 °C" } },
+          { "id": "buffer-h", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "rheated", "volume": "800 uL" } },
+          { "id": "pnpp-h", "kind": "operation", "ref": "core:transfer", "params": { "source": "pnpp", "destination": "rheated", "volume": "100 uL" } },
+          { "id": "warm-h", "kind": "operation", "ref": "core:place-in", "params": { "container": "rheated", "place": "bath" } },
+          { "id": "prewarm-h", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "5 min" } },
+          { "id": "enzyme-h", "kind": "operation", "ref": "core:transfer", "params": { "source": "heated", "destination": "rheated", "volume": "100 uL" } },
+          { "id": "mix-h", "kind": "operation", "ref": "core:mix", "params": { "container": "rheated", "method": "vortex", "cycles": 1 } },
+          { "id": "react-h", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "10 min" } },
+          { "id": "stop-h", "kind": "operation", "ref": "core:transfer", "params": { "source": "stop", "destination": "rheated", "volume": "100 uL" } },
+          { "id": "mix-stop-h", "kind": "operation", "ref": "core:mix", "params": { "container": "rheated", "method": "vortex", "cycles": 1 } },
+          { "id": "out-h", "kind": "operation", "ref": "core:remove-from", "params": { "container": "rheated" } }
+        ] },
+      { "id": "blank-tube", "kind": "group", "title": "A reagent blank",
+        "steps": [
+          { "id": "fetch-blank", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "blank", "label": "Blank" } },
+          { "id": "buffer-b", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "blank", "volume": "800 uL" } },
+          { "id": "pnpp-b", "kind": "operation", "ref": "core:transfer", "params": { "source": "pnpp", "destination": "blank", "volume": "100 uL" } },
+          { "id": "water-b", "kind": "operation", "ref": "core:transfer", "params": { "source": "water", "destination": "blank", "volume": "100 uL" } },
+          { "id": "stop-b", "kind": "operation", "ref": "core:transfer", "params": { "source": "stop", "destination": "blank", "volume": "100 uL" } },
+          { "id": "mix-b", "kind": "operation", "ref": "core:mix", "params": { "container": "blank", "method": "vortex", "cycles": 1 } },
+          { "id": "blank-cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-ps-1cm", "id": "c-blank", "label": "Blank" } },
+          { "id": "blank-fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "blank", "destination": "c-blank", "volume": "1 mL" } },
+          { "id": "zero", "kind": "operation", "ref": "core:calibrate", "params": { "instrument": "spec", "mode": "blank", "reference": "c-blank", "wavelength": "405 nm" } }
+        ] },
+      { "id": "reading", "kind": "group", "objectives": ["o-assay"],
+        "forEach": { "var": "x", "in": "=[['r25', 25], ['r30', 30], ['r37', 37], ['r45', 45], ['r55', 55], ['r65', 65], ['rheated', 0]]" },
+        "let": { "cuvette": "='c-' + x[0]" },
+        "steps": [
+          { "id": "cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-ps-1cm", "id": "=cuvette" } },
+          { "id": "fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "=x[0]", "destination": "=cuvette", "volume": "1 mL" } },
+          { "id": "read", "kind": "operation", "ref": "core:measure", "params": { "instrument": "spec", "subject": "=cuvette", "wavelength": "405 nm" } },
+          { "id": "note", "kind": "operation", "ref": "core:record", "params": { "field": "=if(x[1] == 0, 'A405-heated', 'A405')", "value": "=read.out.value" } },
+          { "id": "note-t", "kind": "operation", "ref": "core:record", "when": "x[1] > 0", "params": { "field": "temperature", "value": "=x[1]" } }
+        ] },
+      { "id": "analyse", "kind": "group", "objectives": ["o-optimum"],
+        "let": { "a": "=recorded('A405')", "t": "=recorded('temperature')" },
+        "steps": [
+          { "id": "optimum", "kind": "operation", "ref": "core:record", "params": { "field": "optimum-C", "value": "=t[first(filter(range(0, len(a) - 1, len(a)), a[it] == max(a)))]" } }
+        ] },
+      { "id": "reversible", "kind": "decision", "objectives": ["o-irreversible"], "prompt": "The enzyme heated to 65 °C and cooled again was assayed at 37 °C. Is heat inactivation reversible?",
+        "options": [
+          { "id": "irreversible", "label": "No: the cooled enzyme stays inactive" },
+          { "id": "reversible", "label": "Yes: it recovers its activity on cooling" }
+        ],
+        "correctWhen": "if(first(recorded('A405-heated')) < 0.3 * recorded('A405')[2], 'irreversible', 'reversible')" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-optimum", "statement": "The apparent optimum is found between 37 and 55 °C", "check": "between(first(recorded('optimum-C')), 37, 55)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-rise", "statement": "Activity rises from 25 to 37 °C", "check": "recorded('A405')[2] > 1.5 * recorded('A405')[0]", "source": "reference-standard" },
+      { "id": "e-fall", "statement": "At 65 °C the enzyme is mostly destroyed within the 10 minutes", "check": "recorded('A405')[5] < 0.5 * max(recorded('A405'))", "source": "simulation-derived" },
+      { "id": "e-irreversible", "statement": "Heated and cooled enzyme stays inactive", "check": "first(recorded('A405-heated')) < 0.3 * recorded('A405')[2]", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

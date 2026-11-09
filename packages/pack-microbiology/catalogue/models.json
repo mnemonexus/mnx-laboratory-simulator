@@ -1,0 +1,77 @@
+[
+  {
+    "id": "micro:gram-stain/retention",
+    "contract": "staining",
+    "tier": "T1",
+    "kind": "process",
+    "status": "experimental",
+    "description": "Crystal violet retention during decolourisation decays first-order at a rate set by the cell wall and by whether iodine has complexed the dye. Rates are chosen so that about 2–20 s of acetone–ethanol separates the classes; longer turns Gram-positive cells pink, shorter leaves Gram-negative cells purple, and no iodine turns everything pink.",
+    "params": {
+      "uptakeTime": "10 s",
+      "decolourise.positive.complexed": 0.04,
+      "decolourise.positive.plain": 0.3,
+      "decolourise.negative.complexed": 0.8,
+      "decolourise.negative.plain": 1.0,
+      "decolourise.variable.complexed": 0.15,
+      "decolourise.variable.plain": 0.6
+    },
+    "provenance": {
+      "notes": "Teaching-scale rates tuned to the qualitative behaviour, not fitted to measurements.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:growth/cardinal-logistic",
+    "contract": "growth",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "description": "Logistic growth with the organism's doubling time, scaled by a cardinal-temperature curve (zero below tMin and above tMax), only where a nutrient is present; antibiotics kill growing cells that lack the resistance marker. On agar, doubling is 1.5× slower and colonies are visible after about 17 doublings; their number is drawn (Poisson) from the viable cells.",
+    "provenance": {
+      "notes": "Teaching-scale constants (see models/growth.ts).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:transformation/heat-shock",
+    "contract": "transformation",
+    "tier": "T1",
+    "kind": "process",
+    "status": "experimental",
+    "description": "Competent cells bind plasmid DNA on ice (time constant 5 min, saturating with DNA mass); a heat dose above 30 °C during the shock sets the uptake, which peaks at the dose of 50 s at 42 °C and falls for shorter or longer shocks; large doses kill. Lukewarm cells lose competence. Transformants express the plasmid's resistance over about 30 min at 37 °C (slower when cooler), and survive selection by half without it.",
+    "provenance": {
+      "notes": "Phenomenological, tuned so the standard protocol gives about 10³ transformants per µg.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "micro:contamination/teaching-lab",
+    "contract": "contamination",
+    "tier": "T1",
+    "kind": "process",
+    "status": "experimental",
+    "description": "Where contaminants come from in a teaching lab: airborne cells settling on what is uncovered (the bench's rate per cm² per hour), an unflamed rim letting one in on about 4 % of handlings (0.1 % flamed), and fingertips leaving their skin flora (about 150 colonies unwashed, 25 washed, 4 after an antiseptic wipe).",
+    "params": {
+      "air.flora.micro:micrococcus-luteus": 0.35,
+      "air.flora.micro:staphylococcus-epidermidis": 0.3,
+      "air.flora.micro:bacillus-subtilis": 0.35,
+      "rim.flora.micro:staphylococcus-epidermidis": 0.5,
+      "rim.flora.micro:micrococcus-luteus": 0.25,
+      "rim.flora.micro:bacillus-subtilis": 0.25,
+      "rim.unflamed": 0.04,
+      "rim.flamed": 0.001,
+      "rim.cells": 3,
+      "hands.flora.micro:staphylococcus-epidermidis": 0.65,
+      "hands.flora.micro:micrococcus-luteus": 0.2,
+      "hands.flora.micro:bacillus-subtilis": 0.1,
+      "hands.flora.micro:staphylococcus-aureus-teaching-strain": 0.05,
+      "hands.unwashed": 150,
+      "hands.washed": 25,
+      "hands.antiseptic": 4
+    },
+    "provenance": {
+      "notes": "Teaching-scale values: settle plates in occupied rooms give tens of colonies per 90 mm plate per hour; fingertip press plates give tens to hundreds, reduced by an order of magnitude by washing or alcohol. The rim probabilities are chosen so that careless handling contaminates a fair share of a series of broth transfers and careful handling almost none.",
+      "review": "pending"
+    }
+  }
+]

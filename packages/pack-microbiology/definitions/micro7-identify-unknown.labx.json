@@ -1,0 +1,82 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro7-identify-unknown",
+  "version": "1.0.0",
+  "title": "Identifying an unknown bacterium",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "micro:gram-stain" }, { "operation": "core:spot-test" }, { "technique": "micro:streak-plate" }] },
+  "summary": "Identify an unknown culture, one of five teaching organisms, from its Gram stain, a catalase test, an oxidase test and its growth and colour on MacConkey agar.",
+  "briefing": "Work down the key: Gram stain first (and the cells' shape), then catalase (hydrogen peroxide: bubbles if positive) and oxidase (purple within 10 s if positive). MacConkey agar lets only Gram-negatives grow, and lactose fermenters turn pink on it. The candidates are Escherichia coli, Pseudomonas fluorescens, Staphylococcus aureus, Micrococcus luteus and Lactococcus lactis.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["microbiology", "biosciences"] },
+    "concepts": [{ "id": "identification", "label": "Identification from a few discriminating tests" }, { "id": "selective-differential", "label": "Selective and differential media" }],
+    "objectives": [
+      { "id": "o-gram", "kind": "skill", "statement": "Gram stain the unknown", "skills": ["micro:smear-preparation", "micro:heat-fixing", "micro:gram-stain"] },
+      { "id": "o-tests", "kind": "skill", "statement": "Run catalase and oxidase tests and a MacConkey plate", "skills": ["micro:aseptic-technique"] },
+      { "id": "o-identify", "kind": "reasoning", "statement": "Identify the organism from the results", "goal": "g-identity" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "unknown", "label": "Unknown culture", "role": "unknown", "preparation": "micro:lb-broth-sterile", "amount": "5 mL", "container": "core:conical-tube-15ml", "storage": "4 Cel",
+        "contains": [{ "substance": "micro:escherichia-coli-k12", "count": "5e8 cells/mL" }] }
+    ],
+    "supplies": [
+      { "id": "cv", "label": "Crystal violet", "preparation": "micro:crystal-violet-stain", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "iodine", "label": "Gram's iodine", "preparation": "micro:grams-iodine", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "decol", "label": "Decolouriser (acetone–ethanol)", "preparation": "micro:acetone-ethanol-decolouriser", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "saf", "label": "Safranin", "preparation": "micro:safranin-stain", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "catalase", "label": "Hydrogen peroxide, 3 %", "preparation": "micro:catalase-reagent", "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "oxidase", "label": "Oxidase reagent", "preparation": "micro:oxidase-reagent-1pct", "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "mac", "label": "MacConkey agar", "preparation": "micro:macconkey-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" }
+    ]
+  },
+  "equipment": {
+    "roles": [{ "id": "incubator", "requires": { "class": "core:incubator", "temperature": "30 Cel" } }]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [{ "id": "d1", "title": "Stain, test and plate" }, { "id": "d2", "title": "Read the plate and identify" }],
+    "steps": [
+      { "id": "get-slide", "kind": "operation", "ref": "core:fetch", "session": "d1", "params": { "equipment": "core:microscope-slide", "id": "slide", "label": "Smear of the unknown" } },
+      { "id": "smear", "kind": "technique", "ref": "micro:prepare-smear", "session": "d1", "objectives": ["o-gram"], "params": { "culture": "unknown", "slide": "slide" } },
+      { "id": "fix", "kind": "technique", "ref": "micro:heat-fix", "session": "d1", "objectives": ["o-gram"], "params": { "slide": "slide" } },
+      { "id": "stain", "kind": "technique", "ref": "micro:gram-stain", "session": "d1", "objectives": ["o-gram"], "params": { "slide": "slide", "primary": "cv", "mordant": "iodine", "decolouriser": "decol", "counterstain": "saf", "decolouriseTime": "10 s" } },
+      { "id": "look", "kind": "technique", "ref": "micro:brightfield-microscopy", "session": "d1", "params": { "slide": "slide", "objective": "100x-oil" } },
+      { "id": "catalase-test", "kind": "operation", "ref": "core:spot-test", "session": "d1", "objectives": ["o-tests"], "params": { "reagent": "catalase", "target": "unknown" } },
+      { "id": "note-catalase", "kind": "operation", "ref": "core:record", "session": "d1", "params": { "field": "catalase", "value": "=catalase-test.out.result" } },
+      { "id": "oxidase-test", "kind": "operation", "ref": "core:spot-test", "session": "d1", "objectives": ["o-tests"], "params": { "reagent": "oxidase", "target": "unknown" } },
+      { "id": "note-oxidase", "kind": "operation", "ref": "core:record", "session": "d1", "params": { "field": "oxidase", "value": "=oxidase-test.out.result" } },
+      { "id": "plate", "kind": "technique", "ref": "micro:streak-plate", "session": "d1", "objectives": ["o-tests"], "params": { "source": "unknown", "plate": "mac" } },
+      { "id": "grow", "kind": "offstage", "session": "d1", "duration": "24 h", "title": "Overnight at 30 °C", "params": { "place": "incubator", "containers": ["mac"] } },
+      { "id": "read-plate", "kind": "technique", "ref": "micro:colony-count", "session": "d2", "objectives": ["o-tests"], "params": { "plate": "mac" } },
+      { "id": "note-mac", "kind": "operation", "ref": "core:record", "session": "d2", "params": { "field": "MacConkey", "value": "=read-plate.out.display" } },
+      { "id": "identify", "kind": "decision", "session": "d2", "objectives": ["o-identify"], "prompt": "Which organism is the unknown?",
+        "options": [
+          { "id": "e-coli", "label": "Escherichia coli" },
+          { "id": "p-fluorescens", "label": "Pseudomonas fluorescens" },
+          { "id": "s-aureus", "label": "Staphylococcus aureus" },
+          { "id": "m-luteus", "label": "Micrococcus luteus" },
+          { "id": "l-lactis", "label": "Lactococcus lactis" }
+        ],
+        "correctWhen": "if(first(organisms('unknown')) == 'micro:escherichia-coli-k12', 'e-coli', if(first(organisms('unknown')) == 'micro:pseudomonas-fluorescens', 'p-fluorescens', if(first(organisms('unknown')) == 'micro:staphylococcus-aureus-teaching-strain', 's-aureus', if(first(organisms('unknown')) == 'micro:micrococcus-luteus', 'm-luteus', 'l-lactis'))))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-identity", "statement": "The unknown is identified correctly", "check": "decision(identify) == if(first(organisms('unknown')) == 'micro:escherichia-coli-k12', 'e-coli', if(first(organisms('unknown')) == 'micro:pseudomonas-fluorescens', 'p-fluorescens', if(first(organisms('unknown')) == 'micro:staphylococcus-aureus-teaching-strain', 's-aureus', if(first(organisms('unknown')) == 'micro:micrococcus-luteus', 'm-luteus', 'l-lactis'))))" }
+    ],
+    "expectedObservations": [
+      { "id": "e-macconkey", "statement": "Only a Gram-negative grows on MacConkey", "check": "(colonies('mac') > 0) == (gramClass('unknown') == 'negative')", "source": "reference-standard" }
+    ]
+  },
+  "variation": {
+    "params": [
+      { "path": "/materials/samples/0/contains/0/substance", "domain": ["micro:escherichia-coli-k12", "micro:pseudomonas-fluorescens", "micro:staphylococcus-aureus-teaching-strain", "micro:micrococcus-luteus", "micro:lactococcus-lactis"] }
+    ],
+    "noise": "default"
+  },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

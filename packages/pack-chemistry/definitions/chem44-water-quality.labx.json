@@ -1,0 +1,447 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem44-water-quality",
+  "title": "Water quality: pH, conductivity and dissolved solids",
+  "summary": "Measure the pH, conductivity and total dissolved solids of deionised water, rainwater, stream, tap, pond and diluted sea water, and compare them.",
+  "briefing": "Calibrate the pH meter with the pH 4 and 7 buffers. Pour about 50 mL of each sample into a clean beaker, read its pH, rinse the electrode, then dip in the conductivity cell and read the conductivity and TDS (total dissolved solids, mg/L, estimated as 0.64 × conductivity in µS/cm). Rainwater is slightly acidic from dissolved carbon dioxide; hard water carries calcium and magnesium hydrogencarbonates.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry",
+        "environmental science"
+      ]
+    },
+    "keywords": [
+      "water quality",
+      "conductivity",
+      "total dissolved solids",
+      "TDS",
+      "pH",
+      "hard water",
+      "rainwater"
+    ],
+    "topics": [
+      "Water",
+      "Environmental chemistry"
+    ],
+    "concepts": [
+      {
+        "id": "tds",
+        "label": "Conductivity measures the dissolved ions, and so estimates the dissolved solids"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the pH and conductivity of water samples"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "Rank the samples by dissolved solids and explain their pH",
+        "goal": "g-quality"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain what conductivity tells you about a water",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "BTEC",
+      "IB"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "buf4",
+        "label": "pH 4.00 buffer",
+        "preparation": "core:ph-buffer-4",
+        "amount": "50 mL",
+        "container": "core:beaker-100ml"
+      },
+      {
+        "id": "buf7",
+        "label": "pH 7.00 buffer",
+        "preparation": "core:ph-buffer-7",
+        "amount": "50 mL",
+        "container": "core:beaker-100ml"
+      },
+      {
+        "id": "w-di",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "w-rain",
+        "label": "Rainwater",
+        "contains": [
+          {
+            "substance": "aq:carbon-dioxide",
+            "conc": "0.013 mM"
+          },
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "0.02 mM"
+          },
+          {
+            "substance": "core:nitric-acid",
+            "conc": "0.01 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "w-soft",
+        "label": "Upland stream water (soft)",
+        "contains": [
+          {
+            "substance": "aq:calcium",
+            "conc": "0.2 mM"
+          },
+          {
+            "substance": "aq:magnesium",
+            "conc": "0.1 mM"
+          },
+          {
+            "substance": "aq:sodium",
+            "conc": "0.4 mM"
+          },
+          {
+            "substance": "aq:potassium",
+            "conc": "0.03 mM"
+          },
+          {
+            "substance": "aq:carbonate",
+            "conc": "0.35 mM"
+          },
+          {
+            "substance": "aq:chloride",
+            "conc": "0.4 mM"
+          },
+          {
+            "substance": "aq:sulfate",
+            "conc": "0.15 mM"
+          },
+          {
+            "substance": "aq:nitrate",
+            "conc": "0.05 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "w-tap",
+        "label": "Tap water (hard)",
+        "contains": [
+          {
+            "substance": "aq:calcium",
+            "conc": "1.8 mM"
+          },
+          {
+            "substance": "aq:magnesium",
+            "conc": "0.4 mM"
+          },
+          {
+            "substance": "aq:sodium",
+            "conc": "1 mM"
+          },
+          {
+            "substance": "aq:potassium",
+            "conc": "0.1 mM"
+          },
+          {
+            "substance": "aq:carbonate",
+            "conc": "3.6 mM"
+          },
+          {
+            "substance": "aq:chloride",
+            "conc": "1 mM"
+          },
+          {
+            "substance": "aq:sulfate",
+            "conc": "0.5 mM"
+          },
+          {
+            "substance": "aq:nitrate",
+            "conc": "0.3 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "w-pond",
+        "label": "Pond water",
+        "contains": [
+          {
+            "substance": "aq:calcium",
+            "conc": "1 mM"
+          },
+          {
+            "substance": "aq:magnesium",
+            "conc": "0.3 mM"
+          },
+          {
+            "substance": "aq:sodium",
+            "conc": "0.8 mM"
+          },
+          {
+            "substance": "aq:potassium",
+            "conc": "0.15 mM"
+          },
+          {
+            "substance": "aq:carbonate",
+            "conc": "1.4 mM"
+          },
+          {
+            "substance": "aq:chloride",
+            "conc": "0.8 mM"
+          },
+          {
+            "substance": "aq:sulfate",
+            "conc": "0.3 mM"
+          },
+          {
+            "substance": "aq:nitrate",
+            "conc": "0.8 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "w-sea",
+        "label": "Sea water, diluted ten times",
+        "contains": [
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "47 mM"
+          },
+          {
+            "substance": "aq:magnesium-chloride",
+            "conc": "5.3 mM"
+          },
+          {
+            "substance": "aq:magnesium-sulfate",
+            "conc": "2.8 mM"
+          },
+          {
+            "substance": "aq:calcium-chloride",
+            "conc": "1 mM"
+          },
+          {
+            "substance": "aq:potassium-chloride",
+            "conc": "1 mM"
+          },
+          {
+            "substance": "aq:sodium",
+            "conc": "0.23 mM"
+          },
+          {
+            "substance": "aq:carbonate",
+            "conc": "0.23 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "ph",
+        "requires": {
+          "class": "core:ph-meter.benchtop"
+        }
+      },
+      {
+        "id": "meter",
+        "requires": {
+          "class": "core:conductivity-meter"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "calibrate",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "ph",
+          "mode": "two-point",
+          "buffers": [
+            "buf4",
+            "buf7"
+          ]
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "samples",
+        "kind": "group",
+        "title": "Each sample in turn",
+        "forEach": {
+          "var": "r",
+          "in": "=[['di','Deionised water'],['rain','Rainwater'],['soft','Upland stream water'],['tap','Tap water'],['pond','Pond water'],['sea','Sea water (diluted ten times)']]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='b-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='w-' + r[0]",
+              "destination": "='b-' + r[0]",
+              "volume": "50 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "phread",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "ph",
+              "subject": "='b-' + r[0]"
+            }
+          },
+          {
+            "id": "n-ph",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='pH ' + r[0]",
+              "value": "=phread.out.value"
+            }
+          },
+          {
+            "id": "kread",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "meter",
+              "subject": "='b-' + r[0]"
+            }
+          },
+          {
+            "id": "n-k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='conductivity ' + r[0]",
+              "value": "=kread.out.value"
+            }
+          },
+          {
+            "id": "n-tds",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='TDS ' + r[0]",
+              "value": "=kread.out.tds"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "What does a high conductivity tell you about a water sample?",
+        "options": [
+          {
+            "id": "ions",
+            "label": "It holds a lot of dissolved ions (salts), so a lot of dissolved solids"
+          },
+          {
+            "id": "bacteria",
+            "label": "It is contaminated with bacteria"
+          },
+          {
+            "id": "acid",
+            "label": "It is acidic"
+          }
+        ],
+        "correctWhen": "choice == 'ions'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-quality",
+        "statement": "The dissolved solids rise from deionised water through rain, stream and pond to tap and sea water; rainwater is acidic",
+        "check": "first(recorded('TDS di')) < first(recorded('TDS rain')) && first(recorded('TDS rain')) < first(recorded('TDS soft')) && first(recorded('TDS soft')) < first(recorded('TDS pond')) && first(recorded('TDS pond')) < first(recorded('TDS tap')) && first(recorded('TDS tap')) < first(recorded('TDS sea')) && first(recorded('pH rain')) < 6"
+      },
+      {
+        "id": "g-explain",
+        "statement": "Conductivity is explained",
+        "check": "decision('why') == 'ions'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-tap",
+        "statement": "Hard tap water reads several hundred µS/cm and is near neutral",
+        "check": "first(recorded('conductivity tap')) > 300 && first(recorded('conductivity tap')) < 1000 && first(recorded('pH tap')) > 6.8 && first(recorded('pH tap')) < 8.2",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem4-acetic-acid-pka",
+  "version": "1.0.0",
+  "title": "The pKa of acetic acid from a pH titration curve",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "core:prepare-burette" }, { "operation": "core:calibrate" }] },
+  "summary": "Calibrate a pH meter with two buffers, titrate 25 mL of acetic acid with standardised sodium hydroxide in 1 mL portions, reading the pH after each, and find the pKa as the pH at half the equivalence volume.",
+  "briefing": "Halfway to the equivalence point, half of the acetic acid has become acetate, so by the Henderson–Hasselbalch equation the pH equals the pKa. Find the equivalence point where the pH rises most steeply.",
+  "context": {
+    "intendedContexts": ["practical-session", "lecture-introduction"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "henderson-hasselbalch", "label": "Henderson–Hasselbalch and buffer regions" }],
+    "objectives": [
+      { "id": "o-calibrate", "kind": "skill", "statement": "Calibrate a pH meter with two buffers", "skills": ["core:ph-meter-calibration"] },
+      { "id": "o-curve", "kind": "skill", "statement": "Record a titration curve", "skills": ["core:burette-technique", "core:titration"] },
+      { "id": "o-pka", "kind": "analysis", "statement": "Find the pKa within 0.1", "goal": "g-pka" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "acid", "label": "Acetic acid, about 0.1 M", "contains": [{ "substance": "core:acetic-acid", "conc": { "vary": "0.080..0.120 mol/L" } }], "solvent": "core:water", "amount": "100 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "naoh", "label": "NaOH, 0.1000 M (standardised)", "contains": [{ "substance": "core:sodium-hydroxide", "conc": "0.1000 mol/L" }], "solvent": "core:water", "amount": "250 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "buf4", "label": "pH 4.00 buffer", "preparation": "core:ph-buffer-4", "amount": "50 mL", "container": "core:beaker-100ml" },
+      { "id": "buf7", "label": "pH 7.00 buffer", "preparation": "core:ph-buffer-7", "amount": "50 mL", "container": "core:beaker-100ml" }
+    ]
+  },
+  "equipment": { "roles": [
+    { "id": "meter", "requires": { "class": "core:ph-meter.benchtop" } },
+    { "id": "burette", "requires": { "class": "core:burette-50ml-class-a" } },
+    { "id": "pipette25", "requires": { "class": "core:volumetric-pipette-25ml" } }
+  ] },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "calibrate", "kind": "operation", "ref": "core:calibrate", "objectives": ["o-calibrate"], "params": { "instrument": "meter", "mode": "two-point", "buffers": ["buf4", "buf7"] } },
+      { "id": "fill", "kind": "technique", "ref": "core:prepare-burette", "params": { "burette": "burette", "titrant": "naoh", "volume": "48 mL" } },
+      { "id": "beaker", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:beaker-250ml", "id": "titration", "label": "Acetic acid" } },
+      { "id": "aliquot", "kind": "operation", "ref": "core:transfer", "params": { "source": "acid", "destination": "titration", "volume": "25 mL", "tool": "pipette25" } },
+      { "id": "curve", "kind": "group", "objectives": ["o-curve"], "forEach": { "var": "i", "in": "=range(0, 40, 41)" },
+        "steps": [
+          { "id": "add", "kind": "operation", "ref": "core:transfer", "when": "i > 0", "params": { "source": "burette", "destination": "titration", "volume": "1 mL" } },
+          { "id": "stir", "kind": "operation", "ref": "core:mix", "params": { "container": "titration", "method": "swirl", "cycles": 3 } },
+          { "id": "ph", "kind": "operation", "ref": "core:measure", "params": { "instrument": "meter", "subject": "titration" } },
+          { "id": "note-v", "kind": "operation", "ref": "core:record", "params": { "field": "v", "value": "=i" } },
+          { "id": "note-ph", "kind": "operation", "ref": "core:record", "params": { "field": "pH", "value": "=ph.out.value" } }
+        ] },
+      { "id": "analyse", "kind": "group", "objectives": ["o-pka"],
+        "let": { "veq": "=steepest(recorded('v'), recorded('pH'))" },
+        "steps": [
+          { "id": "equivalence", "kind": "operation", "ref": "core:record", "params": { "field": "Veq", "value": "=veq" } },
+          { "id": "pka", "kind": "operation", "ref": "core:record", "params": { "field": "pKa", "value": "=interpolateAt(recorded('v'), recorded('pH'), veq / 2)" } }
+        ] }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-pka", "statement": "The pKa is within 0.1 of 4.76", "check": "abs(first(recorded('pKa')) - 4.76) <= 0.1" }
+    ],
+    "expectedObservations": [
+      { "id": "e-veq", "statement": "The equivalence volume matches the acid's concentration (within 1 mL)", "check": "abs(first(recorded('Veq')) - value(truth(conc, 'acid', 'core:acetic-acid'), 'mol/L') * 25 / 0.1) <= 1", "source": "simulation-derived" },
+      { "id": "e-basic", "statement": "The equivalence point is basic (acetate is a weak base)", "check": "interpolateAt(recorded('v'), recorded('pH'), first(recorded('Veq'))) > 7.5", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

@@ -1,0 +1,502 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio58-daphnia-heart-rate",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "title": "{{title}}",
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "Daphnia",
+      "heart rate",
+      "temperature",
+      "caffeine",
+      "ethanol",
+      "ectotherm",
+      "ethics"
+    ],
+    "topics": [
+      "Physiology"
+    ],
+    "concepts": [
+      {
+        "id": "ectotherm",
+        "label": "An ectotherm’s heart rate follows its surroundings’ temperature; drugs can speed or slow it"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-count",
+        "kind": "skill",
+        "statement": "Count a Daphnia’s heartbeats under the microscope"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "{{compareObjective}}",
+        "goal": "g-heart"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the result",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Daphnia heart rate: the effect of temperature"
+    },
+    "summary": {
+      "default": "Keep water fleas in pond water at room temperature and at 25, 30 and 35 °C, count each one’s heartbeats under the microscope for 15 seconds, and relate the rate to temperature."
+    },
+    "briefing": {
+      "default": "Warm a beaker of pond water to each temperature. Put a little of it on a slide with a Daphnia, find its heart (just behind the head, above the gut) at low power, and count the beats for 15 seconds at once, before the drop cools. Rate (beats per minute) = count × 4. Use each animal once and return it to the pond water afterwards."
+    },
+    "runs": {
+      "default": "=[['t21','Room temperature (about 21 °C)','pond','bench',21],['t25','25 °C','pond','bath',25],['t30','30 °C','pond','bath',30],['t35','35 °C','pond','bath',35]]"
+    },
+    "compareObjective": {
+      "default": "Relate the heart rate to temperature"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the Daphnia’s heart beat faster in warmer water?",
+        "options": [
+          {
+            "id": "ectotherm",
+            "label": "It is an ectotherm: its body is at the water’s temperature, and its heart muscle’s reactions run faster when warmer"
+          },
+          {
+            "id": "stress",
+            "label": "It is frightened by the heat"
+          },
+          {
+            "id": "oxygen",
+            "label": "Warm water holds more oxygen"
+          }
+        ],
+        "correctWhen": "choice == 'ectotherm'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-heart",
+            "statement": "The rate rises with temperature",
+            "check": "first(recorded('rate t21')) < first(recorded('rate t30')) && first(recorded('rate t25')) < first(recorded('rate t35'))"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The rise is explained",
+            "check": "decision('why') == 'ectotherm'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-rate",
+            "statement": "At room temperature the heart beats about 250 times a minute",
+            "check": "abs(first(recorded('rate t21')) - 250) < 50",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "pond",
+        "label": "Pond water (aerated)",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "caf1",
+        "label": "Caffeine, 1 mM in pond water",
+        "contains": [
+          {
+            "substance": "chem:caffeine",
+            "conc": "1 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "caf2",
+        "label": "Caffeine, 2 mM in pond water",
+        "contains": [
+          {
+            "substance": "chem:caffeine",
+            "conc": "2 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "caf5",
+        "label": "Caffeine, 5 mM in pond water",
+        "contains": [
+          {
+            "substance": "chem:caffeine",
+            "conc": "5 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "eth1",
+        "label": "Ethanol, 1 % in pond water",
+        "contains": [
+          {
+            "substance": "core:ethanol",
+            "conc": "7.89 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "eth2",
+        "label": "Ethanol, 2 % in pond water",
+        "contains": [
+          {
+            "substance": "core:ethanol",
+            "conc": "15.8 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "eth5",
+        "label": "Ethanol, 5 % in pond water",
+        "contains": [
+          {
+            "substance": "core:ethanol",
+            "conc": "39.5 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:microscope"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each condition in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "steps": [
+          {
+            "id": "fetch",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='beaker-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='beaker-' + r[0]",
+              "volume": "20 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "set",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[4]) + ' Cel')"
+            },
+            "when": "r[3] == 'bath'"
+          },
+          {
+            "id": "in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='beaker-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[3] == 'bath'"
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microscope-slide",
+              "id": "='slide-' + r[0]",
+              "label": "='Daphnia: ' + r[1]"
+            }
+          },
+          {
+            "id": "drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='beaker-' + r[0]",
+              "destination": "='slide-' + r[0]",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "flea",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "bio:daphnia",
+              "destination": "='slide-' + r[0]",
+              "mass": "0.1 mg"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "='slide-' + r[0]",
+              "objective": "10x"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate ' + r[0]",
+              "value": "=look.out.beats15s * 4"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='beaker-' + r[0]"
+            },
+            "when": "r[3] == 'bath'"
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio58-daphnia-caffeine",
+      "title": "Daphnia heart rate: the effect of caffeine",
+      "summary": "Count the heartbeats of water fleas in pond water and in 1, 2 and 5 mM caffeine at room temperature.",
+      "briefing": "As for temperature, at room temperature, with a fresh animal in each caffeine solution after a minute in it. Caffeine is a stimulant.",
+      "values": {
+        "runs": "=[['c0','Pond water','pond','bench',21],['c1','Caffeine 1 mM','caf1','bench',21],['c2','Caffeine 2 mM','caf2','bench',21],['c5','Caffeine 5 mM','caf5','bench',21]]",
+        "compareObjective": "Relate the heart rate to the caffeine concentration",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "What does caffeine do to the heart rate?",
+          "options": [
+            {
+              "id": "raises",
+              "label": "It raises it, more at higher concentrations, levelling off"
+            },
+            {
+              "id": "lowers",
+              "label": "It lowers it"
+            },
+            {
+              "id": "none",
+              "label": "No effect"
+            }
+          ],
+          "correctWhen": "choice == 'raises'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-heart",
+              "statement": "The heart rate rises with caffeine",
+              "check": "first(recorded('rate c0')) < first(recorded('rate c2')) && first(recorded('rate c1')) < first(recorded('rate c5'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The effect is described",
+              "check": "decision('why') == 'raises'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-5",
+              "statement": "5 mM caffeine raises the rate by about a third",
+              "check": "first(recorded('rate c5')) / first(recorded('rate c0')) > 1.15",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "caffeine",
+        "stimulant"
+      ]
+    },
+    {
+      "id": "bio58-daphnia-ethanol",
+      "title": "Daphnia heart rate: the effect of ethanol",
+      "summary": "Count the heartbeats of water fleas in pond water and in 1, 2 and 5 % ethanol at room temperature.",
+      "briefing": "As for temperature, at room temperature, with a fresh animal in each ethanol solution after a minute in it. Ethanol is a depressant.",
+      "values": {
+        "runs": "=[['e0','Pond water','pond','bench',21],['e1','Ethanol 1 %','eth1','bench',21],['e2','Ethanol 2 %','eth2','bench',21],['e5','Ethanol 5 %','eth5','bench',21]]",
+        "compareObjective": "Relate the heart rate to the ethanol concentration",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "What does ethanol do to the heart rate?",
+          "options": [
+            {
+              "id": "lowers",
+              "label": "It slows it, more at higher concentrations (a depressant)"
+            },
+            {
+              "id": "raises",
+              "label": "It speeds it up"
+            },
+            {
+              "id": "none",
+              "label": "No effect"
+            }
+          ],
+          "correctWhen": "choice == 'lowers'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-heart",
+              "statement": "The heart rate falls with ethanol",
+              "check": "first(recorded('rate e0')) > first(recorded('rate e2')) && first(recorded('rate e1')) > first(recorded('rate e5'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The effect is described",
+              "check": "decision('why') == 'lowers'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-5",
+              "statement": "5 % ethanol slows the heart to under two thirds of its rate",
+              "check": "first(recorded('rate e5')) / first(recorded('rate e0')) < 0.67",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "ethanol",
+        "depressant"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

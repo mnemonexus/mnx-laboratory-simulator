@@ -1,0 +1,314 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem50-volatile-liquid-mr",
+  "title": "The relative molecular mass of a volatile liquid",
+  "summary": "Inject a small, known mass of a volatile liquid into a gas syringe in an oven at 100 °C, measure the volume of vapour, and calculate its relative molecular mass from pV = nRT.",
+  "briefing": "Trap 5 mL of air in a gas syringe, cap it and heat it in the oven at 100 °C until its volume is steady; read it. Inject the liquid through the cap with a hypodermic syringe (its mass is volume × density), leave it to vaporise and reach 100 °C again, and read the volume. The increase is the vapour’s volume at 373 K and 101 kPa: n = pV/RT and Mr = m/n.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry",
+        "physics"
+      ]
+    },
+    "keywords": [
+      "relative molecular mass",
+      "ideal gas equation",
+      "pV = nRT",
+      "vapour",
+      "molar mass"
+    ],
+    "topics": [
+      "Gases",
+      "Amount of substance"
+    ],
+    "concepts": [
+      {
+        "id": "ideal",
+        "label": "The ideal gas equation gives the amount of a vapour from its volume, pressure and temperature"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the volume of vapour from a known mass of liquid"
+      },
+      {
+        "id": "o-calc",
+        "kind": "analysis",
+        "statement": "Calculate Mr with pV = nRT",
+        "goal": "g-mr"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the method’s conditions",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "propanone",
+        "label": "Propanone",
+        "contains": [
+          {
+            "substance": "chem:propanone",
+            "conc": "784 g/L"
+          }
+        ],
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "hexane",
+        "label": "Hexane",
+        "contains": [
+          {
+            "substance": "chem:hexane",
+            "conc": "655 g/L"
+          }
+        ],
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "ethanol",
+        "label": "Ethanol",
+        "contains": [
+          {
+            "substance": "core:ethanol",
+            "conc": "789 g/L"
+          }
+        ],
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "cyclohexane",
+        "label": "Cyclohexane",
+        "contains": [
+          {
+            "substance": "chem:cyclohexane",
+            "conc": "779 g/L"
+          }
+        ],
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "oven",
+        "requires": {
+          "class": "core:oven"
+        }
+      },
+      {
+        "id": "hypo",
+        "requires": {
+          "class": "core:syringe-1ml"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "heat",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "oven",
+          "temperature": "100 Cel"
+        }
+      },
+      {
+        "id": "liquids",
+        "kind": "group",
+        "title": "Each liquid in turn",
+        "forEach": {
+          "var": "r",
+          "in": "=[['propanone','Propanone','propanone',0.784,0.15,58.08],['hexane','Hexane','hexane',0.655,0.2,86.18],['ethanol','Ethanol','ethanol',0.789,0.12,46.07],['cyclohexane','Cyclohexane','cyclohexane',0.779,0.15,84.16]]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "syringe",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:gas-syringe-sealed",
+              "id": "='syringe-' + r[0]",
+              "label": "='Gas syringe: ' + r[1]"
+            }
+          },
+          {
+            "id": "trap",
+            "kind": "operation",
+            "ref": "core:trap-air",
+            "params": {
+              "container": "='syringe-' + r[0]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='syringe-' + r[0]",
+              "place": "oven"
+            }
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "read0",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "='syringe-' + r[0]"
+            }
+          },
+          {
+            "id": "inject",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='syringe-' + r[0]",
+              "volume": "=quantity(text(r[4]) + ' mL')",
+              "tool": "hypo"
+            }
+          },
+          {
+            "id": "vaporise",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "15 min"
+            }
+          },
+          {
+            "id": "read1",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "='syringe-' + r[0]"
+            }
+          },
+          {
+            "id": "n-v",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='vapour volume ' + r[0]",
+              "value": "=value(quantity(read1.out.value), 'mL') - value(quantity(read0.out.value), 'mL')"
+            }
+          },
+          {
+            "id": "n-mr",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='Mr ' + r[0]",
+              "value": "=r[3] * r[4] * 8.314 * 373.15 / (101.325 * (value(quantity(read1.out.value), 'mL') - value(quantity(read0.out.value), 'mL')) / 1000)"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='syringe-' + r[0]"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why must the oven be well above the liquid’s boiling point?",
+        "options": [
+          {
+            "id": "all-vapour",
+            "label": "So that all of the liquid turns to vapour, and the vapour behaves nearly as an ideal gas"
+          },
+          {
+            "id": "faster",
+            "label": "Only so that it is quicker"
+          },
+          {
+            "id": "pressure",
+            "label": "To raise the pressure in the syringe"
+          }
+        ],
+        "correctWhen": "choice == 'all-vapour'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-mr",
+        "statement": "Propanone and hexane give Mr within 8 % of 58 and 86",
+        "check": "abs(first(recorded('Mr propanone')) / 58.08 - 1) < 0.08 && abs(first(recorded('Mr hexane')) / 86.18 - 1) < 0.08"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The conditions are explained",
+        "check": "decision('why') == 'all-vapour'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-order",
+        "statement": "The molar masses come out in the order ethanol < propanone < cyclohexane < hexane",
+        "check": "first(recorded('Mr ethanol')) < first(recorded('Mr propanone')) && first(recorded('Mr propanone')) < first(recorded('Mr cyclohexane')) && first(recorded('Mr cyclohexane')) < first(recorded('Mr hexane'))",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

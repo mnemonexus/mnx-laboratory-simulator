@@ -1,0 +1,643 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio26-binding-constants-and-energetics",
+  "version": "1.0.0",
+  "title": "Binding constants and energetics from SPR, van't Hoff, ITC and EMSA data",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "From supplied data: dissociation constants and selectivity from SPR rate constants, ΔH, ΔS and ΔG from a van't Hoff plot, the sign, stoichiometry and enthalpy of binding from an ITC isotherm, and Kds of DNA-binding mutants from EMSA.",
+  "briefing": "Kd = koff/kon. ln Ka = −ΔH/(RT) + ΔS/R, R = 8.3145 J/(mol·K). In ITC the early injections, when free sites abound, carry the binding enthalpy; the late ones only dilution; the transition's mid-point sits at the stoichiometry. With DNA far below Kd, the fraction bound is [P]/(Kd + [P]).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "kd",
+        "label": "Affinity, kinetics and selectivity"
+      },
+      {
+        "id": "thermo",
+        "label": "Binding thermodynamics"
+      },
+      {
+        "id": "itc",
+        "label": "Isothermal titration calorimetry"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-spr",
+        "kind": "analysis",
+        "statement": "Derive Kd and selectivity from SPR rate constants",
+        "goal": "g-binding"
+      },
+      {
+        "id": "o-thermo",
+        "kind": "analysis",
+        "statement": "Derive ΔH, ΔS, ΔG and stoichiometry from van't Hoff and ITC data",
+        "goal": "g-binding"
+      },
+      {
+        "id": "o-emsa",
+        "kind": "analysis",
+        "statement": "Fit EMSA data for Kd",
+        "goal": "g-binding"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "spr",
+        "kind": "group",
+        "title": "SPR: each antibody immobilised, antigen and cross-reacting protein flowed over; Kd = koff/kon and selectivity = Kd(X)/Kd(Ag)",
+        "steps": [
+          {
+            "id": "kon-koff",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "spr-table",
+              "value": {
+                "ab1": [
+                  2.4,
+                  0.9,
+                  1.1,
+                  1.3
+                ],
+                "ab2": [
+                  8.0,
+                  4.0,
+                  6.5,
+                  5.2
+                ],
+                "ab3": [
+                  0.6,
+                  0.3,
+                  0.2,
+                  9.0
+                ]
+              }
+            }
+          },
+          {
+            "id": "kd-ag-ab1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-Ag-ab1",
+              "value": "=0.9e-3 / (2.4e5)"
+            }
+          },
+          {
+            "id": "kd-ag-ab2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-Ag-ab2",
+              "value": "=4.0e-3 / (8.0e5)"
+            }
+          },
+          {
+            "id": "kd-ag-ab3",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-Ag-ab3",
+              "value": "=0.3e-3 / (0.6e5)"
+            }
+          },
+          {
+            "id": "kd-x-ab1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-X-ab1",
+              "value": "=1.3e-3 / (1.1e5)"
+            }
+          },
+          {
+            "id": "kd-x-ab2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-X-ab2",
+              "value": "=5.2e-3 / (6.5e5)"
+            }
+          },
+          {
+            "id": "kd-x-ab3",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-X-ab3",
+              "value": "=9.0e-3 / (0.2e5)"
+            }
+          },
+          {
+            "id": "sel-ab1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "selectivity-ab1",
+              "value": "=first(recorded('Kd-X-ab1')) / first(recorded('Kd-Ag-ab1'))"
+            }
+          },
+          {
+            "id": "sel-ab2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "selectivity-ab2",
+              "value": "=first(recorded('Kd-X-ab2')) / first(recorded('Kd-Ag-ab2'))"
+            }
+          },
+          {
+            "id": "sel-ab3",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "selectivity-ab3",
+              "value": "=first(recorded('Kd-X-ab3')) / first(recorded('Kd-Ag-ab3'))"
+            }
+          }
+        ],
+        "objectives": [
+          "o-spr"
+        ]
+      },
+      {
+        "id": "diagnostic",
+        "kind": "decision",
+        "objectives": [
+          "o-spr"
+        ],
+        "prompt": "Which antibody suits a diagnostic test for the antigen, where the cross-reacting protein is abundant?",
+        "options": [
+          {
+            "id": "ab3",
+            "label": "Antibody 3: tight on the antigen and about ninety times weaker on the cross-reacting protein, though its binding is slow"
+          },
+          {
+            "id": "ab2",
+            "label": "Antibody 2: the fastest on-rate"
+          },
+          {
+            "id": "ab1",
+            "label": "Antibody 1"
+          }
+        ],
+        "correctWhen": "if(first(recorded('selectivity-ab3')) > 10 * max([first(recorded('selectivity-ab1')), first(recorded('selectivity-ab2'))]), 'ab3', 'ab1')"
+      },
+      {
+        "id": "vant-hoff",
+        "kind": "group",
+        "title": "van't Hoff: ln Ka against 1/T; slope −ΔH/R, intercept ΔS/R",
+        "steps": [
+          {
+            "id": "t",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "T-K",
+              "value": [
+                288,
+                293,
+                298,
+                303,
+                308,
+                313
+              ]
+            }
+          },
+          {
+            "id": "ka",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Ka-per-M",
+              "value": [
+                615400.0,
+                453200.0,
+                342900.0,
+                261600.0,
+                200200.0,
+                152500.0
+              ]
+            }
+          },
+          {
+            "id": "vh-fit",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map(first(recorded('T-K')), 1 / it)",
+              "y": "=map(first(recorded('Ka-per-M')), ln(it))",
+              "model": "linear"
+            }
+          },
+          {
+            "id": "dh",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "dH-kJ-per-mol",
+              "value": "=-vh-fit.out.fit.params.slope * 8.3145 / 1000"
+            }
+          },
+          {
+            "id": "ds",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "dS-J-per-mol-K",
+              "value": "=vh-fit.out.fit.params.intercept * 8.3145"
+            }
+          },
+          {
+            "id": "dg",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "dG-298-kJ-per-mol",
+              "value": "=first(recorded('dH-kJ-per-mol')) - 298 * first(recorded('dS-J-per-mol-K')) / 1000"
+            }
+          }
+        ],
+        "objectives": [
+          "o-thermo"
+        ]
+      },
+      {
+        "id": "driven",
+        "kind": "decision",
+        "objectives": [
+          "o-thermo"
+        ],
+        "prompt": "What drives this binding?",
+        "options": [
+          {
+            "id": "enthalpy",
+            "label": "Enthalpy: favourable contacts (ΔH < 0) outweigh an unfavourable loss of entropy (ΔS < 0); Ka falls as the temperature rises"
+          },
+          {
+            "id": "entropy",
+            "label": "Entropy (ΔS > 0), against an unfavourable ΔH"
+          }
+        ],
+        "correctWhen": "if(first(recorded('dH-kJ-per-mol')) < 0 && first(recorded('dS-J-per-mol-K')) < 0, 'enthalpy', 'entropy')"
+      },
+      {
+        "id": "itc",
+        "kind": "group",
+        "title": "ITC: integrated heat per injection (kJ per mol of ligand injected) against the ligand:protein molar ratio",
+        "steps": [
+          {
+            "id": "ratio",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "molar-ratio",
+              "value": [
+                0.214,
+                0.429,
+                0.643,
+                0.857,
+                1.071,
+                1.286,
+                1.5,
+                1.714,
+                1.929,
+                2.143,
+                2.357,
+                2.571,
+                2.786,
+                3.0,
+                3.214,
+                3.429,
+                3.643,
+                3.857,
+                4.071,
+                4.286,
+                4.5,
+                4.714,
+                4.929,
+                5.143,
+                5.357
+              ]
+            }
+          },
+          {
+            "id": "heat",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "heat-kJ-per-mol",
+              "value": [
+                -28.81,
+                -28.49,
+                -28.01,
+                -27.39,
+                -26.47,
+                -25.07,
+                -22.61,
+                -20.05,
+                -16.56,
+                -13.38,
+                -9.93,
+                -7.43,
+                -5.48,
+                -4.31,
+                -3.22,
+                -2.56,
+                -2.04,
+                -2.22,
+                -1.82,
+                -1.23,
+                -0.9,
+                -1.08,
+                -1.11,
+                -0.8,
+                -0.88
+              ]
+            }
+          },
+          {
+            "id": "dilution",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "dilution-heat",
+              "value": "=mean([first(recorded('heat-kJ-per-mol'))[22], first(recorded('heat-kJ-per-mol'))[23], first(recorded('heat-kJ-per-mol'))[24]])"
+            }
+          },
+          {
+            "id": "dh-itc",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "dH-ITC",
+              "value": "=mean([first(recorded('heat-kJ-per-mol'))[0], first(recorded('heat-kJ-per-mol'))[1], first(recorded('heat-kJ-per-mol'))[2]]) - first(recorded('dilution-heat'))"
+            }
+          },
+          {
+            "id": "half",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "half-way",
+              "value": "=(first(recorded('heat-kJ-per-mol'))[0] + first(recorded('dilution-heat'))) / 2"
+            }
+          },
+          {
+            "id": "n",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "N",
+              "value": "=first(recorded('molar-ratio'))[first(filter(i in range(1, 24, 24): first(recorded('heat-kJ-per-mol'))[i] > first(recorded('half-way'))))]"
+            }
+          }
+        ],
+        "objectives": [
+          "o-thermo"
+        ]
+      },
+      {
+        "id": "itc-read",
+        "kind": "decision",
+        "objectives": [
+          "o-thermo"
+        ],
+        "prompt": "What does the isotherm say?",
+        "options": [
+          {
+            "id": "exo-two",
+            "label": "Exothermic binding (negative heats), two ligands per protein (the transition is centred near a molar ratio of 2); the late injections are only heat of dilution"
+          },
+          {
+            "id": "endo-one",
+            "label": "Endothermic, one site"
+          },
+          {
+            "id": "exo-one",
+            "label": "Exothermic, one site"
+          }
+        ],
+        "correctWhen": "if(first(recorded('dH-ITC')) < 0 && abs(first(recorded('N')) - 2) < 0.35, 'exo-two', if(first(recorded('dH-ITC')) < 0, 'exo-one', 'endo-one'))"
+      },
+      {
+        "id": "emsa",
+        "kind": "group",
+        "title": "EMSA: fraction of DNA bound against protein (µM), DNA far below Kd; fitted to f = [P]/(Kd + [P])",
+        "steps": [
+          {
+            "id": "conc",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "protein-uM",
+              "value": [
+                0.001,
+                0.01,
+                0.03,
+                0.1,
+                0.3,
+                1,
+                3,
+                10
+              ]
+            }
+          },
+          {
+            "id": "fb-wt",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "fraction-wt",
+              "value": [
+                0.02,
+                0.19,
+                0.38,
+                0.63,
+                0.84,
+                0.96,
+                0.97,
+                1
+              ]
+            }
+          },
+          {
+            "id": "fit-wt",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "x": "=first(recorded('protein-uM'))",
+              "y": "=first(recorded('fraction-wt'))",
+              "model": "michaelis-menten"
+            }
+          },
+          {
+            "id": "kd-wt",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-wt-uM",
+              "value": "=fit-wt.out.fit.params.km"
+            }
+          },
+          {
+            "id": "fb-ma",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "fraction-ma",
+              "value": [
+                0.01,
+                0.15,
+                0.32,
+                0.64,
+                0.83,
+                0.92,
+                0.99,
+                1
+              ]
+            }
+          },
+          {
+            "id": "fit-ma",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "x": "=first(recorded('protein-uM'))",
+              "y": "=first(recorded('fraction-ma'))",
+              "model": "michaelis-menten"
+            }
+          },
+          {
+            "id": "kd-ma",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-ma-uM",
+              "value": "=fit-ma.out.fit.params.km"
+            }
+          },
+          {
+            "id": "fb-mb",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "fraction-mb",
+              "value": [
+                0.0,
+                0,
+                0.01,
+                0.07,
+                0.14,
+                0.31,
+                0.63,
+                0.84
+              ]
+            }
+          },
+          {
+            "id": "fit-mb",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "x": "=first(recorded('protein-uM'))",
+              "y": "=first(recorded('fraction-mb'))",
+              "model": "michaelis-menten"
+            }
+          },
+          {
+            "id": "kd-mb",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "Kd-mb-uM",
+              "value": "=fit-mb.out.fit.params.km"
+            }
+          }
+        ],
+        "objectives": [
+          "o-emsa"
+        ]
+      },
+      {
+        "id": "mutant",
+        "kind": "decision",
+        "objectives": [
+          "o-emsa"
+        ],
+        "prompt": "Which mutation matters for DNA binding?",
+        "options": [
+          {
+            "id": "mb",
+            "label": "Mutation B: its Kd is about forty times the wild type's; A's is barely changed"
+          },
+          {
+            "id": "ma",
+            "label": "Mutation A"
+          },
+          {
+            "id": "neither",
+            "label": "Neither"
+          }
+        ],
+        "correctWhen": "if(first(recorded('Kd-mb-uM')) > 10 * first(recorded('Kd-wt-uM')) && first(recorded('Kd-ma-uM')) < 2 * first(recorded('Kd-wt-uM')), 'mb', 'ma')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-binding",
+        "statement": "The constants come out close to the truth and are read correctly",
+        "check": "within(first(recorded('dH-kJ-per-mol')), -42, 2) && within(first(recorded('dS-J-per-mol-K')), -35, 7) && within(first(recorded('dH-ITC')), -30, 3) && within(first(recorded('N')), 2, 0.35) && within(first(recorded('Kd-mb-uM')), 2, 0.6) && decision('diagnostic') == 'ab3' && decision('driven') == 'enthalpy' && decision('itc-read') == 'exo-two' && decision('mutant') == 'mb'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-dg",
+        "statement": "ΔG at 298 K is about −31.6 kJ/mol",
+        "check": "within(first(recorded('dG-298-kJ-per-mol')), -31.6, 0.5)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "ideal"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    },
+    "annotations": [
+      {
+        "path": "/procedure",
+        "class": "simulation-derived",
+        "note": "Data generated from known parameters: SPR as tabulated; van't Hoff ΔH −42 kJ/mol, ΔS −35 J/(mol·K), 1 % noise; ITC N = 2, Kd 2 µM, ΔH −30 kJ/mol, dilution −0.4 kJ/mol, 20 µM protein, 600 µM ligand, 10 µL into 1.4 mL; EMSA Kd 50 nM (wild type), 60 nM (A), 2 µM (B)."
+      }
+    ]
+  }
+}

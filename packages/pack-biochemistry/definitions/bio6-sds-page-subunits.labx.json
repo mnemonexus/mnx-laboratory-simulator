@@ -1,0 +1,84 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio6-sds-page-subunits",
+  "version": "1.0.0",
+  "title": "Subunit masses by SDS-PAGE",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "bio:sds-page" }, { "technique": "molbio:size-band" }] },
+  "summary": "Denature BSA, lactate dehydrogenase, lysozyme and an unknown protein in SDS sample buffer, run them beside a protein marker on a 12 % SDS-polyacrylamide gel, estimate each chain's mass from the marker, and work out how many subunits LDH has.",
+  "briefing": "SDS unfolds proteins and coats them with negative charge in proportion to their length, so in the gel they separate by the mass of their polypeptide chains. A protein made of several chains gives a band for each kind of chain, not one for the whole protein.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["biochemistry", "biosciences"] },
+    "concepts": [{ "id": "sds-page", "label": "Separation of denatured proteins by chain mass" }, { "id": "quaternary", "label": "Quaternary structure" }],
+    "objectives": [
+      { "id": "o-prepare", "kind": "skill", "statement": "Denature protein samples for SDS-PAGE", "skills": ["core:micropipetting", "bio:sds-page"] },
+      { "id": "o-gel", "kind": "skill", "statement": "Load, run and image the gel", "skills": ["bio:sds-page"] },
+      { "id": "o-size", "kind": "analysis", "statement": "Estimate chain masses against the marker", "skills": ["molbio:band-sizing"], "goal": "g-sizes" },
+      { "id": "o-subunits", "kind": "reasoning", "statement": "Deduce LDH's subunit structure", "skills": ["bio:subunit-structure"] }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "unknown", "label": "Protein X, 1 mg/mL", "role": "unknown", "preparation": "bio:ovalbumin-1mg", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel" }
+    ],
+    "supplies": [
+      { "id": "bsa", "label": "BSA, 1 mg/mL", "preparation": "bio:bsa-1mg", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "ldh", "label": "LDH, 1 mg/mL", "preparation": "bio:ldh-1mg", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "lysozyme", "label": "Lysozyme, 1 mg/mL", "preparation": "bio:lysozyme-1mg", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "buffer", "label": "SDS sample buffer (2×)", "preparation": "bio:sds-sample-buffer-2x", "amount": "200 uL", "container": "core:microtube-1.5ml" },
+      { "id": "marker", "label": "Protein marker (ready to load)", "preparation": "bio:protein-ladder-ready", "amount": "50 uL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "block", "requires": { "class": "core:heating-block", "temperature": "95 Cel" } },
+      { "id": "gel", "requires": { "class": "core:sds-page-gel-12pct" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "prepare", "kind": "group", "title": "Each protein 1:1 with sample buffer", "objectives": ["o-prepare"],
+        "forEach": { "var": "s", "in": "=[['bsa', 't-bsa', 'BSA'], ['ldh', 't-ldh', 'LDH'], ['lysozyme', 't-lys', 'Lysozyme'], ['unknown', 't-unk', 'Protein X']]" },
+        "steps": [
+          { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=s[1]", "label": "=s[2] + ' in SDS'" } },
+          { "id": "protein", "kind": "operation", "ref": "core:transfer", "params": { "source": "=s[0]", "destination": "=s[1]", "volume": "10 uL" } },
+          { "id": "sds", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "=s[1]", "volume": "10 uL" } },
+          { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=s[1]", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "into-block", "kind": "operation", "ref": "core:place-in", "objectives": ["o-prepare"], "forEach": { "var": "t", "in": "=['t-bsa', 't-ldh', 't-lys', 't-unk']" }, "params": { "container": "=t", "place": "block" } },
+      { "id": "boil", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "5 min" } },
+      { "id": "out-of-block", "kind": "operation", "ref": "core:remove-from", "forEach": { "var": "t", "in": "=['t-bsa', 't-ldh', 't-lys', 't-unk']" }, "params": { "container": "=t" } },
+      { "id": "electrophoresis", "kind": "technique", "ref": "bio:sds-page", "objectives": ["o-gel"],
+        "params": { "gel": "gel", "ladder": "marker", "ladderLane": "gel/A1", "loads": [["t-bsa", "gel/A2"], ["t-ldh", "gel/A3"], ["t-lys", "gel/A4"], ["t-unk", "gel/A5"]], "volume": "5 uL", "voltage": 200, "duration": "40 min" } },
+      { "id": "sizing", "kind": "group", "objectives": ["o-size"],
+        "forEach": { "var": "l", "in": "=[['bsa', 'gel/A2'], ['ldh', 'gel/A3'], ['lysozyme', 'gel/A4'], ['unknown', 'gel/A5']]" },
+        "steps": [
+          { "id": "size", "kind": "technique", "ref": "molbio:size-band", "params": { "ladderLane": "gel/A1", "lane": "=l[1]", "ladder": "bio:protein-ladder" } },
+          { "id": "note", "kind": "operation", "ref": "core:record", "params": { "field": "='kDa-' + l[0]", "value": "=first(size.out.sizes)" } }
+        ] },
+      { "id": "subunits", "kind": "decision", "objectives": ["o-subunits"],
+        "prompt": "By gel filtration, native LDH is about 140 kDa. What does your gel tell you about its structure?",
+        "options": [
+          { "id": "tetramer", "label": "Four chains of the mass you measured" },
+          { "id": "dimer", "label": "Two chains" },
+          { "id": "monomer", "label": "One chain: the gel shows the whole protein" }
+        ],
+        "correctWhen": "if(abs(140 / first(recorded('kDa-ldh')) - 4) < 0.7, 'tetramer', if(abs(140 / first(recorded('kDa-ldh')) - 2) < 0.4, 'dimer', 'monomer'))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-sizes", "statement": "The LDH chain (35 kDa) and Protein X (44 kDa) are both within 10 %", "check": "between(first(recorded('kDa-ldh')), 31.5, 38.5) && between(first(recorded('kDa-unknown')), 39.9, 48.7)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-marker", "statement": "All ten marker bands are on the gel", "check": "count(bandsIn('gel/A1')) == 10", "source": "reference-standard" },
+      { "id": "e-one-band", "statement": "Each purified protein gives one band", "check": "count(bandsIn('gel/A2')) == 1 && count(bandsIn('gel/A3')) == 1 && count(bandsIn('gel/A4')) == 1 && count(bandsIn('gel/A5')) == 1", "source": "reference-standard" },
+      { "id": "e-order", "statement": "Lysozyme, the smallest, runs furthest; BSA, the largest, least far", "check": "first(bandsIn('gel/A4')) > first(bandsIn('gel/A5')) && first(bandsIn('gel/A5')) > first(bandsIn('gel/A2'))", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

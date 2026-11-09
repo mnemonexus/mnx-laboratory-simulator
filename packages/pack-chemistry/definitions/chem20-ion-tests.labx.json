@@ -1,0 +1,750 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem20-ion-tests",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": "{{keywords}}",
+    "topics": [
+      "Qualitative analysis",
+      "Inorganic chemistry"
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ],
+    "concepts": [
+      {
+        "id": "precipitation",
+        "label": "Precipitation and solubility"
+      },
+      {
+        "id": "complexes",
+        "label": "Complex ions"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-observe",
+        "kind": "skill",
+        "statement": "Carry out test-tube reactions and record observations"
+      },
+      {
+        "id": "o-identify",
+        "kind": "reasoning",
+        "statement": "Identify ions from what is seen",
+        "goal": "g-identify"
+      }
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Which metal ion? Hydroxide precipitates"
+    },
+    "summary": {
+      "default": "Add sodium hydroxide to five solutions, a few drops and then in excess, and name each metal ion from the colour of its hydroxide and whether it dissolves again."
+    },
+    "briefing": {
+      "default": "Sodium hydroxide precipitates most metal ions as their hydroxides. The colour tells several apart; aluminium (and zinc) hydroxide dissolve again in excess because they are amphoteric. Calcium and magnesium hydroxides are both white and stay; a flame test separates them."
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "tubes": {
+      "default": "=[['A', 'sol-a'], ['B', 'sol-b'], ['C', 'sol-c'], ['D', 'sol-d'], ['E', 'sol-e']]"
+    },
+    "additions": {
+      "default": "=[['naoh', '0.5 mL', 'drops', 'A few drops of sodium hydroxide (about ten)'], ['naoh', '3 mL', 'excess', 'Sodium hydroxide in excess']]"
+    },
+    "letters": {
+      "default": "=['A', 'B', 'C', 'D', 'E']"
+    },
+    "options": {
+      "default": [
+        {
+          "id": "copper",
+          "label": "Copper(II), Cu²⁺"
+        },
+        {
+          "id": "iron-ii",
+          "label": "Iron(II), Fe²⁺"
+        },
+        {
+          "id": "iron-iii",
+          "label": "Iron(III), Fe³⁺"
+        },
+        {
+          "id": "aluminium",
+          "label": "Aluminium, Al³⁺"
+        },
+        {
+          "id": "calcium",
+          "label": "Calcium, Ca²⁺"
+        },
+        {
+          "id": "magnesium",
+          "label": "Magnesium, Mg²⁺"
+        }
+      ]
+    },
+    "answersList": {
+      "default": "[['A', 'copper'], ['B', 'iron-ii'], ['C', 'iron-iii'], ['D', 'aluminium'], ['E', 'calcium']]"
+    },
+    "samples": {
+      "default": [
+        {
+          "id": "sol-a",
+          "label": "Solution A",
+          "role": "unknown",
+          "contains": [
+            {
+              "substance": "aq:copper-ii-sulfate",
+              "conc": "0.1 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "10 mL",
+          "container": "core:dropper-bottle-10ml"
+        },
+        {
+          "id": "sol-b",
+          "label": "Solution B",
+          "role": "unknown",
+          "contains": [
+            {
+              "substance": "aq:iron-ii-sulfate",
+              "conc": "0.1 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "10 mL",
+          "container": "core:dropper-bottle-10ml"
+        },
+        {
+          "id": "sol-c",
+          "label": "Solution C",
+          "role": "unknown",
+          "contains": [
+            {
+              "substance": "aq:iron-iii-chloride",
+              "conc": "0.1 mol/L"
+            },
+            {
+              "substance": "aq:nitric-acid",
+              "conc": "0.01 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "10 mL",
+          "container": "core:dropper-bottle-10ml"
+        },
+        {
+          "id": "sol-d",
+          "label": "Solution D",
+          "role": "unknown",
+          "contains": [
+            {
+              "substance": "aq:aluminium-sulfate",
+              "conc": "0.05 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "10 mL",
+          "container": "core:dropper-bottle-10ml"
+        },
+        {
+          "id": "sol-e",
+          "label": "Solution E",
+          "role": "unknown",
+          "contains": [
+            {
+              "substance": "aq:calcium-chloride",
+              "conc": "0.1 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "10 mL",
+          "container": "core:dropper-bottle-10ml"
+        }
+      ]
+    },
+    "reagents": {
+      "default": [
+        {
+          "id": "naoh",
+          "label": "Sodium hydroxide, 1 M",
+          "contains": [
+            {
+              "substance": "aq:sodium-hydroxide",
+              "conc": "1 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "50 mL",
+          "container": "core:reagent-bottle-250ml"
+        }
+      ]
+    },
+    "keywords": {
+      "default": [
+        "hydroxide",
+        "precipitate",
+        "metal ions",
+        "cation test",
+        "qualitative analysis"
+      ]
+    },
+    "lettersList": {
+      "default": "['A', 'B', 'C', 'D', 'E']"
+    },
+    "firstCheck": {
+      "default": "mentions(first(recorded('seen-A-drops')), 'blue precipitate') && mentions(first(recorded('seen-B-drops')), 'green precipitate') && mentions(first(recorded('seen-C-drops')), 'brown precipitate') && mentions(first(recorded('seen-D-drops')), 'white precipitate') && mentions(first(recorded('seen-E-drops')), 'white precipitate')"
+    }
+  },
+  "materials": {
+    "samples": "{{samples}}",
+    "supplies": "{{reagents}}"
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "tests",
+        "kind": "group",
+        "title": "Each solution in a test tube",
+        "forEach": {
+          "var": "x",
+          "in": "{{tubes}}"
+        },
+        "objectives": [
+          "o-observe"
+        ],
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='tube-' + x[0]",
+              "label": "='Tube ' + x[0]"
+            }
+          },
+          {
+            "id": "sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "='tube-' + x[0]",
+              "volume": "2 mL",
+              "tool": "dropper"
+            }
+          },
+          {
+            "id": "additions",
+            "kind": "group",
+            "forEach": {
+              "var": "y",
+              "in": "{{additions}}"
+            },
+            "steps": [
+              {
+                "id": "add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=y[0]",
+                  "destination": "='tube-' + x[0]",
+                  "volume": "=y[1]",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "shake",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='tube-' + x[0]",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='tube-' + x[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x[0] + '-' + y[2]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "identify",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which ion does this solution contain?",
+        "forEach": {
+          "var": "x",
+          "in": "{{letters}}"
+        },
+        "options": "{{options}}",
+        "correctWhen": "choice == first(filter({{answersList}}, it[0] == x))[1]"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-identify",
+        "statement": "Every solution's ion is named correctly",
+        "check": "all(x in {{lettersList}}: decision(identify, x) == first(filter({{answersList}}, it[0] == x))[1])"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-first",
+        "statement": "The first reagent gives the expected precipitate (or none)",
+        "check": "{{firstCheck}}",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "variants": [
+    {
+      "id": "chem20-ammonia-tests",
+      "title": "Which metal ion? Ammonia and its complexes",
+      "summary": "Add ammonia solution to four solutions, a few drops and then in excess: some hydroxides dissolve again as ammine complexes, one of them deep blue.",
+      "briefing": "A little ammonia acts as a base and precipitates hydroxides. In excess, ammonia molecules bind to copper(II), zinc and silver ions as ligands: the precipitate dissolves and copper gives the deep blue [Cu(NH₃)₄]²⁺. Aluminium forms no ammine, so its hydroxide stays.",
+      "curricula": [
+        "A level",
+        "IB"
+      ],
+      "values": {
+        "level": "ages-16-19",
+        "tubes": "=[['A', 'sol-a'], ['B', 'sol-b'], ['C', 'sol-c'], ['D', 'sol-d']]",
+        "letters": "=['A', 'B', 'C', 'D']",
+        "additions": "=[['nh3', '0.05 mL', 'drops', 'One drop of ammonia solution'], ['nh3', '3 mL', 'excess', 'Ammonia solution in excess']]",
+        "samples": [
+          {
+            "id": "sol-a",
+            "label": "Solution A",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:copper-ii-sulfate",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          },
+          {
+            "id": "sol-b",
+            "label": "Solution B",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:zinc-sulfate",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          },
+          {
+            "id": "sol-c",
+            "label": "Solution C",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:aluminium-sulfate",
+                "conc": "0.05 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          },
+          {
+            "id": "sol-d",
+            "label": "Solution D",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:silver-nitrate",
+                "conc": "0.05 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          }
+        ],
+        "reagents": [
+          {
+            "id": "nh3",
+            "label": "Ammonia solution, 2 M",
+            "contains": [
+              {
+                "substance": "aq:ammonia",
+                "conc": "2 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "50 mL",
+            "container": "core:reagent-bottle-250ml"
+          }
+        ],
+        "options": [
+          {
+            "id": "copper",
+            "label": "Copper(II), Cu²⁺"
+          },
+          {
+            "id": "zinc",
+            "label": "Zinc, Zn²⁺"
+          },
+          {
+            "id": "aluminium",
+            "label": "Aluminium, Al³⁺"
+          },
+          {
+            "id": "silver",
+            "label": "Silver, Ag⁺"
+          },
+          {
+            "id": "magnesium",
+            "label": "Magnesium, Mg²⁺"
+          }
+        ],
+        "answersList": "[['A', 'copper'], ['B', 'zinc'], ['C', 'aluminium'], ['D', 'silver']]",
+        "lettersList": "['A', 'B', 'C', 'D']",
+        "firstCheck": "mentions(first(recorded('seen-A-drops')), 'blue precipitate') && mentions(first(recorded('seen-B-drops')), 'white precipitate') && mentions(first(recorded('seen-C-drops')), 'white precipitate') && mentions(first(recorded('seen-D-drops')), 'brown precipitate')",
+        "keywords": [
+          "ammonia",
+          "complex ion",
+          "ligand",
+          "ammine",
+          "tetraamminecopper",
+          "cation test"
+        ]
+      }
+    },
+    {
+      "id": "chem20-halide-tests",
+      "title": "Which halide? Silver nitrate and ammonia",
+      "summary": "Acidify three solutions, add silver nitrate, then dilute and concentrated ammonia, and name each halide from its precipitate and how readily ammonia dissolves it.",
+      "briefing": "Nitric acid first removes ions such as carbonate that would also precipitate silver. Silver chloride is white, the bromide cream and the iodide yellow, but the colours are close: ammonia settles it. Dilute ammonia dissolves silver chloride; concentrated ammonia dissolves the bromide; nothing dissolves the iodide, the least soluble.",
+      "curricula": [
+        "GCSE",
+        "A level",
+        "IB"
+      ],
+      "values": {
+        "level": "ages-16-19",
+        "tubes": "=[['A', 'sol-a'], ['B', 'sol-b'], ['C', 'sol-c']]",
+        "letters": "=['A', 'B', 'C']",
+        "additions": "=[['hno3', '0.5 mL', 'acid', 'Dilute nitric acid'], ['agno3', '0.5 mL', 'silver', 'Silver nitrate'], ['nh3', '2 mL', 'dilute-nh3', 'Dilute ammonia'], ['nh3-conc', '2 mL', 'conc-nh3', 'Concentrated ammonia']]",
+        "samples": [
+          {
+            "id": "sol-a",
+            "label": "Solution A",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:sodium-chloride",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          },
+          {
+            "id": "sol-b",
+            "label": "Solution B",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:potassium-bromide",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          },
+          {
+            "id": "sol-c",
+            "label": "Solution C",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:potassium-iodide",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          }
+        ],
+        "reagents": [
+          {
+            "id": "hno3",
+            "label": "Dilute nitric acid, 1 M",
+            "contains": [
+              {
+                "substance": "aq:nitric-acid",
+                "conc": "1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "50 mL",
+            "container": "core:reagent-bottle-250ml"
+          },
+          {
+            "id": "agno3",
+            "label": "Silver nitrate, 0.05 M",
+            "contains": [
+              {
+                "substance": "aq:silver-nitrate",
+                "conc": "0.05 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          },
+          {
+            "id": "nh3",
+            "label": "Ammonia solution, 2 M",
+            "contains": [
+              {
+                "substance": "aq:ammonia",
+                "conc": "2 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "50 mL",
+            "container": "core:reagent-bottle-250ml"
+          },
+          {
+            "id": "nh3-conc",
+            "label": "Concentrated ammonia, 15 M (fume cupboard)",
+            "contains": [
+              {
+                "substance": "aq:ammonia",
+                "conc": "15 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "20 mL",
+            "container": "core:reagent-bottle-250ml"
+          }
+        ],
+        "options": [
+          {
+            "id": "chloride",
+            "label": "Chloride, Cl⁻"
+          },
+          {
+            "id": "bromide",
+            "label": "Bromide, Br⁻"
+          },
+          {
+            "id": "iodide",
+            "label": "Iodide, I⁻"
+          }
+        ],
+        "answersList": "[['A', 'chloride'], ['B', 'bromide'], ['C', 'iodide']]",
+        "lettersList": "['A', 'B', 'C']",
+        "firstCheck": "mentions(first(recorded('seen-A-silver')), 'white precipitate') && mentions(first(recorded('seen-B-silver')), 'pale yellow precipitate') && mentions(first(recorded('seen-C-silver')), 'yellow precipitate')",
+        "keywords": [
+          "halide",
+          "silver nitrate",
+          "precipitate",
+          "anion test",
+          "ammonia",
+          "solubility product"
+        ]
+      }
+    },
+    {
+      "id": "chem20-sulfate-test",
+      "title": "Is there sulfate? Barium chloride",
+      "summary": "Acidify three solutions with hydrochloric acid and add barium chloride: a white precipitate of barium sulfate shows sulfate.",
+      "briefing": "The acid first removes carbonate and sulfite, which would also give white barium precipitates. Barium sulfate is so insoluble that even a little sulfate clouds the tube.",
+      "curricula": [
+        "GCSE",
+        "A level",
+        "BTEC"
+      ],
+      "values": {
+        "level": "ages-14-16",
+        "tubes": "=[['A', 'sol-a'], ['B', 'sol-b'], ['C', 'sol-c']]",
+        "letters": "=['A', 'B', 'C']",
+        "additions": "=[['hcl', '0.5 mL', 'acid', 'Dilute hydrochloric acid'], ['bacl2', '0.5 mL', 'barium', 'Barium chloride']]",
+        "samples": [
+          {
+            "id": "sol-a",
+            "label": "Solution A",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:sodium-sulfate",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          },
+          {
+            "id": "sol-b",
+            "label": "Solution B",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:sodium-nitrate",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          },
+          {
+            "id": "sol-c",
+            "label": "Solution C",
+            "role": "unknown",
+            "contains": [
+              {
+                "substance": "aq:magnesium-sulfate",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          }
+        ],
+        "reagents": [
+          {
+            "id": "hcl",
+            "label": "Dilute hydrochloric acid, 1 M",
+            "contains": [
+              {
+                "substance": "aq:hydrochloric-acid",
+                "conc": "1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "50 mL",
+            "container": "core:reagent-bottle-250ml"
+          },
+          {
+            "id": "bacl2",
+            "label": "Barium chloride, 0.1 M",
+            "contains": [
+              {
+                "substance": "aq:barium-chloride",
+                "conc": "0.1 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "10 mL",
+            "container": "core:dropper-bottle-10ml"
+          }
+        ],
+        "options": [
+          {
+            "id": "sulfate",
+            "label": "Sulfate, SO₄²⁻"
+          },
+          {
+            "id": "nitrate",
+            "label": "Nitrate only (no sulfate)"
+          }
+        ],
+        "answersList": "[['A', 'sulfate'], ['B', 'nitrate'], ['C', 'sulfate']]",
+        "lettersList": "['A', 'B', 'C']",
+        "firstCheck": "mentions(first(recorded('seen-A-barium')), 'white precipitate') && !mentions(first(recorded('seen-B-barium')), 'precipitate') && mentions(first(recorded('seen-C-barium')), 'white precipitate')",
+        "keywords": [
+          "sulfate",
+          "barium chloride",
+          "anion test",
+          "precipitate"
+        ]
+      }
+    }
+  ]
+}

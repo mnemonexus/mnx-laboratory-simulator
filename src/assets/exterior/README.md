@@ -1,0 +1,21 @@
+# Exterior textures
+
+Generated with the built-in ImageGen tool for this project on 2026-10-23, then encoded as WebP. All assets are bundled inline for the MnemoNexus sandbox; no external image service is contacted at runtime.
+
+- `autumn-trees.webp`: one 1536 × 1024 alpha atlas containing oak, birch and hornbeam. Tree cards use fixed UV regions and world positions, never camera-facing sprites. Low decodes to a 768 × 512 GPU texture.
+- `blue-hour-sky.webp`: a 2172 × 724 quiet blue-hour cloud panorama, resampled to at most 1024 pixels wide on Low or 2048 on other tiers. This is only the distant sky; ground, buildings and foliage occupy separate world-space depths.
+- `damp-ground.webp`: a 1024 × 1024 photographic tile of damp grass, soil, gravel and decomposed leaves, added for the user's fogbound survival-horror exterior direction. Low uses a 512 × 512 GPU texture. The material reuses the same image at a broad scale to break up repetition. Generated with built-in ImageGen, then resized and encoded as WebP; the original tree and sky assets are retained.
+
+Generation prompts:
+
+## Damp ground (fogbound exterior revision)
+
+Use case: photorealistic-natural. Asset type: seamless tileable albedo ground texture for an efficient realistic survival-horror campus viewed from a second-floor laboratory window. One square 1024x1024 texture, photographed straight down orthographic, fills the entire image edge to edge. Damp neglected ground with irregular patches of short dead grey olive grass, dark moist soil, tiny fine gravel and small decomposed leaf fragments, subtle sparse moss. Mostly natural irregular mottled grass/earth with a few bare patches, no big objects. Cold overcast diffuse light, completely flat illumination: NO baked directional shadows, no highlights, no horizon, no perspective. Desaturated cool ash grey, muted dark olive brown, charcoal soil. Real photography with fine organic detail and variation at multiple scales, not a flat green plane or stylised noise. Must seamlessly tile on all four edges; avoid any distinctive large landmark, large leaves, cracks or edge border. Quiet damp abandoned institutional grounds, restrained realistic eerie mood, not fantasy, no characters, no buildings, no text.
+
+## Trees
+
+Use case: photorealistic-natural. Asset type: game environment alpha-cutout texture atlas for fixed tree impostors in a realistic blue-hour laboratory campus exterior. Generate ONE wide landscape image, aspect ratio 3:2. Three fully isolated mature deciduous trees side by side, evenly spaced, each entire tree including trunk base and all branches fully inside its own third with generous transparent padding and no overlap. Left: broad oak with sparse late-autumn olive leaves and fine branches. Centre: tall silver birch with delicate bare branching and a few muted leaves. Right: rounded European hornbeam with sparse grey-green foliage. Photographic detail, realistic organic irregular silhouettes, soft cool twilight ambient lighting, subdued desaturated natural colours, branches visibly readable rather than black silhouettes. Orthographic straight-on elevation from eye height, no perspective ground. Truly transparent background including gaps between twigs and leaves, no sky, no ground, no shadows, no scene, no labels, no border. These will be mapped on separate quads at different world depths, so keep each tree complete and isolated.
+
+## Sky
+
+Use case: photorealistic-natural. Asset type: background skydome texture for a realistic 3D laboratory campus at cool blue hour. Create an extremely wide panoramic photograph of ONLY an evening sky, no land no horizon objects no buildings no trees no sun no moon no stars no text. Subtle wispy cirrus and soft scattered altocumulus clouds, real photographic atmospheric detail, restrained neutral cool steel blue near the bottom gradually deepening to soft navy at the top. Soft diffuse twilight with no bright warm sunset or yellow cast, no dramatic storm, no fantasy. Very broad clouds with plenty of open sky; photographed with a wide lens, sharp natural cloud detail. Bottom 15 percent clear pale blue haze. Left and right edges have matching overall blue colour for a wrapped panoramic background. Wide landscape 3:1 composition. A realistic quiet UK research campus sky.

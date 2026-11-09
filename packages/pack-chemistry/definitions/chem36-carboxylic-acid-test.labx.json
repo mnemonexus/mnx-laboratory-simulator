@@ -1,0 +1,322 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem36-carboxylic-acid-test",
+  "version": "1.0.0",
+  "title": "Testing for a carboxylic acid with sodium hydrogencarbonate",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:connect-gas"
+      }
+    ]
+  },
+  "summary": "Add sodium hydrogencarbonate solution to ethanoic acid, ethanol and water, bubble any gas through limewater, and tell the carboxylic acid from the alcohol.",
+  "briefing": "Carboxylic acids are acidic enough to react with hydrogencarbonates and carbonates, giving carbon dioxide: CH₃COOH + NaHCO₃ → CH₃COONa + H₂O + CO₂. Alcohols are not. Put 3 mL of each liquid in a boiling tube, add 2 mL of sodium hydrogencarbonate solution (less than the acid, so that the gas comes off rather than staying as hydrogencarbonate), bung it at once with a delivery tube dipping into limewater, and watch both tubes.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "carboxylic acid",
+      "functional group test",
+      "sodium hydrogencarbonate",
+      "carbon dioxide",
+      "limewater",
+      "organic chemistry"
+    ],
+    "topics": [
+      "Organic chemistry",
+      "Identifying functional groups"
+    ],
+    "concepts": [
+      {
+        "id": "acid-strength",
+        "label": "Carboxylic acids are weak acids but strong enough to release CO₂ from carbonates"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-test",
+        "kind": "skill",
+        "statement": "Carry out the carbonate test, collecting the gas into limewater"
+      },
+      {
+        "id": "o-identify",
+        "kind": "outcome",
+        "statement": "Tell a carboxylic acid from an alcohol",
+        "goal": "g-identify"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "acid",
+        "label": "Ethanoic acid, 1 M",
+        "contains": [
+          {
+            "substance": "core:acetic-acid",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "alcohol",
+        "label": "Ethanol, 1 M in water",
+        "contains": [
+          {
+            "substance": "core:ethanol",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "carbonate",
+        "label": "Sodium hydrogencarbonate, 1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydrogencarbonate",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "limewater",
+        "label": "Limewater (saturated calcium hydroxide)",
+        "contains": [
+          {
+            "substance": "aq:calcium-hydroxide",
+            "conc": "0.020 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "tests",
+        "kind": "group",
+        "title": "Each liquid with sodium hydrogencarbonate",
+        "objectives": [
+          "o-test"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['acid','Ethanoic acid'],['alcohol','Ethanol'],['water','Water']]"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "='tube-' + x[0]",
+              "label": "=x[1] + ' and carbonate'"
+            }
+          },
+          {
+            "id": "lw",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='limewater-' + x[0]",
+              "label": "='Limewater for ' + x[1]"
+            }
+          },
+          {
+            "id": "lw-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "limewater",
+              "destination": "='limewater-' + x[0]",
+              "volume": "5 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "='tube-' + x[0]",
+              "volume": "3 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "carb",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "carbonate",
+              "destination": "='tube-' + x[0]",
+              "volume": "2 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "bubble",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "='tube-' + x[0]",
+              "into": "='limewater-' + x[0]"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "='tube-' + x[0]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + x[0]",
+              "value": "=look.out.appearance"
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 s"
+            }
+          },
+          {
+            "id": "unbung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "='tube-' + x[0]"
+            }
+          },
+          {
+            "id": "lw-look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "='limewater-' + x[0]"
+            }
+          },
+          {
+            "id": "lw-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='limewater-' + x[0]",
+              "value": "=lw-look.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "identify",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which liquid contains a carboxylic acid?",
+        "options": [
+          {
+            "id": "acid",
+            "label": "Ethanoic acid"
+          },
+          {
+            "id": "alcohol",
+            "label": "Ethanol"
+          },
+          {
+            "id": "water",
+            "label": "Water"
+          }
+        ],
+        "correctWhen": "'acid'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-identify",
+        "statement": "The carboxylic acid is identified",
+        "check": "decision('identify') == 'acid'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-co2",
+        "statement": "Only the ethanoic acid gives a gas that turns limewater milky",
+        "check": "mentions(first(recorded('limewater-acid')), 'cloudy|white') && !mentions(first(recorded('limewater-alcohol')), 'cloudy|white') && !mentions(first(recorded('limewater-water')), 'cloudy|white')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

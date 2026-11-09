@@ -1,0 +1,476 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem23-gas-tests",
+  "version": "1.0.0",
+  "title": "Tests for gases: hydrogen, oxygen, carbon dioxide and ammonia",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:test-gas"
+      },
+      {
+        "operation": "core:connect-gas"
+      }
+    ]
+  },
+  "summary": "Make four gases in boiling tubes, test each with a lighted splint, a glowing splint, damp litmus paper and limewater, and name each gas from what you see.",
+  "briefing": "Each gas has a test: hydrogen burns with a squeaky pop; oxygen relights a glowing splint; carbon dioxide turns limewater milky (calcium carbonate precipitates) and puts a flame out; ammonia turns damp red litmus blue. Hold each test at the mouth of the tube while gas is coming off. Only one test is positive for each gas: record what every test shows, not just the one you expect.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "gas test",
+      "hydrogen",
+      "oxygen",
+      "carbon dioxide",
+      "ammonia",
+      "limewater",
+      "splint",
+      "litmus",
+      "squeaky pop",
+      "qualitative analysis"
+    ],
+    "topics": [
+      "Qualitative analysis",
+      "Chemical analysis"
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "BTEC"
+    ],
+    "concepts": [
+      {
+        "id": "gas-tests",
+        "label": "Identifying gases by their reactions"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-test",
+        "kind": "skill",
+        "statement": "Carry out the standard tests for gases safely and record observations"
+      },
+      {
+        "id": "o-identify",
+        "kind": "reasoning",
+        "statement": "Identify each gas from the tests",
+        "goal": "g-identify"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "hcl",
+        "label": "Hydrochloric acid, 1.0 M",
+        "contains": [
+          {
+            "substance": "aq:hydrochloric-acid",
+            "conc": "1.0 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "h2o2",
+        "label": "Hydrogen peroxide, 0.50 M",
+        "contains": [
+          {
+            "substance": "core:hydrogen-peroxide",
+            "conc": "0.50 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "nh4cl",
+        "label": "Ammonium chloride, 1.0 M",
+        "contains": [
+          {
+            "substance": "aq:ammonium-chloride",
+            "conc": "1.0 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "naoh",
+        "label": "Sodium hydroxide, 2.0 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydroxide",
+            "conc": "2.0 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "limewater",
+        "label": "Limewater (saturated calcium hydroxide)",
+        "contains": [
+          {
+            "substance": "aq:calcium-hydroxide",
+            "conc": "0.020 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "mg",
+        "label": "Magnesium ribbon (short lengths)",
+        "contains": [
+          {
+            "substance": "aq:magnesium-ribbon",
+            "purity": "99.5 %"
+          }
+        ],
+        "amount": "10 g",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "mno2",
+        "label": "Manganese(IV) oxide powder",
+        "contains": [
+          {
+            "substance": "aq:manganese-dioxide",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "10 g",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "marble",
+        "label": "Marble chips",
+        "contains": [
+          {
+            "substance": "aq:marble-chips",
+            "purity": "98 %"
+          }
+        ],
+        "amount": "10 g",
+        "container": "core:weighing-bottle"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "60 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "tubes",
+        "kind": "group",
+        "title": "Each reaction",
+        "objectives": [
+          "o-test"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A', 'Tube A: magnesium and acid', 'hcl', 10, '-', 0, 'mg', 0.1, 0, 'hydrogen'], ['B', 'Tube B: hydrogen peroxide and manganese(IV) oxide', 'h2o2', 10, '-', 0, 'mno2', 0.5, 0, 'oxygen'], ['C', 'Tube C: marble and acid', 'hcl', 10, '-', 0, 'marble', 2, 0, 'carbon-dioxide'], ['D', 'Tube D: ammonium chloride and sodium hydroxide, warmed', 'nh4cl', 3, 'naoh', 3, '-', 0, 60, 'ammonia']]"
+        },
+        "let": {
+          "tube": "='tube-' + x[0]"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "=tube",
+              "label": "=x[1]"
+            }
+          },
+          {
+            "id": "liquid-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "=tube",
+              "volume": "=quantity(text(x[3]) + ' mL')",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "second-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[4]",
+              "destination": "=tube",
+              "volume": "=quantity(text(x[5]) + ' mL')",
+              "tool": "pour"
+            },
+            "when": "x[4] != '-'"
+          },
+          {
+            "id": "solid-in",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=x[6]",
+              "destination": "=tube",
+              "mass": "=quantity(text(x[7]) + ' g')"
+            },
+            "when": "x[6] != '-'"
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(x[8]) + ' Cel')"
+            },
+            "when": "x[8] > 0"
+          },
+          {
+            "id": "into-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=tube",
+              "place": "bath"
+            },
+            "when": "x[8] > 0"
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "=if(x[8] > 0, 3 min, 30 s)"
+            }
+          },
+          {
+            "id": "tests",
+            "kind": "group",
+            "forEach": {
+              "var": "t",
+              "in": "=['lighted-splint', 'glowing-splint', 'damp-red-litmus', 'damp-blue-litmus']"
+            },
+            "steps": [
+              {
+                "id": "test",
+                "kind": "operation",
+                "ref": "core:test-gas",
+                "params": {
+                  "container": "=tube",
+                  "test": "=t"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x[0] + '-' + t",
+                  "value": "=test.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "lw",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='limewater-' + x[0]",
+              "label": "='Limewater for tube ' + x[0]"
+            }
+          },
+          {
+            "id": "lw-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "limewater",
+              "destination": "='limewater-' + x[0]",
+              "volume": "5 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "bubble",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "=tube",
+              "into": "='limewater-' + x[0]"
+            }
+          },
+          {
+            "id": "bubbling",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 s"
+            }
+          },
+          {
+            "id": "unbung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "=tube"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "='limewater-' + x[0]"
+            }
+          },
+          {
+            "id": "note-lw",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + x[0] + '-limewater'",
+              "value": "=look.out.appearance"
+            }
+          },
+          {
+            "id": "out-of-bath",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=tube"
+            },
+            "when": "x[8] > 0"
+          }
+        ]
+      },
+      {
+        "id": "identify",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which gas does this tube give off?",
+        "forEach": {
+          "var": "x",
+          "in": "=['A', 'B', 'C', 'D']"
+        },
+        "options": [
+          {
+            "id": "hydrogen",
+            "label": "Hydrogen"
+          },
+          {
+            "id": "oxygen",
+            "label": "Oxygen"
+          },
+          {
+            "id": "carbon-dioxide",
+            "label": "Carbon dioxide"
+          },
+          {
+            "id": "ammonia",
+            "label": "Ammonia"
+          },
+          {
+            "id": "chlorine",
+            "label": "Chlorine"
+          }
+        ],
+        "correctWhen": "choice == first(filter([['A', 'hydrogen'], ['B', 'oxygen'], ['C', 'carbon-dioxide'], ['D', 'ammonia']], it[0] == x))[1]"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-identify",
+        "statement": "Every gas is named correctly",
+        "check": "all(x in ['A', 'B', 'C', 'D']: decision(identify, x) == first(filter([['A', 'hydrogen'], ['B', 'oxygen'], ['C', 'carbon-dioxide'], ['D', 'ammonia']], it[0] == x))[1])"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-pop",
+        "statement": "Hydrogen burns with a squeaky pop; the others do not",
+        "check": "mentions(first(recorded('seen-A-lighted-splint')), 'squeaky pop') && !mentions(first(recorded('seen-B-lighted-splint')), 'squeaky') && !mentions(first(recorded('seen-D-lighted-splint')), 'squeaky')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-relight",
+        "statement": "Oxygen relights a glowing splint; the others do not",
+        "check": "mentions(first(recorded('seen-B-glowing-splint')), 'relights') && !mentions(first(recorded('seen-A-glowing-splint')), 'relights') && !mentions(first(recorded('seen-C-glowing-splint')), 'relights')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-limewater",
+        "statement": "Carbon dioxide turns limewater milky; the others leave it clear",
+        "check": "mentions(first(recorded('seen-C-limewater')), 'precipitate') && !mentions(first(recorded('seen-A-limewater')), 'precipitate') && !mentions(first(recorded('seen-B-limewater')), 'precipitate') && !mentions(first(recorded('seen-D-limewater')), 'precipitate')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-flame-out",
+        "statement": "Carbon dioxide puts a lighted splint out",
+        "check": "mentions(first(recorded('seen-C-lighted-splint')), 'goes out')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-ammonia",
+        "statement": "Ammonia turns damp red litmus blue; the others do not",
+        "check": "mentions(first(recorded('seen-D-damp-red-litmus')), 'blue') && mentions(first(recorded('seen-A-damp-red-litmus')), 'stays red') && mentions(first(recorded('seen-C-damp-red-litmus')), 'stays red')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

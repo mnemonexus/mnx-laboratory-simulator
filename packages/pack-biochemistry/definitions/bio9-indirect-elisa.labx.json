@@ -1,0 +1,125 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio9-indirect-elisa",
+  "version": "1.0.0",
+  "title": "Measuring an antigen by indirect ELISA",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:wash" }, { "technique": "core:serial-dilution" }] },
+  "summary": "Coat a high-binding plate with ovalbumin standards (0 to 3 µg/mL) and an unknown, block with BSA, detect with a mouse anti-ovalbumin antibody and an HRP-labelled anti-mouse antibody, develop with TMB, stop with acid, read at 450 nm and find the unknown's concentration from the standard curve.",
+  "briefing": "Ovalbumin sticks to the plastic in proportion to how much there is. Blocking fills the rest of the plastic with BSA, so the antibodies can only stick where they recognise something. Each wash removes what is not bound. The enzyme on the secondary antibody turns TMB blue; acid stops it and turns the colour yellow, read at 450 nm. Well H1 has no primary antibody: it shows how much secondary sticks on its own.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["immunology", "biochemistry", "biosciences"] },
+    "concepts": [{ "id": "elisa", "label": "Antibody detection on a solid phase" }, { "id": "blocking", "label": "Blocking and washing control the background" }],
+    "objectives": [
+      { "id": "o-plate", "kind": "skill", "statement": "Coat, block, wash and develop an ELISA plate", "skills": ["core:micropipetting", "core:dispense-reagent", "bio:plate-absorbance-read"] },
+      { "id": "o-curve", "kind": "analysis", "statement": "Read the unknown off the standard curve within 25 %", "goal": "g-unknown" },
+      { "id": "o-controls", "kind": "reasoning", "statement": "Judge the background from the controls" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "unknown", "label": "Sample X (ovalbumin)", "role": "unknown", "contains": [{ "substance": "bio:ovalbumin", "conc": { "vary": "0.1..0.4 mg/L" } }], "solvent": "core:water", "amount": "500 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel" }
+    ],
+    "supplies": [
+      { "id": "coat", "label": "Ovalbumin, 10 µg/mL", "preparation": "bio:ovalbumin-coating-10ug", "amount": "1 mL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "pbs", "label": "PBS (diluent and wash buffer)", "preparation": "core:pbs-1x", "amount": "200 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "block", "label": "Blocking buffer (1 % BSA)", "preparation": "bio:blocking-bsa-1pct", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "primary", "label": "Anti-ovalbumin (primary)", "preparation": "bio:primary-anti-ovalbumin", "amount": "5 mL", "container": "core:conical-tube-15ml", "storage": "4 Cel" },
+      { "id": "secondary", "label": "Anti-mouse–HRP (secondary)", "preparation": "bio:secondary-hrp", "amount": "5 mL", "container": "core:conical-tube-15ml", "storage": "4 Cel" },
+      { "id": "tmb", "label": "TMB substrate", "preparation": "bio:tmb-substrate", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "stop", "label": "Stop solution (1 M HCl)", "preparation": "bio:stop-hcl-1m", "amount": "5 mL", "container": "core:conical-tube-15ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "plate", "requires": { "class": "core:microplate-96-elisa" } },
+      { "id": "incubator", "requires": { "class": "core:incubator", "temperature": "37 Cel" } },
+      { "id": "reader", "requires": { "purpose": "measure.absorbance", "wavelength": "450 nm", "format": "96-well" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "top", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "s3", "label": "Ovalbumin 3 µg/mL" } },
+      { "id": "top-pbs", "kind": "operation", "ref": "core:transfer", "params": { "source": "pbs", "destination": "s3", "volume": "700 uL" } },
+      { "id": "top-coat", "kind": "operation", "ref": "core:transfer", "params": { "source": "coat", "destination": "s3", "volume": "300 uL" } },
+      { "id": "top-mix", "kind": "operation", "ref": "core:mix", "params": { "container": "s3", "method": "vortex", "cycles": 1 } },
+      { "id": "standards", "kind": "technique", "ref": "core:serial-dilution", "title": "Three-fold dilutions: 1, 0.33, 0.11 and 0.037 µg/mL", "params": { "stock": "s3", "diluent": "pbs", "factor": 3, "count": 4, "volumeEach": "400 uL" } },
+      { "id": "coating", "kind": "group", "title": "100 µL into each well (duplicates)", "objectives": ["o-plate"],
+        "forEach": { "var": "x", "in": "=[['s3', 'A1'], ['s3', 'A2'], [standards.out.vessels[0], 'B1'], [standards.out.vessels[0], 'B2'], [standards.out.vessels[1], 'C1'], [standards.out.vessels[1], 'C2'], [standards.out.vessels[2], 'D1'], [standards.out.vessels[2], 'D2'], [standards.out.vessels[3], 'E1'], [standards.out.vessels[3], 'E2'], ['pbs', 'F1'], ['pbs', 'F2'], ['unknown', 'G1'], ['unknown', 'G2'], ['s3', 'H1']]" },
+        "steps": [
+          { "id": "coat-well", "kind": "operation", "ref": "core:transfer", "params": { "source": "=x[0]", "destination": "='plate/' + x[1]", "volume": "100 uL" } }
+        ] },
+      { "id": "coat-incubate", "kind": "group", "title": "1 h at 37 °C, then wash",
+        "steps": [
+          { "id": "in-1", "kind": "operation", "ref": "core:place-in", "params": { "container": "plate", "place": "incubator" } },
+          { "id": "wait-1", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+          { "id": "out-1", "kind": "operation", "ref": "core:remove-from", "params": { "container": "plate" } },
+          { "id": "wash-1", "kind": "operation", "ref": "core:wash", "params": { "target": "plate", "buffer": "pbs", "volume": "300 uL", "cycles": 3 } }
+        ] },
+      { "id": "blocking", "kind": "group", "title": "Block with 200 µL BSA for 1 h, then wash", "objectives": ["o-plate"],
+        "steps": [
+          { "id": "add-block", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "block", "volume": "200 uL", "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1'], 'plate/' + it)" } },
+          { "id": "in-2", "kind": "operation", "ref": "core:place-in", "params": { "container": "plate", "place": "incubator" } },
+          { "id": "wait-2", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+          { "id": "out-2", "kind": "operation", "ref": "core:remove-from", "params": { "container": "plate" } },
+          { "id": "wash-2", "kind": "operation", "ref": "core:wash", "params": { "target": "plate", "buffer": "pbs", "volume": "300 uL", "cycles": 3 } }
+        ] },
+      { "id": "primary-step", "kind": "group", "title": "Primary antibody 1 h (H1 gets blocking buffer only), then wash", "objectives": ["o-plate"],
+        "steps": [
+          { "id": "add-primary", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "primary", "volume": "100 uL", "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2'], 'plate/' + it)" } },
+          { "id": "no-primary", "kind": "operation", "ref": "core:transfer", "params": { "source": "block", "destination": "plate/H1", "volume": "100 uL" } },
+          { "id": "in-3", "kind": "operation", "ref": "core:place-in", "params": { "container": "plate", "place": "incubator" } },
+          { "id": "wait-3", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+          { "id": "out-3", "kind": "operation", "ref": "core:remove-from", "params": { "container": "plate" } },
+          { "id": "wash-3", "kind": "operation", "ref": "core:wash", "params": { "target": "plate", "buffer": "pbs", "volume": "300 uL", "cycles": 3 } }
+        ] },
+      { "id": "secondary-step", "kind": "group", "title": "Secondary antibody 1 h, then wash five times", "objectives": ["o-plate"],
+        "steps": [
+          { "id": "add-secondary", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "secondary", "volume": "100 uL", "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1'], 'plate/' + it)" } },
+          { "id": "in-4", "kind": "operation", "ref": "core:place-in", "params": { "container": "plate", "place": "incubator" } },
+          { "id": "wait-4", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+          { "id": "out-4", "kind": "operation", "ref": "core:remove-from", "params": { "container": "plate" } },
+          { "id": "wash-4", "kind": "operation", "ref": "core:wash", "params": { "target": "plate", "buffer": "pbs", "volume": "300 uL", "cycles": 5 } }
+        ] },
+      { "id": "develop", "kind": "group", "title": "TMB for 15 min at room temperature, then stop", "objectives": ["o-plate"],
+        "steps": [
+          { "id": "add-tmb", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "tmb", "volume": "100 uL", "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1'], 'plate/' + it)" } },
+          { "id": "colour", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "15 min" } },
+          { "id": "add-stop", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "stop", "volume": "50 uL", "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1'], 'plate/' + it)" } },
+          { "id": "shake", "kind": "operation", "ref": "core:mix", "params": { "container": "plate", "method": "shake" } }
+        ] },
+      { "id": "read", "kind": "operation", "ref": "core:measure", "objectives": ["o-plate"], "params": { "instrument": "reader", "subject": "plate", "wavelength": "450 nm" } },
+      { "id": "analyse", "kind": "group", "objectives": ["o-curve"],
+        "let": {
+          "pair": "=map(['F', 'E', 'D', 'C', 'B', 'A', 'G', 'H'], (reading(read, 'plate/' + it + '1') + coalesce(reading(read, 'plate/' + it + '2'), reading(read, 'plate/' + it + '1'))) / 2)"
+        },
+        "steps": [
+          { "id": "note-curve", "kind": "operation", "ref": "core:record", "params": { "field": "A450-standards", "value": "=map(range(0, 5, 6), pair[it] - pair[0])" } },
+          { "id": "note-unknown", "kind": "operation", "ref": "core:record", "params": { "field": "A450-unknown", "value": "=pair[6] - pair[0]" } },
+          { "id": "note-no-primary", "kind": "operation", "ref": "core:record", "params": { "field": "A450-no-primary", "value": "=pair[7] - pair[0]" } },
+          { "id": "conc", "kind": "operation", "ref": "core:record", "params": { "field": "unknown-ug-per-mL", "value": "=interpolateAt(map(range(0, 5, 6), pair[it] - pair[0]), [0, 0.037, 0.111, 0.333, 1, 3], pair[6] - pair[0])" } }
+        ] },
+      { "id": "background", "kind": "decision", "objectives": ["o-controls"], "prompt": "Well H1 had antigen and secondary antibody but no primary. What does its reading tell you?",
+        "options": [
+          { "id": "clean", "label": "The secondary does not stick on its own: the signal comes from the primary binding the antigen" },
+          { "id": "background", "label": "The secondary sticks on its own: part of every signal is background" }
+        ],
+        "correctWhen": "if(first(recorded('A450-no-primary')) < 0.1, 'clean', 'background')" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-unknown", "statement": "The unknown is within 25 % of its true concentration", "check": "within(first(recorded('unknown-ug-per-mL')), value(truth(conc, 'unknown', 'bio:ovalbumin'), 'mg/L'), 25%)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-rising", "statement": "The signal rises with the amount of antigen", "check": "all(range(1, 5, 5), first(recorded('A450-standards'))[it] > first(recorded('A450-standards'))[it - 1])", "source": "reference-standard" },
+      { "id": "e-readable", "statement": "The top standard reads between 1 and 3", "check": "between(last(first(recorded('A450-standards'))), 1, 3)", "source": "simulation-derived" },
+      { "id": "e-clean", "statement": "Blocked wells without primary stay near the blank", "check": "first(recorded('A450-no-primary')) < 0.1", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

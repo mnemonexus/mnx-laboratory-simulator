@@ -1,0 +1,2674 @@
+[
+  {
+    "id": "molbio:pglo-plasmid",
+    "identity": {
+      "name": "pGLO plasmid",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.49e6 g/mol"
+    },
+    "plasmid": {
+      "sizeBp": 5371,
+      "markers": [
+        "ampR",
+        "gfp",
+        "araC"
+      ],
+      "regulated": {
+        "gfp": "micro:l-arabinose"
+      }
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "5371 bp; bla (ampicillin resistance), GFP under the araBAD promoter with araC"
+      ],
+      "review": "pending"
+    },
+    "dna": {
+      "lengthBp": 5371,
+      "amplicons": [
+        {
+          "forward": "molbio:gfp-forward-primer",
+          "reverse": "molbio:gfp-reverse-primer",
+          "product": "molbio:gfp-amplicon"
+        },
+        {
+          "forward": "molbio:gfp-qpcr-forward-primer",
+          "reverse": "molbio:gfp-qpcr-reverse-primer",
+          "product": "molbio:gfp-qpcr-amplicon"
+        }
+      ],
+      "topology": "circular"
+    }
+  },
+  {
+    "id": "molbio:gfp-forward-primer",
+    "identity": {
+      "name": "GFP forward primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:gfp-reverse-primer",
+    "identity": {
+      "name": "GFP reverse primer (21-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6400 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "61 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:gfp-amplicon",
+    "identity": {
+      "name": "GFP gene PCR product (720 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "4.68e5 g/mol"
+    },
+    "dna": {
+      "lengthBp": 720,
+      "amplicons": [
+        {
+          "forward": "molbio:gfp-forward-primer",
+          "reverse": "molbio:gfp-reverse-primer",
+          "product": "molbio:gfp-amplicon"
+        },
+        {
+          "forward": "molbio:gfp-qpcr-forward-primer",
+          "reverse": "molbio:gfp-qpcr-reverse-primer",
+          "product": "molbio:gfp-qpcr-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:primer-dimer",
+    "identity": {
+      "name": "Primer-dimer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.3e4 g/mol"
+    },
+    "dna": {
+      "lengthBp": 50,
+      "gcFraction": 0.5
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:taq-polymerase",
+    "identity": {
+      "name": "Taq DNA polymerase",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "94000 g/mol"
+    },
+    "pcr": {
+      "role": "polymerase",
+      "bpPerS": 16
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "About 1 kb per minute at 72 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:dntp-mix",
+    "identity": {
+      "name": "dNTP mix (dATP, dCTP, dGTP, dTTP)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "487 g/mol"
+    },
+    "pcr": {
+      "role": "nucleotides"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:ladder-1kb",
+    "identity": {
+      "name": "1 kb DNA ladder",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1e7 g/mol"
+    },
+    "dna": {
+      "fragments": [
+        {
+          "bp": 10000,
+          "fraction": 0.06
+        },
+        {
+          "bp": 8000,
+          "fraction": 0.06
+        },
+        {
+          "bp": 6000,
+          "fraction": 0.07
+        },
+        {
+          "bp": 5000,
+          "fraction": 0.07
+        },
+        {
+          "bp": 4000,
+          "fraction": 0.07
+        },
+        {
+          "bp": 3000,
+          "fraction": 0.14
+        },
+        {
+          "bp": 2000,
+          "fraction": 0.08
+        },
+        {
+          "bp": 1500,
+          "fraction": 0.08
+        },
+        {
+          "bp": 1000,
+          "fraction": 0.09
+        },
+        {
+          "bp": 750,
+          "fraction": 0.07
+        },
+        {
+          "bp": 500,
+          "fraction": 0.08
+        },
+        {
+          "bp": 250,
+          "fraction": 0.13
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass nominal; only the mass per fragment matters. The 3 kb band is the reference band.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:pbr322-plasmid",
+    "identity": {
+      "name": "pBR322 plasmid",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "2.835e6 g/mol"
+    },
+    "plasmid": {
+      "sizeBp": 4361,
+      "markers": [
+        "ampR",
+        "tetR"
+      ]
+    },
+    "dna": {
+      "lengthBp": 4361,
+      "topology": "circular",
+      "nicked": 0.1,
+      "sites": {
+        "molbio:ecori": [
+          4359
+        ],
+        "molbio:hindiii": [
+          29
+        ],
+        "molbio:bamhi": [
+          375
+        ],
+        "molbio:psti": [
+          3607
+        ]
+      }
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "4361 bp cloning vector; single EcoRI, HindIII, BamHI and PstI sites at the positions usually tabulated on its map (EcoRI 4359, HindIII 29, BamHI 375, PstI 3607)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ecori",
+    "identity": {
+      "name": "EcoRI",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "62000 g/mol"
+    },
+    "restriction": {
+      "site": "G^AATTC",
+      "unitsPerMg": 1000000.0,
+      "cofactor": "core:magnesium-chloride",
+      "optimum": "37 Cel"
+    },
+    "stability": {
+      "halfLife37": "8 h",
+      "tm": "62 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Heat-inactivated at 65 °C for 20 min.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:bamhi",
+    "identity": {
+      "name": "BamHI",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "62000 g/mol"
+    },
+    "restriction": {
+      "site": "G^GATCC",
+      "unitsPerMg": 1000000.0,
+      "cofactor": "core:magnesium-chloride",
+      "optimum": "37 Cel"
+    },
+    "stability": {
+      "halfLife37": "8 h",
+      "tm": "75 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Not inactivated at 65 °C; 80 °C is needed.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:psti",
+    "identity": {
+      "name": "PstI",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "62000 g/mol"
+    },
+    "restriction": {
+      "site": "CTGCA^G",
+      "unitsPerMg": 1000000.0,
+      "cofactor": "core:magnesium-chloride",
+      "optimum": "37 Cel"
+    },
+    "stability": {
+      "halfLife37": "8 h",
+      "tm": "72 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Inactivated at 80 °C for 20 min.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:hindiii",
+    "identity": {
+      "name": "HindIII",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "62000 g/mol"
+    },
+    "restriction": {
+      "site": "A^AGCTT",
+      "unitsPerMg": 1000000.0,
+      "cofactor": "core:magnesium-chloride",
+      "optimum": "37 Cel"
+    },
+    "stability": {
+      "halfLife37": "8 h",
+      "tm": "72 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Inactivated at 80 °C for 20 min.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:tas2r38-forward-primer",
+    "identity": {
+      "name": "TAS2R38 forward primer (around codon 49)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "7000 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:tas2r38-reverse-primer",
+    "identity": {
+      "name": "TAS2R38 reverse primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6700 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:human-gdna-tas2r38-pav",
+    "identity": {
+      "name": "Human genomic DNA (PAV (taster) allele of TAS2R38)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.99e12 g/mol"
+    },
+    "dna": {
+      "lengthBp": 3100000000,
+      "amplicons": [
+        {
+          "forward": "molbio:tas2r38-forward-primer",
+          "reverse": "molbio:tas2r38-reverse-primer",
+          "product": "molbio:tas2r38-amplicon-pav"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one haploid genome (3.3 pg), so a mass of DNA gives the right number of template copies. Each allele is a separate substance; a heterozygote's DNA is both.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:human-gdna-tas2r38-avi",
+    "identity": {
+      "name": "Human genomic DNA (AVI (non-taster) allele of TAS2R38)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.99e12 g/mol"
+    },
+    "dna": {
+      "lengthBp": 3100000000,
+      "amplicons": [
+        {
+          "forward": "molbio:tas2r38-forward-primer",
+          "reverse": "molbio:tas2r38-reverse-primer",
+          "product": "molbio:tas2r38-amplicon-avi"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one haploid genome (3.3 pg), so a mass of DNA gives the right number of template copies. Each allele is a separate substance; a heterozygote's DNA is both.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:tas2r38-amplicon-pav",
+    "identity": {
+      "name": "TAS2R38 PCR product, PAV allele (221 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.44e5 g/mol"
+    },
+    "dna": {
+      "lengthBp": 221,
+      "amplicons": [
+        {
+          "forward": "molbio:tas2r38-forward-primer",
+          "reverse": "molbio:tas2r38-reverse-primer",
+          "product": "molbio:tas2r38-amplicon-pav"
+        }
+      ],
+      "sites": {
+        "molbio:haeiii": [
+          177
+        ]
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:tas2r38-amplicon-avi",
+    "identity": {
+      "name": "TAS2R38 PCR product, AVI allele (221 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.44e5 g/mol"
+    },
+    "dna": {
+      "lengthBp": 221,
+      "amplicons": [
+        {
+          "forward": "molbio:tas2r38-forward-primer",
+          "reverse": "molbio:tas2r38-reverse-primer",
+          "product": "molbio:tas2r38-amplicon-avi"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:haeiii",
+    "identity": {
+      "name": "HaeIII",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "62000 g/mol"
+    },
+    "restriction": {
+      "site": "GG^CC",
+      "unitsPerMg": 1000000.0,
+      "cofactor": "core:magnesium-chloride",
+      "optimum": "37 Cel"
+    },
+    "stability": {
+      "halfLife37": "8 h",
+      "tm": "72 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Inactivated at 80 °C for 20 min.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ladder-50bp",
+    "identity": {
+      "name": "50 bp DNA ladder",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1e7 g/mol"
+    },
+    "dna": {
+      "fragments": [
+        {
+          "bp": 1000,
+          "fraction": 0.08
+        },
+        {
+          "bp": 750,
+          "fraction": 0.08
+        },
+        {
+          "bp": 500,
+          "fraction": 0.12
+        },
+        {
+          "bp": 400,
+          "fraction": 0.08
+        },
+        {
+          "bp": 350,
+          "fraction": 0.08
+        },
+        {
+          "bp": 300,
+          "fraction": 0.08
+        },
+        {
+          "bp": 250,
+          "fraction": 0.1
+        },
+        {
+          "bp": 200,
+          "fraction": 0.08
+        },
+        {
+          "bp": 150,
+          "fraction": 0.1
+        },
+        {
+          "bp": 100,
+          "fraction": 0.1
+        },
+        {
+          "bp": 50,
+          "fraction": 0.1
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass nominal; only the mass per fragment matters. 500 bp is the brighter reference band.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:laco-probe",
+    "identity": {
+      "name": "lac operator probe, 40 bp, fluorescein-labelled",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "26000 g/mol"
+    },
+    "dna": {
+      "lengthBp": 40,
+      "label": "fluorescein"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:laco-competitor",
+    "identity": {
+      "name": "lac operator DNA, 40 bp, unlabelled",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "26000 g/mol"
+    },
+    "dna": {
+      "lengthBp": 40
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:iptg",
+    "identity": {
+      "name": "IPTG (isopropyl β-D-thiogalactoside)",
+      "class": "small-molecule"
+    },
+    "physical": {
+      "molarMass": "238.3 g/mol",
+      "phase": "solid"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:laci",
+    "identity": {
+      "name": "Lac repressor (LacI tetramer)",
+      "class": "protein",
+      "synonyms": [
+        "LacI"
+      ]
+    },
+    "physical": {
+      "molarMass": "154000 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "subunits": [
+        {
+          "kDa": 38.5,
+          "count": 4
+        }
+      ]
+    },
+    "dnaBinding": {
+      "targets": [
+        "molbio:laco-probe",
+        "molbio:laco-competitor"
+      ],
+      "kd": "2 nM",
+      "inducer": {
+        "substance": "molbio:iptg",
+        "kd": "1 uM",
+        "factor": 1000
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Teaching values: Kd for its operator of about 2 nM under typical gel-shift conditions; bound IPTG weakens binding about a thousand-fold.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:gfp-qpcr-forward-primer",
+    "identity": {
+      "name": "GFP qPCR forward primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:gfp-qpcr-reverse-primer",
+    "identity": {
+      "name": "GFP qPCR reverse primer (21-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6400 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "61 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:gfp-qpcr-amplicon",
+    "identity": {
+      "name": "GFP qPCR product (118 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "7.7e4 g/mol"
+    },
+    "dna": {
+      "lengthBp": 118,
+      "gcFraction": 0.52,
+      "amplicons": [
+        {
+          "forward": "molbio:gfp-qpcr-forward-primer",
+          "reverse": "molbio:gfp-qpcr-reverse-primer",
+          "product": "molbio:gfp-qpcr-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:sybr-green-i",
+    "identity": {
+      "name": "SYBR Green I",
+      "class": "dye"
+    },
+    "physical": {
+      "molarMass": "509.7 g/mol"
+    },
+    "pcr": {
+      "role": "dsdna-dye"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "Zipper et al. (2004) Nucleic Acids Research 32, e103: SYBR Green I binding to dsDNA"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:vector-3kb",
+    "identity": {
+      "name": "Cloning vector (3.0 kb)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.95e6 g/mol"
+    },
+    "plasmid": {
+      "sizeBp": 3000,
+      "markers": [
+        "ampR"
+      ]
+    },
+    "dna": {
+      "lengthBp": 3000,
+      "topology": "circular",
+      "nicked": 0.1,
+      "sites": {
+        "molbio:ecori": [
+          400
+        ],
+        "molbio:bamhi": [
+          420
+        ],
+        "molbio:psti": [
+          440
+        ]
+      }
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "A teaching set (illustrative maps): a 3.0 kb vector with EcoRI, BamHI and PstI in its multiple cloning site, and the same 6.0 kb insert cloned at its BamHI site in each orientation. The insert's own EcoRI and PstI sites make the orientation visible."
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:recombinant-9kb-forward",
+    "identity": {
+      "name": "Recombinant plasmid, 6.0 kb insert (forward)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.85e6 g/mol"
+    },
+    "plasmid": {
+      "sizeBp": 9000,
+      "markers": [
+        "ampR"
+      ]
+    },
+    "dna": {
+      "lengthBp": 9000,
+      "topology": "circular",
+      "nicked": 0.1,
+      "sites": {
+        "molbio:ecori": [
+          400,
+          1420
+        ],
+        "molbio:bamhi": [
+          420,
+          6420
+        ],
+        "molbio:psti": [
+          5220,
+          6440
+        ]
+      }
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "A teaching set (illustrative maps): a 3.0 kb vector with EcoRI, BamHI and PstI in its multiple cloning site, and the same 6.0 kb insert cloned at its BamHI site in each orientation. The insert's own EcoRI and PstI sites make the orientation visible."
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:recombinant-9kb-reverse",
+    "identity": {
+      "name": "Recombinant plasmid, 6.0 kb insert (reverse)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.85e6 g/mol"
+    },
+    "plasmid": {
+      "sizeBp": 9000,
+      "markers": [
+        "ampR"
+      ]
+    },
+    "dna": {
+      "lengthBp": 9000,
+      "topology": "circular",
+      "nicked": 0.1,
+      "sites": {
+        "molbio:ecori": [
+          400,
+          5420
+        ],
+        "molbio:bamhi": [
+          420,
+          6420
+        ],
+        "molbio:psti": [
+          1620,
+          6440
+        ]
+      }
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "references": [
+        "A teaching set (illustrative maps): a 3.0 kb vector with EcoRI, BamHI and PstI in its multiple cloning site, and the same 6.0 kb insert cloned at its BamHI site in each orientation. The insert's own EcoRI and PstI sites make the orientation visible."
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:bla-tem-forward-primer",
+    "identity": {
+      "name": "blaTEM forward primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "58 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:bla-tem-reverse-primer",
+    "identity": {
+      "name": "blaTEM reverse primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "58 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:bla-tem-amplicon",
+    "identity": {
+      "name": "blaTEM PCR product (516 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.35e5 g/mol"
+    },
+    "dna": {
+      "lengthBp": 516,
+      "amplicons": [
+        {
+          "forward": "molbio:bla-tem-forward-primer",
+          "reverse": "molbio:bla-tem-reverse-primer",
+          "product": "molbio:bla-tem-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:r-plasmid-blatem",
+    "identity": {
+      "name": "R plasmid carrying blaTEM-1 (wild isolate)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "2.9e7 g/mol"
+    },
+    "plasmid": {
+      "sizeBp": 45000,
+      "markers": [
+        "ampR"
+      ],
+      "copyNumber": 3
+    },
+    "dna": {
+      "lengthBp": 45000,
+      "topology": "circular",
+      "amplicons": [
+        {
+          "forward": "molbio:bla-tem-forward-primer",
+          "reverse": "molbio:bla-tem-reverse-primer",
+          "product": "molbio:bla-tem-amplicon"
+        },
+        {
+          "forward": "molbio:bla-tem-b-forward-primer",
+          "reverse": "molbio:bla-tem-b-reverse-primer",
+          "product": "molbio:bla-tem-346-amplicon"
+        }
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A large, low-copy conjugative plasmid of the kind found in E. coli from sewage effluent; blaTEM-1 confers ampicillin resistance.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:escherichia-coli-wild-blatem",
+    "identity": {
+      "name": "Escherichia coli, wild isolate carrying a blaTEM R plasmid",
+      "class": "organism"
+    },
+    "organism": {
+      "gram": "negative",
+      "morphology": "rods",
+      "arrangement": "single",
+      "bsl": 1,
+      "doublingTime": "20 min",
+      "colony": "off-white, smooth, entire",
+      "markers": [
+        "lactose+",
+        "oxidase-",
+        "catalase+",
+        "methyl-red+"
+      ],
+      "growth": {
+        "tMin": "8 Cel",
+        "tOpt": "37 Cel",
+        "tMax": "45 Cel",
+        "maxDensity": "2e9 cells/mL"
+      },
+      "susceptibility": {
+        "micro:chloramphenicol": "2 ug/mL"
+      },
+      "oxygen": "facultative",
+      "plasmids": [
+        "molbio:r-plasmid-blatem"
+      ]
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste",
+      "containment": "bench"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Looks and grows like any E. coli; its R plasmid carries blaTEM-1 (ampicillin resistance).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ladder-100bp",
+    "identity": {
+      "name": "100 bp DNA ladder (100–1500 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1e7 g/mol"
+    },
+    "dna": {
+      "fragments": [
+        {
+          "bp": 1500,
+          "fraction": 0.0769
+        },
+        {
+          "bp": 1000,
+          "fraction": 0.1538
+        },
+        {
+          "bp": 900,
+          "fraction": 0.0769
+        },
+        {
+          "bp": 800,
+          "fraction": 0.0769
+        },
+        {
+          "bp": 700,
+          "fraction": 0.0769
+        },
+        {
+          "bp": 600,
+          "fraction": 0.0769
+        },
+        {
+          "bp": 500,
+          "fraction": 0.1538
+        },
+        {
+          "bp": 400,
+          "fraction": 0.0769
+        },
+        {
+          "bp": 300,
+          "fraction": 0.0769
+        },
+        {
+          "bp": 200,
+          "fraction": 0.0769
+        },
+        {
+          "bp": 100,
+          "fraction": 0.0769
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Eleven bands, 100 bp apart up to 1000 bp, and 1500 bp; the 500 and 1000 bp bands carry twice the DNA, as reference bands.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:bla-tem-b-forward-primer",
+    "identity": {
+      "name": "blaTEM forward primer, pair B (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "57 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:bla-tem-b-reverse-primer",
+    "identity": {
+      "name": "blaTEM reverse primer, pair B (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "57 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:bla-tem-346-amplicon",
+    "identity": {
+      "name": "blaTEM PCR product, pair B (346 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "2.25e5 g/mol"
+    },
+    "dna": {
+      "lengthBp": 346,
+      "amplicons": [
+        {
+          "forward": "molbio:bla-tem-b-forward-primer",
+          "reverse": "molbio:bla-tem-b-reverse-primer",
+          "product": "molbio:bla-tem-346-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:p-putida-forward-primer",
+    "identity": {
+      "name": "P. putida-specific forward primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:p-putida-reverse-primer",
+    "identity": {
+      "name": "P. putida-specific reverse primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:p-putida-amplicon",
+    "identity": {
+      "name": "P. putida-specific PCR product (618 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "4.0e5 g/mol"
+    },
+    "dna": {
+      "lengthBp": 618,
+      "amplicons": [
+        {
+          "forward": "molbio:p-putida-forward-primer",
+          "reverse": "molbio:p-putida-reverse-primer",
+          "product": "molbio:p-putida-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:p-putida-genome",
+    "identity": {
+      "name": "Pseudomonas putida chromosome",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "4.0e9 g/mol"
+    },
+    "dna": {
+      "lengthBp": 6180000,
+      "genomeOf": "micro:pseudomonas-putida",
+      "amplicons": [
+        {
+          "forward": "molbio:p-putida-forward-primer",
+          "reverse": "molbio:p-putida-reverse-primer",
+          "product": "molbio:p-putida-amplicon"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Carries a species-specific target (for example in gyrB) for the primer pair.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:pvuii",
+    "identity": {
+      "name": "PvuII",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "62000 g/mol"
+    },
+    "restriction": {
+      "site": "CAG^CTG",
+      "unitsPerMg": 1000000.0,
+      "cofactor": "core:magnesium-chloride",
+      "optimum": "37 Cel"
+    },
+    "stability": {
+      "halfLife37": "8 h",
+      "tm": "72 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Blunt ends; not heat-inactivated at 65 °C.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:hinfi",
+    "identity": {
+      "name": "HinfI",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "62000 g/mol"
+    },
+    "restriction": {
+      "site": "G^ANTC",
+      "unitsPerMg": 1000000.0,
+      "cofactor": "core:magnesium-chloride",
+      "optimum": "37 Cel"
+    },
+    "stability": {
+      "halfLife37": "8 h",
+      "tm": "72 Cel"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Any base at N; inactivated at 80 °C for 20 min.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:cm-target-forward-primer",
+    "identity": {
+      "name": "Chloramphenicol target locus forward primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "58 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:cm-target-reverse-primer",
+    "identity": {
+      "name": "Chloramphenicol target locus reverse primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "58 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:cm-target-amplicon-wt",
+    "identity": {
+      "name": "Chloramphenicol target locus PCR product, wild type (1150 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "7.48e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 1150,
+      "amplicons": [
+        {
+          "forward": "molbio:cm-target-forward-primer",
+          "reverse": "molbio:cm-target-reverse-primer",
+          "product": "molbio:cm-target-amplicon-wt"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:cm-target-amplicon-r",
+    "identity": {
+      "name": "Chloramphenicol target locus PCR product, resistance allele (1150 bp, PvuII site)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "7.48e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 1150,
+      "amplicons": [
+        {
+          "forward": "molbio:cm-target-forward-primer",
+          "reverse": "molbio:cm-target-reverse-primer",
+          "product": "molbio:cm-target-amplicon-r"
+        }
+      ],
+      "sites": {
+        "molbio:pvuii": [
+          700
+        ]
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A GAG to CAG change (Glu to Gln) makes CAGCTG, a PvuII site: 700 + 450 bp when cut.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ecoli-gdna-cm-wt",
+    "identity": {
+      "name": "E. coli genomic DNA, chloramphenicol-sensitive (wild-type target locus)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.0e9 g/mol"
+    },
+    "dna": {
+      "lengthBp": 4640000,
+      "amplicons": [
+        {
+          "forward": "molbio:cm-target-forward-primer",
+          "reverse": "molbio:cm-target-reverse-primer",
+          "product": "molbio:cm-target-amplicon-wt"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one genome (4.6 Mb), so a mass of DNA gives the right number of template copies.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ecoli-gdna-cm-r",
+    "identity": {
+      "name": "E. coli genomic DNA, chloramphenicol-resistant (target-locus mutation)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.0e9 g/mol"
+    },
+    "dna": {
+      "lengthBp": 4640000,
+      "amplicons": [
+        {
+          "forward": "molbio:cm-target-forward-primer",
+          "reverse": "molbio:cm-target-reverse-primer",
+          "product": "molbio:cm-target-amplicon-r"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one genome (4.6 Mb), so a mass of DNA gives the right number of template copies.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:gyra-forward-primer",
+    "identity": {
+      "name": "gyrA QRDR forward primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:gyra-reverse-primer",
+    "identity": {
+      "name": "gyrA QRDR reverse primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:gyra-amplicon-wt",
+    "identity": {
+      "name": "gyrA QRDR PCR product, wild type (350 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "2.28e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 350,
+      "amplicons": [
+        {
+          "forward": "molbio:gyra-forward-primer",
+          "reverse": "molbio:gyra-reverse-primer",
+          "product": "molbio:gyra-amplicon-wt"
+        }
+      ],
+      "sites": {
+        "molbio:hinfi": [
+          210
+        ]
+      }
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The HinfI site across codons 82-83 (GACTCG) cuts it into 210 + 140 bp; the other HinfI sites of the real region are left out.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:gyra-amplicon-s83l",
+    "identity": {
+      "name": "gyrA QRDR PCR product, Ser83Leu (350 bp, no HinfI site)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "2.28e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 350,
+      "amplicons": [
+        {
+          "forward": "molbio:gyra-forward-primer",
+          "reverse": "molbio:gyra-reverse-primer",
+          "product": "molbio:gyra-amplicon-s83l"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "TCG to TTG at codon 83 (Ser to Leu) removes the HinfI site: the product stays whole.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ecoli-gdna-gyra-wt",
+    "identity": {
+      "name": "E. coli genomic DNA, gyrA wild type",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.0e9 g/mol"
+    },
+    "dna": {
+      "lengthBp": 4640000,
+      "amplicons": [
+        {
+          "forward": "molbio:gyra-forward-primer",
+          "reverse": "molbio:gyra-reverse-primer",
+          "product": "molbio:gyra-amplicon-wt"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one genome (4.6 Mb).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ecoli-gdna-gyra-s83l",
+    "identity": {
+      "name": "E. coli genomic DNA, gyrA Ser83Leu (fluoroquinolone-resistant)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.0e9 g/mol"
+    },
+    "dna": {
+      "lengthBp": 4640000,
+      "amplicons": [
+        {
+          "forward": "molbio:gyra-forward-primer",
+          "reverse": "molbio:gyra-reverse-primer",
+          "product": "molbio:gyra-amplicon-s83l"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one genome (4.6 Mb).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:pet-his-patb",
+    "identity": {
+      "name": "pET vector carrying His6-ShPatB",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "4.2e6 g/mol"
+    },
+    "plasmid": {
+      "sizeBp": 6400,
+      "markers": [
+        "kanR"
+      ],
+      "copyNumber": 20,
+      "expresses": [
+        {
+          "substance": "bio:his-patb",
+          "perCell": "40 fg",
+          "inducer": "molbio:iptg",
+          "basal": 0.01
+        }
+      ]
+    },
+    "dna": {
+      "lengthBp": 6400,
+      "topology": "circular"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A T7 expression vector: in a DE3 strain, IPTG releases the lac repressor and T7 RNA polymerase makes the protein, to about a fifth of the cell's protein in a few hours; without IPTG a little leaks through.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:pet-his-gfp",
+    "identity": {
+      "name": "pET vector carrying His6-GFP",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "4.2e6 g/mol"
+    },
+    "plasmid": {
+      "sizeBp": 6400,
+      "markers": [
+        "kanR"
+      ],
+      "copyNumber": 20,
+      "expresses": [
+        {
+          "substance": "bio:gfp-his6",
+          "perCell": "40 fg",
+          "inducer": "molbio:iptg",
+          "basal": 0.01
+        }
+      ]
+    },
+    "dna": {
+      "lengthBp": 6400,
+      "topology": "circular"
+    },
+    "hazard": {
+      "wasteStream": "core:biohazard-waste"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A T7 expression vector: in a DE3 strain, IPTG releases the lac repressor and T7 RNA polymerase makes the protein, to about a fifth of the cell's protein in a few hours; without IPTG a little leaks through.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:hi-hia-f",
+    "identity": {
+      "name": "HiA forward primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "66 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-hia-r",
+    "identity": {
+      "name": "HiA reverse primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "66 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-hib-f",
+    "identity": {
+      "name": "HiB forward primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "66 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-hib-r",
+    "identity": {
+      "name": "HiB reverse primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "66 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-higam-f",
+    "identity": {
+      "name": "HiGam forward primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "66 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-higam-r",
+    "identity": {
+      "name": "HiGam reverse primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "66 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-hia-amplicon",
+    "identity": {
+      "name": "HiA PCR product (157 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.02e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 157,
+      "amplicons": [
+        {
+          "forward": "molbio:hi-hia-f",
+          "reverse": "molbio:hi-hia-r",
+          "product": "molbio:hi-hia-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-hib-amplicon",
+    "identity": {
+      "name": "HiB PCR product (208 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.35e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 208,
+      "amplicons": [
+        {
+          "forward": "molbio:hi-hib-f",
+          "reverse": "molbio:hi-hib-r",
+          "product": "molbio:hi-hib-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-higam-amplicon",
+    "identity": {
+      "name": "HiGam PCR product (245 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.59e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 245,
+      "amplicons": [
+        {
+          "forward": "molbio:hi-higam-f",
+          "reverse": "molbio:hi-higam-r",
+          "product": "molbio:hi-higam-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-ab-amplicon",
+    "identity": {
+      "name": "HiA-HiB junction PCR product (2122 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.38e+06 g/mol"
+    },
+    "dna": {
+      "lengthBp": 2122,
+      "amplicons": [
+        {
+          "forward": "molbio:hi-hia-f",
+          "reverse": "molbio:hi-hib-r",
+          "product": "molbio:hi-ab-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-bg-amplicon",
+    "identity": {
+      "name": "HiB-HiGam junction PCR product (1319 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "8.57e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 1319,
+      "amplicons": [
+        {
+          "forward": "molbio:hi-hib-f",
+          "reverse": "molbio:hi-higam-r",
+          "product": "molbio:hi-bg-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:hi-gdna",
+    "identity": {
+      "name": "Haemophilus influenzae Rd KW20 genomic DNA",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.19e+09 g/mol"
+    },
+    "dna": {
+      "lengthBp": 1830000,
+      "amplicons": [
+        {
+          "forward": "molbio:hi-hia-f",
+          "reverse": "molbio:hi-hia-r",
+          "product": "molbio:hi-hia-amplicon"
+        },
+        {
+          "forward": "molbio:hi-hib-f",
+          "reverse": "molbio:hi-hib-r",
+          "product": "molbio:hi-hib-amplicon"
+        },
+        {
+          "forward": "molbio:hi-higam-f",
+          "reverse": "molbio:hi-higam-r",
+          "product": "molbio:hi-higam-amplicon"
+        },
+        {
+          "forward": "molbio:hi-hia-f",
+          "reverse": "molbio:hi-hib-r",
+          "product": "molbio:hi-ab-amplicon"
+        },
+        {
+          "forward": "molbio:hi-hib-f",
+          "reverse": "molbio:hi-higam-r",
+          "product": "molbio:hi-bg-amplicon"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one genome (1.83 Mb), so a mass of DNA gives the right number of template copies; every gene and junction amplifies from it.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:hi-cdna-hia-hib",
+    "identity": {
+      "name": "H. influenzae cDNA of the HiA-HiB transcript",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.69e+06 g/mol"
+    },
+    "dna": {
+      "lengthBp": 2600,
+      "amplicons": [
+        {
+          "forward": "molbio:hi-hia-f",
+          "reverse": "molbio:hi-hia-r",
+          "product": "molbio:hi-hia-amplicon"
+        },
+        {
+          "forward": "molbio:hi-hib-f",
+          "reverse": "molbio:hi-hib-r",
+          "product": "molbio:hi-hib-amplicon"
+        },
+        {
+          "forward": "molbio:hi-hia-f",
+          "reverse": "molbio:hi-hib-r",
+          "product": "molbio:hi-ab-amplicon"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "One transcript covers HiA and HiB (they are co-transcribed): the junction amplifies. Illustrative: the course does not give the result.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:hi-cdna-higam",
+    "identity": {
+      "name": "H. influenzae cDNA of the HiGam transcript",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "4.55e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 700,
+      "amplicons": [
+        {
+          "forward": "molbio:hi-higam-f",
+          "reverse": "molbio:hi-higam-r",
+          "product": "molbio:hi-higam-amplicon"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "HiGam is transcribed on its own: no cDNA spans the HiB-HiGam junction. Illustrative.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:lac-lacz-f",
+    "identity": {
+      "name": "lacZ forward primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-lacz-r",
+    "identity": {
+      "name": "lacZ reverse primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-lacy-f",
+    "identity": {
+      "name": "lacY forward primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-lacy-r",
+    "identity": {
+      "name": "lacY reverse primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-laca-f",
+    "identity": {
+      "name": "lacA forward primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-laca-r",
+    "identity": {
+      "name": "lacA reverse primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-gapa-f",
+    "identity": {
+      "name": "gapA forward primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-gapa-r",
+    "identity": {
+      "name": "gapA reverse primer",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-lacz-amplicon",
+    "identity": {
+      "name": "lacZ PCR product (180 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.17e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 180,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-lacz-f",
+          "reverse": "molbio:lac-lacz-r",
+          "product": "molbio:lac-lacz-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-lacy-amplicon",
+    "identity": {
+      "name": "lacY PCR product (220 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.43e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 220,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-lacy-f",
+          "reverse": "molbio:lac-lacy-r",
+          "product": "molbio:lac-lacy-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-laca-amplicon",
+    "identity": {
+      "name": "lacA PCR product (150 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "9.75e+04 g/mol"
+    },
+    "dna": {
+      "lengthBp": 150,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-laca-f",
+          "reverse": "molbio:lac-laca-r",
+          "product": "molbio:lac-laca-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-gapa-amplicon",
+    "identity": {
+      "name": "gapA PCR product (200 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.3e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 200,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-gapa-f",
+          "reverse": "molbio:lac-gapa-r",
+          "product": "molbio:lac-gapa-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-zy-amplicon",
+    "identity": {
+      "name": "lacZ-lacY junction PCR product (620 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "4.03e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 620,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-lacz-f",
+          "reverse": "molbio:lac-lacy-r",
+          "product": "molbio:lac-zy-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:lac-ya-amplicon",
+    "identity": {
+      "name": "lacY-lacA junction PCR product (480 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.12e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 480,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-lacy-f",
+          "reverse": "molbio:lac-laca-r",
+          "product": "molbio:lac-ya-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:ecoli-gdna-lac",
+    "identity": {
+      "name": "E. coli K-12 genomic DNA (lac and gapA loci)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.02e+09 g/mol"
+    },
+    "dna": {
+      "lengthBp": 4640000,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-lacz-f",
+          "reverse": "molbio:lac-lacz-r",
+          "product": "molbio:lac-lacz-amplicon"
+        },
+        {
+          "forward": "molbio:lac-lacy-f",
+          "reverse": "molbio:lac-lacy-r",
+          "product": "molbio:lac-lacy-amplicon"
+        },
+        {
+          "forward": "molbio:lac-laca-f",
+          "reverse": "molbio:lac-laca-r",
+          "product": "molbio:lac-laca-amplicon"
+        },
+        {
+          "forward": "molbio:lac-gapa-f",
+          "reverse": "molbio:lac-gapa-r",
+          "product": "molbio:lac-gapa-amplicon"
+        },
+        {
+          "forward": "molbio:lac-lacz-f",
+          "reverse": "molbio:lac-lacy-r",
+          "product": "molbio:lac-zy-amplicon"
+        },
+        {
+          "forward": "molbio:lac-lacy-f",
+          "reverse": "molbio:lac-laca-r",
+          "product": "molbio:lac-ya-amplicon"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one genome (4.6 Mb); every lac gene, both junctions and gapA amplify from it.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ecoli-cdna-laczya",
+    "identity": {
+      "name": "E. coli cDNA of the lacZYA transcript",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.44e+06 g/mol"
+    },
+    "dna": {
+      "lengthBp": 5300,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-lacz-f",
+          "reverse": "molbio:lac-lacz-r",
+          "product": "molbio:lac-lacz-amplicon"
+        },
+        {
+          "forward": "molbio:lac-lacy-f",
+          "reverse": "molbio:lac-lacy-r",
+          "product": "molbio:lac-lacy-amplicon"
+        },
+        {
+          "forward": "molbio:lac-laca-f",
+          "reverse": "molbio:lac-laca-r",
+          "product": "molbio:lac-laca-amplicon"
+        },
+        {
+          "forward": "molbio:lac-lacz-f",
+          "reverse": "molbio:lac-lacy-r",
+          "product": "molbio:lac-zy-amplicon"
+        },
+        {
+          "forward": "molbio:lac-lacy-f",
+          "reverse": "molbio:lac-laca-r",
+          "product": "molbio:lac-ya-amplicon"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "The lac operon is one polycistronic mRNA: both junctions amplify. Induced cells make about a thousand times the uninduced amount.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ecoli-cdna-gapa",
+    "identity": {
+      "name": "E. coli cDNA of the gapA transcript",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "7.15e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 1100,
+      "amplicons": [
+        {
+          "forward": "molbio:lac-gapa-f",
+          "reverse": "molbio:lac-gapa-r",
+          "product": "molbio:lac-gapa-amplicon"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A housekeeping gene, transcribed whether or not lac is induced.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:phire-hotstart-ii",
+    "identity": {
+      "name": "Phire Hot Start II DNA polymerase",
+      "class": "enzyme"
+    },
+    "physical": {
+      "molarMass": "100000 g/mol"
+    },
+    "pcr": {
+      "role": "polymerase",
+      "bpPerS": 100
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A fast, processive polymerase fused to a DNA-binding domain: about 10 s per kb at 72 °C; primers anneal at Tm + 3 °C.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:im9-higam",
+    "identity": {
+      "name": "Im9-HiGam (H. influenzae Gam homologue fused to Im9)",
+      "class": "protein",
+      "synonyms": [
+        "Im9-HiGam"
+      ]
+    },
+    "physical": {
+      "molarMass": "30500 g/mol",
+      "phase": "solid"
+    },
+    "protein": {
+      "subunits": [
+        {
+          "kDa": 30.5,
+          "count": 1
+        }
+      ],
+      "epsilon280": 27500
+    },
+    "dnaBinding": {
+      "kd": "0.5 uM",
+      "nonspecific": true,
+      "requiresEnds": true,
+      "footprintBp": 25
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Gam proteins bind double-stranded DNA ends (like Ku) and load along the DNA: a closed circle has no end and is not bound. A dimer in solution; per monomer, a 25 bp footprint and a Kd of 0.5 µM (illustrative). The Im9 tag adds mass and solubility. ε280 27 500 M⁻¹ cm⁻¹ estimated from the tryptophans and tyrosines of an Im9 fusion of a Gam-like protein (illustrative).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:puc-phi600",
+    "identity": {
+      "name": "pUCφ600 plasmid (3393 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "2.24e6 g/mol"
+    },
+    "dna": {
+      "lengthBp": 3393,
+      "topology": "circular"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Supercoiled, closed circular: no free DNA end.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:linear-dna-500bp",
+    "identity": {
+      "name": "Linear DNA (500 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "3.3e5 g/mol"
+    },
+    "dna": {
+      "lengthBp": 500
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A blunt-ended 500 bp duplex: two free ends.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:linear-dna-300bp",
+    "identity": {
+      "name": "Linear DNA (300 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.98e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 300
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A blunt-ended 300 bp duplex: two free ends.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:linear-dna-900bp",
+    "identity": {
+      "name": "Linear DNA (900 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.94e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 900
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "A blunt-ended 900 bp duplex: two free ends.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:salmonella-his-reference",
+    "identity": {
+      "name": "Salmonella Typhimurium his operon region (hisG–hisD), reference",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.58e+06 g/mol"
+    },
+    "dna": {
+      "lengthBp": 2429,
+      "sequence": "GCCGTAAAGACCAGCCAGTTTTCAGCTTGATAGGCGTTAATGACTAAACTAGTCGAATCACGTAGACTGATGTAATAGATATGGAAAAGTTCGATGAGGAGTTTGAGCTGTTTCTGGTCTACTTCTTTAGCCACTCCACCATCATCGGCCTTTACGCTCGTGCATTTGAAGCGAAGTGGGATATTAGTGGTATTCTCACGTGCGCGCTGGACAAGGCTGCCCGCGTCAGTCGGGATTTTCTGGCGTACCTGCTGCAAATTCGTAAGTTCGATTCTATCCTGAAGCTCATGCTGACGGCCCTGTTTGCAAAAATGACTTTTCGGTTTGGGTTCTTATATGCTGGCCTTTTTCGGCCGCCGTTACCAGGTCAGGTCAAAAGCAAGCAGTTTGCAGGTTTAGGTTTTACTTCTTTACAATTCATCGTAGGGGAGAAAAATTTCACCCTGGACCGTGGGTTAGTTGCCACCACTGACTGGCTCGTCCGGCCAAAAAAAGTGGGCCCTGTATCCACTTTAGTCCTCAAGATTGCCACCTACGGTAATTACTTACTGACTATTGGTGGGCTTCCGACTTATCATTTTCTGCTTATGGTCTCCGGTAAATCCAACGCCAATCTTCAGCTTGAAGCTCTCCCACATGCATTCGGCGCAGGCGTCGCCGGCCTCCGCAGCAAAGTCTTTTTCAATATTGGGCGCGTGAAAAAGTCCGCCGAGACGCTGGATGTTCGGCCAACCGTAGCCTCCTTCAGCGTCGACCCAAAAACCAACGACATGTTTCTGCTTCAAAAAGCCCTTCTGCTCCGCTTTGCAAACGGGAAGCGCCCATGCAACACTGCCTCTATGCAACTTATTCAAAAGGAACGTACTGCCAAATTCCAAGATATCTGTTTTCAACGGGATCCTCGTAAAGTGAAGTTTGCAGCGTGCGCGCACGGTGGCCGCGACTTCGTGGGGCGGAACGCTGACGCCAAGGTAGGCTAACGTTAAAGACTTTGATATAAGATGATGATCCGTGTCATTCGCATCAAGAGCAGCCCGCAAAATCGGCAAGCCCGGAAAGAAAAACACGGCGACATCTTAGAAAAGACCCAGAGTCGTGGTTCCGGTCTTGGGGCTATCAAGGCGTCTCGCGGTTCTTTACGCAAGCTGCGCCGCCAGAGTACCGGGCTCTATTGTGGTCGTGTCAGTGGGCCAACCCTGGAAAACCCGGACGCTGGGGGTACGCTCATTCGCATTGAACTCCGTGAGGTGCTGATCAACAAACTTGTAATTTCCGCGAGTGATGCCAACATTCGCTATGTGGTAATCGAGGACCAGATCGACCAAGCGTGCCCAGGTACCTTTGTTGGGTTAGCGCAAGGGAGTCTTAGCGCAATTGAACGCTTTGCGAGCTGGTTAATGGTGTCTTTCCTCGCAGCGCTCAGTTACAAGCTGCAACAGGCGAAGCCAACTTCCCTCGCACGGAAGCACGCAGAAGCTTATCAAGAGTTAGTGGCGAACAACGAAGACAAACCTCCTCGCCTCTTCGCAGCTGATCCTCAGCTCCCAATGCTTGACGAACTGCGCACGCCAGAAGTCCTGGTGGGTGCTCGGGAATCTGTTGAAGCCTTTCTTAAACCGTATATTGCCTACTTCGCCCCTTCCCCAGTGGACCACGGGGTAGCGCTTTTTCAAGGGAAGCACAAAAGTGAATCCTACGTGCAGGAAAAGTTCACCGAAGACCTGGTCGGTCTGCTGCGGCCGTTCGAAACGGGGCGGCGCGCTGAAGAGTACTTAAAGGCAGACCCTGAGGGTGCGGACGTGCCGGGTGAGATTATTCACGATTATTACCCAGCCCTGATTGCGGCGACGTTATGCTACTCTCTGGGCTACGCGCGCGCGCGCGCGGAAAACGTGGGTAATGAAATTCGTGTCTATCGGTCTAATTTAGCCGGTGCATGGGAATCTAAGGATGTAAAGACGATCAAATACAAACCTGGGTCTACTAGCTCTAACAAAGAGTTTATTATTCTGATCAAAGATAAGATCACTGACCGTGGCGCCCTGAAGCAAGGGCTCCTCCAGGCTTTTTTACAGAAGGTATCTGACGGTCGCTTCGTTATCGTAGGTGAAATCGCGACTATTGTTCTGAAGGCAAAAGGGGTAAAGGGTCCTCAACCTCATCGGAACCGCGACTATGACCTGTTAAGTCCTCTGGACGCTGACGAAATCGCAATGTCCCCACTCAAGGGGCGCGTGAAGGCGACCCTTGTCGGCGGGGCTGTCCTTGAAGCGGCCGCCCTCGAGAACAATGCTTCTCGTGAACTTTAAGTAATCCTTAAGTGACATTTACAGTGTACAGCCCCTCTATGTTTAGAGCCTATTTTGCCTTACATGGAAGTATGCACTTCTCTCTCATGATTTCCAAGAAGCAAACAACCCGCTAACTAG",
+      "features": [
+        {
+          "gene": "hisG",
+          "product": "ATP phosphoribosyltransferase",
+          "start": 81,
+          "end": 980
+        },
+        {
+          "gene": "hisD",
+          "product": "histidinol dehydrogenase",
+          "start": 1005,
+          "end": 2309
+        }
+      ],
+      "source": "Salmonella enterica subsp. enterica serovar Typhimurium, his operon hisG–hisD region",
+      "reference": true
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. hisG codon 69 is CTC (Leu); hisD codons 290-293 are GCG CGC GCG CGC (Ala-Arg-Ala-Arg).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:salmonella-his-relative",
+    "identity": {
+      "name": "Salmonella Saintpaul his operon region (hisG–hisD)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.58e+06 g/mol"
+    },
+    "dna": {
+      "lengthBp": 2429,
+      "sequence": "GCCGTAAAGACCAGCCAGTTTTCAGCTTGATAGGCGTTAATGACTAAACTAGTCGAATCACGTAGACTGATGTAATAGATATGGAAAAGTTCGATGAGGAGTTTGAGCTGTTTCTGGTCTACTTCTTTAGCCACTCCACCATCATCGGCCTTTACGCTCGTGCATTTGAAGCGAAGTGGGATATTAGTGGTATTCTCACGTGCGCGCTGGACAAGGCTGCCCGCGTCAGTCGGGATTTTCTGGCGTACCTGCCGCAAATTCGTAAGTTCGATTCTATCCTGAAGCTCATGCTGACGGCCCTGTTTGCAAAAATGACTTTTCGGTTTGGGTTCTTATATGCTGGCCTTTTTCGGCCGCCGTTACCAGGTCAGGTCAAAAGCAAGCAGTTTGCAGGTTTAGGTTTTACTTCTTTACAATTCATCGTAGGGGAGAAAAATTTCACCCTGGACCGTGGGTTAGTTGCCACCACTGACTGGCTCGTCCGGCCAAAAAAAGTGGGCCCTGTATCCACTTTAGTCCTCAAGATTGCCACCTACGGTAATTACTTACTGACTATTGGTGGGCTTCCGACTTATCATTTTCTGCTTATGGTCTCCGGTAAATCCAACGCCAATCTTCAGCTTGAAGCTCTCCCACATGCATTCGGCGCAGGCGTCGCCGGCCTCCGCAGCAAAGTCTTTTTCAATATTGGGCGCGTGAAAAAGTCCGCCGAGACGCTGCATGTTCGGCCAACCGTAGCCTCCTTCAGCGTCGACCCAAAAACCAACGACATGTTTCTGCTTCAAAAAGCCCTTCTGCTCCGCTTTGCAAACGGGAAGCGCCCATGCAACACTGCCTCTATGCAACTTATTCAAAAGGAACGTACTGCCAAATTCCAAGATATCTGTTTTCAACGGGATCCTCGTAAAGTGAAGTTTGCAGCGTGCGCGCACGGTGGCCGCGACTTCGTGGGGCGGAACGCTGACGCCAAGGTAGGCTAACGTTAAAGACTTTGATATAAGATGATGATCCGTGTCATTCGCATCAAGAGCAGCCCGCAAAATCGGCAAGCCCGGAAAGAAAAACACGGCGACATCTTAGAAAAGACCCAGAGTCGTGGTTCCGGTCTTGGGGCTATCAAGGCGTCTCGCGGTTCTTTACGCAAGCTGCGCCGCCAGAGTACCGGGCTCTATTGTGGTCGTGTCAGTGGGCCAACCCTGGAAAACCCGGACGCTGGGGGTACGCTCATTCGCATTGAACTCCGTGAGGTGCTGATCAACAAACTTGTAATTTCCGCGAGTGATGCCAACATTCGCTATGTGGTAATCGAGGACCAGATCGACCAAGCGTGCCCAGGTACCTTTGTTGGGTTAGCGCAAGGGAGTCTTAGCGCAATTGAACGCTTTGCGAGCTGGTTAATGGTGTCTTTCCTCGCAGCGCTCAGTTACAAGCTGCAACAGGCGAAGCCAACTTCCCTCGCACGGAAGCACGCAGAAGCTTATCAAGAGTTAGTGGCGAACAACGAAGACAAACCTCCTCGCCTCTTCGCAGCTGATCCTCAGCTCCCAATGCTTGACGAACTGCGCACGCCAGAAGTCCTGGTGGGTGCTCGGGAATCTGTTGAAGCCTTTCTTAAACCGTATATTGCCTACTTCGCCCCTTCCCCAGTGGACCACGGGGTAGCGCTTTTTCAAGGGAAGCACAAAAGTGAATCCTACGTGCAGGAAAAGTTCACCGAAGACCTGGTCGGTCTGCTGCGGCCTTTGGAAACGGGGCGGCGCGCTGAAGAGTACTTAAAGGCAGACCCTGAGGGTGCGGACGTGCCGGGTGAGATTATTCACGATTATTACCCAGCCCTGATTGCGGCGACGTTATGCTACTCTCTGGGCTACGCGCGCGCGCGCGCGGAAAACGTGGGTAATGAAATTCGTGTCTATCGGTCTAATTTAGCCGGTGCATGGGAATCTAAGGATGTAAAGACGATCAAATACAAACCTGGGTCTACTAGCTCTAACAAAGAGTTTATTATTCTGATCAAAGATAAGATCACTGACCGTGGCGCCCTGAAGCAAGGGCTCCTCCAGGCTTTTTTACAGAAGGTATCTGACGGTCGCTTCGTTATCGTAGGTGAAATCGCGACTATTGTTCTGAAGGCAAAAGGGGTAAAGGGTCCTCAACCTCATCGGAACCGCGACTATGACCTGTTAAGTCCTCTGGACGCTGACGAAATCGCAATGTCCCCACTCAAGGGGCGCGTGAAGGCGACCCTTGTCGGCGGGGCTGTCCTTGAAGCGGCCGCCCTCGAGAACAATGCTTCTCGTGAACTTTAAGTAATCCTTAAGTGACATTTACAGTGTACAGCCCCTCTATGTTTAGAGCCTATTTTGCCTTACATGGAAGTATGCACTTCTCTCTCATGATTTCCAAGAAGCAAACAACCCGCTAACTAG",
+      "features": [
+        {
+          "gene": "hisG",
+          "product": "ATP phosphoribosyltransferase",
+          "start": 81,
+          "end": 980
+        },
+        {
+          "gene": "hisD",
+          "product": "histidinol dehydrogenase",
+          "start": 1005,
+          "end": 2309
+        }
+      ],
+      "source": "Salmonella enterica subsp. enterica serovar Saintpaul, his operon hisG–hisD region",
+      "reference": true
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. Another serovar: four differences from the Typhimurium reference.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ecoli-his-homologue",
+    "identity": {
+      "name": "Escherichia coli K-12 his operon region (hisG–hisD)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.58e+06 g/mol"
+    },
+    "dna": {
+      "lengthBp": 2429,
+      "sequence": "GCCGTACACAACAGCCCGCTTTCAGGGTGATATGCGTTAATGGCAAAACAAGACGGATCACGTAGACTGGTGTAATAGATCTCGAAAAGTTCGATGAAGAGTATGAGCTGTTTGGTGCCTACTTCTTTACCCTCCCCACCAACACCGTCCTTTACGCTCCTGCATTTGAAGCGAAGTGATATATGAGTGGTTTTCGCACGTGCGTGCTGGACAAGGCCGCCCGCGTCATTCGGGCTTTTCTGCCGTACCTGCTGCAAATTCGTAAGTTCGATTCTATCCTGAAGCTCATGCTGACGGCCCTGTTTGCAAAAATGACTTTTCGGTTTGAGTTCTTATATGCGGGCCCTTTTCGGCCGCGGTTACCAGGTTAGTTCAAAAGGAAGCAGGTTGTAGGTTTAGGTTGTCTTTCTTTACAATCCATCGTAGGTGCGTAAAGTTTCACCCTGAACAGTTGGTTAGGTGCCACCACTGACAGGCTCGTCCGGCCAAAAAAATTGGGCACTTTAACCACTTTAGTCCTCAAGAGTGCCACCTACGGTAATTTCAGACTGTCTATTGGTGGGCTTCCGAATTCTCATTGGCTGCTTACAGTGTCGTGAAAATGCTACGCGGTCCTTCAACTAGAAGCTTTCCCTCAGGCATTCGGCTCAGTCGTCGCAGGCCTCCTCAGCAAAATCTTTTTCAATATTGGGCGTATGAAATAGTCCGCCGAGACGCTGTGAGTTCGTTTAAGCGTAGCATCCTTCAGCGTCGGCGCAAACACCAACGGGATGTTTCTGCTTCTCAAACCCATTCCGCTCCGATTTGCAAACGGGCAGCGTACTTGCAACACTCCCTCTATCAAACTTATTCAAAAGGATCGTTATGCCGAATTCCAAGATGTCTATTTTACACGTGATACTCGCAAAGTGAAGTTCGCAGCGTGCGCGCACGGGGGCTGCGACTAGGTGGGGCGTGACTTCTCCGACAAGGTAGGATAACGTTAAAGAATTTTATACAGCATAATGATCCGTGTCAATAGCATCTGGAGACGCCCGCAAAATCGGCTAGCCCTGAAAGAAAACCACGTCGACCTCGTAGCAAAGACCCATAGTCGTGGTTCCGGTCTTGGGGCTAGCAGGACGTGTAGCGGTTCTTTACTCAAGATGCGCCCCCAGCGTAGCGGGCTTTATTGTGATCGTGTTAGTCCTCCAACTCAAGCAAACCCGGACACTAGGGGCACGCTCATGCGCAATGAACTCCCAGGGGTAAGGATCATGAAACTTGGTATCTCCGCAAGTGATGCCATACTTCGCTATGAAGTAATCGAGTACCAGATCGACCAACCGTCCCCAGGTAGCTTTGTTCGGATGGCGCAAGGGAGTCTTAGCGCAATTGAAGGCTCGGTGAGGTCGTCAACGGTGTCGTTGCTCGCAGCGCTCCGTTAAAAGCTGCAACAAGTGAAGCCAACGTCCCTCGCTCTATGGCACGCAGAAGCTTCTCAAGAGTTAGTGTCGAACAACGAAGACAAACCTCCTCGACTCTCTGCAGACGGACGTCTGCTCCCAATCCATGACGAACCGCTCACGCCAGAAGTTCTGCCAGGGGCTCGGGGATGCGTCTAAACCTTTCTGAATCCATCTATTGTGTACTCTGCCCCTTCCCCAATGGACGATGGAGTGGCGCTTATTCAAGCGAAGTACAAAAGTAACTATTACGTGCAGGAAAAGTTCACCGAAGACCTTGTCGATCTGCAGCGGCAGTTCTTGACGGGGGGGCGCGATGAGGGTTACTAAAAGCAAGACCCTGAGGGTGCGGACGTGCCGGGTGAGAGTAGCCACGAGTATTACCCAGCCCCGATCGCGGCGACGTTATGCTACTCTCTGGGCTACGCGCGCGCGCGCGCGGAAAACGTGGGTAATGAAGTTCGTGACTGTTGGTCTATCTGAGCCGGTACATTGGGATCAAAGCACGTATAGACGATAATATATAAACCTGGTTCTACGAGCTCTTACAAAGAGTTTGTTCTTCTGCGCCAAGATATTAGCACTGACCTTGGCGCCATGAAGCATGGGCTCCTCAAGGCTTTTTTACGGATGGTAGCTTCCCGTCGCTTAGCTATCATAGGTGCAATCACCGCTATTGTTCTACGGGCTTTAGGGGCAAAGGGTCTTCAACCTCAACGGTAACGTGACTATGACCTGTTAAGTCCTCTGGAGGCTGTCGAAACTGCAAGGTCGCCACTCAAGGGGCGCGTGAAGGCGACCACTGGCGGCGGGGCCGTCCCTGAAGCGGCTGCCCTCGAGAACCAGGTTTCCGGACAACTTTCAGTAATCCTCAAGTGTCATTTACAGTGTACAGCCCCTCTAGGTTTAAAGCTTATTTTGACATTCATCGAAGTATGCAATTCTCTTTCATGATTTTCTGGAAGCAAACAACCCCCTCACTCC",
+      "features": [
+        {
+          "gene": "hisG",
+          "product": "ATP phosphoribosyltransferase",
+          "start": 81,
+          "end": 980
+        },
+        {
+          "gene": "hisD",
+          "product": "histidinol dehydrogenase",
+          "start": 1005,
+          "end": 2309
+        }
+      ],
+      "source": "Escherichia coli K-12, his operon hisG–hisD region",
+      "reference": true
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. A homologue: about 81 % identical to the Salmonella region.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ta1535-hisg-amplicon",
+    "identity": {
+      "name": "hisG PCR product, TA1535 (hisG46)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.72e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 880,
+      "sequence": "TGACTAAACTAGTCGAATCACGTAGACTGATGTAATAGATATGGAAAAGTTCGATGAGGAGTTTGAGCTGTTTCTGGTCTACTTCTTTAGCCACTCCACCATCATCGGCCTTTACGCTCGTGCATTTGAAGCGAAGTGGGATATTAGTGGTATTCTCACGTGCGCGCTGGACAAGGCTGCCCGCGTCAGTCGGGATTTTCTGGCGTACCTGCTGCAAATTCGTAAGTTCGATTCTATCCTGAAGCCCATGCTGACGGCCCTGTTTGCAAAAATGACTTTTCGGTTTGGGTTCTTATATGCTGGCCTTTTTCGGCCGCCGTTACCAGGTCAGGTCAAAAGCAAGCAGTTTGCAGGTTTAGGTTTTACTTCTTTACAATTCATCGTAGGGGAGAAAAATTTCACCCTGGACCGTGGGTTAGTTGCCACCACTGACTGGCTCGTCCGGCCAAAAAAAGTGGGCCCTGTATCCACTTTAGTCCTCAAGATTGCCACCTACGGTAATTACTTACTGACTATTGGTGGGCTTCCGACTTATCATTTTCTGCTTATGGTCTCCGGTAAATCCAACGCCAATCTTCAGCTTGAAGCTCTCCCACATGCATTCGGCGCAGGCGTCGCCGGCCTCCGCAGCAAAGTCTTTTTCAATATTGGGCGCGTGAAAAAGTCCGCCGAGACGCTGGATGTTCGGCCAACCGTAGCCTCCTTCAGCGTCGACCCAAAAACCAACGACATGTTTCTGCTTCAAAAAGCCCTTCTGCTCCGCTTTGCAAACGGGAAGCGCCCATGCAACACTGCCTCTATGCAACTTATTCAAAAGGAACGTACTGCCAAATTCCAAGATATCTGTTTTCAACGGGATCCTCGTAAAGTGAAGTTTGCA"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. From 40 bp before hisG: codon 69 CCC (Pro) for CTC (Leu), the hisG46 missense mutation, at base 246.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ta1535-revertant-hisg-amplicon",
+    "identity": {
+      "name": "hisG PCR product, TA1535 azide revertant",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.72e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 880,
+      "sequence": "TGACTAAACTAGTCGAATCACGTAGACTGATGTAATAGATATGGAAAAGTTCGATGAGGAGTTTGAGCTGTTTCTGGTCTACTTCTTTAGCCACTCCACCATCATCGGCCTTTACGCTCGTGCATTTGAAGCGAAGTGGGATATTAGTGGTATTCTCACGTGCGCGCTGGACAAGGCTGCCCGCGTCAGTCGGGATTTTCTGGCGTACCTGCTGCAAATTCGTAAGTTCGATTCTATCCTGAAGCTCATGCTGACGGCCCTGTTTGCAAAAATGACTTTTCGGTTTGGGTTCTTATATGCTGGCCTTTTTCGGCCGCCGTTACCAGGTCAGGTCAAAAGCAAGCAGTTTGCAGGTTTAGGTTTTACTTCTTTACAATTCATCGTAGGGGAGAAAAATTTCACCCTGGACCGTGGGTTAGTTGCCACCACTGACTGGCTCGTCCGGCCAAAAAAAGTGGGCCCTGTATCCACTTTAGTCCTCAAGATTGCCACCTACGGTAATTACTTACTGACTATTGGTGGGCTTCCGACTTATCATTTTCTGCTTATGGTCTCCGGTAAATCCAACGCCAATCTTCAGCTTGAAGCTCTCCCACATGCATTCGGCGCAGGCGTCGCCGGCCTCCGCAGCAAAGTCTTTTTCAATATTGGGCGCGTGAAAAAGTCCGCCGAGACGCTGGATGTTCGGCCAACCGTAGCCTCCTTCAGCGTCGACCCAAAAACCAACGACATGTTTCTGCTTCAAAAAGCCCTTCTGCTCCGCTTTGCAAACGGGAAGCGCCCATGCAACACTGCCTCTATGCAACTTATTCAAAAGGAACGTACTGCCAAATTCCAAGATATCTGTTTTCAACGGGATCCTCGTAAAGTGAAGTTTGCA"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. A true revertant: codon 69 is CTC (Leu) again (a C to T transition, as azide causes).",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ta1538-hisd-amplicon",
+    "identity": {
+      "name": "hisD PCR product, TA1538 (hisD3052)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.84e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 899,
+      "sequence": "AGTCTTAGCGCAATTGAACGCTTTGCGAGCTGGTTAATGGTGTCTTTCCTCGCAGCGCTCAGTTACAAGCTGCAACAGGCGAAGCCAACTTCCCTCGCACGGAAGCACGCAGAAGCTTATCAAGAGTTAGTGGCGAACAACGAAGACAAACCTCCTCGCCTCTTCGCAGCTGATCCTCAGCTCCCAATGCTTGACGAACTGCGCACGCCAGAAGTCCTGGTGGGTGCTCGGGAATCTGTTGAAGCCTTTCTTAAACCGTATATTGCCTACTTCGCCCCTTCCCCAGTGGACCACGGGGTAGCGCTTTTTCAAGGGAAGCACAAAAGTGAATCCTACGTGCAGGAAAAGTTCACCGAAGACCTGGTCGGTCTGCTGCGGCCGTTCGAAACGGGGCGGCGCGCTGAAGAGTACTTAAAGGCAGACCCTGAGGGTGCGGACGTGCCGGGTGAGATTATTCACGATTATTACCCAGCCCTGATTGCGGCGACGTTATGCTACTCTCTGGGCTACCGCGCGCGCGCGCGGAAAACGTGGGTAATGAAATTCGTGTCTATCGGTCTAATTTAGCCGGTGCATGGGAATCTAAGGATGTAAAGACGATCAAATACAAACCTGGGTCTACTAGCTCTAACAAAGAGTTTATTATTCTGATCAAAGATAAGATCACTGACCGTGGCGCCCTGAAGCAAGGGCTCCTCCAGGCTTTTTTACAGAAGGTATCTGACGGTCGCTTCGTTATCGTAGGTGAAATCGCGACTATTGTTCTGAAGGCAAAAGGGGTAAAGGGTCCTCAACCTCATCGGAACCGCGACTATGACCTGTTAAGTCCTCTGGACGCTGACGAAATCGCAATGTCCCCACTCAAGGGGCGCGTGAAGGCGACCCTTGTCGGCGGGGCT"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. From hisD codon 120: one base lost from the GCGCGCGCGCGC run at codon 290 (base 510), the hisD3052 −1 frameshift.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ta1538-revertant-hisd-amplicon",
+    "identity": {
+      "name": "hisD PCR product, TA1538 4-NOPD revertant",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.83e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 897,
+      "sequence": "AGTCTTAGCGCAATTGAACGCTTTGCGAGCTGGTTAATGGTGTCTTTCCTCGCAGCGCTCAGTTACAAGCTGCAACAGGCGAAGCCAACTTCCCTCGCACGGAAGCACGCAGAAGCTTATCAAGAGTTAGTGGCGAACAACGAAGACAAACCTCCTCGCCTCTTCGCAGCTGATCCTCAGCTCCCAATGCTTGACGAACTGCGCACGCCAGAAGTCCTGGTGGGTGCTCGGGAATCTGTTGAAGCCTTTCTTAAACCGTATATTGCCTACTTCGCCCCTTCCCCAGTGGACCACGGGGTAGCGCTTTTTCAAGGGAAGCACAAAAGTGAATCCTACGTGCAGGAAAAGTTCACCGAAGACCTGGTCGGTCTGCTGCGGCCGTTCGAAACGGGGCGGCGCGCTGAAGAGTACTTAAAGGCAGACCCTGAGGGTGCGGACGTGCCGGGTGAGATTATTCACGATTATTACCCAGCCCTGATTGCGGCGACGTTATGCTACTCTCTGGGCTACCGCGCGCGCGCGGAAAACGTGGGTAATGAAATTCGTGTCTATCGGTCTAATTTAGCCGGTGCATGGGAATCTAAGGATGTAAAGACGATCAAATACAAACCTGGGTCTACTAGCTCTAACAAAGAGTTTATTATTCTGATCAAAGATAAGATCACTGACCGTGGCGCCCTGAAGCAAGGGCTCCTCCAGGCTTTTTTACAGAAGGTATCTGACGGTCGCTTCGTTATCGTAGGTGAAATCGCGACTATTGTTCTGAAGGCAAAAGGGGTAAAGGGTCCTCAACCTCATCGGAACCGCGACTATGACCTGTTAAGTCCTCTGGACGCTGACGAAATCGCAATGTCCCCACTCAAGGGGCGCGTGAAGGCGACCCTTGTCGGCGGGGCT"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. A second-site revertant: two more bases (GC) lost from the same run, so three in all; the frame is restored with one residue fewer.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ta1535-pseudorevertant-hisg-amplicon",
+    "identity": {
+      "name": "hisG PCR product, TA1535 revertant (codon 69 TCC)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.72e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 880,
+      "sequence": "TGACTAAACTAGTCGAATCACGTAGACTGATGTAATAGATATGGAAAAGTTCGATGAGGAGTTTGAGCTGTTTCTGGTCTACTTCTTTAGCCACTCCACCATCATCGGCCTTTACGCTCGTGCATTTGAAGCGAAGTGGGATATTAGTGGTATTCTCACGTGCGCGCTGGACAAGGCTGCCCGCGTCAGTCGGGATTTTCTGGCGTACCTGCTGCAAATTCGTAAGTTCGATTCTATCCTGAAGTCCATGCTGACGGCCCTGTTTGCAAAAATGACTTTTCGGTTTGGGTTCTTATATGCTGGCCTTTTTCGGCCGCCGTTACCAGGTCAGGTCAAAAGCAAGCAGTTTGCAGGTTTAGGTTTTACTTCTTTACAATTCATCGTAGGGGAGAAAAATTTCACCCTGGACCGTGGGTTAGTTGCCACCACTGACTGGCTCGTCCGGCCAAAAAAAGTGGGCCCTGTATCCACTTTAGTCCTCAAGATTGCCACCTACGGTAATTACTTACTGACTATTGGTGGGCTTCCGACTTATCATTTTCTGCTTATGGTCTCCGGTAAATCCAACGCCAATCTTCAGCTTGAAGCTCTCCCACATGCATTCGGCGCAGGCGTCGCCGGCCTCCGCAGCAAAGTCTTTTTCAATATTGGGCGCGTGAAAAAGTCCGCCGAGACGCTGGATGTTCGGCCAACCGTAGCCTCCTTCAGCGTCGACCCAAAAACCAACGACATGTTTCTGCTTCAAAAAGCCCTTCTGCTCCGCTTTGCAAACGGGAAGCGCCCATGCAACACTGCCTCTATGCAACTTATTCAAAAGGAACGTACTGCCAAATTCCAAGATATCTGTTTTCAACGGGATCCTCGTAAAGTGAAGTTTGCA"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. A same-site revertant that is not a true one: codon 69 CCC became TCC (Ser), not CTC; serine there restores enough activity.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:ta1538-insertion-revertant-hisd-amplicon",
+    "identity": {
+      "name": "hisD PCR product, TA1538 revertant (+1 nearby)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "5.85e+05 g/mol"
+    },
+    "dna": {
+      "lengthBp": 900,
+      "sequence": "AGTCTTAGCGCAATTGAACGCTTTGCGAGCTGGTTAATGGTGTCTTTCCTCGCAGCGCTCAGTTACAAGCTGCAACAGGCGAAGCCAACTTCCCTCGCACGGAAGCACGCAGAAGCTTATCAAGAGTTAGTGGCGAACAACGAAGACAAACCTCCTCGCCTCTTCGCAGCTGATCCTCAGCTCCCAATGCTTGACGAACTGCGCACGCCAGAAGTCCTGGTGGGTGCTCGGGAATCTGTTGAAGCCTTTCTTAAACCGTATATTGCCTACTTCGCCCCTTCCCCAGTGGACCACGGGGTAGCGCTTTTTCAAGGGAAGCACAAAAGTGAATCCTACGTGCAGGAAAAGTTCACCGAAGACCTGGTCGGTCTGCTGCGGCCGTTCGAAACGGGGCGGCGCGCTGAAGAGTACTTAAAGGCAGACCCTGAGGGTGCGGACGTGCCGGGTGAGATTATTCACGATTATTACCCAGCCCTGATTGCGGCGACGTTATGCTACGTCTCTGGGCTACCGCGCGCGCGCGCGGAAAACGTGGGTAATGAAATTCGTGTCTATCGGTCTAATTTAGCCGGTGCATGGGAATCTAAGGATGTAAAGACGATCAAATACAAACCTGGGTCTACTAGCTCTAACAAAGAGTTTATTATTCTGATCAAAGATAAGATCACTGACCGTGGCGCCCTGAAGCAAGGGCTCCTCCAGGCTTTTTTACAGAAGGTATCTGACGGTCGCTTCGTTATCGTAGGTGAAATCGCGACTATTGTTCTGAAGGCAAAAGGGGTAAAGGGTCCTCAACCTCATCGGAACCGCGACTATGACCTGTTAAGTCCTCTGGACGCTGACGAAATCGCAATGTCCCCACTCAAGGGGCGCGTGAAGGCGACCCTTGTCGGCGGGGCT"
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "An illustrative sequence (seeded, synthetic; not the real genome), annotated like a database entry. A second-site revertant: a G inserted 12 bases before hisD3052's lost base puts the frame back; the four codons between are changed.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "molbio:l-acidophilus-forward-primer",
+    "identity": {
+      "name": "L. acidophilus-specific forward primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:l-acidophilus-reverse-primer",
+    "identity": {
+      "name": "L. acidophilus-specific reverse primer (20-mer)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "6100 g/mol"
+    },
+    "pcr": {
+      "role": "primer",
+      "tm": "60 Cel"
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:l-acidophilus-amplicon",
+    "identity": {
+      "name": "L. acidophilus-specific PCR product (129 bp)",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "8.4e4 g/mol"
+    },
+    "dna": {
+      "lengthBp": 129,
+      "amplicons": [
+        {
+          "forward": "molbio:l-acidophilus-forward-primer",
+          "reverse": "molbio:l-acidophilus-reverse-primer",
+          "product": "molbio:l-acidophilus-amplicon"
+        }
+      ]
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "molbio:l-acidophilus-genome",
+    "identity": {
+      "name": "Lactobacillus acidophilus chromosome",
+      "class": "nucleic-acid"
+    },
+    "physical": {
+      "molarMass": "1.3e9 g/mol"
+    },
+    "dna": {
+      "lengthBp": 1990000,
+      "genomeOf": "micro:lactobacillus-acidophilus",
+      "amplicons": [
+        {
+          "forward": "molbio:l-acidophilus-forward-primer",
+          "reverse": "molbio:l-acidophilus-reverse-primer",
+          "product": "molbio:l-acidophilus-amplicon"
+        }
+      ]
+    },
+    "status": "experimental",
+    "provenance": {
+      "notes": "Molar mass of one genome (1.99 Mb). Carries a species-specific target for the primer pair; other lactobacilli lack it.",
+      "review": "pending"
+    }
+  }
+]

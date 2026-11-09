@@ -1,0 +1,352 @@
+<title>MnemoNexus Laboratory Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a drafting-table tool. Plan on the left at full width, a room card and index on the right; stacks on phones. */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --fg: #18202b;
+  --subtle: #5a6574;
+  --line: #d6dce4;
+  --accent: #2a55c9;
+  --accent-soft: #e3eafb;
+  --oneway: #b45309;
+  --plan-bg: #fbfcfd;
+  --plan-wall: #283039;
+  --plan-gap: #f3f4f1;
+  --plan-sector: #94a3b8;
+  --plan-glass: #6fb8db;
+  --plan-existing: #0f766e;
+  --route: #2a55c9;
+  --font-display: "Archivo", "Arial Narrow", "Segoe UI", sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1318; --surface: #171c23; --fg: #e5e9ef; --subtle: #9aa5b3; --line: #2b333d;
+    --accent: #8aa8ff; --accent-soft: #1d2a47; --oneway: #f0a050;
+    --plan-bg: #12171d; --plan-wall: #b9c3cf; --plan-gap: #2a313a; --plan-sector: #64748b; --plan-glass: #4aa3cc; --plan-existing: #3cc4b2; --route: #8aa8ff;
+    color-scheme: dark;
+  }
+  :root:not([data-theme="light"]) .fp-room { --fill: var(--fill-dark); }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1318; --surface: #171c23; --fg: #e5e9ef; --subtle: #9aa5b3; --line: #2b333d;
+  --accent: #8aa8ff; --accent-soft: #1d2a47; --oneway: #f0a050;
+  --plan-bg: #12171d; --plan-wall: #b9c3cf; --plan-gap: #2a313a; --plan-sector: #64748b; --plan-glass: #4aa3cc; --plan-existing: #3cc4b2; --route: #8aa8ff;
+  color-scheme: dark;
+}
+:root[data-theme="dark"] .fp-room { --fill: var(--fill-dark); }
+
+/*__STYLE__*/
+
+.fp { --bg: var(--plan-bg); --wall: var(--plan-wall); --ink: var(--fg); --muted: var(--subtle); --sector: var(--plan-sector); --door-gap: var(--plan-gap); --glass: var(--plan-glass); --existing: var(--plan-existing); --accent: var(--oneway); }
+.fp text { font-family: var(--font-display); }
+.fp .fp-id { font-family: var(--font-mono); }
+.fp-title, .fp-subtitle { display: none; }
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 18px 32px;
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+.wrap { max-width: 1500px; margin: 0 auto; display: grid; gap: 14px; }
+
+header.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 24px; }
+header.top h1 { font-size: 1.7rem; font-weight: 800; font-stretch: 85%; letter-spacing: -0.01em; }
+header.top p { margin: 2px 0 0; color: var(--subtle); max-width: 70ch; }
+.stats { display: flex; flex-wrap: wrap; gap: 6px 18px; font-variant-numeric: tabular-nums; }
+.stat { display: grid; }
+.stat b { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; }
+.stat span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--subtle); }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.ctl > .lab { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--subtle); margin-right: 2px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chip span { display: inline-block; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; font-size: 0.86rem; color: var(--subtle); }
+.chip input:checked + span { background: var(--accent-soft); border-color: var(--accent); color: var(--fg); }
+.chip input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+select { font: inherit; font-size: 0.88rem; padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--fg); max-width: 100%; }
+select:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.route { font-family: var(--font-mono); font-size: 0.8rem; color: var(--subtle); }
+
+main { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 14px; align-items: start; }
+.plan { background: var(--plan-bg); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; min-width: 0; }
+.plan-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 10px; border-bottom: 1px solid var(--line); background: var(--surface); flex-wrap: wrap; }
+.zoom { display: flex; gap: 4px; }
+.zoom button, .index button { font: inherit; cursor: pointer; }
+.zoom button { border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 6px; padding: 2px 10px; font-size: 0.9rem; }
+.hint { font-size: 0.8rem; color: var(--subtle); }
+.canvas { overflow: auto; max-height: min(78vh, 1100px); }
+.canvas svg { display: block; height: auto; }
+.fp-floors g { cursor: pointer; }
+.fp-room:hover polygon { filter: brightness(0.94); }
+.fp-room.is-selected polygon { stroke: var(--route); stroke-width: 3px; }
+.fp-room.is-route polygon { stroke: var(--route); stroke-width: 2px; stroke-dasharray: 5 3; }
+.fp-labels, .fp-doors, .fp-windows, .fp-existing-outline, .fp-reserved { pointer-events: none; }
+.is-off { display: none; }
+.is-later { opacity: 0.22; }
+.badge-dot { fill: var(--route); }
+.badge-num { fill: var(--plan-bg); font: 700 11px var(--font-mono); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 8px 12px; border-top: 1px solid var(--line); background: var(--surface); font-size: 0.8rem; color: var(--subtle); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; border: 1px solid var(--line); }
+.legend .dash { border: 2px dashed var(--plan-existing); background: transparent; }
+.legend .arrow { color: var(--oneway); font-weight: 700; margin-right: 4px; }
+
+aside { display: grid; gap: 14px; min-width: 0; }
+.card, .index { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; min-width: 0; }
+.card .id { font-family: var(--font-mono); font-weight: 700; color: var(--accent); font-size: 0.9rem; }
+.card h2 { font-size: 1.3rem; font-weight: 750; font-stretch: 90%; margin-top: 2px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 4px; }
+.tag { font-size: 0.74rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--subtle); }
+.tag.warn { border-color: var(--oneway); color: var(--oneway); }
+.tag.ok { border-color: var(--plan-existing); color: var(--plan-existing); }
+.card p { margin: 8px 0; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin: 10px 0; font-size: 0.9rem; }
+dt { color: var(--subtle); }
+dd { margin: 0; font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere; }
+.card h3 { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--subtle); margin-top: 12px; font-family: var(--font-body); font-weight: 600; }
+.card ul { margin: 4px 0 0; padding-left: 18px; }
+.card li { margin: 2px 0; }
+.index h3 { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--subtle); margin: 10px 0 4px; font-family: var(--font-body); font-weight: 600; }
+.index h3:first-child { margin-top: 0; }
+.index ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.index button { width: 100%; text-align: left; border: 0; background: none; color: var(--fg); padding: 3px 6px; border-radius: 4px; display: flex; gap: 8px; font-size: 0.9rem; }
+.index button:hover, .index button[aria-current="true"] { background: var(--accent-soft); }
+.index button code { font-family: var(--font-mono); font-size: 0.78rem; color: var(--subtle); min-width: 3.4em; }
+.index li.is-off { display: none; }
+
+@media (max-width: 980px) {
+  main { grid-template-columns: minmax(0, 1fr); }
+  .canvas { max-height: 70vh; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fp-room polygon { transition: filter 0.12s; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>MnemoNexus Laboratory Map</h1>
+      <p id="subtitle">Facility master map: a hexagonal hub, the Biosciences wing it grew from, a shared instrument core, and chemistry. Three hub faces are reserved for future disciplines.</p>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section class="controls" aria-label="Map controls">
+    <div class="ctl" id="packs"><span class="lab">Installed add-ons</span></div>
+    <div class="ctl">
+      <label class="lab" for="phase">Build phase</label>
+      <select id="phase"></select>
+    </div>
+    <div class="ctl">
+      <label class="lab" for="workflow">Workflow</label>
+      <select id="workflow"><option value="">None</option></select>
+      <span class="route" id="route"></span>
+    </div>
+  </section>
+
+  <main>
+    <section class="plan" aria-label="Floor plan">
+      <div class="plan-bar">
+        <span class="hint">Select a room on the plan or in the index. Dashed teal outline = rooms already built.</span>
+        <div class="zoom">
+          <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+          <button type="button" id="zoom-fit">Fit</button>
+          <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+        </div>
+      </div>
+      <div class="canvas" id="canvas"><!--__SVG__--></div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <aside>
+      <article class="card" id="card" aria-live="polite"></article>
+      <nav class="index" id="index" aria-label="Room index"></nav>
+    </aside>
+  </main>
+</div>
+
+<script>
+const D = /*__DATA__*/null
+const svg = document.querySelector('#canvas svg')
+const NS = 'http://www.w3.org/2000/svg'
+const byId = new Map(D.rooms.map((r) => [r.id, r]))
+const groupOrder = ['hub', 'life', 'core', 'chem', 'support', 'circulation']
+const phaseIdx = new Map(D.phases.map((p, i) => [p.id, i]))
+const state = { packs: new Set(D.packs.map((p) => p.id)), phase: D.phases.length - 1, workflow: '', selected: 'BI02', zoom: 1 }
+const NATURAL = svg.viewBox.baseVal.width
+
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+const installed = (r) => r.packs.includes('base') || r.packs.some((p) => state.packs.has(p))
+const packName = (id) => (id === 'base' ? 'Every add-on' : (D.packs.find((p) => p.id === id) || {}).name || id)
+
+// controls
+const packsEl = document.getElementById('packs')
+for (const p of D.packs) {
+  const lab = document.createElement('label')
+  lab.className = 'chip'
+  lab.innerHTML = `<input type="checkbox" id="pack-${p.id}" checked><span>${esc(p.name)}</span>`
+  lab.querySelector('input').addEventListener('change', (e) => { e.target.checked ? state.packs.add(p.id) : state.packs.delete(p.id); render() })
+  packsEl.appendChild(lab)
+}
+const phaseEl = document.getElementById('phase')
+D.phases.forEach((p, i) => {
+  const o = document.createElement('option')
+  o.value = String(i)
+  o.textContent = i === D.phases.length - 1 ? `All (to ${p.id})` : `Up to ${p.id} · ${p.name}`
+  phaseEl.appendChild(o)
+})
+phaseEl.value = String(state.phase)
+phaseEl.addEventListener('change', () => { state.phase = Number(phaseEl.value); render() })
+const wfEl = document.getElementById('workflow')
+for (const w of D.workflows) {
+  const o = document.createElement('option')
+  o.value = w.id
+  o.textContent = w.name
+  wfEl.appendChild(o)
+}
+wfEl.addEventListener('change', () => { state.workflow = wfEl.value; render() })
+
+// legend
+document.getElementById('legend').innerHTML = groupOrder.map((g) => `<span><i style="background:var(--g-${g})"></i>${esc(D.groups[g].name)}</span>`).join('') +
+  '<span><i class="dash"></i>Already built</span><span><b class="arrow">→</b>One-way door</span><span>Hatched wedges: reserved sectors</span>'
+const legendStyle = document.createElement('style')
+legendStyle.textContent = ':root{' + groupOrder.map((g) => `--g-${g}:${D.groups[g].fill}`).join(';') + '}' +
+  '@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){' + groupOrder.map((g) => `--g-${g}:${D.groups[g].fillDark}`).join(';') + '}}' +
+  ':root[data-theme="dark"]{' + groupOrder.map((g) => `--g-${g}:${D.groups[g].fillDark}`).join(';') + '}'
+document.head.appendChild(legendStyle)
+
+// index
+const indexEl = document.getElementById('index')
+indexEl.innerHTML = groupOrder.map((g) => {
+  const rooms = D.rooms.filter((r) => r.group === g).sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }))
+  return `<h3>${esc(D.groups[g].name)}</h3><ul>${rooms.map((r) => `<li data-room-item="${r.id}"><button type="button" data-pick="${r.id}"><code>${r.id}</code><span>${esc(r.name)}</span></button></li>`).join('')}</ul>`
+}).join('')
+indexEl.addEventListener('click', (e) => { const b = e.target.closest('[data-pick]'); if (b) select(b.dataset.pick, true) })
+
+// plan interaction
+svg.querySelector('.fp-floors').addEventListener('click', (e) => { const g = e.target.closest('[data-room]'); if (g) select(g.dataset.room, false) })
+const badges = document.createElementNS(NS, 'g')
+svg.appendChild(badges)
+
+function select(id, scroll) {
+  if (!byId.has(id)) return
+  state.selected = id
+  render()
+  if (scroll) {
+    const r = byId.get(id)
+    const c = document.getElementById('canvas')
+    const s = svg.getBoundingClientRect().width / NATURAL
+    c.scrollTo({ left: r.lx * s - c.clientWidth / 2, top: r.ly * s - c.clientHeight / 2, behavior: 'smooth' })
+  }
+}
+
+function setZoom(z) {
+  state.zoom = Math.max(0.35, Math.min(2.5, z))
+  svg.style.width = Math.round(NATURAL * state.zoom) + 'px'
+}
+function fit() { setZoom(Math.min(1, (document.getElementById('canvas').clientWidth - 2) / NATURAL)) }
+document.getElementById('zoom-in').addEventListener('click', () => setZoom(state.zoom * 1.25))
+document.getElementById('zoom-out').addEventListener('click', () => setZoom(state.zoom / 1.25))
+document.getElementById('zoom-fit').addEventListener('click', fit)
+
+function render() {
+  const on = new Set(D.rooms.filter(installed).map((r) => r.id))
+  // rooms, labels, windows, exits
+  svg.querySelectorAll('[data-room]').forEach((el) => {
+    const id = el.dataset.room
+    el.classList.toggle('is-off', !on.has(id))
+    const r = byId.get(id)
+    el.classList.toggle('is-later', (phaseIdx.get(r.phase) ?? 0) > state.phase)
+    if (el.classList.contains('fp-room')) el.classList.toggle('is-selected', id === state.selected)
+  })
+  // doors to a room that is not installed become finished wall
+  let sealed = 0
+  svg.querySelectorAll('[data-rooms]').forEach((el) => {
+    const [a, b] = el.dataset.rooms.split(' ')
+    const show = on.has(a) && on.has(b)
+    if (!show && (on.has(a) || on.has(b))) sealed++
+    el.classList.toggle('is-off', !show)
+  })
+  document.querySelectorAll('[data-room-item]').forEach((li) => li.classList.toggle('is-off', !on.has(li.dataset.roomItem)))
+  document.querySelectorAll('[data-pick]').forEach((b) => b.setAttribute('aria-current', String(b.dataset.pick === state.selected)))
+
+  // workflow
+  badges.replaceChildren()
+  svg.querySelectorAll('.fp-room').forEach((el) => el.classList.remove('is-route'))
+  const wf = D.workflows.find((w) => w.id === state.workflow)
+  const routeEl = document.getElementById('route')
+  if (wf) {
+    wf.route.forEach((id, i) => {
+      const r = byId.get(id)
+      svg.querySelector(`.fp-room[data-room="${id}"]`)?.classList.add('is-route')
+      const g = document.createElementNS(NS, 'g')
+      g.innerHTML = `<circle class="badge-dot" cx="${r.lx - 26}" cy="${r.ly - 18}" r="9"/><text class="badge-num" x="${r.lx - 26}" y="${r.ly - 14}" text-anchor="middle">${i + 1}</text>`
+      badges.appendChild(g)
+    })
+    const missing = wf.route.filter((id) => !on.has(id))
+    routeEl.textContent = wf.route.join(' → ') + ` · ${wf.metres} m door to door` + (missing.length ? ` · needs ${missing.join(', ')}` : '')
+  } else routeEl.textContent = ''
+
+  // stats
+  const area = D.rooms.filter((r) => on.has(r.id)).reduce((s, r) => s + r.area, 0)
+  const far = D.rooms.filter((r) => on.has(r.id) && r.fromHub != null).reduce((m, r) => (r.fromHub > m.fromHub ? r : m), { fromHub: 0 })
+  document.getElementById('stats').innerHTML = [
+    [on.size, 'rooms installed'], [Math.round(area) + ' m²', 'floor area'], [sealed, 'doors sealed as wall'],
+    [Math.round(D.occupancy * 100) + '%', 'of hub sectors used'], [far.fromHub + ' m', `farthest walk (${far.id || '–'})`],
+  ].map(([v, l]) => `<div class="stat"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')
+
+  renderCard(on)
+}
+
+function renderCard(on) {
+  const r = byId.get(state.selected)
+  const card = document.getElementById('card')
+  if (!r) { card.innerHTML = '<p>Select a room.</p>'; return }
+  const tags = []
+  if (r.existing) tags.push('<span class="tag ok">Built today</span>')
+  if (r.shared) tags.push('<span class="tag">Shared core</span>')
+  if (r.controlled) tags.push('<span class="tag warn">Controlled access</span>')
+  if (r.fromHub == null) tags.push('<span class="tag">Service space, not walkable</span>')
+  if (!on.has(r.id)) tags.push('<span class="tag warn">Not in the selected add-ons</span>')
+  const phase = D.phases.find((p) => p.id === r.phase)
+  const entries = { hub: 'The hub', circulation: 'A corridor or lobby', 'via-parent': 'Through its parent room', 'via-foyer': 'Through its own anteroom' }
+  const list = (title, items) => (items && items.length ? `<h3>${title}</h3><ul>${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '')
+  const para = (title, text) => (text ? `<h3>${title}</h3><p>${esc(text)}</p>` : '')
+  card.innerHTML = `
+    <div class="id">${esc(r.id)}</div>
+    <h2>${esc(r.name)}</h2>
+    <div class="tags"><span class="tag">${esc(D.groups[r.group].name)}</span>${tags.join('')}</div>
+    <p>${esc(r.purpose)}</p>
+    <dl>
+      <dt>Entered</dt><dd>${esc(entries[r.entry] || '–')}</dd>
+      ${r.parent ? `<dt>Part of</dt><dd>${esc(r.parent)} ${esc(byId.get(r.parent)?.name || '')}</dd>` : ''}
+      <dt>Doors to</dt><dd>${r.doors.map((d) => esc(d)).join(', ') || '–'}</dd>
+      <dt>Add-ons</dt><dd>${r.packs.map(packName).map(esc).join(', ')}</dd>
+      <dt>Build phase</dt><dd>${phase ? esc(phase.id + ' · ' + phase.name) : '–'}</dd>
+      <dt>Floor area</dt><dd>${r.area} m²</dd>
+      <dt>Walk from hub</dt><dd>${r.fromHub == null ? '–' : r.fromHub + ' m'}</dd>
+    </dl>
+    ${list('Fixed equipment', r.fixed)}
+    ${para('Kept in storage', r.stored)}
+    ${para('Sample policy', r.samplePolicy)}
+    ${list('Hazards', r.hazards)}
+    ${list('Services', r.utilities)}
+    ${para('Notes', r.notes)}`
+}
+
+const hash = decodeURIComponent(location.hash.slice(1))
+if (byId.has(hash)) state.selected = hash
+fit()
+render()
+window.addEventListener('resize', () => { if (state.zoom <= 1) fit() })
+</script>

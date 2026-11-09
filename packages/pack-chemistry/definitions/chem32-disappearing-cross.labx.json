@@ -1,0 +1,467 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem32-disappearing-cross",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "rate of reaction",
+      "disappearing cross",
+      "sodium thiosulfate",
+      "concentration",
+      "temperature",
+      "turbidity"
+    ],
+    "topics": [
+      "Rates of reaction"
+    ],
+    "concepts": [
+      {
+        "id": "collisions",
+        "label": "More concentrated or hotter reactants collide more often and more energetically"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-time",
+        "kind": "skill",
+        "statement": "Time how long the cross takes to disappear, treating every flask alike"
+      },
+      {
+        "id": "o-rate",
+        "kind": "analysis",
+        "statement": "{{rateObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "{{explainObjective}}",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "The disappearing cross: concentration and rate"
+    },
+    "summary": {
+      "default": "Add hydrochloric acid to sodium thiosulfate diluted to five concentrations and time how long the sulfur it forms takes to hide a cross drawn under the flask."
+    },
+    "briefing": {
+      "default": "Acid decomposes thiosulfate into sulfur, which forms a pale yellow cloud: S₂O₃²⁻ + 2H⁺ → S + SO₂ + H₂O. Stand the flask on a pencil cross, add 5 mL of acid, swirl and start timing; stop when the cross can no longer be seen. The same amount of sulfur hides the cross each time, so 1 ÷ time is a measure of the rate. Work in a ventilated room: sulfur dioxide is given off."
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "runs": {
+      "default": "=[['v50','50 mL thiosulfate',50,0,0],['v40','40 mL thiosulfate + 10 mL water',40,10,0],['v30','30 mL thiosulfate + 20 mL water',30,20,0],['v20','20 mL thiosulfate + 30 mL water',20,30,0],['v10','10 mL thiosulfate + 40 mL water',10,40,0]]"
+    },
+    "rateObjective": {
+      "default": "Show how the rate depends on the thiosulfate concentration"
+    },
+    "explainObjective": {
+      "default": "Explain the effect of concentration with collisions"
+    },
+    "analysis": {
+      "default": [
+        {
+          "id": "fit",
+          "kind": "operation",
+          "ref": "core:fit",
+          "params": {
+            "x": "=[50, 40, 30, 20, 10]",
+            "y": "=map(['v50', 'v40', 'v30', 'v20', 'v10'], first(recorded('rate-' + it)))",
+            "model": "linear-through-origin",
+            "xLabel": "thiosulfate volume / mL (out of 50)"
+          }
+        },
+        {
+          "id": "note-fit",
+          "kind": "operation",
+          "ref": "core:record",
+          "params": {
+            "field": "rate-per-mL",
+            "value": "=fit.out.fit.params.slope"
+          }
+        },
+        {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the cross disappear sooner with more concentrated thiosulfate?",
+          "options": [
+            {
+              "id": "collisions",
+              "label": "More thiosulfate ions in the same volume collide with hydrogen ions more often"
+            },
+            {
+              "id": "more-sulfur",
+              "label": "More thiosulfate makes more sulfur in the end"
+            },
+            {
+              "id": "energy",
+              "label": "The ions have more energy when concentrated"
+            }
+          ],
+          "correctWhen": "choice == 'collisions'"
+        }
+      ]
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "Half the thiosulfate gives about half the rate (rate proportional to concentration)",
+            "check": "within(first(recorded('rate-v20')) / first(recorded('rate-v40')), 0.5, 20%)"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The effect of concentration is explained",
+            "check": "decision('why') == 'collisions'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-fast",
+            "statement": "With undiluted thiosulfate the cross goes in under a minute; with 10 mL in 50 it takes several times longer",
+            "check": "first(recorded('time-v50')) < 60 && first(recorded('time-v10')) > 3 * first(recorded('time-v50'))",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-yellow",
+            "statement": "The cloud is pale yellow sulfur",
+            "check": "mentions(last(recorded('seen-v50')), 'see through') && mentions(last(recorded('seen-v50')), 'yellow')",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "thio",
+        "label": "Sodium thiosulfate solution, 0.15 M (40 g/L as the pentahydrate)",
+        "contains": [
+          {
+            "substance": "chem:sodium-thiosulfate",
+            "conc": "0.15 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "hcl",
+        "label": "Hydrochloric acid, 2 M",
+        "contains": [
+          {
+            "substance": "core:hydrochloric-acid",
+            "conc": "2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "30 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each flask in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-time"
+        ],
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "='flask-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "thio-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "thio",
+              "destination": "='flask-' + r[0]",
+              "volume": "=quantity(text(r[2]) + ' mL')"
+            }
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='flask-' + r[0]",
+              "volume": "=quantity(text(r[3]) + ' mL')"
+            },
+            "when": "r[3] > 0"
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[4]) + ' Cel')"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "into-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='flask-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "acid",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hcl",
+              "destination": "='flask-' + r[0]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='flask-' + r[0]",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "watch",
+            "kind": "group",
+            "title": "Watch the cross, every 2 s",
+            "repeat": {
+              "until": "mentions(last(recorded('seen-' + r[0])), 'see through') || count(recorded('seen-' + r[0])) >= 80",
+              "max": 81
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "2 s"
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='flask-' + r[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + r[0]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "note-time",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='time-' + r[0]",
+              "value": "=2 * count(recorded('seen-' + r[0]))"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=1000 / (2 * count(recorded('seen-' + r[0])))"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='flask-' + r[0]"
+            },
+            "when": "r[4] > 0"
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "kind": "group",
+        "title": "Analyse",
+        "steps": "{{analysis}}"
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "chem32-temperature",
+      "title": "The disappearing cross: temperature and rate",
+      "summary": "Warm diluted sodium thiosulfate to four temperatures, add acid and time how long the cross takes to disappear.",
+      "briefing": "Stand 10 mL of thiosulfate with 40 mL of water in the water bath for ten minutes, add 5 mL of acid, swirl and time until the cross under the flask is hidden. Hotter particles collide more often and more of their collisions have enough energy to react, so the rate rises steeply with temperature.",
+      "values": {
+        "level": "ages-14-16",
+        "runs": "=[['t21','Room temperature (about 21 °C)',10,40,0],['t30','30 °C',10,40,30],['t40','40 °C',10,40,40],['t50','50 °C',10,40,50]]",
+        "rateObjective": "Show how the rate depends on temperature",
+        "explainObjective": "Explain the effect of temperature with collisions and activation energy",
+        "analysis": [
+          {
+            "id": "why",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "A rise of 10 °C roughly doubles the rate. Why so much?",
+            "options": [
+              {
+                "id": "energy",
+                "label": "Many more collisions have at least the activation energy, as well as there being slightly more collisions"
+              },
+              {
+                "id": "collisions",
+                "label": "The particles collide twice as often"
+              },
+              {
+                "id": "concentration",
+                "label": "Warming concentrates the solution"
+              }
+            ],
+            "correctWhen": "choice == 'energy'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "Each 10 °C rise speeds the reaction up by about one and a half to three times",
+              "check": "first(recorded('rate-t30')) > 1.4 * first(recorded('rate-t21')) && first(recorded('rate-t40')) > 1.4 * first(recorded('rate-t30')) && first(recorded('rate-t40')) < 3 * first(recorded('rate-t30'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The effect of temperature is explained",
+              "check": "decision('why') == 'energy'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-hot",
+              "statement": "At 50 °C the cross disappears in under half the time it takes at 30 °C",
+              "check": "first(recorded('time-t50')) < 0.5 * first(recorded('time-t30'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "temperature",
+        "activation energy"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

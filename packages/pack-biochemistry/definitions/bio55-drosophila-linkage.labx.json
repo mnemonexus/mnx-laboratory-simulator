@@ -1,0 +1,339 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "bio55-drosophila-linkage",
+  "title": "Linked genes: a test cross and the recombination frequency",
+  "summary": "Cross black-bodied, vestigial-winged females with wild-type males; test-cross the F1 females to black vestigial males; from the recombinants, find the recombination frequency and map distance between the two genes.",
+  "briefing": "Black (b) and vestigial (vg) are both on chromosome 2. The F1 females carry b vg on one chromosome and + + on the other. In a test cross with b vg males, most offspring look like one parent or the other; the recombinants (black only, or vestigial only) come from crossing over between the genes in the F1 females. Recombination frequency = recombinants ÷ total, and 1 % = 1 map unit (cM). Unlinked genes would give 1 : 1 : 1 : 1.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology",
+        "genetics"
+      ]
+    },
+    "keywords": [
+      "linkage",
+      "recombination frequency",
+      "crossing over",
+      "test cross",
+      "genetic map",
+      "chi-squared"
+    ],
+    "topics": [
+      "Inheritance"
+    ],
+    "concepts": [
+      {
+        "id": "linkage",
+        "label": "Genes close together on a chromosome are inherited together unless crossing over separates them"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-cross",
+        "kind": "skill",
+        "statement": "Set up a test cross and score the offspring"
+      },
+      {
+        "id": "o-ratio",
+        "kind": "analysis",
+        "statement": "Find the recombination frequency and test for linkage",
+        "goal": "g-ratio"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the recombinants",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "lens",
+        "requires": {
+          "class": "core:hand-lens"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "25 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "warm",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "incubator",
+          "temperature": "25 Cel"
+        }
+      },
+      {
+        "id": "v-p",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:fly-vial",
+          "id": "p",
+          "label": "Parents (P)"
+        }
+      },
+      {
+        "id": "in-p",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "p",
+          "place": "incubator"
+        }
+      },
+      {
+        "id": "mothers",
+        "kind": "operation",
+        "ref": "core:add-flies",
+        "params": {
+          "strain": "bio:dros-black-vestigial",
+          "destination": "p",
+          "females": 5
+        },
+        "objectives": [
+          "o-cross"
+        ]
+      },
+      {
+        "id": "fathers",
+        "kind": "operation",
+        "ref": "core:add-flies",
+        "params": {
+          "strain": "bio:dros-wild-type",
+          "destination": "p",
+          "males": 5
+        },
+        "objectives": [
+          "o-cross"
+        ]
+      },
+      {
+        "id": "gen-f1",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "11 d"
+        }
+      },
+      {
+        "id": "v-t",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:fly-vial",
+          "id": "t",
+          "label": "Test cross: F1 females × black vestigial males"
+        }
+      },
+      {
+        "id": "in-t",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "t",
+          "place": "incubator"
+        }
+      },
+      {
+        "id": "f1-females",
+        "kind": "operation",
+        "ref": "core:transfer-flies",
+        "params": {
+          "source": "p",
+          "destination": "t",
+          "females": 20
+        },
+        "objectives": [
+          "o-cross"
+        ]
+      },
+      {
+        "id": "tc-males",
+        "kind": "operation",
+        "ref": "core:add-flies",
+        "params": {
+          "strain": "bio:dros-black-vestigial",
+          "destination": "t",
+          "males": 20
+        },
+        "objectives": [
+          "o-cross"
+        ]
+      },
+      {
+        "id": "gen-tc",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "11 d"
+        }
+      },
+      {
+        "id": "score",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "lens",
+          "subject": "t"
+        },
+        "objectives": [
+          "o-cross"
+        ]
+      },
+      {
+        "id": "n-wt",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "wild type",
+          "value": "=coalesce(score.out.counts['wild type'], 0)"
+        }
+      },
+      {
+        "id": "n-bvg",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "black vestigial",
+          "value": "=coalesce(score.out.counts['black body, vestigial wings'], 0)"
+        }
+      },
+      {
+        "id": "n-b",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "black",
+          "value": "=coalesce(score.out.counts['black body'], 0)"
+        }
+      },
+      {
+        "id": "n-vg",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "vestigial",
+          "value": "=coalesce(score.out.counts['vestigial wings'], 0)"
+        }
+      },
+      {
+        "id": "total",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "total",
+          "value": "=first(recorded('wild type')) + first(recorded('black vestigial')) + first(recorded('black')) + first(recorded('vestigial'))"
+        }
+      },
+      {
+        "id": "rf",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "recombination frequency",
+          "value": "=(first(recorded('black')) + first(recorded('vestigial'))) / first(recorded('total'))"
+        },
+        "objectives": [
+          "o-ratio"
+        ]
+      },
+      {
+        "id": "chi",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "chi-squared against 1:1:1:1",
+          "value": "=(first(recorded('wild type')) - first(recorded('total')) / 4) * (first(recorded('wild type')) - first(recorded('total')) / 4) / (first(recorded('total')) / 4) + (first(recorded('black vestigial')) - first(recorded('total')) / 4) * (first(recorded('black vestigial')) - first(recorded('total')) / 4) / (first(recorded('total')) / 4) + (first(recorded('black')) - first(recorded('total')) / 4) * (first(recorded('black')) - first(recorded('total')) / 4) / (first(recorded('total')) / 4) + (first(recorded('vestigial')) - first(recorded('total')) / 4) * (first(recorded('vestigial')) - first(recorded('total')) / 4) / (first(recorded('total')) / 4)"
+        },
+        "objectives": [
+          "o-ratio"
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why are there so few black-only and vestigial-only flies?",
+        "options": [
+          {
+            "id": "linked",
+            "label": "The genes are close together on chromosome 2, so they are separated only when crossing over happens between them"
+          },
+          {
+            "id": "lethal",
+            "label": "Those combinations die"
+          },
+          {
+            "id": "dominant",
+            "label": "Black is dominant to vestigial"
+          }
+        ],
+        "correctWhen": "choice == 'linked'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-ratio",
+        "statement": "The recombination frequency is between 12 and 25 % (about 18.5 cM), far from the 50 % of unlinked genes",
+        "check": "first(recorded('recombination frequency')) > 0.12 && first(recorded('recombination frequency')) < 0.25 && first(recorded('chi-squared against 1:1:1:1')) > 7.81"
+      },
+      {
+        "id": "g-explain",
+        "statement": "Linkage is explained",
+        "check": "decision('why') == 'linked'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-parental",
+        "statement": "The two parental classes are about equal, as are the two recombinant classes",
+        "check": "abs(first(recorded('wild type')) - first(recorded('black vestigial'))) < 0.2 * first(recorded('total'))",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

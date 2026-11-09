@@ -1,0 +1,91 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio8-gel-filtration-native-mass",
+  "version": "1.0.0",
+  "title": "A protein's native mass by gel filtration",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:elute" }, { "operation": "core:fit" }] },
+  "summary": "Calibrate a size-exclusion column with BSA, ovalbumin and cytochrome c, collecting 1 mL fractions and reading each at 280 nm. Then run lactate dehydrogenase, find its native molecular mass from the calibration, and combine it with its subunit mass from SDS-PAGE.",
+  "briefing": "In gel filtration big molecules leave first: they cannot enter the pores of the beads. The column's void volume V0 is 8.0 mL (blue dextran, fully excluded) and its total volume Vt is 24 mL. For each peak, Kav = (Ve − V0) / (Vt − V0), and Kav falls linearly with the log of the native molecular mass, so the standards give a line to read the unknown from. The protein keeps its shape here, so this is the mass of the whole protein, not of its chains.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-2", "disciplines": ["biochemistry", "biosciences"] },
+    "concepts": [{ "id": "size-exclusion", "label": "Separation by size in a porous gel" }, { "id": "quaternary", "label": "Native and subunit masses" }],
+    "objectives": [
+      { "id": "o-run", "kind": "skill", "statement": "Load a column and collect fractions", "skills": ["core:micropipetting", "core:spectrophotometer-read", "core:blanking"] },
+      { "id": "o-calibrate", "kind": "analysis", "statement": "Calibrate the column with standards" },
+      { "id": "o-mass", "kind": "analysis", "statement": "Find LDH's native mass within 25 %", "goal": "g-mass" },
+      { "id": "o-subunits", "kind": "reasoning", "statement": "Combine the native and subunit masses" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "pbs", "label": "Running buffer (PBS)", "preparation": "core:pbs-1x", "amount": "200 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "standards", "label": "Standards: BSA, ovalbumin, cytochrome c", "preparation": "bio:sec-standards", "amount": "1 mL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "ldh", "label": "LDH, 1 mg/mL", "preparation": "bio:ldh-1mg", "amount": "1 mL", "container": "core:microtube-1.5ml", "storage": "4 Cel" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "column", "requires": { "class": "core:sec-column-24ml" } },
+      { "id": "spec", "requires": { "class": "core:spectrophotometer.uv-vis" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "blank-cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-quartz-micro", "id": "c-blank", "label": "Buffer blank" } },
+      { "id": "blank-fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "pbs", "destination": "c-blank", "volume": "500 uL" } },
+      { "id": "zero", "kind": "operation", "ref": "core:calibrate", "objectives": ["o-run"], "params": { "instrument": "spec", "mode": "blank", "reference": "c-blank", "wavelength": "280 nm" } },
+      { "id": "runs", "kind": "group", "objectives": ["o-run"], "forEach": { "var": "run", "in": "=[['standards', 'std'], ['ldh', 'ldh']]" },
+        "steps": [
+          { "id": "apply", "kind": "operation", "ref": "core:transfer", "params": { "source": "=run[0]", "destination": "column", "volume": "500 uL" } },
+          { "id": "fractions", "kind": "group", "forEach": { "var": "f", "in": "=range(1, 28, 28)" },
+            "let": { "tube": "=run[1] + '-' + text(f)", "cuvette": "='c-' + run[1] + '-' + text(f)" },
+            "steps": [
+              { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=tube", "label": "='Fraction ' + text(f)" } },
+              { "id": "collect", "kind": "operation", "ref": "core:elute", "params": { "column": "column", "buffer": "pbs", "into": "=tube", "volume": "1 mL" } },
+              { "id": "cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-quartz-micro", "id": "=cuvette" } },
+              { "id": "fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "=tube", "destination": "=cuvette", "volume": "500 uL" } },
+              { "id": "read", "kind": "operation", "ref": "core:measure", "params": { "instrument": "spec", "subject": "=cuvette", "wavelength": "280 nm" } },
+              { "id": "note-a", "kind": "operation", "ref": "core:record", "params": { "field": "='A280-' + run[1]", "value": "=read.out.value" } },
+              { "id": "note-v", "kind": "operation", "ref": "core:record", "params": { "field": "='V-' + run[1]", "value": "=f - 0.5" } }
+            ] }
+        ] },
+      { "id": "calibration", "kind": "group", "objectives": ["o-calibrate"],
+        "let": { "ve": "=peaks(recorded('V-std'), recorded('A280-std'), 0.05)" },
+        "steps": [
+          { "id": "note-ve", "kind": "operation", "ref": "core:record", "params": { "field": "Ve-standards", "value": "=ve" } },
+          { "id": "fit", "kind": "operation", "ref": "core:fit",
+            "params": { "x": "=[log10(66430), log10(44300), log10(12400)]", "y": "=map(ve, (it - 8.0) / (24 - 8.0))", "model": "linear" } }
+        ] },
+      { "id": "unknown", "kind": "group", "objectives": ["o-mass"],
+        "let": { "kav": "=(first(peaks(recorded('V-ldh'), recorded('A280-ldh'), 0.05)) - 8.0) / (24 - 8.0)" },
+        "steps": [
+          { "id": "note-kav", "kind": "operation", "ref": "core:record", "params": { "field": "Kav-LDH", "value": "=kav" } },
+          { "id": "mass", "kind": "operation", "ref": "core:compute",
+            "params": { "expression": "10 ^ ((kav - b) / m) / 1000", "values": { "kav": "=kav", "m": "=fit.out.fit.params.slope", "b": "=fit.out.fit.params.intercept" }, "field": "LDH-kDa" } }
+        ] },
+      { "id": "chains", "kind": "decision", "objectives": ["o-subunits"],
+        "prompt": "SDS-PAGE shows LDH's chains are about 35 kDa. How many chains does native LDH have?",
+        "options": [
+          { "id": "two", "label": "Two" },
+          { "id": "four", "label": "Four" },
+          { "id": "six", "label": "Six" }
+        ],
+        "correctWhen": "if(round(first(recorded('LDH-kDa')) / 35, 1) <= 2, 'two', if(round(first(recorded('LDH-kDa')) / 35, 1) <= 4, 'four', 'six'))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-mass", "statement": "LDH's native mass is within 25 % of 140 kDa", "check": "within(first(recorded('LDH-kDa')), 140, 25%)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-three", "statement": "The standards give three peaks, the largest protein first", "check": "count(first(recorded('Ve-standards'))) == 3", "source": "reference-standard" },
+      { "id": "e-ldh-first", "statement": "LDH leaves before BSA (it is larger as a whole, though its chains are smaller)", "check": "first(peaks(recorded('V-ldh'), recorded('A280-ldh'), 0.05)) < first(first(recorded('Ve-standards')))", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

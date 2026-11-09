@@ -1,0 +1,889 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro9-environment-aseptic",
+  "version": "1.0.0",
+  "title": "Microbes everywhere: where contamination comes from, and keeping it out",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:flame-neck"
+      },
+      {
+        "operation": "core:press-fingers"
+      },
+      {
+        "operation": "core:stab"
+      }
+    ]
+  },
+  "summary": "Leave plates open to the air for different times and press fingertips on agar before and after washing; pass loopfuls between sterile broths with flamed necks beside an unopened control; plate pond water at two temperatures; stab two cultures into agar deeps. Two days later, count, look and explain.",
+  "briefing": "Anything uncovered collects what settles out of the air, and anything you touch collects what is on your skin. Aseptic technique keeps both out: open vessels only briefly, flame the neck of a bottle or tube after opening it and before closing it, flame the loop before and after each use. Count only plates with separate colonies.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "microbiology",
+        "bioscience"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "contamination",
+        "label": "Sources of contamination"
+      },
+      {
+        "id": "aseptic",
+        "label": "Aseptic technique"
+      },
+      {
+        "id": "culture-conditions",
+        "label": "Culture conditions select what grows"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-sources",
+        "kind": "reasoning",
+        "statement": "Compare contamination from the air and from the hands",
+        "skills": [
+          "micro:environmental-sampling"
+        ],
+        "goal": "g-sources"
+      },
+      {
+        "id": "o-aseptic",
+        "kind": "skill",
+        "statement": "Transfer between sterile broths without contaminating them",
+        "skills": [
+          "micro:aseptic-technique"
+        ]
+      },
+      {
+        "id": "o-counts",
+        "kind": "analysis",
+        "statement": "Count colonies and explain how incubation temperature selects what grows",
+        "skills": [
+          "micro:colony-counting"
+        ],
+        "goal": "g-temperature"
+      },
+      {
+        "id": "o-oxygen",
+        "kind": "reasoning",
+        "statement": "Read an organism's oxygen requirement from a stab culture",
+        "skills": [
+          "micro:stab-culture"
+        ],
+        "goal": "g-oxygen"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "pond",
+        "label": "Pond water",
+        "role": "specimen",
+        "container": "core:universal-bottle-28ml",
+        "amount": "20 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:pseudomonas-fluorescens",
+            "count": {
+              "vary": "1.5e3..3e3 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:bacillus-subtilis",
+            "count": {
+              "vary": "100..200 cells/mL"
+            }
+          }
+        ]
+      },
+      {
+        "id": "culture-1",
+        "label": "Culture 1",
+        "role": "culture",
+        "container": "core:universal-bottle-28ml",
+        "amount": "5 mL",
+        "preparation": "micro:nutrient-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "1e8 cells/mL"
+          }
+        ]
+      },
+      {
+        "id": "culture-2",
+        "label": "Culture 2",
+        "role": "culture",
+        "container": "core:universal-bottle-28ml",
+        "amount": "5 mL",
+        "preparation": "micro:nutrient-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:bacillus-subtilis",
+            "count": "1e8 cells/mL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "settle-30",
+        "label": "Air, 30 minutes",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "settle-120",
+        "label": "Air, 2 hours",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "fingers-unwashed",
+        "label": "Fingers, unwashed",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "fingers-soap",
+        "label": "Fingers, after soap",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "fingers-antiseptic",
+        "label": "Fingers, after antiseptic",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "pond-25",
+        "label": "Pond water, 25 °C",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "pond-37",
+        "label": "Pond water, 37 °C",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "broth-a",
+        "label": "Broth A",
+        "preparation": "micro:nutrient-broth-sterile",
+        "amount": "10 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "broth-b",
+        "label": "Broth B",
+        "preparation": "micro:nutrient-broth-sterile",
+        "amount": "10 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "broth-c",
+        "label": "Broth C",
+        "preparation": "micro:nutrient-broth-sterile",
+        "amount": "10 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "broth-control",
+        "label": "Broth, unopened control",
+        "preparation": "micro:nutrient-broth-sterile",
+        "amount": "10 mL",
+        "container": "core:culture-tube-20ml"
+      },
+      {
+        "id": "deep-1",
+        "label": "Deep 1",
+        "preparation": "micro:nutrient-agar",
+        "amount": "8 mL",
+        "container": "core:agar-deep-tube"
+      },
+      {
+        "id": "deep-2",
+        "label": "Deep 2",
+        "preparation": "micro:nutrient-agar",
+        "amount": "8 mL",
+        "container": "core:agar-deep-tube"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "warm",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "cool",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "25 Cel"
+        }
+      },
+      {
+        "id": "loop",
+        "requires": {
+          "class": "core:loop"
+        }
+      },
+      {
+        "id": "spreader",
+        "requires": {
+          "class": "core:cell-spreader"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "counter",
+        "requires": {
+          "class": "core:colony-counter"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [
+      {
+        "id": "d1",
+        "title": "Expose, transfer, plate and stab"
+      },
+      {
+        "id": "d2",
+        "title": "Two days later: count, look and explain"
+      }
+    ],
+    "steps": [
+      {
+        "id": "air",
+        "kind": "group",
+        "title": "Settle plates",
+        "steps": [
+          {
+            "id": "open-30",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "settle-30"
+            }
+          },
+          {
+            "id": "open-120",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "settle-120"
+            }
+          },
+          {
+            "id": "wait-30",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 min"
+            }
+          },
+          {
+            "id": "close-30",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "settle-30"
+            }
+          }
+        ],
+        "objectives": [
+          "o-sources"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "hands",
+        "kind": "group",
+        "title": "Fingertips: unwashed, washed, antiseptic",
+        "steps": [
+          {
+            "id": "h-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "h-clean",
+            "kind": "operation",
+            "ref": "core:wash-hands",
+            "when": "=x[1] != 'none'",
+            "params": {
+              "method": "=x[1]"
+            }
+          },
+          {
+            "id": "h-press",
+            "kind": "operation",
+            "ref": "core:press-fingers",
+            "params": {
+              "plate": "=x[0]"
+            }
+          },
+          {
+            "id": "h-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['fingers-unwashed', 'none'], ['fingers-soap', 'soap'], ['fingers-antiseptic', 'antiseptic']]"
+        },
+        "objectives": [
+          "o-sources"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "transfers",
+        "kind": "group",
+        "title": "Loopfuls between sterile broths, necks flamed",
+        "steps": [
+          {
+            "id": "t-flame-loop",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "t-open-a",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "t-flame-a",
+            "kind": "operation",
+            "ref": "core:flame-neck",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "t-open-b",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[1]"
+            }
+          },
+          {
+            "id": "t-flame-b",
+            "kind": "operation",
+            "ref": "core:flame-neck",
+            "params": {
+              "container": "=x[1]"
+            }
+          },
+          {
+            "id": "t-loopful",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "10 uL",
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "t-reflame-a",
+            "kind": "operation",
+            "ref": "core:flame-neck",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "t-close-a",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "t-reflame-b",
+            "kind": "operation",
+            "ref": "core:flame-neck",
+            "params": {
+              "container": "=x[1]"
+            }
+          },
+          {
+            "id": "t-close-b",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['broth-a', 'broth-b'], ['broth-b', 'broth-c'], ['broth-c', 'broth-a'], ['broth-a', 'broth-b'], ['broth-b', 'broth-c'], ['broth-c', 'broth-a']]"
+        },
+        "objectives": [
+          "o-aseptic"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "pond",
+        "kind": "group",
+        "title": "Pond water on two plates",
+        "steps": [
+          {
+            "id": "p-open-src",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "pond"
+            }
+          },
+          {
+            "id": "p-flame-src",
+            "kind": "operation",
+            "ref": "core:flame-neck",
+            "params": {
+              "container": "pond"
+            }
+          },
+          {
+            "id": "p-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "p-drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "pond",
+              "destination": "=x",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "p-reflame",
+            "kind": "operation",
+            "ref": "core:flame-neck",
+            "params": {
+              "container": "pond"
+            }
+          },
+          {
+            "id": "p-close-src",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "pond"
+            }
+          },
+          {
+            "id": "p-flame-spreader",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "p-spread",
+            "kind": "operation",
+            "ref": "core:spread",
+            "params": {
+              "plate": "=x",
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "p-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['pond-25', 'pond-37']"
+        },
+        "objectives": [
+          "o-counts"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "stabs",
+        "kind": "group",
+        "title": "Stab cultures",
+        "steps": [
+          {
+            "id": "s-flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "s-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "s-stab",
+            "kind": "operation",
+            "ref": "core:stab",
+            "params": {
+              "tube": "=x[0]",
+              "tool": "loop",
+              "source": "=x[1]"
+            }
+          },
+          {
+            "id": "s-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['deep-1', 'culture-1'], ['deep-2', 'culture-2']]"
+        },
+        "objectives": [
+          "o-oxygen"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "rest-of-session",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "90 min"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "close-120",
+        "kind": "operation",
+        "ref": "core:close",
+        "params": {
+          "container": "settle-120"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "into-37",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "session": "d1",
+        "forEach": {
+          "var": "x",
+          "in": "=['settle-30', 'settle-120', 'fingers-unwashed', 'fingers-soap', 'fingers-antiseptic', 'broth-a', 'broth-b', 'broth-c', 'broth-control', 'pond-37', 'deep-1', 'deep-2']"
+        },
+        "params": {
+          "container": "=x",
+          "place": "warm"
+        }
+      },
+      {
+        "id": "into-25",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "pond-25",
+          "place": "cool"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "incubate",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "48 h"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "counts",
+        "kind": "group",
+        "title": "Count the plates",
+        "steps": [
+          {
+            "id": "c-count",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "counter",
+              "subject": "=x"
+            }
+          },
+          {
+            "id": "c-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='count-' + x",
+              "value": "=c-count.out.count"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['settle-30', 'settle-120', 'fingers-unwashed', 'fingers-soap', 'fingers-antiseptic', 'pond-25', 'pond-37']"
+        },
+        "objectives": [
+          "o-counts"
+        ],
+        "session": "d2"
+      },
+      {
+        "id": "looks",
+        "kind": "group",
+        "title": "Look at the broths and the deeps",
+        "steps": [
+          {
+            "id": "l-see",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "=x"
+            }
+          },
+          {
+            "id": "l-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "=x",
+              "value": "=l-see.out.appearance"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['broth-a', 'broth-b', 'broth-c', 'broth-control', 'deep-1', 'deep-2']"
+        },
+        "objectives": [
+          "o-aseptic",
+          "o-oxygen"
+        ],
+        "session": "d2"
+      },
+      {
+        "id": "pond-per-ml",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "pond-per-mL-25",
+          "value": "=first(recorded('count-pond-25')) / 0.1"
+        },
+        "session": "d2",
+        "objectives": [
+          "o-counts"
+        ]
+      },
+      {
+        "id": "settle",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-sources"
+        ],
+        "prompt": "One plate stood open for 30 minutes, the other for 2 hours. What do their counts say about the air?",
+        "options": [
+          {
+            "id": "steady",
+            "label": "Organisms settle out of the air steadily: about four times as long, about four times as many"
+          },
+          {
+            "id": "same",
+            "label": "The counts are about the same: the air was only contaminated once"
+          },
+          {
+            "id": "fewer",
+            "label": "The longer plate has fewer: its agar dried out"
+          }
+        ],
+        "correctWhen": "if(first(recorded('count-settle-120')) > 2 * first(recorded('count-settle-30')), 'steady', 'same')"
+      },
+      {
+        "id": "cleanest",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-sources"
+        ],
+        "prompt": "Which way of cleaning the fingers left the fewest organisms on the agar?",
+        "options": [
+          {
+            "id": "none",
+            "label": "None: unwashed fingers"
+          },
+          {
+            "id": "soap",
+            "label": "Soap and water"
+          },
+          {
+            "id": "antiseptic",
+            "label": "The antiseptic wipe"
+          }
+        ],
+        "correctWhen": "if(first(recorded('count-fingers-antiseptic')) <= first(recorded('count-fingers-soap')), 'antiseptic', 'soap')"
+      },
+      {
+        "id": "why-cool",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-counts"
+        ],
+        "prompt": "The same pond water gave more colonies at 25 °C than at 37 °C. Why?",
+        "options": [
+          {
+            "id": "killed",
+            "label": "37 °C killed bacteria that were growing"
+          },
+          {
+            "id": "cold-adapted",
+            "label": "Many water bacteria cannot grow at body temperature: a 37 °C count misses them"
+          },
+          {
+            "id": "chance",
+            "label": "Chance: the two 0.1 mL samples differed"
+          }
+        ],
+        "correctWhen": "if(first(recorded('count-pond-25')) > 2 * first(recorded('count-pond-37')), 'cold-adapted', 'chance')"
+      },
+      {
+        "id": "oxygen",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-oxygen"
+        ],
+        "prompt": "Which culture needs oxygen to grow?",
+        "options": [
+          {
+            "id": "culture-1",
+            "label": "Culture 1"
+          },
+          {
+            "id": "culture-2",
+            "label": "Culture 2"
+          },
+          {
+            "id": "both",
+            "label": "Both grew the same way"
+          }
+        ],
+        "correctWhen": "if(first(recorded('deep-1')) == first(recorded('deep-2')), 'both', if(first(recorded('deep-2')) == 'growth only at the top of the stab, at the surface', 'culture-2', 'culture-1'))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-sources",
+        "statement": "Air contamination is seen to grow with time open, and the antiseptic is seen to work best",
+        "check": "decision('settle') == 'steady' && decision('cleanest') == 'antiseptic'"
+      },
+      {
+        "id": "g-temperature",
+        "statement": "The 37 °C count is recognised as missing the water bacteria",
+        "check": "decision('why-cool') == 'cold-adapted'"
+      },
+      {
+        "id": "g-oxygen",
+        "statement": "The culture that needs oxygen is identified from its stab",
+        "check": "decision('oxygen') == 'culture-2'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-sterile",
+        "statement": "The loop transfers and the unopened control stay clear",
+        "check": "all(t in ['broth-a', 'broth-b', 'broth-c', 'broth-control']: first(recorded(t)) == 'clear')",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-fingers",
+        "statement": "Unwashed fingers leave the most colonies, the antiseptic the fewest",
+        "check": "first(recorded('count-fingers-unwashed')) > first(recorded('count-fingers-soap')) && first(recorded('count-fingers-soap')) > first(recorded('count-fingers-antiseptic'))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

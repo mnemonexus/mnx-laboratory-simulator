@@ -1,0 +1,777 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio20-antibody-titre-course",
+  "version": "1.0.0",
+  "title": "An immunisation course by ELISA: end-point titres, and what blocking is for",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:wash"
+      },
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Coat a plate with a recombinant antigen, block all but two columns, titrate a goat's pre-immune serum and its sera after a prime and two boosts three-fold down the plate, detect bound goat IgG with a peroxidase anti-goat conjugate and TMB, and compare end-point titres; the unblocked columns show why blocking matters.",
+  "briefing": "Sera are pre-diluted 1:100; 50 µL into 100 µL of assay buffer makes 1:300 in row A, and each step down is a further three-fold. The conjugate recognises any goat IgG on the well, wherever it came from. Columns 10 and 11 are left unblocked and get wash buffer (no BSA) as their diluent. Take each titre as the last dilution whose A450 is still more than 0.15 above the pre-immune serum's highest reading.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "immunology",
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "titre",
+        "label": "End-point antibody titres"
+      },
+      {
+        "id": "boosting",
+        "label": "Primary and secondary antibody responses"
+      },
+      {
+        "id": "blocking",
+        "label": "Blocking and non-specific binding"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-elisa",
+        "kind": "skill",
+        "statement": "Coat, block and titrate sera down an ELISA plate",
+        "skills": [
+          "core:micropipetting",
+          "core:dilution-series"
+        ]
+      },
+      {
+        "id": "o-titre",
+        "kind": "analysis",
+        "statement": "Read end-point titres against a pre-immune cutoff and compare them",
+        "goal": "g-course"
+      },
+      {
+        "id": "o-controls",
+        "kind": "reasoning",
+        "statement": "Explain the pre-immune serum and the unblocked wells",
+        "goal": "g-controls"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "d0",
+        "label": "Goat 7, pre-immune serum (1:100)",
+        "role": "specimen",
+        "preparation": "bio:assay-buffer-bsa",
+        "contains": [
+          {
+            "substance": "bio:goat-igg",
+            "conc": "0.1 mg/mL"
+          }
+        ],
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "prime",
+        "label": "Goat 7, two weeks after the prime (1:100)",
+        "role": "specimen",
+        "preparation": "bio:assay-buffer-bsa",
+        "contains": [
+          {
+            "substance": "bio:goat-igg",
+            "conc": "0.1 mg/mL"
+          },
+          {
+            "substance": "bio:goat-anti-antigen-igg",
+            "conc": "0.15 ug/mL"
+          }
+        ],
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "boost1",
+        "label": "Goat 7, after the first boost (1:100)",
+        "role": "specimen",
+        "preparation": "bio:assay-buffer-bsa",
+        "contains": [
+          {
+            "substance": "bio:goat-igg",
+            "conc": "0.1 mg/mL"
+          },
+          {
+            "substance": "bio:goat-anti-antigen-igg",
+            "conc": "0.6 ug/mL"
+          }
+        ],
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "boost2",
+        "label": "Goat 7, after the second boost (1:100)",
+        "role": "specimen",
+        "preparation": "bio:assay-buffer-bsa",
+        "contains": [
+          {
+            "substance": "bio:goat-igg",
+            "conc": "0.1 mg/mL"
+          },
+          {
+            "substance": "bio:goat-anti-antigen-igg",
+            "conc": "2.5 ug/mL"
+          }
+        ],
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      }
+    ],
+    "supplies": [
+      {
+        "id": "antigen",
+        "label": "Recombinant antigen, 2 µg/mL in coating buffer",
+        "preparation": "bio:carbonate-coating-ph9.6",
+        "contains": [
+          {
+            "substance": "bio:recombinant-antigen",
+            "conc": "2 mg/L"
+          }
+        ],
+        "amount": "12 mL",
+        "container": "core:conical-tube-15ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "wash",
+        "label": "Wash buffer (PBS, 0.05 % Tween 20)",
+        "preparation": "bio:pbs-tween",
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "blocker",
+        "label": "Blocking buffer (5 % milk in wash buffer)",
+        "preparation": "bio:pbs-tween",
+        "contains": [
+          {
+            "substance": "bio:skimmed-milk-powder",
+            "conc": "50 g/L"
+          }
+        ],
+        "amount": "20 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "assay",
+        "label": "Assay buffer (PBS-Tween, 1 % BSA)",
+        "preparation": "bio:assay-buffer-bsa",
+        "amount": "15 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "secondary",
+        "label": "Donkey anti-goat IgG–HRP",
+        "preparation": "bio:secondary-anti-goat-hrp",
+        "amount": "12 mL",
+        "container": "core:conical-tube-15ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "tmb",
+        "label": "TMB substrate",
+        "preparation": "bio:tmb-substrate",
+        "amount": "12 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "stop",
+        "label": "Stop solution (1 M HCl)",
+        "preparation": "bio:stop-hcl-1m",
+        "amount": "6 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "waste",
+        "label": "Waste pot",
+        "preparation": "core:water-deionised",
+        "amount": "1 mL",
+        "container": "core:beaker-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "plate",
+        "requires": {
+          "class": "core:microplate-96-elisa"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "reader",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "wavelength": "450 nm",
+          "format": "96-well"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "coat",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "antigen",
+          "volume": "100 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        },
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "coat-inc",
+        "kind": "group",
+        "title": "60 min at 37 °C",
+        "steps": [
+          {
+            "id": "coat-inc-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "coat-inc-wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "coat-inc-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wash-1",
+        "kind": "operation",
+        "ref": "core:wash",
+        "params": {
+          "target": "plate",
+          "buffer": "wash",
+          "volume": "300 uL",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "block",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "blocker",
+          "volume": "200 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H12']"
+        },
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "block-inc",
+        "kind": "group",
+        "title": "60 min at 37 °C",
+        "steps": [
+          {
+            "id": "block-inc-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "block-inc-wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "block-inc-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wash-2",
+        "kind": "operation",
+        "ref": "core:wash",
+        "params": {
+          "target": "plate",
+          "buffer": "wash",
+          "volume": "300 uL",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "diluent",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "assay",
+          "volume": "100 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H12']"
+        }
+      },
+      {
+        "id": "diluent-plain",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "wash",
+          "volume": "100 uL",
+          "into": "=['plate/A10', 'plate/A11', 'plate/B10', 'plate/B11', 'plate/C10', 'plate/C11', 'plate/D10', 'plate/D11', 'plate/E10', 'plate/E11', 'plate/F10', 'plate/F11', 'plate/G10', 'plate/G11', 'plate/H10', 'plate/H11']"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "group",
+        "title": "50 µL of each serum into row A",
+        "steps": [
+          {
+            "id": "load-well",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "50 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['d0', 'plate/A2'], ['d0', 'plate/A3'], ['prime', 'plate/A4'], ['prime', 'plate/A5'], ['boost1', 'plate/A6'], ['boost1', 'plate/A7'], ['boost2', 'plate/A8'], ['boost2', 'plate/A9'], ['boost2', 'plate/A10'], ['boost2', 'plate/A11']]"
+        },
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "dilute",
+        "kind": "group",
+        "title": "Three-fold down each column: mix, then 50 µL on; 50 µL from row H discarded",
+        "steps": [
+          {
+            "id": "down",
+            "kind": "group",
+            "title": "Down the column",
+            "steps": [
+              {
+                "id": "mix-well",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='plate/' + r[0] + text(col)",
+                  "method": "pipette-mix",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "carry",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "='plate/' + r[0] + text(col)",
+                  "destination": "='plate/' + r[1] + text(col)",
+                  "volume": "50 uL"
+                }
+              }
+            ],
+            "forEach": {
+              "var": "r",
+              "in": "=[['A', 'B'], ['B', 'C'], ['C', 'D'], ['D', 'E'], ['E', 'F'], ['F', 'G'], ['G', 'H']]"
+            }
+          },
+          {
+            "id": "mix-last",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='plate/H' + text(col)",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "discard",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='plate/H' + text(col)",
+              "destination": "waste",
+              "volume": "50 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "col",
+          "in": "=[2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+        },
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "serum-inc",
+        "kind": "group",
+        "title": "60 min at 37 °C",
+        "steps": [
+          {
+            "id": "serum-inc-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "serum-inc-wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "serum-inc-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wash-3",
+        "kind": "operation",
+        "ref": "core:wash",
+        "params": {
+          "target": "plate",
+          "buffer": "wash",
+          "volume": "300 uL",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "conjugate",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "secondary",
+          "volume": "100 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        }
+      },
+      {
+        "id": "conj-inc",
+        "kind": "group",
+        "title": "60 min at 37 °C",
+        "steps": [
+          {
+            "id": "conj-inc-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "conj-inc-wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "conj-inc-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wash-4",
+        "kind": "operation",
+        "ref": "core:wash",
+        "params": {
+          "target": "plate",
+          "buffer": "wash",
+          "volume": "300 uL",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "substrate",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "tmb",
+          "volume": "100 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        }
+      },
+      {
+        "id": "colour",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "15 min"
+        }
+      },
+      {
+        "id": "stop-it",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "stop",
+          "volume": "50 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        }
+      },
+      {
+        "id": "shake",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "plate",
+          "method": "shake"
+        }
+      },
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "reader",
+          "subject": "plate",
+          "wavelength": "450 nm"
+        },
+        "objectives": [
+          "o-titre"
+        ]
+      },
+      {
+        "id": "blank",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "blank",
+          "value": "=(reading(read, 'plate/A1') + reading(read, 'plate/A12') + reading(read, 'plate/B1') + reading(read, 'plate/B12') + reading(read, 'plate/C1') + reading(read, 'plate/C12') + reading(read, 'plate/D1') + reading(read, 'plate/D12') + reading(read, 'plate/E1') + reading(read, 'plate/E12') + reading(read, 'plate/F1') + reading(read, 'plate/F12') + reading(read, 'plate/G1') + reading(read, 'plate/G12') + reading(read, 'plate/H1') + reading(read, 'plate/H12')) / 16"
+        }
+      },
+      {
+        "id": "curves",
+        "kind": "group",
+        "title": "Each serum's A450 down its pair of columns, less the blank (1:300 to 1:656 100)",
+        "steps": [
+          {
+            "id": "curve",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='A450-' + x[0]",
+              "value": "=map(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'], (reading(read, 'plate/' + it + text(x[1])) + reading(read, 'plate/' + it + text(x[1] + 1))) / 2 - first(recorded('blank')))"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['d0', 2], ['prime', 4], ['boost1', 6], ['boost2', 8], ['unblocked', 10]]"
+        },
+        "objectives": [
+          "o-titre"
+        ]
+      },
+      {
+        "id": "titres",
+        "kind": "group",
+        "title": "End-point titres: the last dilution above the pre-immune serum's highest reading plus 0.15",
+        "steps": [
+          {
+            "id": "titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='titre-' + x",
+              "value": "=if(count(first(recorded('A450-' + x)), it > max(first(recorded('A450-d0'))) + 0.15) > 0, seq(300, 3, 8)[count(first(recorded('A450-' + x)), it > max(first(recorded('A450-d0'))) + 0.15) - 1], 0)"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['prime', 'boost1', 'boost2']"
+        },
+        "objectives": [
+          "o-titre"
+        ]
+      },
+      {
+        "id": "course",
+        "kind": "decision",
+        "objectives": [
+          "o-titre"
+        ],
+        "prompt": "How did the antigen-specific antibody change over the immunisation course?",
+        "options": [
+          {
+            "id": "rose",
+            "label": "It rose with each injection, most after the second boost: the response grows with re-exposure"
+          },
+          {
+            "id": "peaked",
+            "label": "It peaked after the prime and fell with the boosts"
+          },
+          {
+            "id": "flat",
+            "label": "It hardly changed"
+          }
+        ],
+        "correctWhen": "if(first(recorded('titre-boost2')) > first(recorded('titre-boost1')) && first(recorded('titre-boost1')) > first(recorded('titre-prime')), 'rose', if(first(recorded('titre-prime')) > first(recorded('titre-boost2')), 'peaked', 'flat'))"
+      },
+      {
+        "id": "unblocked-q",
+        "kind": "decision",
+        "objectives": [
+          "o-controls"
+        ],
+        "prompt": "Columns 10 and 11 had the second-boost serum in wells that were never blocked, diluted in wash buffer with no BSA. What do they show?",
+        "options": [
+          {
+            "id": "background",
+            "label": "Extra signal that lingers as the serum is diluted out: its other goat IgG stuck to bare plastic, and the conjugate found it; blocking stops that"
+          },
+          {
+            "id": "same",
+            "label": "The same curve as the blocked wells: blocking makes no difference"
+          },
+          {
+            "id": "lower",
+            "label": "Less signal: blocking adds to the signal"
+          }
+        ],
+        "correctWhen": "if(first(recorded('A450-unblocked'))[4] + first(recorded('A450-unblocked'))[5] > first(recorded('A450-boost2'))[4] + first(recorded('A450-boost2'))[5] + 0.08, 'background', if(first(recorded('A450-unblocked'))[0] < 0.8 * first(recorded('A450-boost2'))[0], 'lower', 'same'))"
+      },
+      {
+        "id": "preimmune",
+        "kind": "decision",
+        "objectives": [
+          "o-controls"
+        ],
+        "prompt": "Why is the goat's pre-immune serum on the plate?",
+        "options": [
+          {
+            "id": "baseline",
+            "label": "It shows what the same goat's serum gives before immunisation: the baseline the cutoff is set from"
+          },
+          {
+            "id": "positive",
+            "label": "It is the positive control"
+          },
+          {
+            "id": "blank",
+            "label": "It replaces the blank wells"
+          }
+        ],
+        "correctWhen": "'baseline'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-course",
+        "statement": "The titres are read and rise with each boost",
+        "check": "decision('course') == 'rose' && first(recorded('titre-boost2')) > 0"
+      },
+      {
+        "id": "g-controls",
+        "statement": "The unblocked wells and the pre-immune serum are explained",
+        "check": "decision('unblocked-q') == 'background' && decision('preimmune') == 'baseline'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-preimmune",
+        "statement": "The pre-immune serum gives only background in blocked wells",
+        "check": "max(first(recorded('A450-d0'))) < 0.15",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-boost",
+        "statement": "Each boost raises the titre at least three-fold",
+        "check": "first(recorded('titre-boost1')) >= 3 * first(recorded('titre-prime')) && first(recorded('titre-boost2')) >= 3 * first(recorded('titre-boost1'))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

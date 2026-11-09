@@ -1,0 +1,304 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro4-growth-curve",
+  "version": "1.0.0",
+  "title": "A bacterial growth curve and the doubling time",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Grow E. coli in LB broth at 37 °C, take a sample every 30 minutes for five hours, read its turbidity at 600 nm against broth, and find the doubling time from the exponential phase.",
+  "briefing": "A culture's optical density follows its cell number while it is low enough. Plot ln(OD600) against time: in exponential growth the points lie on a line whose slope is ln 2 divided by the doubling time. Use only readings between about 0.05 and 0.6.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "microbiology",
+        "biosciences"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "growth-phases",
+        "label": "Lag, exponential and stationary phase"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-sample",
+        "kind": "skill",
+        "statement": "Sample a culture and read OD600 against a blank",
+        "skills": [
+          "core:blanking",
+          "core:spectrophotometer-read",
+          "micro:aseptic-technique"
+        ]
+      },
+      {
+        "id": "o-td",
+        "kind": "analysis",
+        "statement": "Find the doubling time within 20 %",
+        "goal": "g-td"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "culture",
+        "label": "E. coli in LB broth",
+        "role": "culture",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "50 mL",
+        "container": "core:conical-flask-250ml",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "1e6 cells/mL"
+          }
+        ],
+        "storage": "37 Cel"
+      }
+    ],
+    "supplies": [
+      {
+        "id": "broth",
+        "label": "Sterile LB broth (blank)",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "blank-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-blank",
+          "label": "Broth blank"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "broth",
+          "destination": "c-blank",
+          "volume": "1 mL"
+        }
+      },
+      {
+        "id": "blank",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "objectives": [
+          "o-sample"
+        ],
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-blank",
+          "wavelength": "600 nm"
+        }
+      },
+      {
+        "id": "into-incubator",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "culture",
+          "place": "incubator"
+        }
+      },
+      {
+        "id": "samples",
+        "kind": "group",
+        "objectives": [
+          "o-sample"
+        ],
+        "forEach": {
+          "var": "k",
+          "in": "=range(0, 10, 11)"
+        },
+        "let": {
+          "cuvette": "='c-' + text(k)"
+        },
+        "steps": [
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "when": "k > 0",
+            "params": {
+              "duration": "30 min"
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "culture",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "cuvette",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-1cm",
+              "id": "=cuvette"
+            }
+          },
+          {
+            "id": "take",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "culture",
+              "destination": "=cuvette",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=cuvette",
+              "wavelength": "600 nm"
+            }
+          },
+          {
+            "id": "note-od",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "od",
+              "value": "=read.out.value"
+            }
+          },
+          {
+            "id": "note-t",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "t",
+              "value": "=k * 30"
+            }
+          }
+        ]
+      },
+      {
+        "id": "analyse",
+        "kind": "group",
+        "objectives": [
+          "o-td"
+        ],
+        "let": {
+          "od": "=recorded('od')",
+          "t": "=recorded('t')",
+          "picked": "=filter(range(0, len(recorded('od')) - 1, len(recorded('od'))), between(recorded('od')[it], 0.05, 0.6))"
+        },
+        "steps": [
+          {
+            "id": "fit",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map(picked, t[it])",
+              "y": "=map(picked, ln(od[it]))",
+              "model": "linear"
+            }
+          },
+          {
+            "id": "td",
+            "kind": "operation",
+            "ref": "core:compute",
+            "params": {
+              "expression": "ln(2) / slope",
+              "values": {
+                "slope": "=fit.out.fit.params.slope"
+              },
+              "field": "doubling-time"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-td",
+        "statement": "The doubling time is within 20 % of 20 minutes (it reads a little long as growth slows towards stationary phase)",
+        "check": "between(first(recorded('doubling-time')), 16, 24)"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-lag",
+        "statement": "The first readings are too low to read meaningfully",
+        "check": "first(recorded('od')) < 0.02",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-stationary",
+        "statement": "The culture levels off (stationary phase) by five hours",
+        "check": "last(recorded('od')) > 1.5",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-points",
+        "statement": "At least three readings fall in the exponential window",
+        "check": "count(filter(recorded('od'), between(it, 0.05, 0.6))) >= 3",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

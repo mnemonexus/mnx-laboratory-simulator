@@ -1,0 +1,97 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro6-mic-broth-dilution",
+  "version": "1.0.0",
+  "title": "The minimum inhibitory concentration of ampicillin",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "core:dispense-reagent" }, { "operation": "core:measure" }] },
+  "summary": "Make two-fold dilutions of ampicillin from 128 to 0.25 µg/mL across a 96-well plate, inoculate one row with a susceptible E. coli and one with an unknown strain, incubate overnight, read the turbidity at 600 nm and find each strain's MIC.",
+  "briefing": "The MIC is the lowest concentration that stops visible growth overnight. Each well has half the drug of the one before it. The growth control (no drug) must be turbid and the sterility control (no cells) clear, or the plate cannot be read. A strain whose MIC is above the clinical breakpoint (8 µg/mL here) is resistant.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["microbiology", "biosciences"] },
+    "concepts": [{ "id": "mic", "label": "Minimum inhibitory concentration" }, { "id": "breakpoint", "label": "Clinical breakpoints: susceptible and resistant" }],
+    "objectives": [
+      { "id": "o-dilute", "kind": "skill", "statement": "Make a two-fold dilution series in a plate", "skills": ["core:serial-dilution", "core:micropipetting", "core:dispense-reagent"] },
+      { "id": "o-read", "kind": "skill", "statement": "Read growth by turbidity against the controls", "skills": ["micro:aseptic-technique"] },
+      { "id": "o-mic", "kind": "analysis", "statement": "Find the susceptible strain's MIC within one dilution", "goal": "g-mic" },
+      { "id": "o-classify", "kind": "reasoning", "statement": "Classify the unknown strain against the breakpoint", "goal": "g-unknown" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "sens", "label": "E. coli K-12, 1 × 10⁶ CFU/mL", "role": "culture", "preparation": "micro:lb-broth-sterile", "amount": "1.4 mL", "container": "core:microtube-1.5ml",
+        "contains": [{ "substance": "micro:escherichia-coli-k12", "count": "1e6 cells/mL" }] },
+      { "id": "unknown", "label": "Strain B, 1 × 10⁶ CFU/mL", "role": "unknown", "preparation": "micro:lb-broth-sterile", "amount": "1.4 mL", "container": "core:microtube-1.5ml",
+        "contains": [{ "substance": "micro:escherichia-coli-k12-ampr", "count": "1e6 cells/mL" }] }
+    ],
+    "supplies": [
+      { "id": "lb", "label": "Sterile LB broth", "preparation": "micro:lb-broth-sterile", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "amp", "label": "Ampicillin, 256 µg/mL in LB", "preparation": "micro:lb-broth-sterile", "contains": [{ "substance": "micro:ampicillin", "conc": "256 mg/L" }], "amount": "1 mL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "plate", "requires": { "class": "core:microplate-96" } },
+      { "id": "incubator", "requires": { "class": "core:incubator", "temperature": "37 Cel" } },
+      { "id": "reader", "requires": { "purpose": "measure.absorbance", "wavelength": "600 nm", "format": "96-well" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "waste-tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "waste", "label": "Discard" } },
+      { "id": "rows", "kind": "group", "title": "A row of two-fold dilutions for each strain", "objectives": ["o-dilute"],
+        "forEach": { "var": "row", "in": "=['A', 'B']" },
+        "steps": [
+          { "id": "broth", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "lb", "volume": "100 uL", "into": "=map(range(2, 11, 10), 'plate/' + row + text(it))" } },
+          { "id": "sterility", "kind": "operation", "ref": "core:transfer", "params": { "source": "lb", "destination": "='plate/' + row + '12'", "volume": "200 uL" } },
+          { "id": "top", "kind": "operation", "ref": "core:transfer", "params": { "source": "amp", "destination": "='plate/' + row + '1'", "volume": "200 uL" } },
+          { "id": "series", "kind": "group", "forEach": { "var": "c", "in": "=range(1, 9, 9)" },
+            "steps": [
+              { "id": "carry", "kind": "operation", "ref": "core:transfer", "params": { "source": "='plate/' + row + text(c)", "destination": "='plate/' + row + text(c + 1)", "volume": "100 uL" } },
+              { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "='plate/' + row + text(c + 1)", "method": "pipette-mix", "cycles": 5 } }
+            ] },
+          { "id": "discard", "kind": "operation", "ref": "core:transfer", "params": { "source": "='plate/' + row + '10'", "destination": "waste", "volume": "100 uL" } }
+        ] },
+      { "id": "inoculate", "kind": "group", "title": "100 µL of each strain into columns 1 to 11", "objectives": ["o-dilute"],
+        "forEach": { "var": "x", "in": "=[['A', 'sens'], ['B', 'unknown']]" },
+        "steps": [
+          { "id": "resuspend", "kind": "operation", "ref": "core:mix", "params": { "container": "=x[1]", "method": "vortex", "cycles": 1 } },
+          { "id": "cells", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "=x[1]", "volume": "100 uL", "into": "=map(range(1, 11, 11), 'plate/' + x[0] + text(it))" } }
+        ] },
+      { "id": "shake", "kind": "operation", "ref": "core:mix", "params": { "container": "plate", "method": "shake" } },
+      { "id": "into-incubator", "kind": "operation", "ref": "core:place-in", "params": { "container": "plate", "place": "incubator" } },
+      { "id": "overnight", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "18 h" } },
+      { "id": "out", "kind": "operation", "ref": "core:remove-from", "params": { "container": "plate" } },
+      { "id": "read", "kind": "operation", "ref": "core:measure", "objectives": ["o-read"], "params": { "instrument": "reader", "subject": "plate", "wavelength": "600 nm" } },
+      { "id": "mics", "kind": "group", "objectives": ["o-mic"], "forEach": { "var": "row", "in": "=['A', 'B']" },
+        "let": {
+          "blank": "=reading(read, 'plate/' + row + '12')",
+          "clear": "=filter(range(1, 10, 10), reading(read, 'plate/' + row + text(it)) - reading(read, 'plate/' + row + '12') < 0.05)"
+        },
+        "steps": [
+          { "id": "note-growth", "kind": "operation", "ref": "core:record", "params": { "field": "='growth-control-' + row", "value": "=reading(read, 'plate/' + row + '11') - blank" } },
+          { "id": "note-mic", "kind": "operation", "ref": "core:record", "params": { "field": "='MIC-' + row", "value": "=if(count(clear) == 0, 256, min(map(clear, 128 / 2 ^ (it - 1))))" } }
+        ] },
+      { "id": "classify", "kind": "decision", "objectives": ["o-classify"], "prompt": "Against the breakpoint (resistant above 8 µg/mL), is strain B susceptible or resistant to ampicillin?",
+        "options": [
+          { "id": "susceptible", "label": "Susceptible" },
+          { "id": "resistant", "label": "Resistant" }
+        ],
+        "correctWhen": "if(first(recorded('MIC-B')) > 8, 'resistant', 'susceptible')" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-mic", "statement": "The K-12 MIC is within one dilution of 4 µg/mL", "check": "between(first(recorded('MIC-A')), 2, 8)" },
+      { "id": "g-unknown", "statement": "Strain B is found resistant (no well up to 128 µg/mL is clear)", "check": "first(recorded('MIC-B')) > 128 && decision(classify) == 'resistant'" }
+    ],
+    "expectedObservations": [
+      { "id": "e-controls", "statement": "Both growth controls are turbid and the sterility controls clear", "check": "first(recorded('growth-control-A')) > 0.3 && first(recorded('growth-control-B')) > 0.3 && reading(read, 'plate/A12') < 0.1", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

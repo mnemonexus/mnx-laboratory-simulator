@@ -1,0 +1,107 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio13-purification-table",
+  "version": "1.0.0",
+  "title": "A purification table: how pure, how much?",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:elute" }, { "technique": "core:standard-curve-analysis" }] },
+  "summary": "Purify His-tagged GFP from a lysate on a nickel column, then measure each stage: total protein by a Bradford assay against BSA standards, GFP by its absorbance at 488 nm. Build a purification table of total protein, total GFP, specific GFP, yield and fold purification.",
+  "briefing": "A purification is judged by two numbers. Yield: how much of the wanted protein you kept (GFP in the eluate over GFP in the lysate). Fold purification: how much richer in it the protein became (GFP per mg of protein in the eluate over the same in the lysate). Dilute the lysate and flow-through 1 in 4 so they fall within the standard curve.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-2", "disciplines": ["biochemistry"] },
+    "concepts": [{ "id": "purification-table", "label": "Yield, specific activity and fold purification" }, { "id": "affinity-chromatography", "label": "Affinity chromatography" }],
+    "objectives": [
+      { "id": "o-purify", "kind": "skill", "statement": "Run the affinity purification", "skills": ["core:micropipetting"] },
+      { "id": "o-assay", "kind": "skill", "statement": "Measure total protein against a standard curve", "skills": ["bio:bradford-assay", "bio:plate-absorbance-read"] },
+      { "id": "o-table", "kind": "analysis", "statement": "Build the purification table", "goal": "g-table" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "lysate", "label": "Cleared lysate (GFP-His6)", "role": "specimen", "preparation": "bio:his-lysate", "amount": "5 mL", "container": "core:conical-tube-15ml", "storage": "4 Cel" }
+    ],
+    "supplies": [
+      { "id": "wash", "label": "Wash buffer (20 mM imidazole)", "preparation": "bio:his-wash-20mm", "amount": "15 mL", "container": "core:conical-tube-15ml" },
+      { "id": "elution", "label": "Elution buffer (250 mM imidazole)", "preparation": "bio:his-elution-250mm", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "bsa-stock", "label": "BSA standard, 2.0 mg/mL", "contains": [{ "substance": "bio:bovine-serum-albumin", "conc": "2.0 mg/mL" }], "amount": "1.5 mL", "container": "core:microtube-2ml" },
+      { "id": "reagent", "label": "Bradford reagent", "preparation": "bio:bradford-reagent", "amount": "50 mL", "container": "core:reagent-bottle-50ml" },
+      { "id": "pbs", "label": "PBS", "preparation": "core:pbs-1x", "amount": "50 mL", "container": "core:reagent-bottle-50ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "reader", "requires": { "purpose": "measure.absorbance", "wavelength": "595 nm", "format": "96-well" } },
+      { "id": "plate", "requires": { "class": "core:microplate-96" } },
+      { "id": "spec", "requires": { "class": "core:spectrophotometer.visible-single-beam" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "column", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:affinity-column-ni", "id": "col", "label": "Nickel column" } },
+      { "id": "fraction-tubes", "kind": "operation", "ref": "core:fetch", "forEach": { "var": "f", "in": "=[['ft', 'core:conical-tube-15ml', 'Flow-through'], ['w1', 'core:conical-tube-15ml', 'Wash 1'], ['w2', 'core:conical-tube-15ml', 'Wash 2'], ['e1', 'core:conical-tube-15ml', 'Eluate']]" },
+        "params": { "equipment": "=f[1]", "id": "=f[0]", "label": "=f[2]" } },
+      { "id": "load", "kind": "operation", "ref": "core:transfer", "objectives": ["o-purify"], "params": { "source": "lysate", "destination": "col", "volume": "2 mL", "tool": "pour" } },
+      { "id": "flow-through", "kind": "operation", "ref": "core:elute", "objectives": ["o-purify"], "params": { "column": "col", "buffer": "wash", "into": "ft", "volume": "0 mL" } },
+      { "id": "washes", "kind": "operation", "ref": "core:elute", "objectives": ["o-purify"], "forEach": { "var": "w", "in": "=['w1', 'w2']" }, "params": { "column": "col", "buffer": "wash", "into": "=w", "volume": "5 mL" } },
+      { "id": "elution", "kind": "operation", "ref": "core:elute", "objectives": ["o-purify"], "params": { "column": "col", "buffer": "elution", "into": "e1", "volume": "3 mL" } },
+      { "id": "dilutions", "kind": "group", "title": "Lysate and flow-through 1 in 4", "objectives": ["o-assay"], "forEach": { "var": "x", "in": "=[['lysate', 'l-dil'], ['ft', 'ft-dil']]" },
+        "steps": [
+          { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=x[1]", "label": "='1 in 4: ' + labelOf(x[0])" } },
+          { "id": "diluent", "kind": "operation", "ref": "core:transfer", "params": { "source": "pbs", "destination": "=x[1]", "volume": "300 uL" } },
+          { "id": "sample", "kind": "operation", "ref": "core:transfer", "params": { "source": "=x[0]", "destination": "=x[1]", "volume": "100 uL" } },
+          { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=x[1]", "method": "vortex", "cycles": 1 } }
+        ] },
+      { "id": "standards", "kind": "technique", "ref": "core:dilution-series", "title": "BSA standards", "objectives": ["o-assay"], "params": { "stock": "bsa-stock", "diluent": "pbs", "analyte": "bio:bovine-serum-albumin", "targets": ["0 mg/mL", "0.125 mg/mL", "0.25 mg/mL", "0.5 mg/mL", "0.75 mg/mL", "1.0 mg/mL", "1.5 mg/mL"], "volumeEach": "100 uL" } },
+      { "id": "plate-map", "kind": "design", "ref": "core:plate-layout", "params": { "plate": "plate", "groups": [{ "group": "standards", "items": "=standards.out.vessels", "role": "standard" }, { "group": "l-dil", "items": ["l-dil"], "role": "unknown" }, { "group": "ft-dil", "items": ["ft-dil"], "role": "unknown" }, { "group": "e1", "items": ["e1"], "role": "unknown" }], "replicates": 3, "blanks": 3, "blankSource": "pbs" } },
+      { "id": "load-plate", "kind": "technique", "ref": "core:transfer-to-plate", "params": { "layout": "=plate-map.out.layout", "volume": "5 uL" } },
+      { "id": "dye", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "reagent", "volume": "250 uL", "into": "=load-plate.out.wells" } },
+      { "id": "develop", "kind": "wait", "title": "Five minutes at room temperature", "duration": "5 min" },
+      { "id": "read", "kind": "technique", "ref": "bio:plate-absorbance-read", "params": { "plate": "plate", "wavelength": "595 nm" }, "bind": { "instrument": "reader" } },
+      { "id": "analyse", "kind": "data", "ref": "core:standard-curve-analysis", "objectives": ["o-assay"], "params": { "reading": "=read.out.reading", "layout": "=plate-map.out.layout", "standards": "standards", "standardConcs": "=standards.out.concentrations", "unknowns": ["l-dil", "ft-dil", "e1"], "model": "quadratic" } },
+      { "id": "blank-cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-ps-1cm", "id": "c-blank", "label": "Blank" } },
+      { "id": "blank-fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "elution", "destination": "c-blank", "volume": "800 uL" } },
+      { "id": "zero", "kind": "operation", "ref": "core:calibrate", "params": { "instrument": "spec", "mode": "blank", "reference": "c-blank", "wavelength": "488 nm" } },
+      { "id": "gfp-reads", "kind": "group", "objectives": ["o-table"], "forEach": { "var": "x", "in": "=[['lysate', 2.0], ['ft', 2.0], ['e1', 3.0]]" },
+        "let": { "cuvette": "='c-' + x[0]" },
+        "steps": [
+          { "id": "cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-ps-1cm", "id": "=cuvette" } },
+          { "id": "fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "=x[0]", "destination": "=cuvette", "volume": "800 uL" } },
+          { "id": "a488", "kind": "operation", "ref": "core:measure", "params": { "instrument": "spec", "subject": "=cuvette", "wavelength": "488 nm" } },
+          { "id": "note-gfp", "kind": "operation", "ref": "core:record", "params": { "field": "='GFP-units-' + x[0]", "value": "=a488.out.value * x[1]" } }
+        ] },
+      { "id": "table", "kind": "group", "objectives": ["o-table"],
+        "let": {
+          "pL": "=value(reported(conc, 'l-dil'), 'mg/mL') * 4 * 2.0",
+          "pE": "=value(reported(conc, 'e1'), 'mg/mL') * 3.0",
+          "gL": "=first(recorded('GFP-units-lysate'))",
+          "gE": "=first(recorded('GFP-units-e1'))"
+        },
+        "steps": [
+          { "id": "note-protein-l", "kind": "operation", "ref": "core:record", "params": { "field": "protein-mg-lysate", "value": "=pL" } },
+          { "id": "note-protein-e", "kind": "operation", "ref": "core:record", "params": { "field": "protein-mg-eluate", "value": "=pE" } },
+          { "id": "note-yield", "kind": "operation", "ref": "core:record", "params": { "field": "yield-%", "value": "=gE / gL * 100" } },
+          { "id": "note-fold", "kind": "operation", "ref": "core:record", "params": { "field": "fold-purification", "value": "=(gE / pE) / (gL / pL)" } }
+        ] },
+      { "id": "ceiling", "kind": "decision", "objectives": ["o-table"], "prompt": "The lysate's protein is about one-sixth GFP. What does that mean for the fold purification?",
+        "options": [
+          { "id": "six", "label": "It can be at most about 6: pure GFP is only six times richer in GFP than the lysate" },
+          { "id": "unlimited", "label": "It has no limit: more washes give an ever higher fold" },
+          { "id": "yield", "label": "It equals the yield divided by 100" }
+        ],
+        "correctWhen": "'six'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-table", "statement": "Yield over 75 % and a fold purification between 4 and 7", "check": "first(recorded('yield-%')) > 75 && first(recorded('fold-purification')) > 4 && first(recorded('fold-purification')) < 7" }
+    ],
+    "expectedObservations": [
+      { "id": "e-protein", "statement": "Most of the protein stays behind: the eluate holds under a quarter of what was loaded", "check": "first(recorded('protein-mg-eluate')) < 0.25 * first(recorded('protein-mg-lysate'))", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

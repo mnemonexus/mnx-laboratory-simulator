@@ -1,0 +1,2351 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lab-framework:schema:lab-experiment:0.1",
+  "title": "Laboratory experiment definition (lab-experiment 0.1)",
+  "description": "An experiment definition (lab-experiment format)",
+  "type": "object",
+  "properties": {
+    "format": {
+      "type": "string",
+      "enum": [
+        "lab-experiment"
+      ]
+    },
+    "formatVersion": {
+      "type": "string",
+      "description": "major.minor",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "description": "The definition's semantic version",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z.-]+)?$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+    },
+    "requires": {
+      "type": "object",
+      "properties": {
+        "framework": {
+          "type": "string",
+          "description": "Version range, e.g. \">=0.1\""
+        },
+        "manifest": {
+          "type": "string"
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {}
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "briefing": {
+      "type": "string"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "intendedContexts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "lecture-introduction",
+              "spaced-recall",
+              "transferal",
+              "practical-session",
+              "assessment",
+              "open-exploration"
+            ]
+          }
+        },
+        "audience": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string"
+            },
+            "disciplines": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "description": "Search terms for the catalogue",
+          "items": {
+            "type": "string"
+          }
+        },
+        "curricula": {
+          "type": "array",
+          "description": "Courses and qualifications where this practical appears (GCSE, A level, IB, AP …)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "topics": {
+          "type": "array",
+          "description": "Catalogue topics (titration, electrochemistry, enzymes …)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prerequisites": {
+          "type": "object",
+          "properties": {
+            "skills": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              }
+            },
+            "definitions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "label": {
+                "type": "string"
+              },
+              "xref": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "skill",
+                  "outcome",
+                  "reasoning",
+                  "concept",
+                  "practice",
+                  "design",
+                  "analysis"
+                ]
+              },
+              "statement": {
+                "type": "string"
+              },
+              "skills": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+                }
+              },
+              "goal": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "statement"
+            ]
+          }
+        }
+      }
+    },
+    "materials": {
+      "type": "object",
+      "properties": {
+        "substances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "ref": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              },
+              "inline": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        "supplies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "A material present at the start",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "label": {
+                "type": "string",
+                "description": "What the label says"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "unknown",
+                  "standard",
+                  "control-positive",
+                  "control-negative",
+                  "blank",
+                  "specimen",
+                  "culture",
+                  "product",
+                  "reagent"
+                ]
+              },
+              "contains": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "One component; exactly one of conc, count or mass",
+                  "properties": {
+                    "substance": {
+                      "type": "string",
+                      "description": "A material id from materials.substances, or a catalogue reference"
+                    },
+                    "conc": {
+                      "description": "Concentration (\"2.0 mg/mL\")",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "x-lab-format": "quantity-or-expression"
+                        },
+                        {
+                          "type": "object",
+                          "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                          "properties": {
+                            "vary": {
+                              "description": "A range \"lo..hi unit\" or a list of choices",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "x-lab-format": "quantity-or-range"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "vary"
+                          ]
+                        }
+                      ]
+                    },
+                    "count": {
+                      "description": "Organisms or cells per volume (\"1e9 CFU/mL\")",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "x-lab-format": "quantity-or-expression"
+                        },
+                        {
+                          "type": "object",
+                          "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                          "properties": {
+                            "vary": {
+                              "description": "A range \"lo..hi unit\" or a list of choices",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "x-lab-format": "quantity-or-range"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "vary"
+                          ]
+                        }
+                      ]
+                    },
+                    "mass": {
+                      "description": "Mass of this component in a solid mixture (\"1.0 g\")",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "x-lab-format": "quantity-or-expression"
+                        },
+                        {
+                          "type": "object",
+                          "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                          "properties": {
+                            "vary": {
+                              "description": "A range \"lo..hi unit\" or a list of choices",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "x-lab-format": "quantity-or-range"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "vary"
+                          ]
+                        }
+                      ]
+                    },
+                    "purity": {
+                      "type": "string",
+                      "description": "Purity of a solid (\"99.95 %\")",
+                      "x-lab-format": "quantity"
+                    },
+                    "viability": {
+                      "description": "Counted cells: the fraction alive (\"92 %\")",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "x-lab-format": "quantity-or-expression"
+                        },
+                        {
+                          "type": "object",
+                          "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                          "properties": {
+                            "vary": {
+                              "description": "A range \"lo..hi unit\" or a list of choices",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "x-lab-format": "quantity-or-range"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "vary"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "substance"
+                  ]
+                }
+              },
+              "solvent": {
+                "type": "string"
+              },
+              "preparation": {
+                "type": "string",
+                "description": "A catalogue preparation (recipe)",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              },
+              "amount": {
+                "description": "A volume or mass, or \"unlimited\" for a bench supply",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "x-lab-format": "quantity"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "unlimited"
+                    ]
+                  }
+                ]
+              },
+              "container": {
+                "type": "string",
+                "description": "An equipment class or model for the container",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              },
+              "storage": {
+                "type": "string",
+                "x-lab-format": "quantity"
+              },
+              "water": {
+                "type": "string",
+                "description": "A wet solid's liquid (soil water): the components given by conc or count are in it",
+                "x-lab-format": "quantity"
+              },
+              "count": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "vary": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "vary"
+                    ]
+                  }
+                ]
+              },
+              "truth": {
+                "type": "object",
+                "description": "Hidden truth overriding the label (faults, mislabelled stocks)",
+                "properties": {
+                  "contains": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "One component; exactly one of conc, count or mass",
+                      "properties": {
+                        "substance": {
+                          "type": "string",
+                          "description": "A material id from materials.substances, or a catalogue reference"
+                        },
+                        "conc": {
+                          "description": "Concentration (\"2.0 mg/mL\")",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "x-lab-format": "quantity-or-expression"
+                            },
+                            {
+                              "type": "object",
+                              "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                              "properties": {
+                                "vary": {
+                                  "description": "A range \"lo..hi unit\" or a list of choices",
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "x-lab-format": "quantity-or-range"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "vary"
+                              ]
+                            }
+                          ]
+                        },
+                        "count": {
+                          "description": "Organisms or cells per volume (\"1e9 CFU/mL\")",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "x-lab-format": "quantity-or-expression"
+                            },
+                            {
+                              "type": "object",
+                              "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                              "properties": {
+                                "vary": {
+                                  "description": "A range \"lo..hi unit\" or a list of choices",
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "x-lab-format": "quantity-or-range"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "vary"
+                              ]
+                            }
+                          ]
+                        },
+                        "mass": {
+                          "description": "Mass of this component in a solid mixture (\"1.0 g\")",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "x-lab-format": "quantity-or-expression"
+                            },
+                            {
+                              "type": "object",
+                              "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                              "properties": {
+                                "vary": {
+                                  "description": "A range \"lo..hi unit\" or a list of choices",
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "x-lab-format": "quantity-or-range"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "vary"
+                              ]
+                            }
+                          ]
+                        },
+                        "purity": {
+                          "type": "string",
+                          "description": "Purity of a solid (\"99.95 %\")",
+                          "x-lab-format": "quantity"
+                        },
+                        "viability": {
+                          "description": "Counted cells: the fraction alive (\"92 %\")",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "x-lab-format": "quantity-or-expression"
+                            },
+                            {
+                              "type": "object",
+                              "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                              "properties": {
+                                "vary": {
+                                  "description": "A range \"lo..hi unit\" or a list of choices",
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "x-lab-format": "quantity-or-range"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "vary"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "substance"
+                      ]
+                    }
+                  },
+                  "activityFactor": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "samples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "A material present at the start",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "label": {
+                "type": "string",
+                "description": "What the label says"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "unknown",
+                  "standard",
+                  "control-positive",
+                  "control-negative",
+                  "blank",
+                  "specimen",
+                  "culture",
+                  "product",
+                  "reagent"
+                ]
+              },
+              "contains": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "One component; exactly one of conc, count or mass",
+                  "properties": {
+                    "substance": {
+                      "type": "string",
+                      "description": "A material id from materials.substances, or a catalogue reference"
+                    },
+                    "conc": {
+                      "description": "Concentration (\"2.0 mg/mL\")",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "x-lab-format": "quantity-or-expression"
+                        },
+                        {
+                          "type": "object",
+                          "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                          "properties": {
+                            "vary": {
+                              "description": "A range \"lo..hi unit\" or a list of choices",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "x-lab-format": "quantity-or-range"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "vary"
+                          ]
+                        }
+                      ]
+                    },
+                    "count": {
+                      "description": "Organisms or cells per volume (\"1e9 CFU/mL\")",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "x-lab-format": "quantity-or-expression"
+                        },
+                        {
+                          "type": "object",
+                          "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                          "properties": {
+                            "vary": {
+                              "description": "A range \"lo..hi unit\" or a list of choices",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "x-lab-format": "quantity-or-range"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "vary"
+                          ]
+                        }
+                      ]
+                    },
+                    "mass": {
+                      "description": "Mass of this component in a solid mixture (\"1.0 g\")",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "x-lab-format": "quantity-or-expression"
+                        },
+                        {
+                          "type": "object",
+                          "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                          "properties": {
+                            "vary": {
+                              "description": "A range \"lo..hi unit\" or a list of choices",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "x-lab-format": "quantity-or-range"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "vary"
+                          ]
+                        }
+                      ]
+                    },
+                    "purity": {
+                      "type": "string",
+                      "description": "Purity of a solid (\"99.95 %\")",
+                      "x-lab-format": "quantity"
+                    },
+                    "viability": {
+                      "description": "Counted cells: the fraction alive (\"92 %\")",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "x-lab-format": "quantity-or-expression"
+                        },
+                        {
+                          "type": "object",
+                          "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                          "properties": {
+                            "vary": {
+                              "description": "A range \"lo..hi unit\" or a list of choices",
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "x-lab-format": "quantity-or-range"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "vary"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "substance"
+                  ]
+                }
+              },
+              "solvent": {
+                "type": "string"
+              },
+              "preparation": {
+                "type": "string",
+                "description": "A catalogue preparation (recipe)",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              },
+              "amount": {
+                "description": "A volume or mass, or \"unlimited\" for a bench supply",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "x-lab-format": "quantity"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "unlimited"
+                    ]
+                  }
+                ]
+              },
+              "container": {
+                "type": "string",
+                "description": "An equipment class or model for the container",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              },
+              "storage": {
+                "type": "string",
+                "x-lab-format": "quantity"
+              },
+              "water": {
+                "type": "string",
+                "description": "A wet solid's liquid (soil water): the components given by conc or count are in it",
+                "x-lab-format": "quantity"
+              },
+              "count": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "vary": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "vary"
+                    ]
+                  }
+                ]
+              },
+              "truth": {
+                "type": "object",
+                "description": "Hidden truth overriding the label (faults, mislabelled stocks)",
+                "properties": {
+                  "contains": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "One component; exactly one of conc, count or mass",
+                      "properties": {
+                        "substance": {
+                          "type": "string",
+                          "description": "A material id from materials.substances, or a catalogue reference"
+                        },
+                        "conc": {
+                          "description": "Concentration (\"2.0 mg/mL\")",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "x-lab-format": "quantity-or-expression"
+                            },
+                            {
+                              "type": "object",
+                              "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                              "properties": {
+                                "vary": {
+                                  "description": "A range \"lo..hi unit\" or a list of choices",
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "x-lab-format": "quantity-or-range"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "vary"
+                              ]
+                            }
+                          ]
+                        },
+                        "count": {
+                          "description": "Organisms or cells per volume (\"1e9 CFU/mL\")",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "x-lab-format": "quantity-or-expression"
+                            },
+                            {
+                              "type": "object",
+                              "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                              "properties": {
+                                "vary": {
+                                  "description": "A range \"lo..hi unit\" or a list of choices",
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "x-lab-format": "quantity-or-range"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "vary"
+                              ]
+                            }
+                          ]
+                        },
+                        "mass": {
+                          "description": "Mass of this component in a solid mixture (\"1.0 g\")",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "x-lab-format": "quantity-or-expression"
+                            },
+                            {
+                              "type": "object",
+                              "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                              "properties": {
+                                "vary": {
+                                  "description": "A range \"lo..hi unit\" or a list of choices",
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "x-lab-format": "quantity-or-range"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "vary"
+                              ]
+                            }
+                          ]
+                        },
+                        "purity": {
+                          "type": "string",
+                          "description": "Purity of a solid (\"99.95 %\")",
+                          "x-lab-format": "quantity"
+                        },
+                        "viability": {
+                          "description": "Counted cells: the fraction alive (\"92 %\")",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "x-lab-format": "quantity-or-expression"
+                            },
+                            {
+                              "type": "object",
+                              "description": "A value sampled from the run seed (normalised into variation.params for transport)",
+                              "properties": {
+                                "vary": {
+                                  "description": "A range \"lo..hi unit\" or a list of choices",
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "x-lab-format": "quantity-or-range"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "vary"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "substance"
+                      ]
+                    }
+                  },
+                  "activityFactor": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "waste": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stream": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              },
+              "accepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                }
+              }
+            },
+            "required": [
+              "stream"
+            ]
+          }
+        }
+      }
+    },
+    "equipment": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "requires": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": {}
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "truth": {
+                "type": "object",
+                "properties": {
+                  "bias": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "requires"
+            ]
+          }
+        },
+        "prescribed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "asNamed": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              },
+              "model": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          }
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "class": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "class"
+            ]
+          }
+        }
+      }
+    },
+    "procedure": {
+      "type": "object",
+      "properties": {
+        "fidelity": {
+          "type": "string",
+          "enum": [
+            "prescribed",
+            "prescribed-tolerant",
+            "objective",
+            "open"
+          ]
+        },
+        "sessions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Step"
+          }
+        }
+      }
+    },
+    "goals": {
+      "type": "object",
+      "properties": {
+        "predicates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string",
+                "x-lab-format": "predicate"
+              }
+            },
+            "required": [
+              "id",
+              "check"
+            ]
+          }
+        },
+        "expectedObservations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "at": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string",
+                "x-lab-format": "predicate"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "source-explicit",
+                  "source-inferred",
+                  "reference-standard",
+                  "general-knowledge",
+                  "framework-default",
+                  "author-choice",
+                  "simulation-derived"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "statement"
+            ]
+          }
+        },
+        "expectedResults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "quantity": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string",
+                "x-lab-format": "quantity"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "source-explicit",
+                  "source-inferred",
+                  "reference-standard",
+                  "general-knowledge",
+                  "framework-default",
+                  "author-choice",
+                  "simulation-derived"
+                ]
+              },
+              "calibrateTo": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "quantity",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "from": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "from"
+            ]
+          }
+        },
+        "notebook": {
+          "type": "object",
+          "properties": {
+            "sections": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "required": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "section": {
+                    "type": "string"
+                  },
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "check": {
+                    "type": "string",
+                    "x-lab-format": "predicate"
+                  }
+                },
+                "required": [
+                  "id",
+                  "section",
+                  "prompt"
+                ]
+              }
+            },
+            "manualRecording": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "measurement": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "auto",
+                      "manual",
+                      "manual-checked"
+                    ]
+                  }
+                },
+                "required": [
+                  "measurement",
+                  "mode"
+                ]
+              }
+            }
+          }
+        },
+        "calculations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "inputs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "answer": {
+                "type": "object",
+                "properties": {
+                  "unit": {
+                    "type": "string",
+                    "x-lab-format": "unit"
+                  },
+                  "per": {
+                    "type": "string"
+                  }
+                }
+              },
+              "accept": {
+                "type": "object",
+                "properties": {
+                  "fromOwnData": {
+                    "type": "string",
+                    "x-lab-format": "quantity"
+                  },
+                  "fromTruth": {
+                    "type": "string",
+                    "x-lab-format": "quantity"
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "statement"
+            ]
+          }
+        },
+        "graphs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "x": {
+                "type": "string"
+              },
+              "y": {
+                "type": "string"
+              },
+              "fit": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "learnerBuilds": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "x",
+              "y"
+            ]
+          }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "prompt": {
+                "type": "string"
+              },
+              "rubric": {
+                "type": "string",
+                "x-lab-format": "predicate"
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "prompt"
+            ]
+          }
+        },
+        "report": {
+          "type": "object",
+          "properties": {
+            "template": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+            },
+            "sections": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "template"
+          ]
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "properties": {
+        "emphasis": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "gate"
+                ]
+              }
+            ]
+          }
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string",
+                "x-lab-format": "predicate"
+              },
+              "objective": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "critical",
+                  "major",
+                  "minor"
+                ]
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string"
+                  },
+                  "timing": {
+                    "type": "string",
+                    "enum": [
+                      "immediate",
+                      "step-end",
+                      "review",
+                      "by-competence"
+                    ]
+                  }
+                }
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "statement",
+              "check"
+            ]
+          }
+        },
+        "validity": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "when": {
+                "type": "string",
+                "x-lab-format": "predicate"
+              },
+              "cap": {
+                "type": "string",
+                "enum": [
+                  "valid",
+                  "valid-with-limitations",
+                  "partially-interpretable",
+                  "invalid",
+                  "inconclusive"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "when",
+              "cap",
+              "reason"
+            ]
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "checkpoints": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              }
+            },
+            "criteria": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "all"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "variation": {
+      "type": "object",
+      "properties": {
+        "params": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "x-lab-format": "pointer"
+              },
+              "domain": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "x-lab-format": "quantity-or-range"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "step": {
+                "type": "string",
+                "x-lab-format": "quantity"
+              }
+            },
+            "required": [
+              "path",
+              "domain"
+            ]
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-lab-format": "predicate"
+          }
+        },
+        "faults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "apply": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": {}
+              },
+              "diagnostics": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "apply"
+            ]
+          }
+        },
+        "noise": {
+          "type": "string",
+          "enum": [
+            "ideal",
+            "low",
+            "default",
+            "high"
+          ]
+        }
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "string",
+          "enum": [
+            "station",
+            "bench",
+            "room",
+            "wing",
+            "facility"
+          ]
+        },
+        "startAt": {
+          "type": "object",
+          "properties": {
+            "place": {
+              "type": "string"
+            }
+          }
+        },
+        "insightLayers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "time": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "locator": {
+                "type": "string"
+              },
+              "access": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "title"
+            ]
+          }
+        },
+        "defaultClass": {
+          "type": "string",
+          "enum": [
+            "source-explicit",
+            "source-inferred",
+            "reference-standard",
+            "general-knowledge",
+            "framework-default",
+            "author-choice",
+            "simulation-derived"
+          ]
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "x-lab-format": "pointer"
+              },
+              "class": {
+                "type": "string",
+                "enum": [
+                  "source-explicit",
+                  "source-inferred",
+                  "reference-standard",
+                  "general-knowledge",
+                  "framework-default",
+                  "author-choice",
+                  "simulation-derived"
+                ]
+              },
+              "source": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "quote": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "string",
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "class"
+            ]
+          }
+        },
+        "review": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "generated-unreviewed",
+                "validated",
+                "reviewed",
+                "curated"
+              ]
+            },
+            "generator": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "version"
+              ]
+            },
+            "reviewer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ]
+        }
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Variant parameters: \"{{name}}\" anywhere in the definition takes the value (§23)",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "default": {},
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "default"
+        ]
+      },
+      "propertyNames": {
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$"
+      }
+    },
+    "variants": {
+      "type": "array",
+      "description": "Further practicals from this definition, each with its own parameter values (§23)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "briefing": {
+            "type": "string"
+          },
+          "values": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {}
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "curricula": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Namespaced extension blocks; preserved, never interpreted by the core",
+      "properties": {},
+      "additionalProperties": {},
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      }
+    }
+  },
+  "required": [
+    "format",
+    "formatVersion",
+    "id",
+    "version",
+    "title"
+  ],
+  "$defs": {
+    "Step": {
+      "type": "object",
+      "description": "One step of a procedure or technique",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique within the definition; stable across versions",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "operation",
+            "technique",
+            "purpose",
+            "wait",
+            "observe",
+            "data",
+            "decision",
+            "design",
+            "checkpoint",
+            "offstage",
+            "group"
+          ]
+        },
+        "ref": {
+          "type": "string",
+          "description": "Catalogue id of the operation, technique, data technique or design; or a purpose id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Learner-facing text; overrides technique templates"
+        },
+        "params": {
+          "type": "object",
+          "description": "Parameters; quantities as strings; \"=…\" are expressions (checked at V3 against the referenced parameter specs)",
+          "properties": {},
+          "additionalProperties": {}
+        },
+        "bind": {
+          "type": "object",
+          "description": "Role bindings: role → equipment role, material, container, or \"learner\"",
+          "properties": {},
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "after": {
+          "type": "array",
+          "description": "Dependencies",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          }
+        },
+        "order": {
+          "type": "string",
+          "enum": [
+            "strict",
+            "advisory"
+          ]
+        },
+        "forEach": {
+          "type": "object",
+          "properties": {
+            "var": {
+              "type": "string",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+            },
+            "in": {
+              "type": "string",
+              "x-lab-format": "expression"
+            },
+            "index": {
+              "type": "string",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+            }
+          },
+          "required": [
+            "var",
+            "in"
+          ]
+        },
+        "repeat": {
+          "type": "object",
+          "properties": {
+            "until": {
+              "type": "string",
+              "x-lab-format": "predicate"
+            },
+            "times": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "string",
+                  "x-lab-format": "expression"
+                }
+              ]
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            }
+          }
+        },
+        "when": {
+          "type": "string",
+          "description": "The step is skipped unless this holds",
+          "x-lab-format": "predicate"
+        },
+        "duration": {
+          "type": "string",
+          "x-lab-format": "quantity"
+        },
+        "background": {
+          "type": "boolean"
+        },
+        "session": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "critical": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "safety",
+              "quality",
+              "irreversible"
+            ]
+          }
+        },
+        "fidelity": {
+          "type": "string",
+          "enum": [
+            "prescribed",
+            "prescribed-tolerant",
+            "objective",
+            "open"
+          ]
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          }
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "label": {
+                "type": "string"
+              },
+              "then": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "correctWhen": {
+          "type": "string",
+          "x-lab-format": "predicate"
+        },
+        "outcome": {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]*:[a-z0-9]+([.-][a-z0-9]+)*(@[0-9]+)?$"
+            },
+            "declared": {
+              "type": "string"
+            }
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Step"
+          }
+        },
+        "notes": {
+          "type": "string",
+          "description": "Author notes; never shown to learners"
+        },
+        "let": {
+          "type": "object",
+          "description": "Techniques: local values (name → expression)",
+          "properties": {},
+          "additionalProperties": {
+            "type": "string",
+            "x-lab-format": "expression"
+          }
+        },
+        "reference": {
+          "type": "object",
+          "description": "Techniques: what the reference agent chooses for learner choices",
+          "properties": {},
+          "additionalProperties": {}
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ]
+    }
+  }
+}

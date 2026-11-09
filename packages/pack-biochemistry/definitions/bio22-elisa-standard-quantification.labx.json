@@ -1,0 +1,921 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio22-elisa-standard-quantification",
+  "version": "1.0.0",
+  "title": "How much antibody? ELISA against a known standard, read in the working range",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:wash"
+      },
+      {
+        "operation": "core:fit"
+      },
+      {
+        "operation": "core:interpolate"
+      }
+    ]
+  },
+  "summary": "Titrate a purified antibody standard of known concentration and two sera (supplied at 1:10) two-fold down an antigen-coated plate in duplicate, detect bound antibody with a peroxidase conjugate and TMB, average duplicates, find where the curves saturate, fit the standard and read each serum only from its points in the working range.",
+  "briefing": "The standard is 20 µg/mL of purified goat antibody to the antigen; diluted 1:2 it is 10 µg/mL, and row A of the plate halves that again (5 µg/mL). The sera come at 1:10 and go straight on the plate, so row A is 1:20 of serum. Each row down is a further two-fold. Average each pair of wells and subtract the blank (column 12). A serum's concentration is the standard curve's concentration for its OD, times that well's dilution of the serum (row dilution × 10): use only points within the standard's working range.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "immunology",
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "standard-curve",
+        "label": "Quantification against a standard curve"
+      },
+      {
+        "id": "saturation",
+        "label": "Saturation and the working range"
+      },
+      {
+        "id": "replicates",
+        "label": "Technical duplicates"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-elisa",
+        "kind": "skill",
+        "statement": "Make working dilutions and titrate duplicates down an ELISA plate",
+        "skills": [
+          "core:micropipetting",
+          "core:dilution-series"
+        ]
+      },
+      {
+        "id": "o-ranges",
+        "kind": "analysis",
+        "statement": "Recognise saturation and the working range",
+        "goal": "g-quantify"
+      },
+      {
+        "id": "o-quantify",
+        "kind": "analysis",
+        "statement": "Quantify antibody in the sera against the standard",
+        "goal": "g-quantify"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "s1",
+        "label": "Serum 1 (1:10)",
+        "role": "unknown",
+        "preparation": "bio:assay-buffer-bsa",
+        "contains": [
+          {
+            "substance": "bio:goat-igg",
+            "conc": "1 mg/mL"
+          },
+          {
+            "substance": "bio:goat-anti-antigen-igg",
+            "conc": "12 ug/mL"
+          }
+        ],
+        "amount": "400 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "s2",
+        "label": "Serum 2 (1:10)",
+        "role": "unknown",
+        "preparation": "bio:assay-buffer-bsa",
+        "contains": [
+          {
+            "substance": "bio:goat-igg",
+            "conc": "1 mg/mL"
+          },
+          {
+            "substance": "bio:goat-anti-antigen-igg",
+            "conc": "1.5 ug/mL"
+          }
+        ],
+        "amount": "400 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "pre",
+        "label": "Pre-immune serum (1:10)",
+        "role": "control-negative",
+        "preparation": "bio:assay-buffer-bsa",
+        "contains": [
+          {
+            "substance": "bio:goat-igg",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "amount": "400 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      }
+    ],
+    "supplies": [
+      {
+        "id": "std",
+        "label": "Standard: purified goat anti-antigen IgG, 20 µg/mL",
+        "role": "standard",
+        "preparation": "bio:assay-buffer-bsa",
+        "contains": [
+          {
+            "substance": "bio:goat-anti-antigen-igg",
+            "conc": "20 ug/mL"
+          }
+        ],
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "antigen",
+        "label": "Recombinant antigen, 2 µg/mL in coating buffer",
+        "preparation": "bio:carbonate-coating-ph9.6",
+        "contains": [
+          {
+            "substance": "bio:recombinant-antigen",
+            "conc": "2 mg/L"
+          }
+        ],
+        "amount": "12 mL",
+        "container": "core:conical-tube-15ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "wash",
+        "label": "Wash buffer (PBS, 0.05 % Tween 20)",
+        "preparation": "bio:pbs-tween",
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "blocker",
+        "label": "Blocking buffer (5 % milk in wash buffer)",
+        "preparation": "bio:pbs-tween",
+        "contains": [
+          {
+            "substance": "bio:skimmed-milk-powder",
+            "conc": "50 g/L"
+          }
+        ],
+        "amount": "25 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "assay",
+        "label": "Assay buffer (PBS-Tween, 1 % BSA)",
+        "preparation": "bio:assay-buffer-bsa",
+        "amount": "25 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "secondary",
+        "label": "Donkey anti-goat IgG–HRP",
+        "preparation": "bio:secondary-anti-goat-hrp",
+        "amount": "12 mL",
+        "container": "core:conical-tube-15ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "tmb",
+        "label": "TMB substrate",
+        "preparation": "bio:tmb-substrate",
+        "amount": "12 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "stop",
+        "label": "Stop solution (1 M HCl)",
+        "preparation": "bio:stop-hcl-1m",
+        "amount": "6 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "waste",
+        "label": "Waste pot",
+        "preparation": "core:water-deionised",
+        "amount": "1 mL",
+        "container": "core:beaker-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "plate",
+        "requires": {
+          "class": "core:microplate-96-elisa"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "reader",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "wavelength": "450 nm",
+          "format": "96-well"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "working",
+        "kind": "group",
+        "title": "Working standard: 500 µL of the 20 µg/mL standard into 500 µL of assay buffer (10 µg/mL)",
+        "steps": [
+          {
+            "id": "std-work",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "std-work",
+              "label": "Standard 1:2 (10 µg/mL)"
+            }
+          },
+          {
+            "id": "std-work-buf",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "assay",
+              "destination": "std-work",
+              "volume": "500 uL"
+            }
+          },
+          {
+            "id": "std-work-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "std",
+              "destination": "std-work",
+              "volume": "500 uL"
+            }
+          },
+          {
+            "id": "std-work-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "std-work",
+              "method": "vortex"
+            }
+          }
+        ],
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "coat",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "antigen",
+          "volume": "100 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        },
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "coat-inc",
+        "kind": "group",
+        "title": "60 min at 37 °C",
+        "steps": [
+          {
+            "id": "coat-inc-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "coat-inc-wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "coat-inc-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wash-1",
+        "kind": "operation",
+        "ref": "core:wash",
+        "params": {
+          "target": "plate",
+          "buffer": "wash",
+          "volume": "300 uL",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "block",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "blocker",
+          "volume": "200 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        },
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "block-inc",
+        "kind": "group",
+        "title": "60 min at 37 °C",
+        "steps": [
+          {
+            "id": "block-inc-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "block-inc-wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "block-inc-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wash-2",
+        "kind": "operation",
+        "ref": "core:wash",
+        "params": {
+          "target": "plate",
+          "buffer": "wash",
+          "volume": "300 uL",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "diluent",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "assay",
+          "volume": "100 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "group",
+        "title": "100 µL of each working dilution into row A of its pair of columns (column 12 left as blanks)",
+        "steps": [
+          {
+            "id": "load-well",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "100 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['std-work', 'plate/A1'], ['std-work', 'plate/A2'], ['s1', 'plate/A3'], ['s1', 'plate/A4'], ['s2', 'plate/A5'], ['s2', 'plate/A6'], ['pre', 'plate/A7'], ['pre', 'plate/A8']]"
+        },
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "dilute",
+        "kind": "group",
+        "title": "Two-fold down columns 1-8: mix, then 100 µL on; 100 µL from row H discarded",
+        "steps": [
+          {
+            "id": "down",
+            "kind": "group",
+            "title": "Down the column",
+            "steps": [
+              {
+                "id": "mix-well",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='plate/' + r[0] + text(col)",
+                  "method": "pipette-mix",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "carry",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "='plate/' + r[0] + text(col)",
+                  "destination": "='plate/' + r[1] + text(col)",
+                  "volume": "100 uL"
+                }
+              }
+            ],
+            "forEach": {
+              "var": "r",
+              "in": "=[['A', 'B'], ['B', 'C'], ['C', 'D'], ['D', 'E'], ['E', 'F'], ['F', 'G'], ['G', 'H']]"
+            }
+          },
+          {
+            "id": "mix-last",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='plate/H' + text(col)",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "discard",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='plate/H' + text(col)",
+              "destination": "waste",
+              "volume": "100 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "col",
+          "in": "=[1, 2, 3, 4, 5, 6, 7, 8]"
+        },
+        "objectives": [
+          "o-elisa"
+        ]
+      },
+      {
+        "id": "serum-inc",
+        "kind": "group",
+        "title": "60 min at 37 °C",
+        "steps": [
+          {
+            "id": "serum-inc-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "serum-inc-wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "serum-inc-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wash-3",
+        "kind": "operation",
+        "ref": "core:wash",
+        "params": {
+          "target": "plate",
+          "buffer": "wash",
+          "volume": "300 uL",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "conjugate",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "secondary",
+          "volume": "100 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        }
+      },
+      {
+        "id": "conj-inc",
+        "kind": "group",
+        "title": "60 min at 37 °C",
+        "steps": [
+          {
+            "id": "conj-inc-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "conj-inc-wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "conj-inc-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wash-4",
+        "kind": "operation",
+        "ref": "core:wash",
+        "params": {
+          "target": "plate",
+          "buffer": "wash",
+          "volume": "300 uL",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "substrate",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "tmb",
+          "volume": "100 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        }
+      },
+      {
+        "id": "colour",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "15 min"
+        }
+      },
+      {
+        "id": "stop-it",
+        "kind": "technique",
+        "ref": "core:dispense-reagent",
+        "params": {
+          "reagent": "stop",
+          "volume": "50 uL",
+          "into": "=['plate/A1', 'plate/A2', 'plate/A3', 'plate/A4', 'plate/A5', 'plate/A6', 'plate/A7', 'plate/A8', 'plate/A9', 'plate/A10', 'plate/A11', 'plate/A12', 'plate/B1', 'plate/B2', 'plate/B3', 'plate/B4', 'plate/B5', 'plate/B6', 'plate/B7', 'plate/B8', 'plate/B9', 'plate/B10', 'plate/B11', 'plate/B12', 'plate/C1', 'plate/C2', 'plate/C3', 'plate/C4', 'plate/C5', 'plate/C6', 'plate/C7', 'plate/C8', 'plate/C9', 'plate/C10', 'plate/C11', 'plate/C12', 'plate/D1', 'plate/D2', 'plate/D3', 'plate/D4', 'plate/D5', 'plate/D6', 'plate/D7', 'plate/D8', 'plate/D9', 'plate/D10', 'plate/D11', 'plate/D12', 'plate/E1', 'plate/E2', 'plate/E3', 'plate/E4', 'plate/E5', 'plate/E6', 'plate/E7', 'plate/E8', 'plate/E9', 'plate/E10', 'plate/E11', 'plate/E12', 'plate/F1', 'plate/F2', 'plate/F3', 'plate/F4', 'plate/F5', 'plate/F6', 'plate/F7', 'plate/F8', 'plate/F9', 'plate/F10', 'plate/F11', 'plate/F12', 'plate/G1', 'plate/G2', 'plate/G3', 'plate/G4', 'plate/G5', 'plate/G6', 'plate/G7', 'plate/G8', 'plate/G9', 'plate/G10', 'plate/G11', 'plate/G12', 'plate/H1', 'plate/H2', 'plate/H3', 'plate/H4', 'plate/H5', 'plate/H6', 'plate/H7', 'plate/H8', 'plate/H9', 'plate/H10', 'plate/H11', 'plate/H12']"
+        }
+      },
+      {
+        "id": "shake",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "plate",
+          "method": "shake"
+        }
+      },
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "reader",
+          "subject": "plate",
+          "wavelength": "450 nm"
+        },
+        "objectives": [
+          "o-quantify"
+        ]
+      },
+      {
+        "id": "blank",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "blank",
+          "value": "=(reading(read, 'plate/A12') + reading(read, 'plate/B12') + reading(read, 'plate/C12') + reading(read, 'plate/D12') + reading(read, 'plate/E12') + reading(read, 'plate/F12') + reading(read, 'plate/G12') + reading(read, 'plate/H12')) / 8"
+        },
+        "objectives": [
+          "o-quantify"
+        ]
+      },
+      {
+        "id": "curves",
+        "kind": "group",
+        "title": "Each pair's mean A450 down the plate, less the blank",
+        "steps": [
+          {
+            "id": "curve",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='A450-' + x[0]",
+              "value": "=map(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'], (reading(read, 'plate/' + it + text(x[1])) + reading(read, 'plate/' + it + text(x[1] + 1))) / 2 - first(recorded('blank')))"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['std', 1], ['s1', 3], ['s2', 5], ['pre', 7]]"
+        },
+        "objectives": [
+          "o-quantify"
+        ]
+      },
+      {
+        "id": "std-conc",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "std-ug-per-mL",
+          "value": "=map(seq(2, 2, 8), 10 / it)"
+        },
+        "objectives": [
+          "o-quantify"
+        ]
+      },
+      {
+        "id": "std-fit",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-quantify"
+        ],
+        "params": {
+          "x": "=first(recorded('std-ug-per-mL'))",
+          "y": "=first(recorded('A450-std'))",
+          "model": "four-pl"
+        }
+      },
+      {
+        "id": "read-s1",
+        "kind": "data",
+        "ref": "core:interpolate",
+        "objectives": [
+          "o-quantify"
+        ],
+        "params": {
+          "fit": "=std-fit.out.fit",
+          "points": "=first(recorded('A450-s1'))"
+        }
+      },
+      {
+        "id": "conc-s1",
+        "kind": "group",
+        "title": "S1: each in-range point's concentration times its dilution (row dilution × 10), averaged",
+        "steps": [
+          {
+            "id": "in-range-s1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "in-range-s1",
+              "value": "=ok"
+            }
+          },
+          {
+            "id": "each-s1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "ug-per-mL-each-s1",
+              "value": "=map(i in range(0, 7, 8): xs[i] * seq(2, 2, 8)[i] * 10)"
+            }
+          },
+          {
+            "id": "mean-s1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "ug-per-mL-s1",
+              "value": "=mean(filter(i in range(0, 7, 8): ok[i]), xs[it] * seq(2, 2, 8)[it] * 10)"
+            }
+          }
+        ],
+        "let": {
+          "xs": "=map(read-s1.out.results, x)",
+          "ok": "=map(read-s1.out.results, inRange)"
+        },
+        "objectives": [
+          "o-quantify"
+        ]
+      },
+      {
+        "id": "read-s2",
+        "kind": "data",
+        "ref": "core:interpolate",
+        "objectives": [
+          "o-quantify"
+        ],
+        "params": {
+          "fit": "=std-fit.out.fit",
+          "points": "=first(recorded('A450-s2'))"
+        }
+      },
+      {
+        "id": "conc-s2",
+        "kind": "group",
+        "title": "S2: each in-range point's concentration times its dilution (row dilution × 10), averaged",
+        "steps": [
+          {
+            "id": "in-range-s2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "in-range-s2",
+              "value": "=ok"
+            }
+          },
+          {
+            "id": "each-s2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "ug-per-mL-each-s2",
+              "value": "=map(i in range(0, 7, 8): xs[i] * seq(2, 2, 8)[i] * 10)"
+            }
+          },
+          {
+            "id": "mean-s2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "ug-per-mL-s2",
+              "value": "=mean(filter(i in range(0, 7, 8): ok[i]), xs[it] * seq(2, 2, 8)[it] * 10)"
+            }
+          }
+        ],
+        "let": {
+          "xs": "=map(read-s2.out.results, x)",
+          "ok": "=map(read-s2.out.results, inRange)"
+        },
+        "objectives": [
+          "o-quantify"
+        ]
+      },
+      {
+        "id": "saturation",
+        "kind": "decision",
+        "objectives": [
+          "o-ranges"
+        ],
+        "prompt": "Where does the standard's curve saturate, and what does that mean for reading samples?",
+        "options": [
+          {
+            "id": "top",
+            "label": "At the top (rows A-B): the signal levels off, so differences in antibody no longer change the OD; points there cannot be read"
+          },
+          {
+            "id": "bottom",
+            "label": "At the bottom: the most dilute wells give the most signal"
+          },
+          {
+            "id": "none",
+            "label": "Nowhere: it is a straight line"
+          }
+        ],
+        "correctWhen": "if(first(recorded('A450-std'))[0] - first(recorded('A450-std'))[1] < 0.5 * (first(recorded('A450-std'))[2] - first(recorded('A450-std'))[3]), 'top', 'none')"
+      },
+      {
+        "id": "first-points",
+        "kind": "decision",
+        "objectives": [
+          "o-ranges"
+        ],
+        "prompt": "Serum 1's first two dilutions sit on the plateau. What do you do with them?",
+        "options": [
+          {
+            "id": "exclude",
+            "label": "Leave them out: only points within the standard's working range give a concentration"
+          },
+          {
+            "id": "include",
+            "label": "Average them in with the rest"
+          },
+          {
+            "id": "top",
+            "label": "Report the serum as equal to the top standard"
+          }
+        ],
+        "correctWhen": "if(!first(first(recorded('in-range-s1'))), 'exclude', 'include')"
+      },
+      {
+        "id": "compare",
+        "kind": "decision",
+        "objectives": [
+          "o-quantify"
+        ],
+        "prompt": "How do the two sera compare?",
+        "options": [
+          {
+            "id": "s1",
+            "label": "Serum 1 has several times more antigen-specific antibody than serum 2"
+          },
+          {
+            "id": "s2",
+            "label": "Serum 2 has more"
+          },
+          {
+            "id": "same",
+            "label": "About the same"
+          }
+        ],
+        "correctWhen": "if(first(recorded('ug-per-mL-s1')) > 1.5 * first(recorded('ug-per-mL-s2')), 's1', if(first(recorded('ug-per-mL-s2')) > 1.5 * first(recorded('ug-per-mL-s1')), 's2', 'same'))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-quantify",
+        "statement": "Both sera are quantified within 25 % of the truth from in-range points, and saturation is read correctly",
+        "check": "within(first(recorded('ug-per-mL-s1')), 10 * value(truth(conc, 's1', 'bio:goat-anti-antigen-igg'), 'mg/L'), 25%) && within(first(recorded('ug-per-mL-s2')), 10 * value(truth(conc, 's2', 'bio:goat-anti-antigen-igg'), 'mg/L'), 25%) && decision('saturation') == 'top' && decision('first-points') == 'exclude' && decision('compare') == 's1'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-pre",
+        "statement": "The pre-immune serum gives only background",
+        "check": "max(first(recorded('A450-pre'))) < 0.15",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-sat",
+        "statement": "Serum 1's top two wells are on the plateau (out of the working range)",
+        "check": "!first(first(recorded('in-range-s1')))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

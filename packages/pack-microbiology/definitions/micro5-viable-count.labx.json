@@ -1,0 +1,89 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro5-viable-count",
+  "version": "1.0.0",
+  "title": "A viable count by serial dilution and spread plating",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [{ "technique": "core:serial-dilution" }, { "technique": "micro:spread-plate" }, { "technique": "micro:colony-count" }]
+  },
+  "summary": "Make a ten-fold dilution series of an overnight E. coli culture, spread 100 µL of the 10⁻⁵, 10⁻⁶ and 10⁻⁷ dilutions on duplicate LB plates, incubate overnight, count the plates with 30 to 300 colonies and work out the viable count in CFU per mL.",
+  "briefing": "Each colony grew from one viable cell (a colony-forming unit). Too many colonies merge and too few give a poor estimate, so count only plates with 30 to 300 colonies. CFU/mL = colonies ÷ (volume plated × dilution).",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["microbiology", "biosciences"] },
+    "concepts": [{ "id": "viable-count", "label": "Colony-forming units and the countable range" }, { "id": "serial-dilution", "label": "Serial dilution" }],
+    "objectives": [
+      { "id": "o-dilute", "kind": "skill", "statement": "Make a ten-fold serial dilution", "skills": ["core:serial-dilution", "core:micropipetting"] },
+      { "id": "o-plate", "kind": "skill", "statement": "Spread plates aseptically", "skills": ["micro:spread-plating", "micro:aseptic-technique"] },
+      { "id": "o-count", "kind": "analysis", "statement": "Find the viable count within 25 %", "skills": ["micro:colony-counting"], "goal": "g-cfu" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "culture", "label": "Overnight E. coli culture", "role": "culture", "preparation": "micro:lb-broth-sterile", "amount": "5 mL", "container": "core:conical-tube-15ml",
+        "contains": [{ "substance": "micro:escherichia-coli-k12", "count": { "vary": "9e8..2e9 cells/mL" } }], "storage": "4 Cel" }
+    ],
+    "supplies": [
+      { "id": "water", "label": "Sterile water (diluent)", "preparation": "core:water-deionised", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "p5a", "label": "10⁻⁵ (a)", "preparation": "micro:lb-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" },
+      { "id": "p5b", "label": "10⁻⁵ (b)", "preparation": "micro:lb-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" },
+      { "id": "p6a", "label": "10⁻⁶ (a)", "preparation": "micro:lb-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" },
+      { "id": "p6b", "label": "10⁻⁶ (b)", "preparation": "micro:lb-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" },
+      { "id": "p7a", "label": "10⁻⁷ (a)", "preparation": "micro:lb-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" },
+      { "id": "p7b", "label": "10⁻⁷ (b)", "preparation": "micro:lb-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" }
+    ]
+  },
+  "equipment": {
+    "roles": [{ "id": "incubator", "requires": { "class": "core:incubator", "temperature": "37 Cel" } }, { "id": "fridge", "requires": { "class": "core:fridge" } }, { "id": "ice", "requires": { "class": "core:ice-bucket" } }]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [{ "id": "d1", "title": "Dilute and plate" }, { "id": "d2", "title": "Count" }],
+    "steps": [
+      { "id": "on-ice", "kind": "operation", "ref": "core:place-in", "session": "d1", "params": { "container": "culture", "place": "ice" } },
+      { "id": "resuspend", "kind": "operation", "ref": "core:mix", "session": "d1", "params": { "container": "culture", "method": "vortex", "cycles": 2 } },
+      { "id": "dilute", "kind": "technique", "ref": "core:serial-dilution", "session": "d1", "objectives": ["o-dilute"],
+        "params": { "stock": "culture", "diluent": "water", "factor": 10, "count": 7, "volumeEach": "900 uL" } },
+      { "id": "plating", "kind": "group", "session": "d1", "title": "100 µL on each plate", "objectives": ["o-plate"],
+        "forEach": { "var": "x", "in": "=[[4, 'p5a'], [4, 'p5b'], [5, 'p6a'], [5, 'p6b'], [6, 'p7a'], [6, 'p7b']]" },
+        "steps": [
+          { "id": "mix-tube", "kind": "operation", "ref": "core:mix", "params": { "container": "=dilute.out.vessels[x[0]]", "method": "vortex", "cycles": 1 } },
+          { "id": "spread", "kind": "technique", "ref": "micro:spread-plate", "params": { "source": "=dilute.out.vessels[x[0]]", "plate": "=x[1]", "volume": "100 uL" } }
+        ] },
+      { "id": "store", "kind": "operation", "ref": "core:place-in", "session": "d1", "params": { "container": "culture", "place": "fridge" } },
+      { "id": "grow", "kind": "offstage", "session": "d1", "duration": "20 h", "title": "Overnight at 37 °C",
+        "params": { "place": "incubator", "containers": ["p5a", "p5b", "p6a", "p6b", "p7a", "p7b"] } },
+      { "id": "counting", "kind": "group", "session": "d2", "title": "Count every plate",
+        "forEach": { "var": "x", "in": "=[[5, 'p5a'], [5, 'p5b'], [6, 'p6a'], [6, 'p6b'], [7, 'p7a'], [7, 'p7b']]" },
+        "steps": [
+          { "id": "count", "kind": "technique", "ref": "micro:colony-count", "params": { "plate": "=x[1]" } },
+          { "id": "note-count", "kind": "operation", "ref": "core:record", "params": { "field": "colonies", "value": "=count.out.count" } },
+          { "id": "note-dilution", "kind": "operation", "ref": "core:record", "params": { "field": "dilution-exponent", "value": "=x[0]" } }
+        ] },
+      { "id": "analyse", "kind": "group", "session": "d2", "objectives": ["o-count"],
+        "let": {
+          "n": "=recorded('colonies')",
+          "e": "=recorded('dilution-exponent')",
+          "picked": "=filter(range(0, len(recorded('colonies')) - 1, len(recorded('colonies'))), between(coalesce(recorded('colonies')[it], 0), 30, 300))"
+        },
+        "steps": [
+          { "id": "cfu", "kind": "operation", "ref": "core:compute",
+            "params": { "expression": "mean(each)", "values": { "each": "=map(picked, n[it] * 10 ^ e[it] / 0.1)" }, "field": "cfu-per-ml" } }
+        ] }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-cfu", "statement": "The viable count is within 25 % of the truth (the culture stays cold, so it is still the count that was plated)", "check": "within(first(recorded('cfu-per-ml')), cells('culture', viable), 25%)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-range", "statement": "The duplicate 10⁻⁶ plates fall in the countable range", "check": "between(colonies('p6a'), 30, 300) && between(colonies('p6b'), 30, 300)", "source": "simulation-derived" },
+      { "id": "e-crowded", "statement": "The 10⁻⁵ plates have more than 300 colonies", "check": "colonies('p5a') > 300 && colonies('p5b') > 300", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

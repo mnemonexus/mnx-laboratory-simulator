@@ -1,0 +1,939 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem28-back-titration",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "core:weigh-by-difference"
+      },
+      {
+        "technique": "core:titrate-to-endpoint"
+      },
+      {
+        "technique": "core:prepare-burette"
+      }
+    ]
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{sampleNote}} Weigh about {{sampleMass}} of the powder by difference into a beaker and pipette in 50.0 mL of 1.000 M hydrochloric acid, an excess. Swirl until the fizzing stops, wash the solution into a 250 mL volumetric flask with three rinses of the beaker, and make it up to the mark. Titrate 25.0 mL portions with 0.1000 M sodium hydroxide to the methyl orange end point, where red just turns yellow, until two titres agree within 0.10 mL. The acid the sample used is the acid added less the acid left over (ten times one portion's).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "back titration",
+      "titration",
+      "excess acid",
+      "methyl orange",
+      "volumetric flask",
+      "calcium carbonate"
+    ],
+    "topics": [
+      "Titration",
+      "Acids and bases",
+      "Amount of substance"
+    ],
+    "concepts": [
+      {
+        "id": "back-titration",
+        "label": "Back titration"
+      },
+      {
+        "id": "excess",
+        "label": "Reacting a sample with a measured excess"
+      },
+      {
+        "id": "concordance",
+        "label": "Concordant titres"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-weigh",
+        "kind": "skill",
+        "statement": "Weigh a solid by difference and dissolve it completely",
+        "skills": [
+          "core:weigh-by-difference"
+        ]
+      },
+      {
+        "id": "o-pipette",
+        "kind": "skill",
+        "statement": "Measure acid and aliquots with a volumetric pipette"
+      },
+      {
+        "id": "o-dilute",
+        "kind": "skill",
+        "statement": "Transfer a solution quantitatively into a volumetric flask and make it up to the mark"
+      },
+      {
+        "id": "o-burette",
+        "kind": "skill",
+        "statement": "Titrate to a dropwise end point",
+        "skills": [
+          "core:burette-technique",
+          "core:titration"
+        ]
+      },
+      {
+        "id": "o-result",
+        "kind": "analysis",
+        "statement": "{{resultStatement}}",
+        "goal": "g-result"
+      },
+      {
+        "id": "o-reason",
+        "kind": "reasoning",
+        "statement": "Explain why a back titration is used, and the indicator",
+        "goal": "g-reason"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "BTEC",
+      "T Level"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Calcium carbonate in limestone by back titration"
+    },
+    "summary": {
+      "default": "Dissolve powdered limestone in a measured excess of hydrochloric acid, titrate the acid left over with sodium hydroxide, and work out the percentage of calcium carbonate."
+    },
+    "sampleNote": {
+      "default": "Limestone is mostly calcium carbonate, CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂, with some sand and clay that do not react."
+    },
+    "sampleLabel": {
+      "default": "Powdered limestone"
+    },
+    "sampleContains": {
+      "default": [
+        {
+          "substance": "aq:calcium-carbonate",
+          "mass": {
+            "vary": "8.0..9.5 g"
+          }
+        },
+        {
+          "substance": "core:impurity",
+          "mass": "=10 g - mass('aq:calcium-carbonate')"
+        }
+      ]
+    },
+    "sampleMass": {
+      "default": "1.5 g"
+    },
+    "resultExpr": {
+      "default": "100 * (50 mL * 1.000 mol/L - 0.1000 mol/L * first(recorded('mean-titre')) * 10) / 2 * 100.09 g/mol / first(recorded('sample-mass'))"
+    },
+    "resultTitle": {
+      "default": "The percentage of calcium carbonate"
+    },
+    "resultStatement": {
+      "default": "Calculate the percentage of calcium carbonate in the limestone"
+    },
+    "truthExpr": {
+      "default": "100 * purity('sample', 'aq:calcium-carbonate')"
+    },
+    "goalStatement": {
+      "default": "The percentage of calcium carbonate is within 2 % of the truth"
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "sample",
+        "label": "{{sampleLabel}}",
+        "role": "unknown",
+        "contains": "{{sampleContains}}",
+        "amount": "10 g",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "acid",
+        "label": "Hydrochloric acid, 1.000 M (standard)",
+        "contains": [
+          {
+            "substance": "core:hydrochloric-acid",
+            "conc": "1.000 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "titrant",
+        "label": "Sodium hydroxide, 0.1000 M (standard)",
+        "contains": [
+          {
+            "substance": "core:sodium-hydroxide",
+            "conc": "0.1000 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "indicator",
+        "label": "Methyl orange indicator",
+        "preparation": "core:methyl-orange-indicator",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-4dp"
+        }
+      },
+      {
+        "id": "burette",
+        "requires": {
+          "class": "core:burette-50ml-class-a"
+        }
+      },
+      {
+        "id": "pipette25",
+        "requires": {
+          "class": "core:volumetric-pipette-25ml"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "fill",
+        "kind": "technique",
+        "ref": "core:prepare-burette",
+        "title": "Fill the burette with sodium hydroxide",
+        "params": {
+          "burette": "burette",
+          "titrant": "titrant",
+          "volume": "48 mL"
+        },
+        "objectives": [
+          "o-burette"
+        ]
+      },
+      {
+        "id": "dissolve",
+        "kind": "group",
+        "title": "Dissolve a weighed sample in excess acid",
+        "objectives": [
+          "o-weigh"
+        ],
+        "steps": [
+          {
+            "id": "beaker-out",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-250ml",
+              "id": "beaker",
+              "label": "Sample and acid"
+            }
+          },
+          {
+            "id": "weigh",
+            "kind": "technique",
+            "ref": "core:weigh-by-difference",
+            "params": {
+              "source": "sample",
+              "destination": "beaker",
+              "mass": "{{sampleMass}}"
+            }
+          },
+          {
+            "id": "sample-mass",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "sample-mass",
+              "value": "=weigh.out.delivered"
+            }
+          },
+          {
+            "id": "acid-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "acid",
+              "destination": "beaker",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            },
+            "objectives": [
+              "o-pipette"
+            ]
+          },
+          {
+            "id": "acid-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "acid",
+              "destination": "beaker",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "beaker",
+              "method": "swirl",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "swirl-again",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "beaker",
+              "method": "swirl",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "wait-again",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          }
+        ]
+      },
+      {
+        "id": "make-up",
+        "kind": "group",
+        "title": "Make the solution up to 250 mL",
+        "objectives": [
+          "o-dilute"
+        ],
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-250ml",
+              "id": "made-up",
+              "label": "Sample solution, 250 mL"
+            }
+          },
+          {
+            "id": "pour-over",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "beaker",
+              "destination": "made-up",
+              "all": true
+            }
+          },
+          {
+            "id": "rinse-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "beaker",
+              "volume": "15 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "swirl-1",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "beaker",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "rinse-over-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "beaker",
+              "destination": "made-up",
+              "all": true
+            }
+          },
+          {
+            "id": "rinse-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "beaker",
+              "volume": "15 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "swirl-2",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "beaker",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "rinse-over-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "beaker",
+              "destination": "made-up",
+              "all": true
+            }
+          },
+          {
+            "id": "rinse-3",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "beaker",
+              "volume": "15 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "swirl-3",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "beaker",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "rinse-over-3",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "beaker",
+              "destination": "made-up",
+              "all": true
+            }
+          },
+          {
+            "id": "to-mark",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "made-up",
+              "solvent": "water"
+            }
+          },
+          {
+            "id": "stopper",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "made-up"
+            }
+          },
+          {
+            "id": "invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "made-up",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "unstopper",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "made-up"
+            }
+          }
+        ]
+      },
+      {
+        "id": "rough",
+        "kind": "group",
+        "title": "Rough titration",
+        "steps": [
+          {
+            "id": "rough-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "flask-rough",
+              "label": "Rough"
+            }
+          },
+          {
+            "id": "rough-aliquot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "made-up",
+              "destination": "flask-rough",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            }
+          },
+          {
+            "id": "rough-indicator",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "indicator",
+              "destination": "flask-rough",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "rough-start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "rough-titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "params": {
+              "burette": "burette",
+              "flask": "flask-rough",
+              "endColour": "yellow"
+            }
+          },
+          {
+            "id": "rough-end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "rough-titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "rough-titre",
+              "value": "=quantity(rough-end.out.value) - quantity(rough-start.out.value)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "accurate",
+        "kind": "group",
+        "title": "Three accurate titrations",
+        "forEach": {
+          "var": "n",
+          "in": "=[1, 2, 3]"
+        },
+        "let": {
+          "flask": "='flask-' + text(n)"
+        },
+        "steps": [
+          {
+            "id": "get-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "=flask",
+              "label": "='Titration ' + text(count(recorded('titre')) + 1)"
+            }
+          },
+          {
+            "id": "aliquot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "made-up",
+              "destination": "=flask",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            },
+            "objectives": [
+              "o-pipette"
+            ]
+          },
+          {
+            "id": "indicator-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "indicator",
+              "destination": "=flask",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "refill",
+            "kind": "technique",
+            "ref": "core:prepare-burette",
+            "when": "volume(burette) < 30 mL",
+            "params": {
+              "burette": "burette",
+              "titrant": "titrant",
+              "volume": "=48 mL - volume(burette)"
+            }
+          },
+          {
+            "id": "start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "objectives": [
+              "o-burette"
+            ],
+            "params": {
+              "burette": "burette",
+              "flask": "=flask",
+              "endColour": "yellow",
+              "approx": "=first(recorded('rough-titre'))"
+            }
+          },
+          {
+            "id": "end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "titre",
+              "value": "=quantity(end.out.value) - quantity(start.out.value)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "extra",
+        "kind": "group",
+        "title": "More titrations until two agree within 0.10 mL",
+        "when": "!concordant(recorded('titre'), 0.10 mL, 2)",
+        "repeat": {
+          "until": "concordant(recorded('titre'), 0.10 mL, 2)",
+          "max": 3
+        },
+        "let": {
+          "flask": "='flask-' + text(count(recorded('titre')) + 1)"
+        },
+        "steps": [
+          {
+            "id": "x-get-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "=flask",
+              "label": "='Titration ' + text(count(recorded('titre')) + 1)"
+            }
+          },
+          {
+            "id": "x-aliquot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "made-up",
+              "destination": "=flask",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            },
+            "objectives": [
+              "o-pipette"
+            ]
+          },
+          {
+            "id": "x-indicator-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "indicator",
+              "destination": "=flask",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "x-refill",
+            "kind": "technique",
+            "ref": "core:prepare-burette",
+            "when": "volume(burette) < 30 mL",
+            "params": {
+              "burette": "burette",
+              "titrant": "titrant",
+              "volume": "=48 mL - volume(burette)"
+            }
+          },
+          {
+            "id": "x-start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "x-titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "objectives": [
+              "o-burette"
+            ],
+            "params": {
+              "burette": "burette",
+              "flask": "=flask",
+              "endColour": "yellow",
+              "approx": "=first(recorded('rough-titre'))"
+            }
+          },
+          {
+            "id": "x-end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "x-titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "titre",
+              "value": "=quantity(x-end.out.value) - quantity(x-start.out.value)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mean-titre",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mean-titre",
+          "value": "=concordantMean(recorded('titre'), 0.10 mL, 2)"
+        },
+        "objectives": [
+          "o-result"
+        ]
+      },
+      {
+        "id": "result",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "result",
+          "value": "={{resultExpr}}"
+        },
+        "title": "{{resultTitle}}",
+        "objectives": [
+          "o-result"
+        ]
+      },
+      {
+        "id": "why-back",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Why titrate the leftover acid rather than the solid itself?",
+        "options": [
+          {
+            "id": "insoluble",
+            "label": "The solid does not dissolve in water and reacts slowly, so it has no sharp end point of its own; an excess of acid dissolves all of it, and what is left over titrates cleanly"
+          },
+          {
+            "id": "faster",
+            "label": "Back titration is quicker than a direct titration"
+          },
+          {
+            "id": "indicator",
+            "label": "No indicator changes colour with a solid"
+          }
+        ],
+        "correctWhen": "'insoluble'"
+      },
+      {
+        "id": "indicator-choice",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Why methyl orange and not phenolphthalein?",
+        "options": [
+          {
+            "id": "acid-end",
+            "label": "Methyl orange changes in acid, around pH 4, while only the hydrochloric acid has reacted; at phenolphthalein's pH the dissolved carbon dioxide (and any magnesium ions) would have taken up alkali too"
+          },
+          {
+            "id": "visible",
+            "label": "Its colour change is easier to see"
+          },
+          {
+            "id": "strong",
+            "label": "Phenolphthalein does not work with sodium hydroxide"
+          }
+        ],
+        "correctWhen": "'acid-end'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-result",
+        "statement": "{{goalStatement}}",
+        "check": "within(first(recorded('result')), {{truthExpr}}, 2%)"
+      },
+      {
+        "id": "g-concordant",
+        "statement": "At least two titres agree within 0.10 mL",
+        "check": "concordant(recorded('titre'), 0.10 mL, 2)"
+      },
+      {
+        "id": "g-reason",
+        "statement": "The back titration and the indicator are explained",
+        "check": "decision('why-back') == 'insoluble' && decision('indicator-choice') == 'acid-end'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-end",
+        "statement": "Each accurate titration stops as the methyl orange turns yellow",
+        "check": "all(n in [1, 2, 3]: colour('flask-' + text(n)) == 'yellow')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-titre",
+        "statement": "Titres are between 10 and 40 mL",
+        "check": "all(recorded('titre'), it > 10 mL && it < 40 mL)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "chem28-antacid",
+      "title": "How much acid does an antacid neutralise?",
+      "summary": "Dissolve a powdered antacid tablet in a measured excess of hydrochloric acid, titrate the acid left over, and work out how much stomach acid a gram of tablet neutralises.",
+      "values": {
+        "sampleNote": "An antacid tablet holds calcium carbonate and magnesium hydroxide, which both neutralise acid, bound with starch and sugar that do not.",
+        "sampleLabel": "Powdered antacid tablets",
+        "sampleContains": [
+          {
+            "substance": "aq:calcium-carbonate",
+            "mass": {
+              "vary": "4.0..5.0 g"
+            }
+          },
+          {
+            "substance": "aq:magnesium-hydroxide",
+            "mass": {
+              "vary": "0.8..1.0 g"
+            }
+          },
+          {
+            "substance": "core:impurity",
+            "mass": "=10 g - mass('aq:calcium-carbonate') - mass('aq:magnesium-hydroxide')"
+          }
+        ],
+        "sampleMass": "2.0 g",
+        "resultExpr": "(50 mL * 1.000 mol/L - 0.1000 mol/L * first(recorded('mean-titre')) * 10) / first(recorded('sample-mass')) / (1 mmol/g)",
+        "resultTitle": "The acid neutralised per gram of tablet (mmol)",
+        "resultStatement": "Calculate the acid (mmol of H⁺) neutralised per gram of tablet",
+        "truthExpr": "(2 * purity('sample', 'aq:calcium-carbonate') / 100.09 g/mol + 2 * purity('sample', 'aq:magnesium-hydroxide') / 58.32 g/mol) / (1 mmol/g)",
+        "goalStatement": "The acid neutralised per gram is within 2 % of the truth"
+      },
+      "keywords": [
+        "antacid",
+        "neutralising capacity",
+        "magnesium hydroxide",
+        "indigestion",
+        "consumer chemistry"
+      ],
+      "curricula": [
+        "GCSE",
+        "A level",
+        "IB",
+        "BTEC"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

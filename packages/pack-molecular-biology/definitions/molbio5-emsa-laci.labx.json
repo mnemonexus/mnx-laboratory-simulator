@@ -1,0 +1,83 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio5-emsa-laci",
+  "version": "1.0.0",
+  "title": "Lac repressor binding its operator: a gel-shift assay",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "core:serial-dilution" }, { "operation": "core:run-gel" }, { "operation": "core:fit" }] },
+  "summary": "Mix a fluorescent lac operator probe with LacI from 0 to 10 nM, run the mixtures on a native gel, image the probe, measure the share of it shifted into the slower LacI–DNA complex in each lane, and fit the binding curve to find the dissociation constant. Two more lanes test IPTG and an excess of unlabelled operator.",
+  "briefing": "Without SDS the repressor keeps its shape, so where it is bound to the probe the two run together, more slowly than free probe. The share of probe in the shifted band, plotted against the LacI concentration, is a binding curve whose half-way point is Kd (the probe is far below Kd, so it barely depletes the protein). IPTG, the inducer, weakens binding; unlabelled operator competes for the repressor.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-2", "disciplines": ["molecular-biology", "biochemistry"] },
+    "concepts": [{ "id": "emsa", "label": "Electrophoretic mobility shift" }, { "id": "kd", "label": "Binding curves and Kd" }, { "id": "induction", "label": "Allosteric induction" }],
+    "objectives": [
+      { "id": "o-mix", "kind": "skill", "statement": "Set up a titration of binding reactions", "skills": ["core:micropipetting", "core:serial-dilution"] },
+      { "id": "o-gel", "kind": "skill", "statement": "Run and image a native gel", "skills": ["molbio:gel-electrophoresis"] },
+      { "id": "o-kd", "kind": "analysis", "statement": "Find Kd within 40 %", "goal": "g-kd" },
+      { "id": "o-controls", "kind": "reasoning", "statement": "Interpret the IPTG and competitor lanes", "goal": "g-controls" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "laci", "label": "LacI, 100 nM", "preparation": "molbio:laci-100nm", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "probe", "label": "lacO probe (fluorescein), 2 nM", "preparation": "molbio:laco-probe-2nm", "amount": "50 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "buffer", "label": "Binding buffer", "preparation": "molbio:emsa-binding-buffer", "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "iptg", "label": "IPTG, 10 mM", "preparation": "molbio:iptg-10mm", "amount": "50 uL", "container": "core:microtube-1.5ml" },
+      { "id": "competitor", "label": "Unlabelled lacO DNA, 1 µM", "preparation": "molbio:laco-competitor-1um", "amount": "50 uL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "gel", "requires": { "class": "core:native-page-gel-6pct" } },
+      { "id": "imager", "requires": { "class": "core:fluorescence-imager" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "series", "kind": "technique", "ref": "core:serial-dilution", "title": "Three-fold dilutions of LacI (10× final)", "objectives": ["o-mix"], "params": { "stock": "laci", "diluent": "buffer", "factor": 3, "count": 5, "volumeEach": "40 uL" } },
+      { "id": "reactions", "kind": "group", "title": "20 µL reactions: buffer, probe, LacI, and IPTG or competitor", "objectives": ["o-mix"],
+        "forEach": { "var": "r", "in": "=[['r1', 'buffer', 'buffer'], ['r2', 'laci', 'buffer'], ['r3', series.out.vessels[0], 'buffer'], ['r4', series.out.vessels[1], 'buffer'], ['r5', series.out.vessels[2], 'buffer'], ['r6', series.out.vessels[3], 'buffer'], ['r7', series.out.vessels[4], 'buffer'], ['r8', 'laci', 'iptg'], ['r9', 'laci', 'competitor']]" },
+        "steps": [
+          { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=r[0]" } },
+          { "id": "add-buffer", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "=r[0]", "volume": "14 uL" } },
+          { "id": "add-extra", "kind": "operation", "ref": "core:transfer", "params": { "source": "=r[2]", "destination": "=r[0]", "volume": "2 uL" } },
+          { "id": "add-laci", "kind": "operation", "ref": "core:transfer", "params": { "source": "=r[1]", "destination": "=r[0]", "volume": "2 uL" } },
+          { "id": "add-probe", "kind": "operation", "ref": "core:transfer", "params": { "source": "probe", "destination": "=r[0]", "volume": "2 uL" } },
+          { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=r[0]", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "bind", "kind": "wait", "duration": "20 min", "title": "20 minutes at room temperature" },
+      { "id": "load", "kind": "operation", "ref": "core:transfer", "objectives": ["o-gel"], "forEach": { "var": "k", "in": "=range(1, 9, 9)" }, "params": { "source": "='r' + text(k)", "destination": "='gel/A' + text(k)", "volume": "12 uL" } },
+      { "id": "run", "kind": "operation", "ref": "core:run-gel", "objectives": ["o-gel"], "params": { "gel": "gel", "voltage": 100, "duration": "60 min" } },
+      { "id": "image", "kind": "operation", "ref": "core:measure", "objectives": ["o-gel"], "params": { "instrument": "imager", "subject": "gel" } },
+      { "id": "fractions", "kind": "group", "objectives": ["o-kd"], "forEach": { "var": "k", "in": "=range(1, 9, 9)" },
+        "let": { "pos": "=bandsIn('gel/A' + text(k))", "vol": "=bandVolumes('gel/A' + text(k))" },
+        "steps": [
+          { "id": "note-fraction", "kind": "operation", "ref": "core:record", "params": { "field": "bound", "value": "=if(len(vol) == 0, 0, sum(map(filter(range(0, len(vol) - 1, len(vol)), value(pos[it], 'mm') < 13), vol[it])) / sum(vol))" } }
+        ] },
+      { "id": "fit", "kind": "operation", "ref": "core:fit", "objectives": ["o-kd"], "params": { "x": "=[0, 10, 3.333, 1.111, 0.3704, 0.1235, 0.04115]", "y": "=map(range(0, 6, 7), recorded('bound')[it])", "model": "michaelis-menten" } },
+      { "id": "note-kd", "kind": "operation", "ref": "core:record", "objectives": ["o-kd"], "params": { "field": "Kd-nM", "value": "=fit.out.fit.params.km" } },
+      { "id": "controls", "kind": "decision", "objectives": ["o-controls"], "prompt": "In the IPTG lane and the competitor lane, little probe is shifted though LacI is at 10 nM. Why?",
+        "options": [
+          { "id": "both", "label": "IPTG makes the repressor let go of the operator, and the unlabelled operator takes the repressor away from the probe" },
+          { "id": "degraded", "label": "The repressor was degraded in those tubes" },
+          { "id": "probe", "label": "The probe did not go into those tubes" }
+        ],
+        "correctWhen": "'both'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-kd", "statement": "Kd is within 40 % of 2 nM", "check": "within(first(recorded('Kd-nM')), 2, 40%)" },
+      { "id": "g-controls", "statement": "IPTG and the competitor each leave under 20 % of the probe bound", "check": "recorded('bound')[7] < 0.2 && recorded('bound')[8] < 0.2" }
+    ],
+    "expectedObservations": [
+      { "id": "e-free", "statement": "Without LacI the probe is all free", "check": "recorded('bound')[0] < 0.02", "source": "reference-standard" },
+      { "id": "e-shift", "statement": "At 10 nM LacI most of the probe is shifted", "check": "recorded('bound')[1] > 0.7", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

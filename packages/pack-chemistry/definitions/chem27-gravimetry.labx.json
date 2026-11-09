@@ -1,0 +1,799 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem27-gravimetry",
+  "version": "1.0.0",
+  "title": "Preparing an insoluble salt: barium sulfate",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:filter"
+      },
+      {
+        "operation": "core:weigh"
+      }
+    ]
+  },
+  "summary": "Mix sodium sulfate with excess barium chloride, filter off the white barium sulfate, wash it, dry it and weigh it, and work out the percentage yield (in duplicate).",
+  "briefing": "Ba²⁺ + SO₄²⁻ → BaSO₄(s). Barium sulfate is so insoluble that nearly all the sulfate comes out. Filter it through a weighed filter, rinse the beaker onto the filter three times so that none is left behind and the dissolved sodium and barium chlorides are washed out, dry it and weigh it on the filter. 25 mL of 0.100 M sulfate gives at most 2.50 mmol (0.583 g).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": "{{keywords}}",
+    "topics": [
+      "Salts",
+      "Chemical analysis"
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ],
+    "concepts": [
+      {
+        "id": "gravimetry",
+        "label": "Precipitation, filtration and weighing"
+      }
+    ],
+    "objectives": "{{objectives}}"
+  },
+  "parameters": {
+    "sample": {
+      "default": {
+        "id": "sample",
+        "label": "Sodium sulfate, 0.100 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-sulfate",
+            "conc": "0.100 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    },
+    "reagent": {
+      "default": {
+        "id": "reagent",
+        "label": "Barium chloride, 0.20 M",
+        "contains": [
+          {
+            "substance": "aq:barium-chloride",
+            "conc": "0.20 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    },
+    "acid": {
+      "default": {
+        "id": "acid",
+        "label": "Hydrochloric acid, 1 M",
+        "contains": [
+          {
+            "substance": "aq:hydrochloric-acid",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    },
+    "reagentVolume": {
+      "default": "20 mL"
+    },
+    "molarMass": {
+      "default": 233.39
+    },
+    "analysis": {
+      "default": [
+        {
+          "id": "yield",
+          "kind": "operation",
+          "ref": "core:compute",
+          "params": {
+            "expression": "100 * m / (0.0025 * 233.39)",
+            "values": {
+              "m": "=(first(recorded('mass-a')) + first(recorded('mass-b'))) / 2"
+            },
+            "field": "yield-percent"
+          },
+          "objectives": [
+            "o-yield"
+          ]
+        },
+        {
+          "id": "why-wash",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why is the precipitate washed with water before it is dried?",
+          "options": [
+            {
+              "id": "soluble",
+              "label": "To rinse away the dissolved salts left in the wet precipitate, which would otherwise dry onto it and add to its mass"
+            },
+            {
+              "id": "dissolve",
+              "label": "To dissolve some of the precipitate"
+            },
+            {
+              "id": "cool",
+              "label": "To cool it"
+            }
+          ],
+          "correctWhen": "choice == 'soluble'"
+        }
+      ]
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-yield",
+            "statement": "The yield of barium sulfate is between 90 and 102 %",
+            "check": "between(first(recorded('yield-percent')), 90, 102)"
+          },
+          {
+            "id": "g-explain",
+            "statement": "Washing is explained",
+            "check": "decision(why-wash) == 'soluble'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-white",
+            "statement": "A fine white precipitate forms",
+            "check": "mentions(first(recorded('seen-a')), 'white precipitate')",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    },
+    "objectives": {
+      "default": [
+        {
+          "id": "o-method",
+          "kind": "skill",
+          "statement": "Prepare a pure, dry sample of an insoluble salt"
+        },
+        {
+          "id": "o-yield",
+          "kind": "analysis",
+          "statement": "Calculate a percentage yield",
+          "goal": "g-yield"
+        },
+        {
+          "id": "o-explain",
+          "kind": "reasoning",
+          "statement": "Explain the washing step",
+          "goal": "g-explain"
+        }
+      ]
+    },
+    "keywords": {
+      "default": [
+        "insoluble salt",
+        "precipitation",
+        "barium sulfate",
+        "filtration",
+        "washing",
+        "percentage yield"
+      ]
+    },
+    "level": {
+      "default": "ages-14-16"
+    }
+  },
+  "materials": {
+    "supplies": [
+      "{{sample}}",
+      "{{reagent}}",
+      "{{acid}}",
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-4dp"
+        }
+      },
+      {
+        "id": "pipette25",
+        "requires": {
+          "class": "core:volumetric-pipette-25ml"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each portion",
+        "objectives": [
+          "o-method"
+        ],
+        "forEach": {
+          "var": "r",
+          "in": "=['a', 'b']"
+        },
+        "let": {
+          "beaker": "='beaker-' + r"
+        },
+        "steps": [
+          {
+            "id": "beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "=beaker",
+              "label": "='Precipitation (' + r + ')'"
+            }
+          },
+          {
+            "id": "sample-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "sample",
+              "destination": "=beaker",
+              "volume": "25 mL",
+              "tool": "pipette25"
+            }
+          },
+          {
+            "id": "acidify",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "acid",
+              "destination": "=beaker",
+              "volume": "2 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "reagent-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "reagent",
+              "destination": "=beaker",
+              "volume": "{{reagentVolume}}",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "stir",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=beaker",
+              "method": "stir",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "stand",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "=beaker"
+            }
+          },
+          {
+            "id": "note-seen",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + r",
+              "value": "=look.out.appearance"
+            }
+          },
+          {
+            "id": "funnel",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:filter-funnel",
+              "id": "='funnel-' + r",
+              "label": "='Filter (' + r + ')'"
+            }
+          },
+          {
+            "id": "funnel-on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='funnel-' + r",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "tare",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "funnel-off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='funnel-' + r"
+            }
+          },
+          {
+            "id": "filtrate",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='filtrate-' + r",
+              "label": "='Filtrate (' + r + ')'"
+            }
+          },
+          {
+            "id": "filter",
+            "kind": "operation",
+            "ref": "core:filter",
+            "params": {
+              "source": "=beaker",
+              "filter": "='funnel-' + r",
+              "filtrate": "='filtrate-' + r"
+            }
+          },
+          {
+            "id": "washes",
+            "kind": "group",
+            "title": "Rinse the beaker onto the filter and wash",
+            "forEach": {
+              "var": "n",
+              "in": "=[1, 2, 3]"
+            },
+            "steps": [
+              {
+                "id": "rinse",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "water",
+                  "destination": "=beaker",
+                  "volume": "10 mL",
+                  "tool": "pour"
+                }
+              },
+              {
+                "id": "swirl",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "=beaker",
+                  "method": "swirl",
+                  "cycles": 2
+                }
+              },
+              {
+                "id": "wash",
+                "kind": "operation",
+                "ref": "core:filter",
+                "params": {
+                  "source": "=beaker",
+                  "filter": "='funnel-' + r",
+                  "filtrate": "='filtrate-' + r"
+                }
+              }
+            ]
+          },
+          {
+            "id": "dry",
+            "kind": "operation",
+            "ref": "core:dry",
+            "params": {
+              "container": "='funnel-' + r",
+              "method": "heat"
+            }
+          },
+          {
+            "id": "funnel-back",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='funnel-' + r",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "weigh",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='funnel-' + r"
+            }
+          },
+          {
+            "id": "note-mass",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='mass-' + r",
+              "value": "=value(quantity(weigh.out.value), 'g')"
+            }
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "kind": "group",
+        "title": "Results",
+        "steps": "{{analysis}}"
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "variants": [
+    {
+      "id": "chem27-sulfate-by-gravimetry",
+      "title": "Sulfate by gravimetry",
+      "summary": "Precipitate the sulfate in a pipetted volume of an unknown solution as barium sulfate, filter, wash, dry and weigh it, and calculate the sulfate concentration (in duplicate).",
+      "briefing": "Acidify the sample (so that carbonate cannot precipitate too) and add excess barium chloride. Every mole of barium sulfate (233.39 g/mol) came from a mole of sulfate in the 25.00 mL taken.",
+      "curricula": [
+        "A level",
+        "IB"
+      ],
+      "values": {
+        "sample": {
+          "id": "sample",
+          "label": "Sulfate solution of unknown concentration (as sodium sulfate)",
+          "contains": [
+            {
+              "substance": "aq:sodium-sulfate",
+              "conc": {
+                "vary": "0.06..0.1 mol/L"
+              }
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "250 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        "reagent": {
+          "id": "reagent",
+          "label": "Barium chloride, 0.20 M",
+          "contains": [
+            {
+              "substance": "aq:barium-chloride",
+              "conc": "0.20 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "250 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        "acid": {
+          "id": "acid",
+          "label": "Hydrochloric acid, 1 M",
+          "contains": [
+            {
+              "substance": "aq:hydrochloric-acid",
+              "conc": "1 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "100 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        "reagentVolume": "20 mL",
+        "molarMass": 233.39,
+        "analysis": [
+          {
+            "id": "conc",
+            "kind": "operation",
+            "ref": "core:compute",
+            "params": {
+              "expression": "(m * 1 g) / (M * 1 g/mol) / 25 mL",
+              "values": {
+                "m": "=(first(recorded('mass-a')) + first(recorded('mass-b'))) / 2",
+                "M": 233.39
+              },
+              "field": "conc-mol-per-l",
+              "report": {
+                "quantity": "conc",
+                "sample": "sample"
+              }
+            },
+            "objectives": [
+              "o-conc"
+            ]
+          },
+          {
+            "id": "why-wash",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why is the precipitate washed with water before it is dried?",
+            "options": [
+              {
+                "id": "soluble",
+                "label": "To rinse away the dissolved salts left in the wet precipitate, which would otherwise dry onto it and add to its mass"
+              },
+              {
+                "id": "dissolve",
+                "label": "To dissolve some of the precipitate"
+              },
+              {
+                "id": "cool",
+                "label": "To cool it"
+              }
+            ],
+            "correctWhen": "choice == 'soluble'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-conc",
+              "statement": "The sulfate concentration is within 3 % of the truth",
+              "check": "within(reported(conc, 'sample'), truth(conc, 'sample', 'aq:sodium-sulfate'), 3%)"
+            },
+            {
+              "id": "g-explain",
+              "statement": "Washing is explained",
+              "check": "decision(why-wash) == 'soluble'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-repeat",
+              "statement": "The duplicate masses agree within 2 %",
+              "check": "within(first(recorded('mass-a')), first(recorded('mass-b')), 2%)",
+              "source": "simulation-derived"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-method",
+            "kind": "skill",
+            "statement": "Carry out a gravimetric analysis"
+          },
+          {
+            "id": "o-conc",
+            "kind": "analysis",
+            "statement": "Find a concentration from the mass of precipitate",
+            "goal": "g-conc"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Explain the washing step",
+            "goal": "g-explain"
+          }
+        ],
+        "keywords": [
+          "gravimetric analysis",
+          "sulfate",
+          "barium sulfate",
+          "precipitation",
+          "quantitative analysis"
+        ],
+        "level": "ages-16-19"
+      }
+    },
+    {
+      "id": "chem27-chloride-by-gravimetry",
+      "title": "Chloride by gravimetry",
+      "summary": "Precipitate the chloride in a pipetted volume of an unknown solution as silver chloride with excess silver nitrate, filter, wash, dry and weigh it, and calculate the chloride concentration (in duplicate).",
+      "briefing": "Acidify with nitric acid and add excess silver nitrate: the curdy white silver chloride settles quickly. Every mole of silver chloride (143.32 g/mol) came from a mole of chloride in the 25.00 mL taken.",
+      "curricula": [
+        "A level",
+        "IB"
+      ],
+      "values": {
+        "sample": {
+          "id": "sample",
+          "label": "Chloride solution of unknown concentration (as sodium chloride)",
+          "contains": [
+            {
+              "substance": "aq:sodium-chloride",
+              "conc": {
+                "vary": "0.08..0.12 mol/L"
+              }
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "250 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        "reagent": {
+          "id": "reagent",
+          "label": "Silver nitrate, 0.15 M",
+          "contains": [
+            {
+              "substance": "aq:silver-nitrate",
+              "conc": "0.15 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "250 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        "acid": {
+          "id": "acid",
+          "label": "Nitric acid, 1 M",
+          "contains": [
+            {
+              "substance": "aq:nitric-acid",
+              "conc": "1 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "100 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        "reagentVolume": "25 mL",
+        "molarMass": 143.32,
+        "analysis": [
+          {
+            "id": "conc",
+            "kind": "operation",
+            "ref": "core:compute",
+            "params": {
+              "expression": "(m * 1 g) / (M * 1 g/mol) / 25 mL",
+              "values": {
+                "m": "=(first(recorded('mass-a')) + first(recorded('mass-b'))) / 2",
+                "M": 143.32
+              },
+              "field": "conc-mol-per-l",
+              "report": {
+                "quantity": "conc",
+                "sample": "sample"
+              }
+            },
+            "objectives": [
+              "o-conc"
+            ]
+          },
+          {
+            "id": "why-wash",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why is the precipitate washed with water before it is dried?",
+            "options": [
+              {
+                "id": "soluble",
+                "label": "To rinse away the dissolved salts left in the wet precipitate, which would otherwise dry onto it and add to its mass"
+              },
+              {
+                "id": "dissolve",
+                "label": "To dissolve some of the precipitate"
+              },
+              {
+                "id": "cool",
+                "label": "To cool it"
+              }
+            ],
+            "correctWhen": "choice == 'soluble'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-conc",
+              "statement": "The chloride concentration is within 3 % of the truth",
+              "check": "within(reported(conc, 'sample'), truth(conc, 'sample', 'aq:sodium-chloride'), 3%)"
+            },
+            {
+              "id": "g-explain",
+              "statement": "Washing is explained",
+              "check": "decision(why-wash) == 'soluble'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-repeat",
+              "statement": "The duplicate masses agree within 2 %",
+              "check": "within(first(recorded('mass-a')), first(recorded('mass-b')), 2%)",
+              "source": "simulation-derived"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-method",
+            "kind": "skill",
+            "statement": "Carry out a gravimetric analysis"
+          },
+          {
+            "id": "o-conc",
+            "kind": "analysis",
+            "statement": "Find a concentration from the mass of precipitate",
+            "goal": "g-conc"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Explain the washing step",
+            "goal": "g-explain"
+          }
+        ],
+        "keywords": [
+          "gravimetric analysis",
+          "chloride",
+          "silver chloride",
+          "silver nitrate",
+          "precipitation",
+          "quantitative analysis"
+        ],
+        "level": "ages-16-19"
+      }
+    }
+  ]
+}

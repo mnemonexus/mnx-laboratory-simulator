@@ -1,0 +1,821 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio30-structure-from-soaks-crystals-and-grids",
+  "version": "1.0.0",
+  "title": "From enzyme to structure: timing a crystal soak, screening crystals and averaging particles",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      },
+      {
+        "operation": "core:fit"
+      },
+      {
+        "operation": "core:compute"
+      }
+    ]
+  },
+  "summary": "Measure how fast galactocerebrosidase (GALC) turns over its nitrophenyl substrate at its pH optimum and in the crystal's soaking condition, by a stopped assay at 410 nm, and use one turnover's time to choose crystal soaks that trap substrate or product. Then read a crystallisation screen, cryoprotect and collect a dataset, and plan a cryo-EM reconstruction: how many particles to average, and when refinement has stopped improving.",
+  "briefing": "A crystal holds the enzyme at millimolar concentration, so substrate soaked in is turned over within seconds at the enzyme's optimum. Soaking in a condition where the enzyme is slow, and freezing at the right moment, traps each stage of the reaction. Measure the rate in solution first: the stopped samples go into sodium carbonate, which ends the reaction and turns the 4-nitrophenol yellow; 4-nitrophenolate absorbs 17 000 M⁻¹ cm⁻¹ at 410 nm, and each sample is diluted twofold by the stop. The enzyme is 0.5 µM in the pH 4.6 reaction and 10 µM in the soak-condition reaction.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry",
+        "structural-biology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "turnover",
+        "label": "Turnover number and pH dependence"
+      },
+      {
+        "id": "soaking",
+        "label": "Trapping reaction states in crystals"
+      },
+      {
+        "id": "crystallisation",
+        "label": "Crystallisation screening and the phase diagram"
+      },
+      {
+        "id": "averaging",
+        "label": "Signal averaging in cryo-EM"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-rate",
+        "kind": "analysis",
+        "statement": "Measure GALC's turnover rate in two conditions from a stopped assay",
+        "goal": "g-structure"
+      },
+      {
+        "id": "o-soak",
+        "kind": "reasoning",
+        "statement": "Choose soak times from the turnover rate",
+        "goal": "g-structure"
+      },
+      {
+        "id": "o-crystal",
+        "kind": "reasoning",
+        "statement": "Read a crystallisation screen and prepare a crystal for diffraction",
+        "goal": "g-structure"
+      },
+      {
+        "id": "o-em",
+        "kind": "reasoning",
+        "statement": "Plan the averaging and refinement of a cryo-EM reconstruction",
+        "goal": "g-structure"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "acetate",
+        "label": "Sodium acetate, pH 4.6 (GALC's optimum)",
+        "preparation": "bio:acetate-50mm-ph4.6",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "tris",
+        "label": "Soak condition: Tris-HCl, pH 7.5",
+        "preparation": "core:tris-50mm-ph7.5",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "substrate",
+        "label": "4-Nitrophenyl β-D-galactoside, 25 mM",
+        "preparation": "bio:4-nitrophenyl-beta-galactoside-25mm",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "galc-assay",
+        "label": "GALC, 5 µM",
+        "preparation": "bio:galc-5um",
+        "amount": "0.5 mL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "galc-xtal",
+        "label": "GALC, 100 µM (crystallisation stock)",
+        "preparation": "bio:galc-100um",
+        "amount": "0.5 mL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "stop",
+        "label": "Sodium carbonate, 1 M (stop)",
+        "preparation": "bio:carbonate-1m-ph11",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "blank-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-blank",
+          "label": "Blank"
+        }
+      },
+      {
+        "id": "blank-buffer",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "acetate",
+          "destination": "c-blank",
+          "volume": "0.4 mL"
+        }
+      },
+      {
+        "id": "blank-stop",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "stop",
+          "destination": "c-blank",
+          "volume": "0.4 mL"
+        }
+      },
+      {
+        "id": "blank-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "c-blank",
+          "method": "pipette-mix",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "zero",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-blank",
+          "wavelength": "410 nm"
+        },
+        "objectives": [
+          "o-rate"
+        ]
+      },
+      {
+        "id": "assay",
+        "kind": "group",
+        "title": "A stopped time course in each condition",
+        "objectives": [
+          "o-rate"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['acid', 'acetate', 'galc-assay', 2, 0.5], ['soak', 'tris', 'galc-xtal', 5, 10]]"
+        },
+        "steps": [
+          {
+            "id": "rx",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-tube-15ml",
+              "id": "='rx-' + x[0]",
+              "label": "=if(x[0] == 'acid', 'Reaction, pH 4.6', 'Reaction, soak condition')"
+            }
+          },
+          {
+            "id": "rx-buffer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "='rx-' + x[0]",
+              "volume": "1.6 mL"
+            }
+          },
+          {
+            "id": "rx-substrate",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "substrate",
+              "destination": "='rx-' + x[0]",
+              "volume": "0.2 mL"
+            }
+          },
+          {
+            "id": "rx-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='rx-' + x[0]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          },
+          {
+            "id": "stops",
+            "kind": "group",
+            "title": "Four tubes of stop solution",
+            "forEach": {
+              "var": "i",
+              "in": "=[1, 2, 3, 4]"
+            },
+            "steps": [
+              {
+                "id": "st",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:microtube-1.5ml",
+                  "id": "='st-' + x[0] + '-' + text(i)",
+                  "label": "=x[0] + ' ' + text(i * x[3]) + ' min'"
+                }
+              },
+              {
+                "id": "st-fill",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "stop",
+                  "destination": "='st-' + x[0] + '-' + text(i)",
+                  "volume": "0.4 mL"
+                }
+              }
+            ]
+          },
+          {
+            "id": "start",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "='rx-' + x[0]",
+              "volume": "0.2 mL"
+            }
+          },
+          {
+            "id": "start-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='rx-' + x[0]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          },
+          {
+            "id": "samples",
+            "kind": "group",
+            "title": "An aliquot into stop at each time",
+            "forEach": {
+              "var": "i",
+              "in": "=[1, 2, 3, 4]"
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "=text(x[3]) + ' min'"
+                }
+              },
+              {
+                "id": "take",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "='rx-' + x[0]",
+                  "destination": "='st-' + x[0] + '-' + text(i)",
+                  "volume": "0.4 mL"
+                }
+              }
+            ]
+          },
+          {
+            "id": "reads",
+            "kind": "group",
+            "title": "Read each stopped sample at 410 nm",
+            "forEach": {
+              "var": "i",
+              "in": "=[1, 2, 3, 4]"
+            },
+            "steps": [
+              {
+                "id": "r-mix",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='st-' + x[0] + '-' + text(i)",
+                  "method": "vortex",
+                  "cycles": 1
+                }
+              },
+              {
+                "id": "r-cuvette",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:cuvette-ps-1cm",
+                  "id": "='c-' + x[0] + '-' + text(i)"
+                }
+              },
+              {
+                "id": "r-fill",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "='st-' + x[0] + '-' + text(i)",
+                  "destination": "='c-' + x[0] + '-' + text(i)",
+                  "all": true
+                }
+              },
+              {
+                "id": "r-read",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "spec",
+                  "subject": "='c-' + x[0] + '-' + text(i)",
+                  "wavelength": "410 nm"
+                }
+              },
+              {
+                "id": "r-t",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='t-min-' + x[0]",
+                  "value": "=i * x[3]"
+                }
+              },
+              {
+                "id": "r-a",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='A410-' + x[0]",
+                  "value": "=r-read.out.value"
+                }
+              }
+            ]
+          },
+          {
+            "id": "slope",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "x": "=recorded('t-min-' + x[0])",
+              "y": "=recorded('A410-' + x[0])",
+              "model": "linear",
+              "xLabel": "min"
+            }
+          },
+          {
+            "id": "k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='k-per-s-' + x[0]",
+              "value": "=slope.out.fit.params.slope * 2 / 17000 / 60 / (x[4] * 1e-6)"
+            }
+          },
+          {
+            "id": "r2",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='r2-' + x[0]",
+              "value": "=slope.out.fit.r2"
+            }
+          },
+          {
+            "id": "turnover",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='turnover-s-' + x[0]",
+              "value": "=1 / first(recorded('k-per-s-' + x[0]))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why-slow",
+        "kind": "decision",
+        "objectives": [
+          "o-rate"
+        ],
+        "prompt": "Why does GALC turn over so much more slowly in the soak condition?",
+        "options": [
+          {
+            "id": "ph",
+            "label": "GALC is a lysosomal enzyme with an acidic optimum: at pH 7.5 it works at a few per cent of its rate at pH 4.6"
+          },
+          {
+            "id": "enzyme",
+            "label": "There is too much enzyme in the soak-condition reaction"
+          },
+          {
+            "id": "substrate",
+            "label": "The substrate is less soluble at pH 7.5"
+          }
+        ],
+        "correctWhen": "if(first(recorded('turnover-s-soak')) > 10 * first(recorded('turnover-s-acid')), 'ph', 'enzyme')"
+      },
+      {
+        "id": "soak-substrate",
+        "kind": "decision",
+        "objectives": [
+          "o-soak"
+        ],
+        "prompt": "The crystals are soaked in substrate for 20 seconds, 10 minutes or 30 minutes, then frozen. Which soak traps the substrate itself in the active site?",
+        "options": [
+          {
+            "id": "s20",
+            "label": "20 seconds: shorter than one turnover in the soak condition, so most sites still hold intact substrate"
+          },
+          {
+            "id": "m10",
+            "label": "10 minutes"
+          },
+          {
+            "id": "m30",
+            "label": "30 minutes"
+          }
+        ],
+        "correctWhen": "if(first(recorded('turnover-s-soak')) > 20, 's20', 'none')"
+      },
+      {
+        "id": "soak-product",
+        "kind": "decision",
+        "objectives": [
+          "o-soak"
+        ],
+        "prompt": "What should the 30-minute soak show?",
+        "options": [
+          {
+            "id": "product",
+            "label": "The product (galactose) in the site, or an empty site: every enzyme has turned over many times"
+          },
+          {
+            "id": "substrate",
+            "label": "Intact substrate, as in the short soak"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing: the substrate cannot reach the site through the crystal"
+          }
+        ],
+        "correctWhen": "if(1800 / first(recorded('turnover-s-soak')) > 3, 'product', 'substrate')"
+      },
+      {
+        "id": "component",
+        "kind": "decision",
+        "objectives": [
+          "o-crystal"
+        ],
+        "prompt": "What does each part of this crystallisation solution do?",
+        "forEach": {
+          "var": "c",
+          "in": "=['PEG 3350, 20 %', 'HEPES, 0.1 M, pH 7.5', 'NaCl, 0.2 M']"
+        },
+        "options": [
+          {
+            "id": "precipitant",
+            "label": "Precipitant: takes water away from the protein and drives it out of solution"
+          },
+          {
+            "id": "buffer",
+            "label": "Buffer: holds the pH, which sets the protein's charges"
+          },
+          {
+            "id": "salt",
+            "label": "Salt: screens charges and changes solubility"
+          }
+        ],
+        "correctWhen": "if(c == 'PEG 3350, 20 %', 'precipitant', if(c == 'HEPES, 0.1 M, pH 7.5', 'buffer', 'salt'))"
+      },
+      {
+        "id": "screen-wells",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "screen-well",
+          "value": [
+            "A3",
+            "B7",
+            "C2",
+            "D11",
+            "E5",
+            "F9",
+            "G4",
+            "H8"
+          ]
+        }
+      },
+      {
+        "id": "screen-outcomes",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "screen-outcome",
+          "value": [
+            "clear",
+            "clear",
+            "light precipitate",
+            "heavy precipitate",
+            "crystals",
+            "heavy precipitate",
+            "microcrystals",
+            "clear"
+          ]
+        }
+      },
+      {
+        "id": "screen-peg",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "screen-PEG-percent",
+          "value": [
+            8,
+            10,
+            18,
+            30,
+            22,
+            28,
+            20,
+            12
+          ]
+        }
+      },
+      {
+        "id": "hit",
+        "kind": "decision",
+        "objectives": [
+          "o-crystal"
+        ],
+        "prompt": "Which well do you screen around more finely?",
+        "options": [
+          {
+            "id": "e5",
+            "label": "E5: the only well with crystals; vary PEG and pH in small steps around it"
+          },
+          {
+            "id": "d11",
+            "label": "D11: the most protein came out of solution"
+          },
+          {
+            "id": "a3",
+            "label": "A3: the drop stayed clear"
+          }
+        ],
+        "correctWhen": "if(first(recorded('screen-outcome'))[4] == 'crystals', 'e5', 'd11')"
+      },
+      {
+        "id": "phase",
+        "kind": "decision",
+        "objectives": [
+          "o-crystal"
+        ],
+        "prompt": "Clear drops sit at low PEG and heavy precipitate at high PEG. Where do crystals grow on the phase diagram?",
+        "options": [
+          {
+            "id": "nucleation",
+            "label": "In between: supersaturated enough to nucleate, but not so far that the protein crashes out as amorphous precipitate"
+          },
+          {
+            "id": "clear",
+            "label": "In the undersaturated (clear) zone"
+          },
+          {
+            "id": "precip",
+            "label": "In the precipitation zone"
+          }
+        ],
+        "correctWhen": "if(between(first(recorded('screen-PEG-percent'))[4], 18, 28), 'nucleation', 'clear')"
+      },
+      {
+        "id": "cryo",
+        "kind": "decision",
+        "objectives": [
+          "o-crystal"
+        ],
+        "prompt": "Why add glycerol to the drop before the crystal is looped and plunged into liquid nitrogen?",
+        "options": [
+          {
+            "id": "ice",
+            "label": "So the water vitrifies instead of forming crystalline ice, which would crack the crystal and add ice rings to the pattern"
+          },
+          {
+            "id": "grow",
+            "label": "To make the crystal grow larger"
+          },
+          {
+            "id": "phase",
+            "label": "To solve the phase problem"
+          }
+        ],
+        "correctWhen": "'ice'"
+      },
+      {
+        "id": "images",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "images",
+          "value": 1800
+        }
+      },
+      {
+        "id": "oscillation",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "degrees-per-image",
+          "value": 0.2
+        }
+      },
+      {
+        "id": "sweep",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "total-rotation-deg",
+          "value": "=first(recorded('images')) * first(recorded('degrees-per-image'))"
+        }
+      },
+      {
+        "id": "grid",
+        "kind": "decision",
+        "objectives": [
+          "o-em"
+        ],
+        "prompt": "In what order is a cryo-EM grid made?",
+        "options": [
+          {
+            "id": "apply-blot-plunge",
+            "label": "2–3 µL of sample on a holey grid, blot off the excess, plunge into liquid ethane"
+          },
+          {
+            "id": "plunge-apply",
+            "label": "Plunge the grid into liquid ethane, then apply the sample"
+          },
+          {
+            "id": "apply-dry",
+            "label": "Apply the sample and let it dry in air"
+          }
+        ],
+        "correctWhen": "'apply-blot-plunge'"
+      },
+      {
+        "id": "snr-one",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "SNR-single-image",
+          "value": 0.005
+        }
+      },
+      {
+        "id": "snr-want",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "SNR-wanted",
+          "value": 10
+        }
+      },
+      {
+        "id": "n-needed",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "particles-needed",
+          "value": "=first(recorded('SNR-wanted')) / first(recorded('SNR-single-image'))"
+        }
+      },
+      {
+        "id": "fsc",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "FSC-resolution-A",
+          "value": [
+            9.8,
+            7.1,
+            5.2,
+            4.4,
+            4.1,
+            4.1,
+            4.2
+          ]
+        }
+      },
+      {
+        "id": "stop-round",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "first-round-without-gain",
+          "value": "=first(filter(range(1, len(first(recorded('FSC-resolution-A'))) - 1, len(first(recorded('FSC-resolution-A'))) - 1), first(recorded('FSC-resolution-A'))[it] >= first(recorded('FSC-resolution-A'))[it - 1])) + 1"
+        }
+      },
+      {
+        "id": "stop",
+        "kind": "decision",
+        "objectives": [
+          "o-em"
+        ],
+        "prompt": "Rounds of alignment and averaging gave these FSC resolutions. When do you stop?",
+        "options": [
+          {
+            "id": "round5",
+            "label": "After round 5 (4.1 Å): round 6 does not improve the resolution"
+          },
+          {
+            "id": "round7",
+            "label": "After round 7: always run every round"
+          },
+          {
+            "id": "round3",
+            "label": "After round 3: the big gains are over"
+          }
+        ],
+        "correctWhen": "if(first(recorded('first-round-without-gain')) == 6, 'round5', 'round7')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-structure",
+        "statement": "The turnover times are measured, the soaks chosen from them, and the crystallography and cryo-EM judgements follow from the data",
+        "check": "decision('why-slow') == 'ph' && decision('soak-substrate') == 's20' && decision('soak-product') == 'product' && decision('hit') == 'e5' && decision('phase') == 'nucleation' && decision('cryo') == 'ice' && all(c in ['PEG 3350, 20 %', 'HEPES, 0.1 M, pH 7.5', 'NaCl, 0.2 M']: decision(component, c) == if(c == 'PEG 3350, 20 %', 'precipitant', if(c == 'HEPES, 0.1 M, pH 7.5', 'buffer', 'salt'))) && decision('grid') == 'apply-blot-plunge' && decision('stop') == 'round5' && first(recorded('total-rotation-deg')) == 360 && first(recorded('particles-needed')) == 2000"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-acid",
+        "statement": "At pH 4.6 and room temperature one turnover takes about 7 seconds",
+        "check": "between(first(recorded('turnover-s-acid')), 4, 10)",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-soak",
+        "statement": "In the soak condition one turnover takes about 6 minutes",
+        "check": "between(first(recorded('turnover-s-soak')), 200, 500)",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-linear",
+        "statement": "Both time courses are straight lines",
+        "check": "all(x in ['acid', 'soak']: first(recorded('r2-' + x)) > 0.98)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

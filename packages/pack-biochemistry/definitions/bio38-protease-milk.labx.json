@@ -1,0 +1,500 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio38-protease-milk",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "biology",
+        "biochemistry"
+      ]
+    },
+    "keywords": [
+      "protease",
+      "trypsin",
+      "casein",
+      "milk",
+      "enzyme",
+      "rate",
+      "turbidity"
+    ],
+    "topics": [
+      "Enzymes"
+    ],
+    "concepts": [
+      {
+        "id": "protease",
+        "label": "A protease cuts proteins into soluble peptides"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-time",
+        "kind": "skill",
+        "statement": "Time how long the milk takes to clear"
+      },
+      {
+        "id": "o-rate",
+        "kind": "analysis",
+        "statement": "{{rateObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "{{explainObjective}}",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Protease and milk: enzyme concentration and rate"
+    },
+    "summary": {
+      "default": "Add 0, 0.5, 1 and 2 mL of trypsin (made up to 2 mL with water) to cloudy milk suspension at 35 °C and time how long each takes to clear as the casein is digested."
+    },
+    "briefing": {
+      "default": "Milk is cloudy because its protein, casein, is held in tiny particles that scatter light. Trypsin, a protease, cuts casein into small soluble peptides, so the milk clears. Put 5 mL of 1 % milk suspension in one tube and the trypsin with water to 2 mL in another, stand both in the 35 °C bath for five minutes, mix them and look every 30 seconds until the milk is clear. The rate is 1 ÷ the time."
+    },
+    "level": {
+      "default": "ages-16-19"
+    },
+    "runs": {
+      "default": "=[['z','No trypsin',35,0,2],['a','0.5 mL trypsin',35,0.5,1.5],['b','1 mL trypsin',35,1,1],['c','2 mL trypsin',35,2,0]]"
+    },
+    "rateObjective": {
+      "default": "Relate the rate of clearing to the amount of trypsin"
+    },
+    "explainObjective": {
+      "default": "Explain why more enzyme clears the milk faster"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does more trypsin clear the milk faster?",
+        "options": [
+          {
+            "id": "sites",
+            "label": "More enzyme molecules mean more active sites cutting casein at once"
+          },
+          {
+            "id": "dilutes",
+            "label": "The trypsin dilutes the milk"
+          },
+          {
+            "id": "heat",
+            "label": "More enzyme warms the milk"
+          }
+        ],
+        "correctWhen": "choice == 'sites'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "Twice the trypsin clears the milk about twice as fast",
+            "check": "within(first(recorded('rate-c')) / first(recorded('rate-b')), 2, 35%)"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The effect of the amount of enzyme is explained",
+            "check": "decision('why') == 'sites'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-control",
+            "statement": "Without trypsin the milk stays cloudy",
+            "check": "mentions(last(recorded('seen-z')), 'cloudy')",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-order",
+            "statement": "More trypsin, faster clearing",
+            "check": "first(recorded('rate-a')) < first(recorded('rate-b')) && first(recorded('rate-b')) < first(recorded('rate-c'))",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "milk",
+        "label": "Milk suspension (1 % milk powder, pH 7.5)",
+        "contains": [
+          {
+            "substance": "bio:casein",
+            "conc": "3.5 g/L"
+          },
+          {
+            "substance": "core:disodium-hydrogen-phosphate",
+            "conc": "40 mM"
+          },
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": "10 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "trypsin",
+        "label": "Trypsin solution (1 %)",
+        "contains": [
+          {
+            "substance": "bio:trypsin",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "35 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each tube in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-time"
+        ],
+        "steps": [
+          {
+            "id": "milk-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='milk-' + r[0]",
+              "label": "='Milk: ' + r[1]"
+            }
+          },
+          {
+            "id": "milk-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "milk",
+              "destination": "='milk-' + r[0]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "enzyme-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='trypsin-' + r[0]",
+              "label": "='Trypsin: ' + r[1]"
+            }
+          },
+          {
+            "id": "enzyme-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "trypsin",
+              "destination": "='trypsin-' + r[0]",
+              "volume": "=quantity(text(r[3]) + ' mL')",
+              "tool": "dropper"
+            },
+            "when": "r[3] > 0"
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='trypsin-' + r[0]",
+              "volume": "=quantity(text(r[4]) + ' mL')",
+              "tool": "dropper"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[2]) + ' Cel')"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "milk-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='milk-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "enzyme-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='trypsin-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "equilibrate",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "combine",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='trypsin-' + r[0]",
+              "destination": "='milk-' + r[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='milk-' + r[0]",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "watch",
+            "kind": "group",
+            "title": "Look every 30 s until the milk is clear",
+            "repeat": {
+              "until": "!mentions(last(recorded('seen-' + r[0])), 'cloudy') || count(recorded('seen-' + r[0])) >= 40",
+              "max": 41
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "30 s"
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='milk-' + r[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + r[0]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "note-time",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='time-' + r[0]",
+              "value": "=30 * count(recorded('seen-' + r[0]))"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=if(mentions(last(recorded('seen-' + r[0])), 'cloudy'), 0, 1000 / (30 * count(recorded('seen-' + r[0]))))"
+            }
+          },
+          {
+            "id": "milk-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='milk-' + r[0]"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "enzyme-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='trypsin-' + r[0]"
+            },
+            "when": "r[2] > 0"
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio38-protease-temperature",
+      "title": "Protease and milk: temperature and rate",
+      "summary": "Time how long 1 % trypsin takes to clear milk suspension from room temperature to 60 °C, and find the optimum.",
+      "briefing": "Stand a tube of 5 mL milk suspension and a tube of 1 mL trypsin with 1 mL water at the temperature for five minutes, mix them and look every 30 seconds until the milk is clear. Warmth speeds the enzyme up until heat begins to denature it.",
+      "values": {
+        "level": "ages-14-16",
+        "runs": "=[['t21','Room temperature (about 21 °C)',0,1,1],['t30','30 °C',30,1,1],['t40','40 °C',40,1,1],['t50','50 °C',50,1,1],['t60','60 °C',60,1,1]]",
+        "rateObjective": "Find the optimum temperature for trypsin",
+        "explainObjective": "Explain why the rate falls above the optimum",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the milk at 60 °C stay cloudy?",
+          "options": [
+            {
+              "id": "denatured",
+              "label": "Heat changed the shape of trypsin’s active site: it is denatured and no longer cuts casein"
+            },
+            {
+              "id": "casein-cooked",
+              "label": "Heat makes the casein too tough to cut"
+            },
+            {
+              "id": "killed",
+              "label": "The trypsin was killed"
+            }
+          ],
+          "correctWhen": "choice == 'denatured'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The fastest clearing is at 40 or 50 °C, and 60 °C is slower than room temperature",
+              "check": "max(map(['t21', 't30', 't60'], first(recorded('rate-' + it)))) < max(first(recorded('rate-t40')), first(recorded('rate-t50'))) && first(recorded('rate-t60')) < first(recorded('rate-t21'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The fall above the optimum is explained",
+              "check": "decision('why') == 'denatured'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-warmer",
+              "statement": "Warmer up to 40 °C, faster clearing",
+              "check": "first(recorded('rate-t21')) < first(recorded('rate-t30')) && first(recorded('rate-t30')) < first(recorded('rate-t40'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "temperature",
+        "denaturation"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

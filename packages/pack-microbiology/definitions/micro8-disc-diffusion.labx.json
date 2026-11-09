@@ -1,0 +1,489 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro8-disc-diffusion",
+  "version": "1.0.0",
+  "title": "Antibiotic susceptibility by disc diffusion",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:apply-disc"
+      },
+      {
+        "technique": "micro:spread-plate"
+      }
+    ]
+  },
+  "summary": "Seed Mueller–Hinton plates with standardised suspensions of E. coli, S. aureus and an unknown isolate, press on ampicillin, tetracycline, kanamycin and chloramphenicol discs, incubate overnight, measure the inhibition zones and classify the isolate.",
+  "briefing": "A disc's antibiotic spreads into the agar while the lawn grows; where the drug reaches the MIC before the lawn is established, nothing grows. A smaller MIC gives a larger zone, so the zone diameter reads the organism's susceptibility. The test only works standardised: a 0.5 McFarland inoculum (about 1.5 × 10⁸ CFU/mL), agar 4 mm deep, discs on within 15 minutes, 16–20 h at 35–37 °C. This course's breakpoints for ampicillin (10 µg) on Enterobacterales: susceptible ≥ 17 mm, intermediate 14–16 mm, resistant ≤ 13 mm. They are illustrative; real testing uses the current CLSI or EUCAST tables.",
+  "context": {
+    "intendedContexts": [
+      "practical-session"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "microbiology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "disc-diffusion",
+        "label": "Disc diffusion (Kirby–Bauer)"
+      },
+      {
+        "id": "breakpoints",
+        "label": "Breakpoints: susceptible, intermediate, resistant"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-seed",
+        "kind": "skill",
+        "statement": "Seed a lawn from a standardised inoculum and apply discs",
+        "skills": [
+          "micro:spread-plating"
+        ]
+      },
+      {
+        "id": "o-read",
+        "kind": "analysis",
+        "statement": "Measure the zones and check the control strain",
+        "goal": "g-control"
+      },
+      {
+        "id": "o-classify",
+        "kind": "reasoning",
+        "statement": "Classify the isolate against the breakpoints",
+        "goal": "g-isolate"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "ec",
+        "label": "E. coli K-12 (control strain), 0.5 McFarland in saline",
+        "role": "culture",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "1.5e8 cells/mL"
+          },
+          {
+            "substance": "core:sodium-chloride",
+            "conc": "8.5 g/L"
+          }
+        ],
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "sa",
+        "label": "S. aureus (teaching strain), 0.5 McFarland in saline",
+        "role": "culture",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "micro:staphylococcus-aureus-teaching-strain",
+            "count": "1.5e8 cells/mL"
+          },
+          {
+            "substance": "core:sodium-chloride",
+            "conc": "8.5 g/L"
+          }
+        ],
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "iso",
+        "label": "Isolate X, 0.5 McFarland in saline",
+        "role": "unknown",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12-ampr",
+            "count": "1.5e8 cells/mL"
+          },
+          {
+            "substance": "core:sodium-chloride",
+            "conc": "8.5 g/L"
+          }
+        ],
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      }
+    ],
+    "supplies": [
+      {
+        "id": "p-ec",
+        "label": "Mueller–Hinton plate: E. coli K-12 (control strain)",
+        "preparation": "micro:mueller-hinton-agar-plate",
+        "amount": "25 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "p-sa",
+        "label": "Mueller–Hinton plate: S. aureus (teaching strain)",
+        "preparation": "micro:mueller-hinton-agar-plate",
+        "amount": "25 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "p-iso",
+        "label": "Mueller–Hinton plate: Isolate X",
+        "preparation": "micro:mueller-hinton-agar-plate",
+        "amount": "25 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "ec-amp",
+        "label": "Ampicillin 10 µg disc (ec)",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "mass": "10 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "ec-tet",
+        "label": "Tetracycline 30 µg disc (ec)",
+        "contains": [
+          {
+            "substance": "micro:tetracycline",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "ec-kan",
+        "label": "Kanamycin 30 µg disc (ec)",
+        "contains": [
+          {
+            "substance": "micro:kanamycin",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "ec-chl",
+        "label": "Chloramphenicol 30 µg disc (ec)",
+        "contains": [
+          {
+            "substance": "micro:chloramphenicol",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "sa-amp",
+        "label": "Ampicillin 10 µg disc (sa)",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "mass": "10 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "sa-tet",
+        "label": "Tetracycline 30 µg disc (sa)",
+        "contains": [
+          {
+            "substance": "micro:tetracycline",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "sa-kan",
+        "label": "Kanamycin 30 µg disc (sa)",
+        "contains": [
+          {
+            "substance": "micro:kanamycin",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "sa-chl",
+        "label": "Chloramphenicol 30 µg disc (sa)",
+        "contains": [
+          {
+            "substance": "micro:chloramphenicol",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "iso-amp",
+        "label": "Ampicillin 10 µg disc (iso)",
+        "contains": [
+          {
+            "substance": "micro:ampicillin",
+            "mass": "10 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "iso-tet",
+        "label": "Tetracycline 30 µg disc (iso)",
+        "contains": [
+          {
+            "substance": "micro:tetracycline",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "iso-kan",
+        "label": "Kanamycin 30 µg disc (iso)",
+        "contains": [
+          {
+            "substance": "micro:kanamycin",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      },
+      {
+        "id": "iso-chl",
+        "label": "Chloramphenicol 30 µg disc (iso)",
+        "contains": [
+          {
+            "substance": "micro:chloramphenicol",
+            "mass": "30 ug"
+          }
+        ],
+        "container": "core:susceptibility-disc"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "ruler",
+        "requires": {
+          "class": "core:zone-ruler"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "seed",
+        "kind": "group",
+        "title": "Seed each plate with 100 µL",
+        "objectives": [
+          "o-seed"
+        ],
+        "forEach": {
+          "var": "o",
+          "in": "=['ec', 'sa', 'iso']"
+        },
+        "steps": [
+          {
+            "id": "resuspend",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=o",
+              "method": "vortex",
+              "cycles": 1
+            }
+          },
+          {
+            "id": "spread",
+            "kind": "technique",
+            "ref": "micro:spread-plate",
+            "params": {
+              "source": "=o",
+              "plate": "='p-' + o",
+              "volume": "100 uL"
+            }
+          }
+        ]
+      },
+      {
+        "id": "discs",
+        "kind": "group",
+        "title": "Four discs on each plate, within 15 minutes",
+        "objectives": [
+          "o-seed"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ec', 'amp'], ['ec', 'tet'], ['ec', 'kan'], ['ec', 'chl'], ['sa', 'amp'], ['sa', 'tet'], ['sa', 'kan'], ['sa', 'chl'], ['iso', 'amp'], ['iso', 'tet'], ['iso', 'kan'], ['iso', 'chl']]"
+        },
+        "steps": [
+          {
+            "id": "press",
+            "kind": "operation",
+            "ref": "core:apply-disc",
+            "params": {
+              "disc": "=x[0] + '-' + x[1]",
+              "plate": "='p-' + x[0]"
+            }
+          }
+        ]
+      },
+      {
+        "id": "grow",
+        "kind": "offstage",
+        "duration": "18 h",
+        "title": "Overnight at 37 °C, lids down",
+        "params": {
+          "place": "incubator",
+          "containers": [
+            "p-ec",
+            "p-sa",
+            "p-iso"
+          ]
+        }
+      },
+      {
+        "id": "read",
+        "kind": "group",
+        "title": "Measure every zone",
+        "objectives": [
+          "o-read"
+        ],
+        "forEach": {
+          "var": "o",
+          "in": "=['ec', 'sa', 'iso']"
+        },
+        "steps": [
+          {
+            "id": "zones",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "ruler",
+              "subject": "='p-' + o"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "forEach": {
+              "var": "d",
+              "in": "=['amp', 'tet', 'kan', 'chl']"
+            },
+            "params": {
+              "field": "='zone-' + o + '-' + d",
+              "value": "=reading(zones, o + '-' + d)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "classify",
+        "kind": "decision",
+        "objectives": [
+          "o-classify"
+        ],
+        "prompt": "Against the breakpoints, how do you report the isolate for ampicillin?",
+        "options": [
+          {
+            "id": "susceptible",
+            "label": "Susceptible (zone ≥ 17 mm)"
+          },
+          {
+            "id": "intermediate",
+            "label": "Intermediate (14–16 mm)"
+          },
+          {
+            "id": "resistant",
+            "label": "Resistant (zone ≤ 13 mm)"
+          }
+        ],
+        "correctWhen": "if(first(recorded('zone-iso-amp')) <= 13, 'resistant', if(first(recorded('zone-iso-amp')) >= 17, 'susceptible', 'intermediate'))"
+      },
+      {
+        "id": "why-standard",
+        "kind": "decision",
+        "objectives": [
+          "o-classify"
+        ],
+        "prompt": "Why must the inoculum be standardised before the zones can be compared with breakpoints?",
+        "options": [
+          {
+            "id": "timing",
+            "label": "A heavier lawn establishes sooner, before the drug has spread as far, so its zones are smaller"
+          },
+          {
+            "id": "absorb",
+            "label": "More cells soak up more of the antibiotic disc"
+          },
+          {
+            "id": "none",
+            "label": "It does not matter: the zone depends only on the antibiotic"
+          }
+        ],
+        "correctWhen": "'timing'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-control",
+        "statement": "The control strain's zones fall in their expected ranges (ampicillin 15–22, tetracycline 18–25, kanamycin 17–25, chloramphenicol 21–27 mm)",
+        "check": "between(first(recorded('zone-ec-amp')), 15, 22) && between(first(recorded('zone-ec-tet')), 18, 25) && between(first(recorded('zone-ec-kan')), 17, 25) && between(first(recorded('zone-ec-chl')), 21, 27)"
+      },
+      {
+        "id": "g-isolate",
+        "statement": "The isolate is reported correctly for ampicillin",
+        "check": "decision('classify') == 'resistant'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-staph",
+        "statement": "S. aureus (no penicillinase) has a far larger ampicillin zone than E. coli",
+        "check": "first(recorded('zone-sa-amp')) > first(recorded('zone-ec-amp')) + 6",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-isolate",
+        "statement": "The isolate grows up to the ampicillin disc but is inhibited by the others",
+        "check": "first(recorded('zone-iso-amp')) == 6 && first(recorded('zone-iso-tet')) > 15",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

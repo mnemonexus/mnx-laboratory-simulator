@@ -1,0 +1,106 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio3-restriction-mapping",
+  "version": "1.0.0",
+  "title": "Mapping a plasmid with restriction enzymes",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [{ "technique": "molbio:agarose-gel" }, { "technique": "molbio:size-band" }]
+  },
+  "summary": "Digest pBR322 with EcoRI alone and with EcoRI, BamHI and PstI in pairs, run the digests and the uncut plasmid beside a 1 kb ladder, size the fragments and work out where the BamHI and PstI sites lie relative to the EcoRI site.",
+  "briefing": "A plasmid is a circle, so one cut gives one linear piece of the whole length and two cuts give two pieces that add up to it. The smaller piece of a double digest is the distance between the two sites. Uncut plasmid does not run at its true size: most of it is supercoiled.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["molecular-biology", "biosciences"] },
+    "concepts": [
+      { "id": "restriction", "label": "Restriction enzymes cut at specific sites" },
+      { "id": "mapping", "label": "Deducing a map from single and double digests" },
+      { "id": "topology", "label": "Supercoiled, nicked and linear DNA run differently" }
+    ],
+    "objectives": [
+      { "id": "o-digest", "kind": "skill", "statement": "Set up restriction digests with their buffer", "skills": ["core:micropipetting"] },
+      { "id": "o-gel", "kind": "skill", "statement": "Load and run an agarose gel", "skills": ["molbio:gel-electrophoresis"] },
+      { "id": "o-size", "kind": "analysis", "statement": "Size the fragments against the ladder", "skills": ["molbio:band-sizing"], "goal": "g-distances" },
+      { "id": "o-map", "kind": "reasoning", "statement": "Place the sites on the map from the double digests" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "plasmid", "label": "pBR322 plasmid, 0.25 µg/µL", "role": "reagent", "preparation": "molbio:pbr322-stock", "amount": "50 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" }
+    ],
+    "supplies": [
+      { "id": "buffer", "label": "Restriction buffer (10×)", "preparation": "molbio:restriction-buffer-10x", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "ecori", "label": "EcoRI (20 U/µL)", "preparation": "molbio:ecori-20u", "amount": "20 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "bamhi", "label": "BamHI (20 U/µL)", "preparation": "molbio:bamhi-20u", "amount": "20 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "psti", "label": "PstI (20 U/µL)", "preparation": "molbio:psti-20u", "amount": "20 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "water", "label": "Nuclease-free water", "preparation": "core:water-deionised", "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "dye", "label": "Loading dye (6×)", "preparation": "molbio:loading-dye-6x", "amount": "100 uL", "container": "core:microtube-1.5ml" },
+      { "id": "ladder", "label": "1 kb ladder (ready to load)", "preparation": "molbio:ladder-1kb-ready", "amount": "50 uL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "bath", "requires": { "class": "core:water-bath", "temperature": "37 Cel" } },
+      { "id": "gel", "requires": { "class": "core:agarose-gel-1pct" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "setup", "kind": "group", "title": "Five 20 µL reactions, enzyme last", "objectives": ["o-digest"],
+        "forEach": { "var": "d", "in": "=[['uncut', []], ['e', ['ecori']], ['eb', ['ecori', 'bamhi']], ['ep', ['ecori', 'psti']], ['bp', ['bamhi', 'psti']]]" },
+        "steps": [
+          { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=d[0]", "label": "=if(len(d[1]) == 0, 'Uncut', 'Digest ' + d[0])" } },
+          { "id": "add-water", "kind": "operation", "ref": "core:transfer", "params": { "source": "water", "destination": "=d[0]", "volume": "=(14 - len(d[1])) * 1 uL" } },
+          { "id": "add-buffer", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "=d[0]", "volume": "2 uL" } },
+          { "id": "add-dna", "kind": "operation", "ref": "core:transfer", "params": { "source": "plasmid", "destination": "=d[0]", "volume": "4 uL" } },
+          { "id": "add-enzyme", "kind": "operation", "ref": "core:transfer", "forEach": { "var": "z", "in": "=d[1]" }, "params": { "source": "=z", "destination": "=d[0]", "volume": "1 uL" } },
+          { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=d[0]", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "into-bath", "kind": "operation", "ref": "core:place-in", "forEach": { "var": "t", "in": "=['uncut', 'e', 'eb', 'ep', 'bp']" }, "params": { "container": "=t", "place": "bath" } },
+      { "id": "digest", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+      { "id": "stop", "kind": "group", "title": "Stop with loading dye (its EDTA takes up the Mg²⁺)", "forEach": { "var": "t", "in": "=['uncut', 'e', 'eb', 'ep', 'bp']" },
+        "steps": [
+          { "id": "out", "kind": "operation", "ref": "core:remove-from", "params": { "container": "=t" } },
+          { "id": "dye-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "dye", "destination": "=t", "volume": "4 uL" } },
+          { "id": "dye-mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=t", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "electrophoresis", "kind": "technique", "ref": "molbio:agarose-gel", "objectives": ["o-gel"],
+        "params": { "gel": "gel", "ladder": "ladder", "ladderLane": "gel/A1",
+          "loads": [["uncut", "gel/A2"], ["e", "gel/A3"], ["eb", "gel/A4"], ["ep", "gel/A5"], ["bp", "gel/A6"]],
+          "volume": "10 uL", "voltage": 100, "duration": "40 min" } },
+      { "id": "sizing", "kind": "group", "objectives": ["o-size"], "forEach": { "var": "l", "in": "=[['e', 'gel/A3'], ['eb', 'gel/A4'], ['ep', 'gel/A5'], ['bp', 'gel/A6']]" },
+        "steps": [
+          { "id": "size", "kind": "technique", "ref": "molbio:size-band", "params": { "ladderLane": "gel/A1", "lane": "=l[1]", "ladder": "molbio:ladder-1kb" } },
+          { "id": "note", "kind": "operation", "ref": "core:record", "params": { "field": "='sizes-' + l[0]", "value": "=size.out.sizes" } }
+        ] },
+      { "id": "distances", "kind": "group", "objectives": ["o-size"],
+        "steps": [
+          { "id": "eb", "kind": "operation", "ref": "core:record", "params": { "field": "EcoRI-BamHI", "value": "=last(first(recorded('sizes-eb')))" } },
+          { "id": "ep", "kind": "operation", "ref": "core:record", "params": { "field": "EcoRI-PstI", "value": "=last(first(recorded('sizes-ep')))" } },
+          { "id": "bp", "kind": "operation", "ref": "core:record", "params": { "field": "BamHI-PstI", "value": "=last(first(recorded('sizes-bp')))" } }
+        ] },
+      { "id": "map", "kind": "decision", "objectives": ["o-map"], "prompt": "Going round the circle, are the BamHI and PstI sites on the same side of the EcoRI site or on opposite sides?",
+        "options": [
+          { "id": "same-side", "label": "The same side: the BamHI–PstI distance is the difference of their distances from EcoRI" },
+          { "id": "opposite", "label": "Opposite sides: the BamHI–PstI distance is the sum" }
+        ],
+        "correctWhen": "if(abs(first(recorded('BamHI-PstI')) - first(recorded('EcoRI-BamHI')) - first(recorded('EcoRI-PstI'))) < abs(first(recorded('BamHI-PstI')) - abs(first(recorded('EcoRI-BamHI')) - first(recorded('EcoRI-PstI')))), 'opposite', 'same-side')" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-distances", "statement": "Both distances from the EcoRI site are within 10 % (377 bp to BamHI, 752 bp to PstI)", "check": "between(first(recorded('EcoRI-BamHI')), 339, 415) && between(first(recorded('EcoRI-PstI')), 677, 827)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-uncut", "statement": "The uncut plasmid gives two bands, the main (supercoiled) one running ahead of the linear plasmid", "check": "count(bandsIn('gel/A2')) == 2 && last(bandsIn('gel/A2')) > first(bandsIn('gel/A3'))", "source": "reference-standard" },
+      { "id": "e-single", "statement": "One cut gives one band, the whole plasmid opened out", "check": "count(bandsIn('gel/A3')) == 1 && between(first(first(recorded('sizes-e'))), 3900, 4800)", "source": "reference-standard" },
+      { "id": "e-sum", "statement": "Each double digest gives two pieces that add up to about the plasmid's 4361 bp", "check": "count(bandsIn('gel/A4')) == 2 && count(bandsIn('gel/A5')) == 2 && count(bandsIn('gel/A6')) == 2 && between(sum(first(recorded('sizes-eb'))), 3900, 4800) && between(sum(first(recorded('sizes-bp'))), 3900, 4800)", "source": "reference-standard" },
+      { "id": "e-complete", "statement": "The double digests went to completion", "check": "cutShare('eb', 'molbio:pbr322-plasmid', 'molbio:ecori') > 0.99 && cutShare('eb', 'molbio:pbr322-plasmid', 'molbio:bamhi') > 0.99 && cutShare('bp', 'molbio:pbr322-plasmid', 'molbio:psti') > 0.99", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

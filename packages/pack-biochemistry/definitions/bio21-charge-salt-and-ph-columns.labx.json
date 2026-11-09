@@ -1,0 +1,579 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio21-charge-salt-and-ph-columns",
+  "version": "1.0.0",
+  "title": "Charge, salt and pH: when does a cation exchanger hold a protein?",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:elute"
+      }
+    ]
+  },
+  "summary": "Run a mixture of blue dextran, cytochrome c and DNP-glycine on three CM-Sephadex columns, in 1 M potassium acetate at pH 6, in 0.1 M at pH 6 with a step to 1 M, and in 50 mM carbonate at pH 11; from the colours of the fractions explain when the beads sieve by size and when they hold the protein by charge.",
+  "briefing": "CM-Sephadex G-50 sieves molecules by size (it excludes anything above about 30 kDa) and carries carboxymethyl groups, negative above about pH 4. Blue dextran is a huge uncharged polymer, cytochrome c a 12.4 kDa haem protein (pI about 10, red), DNP-glycine a small yellow anion. Watch the colour of each fraction; switch the middle column to 1 M KOAc after its fifth fraction.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "biochemistry",
+        "molecular-biology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "gel-filtration",
+        "label": "Size exclusion"
+      },
+      {
+        "id": "ion-exchange",
+        "label": "Ion exchange and salt elution"
+      },
+      {
+        "id": "pi",
+        "label": "A protein's charge against pH and its pI"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-run",
+        "kind": "skill",
+        "statement": "Equilibrate, load and run small columns, collecting and judging fractions",
+        "skills": [
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain each column's separation by size, salt and the protein's charge",
+        "goal": "g-explain"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "koac-01",
+        "label": "0.1 M potassium acetate, pH 6",
+        "preparation": "bio:koac-0.1m-ph6",
+        "amount": "25 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "koac-1m",
+        "label": "1 M potassium acetate, pH 6",
+        "preparation": "bio:koac-1m-ph6",
+        "amount": "25 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "carb-50",
+        "label": "50 mM sodium carbonate-bicarbonate, pH 11",
+        "preparation": "bio:carbonate-0.05m-ph11",
+        "amount": "25 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "mixture",
+        "label": "Mixture: blue dextran, cytochrome c, DNP-glycine",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "bio:blue-dextran",
+            "conc": "2.5 mg/mL"
+          },
+          {
+            "substance": "bio:cytochrome-c",
+            "conc": "4 mg/mL"
+          },
+          {
+            "substance": "bio:dnp-glycine",
+            "conc": "0.6 mg/mL"
+          }
+        ],
+        "amount": "0.6 mL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "salt-run",
+        "kind": "group",
+        "title": "Column in 1 M KOAc, pH 6: equilibrate, load 150 µL, collect twelve 0.4 mL fractions and note each colour",
+        "steps": [
+          {
+            "id": "salt-col",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cm-sephadex-pasteur-column",
+              "id": "col-salt",
+              "label": "Column: 1 M KOAc, pH 6"
+            }
+          },
+          {
+            "id": "salt-beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "waste-salt",
+              "label": "Eluate beaker"
+            }
+          },
+          {
+            "id": "salt-equil",
+            "kind": "operation",
+            "ref": "core:elute",
+            "params": {
+              "column": "col-salt",
+              "buffer": "koac-1m",
+              "into": "waste-salt",
+              "volume": "1.5 mL"
+            }
+          },
+          {
+            "id": "salt-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "mixture",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "salt-load",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "mixture",
+              "destination": "col-salt",
+              "volume": "150 uL"
+            }
+          },
+          {
+            "id": "salt-fractions",
+            "kind": "group",
+            "title": "Fractions",
+            "steps": [
+              {
+                "id": "salt-tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:microtube-1.5ml",
+                  "id": "='salt-' + text(i)",
+                  "label": "='salt ' + text(i)"
+                }
+              },
+              {
+                "id": "salt-collect",
+                "kind": "operation",
+                "ref": "core:elute",
+                "params": {
+                  "column": "col-salt",
+                  "buffer": "koac-1m",
+                  "into": "='salt-' + text(i)",
+                  "volume": "0.4 mL"
+                }
+              },
+              {
+                "id": "salt-look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='salt-' + text(i)"
+                }
+              },
+              {
+                "id": "salt-note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='look-salt-' + text(i)",
+                  "value": "=salt-look.out.appearance"
+                }
+              }
+            ],
+            "forEach": {
+              "var": "i",
+              "in": "=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+            }
+          }
+        ],
+        "objectives": [
+          "o-run"
+        ]
+      },
+      {
+        "id": "step-run",
+        "kind": "group",
+        "title": "Column in 0.1 M KOAc, pH 6, then 1 M: equilibrate, load 150 µL, collect twelve 0.4 mL fractions and note each colour",
+        "steps": [
+          {
+            "id": "step-col",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cm-sephadex-pasteur-column",
+              "id": "col-step",
+              "label": "Column: 0.1 M KOAc, pH 6, then 1 M"
+            }
+          },
+          {
+            "id": "step-beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "waste-step",
+              "label": "Eluate beaker"
+            }
+          },
+          {
+            "id": "step-equil",
+            "kind": "operation",
+            "ref": "core:elute",
+            "params": {
+              "column": "col-step",
+              "buffer": "koac-01",
+              "into": "waste-step",
+              "volume": "1.5 mL"
+            }
+          },
+          {
+            "id": "step-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "mixture",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "step-load",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "mixture",
+              "destination": "col-step",
+              "volume": "150 uL"
+            }
+          },
+          {
+            "id": "step-fractions",
+            "kind": "group",
+            "title": "Fractions",
+            "steps": [
+              {
+                "id": "step-tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:microtube-1.5ml",
+                  "id": "='step-' + text(i)",
+                  "label": "='step ' + text(i)"
+                }
+              },
+              {
+                "id": "step-collect",
+                "kind": "operation",
+                "ref": "core:elute",
+                "params": {
+                  "column": "col-step",
+                  "buffer": "=if(i > 5, 'koac-1m', 'koac-01')",
+                  "into": "='step-' + text(i)",
+                  "volume": "0.4 mL"
+                }
+              },
+              {
+                "id": "step-look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='step-' + text(i)"
+                }
+              },
+              {
+                "id": "step-note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='look-step-' + text(i)",
+                  "value": "=step-look.out.appearance"
+                }
+              }
+            ],
+            "forEach": {
+              "var": "i",
+              "in": "=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+            }
+          }
+        ],
+        "objectives": [
+          "o-run"
+        ]
+      },
+      {
+        "id": "high-run",
+        "kind": "group",
+        "title": "Column in 50 mM carbonate, pH 11: equilibrate, load 150 µL, collect twelve 0.4 mL fractions and note each colour",
+        "steps": [
+          {
+            "id": "high-col",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cm-sephadex-pasteur-column",
+              "id": "col-high",
+              "label": "Column: 50 mM carbonate, pH 11"
+            }
+          },
+          {
+            "id": "high-beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "waste-high",
+              "label": "Eluate beaker"
+            }
+          },
+          {
+            "id": "high-equil",
+            "kind": "operation",
+            "ref": "core:elute",
+            "params": {
+              "column": "col-high",
+              "buffer": "carb-50",
+              "into": "waste-high",
+              "volume": "1.5 mL"
+            }
+          },
+          {
+            "id": "high-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "mixture",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "high-load",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "mixture",
+              "destination": "col-high",
+              "volume": "150 uL"
+            }
+          },
+          {
+            "id": "high-fractions",
+            "kind": "group",
+            "title": "Fractions",
+            "steps": [
+              {
+                "id": "high-tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:microtube-1.5ml",
+                  "id": "='high-' + text(i)",
+                  "label": "='high ' + text(i)"
+                }
+              },
+              {
+                "id": "high-collect",
+                "kind": "operation",
+                "ref": "core:elute",
+                "params": {
+                  "column": "col-high",
+                  "buffer": "carb-50",
+                  "into": "='high-' + text(i)",
+                  "volume": "0.4 mL"
+                }
+              },
+              {
+                "id": "high-look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='high-' + text(i)"
+                }
+              },
+              {
+                "id": "high-note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='look-high-' + text(i)",
+                  "value": "=high-look.out.appearance"
+                }
+              }
+            ],
+            "forEach": {
+              "var": "i",
+              "in": "=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+            }
+          }
+        ],
+        "objectives": [
+          "o-run"
+        ]
+      },
+      {
+        "id": "salt-q",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "In 1 M KOAc at pH 6, what decides the order the three come off?",
+        "options": [
+          {
+            "id": "size",
+            "label": "Size alone: the high salt swamps the beads' charges"
+          },
+          {
+            "id": "charge",
+            "label": "Charge: the red protein is held"
+          },
+          {
+            "id": "neither",
+            "label": "Nothing: they come off together"
+          }
+        ],
+        "correctWhen": "if(count([first(recorded('look-salt-1')), first(recorded('look-salt-2')), first(recorded('look-salt-3')), first(recorded('look-salt-4')), first(recorded('look-salt-5')), first(recorded('look-salt-6')), first(recorded('look-salt-7')), first(recorded('look-salt-8')), first(recorded('look-salt-9')), first(recorded('look-salt-10')), first(recorded('look-salt-11')), first(recorded('look-salt-12'))], mentions(it, 'red|orange|brown')) > 0, 'size', 'charge')"
+      },
+      {
+        "id": "step-q",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "In 0.1 M KOAc the red protein only came off after the switch to 1 M. Why?",
+        "options": [
+          {
+            "id": "charge",
+            "label": "At pH 6 it is positively charged and the beads' carboxyl groups are negative: it binds while the salt is low, and salt ions displace it"
+          },
+          {
+            "id": "size",
+            "label": "It is too big to leave the beads until the buffer changes"
+          },
+          {
+            "id": "ph",
+            "label": "The 1 M buffer has a different pH"
+          }
+        ],
+        "correctWhen": "if(count([first(recorded('look-step-1')), first(recorded('look-step-2')), first(recorded('look-step-3')), first(recorded('look-step-4')), first(recorded('look-step-5'))], mentions(it, 'red|orange|brown')) == 0 && count([first(recorded('look-step-6')), first(recorded('look-step-7')), first(recorded('look-step-8')), first(recorded('look-step-9')), first(recorded('look-step-10')), first(recorded('look-step-11')), first(recorded('look-step-12'))], mentions(it, 'red|orange')) > 0, 'charge', 'size')"
+      },
+      {
+        "id": "high-q",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "In 50 mM carbonate at pH 11 the salt is low, yet the red protein was not held. Why?",
+        "options": [
+          {
+            "id": "pi",
+            "label": "pH 11 is above its pI (about 10): it is now negatively charged, so the beads repel it and it runs through with the void volume"
+          },
+          {
+            "id": "salt",
+            "label": "The carbonate is too salty for it to bind"
+          },
+          {
+            "id": "denatured",
+            "label": "The high pH has unfolded it"
+          }
+        ],
+        "correctWhen": "if(count([first(recorded('look-high-1')), first(recorded('look-high-2')), first(recorded('look-high-3')), first(recorded('look-high-4')), first(recorded('look-high-5')), first(recorded('look-high-6')), first(recorded('look-high-7')), first(recorded('look-high-8')), first(recorded('look-high-9')), first(recorded('look-high-10')), first(recorded('look-high-11')), first(recorded('look-high-12'))], mentions(it, 'red|orange|brown')) > 0, 'pi', 'salt')"
+      },
+      {
+        "id": "predict",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Predict: a protein with a pI of 5, in 0.1 M KOAc at pH 6 on this column?",
+        "options": [
+          {
+            "id": "through",
+            "label": "It runs through without binding: at pH 6 it is negatively charged, like the beads"
+          },
+          {
+            "id": "binds",
+            "label": "It binds until the salt rises"
+          },
+          {
+            "id": "stuck",
+            "label": "It never comes off"
+          }
+        ],
+        "correctWhen": "'through'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-explain",
+        "statement": "Each column's behaviour is put down to the right cause",
+        "check": "decision('salt-q') == 'size' && decision('step-q') == 'charge' && decision('high-q') == 'pi' && decision('predict') == 'through'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-held",
+        "statement": "In 0.1 M KOAc no red comes off before the switch",
+        "check": "count([first(recorded('look-step-1')), first(recorded('look-step-2')), first(recorded('look-step-3')), first(recorded('look-step-4')), first(recorded('look-step-5'))], mentions(it, 'red|orange|brown')) == 0",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-early",
+        "statement": "At pH 11 the red protein comes off in the first few fractions",
+        "check": "count([first(recorded('look-high-1')), first(recorded('look-high-2')), first(recorded('look-high-3')), first(recorded('look-high-4'))], mentions(it, 'red|orange|brown')) > 0",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem54-freezing-point-depression",
+  "title": "Freezing-point depression: cooling curves of solutions",
+  "summary": "Cool tubes of water, sodium chloride and sucrose solutions in an ice2013salt freezing mixture, follow their temperatures, and compare their freezing points: the depression depends on the number of dissolved particles.",
+  "briefing": "Put 10 mL of each liquid in a boiling tube with a thermometer and stand them in the freezer (−20 °C). Read each temperature every minute for 40 minutes. As the water freezes out the temperature levels off at the freezing point. A solute lowers it by about 1.86 °C per mole of dissolved particles in a kilogram of water: sodium chloride gives two particles (Na⁺ and Cl⁻) per formula, sucrose one.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "freezing-point depression",
+      "colligative properties",
+      "cooling curve",
+      "van ’t Hoff factor",
+      "antifreeze",
+      "road salt"
+    ],
+    "topics": [
+      "Solutions",
+      "States of matter"
+    ],
+    "concepts": [
+      {
+        "id": "colligative",
+        "label": "Dissolved particles lower the freezing point of water in proportion to their number, whatever they are"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Record cooling curves of solutions"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "Compare the freezing points with the number of dissolved particles",
+        "goal": "g-fpd"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain why salt lowers the freezing point more than sugar",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "nacl05",
+        "label": "Sodium chloride, 0.5 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "nacl1",
+        "label": "Sodium chloride, 1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "sucrose1",
+        "label": "Sucrose, 1 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "thermo",
+        "requires": {
+          "class": "core:thermometer-digital"
+        }
+      },
+      {
+        "id": "cold",
+        "requires": {
+          "class": "core:ice-salt-bath"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "setup",
+        "kind": "group",
+        "title": "Fill the tubes and stand them in the freezing mixture",
+        "forEach": {
+          "var": "r",
+          "in": "=[['water','Pure water','water',0],['nacl05','Sodium chloride, 0.5 mol/kg','nacl05',-1.7],['nacl1','Sodium chloride, 1 mol/kg','nacl1',-3.4],['sucrose1','Sucrose, 1 mol/kg','sucrose1',-1.9]]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "='tube-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='tube-' + r[0]",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "place": "cold"
+            }
+          }
+        ]
+      },
+      {
+        "id": "follow",
+        "kind": "group",
+        "title": "Read every minute for 30 minutes",
+        "forEach": {
+          "var": "n",
+          "in": "=range(1, 30, 30)"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "1 min"
+            }
+          },
+          {
+            "id": "each",
+            "kind": "group",
+            "title": "Each tube",
+            "forEach": {
+              "var": "r",
+              "in": "=[['water','Pure water','water',0],['nacl05','Sodium chloride, 0.5 mol/kg','nacl05',-1.7],['nacl1','Sodium chloride, 1 mol/kg','nacl1',-3.4],['sucrose1','Sucrose, 1 mol/kg','sucrose1',-1.9]]"
+            },
+            "steps": [
+              {
+                "id": "read",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "thermo",
+                  "subject": "='tube-' + r[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='T ' + r[0]",
+                  "value": "=read.out.value"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "plateaus",
+        "kind": "group",
+        "title": "Each freezing point",
+        "forEach": {
+          "var": "r",
+          "in": "=[['water','Pure water','water',0],['nacl05','Sodium chloride, 0.5 mol/kg','nacl05',-1.7],['nacl1','Sodium chloride, 1 mol/kg','nacl1',-3.4],['sucrose1','Sucrose, 1 mol/kg','sucrose1',-1.9]]"
+        },
+        "objectives": [
+          "o-compare"
+        ],
+        "steps": [
+          {
+            "id": "fp",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='freezing point ' + r[0]",
+              "value": "=mean(closest(filter(recorded('T ' + r[0]), it > -15), 4))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does 1 M sodium chloride lower the freezing point about twice as much as 1 M sucrose?",
+        "options": [
+          {
+            "id": "particles",
+            "label": "Each NaCl gives two particles in solution (Na⁺ and Cl⁻), sucrose only one; the depression depends on the number of particles"
+          },
+          {
+            "id": "heavier",
+            "label": "Sodium chloride is heavier"
+          },
+          {
+            "id": "reacts",
+            "label": "Salt reacts with the ice"
+          }
+        ],
+        "correctWhen": "choice == 'particles'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-fpd",
+        "statement": "Water freezes at 0 °C; the solutions lower, 1 M salt about twice as far as 1 M sucrose",
+        "check": "abs(first(recorded('freezing point water'))) < 0.5 && first(recorded('freezing point nacl1')) < first(recorded('freezing point nacl05')) && first(recorded('freezing point nacl05')) < first(recorded('freezing point water')) && abs(first(recorded('freezing point nacl1')) / first(recorded('freezing point sucrose1')) - 1.8) < 0.4"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The difference is explained",
+        "check": "decision('why') == 'particles'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-salt",
+        "statement": "1 M sodium chloride freezes near −3.4 °C",
+        "check": "abs(first(recorded('freezing point nacl1')) + 3.4) < 0.8",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

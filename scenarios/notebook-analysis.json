@@ -1,0 +1,32 @@
+{
+  "title": "Notebook analysis: reject incompatible units, save a calculation and an evidence-linked conclusion",
+  "surface": "standalone",
+  "settings": { "graphicsQuality": "low" },
+  "drive": [
+    { "wait": 20000 },
+    { "click": "[data-testid=open-practicals]" },
+    { "wait": 15000 },
+    { "click": "[data-testid=practical-drill-balance-rotor]" },
+    { "click": "[data-testid=practical-start-drill-balance-rotor]" },
+    { "wait": 20000 },
+    { "click": "[data-testid=practical-notebook]" },
+    { "click": "[data-testid=notebook-analysis]" },
+    { "press": "ArrowDown", "on": "[data-testid=analysis-tool]" },
+    { "fill": "[data-testid=calculation-expression]", "text": "1 mL + 2 mg" },
+    { "click": "[data-testid=analysis-calculate]" },
+    { "waitForText": "[data-testid=analysis-error]", "text": "Cannot add" },
+    { "fill": "[data-testid=calculation-expression]", "text": "(2 mg/mL) * (50 uL) / (200 uL)" },
+    { "click": "[data-testid=analysis-calculate]" },
+    { "waitForText": "[data-testid=analysis-result]", "text": "0.5 g/L" },
+    { "press": "ArrowDown", "on": "[data-testid=analysis-tool]" },
+    { "fill": "[data-testid=conclusion-claim]", "text": "The calculation gives the diluted concentration; this does not establish experimental validity." },
+    { "press": "ArrowDown", "on": "[data-testid=conclusion-evidence]" },
+    { "click": "[data-testid=analysis-conclude]" },
+    { "click": "[data-testid=notebook-notes]" },
+    { "waitForText": "[data-testid=notebook-panel]", "text": "The calculation gives the diluted concentration" },
+    { "click": "[data-testid=notebook-close]" },
+    { "click": "[data-testid=practical-finish]" },
+    { "click": "[data-testid=review-end-session]" },
+    { "expect": "complete" }
+  ]
+}

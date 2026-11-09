@@ -1,0 +1,87 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem13-vitamin-c-iodine",
+  "version": "1.0.0",
+  "title": "Vitamin C in fruit juice by iodine titration",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "core:titrate-to-endpoint" }] },
+  "summary": "Titrate 25.00 mL portions of fruit juice, with starch indicator, with 0.00500 M iodine until a blue-black colour lasts. Calculate the vitamin C content in mg per 100 mL.",
+  "briefing": "Iodine oxidises ascorbic acid to dehydroascorbic acid, one to one: C₆H₈O₆ + I₂ → C₆H₆O₆ + 2 I⁻ + 2 H⁺. While vitamin C remains, the iodine is used up at once. The first lasting excess binds to starch and turns the juice blue-black, a far stronger colour than iodine's own pale yellow. Vitamin C (mg per 100 mL) = moles of I₂ × 176.12 g/mol × 1000 mg/g × (100 mL ÷ 25.00 mL).",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "pre-university", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "iodometry", "label": "Redox titration with iodine" }, { "id": "starch-indicator", "label": "Starch as an iodine indicator" }],
+    "objectives": [
+      { "id": "o-titrate", "kind": "skill", "statement": "Titrate to the starch end point", "skills": ["core:burette-technique", "core:titration"] },
+      { "id": "o-vitc", "kind": "outcome", "statement": "Find the vitamin C content within 3 %", "goal": "g-vitc" },
+      { "id": "o-starch", "kind": "reasoning", "statement": "Explain what the starch does", "goal": "g-starch" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "juice", "label": "Fruit juice (filtered)", "role": "unknown", "solvent": "core:water",
+        "contains": [{ "substance": "chem:ascorbic-acid", "conc": { "vary": "0.25..0.55 g/L" } }],
+        "amount": "250 mL", "container": "core:reagent-bottle-250ml" }
+    ],
+    "supplies": [
+      { "id": "iodine", "label": "Iodine, 0.00500 M (in KI)", "preparation": "chem:iodine-0.00500m", "amount": "250 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "starch", "label": "Starch indicator, 1 %", "preparation": "chem:starch-indicator-1pct", "amount": "10 mL", "container": "core:conical-tube-15ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "burette", "requires": { "class": "core:burette-50ml-class-a" } },
+      { "id": "pipette25", "requires": { "class": "core:volumetric-pipette-25ml" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "fill", "kind": "technique", "ref": "core:prepare-burette", "title": "Fill the burette with iodine", "params": { "burette": "burette", "titrant": "iodine", "volume": "48 mL" }, "objectives": ["o-titrate"] },
+      { "id": "rough", "kind": "group", "title": "Rough titration",
+        "steps": [
+          { "id": "rough-flask", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:conical-flask-250ml", "id": "flask-rough", "label": "Rough" } },
+          { "id": "rough-sample", "kind": "operation", "ref": "core:transfer", "params": { "source": "juice", "destination": "flask-rough", "volume": "25 mL", "tool": "pipette25" } },
+          { "id": "rough-starch", "kind": "operation", "ref": "core:transfer", "params": { "source": "starch", "destination": "flask-rough", "volume": "1 mL" } },
+          { "id": "rough-start", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "rough-titrate", "kind": "technique", "ref": "core:titrate-to-endpoint", "params": { "burette": "burette", "flask": "flask-rough", "endColour": "blue-black" } },
+          { "id": "rough-end", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "rough-titre", "kind": "operation", "ref": "core:record", "params": { "field": "rough-titre", "value": "=quantity(rough-end.out.value) - quantity(rough-start.out.value)" } }
+        ] },
+      { "id": "accurate", "kind": "group", "title": "Three accurate titrations", "objectives": ["o-titrate"], "forEach": { "var": "n", "in": "=[1, 2, 3]" },
+        "let": { "flask": "='flask-' + text(n)" },
+        "steps": [
+          { "id": "get-flask", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:conical-flask-250ml", "id": "=flask", "label": "='Titration ' + text(n)" } },
+          { "id": "sample", "kind": "operation", "ref": "core:transfer", "params": { "source": "juice", "destination": "=flask", "volume": "25 mL", "tool": "pipette25" } },
+          { "id": "starch-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "starch", "destination": "=flask", "volume": "1 mL" } },
+          { "id": "refill", "kind": "technique", "ref": "core:prepare-burette", "when": "volume(burette) < 25 mL", "params": { "burette": "burette", "titrant": "iodine", "volume": "=48 mL - volume(burette)" } },
+          { "id": "start", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "titrate", "kind": "technique", "ref": "core:titrate-to-endpoint", "params": { "burette": "burette", "flask": "=flask", "endColour": "blue-black", "approx": "=first(recorded('rough-titre'))" } },
+          { "id": "end", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "titre", "kind": "operation", "ref": "core:record", "params": { "field": "titre", "value": "=quantity(end.out.value) - quantity(start.out.value)" } }
+        ] },
+      { "id": "vitamin-c", "kind": "operation", "ref": "core:record", "objectives": ["o-vitc"], "title": "Vitamin C, mg per 100 mL",
+        "params": { "field": "vitC-mg-per-100mL", "value": "=value(mean(recorded('titre')), 'L') * 0.00500 * 176.12 * 1000 * 100 / 25.00" } },
+      { "id": "why-starch", "kind": "decision", "objectives": ["o-starch"], "prompt": "What does the starch do?",
+        "options": [
+          { "id": "sensitive", "label": "It binds the first excess of iodine as an intensely blue-black complex, far easier to see than iodine's pale yellow" },
+          { "id": "reacts", "label": "It reacts with the vitamin C so the titration finishes faster" },
+          { "id": "buffer", "label": "It keeps the pH constant" }
+        ],
+        "correctWhen": "'sensitive'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-vitc", "statement": "The vitamin C content is within 3 % of the truth", "check": "within(first(recorded('vitC-mg-per-100mL')), value(truth(conc, 'juice', 'chem:ascorbic-acid'), 'mol/L') * 176.12 * 100, 3%)" },
+      { "id": "g-starch", "statement": "The starch's role is explained", "check": "decision('why-starch') == 'sensitive'" }
+    ],
+    "expectedObservations": [
+      { "id": "e-blue", "statement": "Each accurate titration ends blue-black", "check": "all(n in [1, 2, 3]: colour('flask-' + text(n)) == 'blue-black')", "source": "reference-standard" },
+      { "id": "e-concordant", "statement": "The titres agree within 0.10 mL", "check": "max(recorded('titre')) - min(recorded('titre')) <= 0.10 mL", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

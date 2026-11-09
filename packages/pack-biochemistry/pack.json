@@ -1,0 +1,7 @@
+{
+  "id": "bio",
+  "version": "0.1.0",
+  "label": "Biochemistry",
+  "description": "Protein assays, plate reading, enzyme kinetics and the materials they need.",
+  "dependsOn": ["core"]
+}

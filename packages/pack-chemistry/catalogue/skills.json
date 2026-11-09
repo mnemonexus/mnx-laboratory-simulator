@@ -1,0 +1,32 @@
+[
+  {
+    "id": "chem:recrystallisation",
+    "label": "Recrystallisation",
+    "kind": "technique"
+  },
+  {
+    "id": "chem:melting-point",
+    "label": "Measuring a melting point",
+    "kind": "technique"
+  },
+  {
+    "id": "chem:separation-design",
+    "label": "Choosing a separation from the properties of the components",
+    "kind": "design"
+  },
+  {
+    "id": "chem:reflux",
+    "label": "Running a reaction under reflux",
+    "kind": "technique"
+  },
+  {
+    "id": "chem:liquid-liquid-extraction",
+    "label": "Extracting and washing with a separating funnel",
+    "kind": "technique"
+  },
+  {
+    "id": "chem:rotary-evaporation",
+    "label": "Drying an organic solution and taking off the solvent",
+    "kind": "technique"
+  }
+]

@@ -1,0 +1,237 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "bio53-heat-from-seeds",
+  "title": "Heat given out by germinating seeds",
+  "summary": "Fill one vacuum flask with germinating peas and another with boiled peas, plug them with cotton wool, and read their temperatures each day for three days.",
+  "briefing": "Fill two vacuum flasks with 100 g of peas each: germinating peas in one, and peas that have been boiled and rinsed in disinfectant in the other. Push a thermometer into each through a cotton-wool plug (which lets air in), stand them upside down so the carbon dioxide falls out, and read the temperatures each day. The vacuum walls keep in the heat that respiration gives out.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "respiration",
+      "heat",
+      "germination",
+      "vacuum flask",
+      "energy transfer"
+    ],
+    "topics": [
+      "Respiration"
+    ],
+    "concepts": [
+      {
+        "id": "heat",
+        "label": "Respiration releases energy, some of it as heat"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Follow the temperature of germinating and dead seeds"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "Compare living and dead seeds",
+        "goal": "g-heat"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the control",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "BTEC"
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "thermo",
+        "requires": {
+          "class": "core:thermometer-digital"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "setup",
+        "kind": "group",
+        "title": "Fill the flasks",
+        "forEach": {
+          "var": "f",
+          "in": "=[['live','Germinating peas','bio:germinating-peas'],['dead','Boiled peas (killed, disinfected)','bio:boiled-peas']]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:vacuum-flask",
+              "id": "='flask-' + f[0]",
+              "label": "=f[1]"
+            }
+          },
+          {
+            "id": "peas",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=f[2]",
+              "destination": "='flask-' + f[0]",
+              "mass": "100 g"
+            }
+          },
+          {
+            "id": "read0",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "thermo",
+              "subject": "='flask-' + f[0]"
+            }
+          },
+          {
+            "id": "note0",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='day 0 ' + f[0]",
+              "value": "=read0.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "days",
+        "kind": "group",
+        "title": "Each day",
+        "forEach": {
+          "var": "d",
+          "in": "=[1,2,3]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "1 d"
+            }
+          },
+          {
+            "id": "each",
+            "kind": "group",
+            "title": "Each flask",
+            "forEach": {
+              "var": "f",
+              "in": "=[['live','Germinating peas','bio:germinating-peas'],['dead','Boiled peas (killed, disinfected)','bio:boiled-peas']]"
+            },
+            "steps": [
+              {
+                "id": "read",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "thermo",
+                  "subject": "='flask-' + f[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='day ' + text(d) + ' ' + f[0]",
+                  "value": "=read.out.value"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why are the boiled peas rinsed in disinfectant?",
+        "options": [
+          {
+            "id": "microbes",
+            "label": "So that bacteria and fungi on them cannot respire and warm the flask, which would spoil the control"
+          },
+          {
+            "id": "clean",
+            "label": "To make them clean enough to eat"
+          },
+          {
+            "id": "germinate",
+            "label": "To make them germinate"
+          }
+        ],
+        "correctWhen": "choice == 'microbes'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-heat",
+        "statement": "After three days the germinating peas are at least 4 °C warmer than they started, the boiled ones within 1 °C",
+        "check": "first(recorded('day 3 live')) - first(recorded('day 0 live')) > 4 && abs(first(recorded('day 3 dead')) - first(recorded('day 0 dead'))) < 1"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The disinfectant is explained",
+        "check": "decision('why') == 'microbes'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-day1",
+        "statement": "The germinating peas are already warmer after one day",
+        "check": "first(recorded('day 1 live')) > first(recorded('day 1 dead')) + 1",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

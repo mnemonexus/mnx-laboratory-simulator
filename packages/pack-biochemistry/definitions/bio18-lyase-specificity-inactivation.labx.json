@@ -1,0 +1,1129 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio18-lyase-specificity-inactivation",
+  "version": "1.0.0",
+  "title": "A body-odour enzyme: substrate preference and a time-dependent inhibitor",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      },
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "Follow a skin bacterium's C-S β-lyase with Ellman's reagent: Michaelis–Menten series on two S-substituted cysteines give each one's kcat/Km, and pre-incubating the enzyme with L-cycloserine shows activity lost with time.",
+  "briefing": "The lyase cleaves S-substituted cysteines to pyruvate, ammonia and a thiol; the thiol cuts DTNB to yellow TNB²⁻ (ε412 = 14,150 M⁻¹cm⁻¹), so ΔA412 per minute over 14,150 is the rate in M/min. kcat = Vmax / [E] (0.125 µM in each assay) and kcat/Km measures how well the enzyme uses a substrate at low concentration. For cycloserine, pre-incubate the enzyme with it, then dilute samples twenty-fold into assays: the cycloserine left is too little to compete, so any loss is enzyme that has been inactivated.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "specificity-constant",
+        "label": "kcat/Km as a measure of substrate preference"
+      },
+      {
+        "id": "mechanism-based",
+        "label": "Time-dependent (mechanism-based) inactivation"
+      },
+      {
+        "id": "ellman",
+        "label": "Ellman's assay for thiols"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-kinetics",
+        "kind": "skill",
+        "statement": "Measure initial rates across a concentration range and fit Km and kcat",
+        "skills": [
+          "core:micropipetting"
+        ],
+        "goal": "g-kinetics"
+      },
+      {
+        "id": "o-inhibitor",
+        "kind": "skill",
+        "statement": "Run a pre-incubation experiment and find the inactivation rate",
+        "skills": [
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-interpret",
+        "kind": "reasoning",
+        "statement": "Compare specificity constants and distinguish inactivation from reversible inhibition",
+        "goal": "g-interpret"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "patb",
+        "label": "Lyase (His6-ShPatB), 2.5 µM",
+        "preparation": "bio:tris-nacl-ph8",
+        "contains": [
+          {
+            "substance": "bio:his-patb",
+            "conc": "2.5 uM"
+          }
+        ],
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "dtnb",
+        "label": "DTNB, 4 mM",
+        "preparation": "bio:tris-nacl-ph8",
+        "contains": [
+          {
+            "substance": "bio:dtnb",
+            "conc": "4 mM"
+          }
+        ],
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "buffer",
+        "label": "50 mM Tris-HCl pH 8.0, 50 mM NaCl",
+        "preparation": "bio:tris-nacl-ph8",
+        "amount": "30 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "s-benzyl",
+        "label": "S-Benzyl-L-cysteine, 10 mM",
+        "preparation": "bio:tris-nacl-ph8",
+        "contains": [
+          {
+            "substance": "bio:s-benzyl-l-cysteine",
+            "conc": "10 mM"
+          }
+        ],
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "s-ethyl",
+        "label": "S-Ethyl-L-cysteine, 10 mM",
+        "preparation": "bio:tris-nacl-ph8",
+        "contains": [
+          {
+            "substance": "bio:s-ethyl-l-cysteine",
+            "conc": "10 mM"
+          }
+        ],
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "cycloserine",
+        "label": "L-Cycloserine, 10 mM",
+        "preparation": "bio:tris-nacl-ph8",
+        "contains": [
+          {
+            "substance": "bio:l-cycloserine",
+            "conc": "10 mM"
+          }
+        ],
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "blank-c",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-blank",
+          "label": "Blank"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "group",
+        "title": "Blank: DTNB and buffer",
+        "steps": [
+          {
+            "id": "b-dtnb",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dtnb",
+              "destination": "c-blank",
+              "volume": "250 uL"
+            }
+          },
+          {
+            "id": "b-buf",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "c-blank",
+              "volume": "750 uL"
+            }
+          },
+          {
+            "id": "b-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "c-blank",
+              "method": "pipette-mix",
+              "cycles": 5
+            }
+          }
+        ]
+      },
+      {
+        "id": "zero",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-blank",
+          "wavelength": "412 nm"
+        }
+      },
+      {
+        "id": "series",
+        "kind": "group",
+        "title": "Initial rates across each analogue's concentration range (enzyme 0.125 µM, added last)",
+        "steps": [
+          {
+            "id": "cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-1cm",
+              "id": "='c-' + x[0]",
+              "label": "=x[0]"
+            }
+          },
+          {
+            "id": "a-dtnb",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dtnb",
+              "destination": "='c-' + x[0]",
+              "volume": "250 uL"
+            }
+          },
+          {
+            "id": "a-sub",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "='c-' + x[0]",
+              "volume": "=text(x[2]) + ' uL'"
+            }
+          },
+          {
+            "id": "a-buf",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "='c-' + x[0]",
+              "volume": "=text(x[3]) + ' uL'"
+            }
+          },
+          {
+            "id": "a-enz",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "patb",
+              "destination": "='c-' + x[0]",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "a-cover",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='c-' + x[0]",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "a-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='c-' + x[0]",
+              "method": "invert",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "a-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='c-' + x[0]"
+            }
+          },
+          {
+            "id": "trace",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "='c-' + x[0]",
+              "wavelength": "412 nm",
+              "mode": "kinetic",
+              "interval": "5 s",
+              "duration": "3 min"
+            }
+          },
+          {
+            "id": "rate",
+            "kind": "data",
+            "ref": "core:transform",
+            "params": {
+              "op": "initial-rate",
+              "input": "=trace.out.record",
+              "window": "2 min"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + x[0]",
+              "value": "=rate.out.values['c-' + x[0]]"
+            }
+          },
+          {
+            "id": "bin",
+            "kind": "operation",
+            "ref": "core:dispose",
+            "params": {
+              "container": "='c-' + x[0]",
+              "stream": "core:chemical-waste.organic-non-halogenated"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['benzyl-0.1', 's-benzyl', 10, 690], ['benzyl-0.2', 's-benzyl', 20, 680], ['benzyl-0.4', 's-benzyl', 40, 660], ['benzyl-0.8', 's-benzyl', 80, 620], ['benzyl-1.6', 's-benzyl', 160, 540], ['benzyl-3.2', 's-benzyl', 320, 380], ['ethyl-0.25', 's-ethyl', 25, 675], ['ethyl-0.5', 's-ethyl', 50, 650], ['ethyl-1', 's-ethyl', 100, 600], ['ethyl-2', 's-ethyl', 200, 500], ['ethyl-4', 's-ethyl', 400, 300], ['ethyl-6', 's-ethyl', 600, 100]]"
+        },
+        "objectives": [
+          "o-kinetics"
+        ]
+      },
+      {
+        "id": "fit-benzyl",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": "=[0.1, 0.2, 0.4, 0.8, 1.6, 3.2]",
+          "y": "=list(first(recorded('rate-benzyl-0.1')) / 14150 * 1e6 / 60, first(recorded('rate-benzyl-0.2')) / 14150 * 1e6 / 60, first(recorded('rate-benzyl-0.4')) / 14150 * 1e6 / 60, first(recorded('rate-benzyl-0.8')) / 14150 * 1e6 / 60, first(recorded('rate-benzyl-1.6')) / 14150 * 1e6 / 60, first(recorded('rate-benzyl-3.2')) / 14150 * 1e6 / 60)",
+          "model": "michaelis-menten"
+        },
+        "objectives": [
+          "o-kinetics"
+        ]
+      },
+      {
+        "id": "km-benzyl",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "km-benzyl",
+          "value": "=fit-benzyl.out.fit.params.km"
+        }
+      },
+      {
+        "id": "kcat-benzyl",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "kcat-benzyl",
+          "value": "=fit-benzyl.out.fit.params.vmax / 0.125"
+        }
+      },
+      {
+        "id": "spec-benzyl",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "specificity-benzyl",
+          "value": "=fit-benzyl.out.fit.params.vmax / 0.125 / fit-benzyl.out.fit.params.km"
+        }
+      },
+      {
+        "id": "fit-ethyl",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": "=[0.25, 0.5, 1, 2, 4, 6]",
+          "y": "=list(first(recorded('rate-ethyl-0.25')) / 14150 * 1e6 / 60, first(recorded('rate-ethyl-0.5')) / 14150 * 1e6 / 60, first(recorded('rate-ethyl-1')) / 14150 * 1e6 / 60, first(recorded('rate-ethyl-2')) / 14150 * 1e6 / 60, first(recorded('rate-ethyl-4')) / 14150 * 1e6 / 60, first(recorded('rate-ethyl-6')) / 14150 * 1e6 / 60)",
+          "model": "michaelis-menten"
+        },
+        "objectives": [
+          "o-kinetics"
+        ]
+      },
+      {
+        "id": "km-ethyl",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "km-ethyl",
+          "value": "=fit-ethyl.out.fit.params.km"
+        }
+      },
+      {
+        "id": "kcat-ethyl",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "kcat-ethyl",
+          "value": "=fit-ethyl.out.fit.params.vmax / 0.125"
+        }
+      },
+      {
+        "id": "spec-ethyl",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "specificity-ethyl",
+          "value": "=fit-ethyl.out.fit.params.vmax / 0.125 / fit-ethyl.out.fit.params.km"
+        }
+      },
+      {
+        "id": "pre-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-1.5ml",
+          "id": "pre",
+          "label": "PatB + cycloserine"
+        }
+      },
+      {
+        "id": "pre-enz",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "patb",
+          "destination": "pre",
+          "volume": "200 uL"
+        }
+      },
+      {
+        "id": "ctrl-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-1.5ml",
+          "id": "ctrl",
+          "label": "PatB alone"
+        }
+      },
+      {
+        "id": "ctrl-enz",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "patb",
+          "destination": "ctrl",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "ctrl-buf",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "buffer",
+          "destination": "ctrl",
+          "volume": "20 uL"
+        }
+      },
+      {
+        "id": "ctrl-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "ctrl",
+          "method": "pipette-mix",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "pre-inh",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "cycloserine",
+          "destination": "pre",
+          "volume": "20 uL"
+        },
+        "objectives": [
+          "o-inhibitor"
+        ]
+      },
+      {
+        "id": "pre-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "pre",
+          "method": "pipette-mix",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "t0-cuv",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-pre-0",
+          "label": "c-pre-0"
+        }
+      },
+      {
+        "id": "t0-dtnb",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "dtnb",
+          "destination": "c-pre-0",
+          "volume": "250 uL"
+        }
+      },
+      {
+        "id": "t0-sub",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "s-benzyl",
+          "destination": "c-pre-0",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "t0-buf",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "buffer",
+          "destination": "c-pre-0",
+          "volume": "600 uL"
+        }
+      },
+      {
+        "id": "t0-enz",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "pre",
+          "destination": "c-pre-0",
+          "volume": "50 uL"
+        }
+      },
+      {
+        "id": "t0-cover",
+        "kind": "operation",
+        "ref": "core:close",
+        "params": {
+          "container": "c-pre-0",
+          "cover": "parafilm"
+        }
+      },
+      {
+        "id": "t0-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "c-pre-0",
+          "method": "invert",
+          "cycles": 5
+        }
+      },
+      {
+        "id": "t0-open",
+        "kind": "operation",
+        "ref": "core:open",
+        "params": {
+          "container": "c-pre-0"
+        }
+      },
+      {
+        "id": "t0-trace",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "spec",
+          "subject": "c-pre-0",
+          "wavelength": "412 nm",
+          "mode": "kinetic",
+          "interval": "5 s",
+          "duration": "3 min"
+        }
+      },
+      {
+        "id": "t0-rate",
+        "kind": "data",
+        "ref": "core:transform",
+        "params": {
+          "op": "initial-rate",
+          "input": "=t0-trace.out.record",
+          "window": "2 min"
+        }
+      },
+      {
+        "id": "t0-note",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "pre-0",
+          "value": "=t0-rate.out.values['c-pre-0']"
+        }
+      },
+      {
+        "id": "t0-bin",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "params": {
+          "container": "c-pre-0",
+          "stream": "core:chemical-waste.organic-non-halogenated"
+        }
+      },
+      {
+        "id": "wait-5",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "1 min"
+        }
+      },
+      {
+        "id": "t5-cuv",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-pre-5",
+          "label": "c-pre-5"
+        }
+      },
+      {
+        "id": "t5-dtnb",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "dtnb",
+          "destination": "c-pre-5",
+          "volume": "250 uL"
+        }
+      },
+      {
+        "id": "t5-sub",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "s-benzyl",
+          "destination": "c-pre-5",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "t5-buf",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "buffer",
+          "destination": "c-pre-5",
+          "volume": "600 uL"
+        }
+      },
+      {
+        "id": "t5-enz",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "pre",
+          "destination": "c-pre-5",
+          "volume": "50 uL"
+        }
+      },
+      {
+        "id": "t5-cover",
+        "kind": "operation",
+        "ref": "core:close",
+        "params": {
+          "container": "c-pre-5",
+          "cover": "parafilm"
+        }
+      },
+      {
+        "id": "t5-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "c-pre-5",
+          "method": "invert",
+          "cycles": 5
+        }
+      },
+      {
+        "id": "t5-open",
+        "kind": "operation",
+        "ref": "core:open",
+        "params": {
+          "container": "c-pre-5"
+        }
+      },
+      {
+        "id": "t5-trace",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "spec",
+          "subject": "c-pre-5",
+          "wavelength": "412 nm",
+          "mode": "kinetic",
+          "interval": "5 s",
+          "duration": "3 min"
+        }
+      },
+      {
+        "id": "t5-rate",
+        "kind": "data",
+        "ref": "core:transform",
+        "params": {
+          "op": "initial-rate",
+          "input": "=t5-trace.out.record",
+          "window": "2 min"
+        }
+      },
+      {
+        "id": "t5-note",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "pre-5",
+          "value": "=t5-rate.out.values['c-pre-5']"
+        }
+      },
+      {
+        "id": "t5-bin",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "params": {
+          "container": "c-pre-5",
+          "stream": "core:chemical-waste.organic-non-halogenated"
+        }
+      },
+      {
+        "id": "wait-10",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "1 min"
+        }
+      },
+      {
+        "id": "t10-cuv",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-pre-10",
+          "label": "c-pre-10"
+        }
+      },
+      {
+        "id": "t10-dtnb",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "dtnb",
+          "destination": "c-pre-10",
+          "volume": "250 uL"
+        }
+      },
+      {
+        "id": "t10-sub",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "s-benzyl",
+          "destination": "c-pre-10",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "t10-buf",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "buffer",
+          "destination": "c-pre-10",
+          "volume": "600 uL"
+        }
+      },
+      {
+        "id": "t10-enz",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "pre",
+          "destination": "c-pre-10",
+          "volume": "50 uL"
+        }
+      },
+      {
+        "id": "t10-cover",
+        "kind": "operation",
+        "ref": "core:close",
+        "params": {
+          "container": "c-pre-10",
+          "cover": "parafilm"
+        }
+      },
+      {
+        "id": "t10-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "c-pre-10",
+          "method": "invert",
+          "cycles": 5
+        }
+      },
+      {
+        "id": "t10-open",
+        "kind": "operation",
+        "ref": "core:open",
+        "params": {
+          "container": "c-pre-10"
+        }
+      },
+      {
+        "id": "t10-trace",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "spec",
+          "subject": "c-pre-10",
+          "wavelength": "412 nm",
+          "mode": "kinetic",
+          "interval": "5 s",
+          "duration": "3 min"
+        }
+      },
+      {
+        "id": "t10-rate",
+        "kind": "data",
+        "ref": "core:transform",
+        "params": {
+          "op": "initial-rate",
+          "input": "=t10-trace.out.record",
+          "window": "2 min"
+        }
+      },
+      {
+        "id": "t10-note",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "pre-10",
+          "value": "=t10-rate.out.values['c-pre-10']"
+        }
+      },
+      {
+        "id": "t10-bin",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "params": {
+          "container": "c-pre-10",
+          "stream": "core:chemical-waste.organic-non-halogenated"
+        }
+      },
+      {
+        "id": "tc-cuv",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-ctrl-10",
+          "label": "c-ctrl-10"
+        }
+      },
+      {
+        "id": "tc-dtnb",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "dtnb",
+          "destination": "c-ctrl-10",
+          "volume": "250 uL"
+        }
+      },
+      {
+        "id": "tc-sub",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "s-benzyl",
+          "destination": "c-ctrl-10",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "tc-buf",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "buffer",
+          "destination": "c-ctrl-10",
+          "volume": "600 uL"
+        }
+      },
+      {
+        "id": "tc-enz",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ctrl",
+          "destination": "c-ctrl-10",
+          "volume": "50 uL"
+        }
+      },
+      {
+        "id": "tc-cover",
+        "kind": "operation",
+        "ref": "core:close",
+        "params": {
+          "container": "c-ctrl-10",
+          "cover": "parafilm"
+        }
+      },
+      {
+        "id": "tc-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "c-ctrl-10",
+          "method": "invert",
+          "cycles": 5
+        }
+      },
+      {
+        "id": "tc-open",
+        "kind": "operation",
+        "ref": "core:open",
+        "params": {
+          "container": "c-ctrl-10"
+        }
+      },
+      {
+        "id": "tc-trace",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "spec",
+          "subject": "c-ctrl-10",
+          "wavelength": "412 nm",
+          "mode": "kinetic",
+          "interval": "5 s",
+          "duration": "3 min"
+        }
+      },
+      {
+        "id": "tc-rate",
+        "kind": "data",
+        "ref": "core:transform",
+        "params": {
+          "op": "initial-rate",
+          "input": "=tc-trace.out.record",
+          "window": "2 min"
+        }
+      },
+      {
+        "id": "tc-note",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "ctrl-10",
+          "value": "=tc-rate.out.values['c-ctrl-10']"
+        }
+      },
+      {
+        "id": "tc-bin",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "params": {
+          "container": "c-ctrl-10",
+          "stream": "core:chemical-waste.organic-non-halogenated"
+        }
+      },
+      {
+        "id": "decay",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": "=list(0, 5, 10)",
+          "y": "=list(ln(first(recorded('pre-0'))), ln(first(recorded('pre-5'))), ln(first(recorded('pre-10'))))",
+          "model": "linear"
+        },
+        "objectives": [
+          "o-inhibitor"
+        ]
+      },
+      {
+        "id": "kobs",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "kobs-per-min",
+          "value": "=-decay.out.fit.params.slope"
+        }
+      },
+      {
+        "id": "preferred",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Which analogue does the enzyme prefer, judged by kcat/Km?",
+        "options": [
+          {
+            "id": "benzyl",
+            "label": "S-Benzyl-L-cysteine: a higher kcat/Km"
+          },
+          {
+            "id": "ethyl",
+            "label": "S-Ethyl-L-cysteine: a higher kcat/Km"
+          }
+        ],
+        "correctWhen": "if(first(recorded('specificity-benzyl')) > first(recorded('specificity-ethyl')), 'benzyl', 'ethyl')"
+      },
+      {
+        "id": "mechanism",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "The longer the enzyme sat with cycloserine, the slower its assay, though each assay held the same, much diluted, cycloserine. What does that show?",
+        "options": [
+          {
+            "id": "inactivation",
+            "label": "Cycloserine inactivates the enzyme over time (it attacks the pyridoxal phosphate): inhibition beyond simple competition"
+          },
+          {
+            "id": "competitive",
+            "label": "It is a purely competitive inhibitor"
+          },
+          {
+            "id": "unstable",
+            "label": "The enzyme is simply unstable"
+          }
+        ],
+        "correctWhen": "if(first(recorded('pre-10')) < 0.7 * first(recorded('pre-0')) && first(recorded('ctrl-10')) > 0.9 * first(recorded('pre-0')), 'inactivation', if(first(recorded('ctrl-10')) < 0.7 * first(recorded('pre-0')), 'unstable', 'competitive'))"
+      },
+      {
+        "id": "why-dilute",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Why dilute the pre-incubated enzyme twenty-fold into the assay rather than add cycloserine to the cuvette?",
+        "options": [
+          {
+            "id": "separate",
+            "label": "So the assay measures how much enzyme is still active, with too little cycloserine left to compete: inactivation is separated from reversible inhibition"
+          },
+          {
+            "id": "save",
+            "label": "To save cycloserine"
+          },
+          {
+            "id": "colour",
+            "label": "Cycloserine absorbs at 412 nm"
+          }
+        ],
+        "correctWhen": "'separate'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-kinetics",
+        "statement": "Both Km values are within a factor of two of the enzyme's (0.4 and 1.5 mM)",
+        "check": "between(first(recorded('km-benzyl')), 0.2, 0.8) && between(first(recorded('km-ethyl')), 0.75, 3)"
+      },
+      {
+        "id": "g-interpret",
+        "statement": "The preferred substrate and the inactivation are identified, and the dilution explained",
+        "check": "decision('preferred') == 'benzyl' && decision('mechanism') == 'inactivation' && decision('why-dilute') == 'separate'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-spec",
+        "statement": "S-benzyl-L-cysteine's kcat/Km is several times S-ethyl-L-cysteine's",
+        "check": "first(recorded('specificity-benzyl')) > 3 * first(recorded('specificity-ethyl'))",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-decay",
+        "statement": "Activity falls with pre-incubation time (about a tenth per minute) while the enzyme alone keeps its activity",
+        "check": "between(first(recorded('kobs-per-min')), 0.04, 0.2)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

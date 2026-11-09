@@ -1,0 +1,976 @@
+[
+  {
+    "id": "bio:bca-working-reagent",
+    "label": "BCA working reagent (50:1 reagent A : B)",
+    "components": [
+      {
+        "substance": "bio:bicinchoninic-acid",
+        "conc": "25.3 mM"
+      },
+      {
+        "substance": "core:copper-ii-sulfate",
+        "conc": "3.14 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 11.25,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Reagent A (1 % BCA disodium salt, carbonate, tartrate, pH 11.25) mixed 50:1 with reagent B (4 % CuSO₄·5H₂O).",
+    "provenance": {
+      "references": [
+        "Smith et al. 1985, Anal. Biochem. 150:76–85"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "bio:nadh-stock-10mm",
+    "label": "NADH, 10 mM",
+    "components": [
+      {
+        "substance": "bio:nadh",
+        "conc": "10 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:pyruvate-stock-100mm",
+    "label": "Sodium pyruvate, 100 mM",
+    "components": [
+      {
+        "substance": "bio:pyruvate",
+        "conc": "100 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:bradford-reagent",
+    "label": "Bradford reagent (1×)",
+    "components": [
+      {
+        "substance": "bio:coomassie-g250",
+        "conc": "0.1 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Coomassie G-250 in phosphoric acid and methanol; the acid and solvent are not tracked."
+  },
+  {
+    "id": "bio:tris-hcl-50mm-ph8.0",
+    "label": "Tris-HCl, 50 mM, pH 8.0",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:hydrochloric-acid",
+        "conc": "27.0 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 8.0,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:tris-hcl-50mm-ph8.5",
+    "label": "Tris-HCl, 50 mM, pH 8.5",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:hydrochloric-acid",
+        "conc": "13.5 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 8.5,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:glycine-naoh-50mm-ph9.0",
+    "label": "Glycine–NaOH, 50 mM, pH 9.0",
+    "components": [
+      {
+        "substance": "core:glycine",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:sodium-hydroxide",
+        "conc": "10.0 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 9.0,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:glycine-naoh-50mm-ph9.5",
+    "label": "Glycine–NaOH, 50 mM, pH 9.5",
+    "components": [
+      {
+        "substance": "core:glycine",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:sodium-hydroxide",
+        "conc": "22.2 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 9.5,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:glycine-naoh-50mm-ph10.0",
+    "label": "Glycine–NaOH, 50 mM, pH 10.0",
+    "components": [
+      {
+        "substance": "core:glycine",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:sodium-hydroxide",
+        "conc": "35.8 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 10.0,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:glycine-naoh-50mm-ph10.5",
+    "label": "Glycine–NaOH, 50 mM, pH 10.5",
+    "components": [
+      {
+        "substance": "core:glycine",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:sodium-hydroxide",
+        "conc": "44.6 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 10.5,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:glycine-naoh-50mm-ph11.0",
+    "label": "Glycine–NaOH, 50 mM, pH 11.0",
+    "components": [
+      {
+        "substance": "core:glycine",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:sodium-hydroxide",
+        "conc": "48.8 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 11.0,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:pnpp-10mm",
+    "label": "pNPP, 10 mM",
+    "components": [
+      {
+        "substance": "bio:pnpp",
+        "conc": "10 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:alp-stock",
+    "label": "Alkaline phosphatase, 3 µg/mL",
+    "components": [
+      {
+        "substance": "bio:alkaline-phosphatase",
+        "conc": "3 mg/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:naoh-1m-stop",
+    "label": "NaOH, 1 M (stop solution)",
+    "components": [
+      {
+        "substance": "core:sodium-hydroxide",
+        "conc": "1 M"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Raises the pH above 12: the enzyme stops and all the p-nitrophenol turns to the yellow phenolate."
+  },
+  {
+    "id": "bio:sds-sample-buffer-2x",
+    "label": "SDS sample buffer (2×)",
+    "components": [
+      {
+        "substance": "bio:sds",
+        "conc": "40 g/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "252 g/L"
+      },
+      {
+        "substance": "core:bromophenol-blue",
+        "conc": "0.2 g/L"
+      },
+      {
+        "substance": "core:tris",
+        "conc": "125 mM"
+      },
+      {
+        "substance": "core:hydrochloric-acid",
+        "conc": "118.6 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 6.8,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "4 % SDS, 20 % glycerol, bromophenol blue in Tris-HCl pH 6.8. The reducing agent (DTT) is not modelled."
+  },
+  {
+    "id": "bio:protein-ladder-ready",
+    "label": "Protein size marker, ready to load",
+    "components": [
+      {
+        "substance": "bio:protein-ladder",
+        "conc": "0.5 g/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "126 g/L"
+      },
+      {
+        "substance": "bio:sds",
+        "conc": "10 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental",
+    "description": "0.25 µg of each band in 5 µL."
+  },
+  {
+    "id": "bio:bsa-1mg",
+    "label": "BSA, 1 mg/mL",
+    "components": [
+      {
+        "substance": "bio:bovine-serum-albumin",
+        "conc": "1 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:ldh-1mg",
+    "label": "LDH, 1 mg/mL",
+    "components": [
+      {
+        "substance": "bio:ldh",
+        "conc": "1 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:lysozyme-1mg",
+    "label": "Lysozyme, 1 mg/mL",
+    "components": [
+      {
+        "substance": "bio:lysozyme",
+        "conc": "1 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:ovalbumin-1mg",
+    "label": "Ovalbumin, 1 mg/mL",
+    "components": [
+      {
+        "substance": "bio:ovalbumin",
+        "conc": "1 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:sec-standards",
+    "label": "Gel-filtration standards (BSA, ovalbumin, cytochrome c)",
+    "components": [
+      {
+        "substance": "bio:bovine-serum-albumin",
+        "conc": "3 g/L"
+      },
+      {
+        "substance": "bio:ovalbumin",
+        "conc": "4 g/L"
+      },
+      {
+        "substance": "bio:cytochrome-c",
+        "conc": "1.5 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "66.4, 44.3 and 12.4 kDa."
+  },
+  {
+    "id": "bio:ovalbumin-coating-10ug",
+    "label": "Ovalbumin, 10 µg/mL (coating)",
+    "components": [
+      {
+        "substance": "bio:ovalbumin",
+        "conc": "10 mg/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:blocking-bsa-1pct",
+    "label": "Blocking buffer (1 % BSA)",
+    "components": [
+      {
+        "substance": "bio:bovine-serum-albumin",
+        "conc": "10 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:primary-anti-ovalbumin",
+    "label": "Anti-ovalbumin, 2 µg/mL in 0.1 % BSA",
+    "components": [
+      {
+        "substance": "bio:mouse-anti-ovalbumin",
+        "conc": "2 mg/L"
+      },
+      {
+        "substance": "bio:bovine-serum-albumin",
+        "conc": "1 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:secondary-hrp",
+    "label": "Anti-mouse–HRP, 0.2 µg/mL in 0.1 % BSA",
+    "components": [
+      {
+        "substance": "bio:goat-anti-mouse-hrp",
+        "conc": "0.2 mg/L"
+      },
+      {
+        "substance": "bio:bovine-serum-albumin",
+        "conc": "1 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:tmb-substrate",
+    "label": "TMB substrate",
+    "components": [
+      {
+        "substance": "bio:tmb",
+        "conc": "0.4 mM"
+      },
+      {
+        "substance": "core:hydrogen-peroxide",
+        "conc": "1.3 mM"
+      },
+      {
+        "substance": "core:acetic-acid",
+        "conc": "18.2 mM"
+      },
+      {
+        "substance": "core:sodium-acetate",
+        "conc": "31.8 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 5.0,
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "TMB and hydrogen peroxide in acetate buffer, pH 5."
+  },
+  {
+    "id": "bio:stop-hcl-1m",
+    "label": "Stop solution (1 M HCl)",
+    "components": [
+      {
+        "substance": "core:hydrochloric-acid",
+        "conc": "1 M"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:his-lysate",
+    "label": "Cleared E. coli lysate expressing GFP-His6",
+    "components": [
+      {
+        "substance": "bio:gfp-his6",
+        "conc": "0.4 g/L"
+      },
+      {
+        "substance": "bio:ecoli-host-protein-60k",
+        "conc": "0.5 g/L"
+      },
+      {
+        "substance": "bio:ecoli-host-protein-45k",
+        "conc": "0.5 g/L"
+      },
+      {
+        "substance": "bio:ecoli-host-protein-25k",
+        "conc": "0.5 g/L"
+      },
+      {
+        "substance": "bio:ecoli-host-protein-15k",
+        "conc": "0.5 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "300 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "In 300 mM NaCl, no imidazole."
+  },
+  {
+    "id": "bio:his-wash-20mm",
+    "label": "Wash buffer (20 mM imidazole)",
+    "components": [
+      {
+        "substance": "bio:imidazole",
+        "conc": "20 mM"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "300 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:his-elution-250mm",
+    "label": "Elution buffer (250 mM imidazole)",
+    "components": [
+      {
+        "substance": "bio:imidazole",
+        "conc": "250 mM"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "300 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:primary-anti-ldh",
+    "label": "Anti-LDH, 1 µg/mL in 0.1 % BSA",
+    "components": [
+      {
+        "substance": "bio:mouse-anti-ldh",
+        "conc": "1 mg/L"
+      },
+      {
+        "substance": "bio:bovine-serum-albumin",
+        "conc": "1 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:protein-ladder-prestained-ready",
+    "label": "Prestained protein marker, ready to load",
+    "components": [
+      {
+        "substance": "bio:protein-ladder-prestained",
+        "conc": "0.5 g/L"
+      },
+      {
+        "substance": "core:glycerol",
+        "conc": "126 g/L"
+      },
+      {
+        "substance": "bio:sds",
+        "conc": "10 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "-20 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:tris-nacl-ph8",
+    "label": "Reaction buffer (50 mM Tris pH 8.0, 50 mM NaCl)",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:hydrochloric-acid",
+        "conc": "27.0 mM"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "50 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 8.0,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Tris-HCl: HCl from Henderson–Hasselbalch with pKa 8.07 at 25 °C."
+  },
+  {
+    "id": "bio:carbonate-coating-ph9.6",
+    "label": "ELISA coating buffer (0.1 M carbonate, pH 9.6)",
+    "components": [
+      {
+        "substance": "core:sodium-carbonate",
+        "conc": "32 mM"
+      },
+      {
+        "substance": "core:sodium-bicarbonate",
+        "conc": "68 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 9.6,
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "At high pH a protein antigen binds polystyrene well."
+  },
+  {
+    "id": "bio:pbs-tween",
+    "label": "Wash buffer (PBS, 0.05 % Tween 20)",
+    "components": [
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "137 mM"
+      },
+      {
+        "substance": "core:potassium-chloride",
+        "conc": "2.7 mM"
+      },
+      {
+        "substance": "core:disodium-hydrogen-phosphate",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "1.8 mM"
+      },
+      {
+        "substance": "bio:polysorbate-20",
+        "conc": "0.5 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.4,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:assay-buffer-bsa",
+    "label": "Assay buffer (PBS, 0.05 % Tween 20, 1 % BSA)",
+    "components": [
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "137 mM"
+      },
+      {
+        "substance": "core:potassium-chloride",
+        "conc": "2.7 mM"
+      },
+      {
+        "substance": "core:disodium-hydrogen-phosphate",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "1.8 mM"
+      },
+      {
+        "substance": "bio:polysorbate-20",
+        "conc": "0.5 g/L"
+      },
+      {
+        "substance": "bio:bovine-serum-albumin",
+        "conc": "10 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.4,
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "The diluent for sera and conjugates: its BSA keeps blocking while they are on the plate."
+  },
+  {
+    "id": "bio:abts-substrate",
+    "label": "Peroxidase substrate (ABTS, pH 4.5)",
+    "components": [
+      {
+        "substance": "bio:abts",
+        "conc": "0.55 mM"
+      },
+      {
+        "substance": "core:hydrogen-peroxide",
+        "conc": "3 mM"
+      },
+      {
+        "substance": "core:acetic-acid",
+        "conc": "30 mM"
+      },
+      {
+        "substance": "core:sodium-acetate",
+        "conc": "18 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 4.5,
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "ABTS and hydrogen peroxide in acetate buffer: peroxidase turns it green (read at 405 nm)."
+  },
+  {
+    "id": "bio:secondary-anti-goat-hrp",
+    "label": "Donkey anti-goat IgG–HRP, 0.2 µg/mL in assay buffer",
+    "components": [
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "137 mM"
+      },
+      {
+        "substance": "core:potassium-chloride",
+        "conc": "2.7 mM"
+      },
+      {
+        "substance": "core:disodium-hydrogen-phosphate",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "1.8 mM"
+      },
+      {
+        "substance": "bio:polysorbate-20",
+        "conc": "0.5 g/L"
+      },
+      {
+        "substance": "bio:bovine-serum-albumin",
+        "conc": "10 g/L"
+      },
+      {
+        "substance": "bio:donkey-anti-goat-hrp",
+        "conc": "0.2 mg/L"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.4,
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:antigen-coating-4ug",
+    "label": "Recombinant antigen, 4 µg/mL in coating buffer",
+    "components": [
+      {
+        "substance": "bio:recombinant-antigen",
+        "conc": "4 mg/L"
+      },
+      {
+        "substance": "core:sodium-carbonate",
+        "conc": "32 mM"
+      },
+      {
+        "substance": "core:sodium-bicarbonate",
+        "conc": "68 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 9.6,
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:carbonate-1m-ph11",
+    "label": "1 M sodium carbonate-bicarbonate, pH 11",
+    "components": [
+      {
+        "substance": "core:sodium-carbonate",
+        "conc": "0.8 M"
+      },
+      {
+        "substance": "core:sodium-bicarbonate",
+        "conc": "0.2 M"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 11,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "A strong, high-pH buffer (ionic strength about 2.6 M): it swamps charge interactions on a column."
+  },
+  {
+    "id": "bio:koac-0.1m-ph6",
+    "label": "0.1 M potassium acetate, pH 6",
+    "components": [
+      {
+        "substance": "core:potassium-acetate",
+        "conc": "0.1 M"
+      },
+      {
+        "substance": "core:acetic-acid",
+        "conc": "5.7 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 6,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "A weak buffer (ionic strength about 0.1 M): charged molecules feel an ion exchanger's charges."
+  },
+  {
+    "id": "bio:koac-1m-ph6",
+    "label": "1 M potassium acetate, pH 6",
+    "components": [
+      {
+        "substance": "core:potassium-acetate",
+        "conc": "1 M"
+      },
+      {
+        "substance": "core:acetic-acid",
+        "conc": "57 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 6,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Ten times the salt of the 0.1 M buffer at the same pH: it releases what an ion exchanger holds."
+  },
+  {
+    "id": "bio:carbonate-0.05m-ph11",
+    "label": "50 mM sodium carbonate-bicarbonate, pH 11",
+    "components": [
+      {
+        "substance": "core:sodium-carbonate",
+        "conc": "40 mM"
+      },
+      {
+        "substance": "core:sodium-bicarbonate",
+        "conc": "10 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 11,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "A weak buffer at high pH (ionic strength about 0.13 M): above a protein's pI it is negatively charged."
+  },
+  {
+    "id": "bio:acetate-50mm-ph4.6",
+    "label": "Sodium acetate, 50 mM, pH 4.6",
+    "components": [
+      {
+        "substance": "core:acetic-acid",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:sodium-hydroxide",
+        "conc": "20 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 4.6,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Acetic acid part-neutralised with NaOH (pKa 4.76)."
+  },
+  {
+    "id": "bio:galc-5um",
+    "label": "GALC, 5 µM (assay stock)",
+    "components": [
+      {
+        "substance": "bio:galc",
+        "conc": "0.4 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:galc-100um",
+    "label": "GALC, 100 µM (8 mg/mL crystallisation stock)",
+    "components": [
+      {
+        "substance": "bio:galc",
+        "conc": "8 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:4-nitrophenyl-beta-galactoside-25mm",
+    "label": "4-Nitrophenyl β-D-galactoside, 25 mM",
+    "components": [
+      {
+        "substance": "bio:4-nitrophenyl-beta-galactoside",
+        "conc": "25 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "bio:benedicts-reagent",
+    "label": "Benedict’s reagent",
+    "components": [
+      {
+        "substance": "bio:benedict-copper",
+        "conc": "69 mM"
+      },
+      {
+        "substance": "aq:sodium-carbonate",
+        "conc": "0.94 mol/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Copper(II) sulfate (17.3 g/L) held by sodium citrate (173 g/L) in sodium carbonate (100 g/L). The citrate is not modelled apart from the copper it holds."
+  },
+  {
+    "id": "bio:biuret-reagent",
+    "label": "Biuret reagent",
+    "components": [
+      {
+        "substance": "bio:biuret-copper",
+        "conc": "6 mM"
+      },
+      {
+        "substance": "aq:sodium-hydroxide",
+        "conc": "0.75 mol/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Copper(II) sulfate with potassium sodium tartrate in sodium hydroxide (one solution, in place of sodium hydroxide and then copper sulfate drops)."
+  },
+  {
+    "id": "bio:iodine-solution",
+    "label": "Iodine solution (iodine in potassium iodide)",
+    "components": [
+      {
+        "substance": "core:iodine",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:potassium-iodide",
+        "conc": "60 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Iodine dissolved in potassium iodide solution: yellow-brown, blue-black with starch."
+  },
+  {
+    "id": "bio:sudan-iii-stain",
+    "label": "Sudan III stain",
+    "components": [
+      {
+        "substance": "bio:sudan-iii",
+        "conc": "1 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Sudan III in ethanol (the ethanol is modelled as water)."
+  },
+  {
+    "id": "bio:dcpip-solution",
+    "label": "DCPIP solution (0.1 %)",
+    "components": [
+      {
+        "substance": "bio:dcpip",
+        "conc": "3.45 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "The sodium salt of DCPIP, 1 g/L: blue. It slowly loses strength, so it is checked against a vitamin C standard on the day."
+  }
+]

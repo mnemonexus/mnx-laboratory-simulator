@@ -1,0 +1,981 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio34-food-tests",
+  "version": "1.0.0",
+  "title": "Food tests",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Test glucose, table sugar, starch, egg white, vegetable oil and water for starch (iodine), reducing sugar (Benedict’s), non-reducing sugar (acid, then Benedict’s), protein (biuret) and lipid (Sudan III).",
+  "briefing": "Each test has its own tube of 2 mL of food. Iodine solution turns blue-black with starch. Benedict’s reagent, heated in a boiling water bath, gives a green, yellow, orange or brick-red precipitate with a reducing sugar: the more sugar, the further along. A non-reducing sugar (sucrose) must first be split by boiling with acid; neutralise with sodium hydrogencarbonate before adding Benedict’s, which only works in alkali. Biuret reagent turns from blue to violet with protein. Sudan III stains lipid red: shake the food with water and the stain, and a red oily layer rises to the top.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "food tests",
+      "starch",
+      "iodine",
+      "Benedict’s",
+      "reducing sugar",
+      "non-reducing sugar",
+      "biuret",
+      "protein",
+      "lipid",
+      "Sudan III",
+      "biological molecules"
+    ],
+    "topics": [
+      "Biological molecules",
+      "Nutrition"
+    ],
+    "concepts": [
+      {
+        "id": "tests",
+        "label": "Each class of biological molecule has a specific chemical test"
+      },
+      {
+        "id": "reducing",
+        "label": "Reducing sugars reduce copper(II) to copper(I) oxide in hot alkali"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-test",
+        "kind": "skill",
+        "statement": "Carry out the food tests safely, heating in a water bath"
+      },
+      {
+        "id": "o-identify",
+        "kind": "outcome",
+        "statement": "Identify which foods contain starch, sugars, protein and lipid",
+        "goal": "g-identify"
+      },
+      {
+        "id": "o-reason",
+        "kind": "reasoning",
+        "statement": "Explain the non-reducing sugar test",
+        "goal": "g-neutralise"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB",
+      "BTEC",
+      "Access to HE"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "glucose",
+        "label": "Glucose solution (2 %)",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "20 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "sucrose",
+        "label": "Table sugar solution (2 %)",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "20 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "starch",
+        "label": "Starch suspension (1 %)",
+        "contains": [
+          {
+            "substance": "core:starch-soluble",
+            "conc": "10 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "egg",
+        "label": "Egg white, diluted",
+        "contains": [
+          {
+            "substance": "bio:ovalbumin",
+            "conc": "50 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "oil",
+        "label": "Vegetable oil",
+        "contains": [
+          {
+            "substance": "core:vegetable-oil",
+            "conc": "920 g/L"
+          }
+        ],
+        "solvent": "core:vegetable-oil",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "iodine",
+        "label": "Iodine solution",
+        "preparation": "bio:iodine-solution",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "benedict",
+        "label": "Benedict’s reagent",
+        "preparation": "bio:benedicts-reagent",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "hcl",
+        "label": "Dilute hydrochloric acid, 1 M",
+        "contains": [
+          {
+            "substance": "core:hydrochloric-acid",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "bicarb",
+        "label": "Sodium hydrogencarbonate, 1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydrogencarbonate",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "biuret",
+        "label": "Biuret reagent",
+        "preparation": "bio:biuret-reagent",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "sudan",
+        "label": "Sudan III stain",
+        "preparation": "bio:sudan-iii-stain",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "95 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "set-bath",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "bath",
+          "temperature": "95 Cel"
+        }
+      },
+      {
+        "id": "foods",
+        "kind": "group",
+        "title": "Test each food",
+        "objectives": [
+          "o-test"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['glucose', 'sucrose', 'starch', 'egg', 'oil', 'water']"
+        },
+        "steps": [
+          {
+            "id": "test-iodine",
+            "kind": "group",
+            "title": "Starch: iodine solution",
+            "steps": [
+              {
+                "id": "iodine-tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:test-tube",
+                  "id": "='t-' + x + '-iodine'",
+                  "label": "=x + ': starch: iodine solution'"
+                }
+              },
+              {
+                "id": "iodine-sample",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=x",
+                  "destination": "='t-' + x + '-iodine'",
+                  "volume": "2 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "iodine-add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "iodine",
+                  "destination": "='t-' + x + '-iodine'",
+                  "volume": "0.1 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "iodine-mix",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='t-' + x + '-iodine'",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "iodine-look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='t-' + x + '-iodine'"
+                }
+              },
+              {
+                "id": "iodine-note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x + '-iodine'",
+                  "value": "=iodine-look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "test-benedict",
+            "kind": "group",
+            "title": "Reducing sugar: Benedict’s test",
+            "steps": [
+              {
+                "id": "benedict-tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:test-tube",
+                  "id": "='t-' + x + '-benedict'",
+                  "label": "=x + ': reducing sugar: benedict’s test'"
+                }
+              },
+              {
+                "id": "benedict-sample",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=x",
+                  "destination": "='t-' + x + '-benedict'",
+                  "volume": "2 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "benedict-add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "benedict",
+                  "destination": "='t-' + x + '-benedict'",
+                  "volume": "2 mL"
+                }
+              },
+              {
+                "id": "benedict-mix",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='t-' + x + '-benedict'",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "benedict-heat-in",
+                "kind": "operation",
+                "ref": "core:place-in",
+                "params": {
+                  "container": "='t-' + x + '-benedict'",
+                  "place": "bath"
+                }
+              },
+              {
+                "id": "benedict-heat-wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "5 min"
+                }
+              },
+              {
+                "id": "benedict-heat-out",
+                "kind": "operation",
+                "ref": "core:remove-from",
+                "params": {
+                  "container": "='t-' + x + '-benedict'"
+                }
+              },
+              {
+                "id": "benedict-look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='t-' + x + '-benedict'"
+                }
+              },
+              {
+                "id": "benedict-note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x + '-benedict'",
+                  "value": "=benedict-look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "test-nonreducing",
+            "kind": "group",
+            "title": "Non-reducing sugar: acid, then Benedict’s",
+            "steps": [
+              {
+                "id": "nonreducing-tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:test-tube",
+                  "id": "='t-' + x + '-nonreducing'",
+                  "label": "=x + ': non-reducing sugar: acid, then benedict’s'"
+                }
+              },
+              {
+                "id": "nonreducing-sample",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=x",
+                  "destination": "='t-' + x + '-nonreducing'",
+                  "volume": "2 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "acid-add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "hcl",
+                  "destination": "='t-' + x + '-nonreducing'",
+                  "volume": "1 mL"
+                }
+              },
+              {
+                "id": "acid-mix",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='t-' + x + '-nonreducing'",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "acid-heat-in",
+                "kind": "operation",
+                "ref": "core:place-in",
+                "params": {
+                  "container": "='t-' + x + '-nonreducing'",
+                  "place": "bath"
+                }
+              },
+              {
+                "id": "acid-heat-wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "3 min"
+                }
+              },
+              {
+                "id": "acid-heat-out",
+                "kind": "operation",
+                "ref": "core:remove-from",
+                "params": {
+                  "container": "='t-' + x + '-nonreducing'"
+                }
+              },
+              {
+                "id": "neutralise",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "bicarb",
+                  "destination": "='t-' + x + '-nonreducing'",
+                  "volume": "1.5 mL"
+                }
+              },
+              {
+                "id": "neutralise-mix",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='t-' + x + '-nonreducing'",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "nr-benedict",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "benedict",
+                  "destination": "='t-' + x + '-nonreducing'",
+                  "volume": "2 mL"
+                }
+              },
+              {
+                "id": "nr-mix",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='t-' + x + '-nonreducing'",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "nr-heat-in",
+                "kind": "operation",
+                "ref": "core:place-in",
+                "params": {
+                  "container": "='t-' + x + '-nonreducing'",
+                  "place": "bath"
+                }
+              },
+              {
+                "id": "nr-heat-wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "5 min"
+                }
+              },
+              {
+                "id": "nr-heat-out",
+                "kind": "operation",
+                "ref": "core:remove-from",
+                "params": {
+                  "container": "='t-' + x + '-nonreducing'"
+                }
+              },
+              {
+                "id": "nonreducing-look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='t-' + x + '-nonreducing'"
+                }
+              },
+              {
+                "id": "nonreducing-note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x + '-nonreducing'",
+                  "value": "=nonreducing-look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "test-biuret",
+            "kind": "group",
+            "title": "Protein: biuret test",
+            "steps": [
+              {
+                "id": "biuret-tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:test-tube",
+                  "id": "='t-' + x + '-biuret'",
+                  "label": "=x + ': protein: biuret test'"
+                }
+              },
+              {
+                "id": "biuret-sample",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=x",
+                  "destination": "='t-' + x + '-biuret'",
+                  "volume": "2 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "biuret-add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "biuret",
+                  "destination": "='t-' + x + '-biuret'",
+                  "volume": "2 mL"
+                }
+              },
+              {
+                "id": "biuret-mix",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='t-' + x + '-biuret'",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "biuret-wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "2 min"
+                }
+              },
+              {
+                "id": "biuret-look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='t-' + x + '-biuret'"
+                }
+              },
+              {
+                "id": "biuret-note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x + '-biuret'",
+                  "value": "=biuret-look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "test-sudan",
+            "kind": "group",
+            "title": "Lipid: Sudan III",
+            "steps": [
+              {
+                "id": "sudan-tube",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:test-tube",
+                  "id": "='t-' + x + '-sudan'",
+                  "label": "=x + ': lipid: sudan iii'"
+                }
+              },
+              {
+                "id": "sudan-sample",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=x",
+                  "destination": "='t-' + x + '-sudan'",
+                  "volume": "2 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "sudan-water",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "water",
+                  "destination": "='t-' + x + '-sudan'",
+                  "volume": "2 mL"
+                }
+              },
+              {
+                "id": "sudan-add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "sudan",
+                  "destination": "='t-' + x + '-sudan'",
+                  "volume": "0.1 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "sudan-shake",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='t-' + x + '-sudan'",
+                  "method": "shake",
+                  "cycles": 5
+                }
+              },
+              {
+                "id": "sudan-stand",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "1 min"
+                }
+              },
+              {
+                "id": "sudan-look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='t-' + x + '-sudan'"
+                }
+              },
+              {
+                "id": "sudan-note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x + '-sudan'",
+                  "value": "=sudan-look.out.appearance"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "which-starch",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which food contains starch?",
+        "options": [
+          {
+            "id": "glucose",
+            "label": "Glucose solution"
+          },
+          {
+            "id": "sucrose",
+            "label": "Table sugar solution"
+          },
+          {
+            "id": "starch",
+            "label": "Starch suspension"
+          },
+          {
+            "id": "egg",
+            "label": "Egg white"
+          },
+          {
+            "id": "oil",
+            "label": "Vegetable oil"
+          },
+          {
+            "id": "water",
+            "label": "Water"
+          }
+        ],
+        "correctWhen": "'starch'"
+      },
+      {
+        "id": "which-reducing",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which food contains a reducing sugar?",
+        "options": [
+          {
+            "id": "glucose",
+            "label": "Glucose solution"
+          },
+          {
+            "id": "sucrose",
+            "label": "Table sugar solution"
+          },
+          {
+            "id": "starch",
+            "label": "Starch suspension"
+          },
+          {
+            "id": "egg",
+            "label": "Egg white"
+          },
+          {
+            "id": "oil",
+            "label": "Vegetable oil"
+          },
+          {
+            "id": "water",
+            "label": "Water"
+          }
+        ],
+        "correctWhen": "'glucose'"
+      },
+      {
+        "id": "which-nonreducing",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which food gave a positive Benedict’s test only after boiling with acid?",
+        "options": [
+          {
+            "id": "glucose",
+            "label": "Glucose solution"
+          },
+          {
+            "id": "sucrose",
+            "label": "Table sugar solution"
+          },
+          {
+            "id": "starch",
+            "label": "Starch suspension"
+          },
+          {
+            "id": "egg",
+            "label": "Egg white"
+          },
+          {
+            "id": "oil",
+            "label": "Vegetable oil"
+          },
+          {
+            "id": "water",
+            "label": "Water"
+          }
+        ],
+        "correctWhen": "'sucrose'"
+      },
+      {
+        "id": "which-protein",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which food contains protein?",
+        "options": [
+          {
+            "id": "glucose",
+            "label": "Glucose solution"
+          },
+          {
+            "id": "sucrose",
+            "label": "Table sugar solution"
+          },
+          {
+            "id": "starch",
+            "label": "Starch suspension"
+          },
+          {
+            "id": "egg",
+            "label": "Egg white"
+          },
+          {
+            "id": "oil",
+            "label": "Vegetable oil"
+          },
+          {
+            "id": "water",
+            "label": "Water"
+          }
+        ],
+        "correctWhen": "'egg'"
+      },
+      {
+        "id": "which-lipid",
+        "kind": "decision",
+        "objectives": [
+          "o-identify"
+        ],
+        "prompt": "Which food contains lipid?",
+        "options": [
+          {
+            "id": "glucose",
+            "label": "Glucose solution"
+          },
+          {
+            "id": "sucrose",
+            "label": "Table sugar solution"
+          },
+          {
+            "id": "starch",
+            "label": "Starch suspension"
+          },
+          {
+            "id": "egg",
+            "label": "Egg white"
+          },
+          {
+            "id": "oil",
+            "label": "Vegetable oil"
+          },
+          {
+            "id": "water",
+            "label": "Water"
+          }
+        ],
+        "correctWhen": "'oil'"
+      },
+      {
+        "id": "why-neutralise",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Why is the acid neutralised before Benedict’s reagent is added?",
+        "options": [
+          {
+            "id": "alkali",
+            "label": "Benedict’s reagent only reacts in alkali: the sugar must open and react in alkaline solution"
+          },
+          {
+            "id": "safety",
+            "label": "So that the tube does not boil over"
+          },
+          {
+            "id": "colour",
+            "label": "Acid would turn the reagent red"
+          }
+        ],
+        "correctWhen": "'alkali'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-identify",
+        "statement": "Each nutrient is matched to its food",
+        "check": "decision('which-starch') == 'starch' && decision('which-reducing') == 'glucose' && decision('which-nonreducing') == 'sucrose' && decision('which-protein') == 'egg' && decision('which-lipid') == 'oil'"
+      },
+      {
+        "id": "g-neutralise",
+        "statement": "Neutralising before Benedict’s is explained",
+        "check": "decision('why-neutralise') == 'alkali'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-starch",
+        "statement": "Iodine turns blue-black with starch only",
+        "check": "mentions(first(recorded('seen-starch-iodine')), 'black|blue|violet') && !mentions(first(recorded('seen-glucose-iodine')), 'black')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-reducing",
+        "statement": "Glucose gives a coloured precipitate with Benedict’s; table sugar stays blue until it is boiled with acid",
+        "check": "mentions(first(recorded('seen-glucose-benedict')), 'precipitate') && !mentions(first(recorded('seen-sucrose-benedict')), 'precipitate') && mentions(first(recorded('seen-sucrose-nonreducing')), 'precipitate')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-protein",
+        "statement": "Biuret reagent turns violet with egg white and stays blue with water",
+        "check": "mentions(first(recorded('seen-egg-biuret')), 'violet|purple|lilac|mauve') && mentions(first(recorded('seen-water-biuret')), 'blue')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-lipid",
+        "statement": "Sudan III stains the oil, which floats as a red layer; with no lipid there is no red layer",
+        "check": "mentions(first(recorded('seen-oil-sudan')), 'red layer on top') && !mentions(first(recorded('seen-water-sudan')), 'layer')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

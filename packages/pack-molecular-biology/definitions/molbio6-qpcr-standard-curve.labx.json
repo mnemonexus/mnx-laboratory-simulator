@@ -1,0 +1,91 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio6-qpcr-standard-curve",
+  "version": "1.0.0",
+  "title": "Real-time PCR: a standard curve, efficiency and copy number",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:melt-curve" }, { "technique": "core:serial-dilution" }, { "operation": "core:fit" }] },
+  "summary": "Make ten-fold dilutions of a pGLO plasmid standard (10⁷ copies/µL), run them in triplicate with an unknown and no-template controls in a SYBR Green qPCR for the GFP gene, and finish with a melt curve. Plot Cq against log₁₀ copies, find the efficiency from the slope, and read the unknown's copy number.",
+  "briefing": "Each cycle at most doubles the product, so a sample with ten times more template crosses the threshold about 3.32 cycles earlier (log₂ 10). The slope of Cq against log₁₀ copies gives the efficiency: E = 10^(−1/slope) − 1, where 100 % is a perfect doubling and 90–110 % is acceptable. SYBR Green lights up any double-stranded DNA, so the melt curve checks that only one product was made.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-2", "disciplines": ["molecular-biology"] },
+    "concepts": [{ "id": "qpcr", "label": "Real-time PCR and the quantification cycle" }, { "id": "efficiency", "label": "Amplification efficiency" }, { "id": "melt-curve", "label": "Melt-curve analysis" }],
+    "objectives": [
+      { "id": "o-setup", "kind": "skill", "statement": "Set up a qPCR plate with standards, an unknown and no-template controls in triplicate", "skills": ["core:serial-dilution", "core:micropipetting"] },
+      { "id": "o-curve", "kind": "analysis", "statement": "Build the standard curve and find the efficiency", "goal": "g-efficiency" },
+      { "id": "o-unknown", "kind": "outcome", "statement": "Find the unknown's copy number", "goal": "g-unknown" },
+      { "id": "o-specific", "kind": "reasoning", "statement": "Use the controls and the melt curve to judge the run", "goal": "g-specific" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "unknown", "label": "Unknown: pGLO miniprep, diluted", "role": "unknown", "solvent": "core:water", "contains": [{ "substance": "molbio:pglo-plasmid", "conc": { "vary": "2e3..2e5 {copies}/uL" } }], "amount": "50 uL", "container": "core:microtube-1.5ml" }
+    ],
+    "supplies": [
+      { "id": "standard", "label": "pGLO standard, 1.0 × 10⁷ copies/µL", "solvent": "core:water", "contains": [{ "substance": "molbio:pglo-plasmid", "conc": "1e7 {copies}/uL" }], "amount": "50 uL", "container": "core:microtube-1.5ml" },
+      { "id": "master", "label": "SYBR Green qPCR master mix (2×)", "preparation": "molbio:sybr-qpcr-master-mix-2x", "amount": "1 mL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "primers", "label": "GFP qPCR primers, 10 µM each", "preparation": "molbio:gfp-qpcr-primer-mix", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "water", "label": "Nuclease-free water", "preparation": "core:water-deionised", "amount": "1.5 mL", "container": "core:microtube-2ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "plate", "requires": { "class": "core:pcr-plate-96" } },
+      { "id": "cycler", "requires": { "class": "core:real-time-cycler" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "standards", "kind": "technique", "ref": "core:serial-dilution", "title": "Ten-fold dilutions: 10⁶ to 10² copies/µL", "objectives": ["o-setup"], "params": { "stock": "standard", "diluent": "water", "factor": 10, "count": 5, "volumeEach": "45 uL" } },
+      { "id": "mix-tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "rxn-mix", "label": "Reaction mix (18 µL per well)" } },
+      { "id": "mix-master", "kind": "operation", "ref": "core:transfer", "objectives": ["o-setup"], "params": { "source": "master", "destination": "rxn-mix", "volume": "300 uL" } },
+      { "id": "mix-primers", "kind": "operation", "ref": "core:transfer", "objectives": ["o-setup"], "params": { "source": "primers", "destination": "rxn-mix", "volume": "24 uL" } },
+      { "id": "mix-water", "kind": "operation", "ref": "core:transfer", "objectives": ["o-setup"], "params": { "source": "water", "destination": "rxn-mix", "volume": "216 uL" } },
+      { "id": "mix-it", "kind": "operation", "ref": "core:mix", "params": { "container": "rxn-mix", "method": "flick", "cycles": 5 } },
+      { "id": "plate-map", "kind": "design", "ref": "core:plate-layout", "params": { "plate": "plate", "groups": [{ "group": "standards", "items": "=standards.out.vessels", "role": "standard" }, { "group": "unknown", "items": ["unknown"], "role": "unknown" }], "replicates": 3, "blanks": 3, "blankSource": "water" } },
+      { "id": "templates", "kind": "technique", "ref": "core:transfer-to-plate", "objectives": ["o-setup"], "params": { "layout": "=plate-map.out.layout", "volume": "2 uL" } },
+      { "id": "reaction-mix", "kind": "technique", "ref": "core:dispense-reagent", "objectives": ["o-setup"], "params": { "reagent": "rxn-mix", "volume": "18 uL", "into": "=templates.out.wells" } },
+      { "id": "load", "kind": "operation", "ref": "core:place-in", "params": { "container": "plate", "place": "cycler" } },
+      { "id": "run", "kind": "operation", "ref": "core:thermocycle", "title": "95 °C 2 min, then 40 × (95 °C 15 s, 60 °C 30 s, 72 °C 30 s)", "params": { "cycler": "cycler", "cycles": 40, "denatureTemperature": "95 Cel", "denatureTime": "15 s", "annealTemperature": "60 Cel", "annealTime": "30 s", "extendTemperature": "72 Cel", "extendTime": "30 s", "initialTime": "2 min", "finalTime": "0 s", "hold": "60 Cel", "threshold": 0.2 } },
+      { "id": "melt", "kind": "operation", "ref": "core:melt-curve", "params": { "cycler": "cycler", "from": "65 Cel", "to": "95 Cel" } },
+      { "id": "means", "kind": "data", "ref": "core:transform", "objectives": ["o-curve"], "params": { "op": "average-replicates", "input": "=run.out.record", "layout": "=plate-map.out.layout" } },
+      { "id": "curve", "kind": "data", "ref": "core:fit", "objectives": ["o-curve"], "params": { "x": "=map(range(0, 4, 5), log10(2e6) - it)", "y": "=map(filter(means.out.groups, group == 'standards'), mean)", "model": "linear" } },
+      { "id": "results", "kind": "group", "objectives": ["o-curve", "o-unknown"],
+        "let": {
+          "slope": "=fit(curve).params.slope",
+          "intercept": "=fit(curve).params.intercept",
+          "cqU": "=first(map(filter(means.out.groups, group == 'unknown'), mean))"
+        },
+        "steps": [
+          { "id": "note-slope", "kind": "operation", "ref": "core:record", "params": { "field": "slope", "value": "=slope" } },
+          { "id": "note-efficiency", "kind": "operation", "ref": "core:record", "params": { "field": "efficiency-%", "value": "=(exp(-ln(10) / slope) - 1) * 100" } },
+          { "id": "note-r2", "kind": "operation", "ref": "core:record", "params": { "field": "r2", "value": "=fit(curve).r2" } },
+          { "id": "note-copies", "kind": "operation", "ref": "core:record", "params": { "field": "unknown-copies-per-uL", "value": "=exp(ln(10) * (cqU - intercept) / slope) / 2" } }
+        ] },
+      { "id": "ntc", "kind": "decision", "objectives": ["o-specific"], "prompt": "The no-template controls stay Undetermined and every well with template melts in one peak near 80 °C. What does that tell you?",
+        "options": [
+          { "id": "specific", "label": "One product, no contamination and no primer-dimers: the Cq values measure the target" },
+          { "id": "dimers", "label": "Primer-dimers made the signal" },
+          { "id": "contaminated", "label": "The reagents are contaminated" }
+        ],
+        "correctWhen": "if(count(readings(run, role='blank')) == 0 && all(r in readings(melt, role='standard'): r > 78), 'specific', if(count(readings(run, role='blank')) > 0 && max(readings(melt, role='blank')) < 76, 'dimers', 'contaminated'))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-efficiency", "statement": "Efficiency between 90 and 110 %, with R² above 0.98", "check": "between(first(recorded('efficiency-%')), 90, 110) && first(recorded('r2')) > 0.98" },
+      { "id": "g-unknown", "statement": "The unknown's copy number within 25 % of the truth", "check": "within(first(recorded('unknown-copies-per-uL')), value(truth(conc, 'unknown', 'molbio:pglo-plasmid'), 'mol/L') * 6.022e23 / 1e6, 25%)" },
+      { "id": "g-specific", "statement": "The controls and the melt curve read correctly", "check": "decision('ntc') == 'specific'" }
+    ],
+    "expectedObservations": [
+      { "id": "e-ten-fold", "statement": "Each ten-fold dilution crosses about 3.3 cycles later", "check": "between(-first(recorded('slope')), 3.1, 3.6)", "source": "reference-standard" },
+      { "id": "e-ntc", "statement": "The no-template controls stay Undetermined", "check": "count(readings(run, role='blank')) == 0", "source": "reference-standard" },
+      { "id": "e-one-peak", "statement": "The standards melt in a single peak at about 80 °C", "check": "all(t in readings(melt, role='standard'): between(t, 78, 83))", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

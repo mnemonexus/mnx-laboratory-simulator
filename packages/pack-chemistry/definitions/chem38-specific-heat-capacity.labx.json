@@ -1,0 +1,419 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem38-specific-heat-capacity",
+  "version": "1.0.0",
+  "title": "Specific heat capacity of metals by the method of mixtures",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:lift-out"
+      }
+    ]
+  },
+  "summary": "Heat blocks of aluminium, copper and steel in hot water, drop each into cold water in an insulated cup, and work out each metal’s specific heat capacity from the rise in temperature.",
+  "briefing": "Weigh the block, hang it in a beaker of water kept at 95 °C for ten minutes so it reaches that temperature, and read the hot water’s temperature. Put 100 g of cold water in a polystyrene cup and read its temperature, then lift the block across quickly and stir, reading the highest temperature reached. The heat the block lost warmed the water: m(block) c(block) ΔT(block) = m(water) × 4.18 × ΔT(water).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "physics",
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "specific heat capacity",
+      "method of mixtures",
+      "calorimetry",
+      "metals",
+      "heat transfer"
+    ],
+    "topics": [
+      "Energy",
+      "Thermal physics"
+    ],
+    "concepts": [
+      {
+        "id": "shc",
+        "label": "Specific heat capacity is the energy to warm 1 g of a material by 1 K"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure masses and temperatures for the method of mixtures"
+      },
+      {
+        "id": "o-calc",
+        "kind": "analysis",
+        "statement": "Calculate the specific heat capacity of each metal",
+        "goal": "g-shc"
+      },
+      {
+        "id": "o-error",
+        "kind": "reasoning",
+        "statement": "Explain the main source of error",
+        "goal": "g-error"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Tap water",
+        "preparation": "core:water-deionised",
+        "amount": "1000 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "thermo",
+        "requires": {
+          "class": "core:thermometer-digital"
+        }
+      },
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "95 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "set-bath",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "bath",
+          "temperature": "95 Cel"
+        }
+      },
+      {
+        "id": "metals",
+        "kind": "group",
+        "title": "Each metal in turn",
+        "objectives": [
+          "o-measure"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['al','Aluminium','core:aluminium-block'],['cu','Copper','core:copper-block'],['steel','Steel','core:steel-block']]"
+        },
+        "steps": [
+          {
+            "id": "boat",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:weighing-boat",
+              "id": "='boat-' + x[0]",
+              "label": "='Boat: ' + x[1]"
+            }
+          },
+          {
+            "id": "on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='boat-' + x[0]",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "tare",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "add",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=x[2]",
+              "destination": "='boat-' + x[0]",
+              "mass": "50 g"
+            }
+          },
+          {
+            "id": "weigh",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "note-m",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='m-' + x[0]",
+              "value": "=weigh.out.value"
+            }
+          },
+          {
+            "id": "off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='boat-' + x[0]"
+            }
+          },
+          {
+            "id": "hot",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-250ml",
+              "id": "='hot-' + x[0]",
+              "label": "='Hot water for ' + x[1]"
+            }
+          },
+          {
+            "id": "hot-fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='hot-' + x[0]",
+              "volume": "150 mL"
+            }
+          },
+          {
+            "id": "hot-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='hot-' + x[0]",
+              "place": "bath"
+            }
+          },
+          {
+            "id": "block-in",
+            "kind": "operation",
+            "ref": "core:lift-out",
+            "params": {
+              "source": "='boat-' + x[0]",
+              "destination": "='hot-' + x[0]"
+            }
+          },
+          {
+            "id": "heat",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "read-hot",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "thermo",
+              "subject": "='hot-' + x[0]"
+            }
+          },
+          {
+            "id": "note-hot",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='T-hot-' + x[0]",
+              "value": "=read-hot.out.value"
+            }
+          },
+          {
+            "id": "cup",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:calorimeter-cup",
+              "id": "='cup-' + x[0]",
+              "label": "='Cup for ' + x[1]"
+            }
+          },
+          {
+            "id": "cup-fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='cup-' + x[0]",
+              "volume": "100 mL"
+            }
+          },
+          {
+            "id": "read-cold",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "thermo",
+              "subject": "='cup-' + x[0]"
+            }
+          },
+          {
+            "id": "note-cold",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='T-cold-' + x[0]",
+              "value": "=read-cold.out.value"
+            }
+          },
+          {
+            "id": "transfer",
+            "kind": "operation",
+            "ref": "core:lift-out",
+            "params": {
+              "source": "='hot-' + x[0]",
+              "destination": "='cup-' + x[0]",
+              "blot": false
+            }
+          },
+          {
+            "id": "stir",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='cup-' + x[0]",
+              "method": "stir",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "follow",
+            "kind": "group",
+            "title": "Read every 15 s for two minutes",
+            "forEach": {
+              "var": "n",
+              "in": "=range(1, 8, 8)"
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "15 s"
+                }
+              },
+              {
+                "id": "read",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "thermo",
+                  "subject": "='cup-' + x[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='T-mix-' + x[0]",
+                  "value": "=read.out.value"
+                }
+              }
+            ]
+          },
+          {
+            "id": "shc",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='c-' + x[0]",
+              "value": "=100 * 4.18 * (max(recorded('T-mix-' + x[0])) - first(recorded('T-cold-' + x[0]))) / (value(first(recorded('m-' + x[0])), 'g') * (first(recorded('T-hot-' + x[0])) - max(recorded('T-mix-' + x[0]))))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "error",
+        "kind": "decision",
+        "objectives": [
+          "o-error"
+        ],
+        "prompt": "The values come out a little low. What is the main reason?",
+        "options": [
+          {
+            "id": "heat-lost",
+            "label": "Heat is lost from the block on the way across and from the cup to the room, so the water warms less than it should"
+          },
+          {
+            "id": "block-heavier",
+            "label": "The block gets heavier in the water"
+          },
+          {
+            "id": "thermometer",
+            "label": "The thermometer is wrong"
+          }
+        ],
+        "correctWhen": "'heat-lost'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-shc",
+        "statement": "Aluminium’s specific heat capacity is found within 15 % of 0.90 J g⁻¹ K⁻¹",
+        "check": "within(first(recorded('c-al')), 0.897, 15%)"
+      },
+      {
+        "id": "g-error",
+        "statement": "The main error is explained",
+        "check": "decision('error') == 'heat-lost'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-order",
+        "statement": "Aluminium has the highest specific heat capacity and copper the lowest",
+        "check": "first(recorded('c-al')) > first(recorded('c-steel')) && first(recorded('c-steel')) > first(recorded('c-cu'))",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

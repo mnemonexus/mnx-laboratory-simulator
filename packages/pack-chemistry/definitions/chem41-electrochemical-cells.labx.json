@@ -1,0 +1,577 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem41-electrochemical-cells",
+  "title": "{{title}}",
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "electrochemical cell",
+      "half-cell",
+      "salt bridge",
+      "electrode potential",
+      "Daniell cell",
+      "voltmeter",
+      "Nernst"
+    ],
+    "topics": [
+      "Redox and electrode potentials"
+    ],
+    "concepts": [
+      {
+        "id": "cell",
+        "label": "Two half-cells joined by a salt bridge give the difference of their electrode potentials"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Set up half-cells with a salt bridge and measure the cell potential"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "{{compareObjective}}",
+        "goal": "g-cell"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the result from electrode potentials",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Electrochemical cells: the Daniell cell"
+    },
+    "summary": {
+      "default": "Build a zinc half-cell and a copper half-cell, join them with a salt bridge, and measure the cell potential; find which electrode is negative."
+    },
+    "briefing": {
+      "default": "Pour 50 mL of each 1 M solution into a beaker and stand a clean strip of the matching metal in it (sand the strips first). Connect the voltmeter’s black lead to the zinc and its red lead to the copper and read it. Then lay a strip of filter paper soaked in potassium nitrate across the two beakers as a salt bridge and read it again. The cell potential is E(positive) − E(negative); the standard electrode potentials are Zn²⁺/Zn −0.76 V and Cu²⁺/Cu +0.34 V."
+    },
+    "runs": {
+      "default": "=[['daniell','Zn | ZnSO₄ (1 M) against Cu | CuSO₄ (1 M)','zn1','aq:zinc-strip','cu1','aq:copper-strip']]"
+    },
+    "compareObjective": {
+      "default": "Compare the cell potential with the standard value"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the meter read nothing until the salt bridge is in place?",
+        "options": [
+          {
+            "id": "circuit",
+            "label": "The salt bridge lets ions move between the beakers, completing the circuit"
+          },
+          {
+            "id": "electrons",
+            "label": "Electrons flow through the salt bridge"
+          },
+          {
+            "id": "mixing",
+            "label": "The bridge mixes the two solutions"
+          }
+        ],
+        "correctWhen": "choice == 'circuit'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-cell",
+            "statement": "The Daniell cell gives about 1.1 V",
+            "check": "first(recorded('E-daniell')) > 1.0 && first(recorded('E-daniell')) < 1.2"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The salt bridge is explained",
+            "check": "decision('why') == 'circuit'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-open",
+            "statement": "Without the salt bridge the meter reads about zero",
+            "check": "abs(first(recorded('open-daniell'))) < 0.05",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "zn1",
+        "label": "Zinc sulfate, 1 M",
+        "contains": [
+          {
+            "substance": "aq:zinc-sulfate",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "cu1",
+        "label": "Copper(II) sulfate, 1 M",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-sulfate",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "cu01",
+        "label": "Copper(II) sulfate, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-sulfate",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "cu001",
+        "label": "Copper(II) sulfate, 0.01 M",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-sulfate",
+            "conc": "0.01 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "cu0001",
+        "label": "Copper(II) sulfate, 0.001 M",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-sulfate",
+            "conc": "0.001 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "mg1",
+        "label": "Magnesium sulfate, 1 M",
+        "contains": [
+          {
+            "substance": "aq:magnesium-sulfate",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "fe1",
+        "label": "Iron(II) sulfate, 1 M (freshly made)",
+        "contains": [
+          {
+            "substance": "aq:iron-ii-sulfate",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "pb1",
+        "label": "Lead(II) nitrate, 1 M (toxic)",
+        "contains": [
+          {
+            "substance": "aq:lead-ii-nitrate",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "volts",
+        "requires": {
+          "class": "core:voltmeter"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each cell in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "b-neg",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='neg-' + r[0]",
+              "label": "='Negative half-cell: ' + r[1]"
+            }
+          },
+          {
+            "id": "f-neg",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='neg-' + r[0]",
+              "volume": "50 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "m-neg",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[3]",
+              "destination": "='neg-' + r[0]",
+              "mass": "1 g"
+            }
+          },
+          {
+            "id": "b-pos",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='pos-' + r[0]",
+              "label": "='Positive half-cell: ' + r[1]"
+            }
+          },
+          {
+            "id": "f-pos",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[4]",
+              "destination": "='pos-' + r[0]",
+              "volume": "50 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "m-pos",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[5]",
+              "destination": "='pos-' + r[0]",
+              "mass": "1 g"
+            }
+          },
+          {
+            "id": "open",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "volts",
+              "subject": "='pos-' + r[0]",
+              "negative": "='neg-' + r[0]"
+            }
+          },
+          {
+            "id": "n-open",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='open-' + r[0]",
+              "value": "=open.out.value"
+            }
+          },
+          {
+            "id": "bridge",
+            "kind": "operation",
+            "ref": "core:connect-bridge",
+            "params": {
+              "from": "='neg-' + r[0]",
+              "to": "='pos-' + r[0]"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "volts",
+              "subject": "='pos-' + r[0]",
+              "negative": "='neg-' + r[0]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='E-' + r[0]",
+              "value": "=read.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "chem41-metal-cells",
+      "title": "Electrochemical cells: metals against copper",
+      "summary": "Measure the potential of magnesium, zinc, iron and lead half-cells against a copper half-cell and use them to place the metals in order of reactivity.",
+      "briefing": "Each metal stands in a 1 M solution of its own ions, joined to a copper half-cell (Cu²⁺/Cu, +0.34 V) by a fresh salt bridge, the copper always positive. The more reactive the metal, the more negative its electrode potential and the larger the cell potential. E(metal) = 0.34 − E(cell).",
+      "values": {
+        "runs": "=[['mg','Magnesium against copper','mg1','aq:magnesium-ribbon','cu1','aq:copper-strip'],['zn','Zinc against copper','zn1','aq:zinc-strip','cu1','aq:copper-strip'],['fe','Iron against copper','fe1','aq:iron-nail','cu1','aq:copper-strip'],['pb','Lead against copper','pb1','aq:lead-strip','cu1','aq:copper-strip']]",
+        "compareObjective": "Order the metals by their electrode potentials",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does magnesium give the largest cell potential?",
+          "options": [
+            {
+              "id": "reactive",
+              "label": "It is the most reactive: it loses electrons most readily, so its electrode potential is the most negative"
+            },
+            {
+              "id": "light",
+              "label": "It is the lightest metal"
+            },
+            {
+              "id": "thin",
+              "label": "Its ribbon is thinner than the strips"
+            }
+          ],
+          "correctWhen": "choice == 'reactive'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-cell",
+              "statement": "The cell potentials fall from magnesium to zinc, iron and lead",
+              "check": "first(recorded('E-mg')) > first(recorded('E-zn')) && first(recorded('E-zn')) > first(recorded('E-fe')) && first(recorded('E-fe')) > first(recorded('E-pb'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "Magnesium is explained",
+              "check": "decision('why') == 'reactive'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-zn",
+              "statement": "Zinc against copper gives about 1.1 V",
+              "check": "abs(first(recorded('E-zn')) - 1.1) < 0.1",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "reactivity series",
+        "standard electrode potential"
+      ]
+    },
+    {
+      "id": "chem41-concentration-cells",
+      "title": "Electrochemical cells: concentration cells",
+      "summary": "Join copper half-cells of 0.001 to 1 M copper(II) sulfate to a 1 M copper half-cell and relate the small cell potential to the ratio of concentrations.",
+      "briefing": "Both electrodes are copper, so the standard potentials cancel: only the concentrations differ. By the Nernst equation E = E° + (0.059/2) log[Cu²⁺], so each tenfold dilution should lower the dilute electrode’s potential by about 0.03 V. The dilute half-cell is the negative one.",
+      "values": {
+        "runs": "=[['c0001','CuSO₄ 0.001 M against 1 M','cu0001','aq:copper-strip','cu1','aq:copper-strip'],['c001','0.01 M against 1 M','cu001','aq:copper-strip','cu1','aq:copper-strip'],['c01','0.1 M against 1 M','cu01','aq:copper-strip','cu1','aq:copper-strip'],['c1','1 M against 1 M','cu1','aq:copper-strip','cu1','aq:copper-strip']]",
+        "compareObjective": "Relate the cell potential to the concentration ratio",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does a cell with copper on both sides give a voltage at all?",
+          "options": [
+            {
+              "id": "nernst",
+              "label": "An electrode’s potential depends on the concentration of its ions: the dilute side is more negative"
+            },
+            {
+              "id": "impure",
+              "label": "The two copper strips are not the same purity"
+            },
+            {
+              "id": "bridge",
+              "label": "The salt bridge itself makes the voltage"
+            }
+          ],
+          "correctWhen": "choice == 'nernst'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-cell",
+              "statement": "The cell potential falls as the dilute side becomes more concentrated, to about zero at 1 M",
+              "check": "first(recorded('E-c0001')) > first(recorded('E-c001')) && first(recorded('E-c001')) > first(recorded('E-c01')) && abs(first(recorded('E-c1'))) < 0.01"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The concentration cell is explained",
+              "check": "decision('why') == 'nernst'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-step",
+              "statement": "A thousandfold ratio gives under 0.09 V (Nernst: 3 × 0.03 V)",
+              "check": "first(recorded('E-c0001')) < 0.095 && first(recorded('E-c0001')) > 0.04",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "concentration cell",
+        "Nernst equation"
+      ]
+    },
+    {
+      "id": "chem41-concentration-effect",
+      "title": "Electrochemical cells: the effect of concentration on a Daniell cell",
+      "summary": "Measure a zinc–copper cell with the copper(II) sulfate at 1, 0.1, 0.01 and 0.001 M and relate the change to the Nernst equation.",
+      "briefing": "Keep the zinc half-cell at 1 M and dilute the copper half-cell. Diluting the ions of the positive electrode lowers its potential, so the cell potential falls by about 0.03 V for each tenfold dilution.",
+      "values": {
+        "runs": "=[['e1','Zn (1 M) against Cu²⁺ 1 M','zn1','aq:zinc-strip','cu1','aq:copper-strip'],['e01','against Cu²⁺ 0.1 M','zn1','aq:zinc-strip','cu01','aq:copper-strip'],['e001','against Cu²⁺ 0.01 M','zn1','aq:zinc-strip','cu001','aq:copper-strip'],['e0001','against Cu²⁺ 0.001 M','zn1','aq:zinc-strip','cu0001','aq:copper-strip']]",
+        "compareObjective": "Relate the cell potential to the concentration of copper ions",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does diluting the copper(II) sulfate lower the cell potential?",
+          "options": [
+            {
+              "id": "equilibrium",
+              "label": "Fewer Cu²⁺ ions shift Cu²⁺ + 2e⁻ ⇌ Cu to the left, so the copper electrode’s potential falls"
+            },
+            {
+              "id": "resistance",
+              "label": "A dilute solution has a higher resistance, so the meter reads less"
+            },
+            {
+              "id": "zinc",
+              "label": "The zinc half-cell changes"
+            }
+          ],
+          "correctWhen": "choice == 'equilibrium'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-cell",
+              "statement": "The cell potential falls as the copper ions are diluted",
+              "check": "first(recorded('E-e1')) > first(recorded('E-e01')) && first(recorded('E-e01')) > first(recorded('E-e001')) && first(recorded('E-e001')) > first(recorded('E-e0001'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The fall is explained",
+              "check": "decision('why') == 'equilibrium'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-total",
+              "statement": "From 1 M to 0.001 M the cell loses under 0.1 V",
+              "check": "first(recorded('E-e1')) - first(recorded('E-e0001')) < 0.1",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "Nernst equation",
+        "concentration"
+      ]
+    }
+  ]
+}

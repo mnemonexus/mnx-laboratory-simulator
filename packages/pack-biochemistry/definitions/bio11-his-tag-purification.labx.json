@@ -1,0 +1,98 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio11-his-tag-purification",
+  "version": "1.0.0",
+  "title": "Purifying a His-tagged protein on nickel",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:elute" }, { "technique": "bio:sds-page" }] },
+  "summary": "Load a cleared E. coli lysate containing His-tagged GFP onto a nickel column, collect the flow-through, wash with 20 mM imidazole and elute with 250 mM imidazole. Follow the GFP by its absorbance at 488 nm to work out the yield, and check the purity of each fraction by SDS-PAGE.",
+  "briefing": "Six histidines at the end of the protein hold it to the nickel; imidazole, which looks like histidine's side chain, competes it off. A little imidazole in the wash frees host proteins that stick weakly, without releasing the tagged one. GFP is green (A488), so you can follow it by eye and by absorbance; SDS-PAGE shows what else is in each fraction.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-2", "disciplines": ["biochemistry", "molecular-biology"] },
+    "concepts": [{ "id": "affinity", "label": "Affinity purification with a tag" }, { "id": "purification", "label": "Yield and purity" }],
+    "objectives": [
+      { "id": "o-column", "kind": "skill", "statement": "Load, wash and elute a column, keeping each fraction", "skills": ["core:micropipetting"] },
+      { "id": "o-gel", "kind": "skill", "statement": "Check fractions by SDS-PAGE", "skills": ["bio:sds-page"] },
+      { "id": "o-yield", "kind": "analysis", "statement": "Work out the yield from A488", "goal": "g-yield" },
+      { "id": "o-purity", "kind": "reasoning", "statement": "Judge the purity of the eluate", "goal": "g-pure" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "lysate", "label": "Cleared lysate (GFP-His6)", "role": "specimen", "preparation": "bio:his-lysate", "amount": "5 mL", "container": "core:conical-tube-15ml", "storage": "4 Cel" }
+    ],
+    "supplies": [
+      { "id": "wash", "label": "Wash buffer (20 mM imidazole)", "preparation": "bio:his-wash-20mm", "amount": "15 mL", "container": "core:conical-tube-15ml" },
+      { "id": "elution", "label": "Elution buffer (250 mM imidazole)", "preparation": "bio:his-elution-250mm", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "buffer", "label": "SDS sample buffer (2×)", "preparation": "bio:sds-sample-buffer-2x", "amount": "200 uL", "container": "core:microtube-1.5ml" },
+      { "id": "marker", "label": "Protein marker (ready to load)", "preparation": "bio:protein-ladder-ready", "amount": "50 uL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "spec", "requires": { "class": "core:spectrophotometer.visible-single-beam" } },
+      { "id": "block", "requires": { "class": "core:heating-block", "temperature": "95 Cel" } },
+      { "id": "gel", "requires": { "class": "core:sds-page-gel-12pct" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "column", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:affinity-column-ni", "id": "col", "label": "Nickel column" } },
+      { "id": "fractions", "kind": "operation", "ref": "core:fetch", "forEach": { "var": "f", "in": "=[['ft', 'core:conical-tube-15ml', 'Flow-through'], ['w1', 'core:conical-tube-15ml', 'Wash 1'], ['w2', 'core:conical-tube-15ml', 'Wash 2'], ['e1', 'core:microtube-1.5ml', 'Eluate 1'], ['e2', 'core:microtube-1.5ml', 'Eluate 2'], ['e3', 'core:microtube-1.5ml', 'Eluate 3']]" },
+        "params": { "equipment": "=f[1]", "id": "=f[0]", "label": "=f[2]" } },
+      { "id": "load", "kind": "operation", "ref": "core:transfer", "objectives": ["o-column"], "params": { "source": "lysate", "destination": "col", "volume": "2 mL", "tool": "pour" } },
+      { "id": "flow-through", "kind": "operation", "ref": "core:elute", "objectives": ["o-column"], "params": { "column": "col", "buffer": "wash", "into": "ft", "volume": "0 mL" } },
+      { "id": "washes", "kind": "operation", "ref": "core:elute", "objectives": ["o-column"], "forEach": { "var": "w", "in": "=['w1', 'w2']" }, "params": { "column": "col", "buffer": "wash", "into": "=w", "volume": "5 mL" } },
+      { "id": "elutions", "kind": "operation", "ref": "core:elute", "objectives": ["o-column"], "forEach": { "var": "e", "in": "=['e1', 'e2', 'e3']" }, "params": { "column": "col", "buffer": "elution", "into": "=e", "volume": "1 mL" } },
+      { "id": "gel-samples", "kind": "group", "title": "10 µL of each fraction with sample buffer", "objectives": ["o-gel"],
+        "forEach": { "var": "x", "in": "=[['lysate', 'g-l'], ['ft', 'g-ft'], ['w1', 'g-w1'], ['e1', 'g-e1'], ['e2', 'g-e2']]" },
+        "steps": [
+          { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=x[1]" } },
+          { "id": "protein", "kind": "operation", "ref": "core:transfer", "params": { "source": "=x[0]", "destination": "=x[1]", "volume": "10 uL" } },
+          { "id": "sds", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "=x[1]", "volume": "10 uL" } },
+          { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=x[1]", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "into-block", "kind": "operation", "ref": "core:place-in", "forEach": { "var": "t", "in": "=['g-l', 'g-ft', 'g-w1', 'g-e1', 'g-e2']" }, "params": { "container": "=t", "place": "block" } },
+      { "id": "boil", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "5 min" } },
+      { "id": "out-of-block", "kind": "operation", "ref": "core:remove-from", "forEach": { "var": "t", "in": "=['g-l', 'g-ft', 'g-w1', 'g-e1', 'g-e2']" }, "params": { "container": "=t" } },
+      { "id": "electrophoresis", "kind": "technique", "ref": "bio:sds-page", "objectives": ["o-gel"],
+        "params": { "gel": "gel", "ladder": "marker", "ladderLane": "gel/A1", "loads": [["g-l", "gel/A2"], ["g-ft", "gel/A3"], ["g-w1", "gel/A4"], ["g-e1", "gel/A5"], ["g-e2", "gel/A6"]], "volume": "10 uL", "voltage": 200, "duration": "40 min" } },
+      { "id": "blank-cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-ps-1cm", "id": "c-blank", "label": "Blank" } },
+      { "id": "blank-fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "elution", "destination": "c-blank", "volume": "800 uL" } },
+      { "id": "zero", "kind": "operation", "ref": "core:calibrate", "params": { "instrument": "spec", "mode": "blank", "reference": "c-blank", "wavelength": "488 nm" } },
+      { "id": "readings", "kind": "group", "objectives": ["o-yield"], "forEach": { "var": "x", "in": "=[['lysate', 2.0], ['ft', 2.0], ['w1', 5.0], ['w2', 5.0], ['e1', 1.0], ['e2', 1.0], ['e3', 1.0]]" },
+        "let": { "cuvette": "='c-' + x[0]" },
+        "steps": [
+          { "id": "cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-ps-1cm", "id": "=cuvette" } },
+          { "id": "fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "=x[0]", "destination": "=cuvette", "volume": "800 uL" } },
+          { "id": "read", "kind": "operation", "ref": "core:measure", "params": { "instrument": "spec", "subject": "=cuvette", "wavelength": "488 nm" } },
+          { "id": "note-a", "kind": "operation", "ref": "core:record", "params": { "field": "='A488-' + x[0]", "value": "=read.out.value" } },
+          { "id": "note-amount", "kind": "operation", "ref": "core:record", "params": { "field": "='A488xV-' + x[0]", "value": "=read.out.value * x[1]" } }
+        ] },
+      { "id": "yield", "kind": "operation", "ref": "core:compute", "objectives": ["o-yield"],
+        "params": { "expression": "(e1 + e2 + e3) / l * 100", "values": { "e1": "=first(recorded('A488xV-e1'))", "e2": "=first(recorded('A488xV-e2'))", "e3": "=first(recorded('A488xV-e3'))", "l": "=first(recorded('A488xV-lysate'))" }, "field": "yield-%" } },
+      { "id": "purity", "kind": "decision", "objectives": ["o-purity"], "prompt": "What does the gel say about Eluate 1?",
+        "options": [
+          { "id": "pure", "label": "One band at about 28 kDa: GFP, essentially pure" },
+          { "id": "contaminated", "label": "GFP with other proteins: the wash did not remove them" },
+          { "id": "empty", "label": "No GFP: it did not bind or did not come off" }
+        ],
+        "correctWhen": "if(count(bandsIn('gel/A5')) == 0, 'empty', if(count(bandsIn('gel/A5')) == 1, 'pure', 'contaminated'))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-yield", "statement": "At least 80 % of the GFP is recovered in the eluates", "check": "first(recorded('yield-%')) >= 80" },
+      { "id": "g-pure", "statement": "Eluate 1 is over 95 % GFP", "check": "mass('e1', 'bio:gfp-his6') / (mass('e1', 'bio:gfp-his6') + mass('e1', 'bio:ecoli-host-protein-60k') + mass('e1', 'bio:ecoli-host-protein-45k') + mass('e1', 'bio:ecoli-host-protein-25k') + mass('e1', 'bio:ecoli-host-protein-15k')) > 0.95" }
+    ],
+    "expectedObservations": [
+      { "id": "e-lysate", "statement": "The lysate lane shows all five proteins", "check": "count(bandsIn('gel/A2')) == 5", "source": "simulation-derived" },
+      { "id": "e-ft", "statement": "Little GFP comes through unbound", "check": "first(recorded('A488xV-ft')) < 0.05 * first(recorded('A488xV-lysate'))", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

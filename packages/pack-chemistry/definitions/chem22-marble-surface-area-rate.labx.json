@@ -1,0 +1,400 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem22-marble-surface-area-rate",
+  "version": "1.0.0",
+  "title": "Surface area and rate: marble chips and acid",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:weigh"
+      }
+    ]
+  },
+  "summary": "React the same mass of marble as large, medium and small chips and as powder with hydrochloric acid on a balance, follow the mass lost as carbon dioxide escapes, and explain why smaller pieces react faster.",
+  "briefing": "Calcium carbonate reacts with hydrochloric acid: CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂. The carbon dioxide escapes, so the flask gets lighter. The reaction happens only at the surface of the marble: cutting it smaller exposes more surface for the acid to collide with. The marble is in excess, so the acid decides how much gas there is in the end.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "rate of reaction",
+      "surface area",
+      "marble chips",
+      "calcium carbonate",
+      "mass loss",
+      "carbon dioxide",
+      "collision theory"
+    ],
+    "topics": [
+      "Rates of reaction"
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ],
+    "concepts": [
+      {
+        "id": "surface",
+        "label": "Surface area to volume ratio and collision frequency"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Follow a reaction by mass loss on a balance"
+      },
+      {
+        "id": "o-rate",
+        "kind": "analysis",
+        "statement": "Compare initial rates from the gradients",
+        "goal": "g-rates"
+      },
+      {
+        "id": "o-total",
+        "kind": "analysis",
+        "statement": "Relate the total mass lost to the limiting reagent",
+        "goal": "g-total"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the effect of surface area with collision theory",
+        "goal": "g-explain"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "hcl",
+        "label": "Hydrochloric acid, 1.0 M",
+        "contains": [
+          {
+            "substance": "aq:hydrochloric-acid",
+            "conc": "1.0 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "large",
+        "label": "Large marble chips",
+        "contains": [
+          {
+            "substance": "aq:marble-chips-large",
+            "purity": "98 %"
+          }
+        ],
+        "amount": "50 g",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "medium",
+        "label": "Medium marble chips",
+        "contains": [
+          {
+            "substance": "aq:marble-chips",
+            "purity": "98 %"
+          }
+        ],
+        "amount": "50 g",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "small",
+        "label": "Small marble chips",
+        "contains": [
+          {
+            "substance": "aq:marble-chips-small",
+            "purity": "98 %"
+          }
+        ],
+        "amount": "50 g",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "powder",
+        "label": "Powdered marble",
+        "contains": [
+          {
+            "substance": "aq:powdered-marble",
+            "purity": "98 %"
+          }
+        ],
+        "amount": "50 g",
+        "container": "core:weighing-bottle"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each size of marble",
+        "objectives": [
+          "o-measure"
+        ],
+        "forEach": {
+          "var": "r",
+          "in": "=[['a', 'Flask: large chips', 'large', 5, 25], ['b', 'Flask: medium chips', 'medium', 5, 25], ['c', 'Flask: small chips', 'small', 5, 25], ['d', 'Flask: powder', 'powder', 5, 25]]"
+        },
+        "let": {
+          "flask": "='flask-' + r[0]"
+        },
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "=flask",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "acid-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hcl",
+              "destination": "=flask",
+              "volume": "=quantity(text(r[4]) + ' mL')",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "on-balance",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=flask",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "marble-in",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[2]",
+              "destination": "=flask",
+              "mass": "=quantity(text(r[3]) + ' g')"
+            }
+          },
+          {
+            "id": "follow",
+            "kind": "group",
+            "forEach": {
+              "var": "m",
+              "in": "=range(0, 600, 21)"
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "30 s"
+                },
+                "when": "m > 0"
+              },
+              {
+                "id": "weigh",
+                "kind": "operation",
+                "ref": "core:weigh",
+                "params": {
+                  "balance": "balance"
+                }
+              },
+              {
+                "id": "note-t",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='t-' + r[0]",
+                  "value": "=m"
+                }
+              },
+              {
+                "id": "note-m",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='m-' + r[0]",
+                  "value": "=value(quantity(weigh.out.value), 'g')"
+                }
+              }
+            ]
+          },
+          {
+            "id": "off-balance",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=flask"
+            }
+          },
+          {
+            "id": "initial",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=slice(recorded('t-' + r[0]), 0, 3)",
+              "y": "=map(slice(recorded('m-' + r[0]), 0, 3), first(recorded('m-' + r[0])) - it)",
+              "model": "linear",
+              "xLabel": "time / s"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=initial.out.fit.params.slope"
+            }
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "kind": "group",
+        "title": "Analysis",
+        "steps": [
+          {
+            "id": "totals",
+            "kind": "operation",
+            "ref": "core:compute",
+            "params": {
+              "expression": "mean([a, b, c, d])",
+              "values": {
+                "a": "=first(recorded('m-a')) - last(recorded('m-a'))",
+                "b": "=first(recorded('m-b')) - last(recorded('m-b'))",
+                "c": "=first(recorded('m-c')) - last(recorded('m-c'))",
+                "d": "=first(recorded('m-d')) - last(recorded('m-d'))"
+              },
+              "field": "loss-mean"
+            }
+          },
+          {
+            "id": "why",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why does powdered marble react faster than large chips of the same mass?",
+            "options": [
+              {
+                "id": "surface",
+                "label": "It has a larger surface, so more acid particles collide with it each second"
+              },
+              {
+                "id": "more-marble",
+                "label": "There is more calcium carbonate in powder"
+              },
+              {
+                "id": "lower-ea",
+                "label": "Powder has a lower activation energy"
+              }
+            ],
+            "correctWhen": "choice == 'surface'"
+          },
+          {
+            "id": "why-same",
+            "kind": "decision",
+            "objectives": [
+              "o-total"
+            ],
+            "prompt": "Why do the runs lose about the same mass in the end?",
+            "options": [
+              {
+                "id": "acid-limiting",
+                "label": "The acid is the limiting reagent: the same acid makes the same carbon dioxide"
+              },
+              {
+                "id": "marble-limiting",
+                "label": "The marble is all used up in each"
+              },
+              {
+                "id": "coincidence",
+                "label": "By chance"
+              }
+            ],
+            "correctWhen": "choice == 'acid-limiting'"
+          }
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-rates",
+        "statement": "Powder loses mass at least three times as fast at first as large chips (it is over within the first readings)",
+        "check": "first(recorded('rate-d')) > 3 * first(recorded('rate-a'))"
+      },
+      {
+        "id": "g-total",
+        "statement": "The powder's total loss is within 12 % of the carbon dioxide the acid can make, and it is explained",
+        "check": "within(first(recorded('m-d')) - last(recorded('m-d')), 0.550, 12%) && decision(why-same) == 'acid-limiting'"
+      },
+      {
+        "id": "g-explain",
+        "statement": "Surface area explains the faster rate",
+        "check": "decision(why) == 'surface'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-order",
+        "statement": "The smaller the pieces, the faster the mass falls at first",
+        "check": "first(recorded('rate-a')) < first(recorded('rate-b')) && first(recorded('rate-b')) < first(recorded('rate-c')) && first(recorded('rate-c')) < first(recorded('rate-d'))",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-same-end",
+        "statement": "Small chips and powder end at about the same loss",
+        "check": "within(first(recorded('m-c')) - last(recorded('m-c')), first(recorded('m-d')) - last(recorded('m-d')), 10%)",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

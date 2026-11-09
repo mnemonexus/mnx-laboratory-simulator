@@ -1,0 +1,79 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem7-tlc-analgesics",
+  "version": "1.0.0",
+  "title": "What is in a painkiller? Thin-layer chromatography",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:spot" }, { "operation": "core:develop" }] },
+  "summary": "Spot aspirin, paracetamol and caffeine standards and an extract of an unknown tablet on a silica TLC plate, develop it in ethyl acetate, look at it under short-wave UV, work out each spot's Rf and decide which of the three the tablet contains.",
+  "briefing": "Rf is the distance a spot travels divided by the distance the solvent front travels, both from the origin. The same compound on the same plate in the same eluent has the same Rf, so a spot in the tablet's lane that matches a standard's Rf is probably that compound. Keep the eluent below the origin line, and spot small amounts.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "tlc", "label": "Adsorption chromatography and Rf" }, { "id": "eluent-strength", "label": "Eluent strength" }],
+    "objectives": [
+      { "id": "o-run", "kind": "skill", "statement": "Spot, develop and visualise a TLC plate", "skills": ["core:micropipetting"] },
+      { "id": "o-rf", "kind": "analysis", "statement": "Calculate Rf values" },
+      { "id": "o-identify", "kind": "reasoning", "statement": "Identify the tablet's components", "goal": "g-identify" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "tablet", "label": "Tablet extract (in ethanol)", "role": "unknown", "solvent": "core:ethanol", "amount": "1 mL", "container": "core:microtube-1.5ml",
+        "contains": [{ "substance": "chem:aspirin", "conc": "10 mg/mL" }, { "substance": "chem:caffeine", "conc": "3 mg/mL" }] }
+    ],
+    "supplies": [
+      { "id": "std-aspirin", "label": "Aspirin, 10 mg/mL in ethanol", "solvent": "core:ethanol", "contains": [{ "substance": "chem:aspirin", "conc": "10 mg/mL" }], "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "std-paracetamol", "label": "Paracetamol, 10 mg/mL in ethanol", "solvent": "core:ethanol", "contains": [{ "substance": "chem:paracetamol", "conc": "10 mg/mL" }], "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "std-caffeine", "label": "Caffeine, 5 mg/mL in ethanol", "solvent": "core:ethanol", "contains": [{ "substance": "chem:caffeine", "conc": "5 mg/mL" }], "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "eluent", "label": "Ethyl acetate", "solvent": "chem:ethyl-acetate", "contains": [{ "substance": "chem:ethyl-acetate", "conc": "902 g/L" }], "amount": "50 mL", "container": "core:reagent-bottle-50ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [{ "id": "lamp", "requires": { "class": "core:uv-lamp-254" } }]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "plate", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:tlc-plate-silica", "id": "plate", "label": "TLC plate" } },
+      { "id": "spotting", "kind": "group", "title": "2 µL on each lane", "objectives": ["o-run"], "forEach": { "var": "x", "in": "=[['std-aspirin', 1], ['std-paracetamol', 2], ['std-caffeine', 3], ['tablet', 4]]" },
+        "steps": [
+          { "id": "spot", "kind": "operation", "ref": "core:spot", "params": { "plate": "plate", "source": "=x[0]", "lane": "=x[1]", "volume": "2 uL" } }
+        ] },
+      { "id": "chamber", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:tlc-chamber", "id": "chamber", "label": "Developing chamber" } },
+      { "id": "fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "eluent", "destination": "chamber", "volume": "10 mL" } },
+      { "id": "run", "kind": "operation", "ref": "core:develop", "objectives": ["o-run"], "params": { "plate": "plate", "chamber": "chamber", "front": "50 mm" } },
+      { "id": "view", "kind": "operation", "ref": "core:measure", "objectives": ["o-run"], "params": { "instrument": "lamp", "subject": "plate" } },
+      { "id": "rfs", "kind": "group", "objectives": ["o-rf"], "forEach": { "var": "l", "in": "=[1, 2, 3, 4]" },
+        "steps": [
+          { "id": "note-rf", "kind": "operation", "ref": "core:record", "params": { "field": "='Rf-lane-' + text(l)", "value": "=map(tlcSpots('plate', l), it / solventFront('plate'))" } }
+        ] },
+      { "id": "identify", "kind": "decision", "objectives": ["o-identify"], "prompt": "Which compounds does the tablet contain?",
+        "options": [
+          { "id": "aspirin-caffeine", "label": "Aspirin and caffeine" },
+          { "id": "paracetamol-caffeine", "label": "Paracetamol and caffeine" },
+          { "id": "aspirin-paracetamol", "label": "Aspirin and paracetamol" },
+          { "id": "all", "label": "All three" },
+          { "id": "cannot-tell", "label": "Cannot tell: the tablet's lane shows no spots" }
+        ],
+        "correctWhen": "if(count(first(recorded('Rf-lane-4'))) == 0, 'cannot-tell', if(any(first(recorded('Rf-lane-4')), abs(it - first(first(recorded('Rf-lane-1')))) < 0.05), if(any(first(recorded('Rf-lane-4')), abs(it - first(first(recorded('Rf-lane-2')))) < 0.05), if(any(first(recorded('Rf-lane-4')), abs(it - first(first(recorded('Rf-lane-3')))) < 0.05), 'all', 'aspirin-paracetamol'), 'aspirin-caffeine'), 'paracetamol-caffeine'))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-identify", "statement": "The tablet's components are identified correctly", "check": "decision(identify) == if(amount('tablet', 'chem:aspirin') > 0 mol, 'aspirin-caffeine', 'paracetamol-caffeine')" }
+    ],
+    "expectedObservations": [
+      { "id": "e-order", "statement": "Aspirin runs furthest and caffeine least far", "check": "first(first(recorded('Rf-lane-1'))) > first(first(recorded('Rf-lane-2'))) && first(first(recorded('Rf-lane-2'))) > first(first(recorded('Rf-lane-3')))", "source": "reference-standard" },
+      { "id": "e-two", "statement": "The tablet shows two spots", "check": "count(first(recorded('Rf-lane-4'))) == 2", "source": "simulation-derived" }
+    ]
+  },
+  "variation": {
+    "faults": [
+      { "id": "paracetamol-tablet", "probability": 0.5, "apply": { "supply": "tablet", "truth": { "contains": [{ "substance": "chem:paracetamol", "conc": "10 mg/mL" }, { "substance": "chem:caffeine", "conc": "3 mg/mL" }] } } }
+    ],
+    "noise": "default"
+  },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

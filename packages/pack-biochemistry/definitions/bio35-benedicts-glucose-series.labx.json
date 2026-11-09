@@ -1,0 +1,430 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio35-benedicts-glucose-series",
+  "version": "1.0.0",
+  "title": "How much glucose? A Benedict’s colour series",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Heat glucose standards from 0 to 2 % with Benedict’s reagent to see the colours run from blue through green, yellow and orange to brick red, then estimate the glucose in an unknown by matching its colour.",
+  "briefing": "Put 2 mL of each glucose standard in a test tube with 2 mL of Benedict’s reagent and heat them together in the boiling water bath for five minutes. Each glucose reduces copper(II) to brick-red copper(I) oxide, so the more glucose, the more of the blue reagent is used up and the more red solid there is: a little orange-red solid in the blue looks green, more looks yellow and then orange, and a lot of it settles as a brick-red layer. Treat the unknown in the same way, at the same time, and match it to a standard.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "Benedict’s",
+      "reducing sugar",
+      "glucose",
+      "semi-quantitative",
+      "colour standards",
+      "calibration"
+    ],
+    "topics": [
+      "Biological molecules"
+    ],
+    "concepts": [
+      {
+        "id": "semi-quantitative",
+        "label": "A test that gives a range of colours can estimate an amount by comparison with standards"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-series",
+        "kind": "skill",
+        "statement": "Make a series of standards and treat them all alike"
+      },
+      {
+        "id": "o-estimate",
+        "kind": "outcome",
+        "statement": "Estimate the glucose in an unknown by matching it to a standard",
+        "goal": "g-estimate"
+      },
+      {
+        "id": "o-limits",
+        "kind": "reasoning",
+        "statement": "Explain the limits of a colour comparison",
+        "goal": "g-limits"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "BTEC",
+      "T Level"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "s0",
+        "label": "Glucose standard, 0 %",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "0 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s05",
+        "label": "Glucose standard, 0.05 %",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "0.5 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s1",
+        "label": "Glucose standard, 0.1 %",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "1 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s25",
+        "label": "Glucose standard, 0.25 %",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "2.5 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s5",
+        "label": "Glucose standard, 0.5 %",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "5 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s10",
+        "label": "Glucose standard, 1 %",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "10 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s20",
+        "label": "Glucose standard, 2 %",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "20 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "unknown",
+        "label": "Unknown glucose solution",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "5 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "benedict",
+        "label": "Benedict’s reagent",
+        "preparation": "bio:benedicts-reagent",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "95 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "set-bath",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "bath",
+          "temperature": "95 Cel"
+        }
+      },
+      {
+        "id": "tubes",
+        "kind": "group",
+        "title": "Standards and unknown with Benedict’s reagent",
+        "objectives": [
+          "o-series"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['s0','s05','s1','s25','s5','s10','s20','unknown']"
+        },
+        "steps": [
+          {
+            "id": "fetch",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='tube-' + x",
+              "label": "='Tube: ' + x"
+            }
+          },
+          {
+            "id": "sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x",
+              "destination": "='tube-' + x",
+              "volume": "2 mL"
+            }
+          },
+          {
+            "id": "reagent",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "benedict",
+              "destination": "='tube-' + x",
+              "volume": "2 mL"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='tube-' + x",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "in-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + x",
+              "place": "bath"
+            }
+          }
+        ]
+      },
+      {
+        "id": "heat",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "5 min"
+        }
+      },
+      {
+        "id": "look",
+        "kind": "group",
+        "title": "Take the tubes out and compare them",
+        "objectives": [
+          "o-series"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['s0','s05','s1','s25','s5','s10','s20','unknown']"
+        },
+        "steps": [
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='tube-' + x"
+            }
+          },
+          {
+            "id": "see",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "='tube-' + x"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + x",
+              "value": "=see.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "match",
+        "kind": "decision",
+        "objectives": [
+          "o-estimate"
+        ],
+        "prompt": "Which standard does the unknown match most closely?",
+        "options": [
+          {
+            "id": "s05",
+            "label": "0.05 %"
+          },
+          {
+            "id": "s1",
+            "label": "0.1 %"
+          },
+          {
+            "id": "s25",
+            "label": "0.25 %"
+          },
+          {
+            "id": "s5",
+            "label": "0.5 %"
+          },
+          {
+            "id": "s10",
+            "label": "1 %"
+          },
+          {
+            "id": "s20",
+            "label": "2 %"
+          }
+        ],
+        "correctWhen": "abs(value(truth('conc', 'unknown', 'core:glucose'), 'mmol/L') - first(filter([['s0',0],['s05',2.78],['s1',5.55],['s25',13.88],['s5',27.75],['s10',55.51],['s20',111.01]], it[0] == choice))[1]) < 1"
+      },
+      {
+        "id": "limits",
+        "kind": "decision",
+        "objectives": [
+          "o-limits"
+        ],
+        "prompt": "Above about 1 % glucose the tubes all look alike: orange to brick red, with no blue left. Why?",
+        "options": [
+          {
+            "id": "copper-used",
+            "label": "All the copper(II) has been reduced: there is no more blue reagent left to change"
+          },
+          {
+            "id": "glucose-used",
+            "label": "The glucose has all been used up"
+          },
+          {
+            "id": "too-hot",
+            "label": "The water bath is not hot enough"
+          }
+        ],
+        "correctWhen": "'copper-used'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-estimate",
+        "statement": "The unknown is matched to the right standard",
+        "check": "abs(value(truth('conc', 'unknown', 'core:glucose'), 'mmol/L') - first(filter([['s0',0],['s05',2.78],['s1',5.55],['s25',13.88],['s5',27.75],['s10',55.51],['s20',111.01]], it[0] == decision('match')))[1]) < 1"
+      },
+      {
+        "id": "g-limits",
+        "statement": "The top of the range is explained",
+        "check": "decision('limits') == 'copper-used'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-blank",
+        "statement": "Without glucose the reagent stays blue",
+        "check": "mentions(first(recorded('seen-s0')), 'blue') && !mentions(first(recorded('seen-s0')), 'precipitate')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-series",
+        "statement": "As the glucose rises the tubes turn green, then yellow, then orange; at 1 % and above no blue is left",
+        "check": "mentions(first(recorded('seen-s25')), 'green') && mentions(first(recorded('seen-s5')), 'yellow|orange') && mentions(first(recorded('seen-s20')), 'orange|red') && mentions(first(recorded('seen-s20')), 'colourless')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default",
+    "params": [
+      {
+        "path": "/materials/supplies/7/contains/0/conc",
+        "domain": [
+          "1 g/L",
+          "2.5 g/L",
+          "5 g/L"
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

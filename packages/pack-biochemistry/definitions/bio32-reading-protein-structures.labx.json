@@ -1,0 +1,527 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio32-reading-protein-structures",
+  "version": "1.0.0",
+  "title": "Reading protein structures: lysozyme's bonds, maps, an NMR ensemble and cryo-EM conformers",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:record"
+      }
+    ]
+  },
+  "summary": "From measurements made on a 1.8 Å structure of lysozyme bound to chitopentaose (a residue table, S–S distances, acid–base distances and contacts), find the disulphide bonds and salt bridges, give the S–S length as a mean and standard deviation, and name the interactions that hold the core and the sugar. Then reason about map contouring, missing residues, NMR ensembles and cryo-EM conformers.",
+  "briefing": "The residue at each listed position is given by its one-letter code. A salt bridge needs an acidic oxygen and a basic nitrogen within about 4.0 Å; the C-terminal residue's carboxylate counts as acidic. The zinc distances are from the zinc ion to the nearest side-chain atom; a coordinating atom sits within about 2.6 Å.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry",
+        "structural-biology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "interactions",
+        "label": "Interactions that hold a fold"
+      },
+      {
+        "id": "resolution",
+        "label": "Resolution and what a map shows"
+      },
+      {
+        "id": "methods",
+        "label": "X-ray, NMR and cryo-EM models compared"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-bonds",
+        "kind": "analysis",
+        "statement": "Find and measure the bonds and contacts that hold a protein together",
+        "goal": "g-structure"
+      },
+      {
+        "id": "o-xray",
+        "kind": "reasoning",
+        "statement": "Judge what a crystal structure's resolution and map can show",
+        "goal": "g-structure"
+      },
+      {
+        "id": "o-mechanism",
+        "kind": "reasoning",
+        "statement": "Relate the active site's chemistry to pH",
+        "goal": "g-structure"
+      },
+      {
+        "id": "o-methods",
+        "kind": "reasoning",
+        "statement": "Compare what NMR and cryo-EM models represent",
+        "goal": "g-structure"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed",
+    "steps": [
+      {
+        "id": "res",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "resolution-A",
+          "value": 1.8
+        }
+      },
+      {
+        "id": "median",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "PDB-median-resolution-A",
+          "value": 2.0
+        }
+      },
+      {
+        "id": "hydrogens",
+        "kind": "decision",
+        "prompt": "At 1.8 Å, the hydrogen atoms in this lysozyme model…",
+        "options": [
+          {
+            "id": "absent",
+            "label": "…are rightly absent: hydrogens scatter X-rays weakly and are seen only at about 1 Å or better"
+          },
+          {
+            "id": "included",
+            "label": "…should have been included in the model"
+          }
+        ],
+        "correctWhen": "if(first(recorded('resolution-A')) > 1.2, 'absent', 'included')",
+        "objectives": [
+          "o-xray"
+        ]
+      },
+      {
+        "id": "ds-positions",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "positions-asked",
+          "value": [
+            6,
+            12,
+            30,
+            64,
+            76,
+            80,
+            94,
+            105,
+            115,
+            117,
+            127
+          ]
+        }
+      },
+      {
+        "id": "ds-residues",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "residue-at-position",
+          "value": [
+            "C",
+            "M",
+            "C",
+            "C",
+            "C",
+            "C",
+            "C",
+            "M",
+            "C",
+            "G",
+            "C"
+          ]
+        }
+      },
+      {
+        "id": "disulphide",
+        "kind": "decision",
+        "objectives": [
+          "o-bonds"
+        ],
+        "prompt": "Is this residue in a disulphide bond?",
+        "forEach": {
+          "var": "p",
+          "in": "=['6', '12', '30', '64', '76', '80', '94', '105', '115', '117', '127']"
+        },
+        "options": [
+          {
+            "id": "yes",
+            "label": "Yes"
+          },
+          {
+            "id": "no",
+            "label": "No"
+          }
+        ],
+        "correctWhen": "if(first(recorded('residue-at-position'))[first(filter(range(0, 10, 11), text(first(recorded('positions-asked'))[it]) == p))] == 'C', 'yes', 'no')"
+      },
+      {
+        "id": "ss",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "S-S-distances-A",
+          "value": [
+            2.03,
+            2.05,
+            2.02,
+            2.04
+          ]
+        }
+      },
+      {
+        "id": "ss-mean",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "S-S-mean-A",
+          "value": "=mean(first(recorded('S-S-distances-A')))"
+        }
+      },
+      {
+        "id": "ss-sd",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "S-S-sd-A",
+          "value": "=sd(first(recorded('S-S-distances-A')))"
+        }
+      },
+      {
+        "id": "sb-positions",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "salt-bridge-candidates",
+          "value": [
+            1,
+            7,
+            13,
+            14,
+            48,
+            61,
+            129
+          ]
+        }
+      },
+      {
+        "id": "sb-dist",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "closest-O-N-A",
+          "value": [
+            2.8,
+            2.8,
+            3.1,
+            5.6,
+            2.9,
+            2.9,
+            3.1
+          ]
+        }
+      },
+      {
+        "id": "salt-bridge",
+        "kind": "decision",
+        "objectives": [
+          "o-bonds"
+        ],
+        "prompt": "Is this residue in a salt bridge (an acidic oxygen and a basic nitrogen within about 4.0 Å)?",
+        "forEach": {
+          "var": "p",
+          "in": "=['1', '7', '13', '14', '48', '61', '129']"
+        },
+        "options": [
+          {
+            "id": "yes",
+            "label": "Yes"
+          },
+          {
+            "id": "no",
+            "label": "No"
+          }
+        ],
+        "correctWhen": "if(first(recorded('closest-O-N-A'))[first(filter(range(0, 6, 7), text(first(recorded('salt-bridge-candidates'))[it]) == p))] <= 4.0, 'yes', 'no')"
+      },
+      {
+        "id": "leu8",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Leu8-contacts-within-4A",
+          "value": [
+            "Ala10 CB 3.8",
+            "Ile55 CD1 3.9",
+            "Leu56 CD2 3.7",
+            "Ile88 CG2 3.9",
+            "Ala95 CB 3.8"
+          ]
+        }
+      },
+      {
+        "id": "core",
+        "kind": "decision",
+        "prompt": "What holds leucine 8's side chain in the core?",
+        "options": [
+          {
+            "id": "hydrophobic",
+            "label": "Hydrophobic interactions: every neighbour within 4 Å is a carbon of an apolar side chain"
+          },
+          {
+            "id": "salt",
+            "label": "Salt bridges"
+          },
+          {
+            "id": "water",
+            "label": "Hydrogen bonds to water"
+          }
+        ],
+        "correctWhen": "if(all(c in first(recorded('Leu8-contacts-within-4A')): !mentions(c, ' O') && !mentions(c, ' N')), 'hydrophobic', 'salt')",
+        "objectives": [
+          "o-bonds"
+        ]
+      },
+      {
+        "id": "trp62-stack",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Trp62-NAG3-ring-to-CH-A",
+          "value": 3.6
+        }
+      },
+      {
+        "id": "trp62-polar",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Trp62-NAG3-closest-polar-A",
+          "value": 4.6
+        }
+      },
+      {
+        "id": "trp",
+        "kind": "decision",
+        "prompt": "What interaction does tryptophan 62 make with GlcNAc 3?",
+        "options": [
+          {
+            "id": "xh-pi",
+            "label": "An XH-π interaction: the sugar ring's apolar C–H face stacks on the indole ring"
+          },
+          {
+            "id": "hbond",
+            "label": "A hydrogen bond"
+          },
+          {
+            "id": "salt",
+            "label": "A salt bridge"
+          }
+        ],
+        "correctWhen": "if(first(recorded('Trp62-NAG3-closest-polar-A')) > 3.5 && first(recorded('Trp62-NAG3-ring-to-CH-A')) < 4.0, 'xh-pi', 'hbond')",
+        "objectives": [
+          "o-bonds"
+        ]
+      },
+      {
+        "id": "acid-ph",
+        "kind": "decision",
+        "prompt": "Wild-type lysozyme stays folded at pH 3.9. What does such an acidic pH do to its activity?",
+        "options": [
+          {
+            "id": "slower",
+            "label": "Slows it: aspartate 52 (and other acidic groups) become protonated and salt bridges are lost"
+          },
+          {
+            "id": "same",
+            "label": "Nothing: if it is folded it works"
+          },
+          {
+            "id": "unfolded",
+            "label": "It cannot be folded once salt bridges are lost"
+          }
+        ],
+        "correctWhen": "'slower'",
+        "objectives": [
+          "o-mechanism"
+        ]
+      },
+      {
+        "id": "contour",
+        "kind": "decision",
+        "prompt": "Why are electron density maps normally shown at 1 σ or above?",
+        "options": [
+          {
+            "id": "noise",
+            "label": "Below 1 σ the density is too close to the noise floor"
+          },
+          {
+            "id": "complete",
+            "label": "Above 1 σ the map always covers every atom"
+          },
+          {
+            "id": "hydrogens",
+            "label": "To hide the hydrogens"
+          }
+        ],
+        "correctWhen": "'noise'",
+        "objectives": [
+          "o-xray"
+        ]
+      },
+      {
+        "id": "missing",
+        "kind": "decision",
+        "prompt": "A 0.95 Å map still has no density for some residues. Why?",
+        "options": [
+          {
+            "id": "disorder",
+            "label": "They are disordered or in several discrete conformations"
+          },
+          {
+            "id": "cut",
+            "label": "They were cut off by an enzyme"
+          },
+          {
+            "id": "forgot",
+            "label": "Nobody modelled them"
+          }
+        ],
+        "correctWhen": "'disorder'",
+        "objectives": [
+          "o-xray"
+        ]
+      },
+      {
+        "id": "zn",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Zn-distances",
+          "value": [
+            [
+              "Cys",
+              18,
+              2.3
+            ],
+            [
+              "His",
+              54,
+              2.1
+            ],
+            [
+              "Ala",
+              55,
+              6.8
+            ],
+            [
+              "Cys",
+              93,
+              2.3
+            ],
+            [
+              "Cys",
+              95,
+              2.4
+            ]
+          ]
+        }
+      },
+      {
+        "id": "zn-ligands",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Zn-ligand-residues",
+          "value": "=map(filter(first(recorded('Zn-distances')), it[2] < 2.6), it[1])"
+        }
+      },
+      {
+        "id": "ensemble",
+        "kind": "decision",
+        "prompt": "Why is an NMR structure deposited as an ensemble of models?",
+        "options": [
+          {
+            "id": "restraints",
+            "label": "Many models satisfy the measured distance restraints equally well"
+          },
+          {
+            "id": "crystals",
+            "label": "Each model is from a different crystal"
+          },
+          {
+            "id": "error",
+            "label": "To average out errors in the coordinates"
+          }
+        ],
+        "correctWhen": "'restraints'",
+        "objectives": [
+          "o-methods"
+        ]
+      },
+      {
+        "id": "conformers",
+        "kind": "decision",
+        "prompt": "Image classification gave a cryo-EM structure in several conformations. Which is true?",
+        "options": [
+          {
+            "id": "nmr",
+            "label": "NMR could also capture domain movements, but only for smaller proteins"
+          },
+          {
+            "id": "xray",
+            "label": "One crystal could have captured every state"
+          },
+          {
+            "id": "hydrogens",
+            "label": "Hydrogens should be visible in these maps"
+          },
+          {
+            "id": "radiation",
+            "label": "The side chains were destroyed by radiation"
+          }
+        ],
+        "correctWhen": "'nmr'",
+        "objectives": [
+          "o-methods"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-structure",
+        "statement": "Bonds found and measured, and each judgement follows from the data",
+        "check": "all(p in ['6', '12', '30', '64', '76', '80', '94', '105', '115', '117', '127']: decision('disulphide', p) == if(first(recorded('residue-at-position'))[first(filter(range(0, 10, 11), text(first(recorded('positions-asked'))[it]) == p))] == 'C', 'yes', 'no')) && all(p in ['1', '7', '13', '14', '48', '61', '129']: decision('salt-bridge', p) == if(first(recorded('closest-O-N-A'))[first(filter(range(0, 6, 7), text(first(recorded('salt-bridge-candidates'))[it]) == p))] <= 4.0, 'yes', 'no')) && within(first(recorded('S-S-mean-A')), 2.035, 0.001) && within(first(recorded('S-S-sd-A')), 0.0129, 0.001) && decision('hydrogens') == 'absent' && decision('core') == 'hydrophobic' && decision('trp') == 'xh-pi' && decision('acid-ph') == 'slower' && decision('contour') == 'noise' && decision('missing') == 'disorder' && decision('ensemble') == 'restraints' && decision('conformers') == 'nmr' && len(first(recorded('Zn-ligand-residues'))) == 4 && all(r in [18, 54, 93, 95]: any(z in first(recorded('Zn-ligand-residues')): z == r))"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "ideal"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

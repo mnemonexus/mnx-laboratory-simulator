@@ -1,0 +1,105 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio4-pcr-rflp-genotyping",
+  "version": "1.0.0",
+  "title": "Genotyping a taste-receptor SNP by PCR-RFLP",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "molbio:pcr" }, { "technique": "molbio:agarose-gel" }, { "technique": "molbio:size-band" }] },
+  "summary": "Amplify a 221 bp stretch of the bitter-taste receptor gene TAS2R38 from three people's DNA, digest the products with HaeIII, which cuts only the taster allele, run them on a 3 % agarose gel and work out each person's genotype from the band pattern.",
+  "briefing": "A single-nucleotide difference decides whether a HaeIII site (GGCC) is present. The taster allele (P) has the site, so its 221 bp product is cut into 177 and 44 bp; the non-taster allele (A) is not cut. A person with both alleles shows all three bands. Run a no-template control and one product uncut for comparison.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["molecular-biology", "genetics", "biosciences"] },
+    "concepts": [{ "id": "snp", "label": "A SNP that creates or destroys a restriction site" }, { "id": "genotype", "label": "Homozygous and heterozygous genotypes" }],
+    "objectives": [
+      { "id": "o-pcr", "kind": "skill", "statement": "Set up PCRs with a no-template control", "skills": ["molbio:pcr-setup", "core:micropipetting"] },
+      { "id": "o-digest", "kind": "skill", "statement": "Digest the products and run them on a gel", "skills": ["molbio:gel-electrophoresis"] },
+      { "id": "o-genotype", "kind": "reasoning", "statement": "Assign each genotype from the bands", "goal": "g-genotypes" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "person-a", "label": "DNA, person A (10 ng/µL)", "role": "unknown", "solvent": "core:water", "amount": "20 uL", "container": "core:microtube-1.5ml",
+        "contains": [{ "substance": "molbio:human-gdna-tas2r38-pav", "conc": "5 ng/uL" }, { "substance": "molbio:human-gdna-tas2r38-avi", "conc": "5 ng/uL" }] },
+      { "id": "person-b", "label": "DNA, person B (10 ng/µL)", "role": "unknown", "solvent": "core:water", "amount": "20 uL", "container": "core:microtube-1.5ml",
+        "contains": [{ "substance": "molbio:human-gdna-tas2r38-avi", "conc": "10 ng/uL" }] },
+      { "id": "person-c", "label": "DNA, person C (10 ng/µL)", "role": "unknown", "solvent": "core:water", "amount": "20 uL", "container": "core:microtube-1.5ml",
+        "contains": [{ "substance": "molbio:human-gdna-tas2r38-pav", "conc": "10 ng/uL" }] }
+    ],
+    "supplies": [
+      { "id": "mastermix", "label": "PCR master mix (2×)", "preparation": "molbio:pcr-master-mix-2x", "amount": "500 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "primers", "label": "TAS2R38 primer mix (10 µM each)", "preparation": "molbio:tas2r38-primer-mix", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "water", "label": "Nuclease-free water", "preparation": "core:water-deionised", "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "buffer", "label": "Restriction buffer (10×)", "preparation": "molbio:restriction-buffer-10x", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "haeiii", "label": "HaeIII (10 U/µL)", "preparation": "molbio:haeiii-10u", "amount": "20 uL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "dye", "label": "Loading dye (6×)", "preparation": "molbio:loading-dye-6x", "amount": "100 uL", "container": "core:microtube-1.5ml" },
+      { "id": "ladder", "label": "50 bp ladder (ready to load)", "preparation": "molbio:ladder-50bp-ready", "amount": "50 uL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "bath", "requires": { "class": "core:water-bath", "temperature": "37 Cel" } },
+      { "id": "gel", "requires": { "class": "core:agarose-gel-3pct" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "setup", "kind": "group", "title": "Four 25 µL reactions", "objectives": ["o-pcr"], "forEach": { "var": "t", "in": "=[['pcr-a', 'person-a'], ['pcr-b', 'person-b'], ['pcr-c', 'person-c'], ['pcr-ntc', 'water']]" },
+        "steps": [
+          { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:pcr-tube-0.2ml", "id": "=t[0]" } },
+          { "id": "add-water", "kind": "operation", "ref": "core:transfer", "params": { "source": "water", "destination": "=t[0]", "volume": "10.25 uL" } },
+          { "id": "add-mix", "kind": "operation", "ref": "core:transfer", "params": { "source": "mastermix", "destination": "=t[0]", "volume": "12.5 uL" } },
+          { "id": "add-primers", "kind": "operation", "ref": "core:transfer", "params": { "source": "primers", "destination": "=t[0]", "volume": "1.25 uL" } },
+          { "id": "add-template", "kind": "operation", "ref": "core:transfer", "params": { "source": "=t[1]", "destination": "=t[0]", "volume": "1 uL" } },
+          { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=t[0]", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "amplify", "kind": "technique", "ref": "molbio:pcr", "params": { "tubes": ["pcr-a", "pcr-b", "pcr-c", "pcr-ntc"], "cycles": 35, "annealTemperature": "58 Cel", "extendTime": "30 s" } },
+      { "id": "digests", "kind": "group", "title": "Digest 10 µL of each product with HaeIII", "objectives": ["o-digest"], "forEach": { "var": "d", "in": "=[['dig-a', 'pcr-a'], ['dig-b', 'pcr-b'], ['dig-c', 'pcr-c']]" },
+        "steps": [
+          { "id": "digest-tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=d[0]" } },
+          { "id": "digest-water", "kind": "operation", "ref": "core:transfer", "params": { "source": "water", "destination": "=d[0]", "volume": "7 uL" } },
+          { "id": "digest-buffer", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "=d[0]", "volume": "2 uL" } },
+          { "id": "digest-product", "kind": "operation", "ref": "core:transfer", "params": { "source": "=d[1]", "destination": "=d[0]", "volume": "10 uL" } },
+          { "id": "digest-enzyme", "kind": "operation", "ref": "core:transfer", "params": { "source": "haeiii", "destination": "=d[0]", "volume": "1 uL" } },
+          { "id": "digest-mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=d[0]", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "into-bath", "kind": "operation", "ref": "core:place-in", "forEach": { "var": "x", "in": "=['dig-a', 'dig-b', 'dig-c']" }, "params": { "container": "=x", "place": "bath" } },
+      { "id": "digest", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+      { "id": "out-of-bath", "kind": "operation", "ref": "core:remove-from", "forEach": { "var": "x", "in": "=['dig-a', 'dig-b', 'dig-c']" }, "params": { "container": "=x" } },
+      { "id": "dye", "kind": "group", "forEach": { "var": "x", "in": "=['dig-a', 'dig-b', 'dig-c', 'pcr-a', 'pcr-ntc']" },
+        "steps": [
+          { "id": "dye-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "dye", "destination": "=x", "volume": "4 uL" } },
+          { "id": "dye-mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=x", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "electrophoresis", "kind": "technique", "ref": "molbio:agarose-gel", "objectives": ["o-digest"],
+        "params": { "gel": "gel", "ladder": "ladder", "ladderLane": "gel/A1", "loads": [["pcr-a", "gel/A2"], ["dig-a", "gel/A3"], ["dig-b", "gel/A4"], ["dig-c", "gel/A5"], ["pcr-ntc", "gel/A6"]], "volume": "10 uL", "voltage": 100, "duration": "40 min" } },
+      { "id": "sizing", "kind": "group", "forEach": { "var": "l", "in": "=[['uncut', 'gel/A2'], ['a', 'gel/A3'], ['b', 'gel/A4'], ['c', 'gel/A5']]" },
+        "steps": [
+          { "id": "size", "kind": "technique", "ref": "molbio:size-band", "params": { "ladderLane": "gel/A1", "lane": "=l[1]", "ladder": "molbio:ladder-50bp" } },
+          { "id": "note", "kind": "operation", "ref": "core:record", "params": { "field": "='sizes-' + l[0]", "value": "=size.out.sizes" } }
+        ] },
+      { "id": "genotype", "kind": "decision", "objectives": ["o-genotype"], "forEach": { "var": "p", "in": "=['a', 'b', 'c']" },
+        "prompt": "What is this person's genotype?",
+        "options": [
+          { "id": "pp", "label": "PP: homozygous taster (177 and 44 bp only)" },
+          { "id": "pa", "label": "PA: heterozygous (221, 177 and 44 bp)" },
+          { "id": "aa", "label": "AA: homozygous non-taster (221 bp only)" }
+        ],
+        "correctWhen": "if(any(first(recorded('sizes-' + p)), between(it, 200, 245)), if(any(first(recorded('sizes-' + p)), between(it, 155, 199)), 'pa', 'aa'), 'pp')" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-genotypes", "statement": "All three genotypes are right (A heterozygous, B non-taster, C taster)", "check": "decision(genotype, 'a') == 'pa' && decision(genotype, 'b') == 'aa' && decision(genotype, 'c') == 'pp'" }
+    ],
+    "expectedObservations": [
+      { "id": "e-uncut", "statement": "The uncut product runs at about 221 bp, with no 177 bp band (the genomic template stays faintly near the well)", "check": "any(first(recorded('sizes-uncut')), between(it, 200, 245)) && !any(first(recorded('sizes-uncut')), between(it, 155, 199))", "source": "reference-standard" },
+      { "id": "e-ntc", "statement": "The no-template control is clean", "check": "count(bandsIn('gel/A6')) == 0", "source": "reference-standard" },
+      { "id": "e-het", "statement": "The heterozygote shows three bands", "check": "count(bandsIn('gel/A3')) == 3", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

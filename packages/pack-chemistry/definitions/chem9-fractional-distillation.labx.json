@@ -1,0 +1,79 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem9-fractional-distillation",
+  "version": "1.0.0",
+  "title": "Simple and fractional distillation of an ethanol–water mixture",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:distil" }, { "operation": "core:weigh" }] },
+  "summary": "Distil 100 mL of 20 % (v/v) ethanol twice, once simply and once through a Vigreux column, collecting three 12 mL fractions each and noting the still-head temperature. Find each fraction's ethanol content from the mass of 10.00 mL, and compare the two methods.",
+  "briefing": "Ethanol boils at 78 °C and water at 100 °C, but a mixture boils in between and gives off vapour richer in ethanol than the liquid. A fractionating column lets the vapour condense and re-boil several times on the way up, so it arrives richer still, though never beyond the azeotrope (about 96 % ethanol). Take volumes as additive: % ethanol (v/v) = (0.997 − ρ) / (0.997 − 0.789) × 100, with ρ in g/mL.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "vle", "label": "Vapour–liquid equilibrium" }, { "id": "fractionation", "label": "Theoretical plates and fractional distillation" }],
+    "objectives": [
+      { "id": "o-distil", "kind": "skill", "statement": "Run a simple and a fractional distillation, collecting fractions", "skills": ["core:tare-and-weigh"] },
+      { "id": "o-composition", "kind": "analysis", "statement": "Find each fraction's ethanol content from its density" },
+      { "id": "o-compare", "kind": "reasoning", "statement": "Explain why the column gives purer ethanol", "goal": "g-better" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "mixture", "label": "Ethanol, 20 % (v/v) in water", "solvent": "core:water", "contains": [{ "substance": "core:ethanol", "conc": "157.8 g/L" }], "amount": "250 mL", "container": "core:reagent-bottle-250ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "column", "requires": { "class": "core:fractionating-column-vigreux" } },
+      { "id": "balance", "requires": { "class": "core:balance-4dp" } },
+      { "id": "pipette10", "requires": { "class": "core:volumetric-pipette-10ml" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "runs", "kind": "group", "objectives": ["o-distil"], "forEach": { "var": "r", "in": "=[['simple', 'pot-simple'], ['fractional', 'pot-fractional']]" },
+        "steps": [
+          { "id": "pot", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:round-bottom-flask-250ml", "id": "=r[1]", "label": "='Pot (' + r[0] + ')'" } },
+          { "id": "charge", "kind": "operation", "ref": "core:transfer", "params": { "source": "mixture", "destination": "=r[1]", "volume": "100 mL", "tool": "pour" } },
+          { "id": "fractions", "kind": "group", "forEach": { "var": "k", "in": "=[1, 2, 3]" },
+            "let": { "fraction": "=r[0] + '-' + text(k)" },
+            "steps": [
+              { "id": "receiver", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:conical-tube-15ml", "id": "=fraction", "label": "='Fraction ' + text(k) + ' (' + r[0] + ')'" } },
+              { "id": "collect", "kind": "operation", "ref": "core:distil", "params": { "flask": "=r[1]", "receiver": "=fraction", "volume": "12 mL", "column": "=if(r[0] == 'fractional', 'column', null)" } },
+              { "id": "note-head", "kind": "operation", "ref": "core:record", "params": { "field": "='head-' + r[0]", "value": "=value(quantity(collect.out.headEnd), 'Cel')" } }
+            ] }
+        ] },
+      { "id": "densities", "kind": "group", "objectives": ["o-composition"], "forEach": { "var": "f", "in": "=['simple-1', 'simple-2', 'simple-3', 'fractional-1', 'fractional-2', 'fractional-3']" },
+        "let": { "boat": "='w-' + f" },
+        "steps": [
+          { "id": "beaker", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:beaker-100ml", "id": "=boat" } },
+          { "id": "on", "kind": "operation", "ref": "core:place-in", "params": { "container": "=boat", "place": "balance" } },
+          { "id": "zero", "kind": "operation", "ref": "core:tare", "params": { "balance": "balance" } },
+          { "id": "aliquot", "kind": "operation", "ref": "core:transfer", "params": { "source": "=f", "destination": "=boat", "volume": "10 mL", "tool": "pipette10" } },
+          { "id": "read", "kind": "operation", "ref": "core:weigh", "params": { "balance": "balance" } },
+          { "id": "off", "kind": "operation", "ref": "core:remove-from", "params": { "container": "=boat" } },
+          { "id": "note-ethanol", "kind": "operation", "ref": "core:record", "params": { "field": "='ethanol-%-' + f", "value": "=(0.997 - value(quantity(read.out.value), 'g') / 10) / (0.997 - 0.789) * 100" } }
+        ] },
+      { "id": "why", "kind": "decision", "objectives": ["o-compare"], "prompt": "Why is the first fraction from the column richer in ethanol?",
+        "options": [
+          { "id": "stages", "label": "The vapour condenses and re-boils several times in the column, enriching it at each stage" },
+          { "id": "hotter", "label": "The column heats the vapour more" },
+          { "id": "slower", "label": "The column only slows the distillation down" }
+        ],
+        "correctWhen": "'stages'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-better", "statement": "The column's first fraction is at least 15 points richer than the simple distillation's, and below the azeotrope", "check": "first(recorded('ethanol-%-fractional-1')) > first(recorded('ethanol-%-simple-1')) + 15 && first(recorded('ethanol-%-fractional-1')) < 97" }
+    ],
+    "expectedObservations": [
+      { "id": "e-poorer", "statement": "Later fractions are poorer in ethanol", "check": "first(recorded('ethanol-%-simple-3')) < first(recorded('ethanol-%-simple-1')) && first(recorded('ethanol-%-fractional-3')) < first(recorded('ethanol-%-fractional-1'))", "source": "reference-standard" },
+      { "id": "e-head", "statement": "The still head stays cooler with the column, nearer ethanol's boiling point", "check": "first(recorded('head-fractional')) < first(recorded('head-simple'))", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

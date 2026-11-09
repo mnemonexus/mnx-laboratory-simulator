@@ -1,0 +1,396 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio48-hill-reaction",
+  "version": "1.0.0",
+  "title": "The Hill reaction: chloroplasts reduce DCPIP in light",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Mix isolated chloroplasts with blue DCPIP and time how long the blue takes to go in light, with controls in the dark, with boiled chloroplasts and without chloroplasts.",
+  "briefing": "In light, chloroplasts split water and pass its electrons along carriers that would normally reduce NADP. DCPIP can take them instead: blue when oxidised, colourless when reduced, so the tube turns from blue-green to the green of the chloroplasts. Mix 5 mL of buffer, 1 mL of chloroplast suspension (kept on ice) and 0.5 mL of DCPIP in each tube and stand it in its place, looking every 30 seconds.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology",
+        "biochemistry"
+      ]
+    },
+    "keywords": [
+      "Hill reaction",
+      "chloroplasts",
+      "DCPIP",
+      "light-dependent reaction",
+      "photosynthesis",
+      "redox"
+    ],
+    "topics": [
+      "Photosynthesis"
+    ],
+    "concepts": [
+      {
+        "id": "light-reactions",
+        "label": "The light-dependent reactions release electrons from water, which reduce an acceptor"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-time",
+        "kind": "skill",
+        "statement": "Time the decolourisation of DCPIP in each tube"
+      },
+      {
+        "id": "o-controls",
+        "kind": "reasoning",
+        "statement": "Explain what each control shows",
+        "goal": "g-controls"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "buffer",
+        "label": "Isolation buffer (sucrose, phosphate, pH 7)",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.4 mol/L"
+          },
+          {
+            "substance": "core:disodium-hydrogen-phosphate",
+            "conc": "20 mM"
+          },
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": "13 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "chloro",
+        "label": "Chloroplast suspension (in cold buffer)",
+        "contains": [
+          {
+            "substance": "bio:chloroplasts",
+            "conc": "2 mg/mL"
+          },
+          {
+            "substance": "core:sucrose",
+            "conc": "0.4 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "dcpip",
+        "label": "DCPIP, 1 mM",
+        "contains": [
+          {
+            "substance": "bio:dcpip",
+            "conc": "1 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "lamp",
+        "requires": {
+          "class": "core:lamp"
+        }
+      },
+      {
+        "id": "dark",
+        "requires": {
+          "class": "core:dark-cupboard"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "95 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "set-bath",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "bath",
+          "temperature": "95 Cel"
+        }
+      },
+      {
+        "id": "boil-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:test-tube",
+          "id": "boiled",
+          "label": "Boiled chloroplasts"
+        }
+      },
+      {
+        "id": "boil-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "chloro",
+          "destination": "boiled",
+          "volume": "2 mL"
+        }
+      },
+      {
+        "id": "boil-in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "boiled",
+          "place": "bath"
+        }
+      },
+      {
+        "id": "boil",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "5 min"
+        }
+      },
+      {
+        "id": "boil-out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "boiled"
+        }
+      },
+      {
+        "id": "lamp-set",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "lamp",
+          "distance": "20 cm"
+        }
+      },
+      {
+        "id": "tubes",
+        "kind": "group",
+        "title": "Each tube",
+        "objectives": [
+          "o-time"
+        ],
+        "forEach": {
+          "var": "r",
+          "in": "=[['light','Chloroplasts in light','chloro','lamp'],['dark','Chloroplasts in the dark','chloro','dark'],['boiled','Boiled chloroplasts in light','boiled','lamp'],['none','No chloroplasts, in light','buffer','lamp']]"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='tube-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "buffer-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "='tube-' + r[0]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "chloro-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='tube-' + r[0]",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "dye",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dcpip",
+              "destination": "='tube-' + r[0]",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "place",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "place": "=r[3]"
+            }
+          },
+          {
+            "id": "watch",
+            "kind": "group",
+            "title": "Look every 30 s until the blue has gone",
+            "repeat": {
+              "until": "!mentions(last(recorded('seen-' + r[0])), 'blue') || count(recorded('seen-' + r[0])) >= 30",
+              "max": 31
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "30 s"
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='tube-' + r[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + r[0]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "note-time",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='time-' + r[0]",
+              "value": "=30 * count(recorded('seen-' + r[0]))"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='tube-' + r[0]"
+            }
+          }
+        ]
+      },
+      {
+        "id": "controls",
+        "kind": "decision",
+        "objectives": [
+          "o-controls"
+        ],
+        "prompt": "The tubes in the dark and with boiled chloroplasts stayed blue. Together they show that…",
+        "options": [
+          {
+            "id": "light-and-enzymes",
+            "label": "reducing DCPIP needs both light and working chloroplast proteins"
+          },
+          {
+            "id": "heat",
+            "label": "heat turns DCPIP blue"
+          },
+          {
+            "id": "dcpip-unstable",
+            "label": "DCPIP fades on its own"
+          }
+        ],
+        "correctWhen": "'light-and-enzymes'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-controls",
+        "statement": "The controls are explained",
+        "check": "decision('controls') == 'light-and-enzymes'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-light",
+        "statement": "In light the chloroplasts decolourise DCPIP within ten minutes",
+        "check": "first(recorded('time-light')) <= 600 && !mentions(last(recorded('seen-light')), 'blue')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-controls",
+        "statement": "In the dark, with boiled chloroplasts, or with no chloroplasts, the DCPIP stays blue",
+        "check": "mentions(last(recorded('seen-dark')), 'blue') && mentions(last(recorded('seen-boiled')), 'blue') && mentions(last(recorded('seen-none')), 'blue')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

@@ -1,0 +1,1093 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem14-stream-nutrients",
+  "version": "1.0.0",
+  "title": "Nutrients in a stream: phosphate and nitrate by colorimetry",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:fit"
+      },
+      {
+        "operation": "core:interpolate"
+      }
+    ]
+  },
+  "summary": "Calibrate the molybdenum-blue phosphate assay (840 nm) and the zinc-reduction Griess nitrate assay (548 nm), measure water from above and below a treatment works' effluent and the effluent itself, and keep every reading within its calibration.",
+  "briefing": "Phosphate forms a blue complex with acidic molybdate once ascorbic acid reduces it; nitrate is first reduced to nitrite on zinc, and nitrite gives a magenta dye with the Griess (NED) reagent. Let both colours develop for 20 minutes. The standards' concentrations are those of the sample they stand for. A reading above the top standard is outside the calibration: dilute the sample and read it again.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "chemistry",
+        "bioscience",
+        "ecology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "calibration-range",
+        "label": "Working within a calibration's range"
+      },
+      {
+        "id": "derivatisation",
+        "label": "Turning an analyte into something that absorbs"
+      },
+      {
+        "id": "eutrophication",
+        "label": "Nutrients from effluent"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-phosphate",
+        "kind": "analysis",
+        "statement": "Measure phosphate against a calibration, diluting a sample that reads above it",
+        "skills": [
+          "core:standard-curve-analysis",
+          "core:calibration-range"
+        ],
+        "goal": "g-phosphate"
+      },
+      {
+        "id": "o-nitrate",
+        "kind": "analysis",
+        "statement": "Measure nitrate after reducing it to nitrite, with standards and samples treated alike",
+        "skills": [
+          "core:standard-curve-analysis"
+        ],
+        "goal": "g-nitrate"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "above",
+        "label": "Stream above the works",
+        "role": "specimen",
+        "container": "core:reagent-bottle-50ml",
+        "amount": "30 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": {
+              "vary": "0.00211..0.00421 mM"
+            }
+          },
+          {
+            "substance": "chem:sodium-nitrate",
+            "conc": {
+              "vary": "0.0645..0.1290 mM"
+            }
+          }
+        ]
+      },
+      {
+        "id": "below",
+        "label": "Stream below the works",
+        "role": "specimen",
+        "container": "core:reagent-bottle-50ml",
+        "amount": "30 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": {
+              "vary": "0.01264..0.01895 mM"
+            }
+          },
+          {
+            "substance": "chem:sodium-nitrate",
+            "conc": {
+              "vary": "0.3548..0.5161 mM"
+            }
+          }
+        ]
+      },
+      {
+        "id": "effluent",
+        "label": "Treated effluent",
+        "role": "specimen",
+        "container": "core:reagent-bottle-50ml",
+        "amount": "30 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": {
+              "vary": "0.04738..0.05791 mM"
+            }
+          },
+          {
+            "substance": "chem:sodium-nitrate",
+            "conc": {
+              "vary": "1.0484..1.2903 mM"
+            }
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "po4-stock",
+        "label": "Phosphate stock, 4 mg/L PO₄³⁻",
+        "contains": [
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": "0.04212 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "no3-stock",
+        "label": "Nitrate stock, 90 mg/L NO₃⁻",
+        "contains": [
+          {
+            "substance": "chem:sodium-nitrate",
+            "conc": "1.4516 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "molybdate",
+        "label": "Acidic ammonium molybdate",
+        "preparation": "chem:molybdate-reagent",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "ascorbic",
+        "label": "Ascorbic acid, 0.1 M",
+        "preparation": "chem:ascorbic-acid-0.1m",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "zinc",
+        "label": "Zinc slurry",
+        "preparation": "chem:zinc-slurry",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "ned",
+        "label": "NED (Griess) reagent",
+        "preparation": "chem:griess-reagent",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "gloves",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "gloves"
+        }
+      },
+      {
+        "id": "p-standards",
+        "kind": "group",
+        "title": "Phosphate standards: 0–2 mg/L in 2 mL, then molybdate and ascorbic acid",
+        "steps": [
+          {
+            "id": "p-cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "=x[0]",
+              "label": "='P std ' + text(x[3])"
+            }
+          },
+          {
+            "id": "p-stock",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "when": "=x[1] > 0",
+            "params": {
+              "source": "po4-stock",
+              "destination": "=x[0]",
+              "volume": "=text(x[1]) + ' uL'"
+            }
+          },
+          {
+            "id": "p-water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=x[0]",
+              "volume": "=text(x[2]) + ' uL'"
+            }
+          },
+          {
+            "id": "p-moly",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "molybdate",
+              "destination": "=x[0]",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "p-asc",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ascorbic",
+              "destination": "=x[0]",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "p-film",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "p-invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "invert",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "p-unfilm",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ps0', 0, 2000, 0], ['ps1', 250, 1750, 0.5], ['ps2', 500, 1500, 1.0], ['ps3', 750, 1250, 1.5], ['ps4', 1000, 1000, 2.0]]"
+        },
+        "objectives": [
+          "o-phosphate"
+        ]
+      },
+      {
+        "id": "p-samples",
+        "kind": "group",
+        "title": "Stream samples, and the effluent again diluted 1 in 4",
+        "steps": [
+          {
+            "id": "q-cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "=x[0]",
+              "label": "='P ' + x[1]"
+            }
+          },
+          {
+            "id": "q-water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "when": "=x[3] > 0",
+            "params": {
+              "source": "water",
+              "destination": "=x[0]",
+              "volume": "=text(x[3]) + ' uL'"
+            }
+          },
+          {
+            "id": "q-sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "=text(x[2]) + ' uL'"
+            }
+          },
+          {
+            "id": "q-moly",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "molybdate",
+              "destination": "=x[0]",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "q-asc",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ascorbic",
+              "destination": "=x[0]",
+              "volume": "0.5 mL"
+            }
+          },
+          {
+            "id": "q-film",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "q-invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "invert",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "q-unfilm",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['pa', 'above', 2000, 0, 1], ['pb', 'below', 2000, 0, 1], ['pe', 'effluent', 2000, 0, 1], ['pe4', 'effluent', 500, 1500, 4]]"
+        },
+        "objectives": [
+          "o-phosphate"
+        ]
+      },
+      {
+        "id": "n-standards",
+        "kind": "group",
+        "title": "Nitrate standards: 5 mL of stock on zinc for exactly 2 minutes, then into water and NED",
+        "steps": [
+          {
+            "id": "zb",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:bijou-7ml",
+              "id": "zinc-std",
+              "label": "Stock on zinc"
+            }
+          },
+          {
+            "id": "zs",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "no3-stock",
+              "destination": "zinc-std",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "zmix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "zinc",
+              "method": "vortex",
+              "cycles": 1
+            }
+          },
+          {
+            "id": "zadd",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "zinc",
+              "destination": "zinc-std",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "zcap",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "zinc-std"
+            }
+          },
+          {
+            "id": "zinv",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "zinc-std",
+              "method": "invert",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "zopen",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "zinc-std"
+            }
+          },
+          {
+            "id": "zwait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "2 min"
+            }
+          }
+        ],
+        "objectives": [
+          "o-nitrate"
+        ]
+      },
+      {
+        "id": "n-cuvettes",
+        "kind": "group",
+        "title": "Reduced stock into water, then NED",
+        "steps": [
+          {
+            "id": "n-cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "=x[0]",
+              "label": "='N std ' + text(x[3])"
+            }
+          },
+          {
+            "id": "n-water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=x[0]",
+              "volume": "=text(x[2]) + ' uL'"
+            }
+          },
+          {
+            "id": "n-std",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "zinc-std",
+              "destination": "=x[0]",
+              "volume": "=text(x[1]) + ' uL'"
+            }
+          },
+          {
+            "id": "n-ned",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ned",
+              "destination": "=x[0]",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "n-film",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "n-invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "invert",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "n-unfilm",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ns1', 200, 2700, 18], ['ns2', 400, 2500, 36], ['ns3', 600, 2300, 54], ['ns4', 800, 2100, 72], ['ns5', 1000, 1900, 90]]"
+        },
+        "objectives": [
+          "o-nitrate"
+        ]
+      },
+      {
+        "id": "n-blank",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-macro-1cm",
+          "id": "n-blank",
+          "label": "N blank"
+        }
+      },
+      {
+        "id": "n-blank-water",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "n-blank",
+          "volume": "2900 uL"
+        }
+      },
+      {
+        "id": "n-blank-ned",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ned",
+          "destination": "n-blank",
+          "volume": "50 uL"
+        }
+      },
+      {
+        "id": "n-zinc",
+        "kind": "group",
+        "title": "Stream samples on zinc, all at once",
+        "steps": [
+          {
+            "id": "sb",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:bijou-7ml",
+              "id": "='zinc-' + x[1]",
+              "label": "='zinc ' + x[0]"
+            }
+          },
+          {
+            "id": "ss",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "='zinc-' + x[1]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "smix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "zinc",
+              "method": "vortex",
+              "cycles": 1
+            }
+          },
+          {
+            "id": "sadd",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "zinc",
+              "destination": "='zinc-' + x[1]",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "scap",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='zinc-' + x[1]"
+            }
+          },
+          {
+            "id": "sinv",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='zinc-' + x[1]",
+              "method": "invert",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "sopen",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='zinc-' + x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['above', 'a'], ['below', 'b'], ['effluent', 'e']]"
+        },
+        "objectives": [
+          "o-nitrate"
+        ]
+      },
+      {
+        "id": "samples-on-zinc",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "2 min"
+        },
+        "objectives": [
+          "o-nitrate"
+        ]
+      },
+      {
+        "id": "n-sample-cuvettes",
+        "kind": "group",
+        "title": "1 mL into 1.9 mL of water, then NED",
+        "steps": [
+          {
+            "id": "m-cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "='n-' + x[1]",
+              "label": "='N ' + x[0]"
+            }
+          },
+          {
+            "id": "m-water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='n-' + x[1]",
+              "volume": "1900 uL"
+            }
+          },
+          {
+            "id": "m-sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='zinc-' + x[1]",
+              "destination": "='n-' + x[1]",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "m-ned",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ned",
+              "destination": "='n-' + x[1]",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "m-film",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='n-' + x[1]",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "m-invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='n-' + x[1]",
+              "method": "invert",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "m-unfilm",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='n-' + x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['above', 'a'], ['below', 'b'], ['effluent', 'e']]"
+        },
+        "objectives": [
+          "o-nitrate"
+        ]
+      },
+      {
+        "id": "colour",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "20 min"
+        }
+      },
+      {
+        "id": "zero-840",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "ps0",
+          "wavelength": "840 nm"
+        }
+      },
+      {
+        "id": "p-read",
+        "kind": "group",
+        "title": "Phosphate standards",
+        "steps": [
+          {
+            "id": "pr",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=x[0]",
+              "wavelength": "840 nm"
+            }
+          },
+          {
+            "id": "pr-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A840-standard",
+              "value": "=pr.out.value"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ps0', 0, 2000, 0], ['ps1', 250, 1750, 0.5], ['ps2', 500, 1500, 1.0], ['ps3', 750, 1250, 1.5], ['ps4', 1000, 1000, 2.0]]"
+        }
+      },
+      {
+        "id": "p-fit",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": [
+            "0 mg/L",
+            "0.5 mg/L",
+            "1.0 mg/L",
+            "1.5 mg/L",
+            "2.0 mg/L"
+          ],
+          "y": "=recorded('A840-standard')",
+          "model": "linear"
+        },
+        "objectives": [
+          "o-phosphate"
+        ]
+      },
+      {
+        "id": "p-unknowns",
+        "kind": "group",
+        "title": "Phosphate in the streams",
+        "steps": [
+          {
+            "id": "pu",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=x[0]",
+              "wavelength": "840 nm"
+            }
+          },
+          {
+            "id": "pu-a",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='A840-' + x[0]",
+              "value": "=pu.out.value"
+            }
+          },
+          {
+            "id": "pu-cal",
+            "kind": "operation",
+            "ref": "core:interpolate",
+            "params": {
+              "fit": "=p-fit.out.fit",
+              "points": [
+                "=pu.out.value"
+              ]
+            }
+          },
+          {
+            "id": "pu-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='PO4-' + x[0]",
+              "value": "=x[4] * first(map(pu-cal.out.results, it.x))"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['pa', 'above', 2000, 0, 1], ['pb', 'below', 2000, 0, 1], ['pe', 'effluent', 2000, 0, 1], ['pe4', 'effluent', 500, 1500, 4]]"
+        },
+        "objectives": [
+          "o-phosphate"
+        ]
+      },
+      {
+        "id": "zero-548",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "n-blank",
+          "wavelength": "548 nm"
+        }
+      },
+      {
+        "id": "n-read",
+        "kind": "group",
+        "title": "Nitrate standards",
+        "steps": [
+          {
+            "id": "nr",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=x[0]",
+              "wavelength": "548 nm"
+            }
+          },
+          {
+            "id": "nr-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A548-standard",
+              "value": "=nr.out.value"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ns1', 200, 2700, 18], ['ns2', 400, 2500, 36], ['ns3', 600, 2300, 54], ['ns4', 800, 2100, 72], ['ns5', 1000, 1900, 90]]"
+        }
+      },
+      {
+        "id": "n-fit",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": [
+            "18 mg/L",
+            "36 mg/L",
+            "54 mg/L",
+            "72 mg/L",
+            "90 mg/L"
+          ],
+          "y": "=recorded('A548-standard')",
+          "model": "linear"
+        },
+        "objectives": [
+          "o-nitrate"
+        ]
+      },
+      {
+        "id": "n-unknowns",
+        "kind": "group",
+        "title": "Nitrate in the streams",
+        "steps": [
+          {
+            "id": "nu",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "='n-' + x[1]",
+              "wavelength": "548 nm"
+            }
+          },
+          {
+            "id": "nu-cal",
+            "kind": "operation",
+            "ref": "core:interpolate",
+            "params": {
+              "fit": "=n-fit.out.fit",
+              "points": [
+                "=nu.out.value"
+              ]
+            }
+          },
+          {
+            "id": "nu-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='NO3-' + x[0]",
+              "value": "=first(map(nu-cal.out.results, it.x))"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['above', 'a'], ['below', 'b'], ['effluent', 'e']]"
+        },
+        "objectives": [
+          "o-nitrate"
+        ]
+      },
+      {
+        "id": "which-effluent",
+        "kind": "decision",
+        "objectives": [
+          "o-phosphate"
+        ],
+        "prompt": "The undiluted effluent and the effluent diluted 1 in 4 give two phosphate results. Which do you report?",
+        "options": [
+          {
+            "id": "undiluted",
+            "label": "The undiluted one: no dilution error"
+          },
+          {
+            "id": "diluted",
+            "label": "The diluted one × 4: its absorbance lies within the standards, so it is read from the curve, not extrapolated beyond it"
+          },
+          {
+            "id": "mean",
+            "label": "The mean of the two"
+          }
+        ],
+        "correctWhen": "if(first(recorded('A840-pe')) > max(recorded('A840-standard')), 'diluted', 'undiluted')"
+      },
+      {
+        "id": "zinc-time",
+        "kind": "decision",
+        "objectives": [
+          "o-nitrate"
+        ],
+        "prompt": "Why must the standard and the samples have exactly the same time on the zinc?",
+        "options": [
+          {
+            "id": "partial",
+            "label": "Zinc turns only a few per cent of the nitrate into nitrite in that time, in proportion to the time: the same time keeps samples and standards comparable"
+          },
+          {
+            "id": "complete",
+            "label": "So that the reduction is complete in all of them"
+          },
+          {
+            "id": "safety",
+            "label": "Zinc slurry is hazardous if left standing"
+          }
+        ],
+        "correctWhen": "'partial'"
+      },
+      {
+        "id": "off-gloves",
+        "kind": "operation",
+        "ref": "core:doff",
+        "params": {
+          "item": "gloves"
+        }
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-phosphate",
+        "statement": "The effluent's phosphate is reported from the diluted reading, within 15 %",
+        "check": "decision('which-effluent') == 'diluted' && abs(first(recorded('PO4-pe4')) - value(truth(conc, 'effluent', 'core:potassium-dihydrogen-phosphate'), 'mol/L') * 94970.0) < 0.15 * value(truth(conc, 'effluent', 'core:potassium-dihydrogen-phosphate'), 'mol/L') * 94970.0"
+      },
+      {
+        "id": "g-nitrate",
+        "statement": "Nitrate below the works and in the effluent are within 20 %, and the zinc timing is explained",
+        "check": "decision('zinc-time') == 'partial' && all(s in ['below', 'effluent']: abs(first(recorded('NO3-' + s)) - value(truth(conc, s, 'chem:sodium-nitrate'), 'mol/L') * 62000.0) < 0.2 * value(truth(conc, s, 'chem:sodium-nitrate'), 'mol/L') * 62000.0)"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-over",
+        "statement": "The undiluted effluent reads above the top phosphate standard",
+        "check": "first(recorded('A840-pe')) > max(recorded('A840-standard'))",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-rise",
+        "statement": "Both nutrients rise below the works",
+        "check": "first(recorded('PO4-pb')) > first(recorded('PO4-pa')) && first(recorded('NO3-below')) > first(recorded('NO3-above'))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

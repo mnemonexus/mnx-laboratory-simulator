@@ -1,0 +1,183 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro3-yeast-count",
+  "version": "1.0.0",
+  "title": "Counting live and dead yeast cells",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "micro:haemocytometer-count"
+      }
+    ]
+  },
+  "summary": "Dilute a yeast culture ten-fold, stain it with trypan blue, count four squares of a haemocytometer, and report cells per mL and viability.",
+  "briefing": "Trypan blue cannot cross an intact membrane, so living cells stay clear and dead ones turn blue. Each large square of the haemocytometer holds 0.1 µL.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "spaced-recall"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "microbiology",
+        "biosciences"
+      ]
+    },
+    "objectives": [
+      {
+        "id": "o-count",
+        "kind": "skill",
+        "statement": "Count cells with a haemocytometer",
+        "skills": [
+          "micro:haemocytometer"
+        ]
+      },
+      {
+        "id": "o-density",
+        "kind": "outcome",
+        "statement": "Report the culture's cell density within 20 %",
+        "goal": "g-density"
+      },
+      {
+        "id": "o-viability",
+        "kind": "outcome",
+        "statement": "Report the viability within 5 percentage points",
+        "goal": "g-viability"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "yeast",
+        "label": "Yeast culture",
+        "role": "culture",
+        "container": "core:conical-tube-15ml",
+        "amount": "5 mL",
+        "preparation": "micro:lb-broth-sterile",
+        "contains": [
+          {
+            "substance": "micro:saccharomyces-cerevisiae",
+            "count": {
+              "vary": "1e7..4e7 cells/mL"
+            },
+            "viability": {
+              "vary": "80..95 %"
+            }
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Sterile water",
+        "preparation": "core:water-deionised",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "trypan",
+        "label": "Trypan blue (0.4 %)",
+        "preparation": "micro:trypan-blue-0.4pct",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "diluted",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-1.5ml",
+          "id": "dil",
+          "label": "Yeast 1:10"
+        }
+      },
+      {
+        "id": "mix-culture",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "yeast",
+          "method": "invert",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "water-in",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "dil",
+          "volume": "900 uL"
+        }
+      },
+      {
+        "id": "cells-in",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "yeast",
+          "destination": "dil",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "mix-dilution",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "dil",
+          "method": "vortex",
+          "cycles": 2
+        }
+      },
+      {
+        "id": "count",
+        "kind": "technique",
+        "ref": "micro:haemocytometer-count",
+        "objectives": [
+          "o-count"
+        ],
+        "params": {
+          "sample": "dil",
+          "stain": "trypan",
+          "dilution": 10
+        }
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-density",
+        "statement": "Cell density within 20 % of the truth",
+        "check": "within(first(recorded('cells-per-ml')), cells('yeast'), 20%)"
+      },
+      {
+        "id": "g-viability",
+        "statement": "Viability within 5 percentage points",
+        "check": "abs(first(recorded('viability')) - cells('yeast', viable) / cells('yeast')) <= 0.05"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

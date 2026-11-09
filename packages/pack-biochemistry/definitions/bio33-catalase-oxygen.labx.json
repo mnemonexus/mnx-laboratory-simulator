@@ -1,0 +1,584 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio33-catalase-oxygen",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:connect-gas"
+      },
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "biology",
+        "biochemistry"
+      ]
+    },
+    "keywords": [
+      "catalase",
+      "enzyme",
+      "hydrogen peroxide",
+      "oxygen",
+      "gas syringe",
+      "rate of reaction"
+    ],
+    "topics": [
+      "Enzymes"
+    ],
+    "concepts": [
+      {
+        "id": "enzyme-rate",
+        "label": "The rate of an enzyme reaction depends on the amount of enzyme, the substrate and the temperature"
+      },
+      {
+        "id": "denaturation",
+        "label": "Heat unfolds an enzyme and destroys its active site"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Collect a gas in a gas syringe and read its volume at intervals"
+      },
+      {
+        "id": "o-rate",
+        "kind": "analysis",
+        "statement": "{{rateObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "{{explainObjective}}",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC",
+      "AP"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Catalase: oxygen from hydrogen peroxide"
+    },
+    "summary": {
+      "default": "Add different volumes of catalase solution to hydrogen peroxide, collect the oxygen in a gas syringe and relate the initial rate to the amount of enzyme."
+    },
+    "briefing": {
+      "default": "Catalase, found in almost every cell that uses oxygen, breaks down hydrogen peroxide: 2H₂O₂ → 2H₂O + O₂. Put the peroxide and water in a flask, add the catalase solution, bung the flask at once with the gas syringe attached, and read the volume every 10 seconds for two minutes. Work out the initial rate from the readings between 10 and 50 seconds, once bubbles are coming steadily."
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "runs": {
+      "default": "=[['z','Flask: no catalase',14,6,0,0],['a','Flask: 0.5 mL catalase',14,5.5,0,0.5],['b','Flask: 1.0 mL catalase',14,5,0,1],['c','Flask: 2.0 mL catalase',14,4,0,2]]"
+    },
+    "rateObjective": {
+      "default": "Relate the initial rate to the amount of enzyme"
+    },
+    "explainObjective": {
+      "default": "Explain why more enzyme gives a faster rate"
+    },
+    "analysis": {
+      "default": [
+        {
+          "id": "per-ml",
+          "kind": "operation",
+          "ref": "core:fit",
+          "params": {
+            "x": "=[0.5, 1, 2]",
+            "y": "=map(['a', 'b', 'c'], first(recorded('rate-' + it)))",
+            "model": "linear-through-origin",
+            "xLabel": "catalase / mL"
+          }
+        },
+        {
+          "id": "note-per-ml",
+          "kind": "operation",
+          "ref": "core:record",
+          "params": {
+            "field": "rate-per-ml",
+            "value": "=per-ml.out.fit.params.slope"
+          }
+        },
+        {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does twice the catalase give about twice the initial rate?",
+          "options": [
+            {
+              "id": "active-sites",
+              "label": "There are twice as many active sites, and at this peroxide concentration each works at about the same rate"
+            },
+            {
+              "id": "more-substrate",
+              "label": "The catalase adds more hydrogen peroxide"
+            },
+            {
+              "id": "used-up",
+              "label": "The enzyme is used up twice as slowly"
+            }
+          ],
+          "correctWhen": "choice == 'active-sites'"
+        }
+      ]
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "Twice the catalase gives about twice the initial rate",
+            "check": "within(first(recorded('rate-c')) / first(recorded('rate-b')), 2, 30%)"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The effect of the amount of enzyme is explained",
+            "check": "decision(why) == 'active-sites'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-none",
+            "statement": "Without catalase almost no oxygen comes off",
+            "check": "last(recorded('V-z')) < 3",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-faster",
+            "statement": "More catalase gives oxygen faster",
+            "check": "first(recorded('rate-a')) < first(recorded('rate-b')) && first(recorded('rate-b')) < first(recorded('rate-c'))",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "h2o2",
+        "label": "Hydrogen peroxide, 0.50 M",
+        "contains": [
+          {
+            "substance": "core:hydrogen-peroxide",
+            "conc": "0.50 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "catalase",
+        "label": "Catalase solution (as from liver or potato extract)",
+        "contains": [
+          {
+            "substance": "bio:catalase",
+            "conc": "0.05 mg/mL"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "20 mL",
+        "container": "core:reagent-bottle-50ml",
+        "storage": "4 Cel"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "syringe",
+        "requires": {
+          "class": "core:gas-syringe"
+        }
+      },
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "30 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each flask in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "let": {
+          "flask": "='flask-' + r[0]",
+          "enz": "='enzyme-' + r[0]"
+        },
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "=flask",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "peroxide-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "h2o2",
+              "destination": "=flask",
+              "volume": "=quantity(text(r[2]) + ' mL')",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=flask",
+              "volume": "=quantity(text(r[3]) + ' mL')",
+              "tool": "pour"
+            },
+            "when": "r[3] > 0"
+          },
+          {
+            "id": "enzyme-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "=enz",
+              "label": "='Catalase for ' + r[1]"
+            },
+            "when": "r[4] > 0 && r[5] > 0"
+          },
+          {
+            "id": "enzyme-out",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "catalase",
+              "destination": "=enz",
+              "volume": "=quantity(text(r[5]) + ' mL')",
+              "tool": "dropper"
+            },
+            "when": "r[4] > 0 && r[5] > 0"
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[4]) + ' Cel')"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "into-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=flask",
+              "place": "bath"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "tube-in-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=enz",
+              "place": "bath"
+            },
+            "when": "r[4] > 0 && r[5] > 0"
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "enzyme-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=enz",
+              "destination": "=flask",
+              "all": true
+            },
+            "when": "r[4] > 0 && r[5] > 0"
+          },
+          {
+            "id": "enzyme-direct",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "catalase",
+              "destination": "=flask",
+              "volume": "=quantity(text(r[5]) + ' mL')",
+              "tool": "dropper"
+            },
+            "when": "r[4] == 0 && r[5] > 0"
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=flask",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "bung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "=flask",
+              "syringe": "syringe"
+            }
+          },
+          {
+            "id": "follow",
+            "kind": "group",
+            "title": "Read the syringe every 10 s",
+            "forEach": {
+              "var": "m",
+              "in": "=range(0, 120, 13)"
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "10 s"
+                },
+                "when": "m > 0"
+              },
+              {
+                "id": "read",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "syringe",
+                  "subject": "=flask"
+                }
+              },
+              {
+                "id": "note-t",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='t-' + r[0]",
+                  "value": "=m"
+                }
+              },
+              {
+                "id": "note-v",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='V-' + r[0]",
+                  "value": "=value(quantity(read.out.value), 'mL')"
+                }
+              }
+            ]
+          },
+          {
+            "id": "unbung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "=flask"
+            }
+          },
+          {
+            "id": "out-of-bath",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=flask"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "tube-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=enz"
+            },
+            "when": "r[4] > 0 && r[5] > 0"
+          },
+          {
+            "id": "initial",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=slice(recorded('t-' + r[0]), 1, 6)",
+              "y": "=slice(recorded('V-' + r[0]), 1, 6)",
+              "model": "linear",
+              "xLabel": "time / s"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=initial.out.fit.params.slope"
+            }
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "kind": "group",
+        "title": "Analyse the rates",
+        "steps": "{{analysis}}"
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio33-catalase-temperature",
+      "title": "Catalase: temperature and rate",
+      "summary": "Warm hydrogen peroxide and catalase to 30, 40, 50 and 60 °C (and use one pair at room temperature), mix the same volumes, collect the oxygen in a gas syringe and find how the initial rate changes with temperature, and why it falls when the enzyme denatures.",
+      "briefing": "Stand each flask of peroxide and a tube of 1 mL catalase in the water bath for ten minutes, pour the catalase in, bung it at once with the gas syringe and read the volume every 10 seconds for two minutes. Warmth speeds the reaction up, but above about 50 °C the enzyme unfolds (denatures) faster than the reaction can make use of it.",
+      "values": {
+        "level": "ages-16-19",
+        "runs": "=[['t21','Flask at room temperature (about 21 °C)',14,5,0,1],['t30','Flask at 30 °C',14,5,30,1],['t40','Flask at 40 °C',14,5,40,1],['t50','Flask at 50 °C',14,5,50,1],['t60','Flask at 60 °C',14,5,60,1]]",
+        "rateObjective": "Find how the initial rate depends on temperature",
+        "explainObjective": "Explain why the rate rises with temperature and then falls",
+        "analysis": [
+          {
+            "id": "why",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why is the rate at 60 °C lower than at 40 °C?",
+            "options": [
+              {
+                "id": "denatured",
+                "label": "The heat unfolds the catalase (it denatures), so its active sites no longer bind the peroxide"
+              },
+              {
+                "id": "peroxide-gone",
+                "label": "The peroxide boils away"
+              },
+              {
+                "id": "enzyme-killed",
+                "label": "The enzyme is killed, as a living thing would be"
+              }
+            ],
+            "correctWhen": "choice == 'denatured'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The rate rises from room temperature to 40 °C and is lower at 60 °C than at 40 °C",
+              "check": "first(recorded('rate-t21')) < first(recorded('rate-t40')) && first(recorded('rate-t60')) < first(recorded('rate-t40'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The fall at high temperature is explained",
+              "check": "decision(why) == 'denatured'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-warmer",
+              "statement": "From room temperature to 30 °C the rate increases",
+              "check": "first(recorded('rate-t21')) < first(recorded('rate-t30'))",
+              "source": "reference-standard"
+            },
+            {
+              "id": "e-denatured",
+              "statement": "At 60 °C the catalase gives less than half its rate at 40 °C",
+              "check": "first(recorded('rate-t60')) < 0.5 * first(recorded('rate-t40'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "temperature",
+        "denaturation",
+        "optimum temperature"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

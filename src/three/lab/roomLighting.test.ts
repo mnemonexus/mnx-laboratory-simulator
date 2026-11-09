@@ -1,0 +1,87 @@
+import { describe, expect, it } from 'vitest'
+import * as THREE from 'three'
+import { RoomLighting } from './roomLighting'
+
+describe('room-owned lighting', () => {
+  it('keeps shared furniture independently lit when two rooms are visible', () => {
+    const fallback = new THREE.Texture()
+    const lighting = new RoomLighting(fallback)
+    const source = new THREE.MeshStandardMaterial({ envMapIntensity: 0.6 })
+    const main = new THREE.Mesh(new THREE.BoxGeometry(), source)
+    const cold = new THREE.Mesh(main.geometry, source)
+    lighting.bind('main', main)
+    lighting.bind('cold', cold)
+    const mainProbe = new THREE.Texture()
+    const coldProbe = new THREE.Texture()
+    lighting.setEnvironment('main', mainProbe)
+    lighting.setEnvironment('cold', coldProbe)
+    expect(main.material).not.toBe(cold.material)
+    expect(main.material.envMap).toBe(mainProbe)
+    expect(cold.material.envMap).toBe(coldProbe)
+    expect(main.material.envMapIntensity).toBeCloseTo(0.6)
+    expect(source.envMap).toBeNull()
+    lighting.dispose()
+  })
+
+  it('retains baked materials so later lightmaps reach the actual mesh', () => {
+    const lighting = new RoomLighting(new THREE.Texture())
+    const material = new THREE.MeshStandardMaterial()
+    const shell = new THREE.Mesh(new THREE.BoxGeometry(), material)
+    lighting.register('main', [material])
+    lighting.bind('main', shell)
+    const baked = new THREE.Texture()
+    material.lightMap = baked
+    expect(shell.material).toBe(material)
+    expect(shell.material.lightMap).toBe(baked)
+    lighting.dispose()
+  })
+
+  it('lights newly added equipment with its room and does not multiply intensity on repeat binding', () => {
+    const lighting = new RoomLighting(new THREE.Texture())
+    const probe = new THREE.Texture()
+    lighting.setEnvironment('cold', probe)
+    const instrument = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshPhysicalMaterial({ envMapIntensity: 1.45 }))
+    lighting.bind('cold', instrument)
+    const bound = instrument.material
+    lighting.bind('cold', instrument)
+    expect(instrument.material).toBe(bound)
+    expect(bound.envMap).toBe(probe)
+    expect(bound.envMapIntensity).toBeCloseTo(1.45)
+    lighting.dispose()
+  })
+
+  it('binds objects added to a watched room later, however deep, without traversing every frame', () => {
+    const lighting = new RoomLighting(new THREE.Texture())
+    const probe = new THREE.Texture()
+    lighting.setEnvironment('cold', probe)
+    const zone = new THREE.Group()
+    const station = new THREE.Group()
+    zone.add(station)
+    lighting.watch('cold', zone)
+    const tube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshStandardMaterial())
+    const rack = new THREE.Group()
+    rack.add(tube)
+    station.add(rack)
+    expect((tube.material as THREE.MeshStandardMaterial).envMap).toBe(probe)
+    const cap = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshStandardMaterial())
+    rack.add(cap)
+    expect((cap.material as THREE.MeshStandardMaterial).envMap).toBe(probe)
+    lighting.dispose()
+  })
+
+  it('releases evicted probes from materials and restores the original reflection strength on recapture', () => {
+    const fallback = new THREE.Texture()
+    const lighting = new RoomLighting(fallback)
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshStandardMaterial({ envMapIntensity: 1.05 }))
+    lighting.bind('main', mesh)
+    lighting.setEnvironment('main', new THREE.Texture())
+    lighting.setEnvironment('main', null)
+    expect(mesh.material.envMap).toBe(fallback)
+    expect(mesh.material.envMapIntensity).toBeCloseTo(1.05 * 0.9)
+    const replacement = new THREE.Texture()
+    lighting.setEnvironment('main', replacement)
+    expect(mesh.material.envMap).toBe(replacement)
+    expect(mesh.material.envMapIntensity).toBeCloseTo(1.05)
+    lighting.dispose()
+  })
+})

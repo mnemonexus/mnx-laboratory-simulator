@@ -1,0 +1,264 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio44-stomatal-density",
+  "version": "1.0.0",
+  "title": "Stomatal density on the two sides of a leaf",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Count stomata in five fields of view at ×400 on impressions of a leaf’s lower and upper epidermis, and work out the number per mm² from the area of the field of view.",
+  "briefing": "Stomata are pores, each between two guard cells, through which the leaf takes in carbon dioxide and loses water vapour. Count the stomata in five fields of each impression at ×400 (count one on the edge of the field only on two sides). The microscope’s field of view at ×400 is about 0.45 mm across: area = πr². Stomatal density = mean number per field ÷ field area.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "stomata",
+      "stomatal density",
+      "leaf",
+      "epidermis",
+      "microscope",
+      "field of view",
+      "transpiration"
+    ],
+    "topics": [
+      "Plant structure",
+      "Transpiration"
+    ],
+    "concepts": [
+      {
+        "id": "stomata",
+        "label": "Most stomata are on the lower surface, where less water is lost"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-count",
+        "kind": "skill",
+        "statement": "Count structures in a field of view and use its area"
+      },
+      {
+        "id": "o-density",
+        "kind": "analysis",
+        "statement": "Calculate the stomatal density of each surface",
+        "goal": "g-density"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain why the lower surface has more",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB"
+    ]
+  },
+  "materials": {
+    "supplies": []
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:compound-microscope"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "surfaces",
+        "kind": "group",
+        "title": "Each surface",
+        "objectives": [
+          "o-count"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['lower','core:prepared-slide.leaf-lower-epidermis','Lower epidermis'],['upper','core:prepared-slide.leaf-upper-epidermis','Upper epidermis']]"
+        },
+        "steps": [
+          {
+            "id": "slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "=x[1]",
+              "id": "=x[0]",
+              "label": "=x[2]"
+            }
+          },
+          {
+            "id": "low",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "10x",
+              "lamp": 0.5,
+              "illumination": "brightfield",
+              "condenser": "adjusted"
+            }
+          },
+          {
+            "id": "coarse",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x[0]",
+              "knob": "coarse"
+            }
+          },
+          {
+            "id": "fine-low",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x[0]",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "high",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "40x",
+              "lamp": 0.65
+            }
+          },
+          {
+            "id": "fine-high",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x[0]",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "fields",
+            "kind": "group",
+            "title": "Five fields",
+            "forEach": {
+              "var": "n",
+              "in": "=[1, 2, 3, 4, 5]"
+            },
+            "steps": [
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "scope",
+                  "subject": "=x[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='stomata-' + x[0]",
+                  "value": "=sum(map(filter(look.out.counts, mentions(it[0], 'stomata')), it[1]))"
+                }
+              },
+              {
+                "id": "area",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "field-area-mm2",
+                  "value": "=look.out.fieldAreaMm2"
+                }
+              }
+            ]
+          },
+          {
+            "id": "density",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='density-' + x[0]",
+              "value": "=mean(recorded('stomata-' + x[0])) / first(recorded('field-area-mm2'))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the lower surface have more stomata?",
+        "options": [
+          {
+            "id": "less-loss",
+            "label": "It is shaded and cooler, so less water evaporates through its stomata"
+          },
+          {
+            "id": "more-light",
+            "label": "It gets more light for photosynthesis"
+          },
+          {
+            "id": "gravity",
+            "label": "Carbon dioxide is heavier and sinks to the lower surface"
+          }
+        ],
+        "correctWhen": "'less-loss'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-density",
+        "statement": "The lower surface’s stomatal density is found within 25 % of the true value (about 250 per mm²)",
+        "check": "within(first(recorded('density-lower')), 250, 25%)"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The difference is explained",
+        "check": "decision('why') == 'less-loss'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-ratio",
+        "statement": "The lower surface has several times as many stomata as the upper",
+        "check": "first(recorded('density-lower')) > 3 * first(recorded('density-upper'))",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

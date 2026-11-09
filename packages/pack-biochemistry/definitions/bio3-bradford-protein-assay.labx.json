@@ -1,0 +1,85 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio3-bradford-protein-assay",
+  "version": "1.0.0",
+  "title": "Protein concentration by Bradford assay",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      { "technique": "core:dilution-series" },
+      { "processModel": "bio:bradford-colour-development", "minTier": "T2" }
+    ]
+  },
+  "summary": "The Bradford microplate assay: the same standard series, plate layout and analysis as the BCA assay, with a dye-binding reagent read at 595 nm after a few minutes at room temperature.",
+  "briefing": "Coomassie Brilliant Blue G-250 turns from brown to blue when it binds protein. Prepare BSA standards, add 5 µL of each standard and sample to 250 µL of reagent, wait five minutes and read at 595 nm. Look at the shape of the standard curve before choosing how to fit it.",
+  "context": {
+    "intendedContexts": ["practical-session", "transferal"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["biochemistry", "biomedical-science"] },
+    "objectives": [
+      { "id": "o-standards", "kind": "skill", "statement": "Prepare a BSA standard series", "skills": ["core:dilution-series", "core:micropipetting"] },
+      { "id": "o-quantify", "kind": "outcome", "statement": "Determine the protein concentration of the unknown", "goal": "g-unknown" },
+      { "id": "o-curve", "kind": "analysis", "statement": "Choose a calibration model that matches the curve's shape", "skills": ["core:calibration-analysis"] }
+    ]
+  },
+  "materials": {
+    "substances": [{ "id": "bsa", "ref": "bio:bovine-serum-albumin" }],
+    "supplies": [
+      { "id": "bsa-stock", "label": "BSA standard, 2.0 mg/mL", "contains": [{ "substance": "bsa", "conc": "2.0 mg/mL" }], "amount": "1.5 mL", "container": "core:microtube-2ml" },
+      { "id": "reagent", "label": "Bradford reagent", "preparation": "bio:bradford-reagent", "amount": "50 mL", "container": "core:reagent-bottle-50ml" },
+      { "id": "pbs", "label": "PBS", "preparation": "core:pbs-1x", "amount": "50 mL", "container": "core:reagent-bottle-50ml" }
+    ],
+    "samples": [
+      { "id": "u1", "label": "Unknown", "role": "unknown", "contains": [{ "substance": "bsa", "conc": { "vary": "0.3..0.9 mg/mL" } }], "amount": "200 uL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "reader", "requires": { "purpose": "measure.absorbance", "wavelength": "595 nm", "format": "96-well" } },
+      { "id": "plate", "requires": { "class": "core:microplate-96" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "standards", "kind": "technique", "ref": "core:dilution-series", "title": "Prepare BSA standards",
+        "params": { "stock": "bsa-stock", "diluent": "pbs", "analyte": "bsa",
+                    "targets": ["0 mg/mL", "0.125 mg/mL", "0.25 mg/mL", "0.5 mg/mL", "0.75 mg/mL", "1.0 mg/mL", "1.5 mg/mL"],
+                    "volumeEach": "100 uL" },
+        "objectives": ["o-standards"] },
+      { "id": "plate-map", "kind": "design", "ref": "core:plate-layout",
+        "params": { "plate": "plate",
+                    "groups": [{ "group": "standards", "items": "=standards.out.vessels", "role": "standard" }, { "group": "u1", "items": ["u1"], "role": "unknown" }],
+                    "replicates": 3, "blanks": 3, "blankSource": "pbs" } },
+      { "id": "load", "kind": "technique", "ref": "core:transfer-to-plate", "params": { "layout": "=plate-map.out.layout", "volume": "5 uL" } },
+      { "id": "dye", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "reagent", "volume": "250 uL", "into": "=load.out.wells" } },
+      { "id": "develop", "kind": "wait", "title": "Five minutes at room temperature", "duration": "5 min" },
+      { "id": "read", "kind": "technique", "ref": "bio:plate-absorbance-read", "params": { "plate": "plate", "wavelength": "595 nm" }, "bind": { "instrument": "reader" } },
+      { "id": "analyse", "kind": "data", "ref": "core:standard-curve-analysis",
+        "params": { "reading": "=read.out.reading", "layout": "=plate-map.out.layout", "standards": "standards",
+                    "standardConcs": "=standards.out.concentrations", "unknowns": ["u1"], "model": "quadratic" },
+        "objectives": ["o-quantify", "o-curve"] }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-unknown", "statement": "The unknown's reported concentration is within 10 % of the truth",
+        "check": "within(reported(conc, 'u1'), truth(conc, 'u1', bsa), 10%)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-bends", "statement": "The standard curve bends over at the top (a negative quadratic term)", "check": "fit(analyse).params.c < 0", "source": "reference-standard" },
+      { "id": "e-blank", "statement": "The reagent blank already absorbs at 595 nm (the free dye)", "check": "mean(readings(read, role='blank')) > 0.2", "source": "reference-standard" }
+    ]
+  },
+  "assessment": {
+    "criteria": [
+      { "id": "k-blank", "statement": "Blank wells included and used", "check": "exists(wells(role='blank')) && used(blank, analyse)", "objective": "o-quantify", "severity": "major", "feedback": { "kind": "measurement", "timing": "review" } }
+    ],
+    "validity": [
+      { "when": "!exists(wells(role='blank'))", "cap": "partially-interpretable", "reason": "No blank: the reagent's own absorbance is not subtracted" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

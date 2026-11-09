@@ -1,0 +1,788 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro14-design-a-soil-study",
+  "version": "1.0.0",
+  "title": "What limits the clean-up? Designing a soil microcosm study",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:transfer"
+      },
+      {
+        "operation": "core:measure"
+      },
+      {
+        "operation": "core:test"
+      }
+    ]
+  },
+  "summary": "Seven soil microcosms seeded with an alkane degrader have spent a day under different conditions: fuel or none, fertiliser, drier or wetter, cooler or warmer. With six plates and six universals, choose a question, compare the right microcosms with replicate subsamples, spot plate and count them, and test the difference statistically.",
+  "briefing": "Choose one question and the two microcosms that differ only in that factor. You have six universals of 4.5 mL Ringer and six nutrient agar plates: one of each per subsample. Half a gram of soil in 4.5 mL is 10⁻¹ (0.1 g per mL); dilute to 10⁻⁶ and spot three 10 µL drops of every dilution on the subsample's plate. Count the most concentrated dilution where at least two of the three spots hold separate colonies (up to about 40 a spot): cells per gram = the mean of those spots ÷ 0.01 mL × 10ᵏ. Counts spread over orders of magnitude: test their logarithms.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "bioscience",
+        "ecology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "fair-test",
+        "label": "Changing one variable at a time"
+      },
+      {
+        "id": "replication",
+        "label": "Technical and biological replicates"
+      },
+      {
+        "id": "limiting-factor",
+        "label": "Limiting factors for growth (Liebig's law of the minimum)"
+      },
+      {
+        "id": "t-test",
+        "label": "Comparing two groups with a t-test"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-design",
+        "kind": "design",
+        "statement": "Choose a comparison that isolates one variable, and say what the replicates measure",
+        "skills": [
+          "core:experimental-design",
+          "core:control-design"
+        ],
+        "goal": "g-design"
+      },
+      {
+        "id": "o-count",
+        "kind": "skill",
+        "statement": "Count a soil organism per gram by spot plating",
+        "skills": [
+          "core:serial-dilution",
+          "micro:colony-counting"
+        ]
+      },
+      {
+        "id": "o-test",
+        "kind": "reasoning",
+        "statement": "Choose and apply a statistical test and draw the conclusion it supports",
+        "skills": [
+          "core:hypothesis-testing"
+        ],
+        "goal": "g-conclude"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "base",
+        "label": "Fuel, 20 °C, half field capacity",
+        "role": "specimen",
+        "container": "core:conical-flask-250ml",
+        "water": "5 mL",
+        "contains": [
+          {
+            "substance": "core:soil",
+            "mass": "25 g"
+          },
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "5e5 {cells}"
+          },
+          {
+            "substance": "micro:hexadecane",
+            "conc": "20.0 g/L"
+          }
+        ]
+      },
+      {
+        "id": "fert",
+        "label": "Fuel and fertiliser, 20 °C, half field capacity",
+        "role": "specimen",
+        "container": "core:conical-flask-250ml",
+        "water": "5 mL",
+        "contains": [
+          {
+            "substance": "core:soil",
+            "mass": "25 g"
+          },
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "5e5 {cells}"
+          },
+          {
+            "substance": "micro:hexadecane",
+            "conc": "20.0 g/L"
+          },
+          {
+            "substance": "core:ammonium-chloride",
+            "conc": "2 g/L"
+          },
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": "1 g/L"
+          }
+        ]
+      },
+      {
+        "id": "dry",
+        "label": "Fuel, 20 °C, a quarter of field capacity",
+        "role": "specimen",
+        "container": "core:conical-flask-250ml",
+        "water": "2.5 mL",
+        "contains": [
+          {
+            "substance": "core:soil",
+            "mass": "25 g"
+          },
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "5e5 {cells}"
+          },
+          {
+            "substance": "micro:hexadecane",
+            "conc": "40.0 g/L"
+          }
+        ]
+      },
+      {
+        "id": "wet",
+        "label": "Fuel, 20 °C, three quarters of field capacity",
+        "role": "specimen",
+        "container": "core:conical-flask-250ml",
+        "water": "7.5 mL",
+        "contains": [
+          {
+            "substance": "core:soil",
+            "mass": "25 g"
+          },
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "5e5 {cells}"
+          },
+          {
+            "substance": "micro:hexadecane",
+            "conc": "13.3 g/L"
+          }
+        ]
+      },
+      {
+        "id": "cool",
+        "label": "Fuel, 10 °C, half field capacity",
+        "role": "specimen",
+        "container": "core:conical-flask-250ml",
+        "water": "5 mL",
+        "contains": [
+          {
+            "substance": "core:soil",
+            "mass": "25 g"
+          },
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "5e5 {cells}"
+          },
+          {
+            "substance": "micro:hexadecane",
+            "conc": "20.0 g/L"
+          }
+        ]
+      },
+      {
+        "id": "warm",
+        "label": "Fuel, 30 °C, half field capacity",
+        "role": "specimen",
+        "container": "core:conical-flask-250ml",
+        "water": "5 mL",
+        "contains": [
+          {
+            "substance": "core:soil",
+            "mass": "25 g"
+          },
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "5e5 {cells}"
+          },
+          {
+            "substance": "micro:hexadecane",
+            "conc": "20.0 g/L"
+          }
+        ]
+      },
+      {
+        "id": "clean",
+        "label": "No fuel, 20 °C, half field capacity",
+        "role": "specimen",
+        "container": "core:conical-flask-250ml",
+        "water": "5 mL",
+        "contains": [
+          {
+            "substance": "core:soil",
+            "mass": "25 g"
+          },
+          {
+            "substance": "micro:pseudomonas-putida",
+            "count": "5e5 {cells}"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "ringer",
+        "label": "¼-strength Ringer",
+        "preparation": "micro:ringer-quarter",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s",
+        "label": "Universal, 4.5 mL Ringer",
+        "preparation": "micro:ringer-quarter",
+        "amount": "4.5 mL",
+        "container": "core:universal-bottle-28ml",
+        "count": 6
+      },
+      {
+        "id": "plate",
+        "label": "Nutrient agar",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm",
+        "count": 6
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "cab-10",
+        "requires": {
+          "class": "core:cooled-incubator"
+        }
+      },
+      {
+        "id": "cab-20",
+        "requires": {
+          "class": "core:cooled-incubator"
+        }
+      },
+      {
+        "id": "cab-30",
+        "requires": {
+          "class": "core:incubator"
+        }
+      },
+      {
+        "id": "fridge",
+        "requires": {
+          "class": "core:fridge"
+        }
+      },
+      {
+        "id": "counter",
+        "requires": {
+          "class": "core:colony-counter"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "objective",
+    "sessions": [
+      {
+        "id": "d1",
+        "title": "Choose, sample and spot"
+      },
+      {
+        "id": "d2",
+        "title": "Two days later: count, test and conclude"
+      }
+    ],
+    "steps": [
+      {
+        "id": "cabinets",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "=x[0]",
+          "temperature": "=x[1]"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=[['cab-10', '10 Cel'], ['cab-20', '20 Cel'], ['cab-30', '30 Cel']]"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=x[0]",
+          "place": "=x[1]"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=[['base', 'cab-20'], ['fert', 'cab-20'], ['dry', 'cab-20'], ['wet', 'cab-20'], ['cool', 'cab-10'], ['warm', 'cab-30'], ['clean', 'cab-20']]"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "settle",
+        "kind": "offstage",
+        "session": "d1",
+        "title": "The microcosms have had a day in their cabinets",
+        "duration": "24 h"
+      },
+      {
+        "id": "out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=x"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['base', 'fert', 'dry', 'wet', 'cool', 'warm', 'clean']"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "compare",
+        "kind": "decision",
+        "session": "d1",
+        "objectives": [
+          "o-design"
+        ],
+        "prompt": "Your question: does fertiliser help the degrader grow on the fuel? Which microcosms do you compare?",
+        "options": [
+          {
+            "id": "fert-base",
+            "label": "Fuel with fertiliser against fuel without, both at 20 °C and half field capacity: only the fertiliser differs"
+          },
+          {
+            "id": "fert-cool",
+            "label": "Fuel with fertiliser at 20 °C against fuel without at 10 °C"
+          },
+          {
+            "id": "fert-clean",
+            "label": "Fuel with fertiliser against the soil with no fuel"
+          }
+        ],
+        "correctWhen": "'fert-base'"
+      },
+      {
+        "id": "coat",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "lab-coat"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "tubes",
+        "kind": "group",
+        "title": "Five tubes of 0.9 mL Ringer for each subsample",
+        "steps": [
+          {
+            "id": "t",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=x[0] + '-' + text(x[1])",
+              "label": "=x[0] + ' 10-' + text(x[1])"
+            }
+          },
+          {
+            "id": "r",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ringer",
+              "destination": "=x[0] + '-' + text(x[1])",
+              "volume": "0.9 mL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['s-1', 2], ['s-1', 3], ['s-1', 4], ['s-1', 5], ['s-1', 6], ['s-2', 2], ['s-2', 3], ['s-2', 4], ['s-2', 5], ['s-2', 6], ['s-3', 2], ['s-3', 3], ['s-3', 4], ['s-3', 5], ['s-3', 6], ['s-4', 2], ['s-4', 3], ['s-4', 4], ['s-4', 5], ['s-4', 6], ['s-5', 2], ['s-5', 3], ['s-5', 4], ['s-5', 5], ['s-5', 6], ['s-6', 2], ['s-6', 3], ['s-6', 4], ['s-6', 5], ['s-6', 6]]"
+        },
+        "session": "d1",
+        "objectives": [
+          "o-count"
+        ]
+      },
+      {
+        "id": "suspend",
+        "kind": "group",
+        "title": "Three subsamples of each soil: half a gram into 4.5 mL of Ringer (10⁻¹), shaken",
+        "steps": [
+          {
+            "id": "soil",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=x[1]",
+              "destination": "=x[0]",
+              "mass": "0.5 g"
+            }
+          },
+          {
+            "id": "cap",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "shake",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "shake",
+              "cycles": 60
+            }
+          },
+          {
+            "id": "uncap",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['s-1', 'base'], ['s-2', 'base'], ['s-3', 'base'], ['s-4', 'fert'], ['s-5', 'fert'], ['s-6', 'fert']]"
+        },
+        "session": "d1",
+        "objectives": [
+          "o-count"
+        ]
+      },
+      {
+        "id": "back",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=x",
+          "place": "fridge"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['base', 'fert', 'dry', 'wet', 'cool', 'warm', 'clean']"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "series",
+        "kind": "group",
+        "title": "Tenfold steps to 10⁻⁶",
+        "steps": [
+          {
+            "id": "carry",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "0.1 mL"
+            }
+          },
+          {
+            "id": "vortex",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[1]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['s-1', 's-1-2'], ['s-1-2', 's-1-3'], ['s-1-3', 's-1-4'], ['s-1-4', 's-1-5'], ['s-1-5', 's-1-6'], ['s-2', 's-2-2'], ['s-2-2', 's-2-3'], ['s-2-3', 's-2-4'], ['s-2-4', 's-2-5'], ['s-2-5', 's-2-6'], ['s-3', 's-3-2'], ['s-3-2', 's-3-3'], ['s-3-3', 's-3-4'], ['s-3-4', 's-3-5'], ['s-3-5', 's-3-6'], ['s-4', 's-4-2'], ['s-4-2', 's-4-3'], ['s-4-3', 's-4-4'], ['s-4-4', 's-4-5'], ['s-4-5', 's-4-6'], ['s-5', 's-5-2'], ['s-5-2', 's-5-3'], ['s-5-3', 's-5-4'], ['s-5-4', 's-5-5'], ['s-5-5', 's-5-6'], ['s-6', 's-6-2'], ['s-6-2', 's-6-3'], ['s-6-3', 's-6-4'], ['s-6-4', 's-6-5'], ['s-6-5', 's-6-6']]"
+        },
+        "session": "d1",
+        "objectives": [
+          "o-count"
+        ]
+      },
+      {
+        "id": "spot",
+        "kind": "group",
+        "title": "Three 10 µL spots of every dilution, one plate per subsample",
+        "steps": [
+          {
+            "id": "drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "10 uL",
+              "spot": "=x[2]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['s-1', 'plate-1', 1], ['s-1', 'plate-1', 2], ['s-1', 'plate-1', 3], ['s-1-2', 'plate-1', 4], ['s-1-2', 'plate-1', 5], ['s-1-2', 'plate-1', 6], ['s-1-3', 'plate-1', 7], ['s-1-3', 'plate-1', 8], ['s-1-3', 'plate-1', 9], ['s-1-4', 'plate-1', 10], ['s-1-4', 'plate-1', 11], ['s-1-4', 'plate-1', 12], ['s-1-5', 'plate-1', 13], ['s-1-5', 'plate-1', 14], ['s-1-5', 'plate-1', 15], ['s-1-6', 'plate-1', 16], ['s-1-6', 'plate-1', 17], ['s-1-6', 'plate-1', 18], ['s-2', 'plate-2', 1], ['s-2', 'plate-2', 2], ['s-2', 'plate-2', 3], ['s-2-2', 'plate-2', 4], ['s-2-2', 'plate-2', 5], ['s-2-2', 'plate-2', 6], ['s-2-3', 'plate-2', 7], ['s-2-3', 'plate-2', 8], ['s-2-3', 'plate-2', 9], ['s-2-4', 'plate-2', 10], ['s-2-4', 'plate-2', 11], ['s-2-4', 'plate-2', 12], ['s-2-5', 'plate-2', 13], ['s-2-5', 'plate-2', 14], ['s-2-5', 'plate-2', 15], ['s-2-6', 'plate-2', 16], ['s-2-6', 'plate-2', 17], ['s-2-6', 'plate-2', 18], ['s-3', 'plate-3', 1], ['s-3', 'plate-3', 2], ['s-3', 'plate-3', 3], ['s-3-2', 'plate-3', 4], ['s-3-2', 'plate-3', 5], ['s-3-2', 'plate-3', 6], ['s-3-3', 'plate-3', 7], ['s-3-3', 'plate-3', 8], ['s-3-3', 'plate-3', 9], ['s-3-4', 'plate-3', 10], ['s-3-4', 'plate-3', 11], ['s-3-4', 'plate-3', 12], ['s-3-5', 'plate-3', 13], ['s-3-5', 'plate-3', 14], ['s-3-5', 'plate-3', 15], ['s-3-6', 'plate-3', 16], ['s-3-6', 'plate-3', 17], ['s-3-6', 'plate-3', 18], ['s-4', 'plate-4', 1], ['s-4', 'plate-4', 2], ['s-4', 'plate-4', 3], ['s-4-2', 'plate-4', 4], ['s-4-2', 'plate-4', 5], ['s-4-2', 'plate-4', 6], ['s-4-3', 'plate-4', 7], ['s-4-3', 'plate-4', 8], ['s-4-3', 'plate-4', 9], ['s-4-4', 'plate-4', 10], ['s-4-4', 'plate-4', 11], ['s-4-4', 'plate-4', 12], ['s-4-5', 'plate-4', 13], ['s-4-5', 'plate-4', 14], ['s-4-5', 'plate-4', 15], ['s-4-6', 'plate-4', 16], ['s-4-6', 'plate-4', 17], ['s-4-6', 'plate-4', 18], ['s-5', 'plate-5', 1], ['s-5', 'plate-5', 2], ['s-5', 'plate-5', 3], ['s-5-2', 'plate-5', 4], ['s-5-2', 'plate-5', 5], ['s-5-2', 'plate-5', 6], ['s-5-3', 'plate-5', 7], ['s-5-3', 'plate-5', 8], ['s-5-3', 'plate-5', 9], ['s-5-4', 'plate-5', 10], ['s-5-4', 'plate-5', 11], ['s-5-4', 'plate-5', 12], ['s-5-5', 'plate-5', 13], ['s-5-5', 'plate-5', 14], ['s-5-5', 'plate-5', 15], ['s-5-6', 'plate-5', 16], ['s-5-6', 'plate-5', 17], ['s-5-6', 'plate-5', 18], ['s-6', 'plate-6', 1], ['s-6', 'plate-6', 2], ['s-6', 'plate-6', 3], ['s-6-2', 'plate-6', 4], ['s-6-2', 'plate-6', 5], ['s-6-2', 'plate-6', 6], ['s-6-3', 'plate-6', 7], ['s-6-3', 'plate-6', 8], ['s-6-3', 'plate-6', 9], ['s-6-4', 'plate-6', 10], ['s-6-4', 'plate-6', 11], ['s-6-4', 'plate-6', 12], ['s-6-5', 'plate-6', 13], ['s-6-5', 'plate-6', 14], ['s-6-5', 'plate-6', 15], ['s-6-6', 'plate-6', 16], ['s-6-6', 'plate-6', 17], ['s-6-6', 'plate-6', 18]]"
+        },
+        "session": "d1",
+        "objectives": [
+          "o-count"
+        ]
+      },
+      {
+        "id": "soak",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "10 min"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "invert",
+        "kind": "checkpoint",
+        "session": "d1",
+        "title": "The spots have soaked in: invert the plates"
+      },
+      {
+        "id": "off",
+        "kind": "operation",
+        "ref": "core:doff",
+        "params": {
+          "item": "lab-coat"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "grow",
+        "kind": "offstage",
+        "session": "d1",
+        "title": "Two days on the bench",
+        "duration": "40 h"
+      },
+      {
+        "id": "coat-2",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "lab-coat"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "count",
+        "kind": "group",
+        "title": "Count each plate and work back to cells per gram",
+        "steps": [
+          {
+            "id": "c",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "counter",
+              "subject": "='plate-' + x"
+            }
+          },
+          {
+            "id": "c-g",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='per-g-s-' + x",
+              "value": "=if((if(c.out.bySector[0] == null, 0, 1) + if(c.out.bySector[1] == null, 0, 1) + if(c.out.bySector[2] == null, 0, 1)) >= 2, (coalesce(c.out.bySector[0], 0) + coalesce(c.out.bySector[1], 0) + coalesce(c.out.bySector[2], 0)) / (if(c.out.bySector[0] == null, 0, 1) + if(c.out.bySector[1] == null, 0, 1) + if(c.out.bySector[2] == null, 0, 1)) * 10 / 0.01, if((if(c.out.bySector[3] == null, 0, 1) + if(c.out.bySector[4] == null, 0, 1) + if(c.out.bySector[5] == null, 0, 1)) >= 2, (coalesce(c.out.bySector[3], 0) + coalesce(c.out.bySector[4], 0) + coalesce(c.out.bySector[5], 0)) / (if(c.out.bySector[3] == null, 0, 1) + if(c.out.bySector[4] == null, 0, 1) + if(c.out.bySector[5] == null, 0, 1)) * 100 / 0.01, if((if(c.out.bySector[6] == null, 0, 1) + if(c.out.bySector[7] == null, 0, 1) + if(c.out.bySector[8] == null, 0, 1)) >= 2, (coalesce(c.out.bySector[6], 0) + coalesce(c.out.bySector[7], 0) + coalesce(c.out.bySector[8], 0)) / (if(c.out.bySector[6] == null, 0, 1) + if(c.out.bySector[7] == null, 0, 1) + if(c.out.bySector[8] == null, 0, 1)) * 1000 / 0.01, if((if(c.out.bySector[9] == null, 0, 1) + if(c.out.bySector[10] == null, 0, 1) + if(c.out.bySector[11] == null, 0, 1)) >= 2, (coalesce(c.out.bySector[9], 0) + coalesce(c.out.bySector[10], 0) + coalesce(c.out.bySector[11], 0)) / (if(c.out.bySector[9] == null, 0, 1) + if(c.out.bySector[10] == null, 0, 1) + if(c.out.bySector[11] == null, 0, 1)) * 10000 / 0.01, if((if(c.out.bySector[12] == null, 0, 1) + if(c.out.bySector[13] == null, 0, 1) + if(c.out.bySector[14] == null, 0, 1)) >= 2, (coalesce(c.out.bySector[12], 0) + coalesce(c.out.bySector[13], 0) + coalesce(c.out.bySector[14], 0)) / (if(c.out.bySector[12] == null, 0, 1) + if(c.out.bySector[13] == null, 0, 1) + if(c.out.bySector[14] == null, 0, 1)) * 100000 / 0.01, if((if(c.out.bySector[15] == null, 0, 1) + if(c.out.bySector[16] == null, 0, 1) + if(c.out.bySector[17] == null, 0, 1)) >= 2, (coalesce(c.out.bySector[15], 0) + coalesce(c.out.bySector[16], 0) + coalesce(c.out.bySector[17], 0)) / (if(c.out.bySector[15] == null, 0, 1) + if(c.out.bySector[16] == null, 0, 1) + if(c.out.bySector[17] == null, 0, 1)) * 1000000 / 0.01, null))))))"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['1', '2', '3', '4', '5', '6']"
+        },
+        "session": "d2",
+        "objectives": [
+          "o-count"
+        ]
+      },
+      {
+        "id": "which-test",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-test"
+        ],
+        "prompt": "Three counts per gram from each soil. Which test?",
+        "options": [
+          {
+            "id": "welch",
+            "label": "A t-test on the log counts of two independent groups (Welch's, not assuming equal spread)"
+          },
+          {
+            "id": "paired",
+            "label": "A paired t-test: subsample 1 with 4, 2 with 5, 3 with 6"
+          },
+          {
+            "id": "chi",
+            "label": "A chi-square test on the counts per gram"
+          }
+        ],
+        "correctWhen": "'welch'"
+      },
+      {
+        "id": "stats",
+        "kind": "operation",
+        "ref": "core:test",
+        "params": {
+          "test": "welch-t",
+          "groups": "=[[log10(first(recorded('per-g-s-4'))), log10(first(recorded('per-g-s-5'))), log10(first(recorded('per-g-s-6')))], [log10(first(recorded('per-g-s-1'))), log10(first(recorded('per-g-s-2'))), log10(first(recorded('per-g-s-3')))]]"
+        },
+        "session": "d2",
+        "objectives": [
+          "o-test"
+        ]
+      },
+      {
+        "id": "p",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "p",
+          "value": "=stats.out.p"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "diff",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "log-difference",
+          "value": "=stats.out.estimate"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "conclude",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-test"
+        ],
+        "prompt": "What do you conclude?",
+        "options": [
+          {
+            "id": "more",
+            "label": "Fertiliser increased the degrader's growth on the fuel (p below 0.05): it was short of nitrogen or phosphorus"
+          },
+          {
+            "id": "less",
+            "label": "Fertiliser reduced its growth (p below 0.05)"
+          },
+          {
+            "id": "none",
+            "label": "No difference was detected"
+          }
+        ],
+        "correctWhen": "if(first(recorded('p')) < 0.05, if(first(recorded('log-difference')) > 0, 'more', 'less'), 'none')"
+      },
+      {
+        "id": "replicates",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-design"
+        ],
+        "prompt": "The three subsamples of each soil all came from one microcosm. What does their spread measure?",
+        "options": [
+          {
+            "id": "technical",
+            "label": "Only sampling, dilution and counting error: the conclusion holds for these two microcosms; separate microcosms per treatment would show whether it holds for soils in general"
+          },
+          {
+            "id": "biological",
+            "label": "How much soils differ from one another"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing: identical subsamples give identical counts"
+          }
+        ],
+        "correctWhen": "'technical'"
+      },
+      {
+        "id": "discard",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "params": {
+          "container": "='plate-' + x",
+          "stream": "core:biohazard-waste"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['1', '2', '3', '4', '5', '6']"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "off-2",
+        "kind": "operation",
+        "ref": "core:doff",
+        "params": {
+          "item": "lab-coat"
+        },
+        "session": "d2"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-design",
+        "statement": "The comparison isolates one variable, and the replicates are understood",
+        "check": "decision('compare') == 'fert-base' && decision('replicates') == 'technical'"
+      },
+      {
+        "id": "g-conclude",
+        "statement": "A suitable test is chosen and the conclusion follows from it",
+        "check": "decision('which-test') == 'welch' && decision('conclude') == if(first(recorded('p')) < 0.05, if(first(recorded('log-difference')) > 0, 'more', 'less'), 'none')"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-fert",
+        "statement": "Fertiliser roughly triples the degrader on the fuel (without it, nitrogen runs out first); with three subsamples a side the difference is usually, though not always, significant",
+        "check": "first(recorded('log-difference')) > 0.3",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

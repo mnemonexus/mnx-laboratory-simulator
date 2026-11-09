@@ -1,0 +1,11 @@
+{
+  "id": "./",
+  "name": "Laboratory Simulator",
+  "short_name": "Laboratory",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#24292f",
+  "theme_color": "#24292f",
+  "icons": [{ "src": "./lab-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

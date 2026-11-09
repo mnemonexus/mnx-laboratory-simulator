@@ -1,0 +1,261 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem42-simple-cells",
+  "title": "Simple cells: two metals in an electrolyte",
+  "summary": "Stand pairs of metals in dilute acid, lemon juice and salt water and measure the voltage each pair gives; relate it to how far apart the metals are in the reactivity series.",
+  "briefing": "Pour 50 mL of the electrolyte into a beaker and stand two different, freshly sanded metals in it without letting them touch. Connect the red lead to the less reactive metal and the black lead to the more reactive one and read the voltmeter at once. The more reactive metal gives up electrons and is the negative terminal; the further apart the metals are in the reactivity series, the larger the voltage.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "simple cell",
+      "battery",
+      "reactivity series",
+      "electrolyte",
+      "voltage",
+      "lemon battery"
+    ],
+    "topics": [
+      "Chemical cells",
+      "Reactivity series"
+    ],
+    "concepts": [
+      {
+        "id": "cell",
+        "label": "Two different metals in an electrolyte make a cell; the more reactive is the negative terminal"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the voltage of simple cells"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "Relate the voltage to the metals’ reactivity",
+        "goal": "g-cell"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain where the voltage comes from",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "acid",
+        "label": "Dilute sulfuric acid, 0.5 M",
+        "contains": [
+          {
+            "substance": "core:sulfuric-acid",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "lemon",
+        "label": "Lemon juice (as 0.3 M citric acid)",
+        "contains": [
+          {
+            "substance": "core:citric-acid",
+            "conc": "0.3 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "brine",
+        "label": "Salt water, 1 M sodium chloride",
+        "contains": [
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "volts",
+        "requires": {
+          "class": "core:voltmeter"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each pair in turn",
+        "forEach": {
+          "var": "r",
+          "in": "=[['zn-cu','Zinc and copper in dilute sulfuric acid','acid','aq:copper-strip','aq:zinc-strip'],['mg-cu','Magnesium and copper in dilute sulfuric acid','acid','aq:copper-strip','aq:magnesium-ribbon'],['fe-cu','Iron and copper in dilute sulfuric acid','acid','aq:copper-strip','aq:iron-nail'],['zn-fe','Zinc and iron in dilute sulfuric acid','acid','aq:iron-nail','aq:zinc-strip'],['lemon','Zinc and copper in lemon juice','lemon','aq:copper-strip','aq:zinc-strip'],['brine','Zinc and copper in salt water','brine','aq:copper-strip','aq:zinc-strip']]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='cell-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='cell-' + r[0]",
+              "volume": "50 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "plus",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[3]",
+              "destination": "='cell-' + r[0]",
+              "mass": "1 g"
+            }
+          },
+          {
+            "id": "minus",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[4]",
+              "destination": "='cell-' + r[0]",
+              "mass": "1 g"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "volts",
+              "subject": "='cell-' + r[0]",
+              "electrode": "=r[3]",
+              "negativeElectrode": "=r[4]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='V-' + r[0]",
+              "value": "=read.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "In the zinc–copper cell, why is the zinc the negative terminal?",
+        "options": [
+          {
+            "id": "reactive",
+            "label": "Zinc is more reactive: it loses electrons more readily, and they flow from it through the wire"
+          },
+          {
+            "id": "heavier",
+            "label": "Zinc is heavier than copper"
+          },
+          {
+            "id": "acid",
+            "label": "The acid attacks copper more"
+          }
+        ],
+        "correctWhen": "choice == 'reactive'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-cell",
+        "statement": "The further apart the metals are in reactivity, the larger the voltage (Mg–Cu > Zn–Cu > Fe–Cu)",
+        "check": "first(recorded('V-mg-cu')) > first(recorded('V-zn-cu')) && first(recorded('V-zn-cu')) > first(recorded('V-fe-cu'))"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The negative terminal is explained",
+        "check": "decision('why') == 'reactive'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-lemon",
+        "statement": "A lemon cell of zinc and copper gives about a volt",
+        "check": "first(recorded('V-lemon')) > 0.8 && first(recorded('V-lemon')) < 1.2",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-zn-fe",
+        "statement": "Zinc and iron give a small voltage, iron positive",
+        "check": "first(recorded('V-zn-fe')) > 0.1 && first(recorded('V-zn-fe')) < 0.5",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

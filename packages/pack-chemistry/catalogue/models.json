@@ -1,0 +1,1402 @@
+[
+  {
+    "id": "chem:ester-saponification",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:ethyl-acetate": 1,
+        "core:sodium-hydroxide": 1
+      },
+      "products": {
+        "core:sodium-acetate": 1,
+        "core:ethanol": 1
+      },
+      "k": 0.11,
+      "at": "25 Cel",
+      "ea": "43 kJ/mol"
+    },
+    "description": "Alkaline hydrolysis of ethyl ethanoate: first order in ester and in hydroxide, so second order overall. Hydroxide is used up as acetate forms, so the pH falls as the reaction goes; with equal starting concentrations 1/[OH⁻] rises linearly with time, with slope k.",
+    "validity": {
+      "temperature": "15..45 Cel",
+      "concentration": "0..0.1 mol/L"
+    },
+    "provenance": {
+      "references": [
+        "k ≈ 0.11 L mol⁻¹ s⁻¹ at 25 °C and Ea ≈ 40–48 kJ/mol are typical literature values for ethyl acetate saponification"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:ethanol-water-vle",
+    "contract": "equilibrium.vapour-liquid",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "vle": {
+      "light": "core:ethanol",
+      "x": [
+        0,
+        0.019,
+        0.0721,
+        0.0966,
+        0.1238,
+        0.1661,
+        0.2337,
+        0.2608,
+        0.3273,
+        0.3965,
+        0.5079,
+        0.5198,
+        0.5732,
+        0.6763,
+        0.7472,
+        0.8943,
+        1.0
+      ],
+      "y": [
+        0,
+        0.17,
+        0.3891,
+        0.4375,
+        0.4704,
+        0.5089,
+        0.5445,
+        0.558,
+        0.5826,
+        0.6122,
+        0.6564,
+        0.6599,
+        0.6841,
+        0.7385,
+        0.7815,
+        0.8943,
+        1.0
+      ],
+      "T": [
+        100,
+        95.5,
+        89.0,
+        86.7,
+        85.3,
+        84.1,
+        82.7,
+        82.3,
+        81.5,
+        80.7,
+        79.8,
+        79.7,
+        79.3,
+        78.74,
+        78.41,
+        78.15,
+        78.3
+      ]
+    },
+    "description": "Ethanol–water at 1 atm: the vapour is richer in ethanol than the liquid it boils from, up to the azeotrope near x = 0.894 (about 95.6 % by mass), beyond which distillation cannot enrich it.",
+    "validity": {
+      "pressure": "1 atm"
+    },
+    "provenance": {
+      "references": [
+        "Ethanol–water vapour–liquid equilibrium at 101.3 kPa, as tabulated in standard chemical engineering handbooks"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:molybdenum-blue",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "core:potassium-dihydrogen-phosphate": 1,
+        "chem:ammonium-molybdate": 1,
+        "chem:ascorbic-acid": 1
+      },
+      "products": {
+        "chem:phosphomolybdenum-blue": 1
+      },
+      "orders": {
+        "core:potassium-dihydrogen-phosphate": 1,
+        "chem:ammonium-molybdate": 1,
+        "chem:ascorbic-acid": 0
+      },
+      "k": 5.3,
+      "at": "25 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "Orthophosphate and molybdate form phosphomolybdate in acid; ascorbic acid reduces it to the blue. With the reagent in excess the blue forms first order in phosphate, half in about 4 minutes at 21 °C: 20 minutes is full colour. No ascorbic acid, no blue.",
+    "provenance": {
+      "references": [
+        "Murphy and Riley (1962), the ascorbic-acid molybdenum-blue method"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:zinc-nitrate-reduction",
+    "contract": "kinetics.mass-action",
+    "tier": "T1",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:sodium-nitrate": 1
+      },
+      "products": {
+        "chem:sodium-nitrite": 1
+      },
+      "orders": {
+        "chem:sodium-nitrate": 1,
+        "chem:zinc-dust": 1
+      },
+      "heterogeneous": [
+        "chem:zinc-dust"
+      ],
+      "k": 0.0167,
+      "at": "25 Cel"
+    },
+    "description": "Zinc dust reduces nitrate to nitrite where the liquid touches it: a few per cent a minute with a drop of slurry in 5 mL, so standards and samples must have the same time on the zinc. Once the dust settles and the liquid is taken off it, reduction stops.",
+    "provenance": {
+      "notes": "Teaching-scale rate chosen for a minute's partial reduction; over-reduction past nitrite is not modelled.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:griess-reaction",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:sodium-nitrite": 1,
+        "chem:griess-reagent": 1
+      },
+      "products": {
+        "chem:griess-azo-dye": 1
+      },
+      "k": 57,
+      "at": "25 Cel",
+      "ea": "30 kJ/mol"
+    },
+    "description": "Nitrite diazotises sulfanilamide, which couples with NED to a magenta azo dye (λmax 540 nm). With the reagent in excess the colour is half formed in about 3 minutes.",
+    "provenance": {
+      "references": [
+        "Griess reaction: diazotisation of sulfanilamide and coupling with N-(1-naphthyl)ethylenediamine"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:nbe-hydrolysis",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrophenyl-benzoate": 1
+      },
+      "products": {
+        "chem:benzoic-acid": 1,
+        "bio:p-nitrophenol": 1
+      },
+      "hydroxide": 1,
+      "k": 0.6,
+      "at": "21 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Base hydrolysis of 4-nitrophenyl benzoate: first order in ester and in hydroxide (k = 0.6 M⁻¹ s⁻¹ at 21 °C). With hydroxide in excess it is pseudo-first order, kobs = k[OH⁻]; the 4-nitrophenolate released is yellow (405 nm).",
+    "provenance": {
+      "references": [
+        "Hammett: log(k/k0) = rho sigma with rho = 2.0 and k0 = 0.6 M⁻¹ s⁻¹ (illustrative values of the right order for aryl benzoates in aqueous acetone)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:nbe-hydrolysis-3-methoxy",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrophenyl-3-methoxy-benzoate": 1
+      },
+      "products": {
+        "chem:3-methoxy-benzoic-acid": 1,
+        "bio:p-nitrophenol": 1
+      },
+      "hydroxide": 1,
+      "k": 1.0427,
+      "at": "21 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Base hydrolysis of 4-nitrophenyl 3-methoxy-benzoate: first order in ester and in hydroxide (k = 1.0427 M⁻¹ s⁻¹ at 21 °C). With hydroxide in excess it is pseudo-first order, kobs = k[OH⁻]; the 4-nitrophenolate released is yellow (405 nm).",
+    "provenance": {
+      "references": [
+        "Hammett: log(k/k0) = rho sigma with rho = 2.0 and k0 = 0.6 M⁻¹ s⁻¹ (illustrative values of the right order for aryl benzoates in aqueous acetone)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:nbe-hydrolysis-3-methyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrophenyl-3-methyl-benzoate": 1
+      },
+      "products": {
+        "chem:3-methyl-benzoic-acid": 1,
+        "bio:p-nitrophenol": 1
+      },
+      "hydroxide": 1,
+      "k": 0.4347,
+      "at": "21 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Base hydrolysis of 4-nitrophenyl 3-methyl-benzoate: first order in ester and in hydroxide (k = 0.4347 M⁻¹ s⁻¹ at 21 °C). With hydroxide in excess it is pseudo-first order, kobs = k[OH⁻]; the 4-nitrophenolate released is yellow (405 nm).",
+    "provenance": {
+      "references": [
+        "Hammett: log(k/k0) = rho sigma with rho = 2.0 and k0 = 0.6 M⁻¹ s⁻¹ (illustrative values of the right order for aryl benzoates in aqueous acetone)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:nbe-hydrolysis-4-methyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrophenyl-4-methyl-benzoate": 1
+      },
+      "products": {
+        "chem:4-methyl-benzoic-acid": 1,
+        "bio:p-nitrophenol": 1
+      },
+      "hydroxide": 1,
+      "k": 0.2743,
+      "at": "21 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Base hydrolysis of 4-nitrophenyl 4-methyl-benzoate: first order in ester and in hydroxide (k = 0.2743 M⁻¹ s⁻¹ at 21 °C). With hydroxide in excess it is pseudo-first order, kobs = k[OH⁻]; the 4-nitrophenolate released is yellow (405 nm).",
+    "provenance": {
+      "references": [
+        "Hammett: log(k/k0) = rho sigma with rho = 2.0 and k0 = 0.6 M⁻¹ s⁻¹ (illustrative values of the right order for aryl benzoates in aqueous acetone)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:nbe-hydrolysis-3-trifluoromethyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrophenyl-3-trifluoromethyl-benzoate": 1
+      },
+      "products": {
+        "chem:3-trifluoromethyl-benzoic-acid": 1,
+        "bio:p-nitrophenol": 1
+      },
+      "hydroxide": 1,
+      "k": 4.3466,
+      "at": "21 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Base hydrolysis of 4-nitrophenyl 3-trifluoromethyl-benzoate: first order in ester and in hydroxide (k = 4.3466 M⁻¹ s⁻¹ at 21 °C). With hydroxide in excess it is pseudo-first order, kobs = k[OH⁻]; the 4-nitrophenolate released is yellow (405 nm).",
+    "provenance": {
+      "references": [
+        "Hammett: log(k/k0) = rho sigma with rho = 2.0 and k0 = 0.6 M⁻¹ s⁻¹ (illustrative values of the right order for aryl benzoates in aqueous acetone)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:nbe-hydrolysis-4-trifluoromethyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrophenyl-4-trifluoromethyl-benzoate": 1
+      },
+      "products": {
+        "chem:4-trifluoromethyl-benzoic-acid": 1,
+        "bio:p-nitrophenol": 1
+      },
+      "hydroxide": 1,
+      "k": 7.2136,
+      "at": "21 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Base hydrolysis of 4-nitrophenyl 4-trifluoromethyl-benzoate: first order in ester and in hydroxide (k = 7.2136 M⁻¹ s⁻¹ at 21 °C). With hydroxide in excess it is pseudo-first order, kobs = k[OH⁻]; the 4-nitrophenolate released is yellow (405 nm).",
+    "provenance": {
+      "references": [
+        "Hammett: log(k/k0) = rho sigma with rho = 2.0 and k0 = 0.6 M⁻¹ s⁻¹ (illustrative values of the right order for aryl benzoates in aqueous acetone)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:nbe-hydrolysis-4-chloro",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrophenyl-4-chloro-benzoate": 1
+      },
+      "products": {
+        "chem:4-chloro-benzoic-acid": 1,
+        "bio:p-nitrophenol": 1
+      },
+      "hydroxide": 1,
+      "k": 1.7304,
+      "at": "21 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Base hydrolysis of 4-nitrophenyl 4-chloro-benzoate: first order in ester and in hydroxide (k = 1.7304 M⁻¹ s⁻¹ at 21 °C). With hydroxide in excess it is pseudo-first order, kobs = k[OH⁻]; the 4-nitrophenolate released is yellow (405 nm).",
+    "provenance": {
+      "references": [
+        "Hammett: log(k/k0) = rho sigma with rho = 2.0 and k0 = 0.6 M⁻¹ s⁻¹ (illustrative values of the right order for aryl benzoates in aqueous acetone)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:nbe-hydrolysis-3-chloro",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrophenyl-3-chloro-benzoate": 1
+      },
+      "products": {
+        "chem:3-chloro-benzoic-acid": 1,
+        "bio:p-nitrophenol": 1
+      },
+      "hydroxide": 1,
+      "k": 3.2972,
+      "at": "21 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Base hydrolysis of 4-nitrophenyl 3-chloro-benzoate: first order in ester and in hydroxide (k = 3.2972 M⁻¹ s⁻¹ at 21 °C). With hydroxide in excess it is pseudo-first order, kobs = k[OH⁻]; the 4-nitrophenolate released is yellow (405 nm).",
+    "provenance": {
+      "references": [
+        "Hammett: log(k/k0) = rho sigma with rho = 2.0 and k0 = 0.6 M⁻¹ s⁻¹ (illustrative values of the right order for aryl benzoates in aqueous acetone)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:fischer-esterification-4-nitrocinnamic-ethyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-nitrocinnamic-acid": 1,
+        "core:ethanol": 1
+      },
+      "products": {
+        "chem:ethyl-4-nitrocinnamate": 1,
+        "core:water": 1
+      },
+      "orders": {
+        "chem:4-nitrocinnamic-acid": 1,
+        "core:ethanol": 1,
+        "core:sulfuric-acid": 1
+      },
+      "k": 4.5e-05,
+      "at": "78 Cel",
+      "ea": "60 kJ/mol"
+    },
+    "description": "Fischer esterification of 4-nitrocinnamic acid with ethanol, catalysed by sulfuric acid: first order in the acid, in ethanol and in the catalyst. Slow at room temperature (about fifty times slower than at reflux); reversible, so water drives it back (see the hydrolysis).",
+    "provenance": {
+      "references": [
+        "Fischer–Speier esterification: acid-catalysed, reversible, K about 4 for simple acids with ethanol",
+        "Rate constant illustrative: of the order that gives most of the ester in an hour's reflux in ethanol with about 1 mL of concentrated H2SO4 per 20 mL"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:ester-hydrolysis-acid-ethyl-4-nitrocinnamate",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:ethyl-4-nitrocinnamate": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:4-nitrocinnamic-acid": 1,
+        "core:ethanol": 1
+      },
+      "orders": {
+        "chem:ethyl-4-nitrocinnamate": 1,
+        "core:water": 1,
+        "core:sulfuric-acid": 1
+      },
+      "k": 1.125e-05,
+      "at": "78 Cel",
+      "ea": "60 kJ/mol"
+    },
+    "description": "The reverse of the Fischer esterification: acid-catalysed hydrolysis of ethyl 4-nitrocinnamate. With the forward reaction it sets K = [ester][water]/([acid][ethanol]) = 4, so excess ethanol and little water push the equilibrium towards the ester.",
+    "provenance": {
+      "references": [
+        "K = 4 (ethyl acetate's esterification equilibrium, taken for this ester)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:acylation-4-nitrophenol",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:p-nitrophenol": 1,
+        "chem:benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "products": {
+        "chem:4-nitrophenyl-benzoate": 1,
+        "chem:triethylammonium-chloride": 1
+      },
+      "orders": {
+        "bio:p-nitrophenol": 1,
+        "chem:benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "k": 6.0,
+      "at": "0 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "4-Nitrophenol acylated by benzoyl chloride with triethylamine as the base: first order in each (k = 6.0 M⁻² s⁻¹ at 0 °C), so it is over within minutes in the cold. Exothermic in fact; the heat is not modelled.",
+    "provenance": {
+      "references": [
+        "Hammett rho 1.5 for aroyl chlorides acylating a phenoxide (illustrative; k0 = 6 M⁻² s⁻¹ at 0 °C)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:aroyl-chloride-hydrolysis",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:benzoic-acid": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "orders": {
+        "chem:benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "k": 0.0007,
+      "at": "25 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Water turns benzoyl chloride into the acid and HCl: first order in each (k = 7 × 10⁻⁴ M⁻¹ s⁻¹ at 25 °C, so a half-life of about 20 s in water but hours in dried THF).",
+    "provenance": {
+      "references": [
+        "Benzoyl chloride in water: half-life of the order of 15-20 s at 25 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:acylation-4-nitrophenol-3-methoxy",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:p-nitrophenol": 1,
+        "chem:3-methoxy-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "products": {
+        "chem:4-nitrophenyl-3-methoxy-benzoate": 1,
+        "chem:triethylammonium-chloride": 1
+      },
+      "orders": {
+        "bio:p-nitrophenol": 1,
+        "chem:3-methoxy-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "k": 9.081,
+      "at": "0 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "4-Nitrophenol acylated by 3-methoxybenzoyl chloride with triethylamine as the base: first order in each (k = 9.081 M⁻² s⁻¹ at 0 °C), so it is over within minutes in the cold. Exothermic in fact; the heat is not modelled.",
+    "provenance": {
+      "references": [
+        "Hammett rho 1.5 for aroyl chlorides acylating a phenoxide (illustrative; k0 = 6 M⁻² s⁻¹ at 0 °C)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:aroyl-chloride-hydrolysis-3-methoxy",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:3-methoxy-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:3-methoxy-benzoic-acid": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "orders": {
+        "chem:3-methoxy-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "k": 0.0007,
+      "at": "25 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Water turns 3-methoxybenzoyl chloride into the acid and HCl: first order in each (k = 7 × 10⁻⁴ M⁻¹ s⁻¹ at 25 °C, so a half-life of about 20 s in water but hours in dried THF).",
+    "provenance": {
+      "references": [
+        "Benzoyl chloride in water: half-life of the order of 15-20 s at 25 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:acylation-4-nitrophenol-3-methyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:p-nitrophenol": 1,
+        "chem:3-methyl-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "products": {
+        "chem:4-nitrophenyl-3-methyl-benzoate": 1,
+        "chem:triethylammonium-chloride": 1
+      },
+      "orders": {
+        "bio:p-nitrophenol": 1,
+        "chem:3-methyl-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "k": 4.711,
+      "at": "0 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "4-Nitrophenol acylated by 3-methylbenzoyl chloride with triethylamine as the base: first order in each (k = 4.711 M⁻² s⁻¹ at 0 °C), so it is over within minutes in the cold. Exothermic in fact; the heat is not modelled.",
+    "provenance": {
+      "references": [
+        "Hammett rho 1.5 for aroyl chlorides acylating a phenoxide (illustrative; k0 = 6 M⁻² s⁻¹ at 0 °C)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:aroyl-chloride-hydrolysis-3-methyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:3-methyl-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:3-methyl-benzoic-acid": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "orders": {
+        "chem:3-methyl-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "k": 0.0007,
+      "at": "25 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Water turns 3-methylbenzoyl chloride into the acid and HCl: first order in each (k = 7 × 10⁻⁴ M⁻¹ s⁻¹ at 25 °C, so a half-life of about 20 s in water but hours in dried THF).",
+    "provenance": {
+      "references": [
+        "Benzoyl chloride in water: half-life of the order of 15-20 s at 25 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:acylation-4-nitrophenol-4-methyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:p-nitrophenol": 1,
+        "chem:4-methyl-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "products": {
+        "chem:4-nitrophenyl-4-methyl-benzoate": 1,
+        "chem:triethylammonium-chloride": 1
+      },
+      "orders": {
+        "bio:p-nitrophenol": 1,
+        "chem:4-methyl-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "k": 3.335,
+      "at": "0 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "4-Nitrophenol acylated by 4-methylbenzoyl chloride with triethylamine as the base: first order in each (k = 3.335 M⁻² s⁻¹ at 0 °C), so it is over within minutes in the cold. Exothermic in fact; the heat is not modelled.",
+    "provenance": {
+      "references": [
+        "Hammett rho 1.5 for aroyl chlorides acylating a phenoxide (illustrative; k0 = 6 M⁻² s⁻¹ at 0 °C)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:aroyl-chloride-hydrolysis-4-methyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-methyl-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:4-methyl-benzoic-acid": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "orders": {
+        "chem:4-methyl-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "k": 0.0007,
+      "at": "25 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Water turns 4-methylbenzoyl chloride into the acid and HCl: first order in each (k = 7 × 10⁻⁴ M⁻¹ s⁻¹ at 25 °C, so a half-life of about 20 s in water but hours in dried THF).",
+    "provenance": {
+      "references": [
+        "Benzoyl chloride in water: half-life of the order of 15-20 s at 25 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:acylation-4-nitrophenol-3-trifluoromethyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:p-nitrophenol": 1,
+        "chem:3-trifluoromethyl-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "products": {
+        "chem:4-nitrophenyl-3-trifluoromethyl-benzoate": 1,
+        "chem:triethylammonium-chloride": 1
+      },
+      "orders": {
+        "bio:p-nitrophenol": 1,
+        "chem:3-trifluoromethyl-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "k": 26.494,
+      "at": "0 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "4-Nitrophenol acylated by 3-trifluoromethylbenzoyl chloride with triethylamine as the base: first order in each (k = 26.494 M⁻² s⁻¹ at 0 °C), so it is over within minutes in the cold. Exothermic in fact; the heat is not modelled.",
+    "provenance": {
+      "references": [
+        "Hammett rho 1.5 for aroyl chlorides acylating a phenoxide (illustrative; k0 = 6 M⁻² s⁻¹ at 0 °C)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:aroyl-chloride-hydrolysis-3-trifluoromethyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:3-trifluoromethyl-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:3-trifluoromethyl-benzoic-acid": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "orders": {
+        "chem:3-trifluoromethyl-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "k": 0.0007,
+      "at": "25 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Water turns 3-trifluoromethylbenzoyl chloride into the acid and HCl: first order in each (k = 7 × 10⁻⁴ M⁻¹ s⁻¹ at 25 °C, so a half-life of about 20 s in water but hours in dried THF).",
+    "provenance": {
+      "references": [
+        "Benzoyl chloride in water: half-life of the order of 15-20 s at 25 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:acylation-4-nitrophenol-4-trifluoromethyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:p-nitrophenol": 1,
+        "chem:4-trifluoromethyl-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "products": {
+        "chem:4-nitrophenyl-4-trifluoromethyl-benzoate": 1,
+        "chem:triethylammonium-chloride": 1
+      },
+      "orders": {
+        "bio:p-nitrophenol": 1,
+        "chem:4-trifluoromethyl-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "k": 38.739,
+      "at": "0 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "4-Nitrophenol acylated by 4-trifluoromethylbenzoyl chloride with triethylamine as the base: first order in each (k = 38.739 M⁻² s⁻¹ at 0 °C), so it is over within minutes in the cold. Exothermic in fact; the heat is not modelled.",
+    "provenance": {
+      "references": [
+        "Hammett rho 1.5 for aroyl chlorides acylating a phenoxide (illustrative; k0 = 6 M⁻² s⁻¹ at 0 °C)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:aroyl-chloride-hydrolysis-4-trifluoromethyl",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-trifluoromethyl-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:4-trifluoromethyl-benzoic-acid": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "orders": {
+        "chem:4-trifluoromethyl-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "k": 0.0007,
+      "at": "25 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Water turns 4-trifluoromethylbenzoyl chloride into the acid and HCl: first order in each (k = 7 × 10⁻⁴ M⁻¹ s⁻¹ at 25 °C, so a half-life of about 20 s in water but hours in dried THF).",
+    "provenance": {
+      "references": [
+        "Benzoyl chloride in water: half-life of the order of 15-20 s at 25 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:acylation-4-nitrophenol-4-chloro",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:p-nitrophenol": 1,
+        "chem:4-chloro-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "products": {
+        "chem:4-nitrophenyl-4-chloro-benzoate": 1,
+        "chem:triethylammonium-chloride": 1
+      },
+      "orders": {
+        "bio:p-nitrophenol": 1,
+        "chem:4-chloro-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "k": 13.279,
+      "at": "0 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "4-Nitrophenol acylated by 4-chlorobenzoyl chloride with triethylamine as the base: first order in each (k = 13.279 M⁻² s⁻¹ at 0 °C), so it is over within minutes in the cold. Exothermic in fact; the heat is not modelled.",
+    "provenance": {
+      "references": [
+        "Hammett rho 1.5 for aroyl chlorides acylating a phenoxide (illustrative; k0 = 6 M⁻² s⁻¹ at 0 °C)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:aroyl-chloride-hydrolysis-4-chloro",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:4-chloro-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:4-chloro-benzoic-acid": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "orders": {
+        "chem:4-chloro-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "k": 0.0007,
+      "at": "25 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Water turns 4-chlorobenzoyl chloride into the acid and HCl: first order in each (k = 7 × 10⁻⁴ M⁻¹ s⁻¹ at 25 °C, so a half-life of about 20 s in water but hours in dried THF).",
+    "provenance": {
+      "references": [
+        "Benzoyl chloride in water: half-life of the order of 15-20 s at 25 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:acylation-4-nitrophenol-3-chloro",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "bio:p-nitrophenol": 1,
+        "chem:3-chloro-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "products": {
+        "chem:4-nitrophenyl-3-chloro-benzoate": 1,
+        "chem:triethylammonium-chloride": 1
+      },
+      "orders": {
+        "bio:p-nitrophenol": 1,
+        "chem:3-chloro-benzoyl-chloride": 1,
+        "chem:triethylamine": 1
+      },
+      "k": 21.535,
+      "at": "0 Cel",
+      "ea": "40 kJ/mol"
+    },
+    "description": "4-Nitrophenol acylated by 3-chlorobenzoyl chloride with triethylamine as the base: first order in each (k = 21.535 M⁻² s⁻¹ at 0 °C), so it is over within minutes in the cold. Exothermic in fact; the heat is not modelled.",
+    "provenance": {
+      "references": [
+        "Hammett rho 1.5 for aroyl chlorides acylating a phenoxide (illustrative; k0 = 6 M⁻² s⁻¹ at 0 °C)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:aroyl-chloride-hydrolysis-3-chloro",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:3-chloro-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "products": {
+        "chem:3-chloro-benzoic-acid": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "orders": {
+        "chem:3-chloro-benzoyl-chloride": 1,
+        "core:water": 1
+      },
+      "k": 0.0007,
+      "at": "25 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Water turns 3-chlorobenzoyl chloride into the acid and HCl: first order in each (k = 7 × 10⁻⁴ M⁻¹ s⁻¹ at 25 °C, so a half-life of about 20 s in water but hours in dried THF).",
+    "provenance": {
+      "references": [
+        "Benzoyl chloride in water: half-life of the order of 15-20 s at 25 °C"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:thiosulfate-acid",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:sodium-thiosulfate": 1,
+        "core:hydrochloric-acid": 2
+      },
+      "products": {
+        "chem:sulfur-colloid": 1,
+        "chem:sulfur-dioxide": 1,
+        "core:water": 1
+      },
+      "orders": {
+        "chem:sodium-thiosulfate": 1,
+        "core:hydrochloric-acid": 1
+      },
+      "k": 0.006,
+      "at": "20 Cel",
+      "ea": "50 kJ/mol"
+    },
+    "description": "Acid decomposes thiosulfate into colloidal sulfur (which clouds the liquid) and sulfur dioxide: S₂O₃²⁻ + 2H⁺ → S + SO₂ + H₂O. First order in each, so the time for the same cloudiness halves when either is doubled; it roughly doubles in speed for every 10 °C.",
+    "provenance": {
+      "notes": "Rate constant calibrated to the classroom timings (0.15 M thiosulfate with 2 M acid: the cross goes in about half a minute at 20 °C); Ea of the right order.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:persulfate-iodide",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:potassium-persulfate": 1,
+        "core:potassium-iodide": 2
+      },
+      "products": {
+        "core:iodine": 1,
+        "chem:potassium-sulfate": 2
+      },
+      "orders": {
+        "chem:potassium-persulfate": 1,
+        "core:potassium-iodide": 1
+      },
+      "k": 0.011,
+      "at": "25 Cel",
+      "ea": "53 kJ/mol"
+    },
+    "description": "S₂O₈²⁻ + 2I⁻ → 2SO₄²⁻ + I₂, first order in each (the iodine clock). Thiosulfate in the mixture turns the iodine straight back into iodide until it is used up; then free iodine turns the starch blue-black.",
+    "provenance": {
+      "references": [
+        "k ≈ 0.011 dm³ mol⁻¹ s⁻¹ at 25 °C, Ea about 50–55 kJ/mol (classic clock-reaction data)"
+      ],
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:bromine-cyclohexene",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:cyclohexene": 1,
+        "chem:bromine": 1
+      },
+      "products": {
+        "chem:dibromocyclohexane": 1
+      },
+      "orders": {
+        "chem:cyclohexene": 1,
+        "chem:bromine": 1
+      },
+      "k": 50,
+      "at": "20 Cel",
+      "ea": "20 kJ/mol"
+    },
+    "description": "Bromine adds across the C=C double bond of an alkene at once, so bromine water is decolourised when shaken with it; an alkane does not react.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:dichromate-ethanol",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "core:ethanol": 3,
+        "aq:chromate": 2
+      },
+      "products": {
+        "chem:oxidised-alcohol": 3,
+        "chem:chromium-iii": 2
+      },
+      "orders": {
+        "core:ethanol": 1,
+        "aq:chromate": 1
+      },
+      "k": 0.5,
+      "at": "60 Cel",
+      "ea": "60 kJ/mol",
+      "acid": 1
+    },
+    "description": "Acidified dichromate oxidises a primary alcohol to an aldehyde, turning from orange to green chromium(III). Dichromate counts as its chromium(VI) (two per dichromate); the rate goes as [H⁺].",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:dichromate-propan-2-ol",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:propan-2-ol": 3,
+        "aq:chromate": 2
+      },
+      "products": {
+        "chem:oxidised-alcohol": 3,
+        "chem:chromium-iii": 2
+      },
+      "orders": {
+        "chem:propan-2-ol": 1,
+        "aq:chromate": 1
+      },
+      "k": 0.5,
+      "at": "60 Cel",
+      "ea": "60 kJ/mol",
+      "acid": 1
+    },
+    "description": "Acidified dichromate oxidises a secondary alcohol to a ketone, turning green. Dichromate counts as its chromium(VI) (two per dichromate); the rate goes as [H⁺].",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:dichromate-methanol",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:methanol": 3,
+        "aq:chromate": 2
+      },
+      "products": {
+        "chem:oxidised-alcohol": 3,
+        "chem:chromium-iii": 2
+      },
+      "orders": {
+        "chem:methanol": 1,
+        "aq:chromate": 1
+      },
+      "k": 0.5,
+      "at": "60 Cel",
+      "ea": "60 kJ/mol",
+      "acid": 1
+    },
+    "description": "Acidified dichromate oxidises methanol, turning green. Dichromate counts as its chromium(VI) (two per dichromate); the rate goes as [H⁺].",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:dichromate-ethanal",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:ethanal": 3,
+        "aq:chromate": 2
+      },
+      "products": {
+        "chem:ethanoate-product": 3,
+        "chem:chromium-iii": 2
+      },
+      "orders": {
+        "chem:ethanal": 1,
+        "aq:chromate": 1
+      },
+      "k": 0.5,
+      "at": "60 Cel",
+      "ea": "60 kJ/mol",
+      "acid": 1
+    },
+    "description": "An aldehyde is oxidised to a carboxylic acid by acidified dichromate (a ketone is not). Dichromate counts as its chromium(VI) (two per dichromate); the rate goes as [H⁺].",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:tollens-ethanal",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:ethanal": 1,
+        "aq:silver": 2
+      },
+      "products": {
+        "chem:silver-mirror": 2,
+        "chem:ethanoate-product": 1
+      },
+      "orders": {
+        "chem:ethanal": 1,
+        "aq:silver": 1
+      },
+      "k": 3,
+      "at": "25 Cel",
+      "ea": "60 kJ/mol",
+      "hydroxide": 1
+    },
+    "description": "An aldehyde reduces the silver(I) of Tollens’ reagent (ammoniacal silver nitrate) to metallic silver within minutes at room temperature, faster when warm: a silver mirror. Ketones do not.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:fehling-ethanal",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:ethanal": 1,
+        "bio:benedict-copper": 2
+      },
+      "products": {
+        "bio:copper-i-oxide": 1,
+        "chem:ethanoate-product": 1
+      },
+      "orders": {
+        "chem:ethanal": 1
+      },
+      "k": 12,
+      "at": "100 Cel",
+      "ea": "120 kJ/mol",
+      "hydroxide": 1
+    },
+    "description": "An aldehyde reduces the complexed copper(II) of Fehling’s or Benedict’s solution to red copper(I) oxide when heated in alkali. Ketones do not.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:iodoform-ethanol",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "core:ethanol": 1,
+        "core:iodine": 4
+      },
+      "products": {
+        "chem:iodoform": 1
+      },
+      "orders": {
+        "core:ethanol": 1,
+        "core:iodine": 1
+      },
+      "k": 2,
+      "at": "60 Cel",
+      "ea": "50 kJ/mol",
+      "hydroxide": 1
+    },
+    "description": "Iodine in alkali oxidises ethanol to ethanal, then triiodinates its CH₃CO– group and cleaves it: yellow iodoform.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:iodoform-propan-2-ol",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:propan-2-ol": 1,
+        "core:iodine": 4
+      },
+      "products": {
+        "chem:iodoform": 1
+      },
+      "orders": {
+        "chem:propan-2-ol": 1,
+        "core:iodine": 1
+      },
+      "k": 2,
+      "at": "60 Cel",
+      "ea": "50 kJ/mol",
+      "hydroxide": 1
+    },
+    "description": "Propan-2-ol, oxidised to propanone, gives iodoform.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:iodoform-propanone",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:propanone": 1,
+        "core:iodine": 3
+      },
+      "products": {
+        "chem:iodoform": 1
+      },
+      "orders": {
+        "chem:propanone": 1,
+        "core:iodine": 1
+      },
+      "k": 5,
+      "at": "60 Cel",
+      "ea": "50 kJ/mol",
+      "hydroxide": 1
+    },
+    "description": "Propanone (CH₃CO–) gives iodoform with iodine in alkali.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:iodoform-ethanal",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:ethanal": 1,
+        "core:iodine": 3
+      },
+      "products": {
+        "chem:iodoform": 1
+      },
+      "orders": {
+        "chem:ethanal": 1,
+        "core:iodine": 1
+      },
+      "k": 5,
+      "at": "60 Cel",
+      "ea": "50 kJ/mol",
+      "hydroxide": 1
+    },
+    "description": "Ethanal, the only aldehyde with CH₃CO–, gives iodoform.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  },
+  {
+    "id": "chem:phenol-iron",
+    "contract": "kinetics.mass-action",
+    "tier": "T2",
+    "kind": "process",
+    "status": "experimental",
+    "reaction": {
+      "reactants": {
+        "chem:phenol": 1,
+        "aq:iron-iii": 1
+      },
+      "products": {
+        "chem:iron-phenolate-complex": 1
+      },
+      "orders": {
+        "chem:phenol": 1,
+        "aq:iron-iii": 1
+      },
+      "k": 100,
+      "at": "20 Cel",
+      "ea": "20 kJ/mol"
+    },
+    "description": "Phenols give a violet complex with neutral iron(III) chloride; alcohols do not.",
+    "provenance": {
+      "notes": "Rate illustrative, calibrated to classroom timings.",
+      "review": "pending"
+    }
+  }
+]

@@ -1,0 +1,227 @@
+[
+  {
+    "id": "core:micropipetting",
+    "label": "Micropipetting",
+    "kind": "technique"
+  },
+  {
+    "id": "core:pipette-range-selection",
+    "label": "Choosing a pipette for the volume",
+    "kind": "operation"
+  },
+  {
+    "id": "core:volumetric-pipette",
+    "label": "Using a volumetric pipette",
+    "kind": "technique"
+  },
+  {
+    "id": "core:burette-technique",
+    "label": "Burette technique",
+    "kind": "technique"
+  },
+  {
+    "id": "core:read-meniscus",
+    "label": "Reading a meniscus",
+    "kind": "operation"
+  },
+  {
+    "id": "core:tare-and-weigh",
+    "label": "Taring and weighing",
+    "kind": "technique"
+  },
+  {
+    "id": "core:weigh-by-difference",
+    "label": "Weighing by difference",
+    "kind": "technique"
+  },
+  {
+    "id": "core:make-up-to-volume",
+    "label": "Making up to volume",
+    "kind": "technique"
+  },
+  {
+    "id": "core:dilution-planning",
+    "label": "Planning dilutions (C1V1 = C2V2)",
+    "kind": "analysis"
+  },
+  {
+    "id": "core:dilution-series",
+    "label": "Preparing a dilution series",
+    "kind": "technique"
+  },
+  {
+    "id": "core:serial-dilution",
+    "label": "Serial dilution",
+    "kind": "technique"
+  },
+  {
+    "id": "core:dilute-sample",
+    "label": "Diluting a sample",
+    "kind": "technique"
+  },
+  {
+    "id": "core:transfer-to-plate",
+    "label": "Loading a plate",
+    "kind": "technique"
+  },
+  {
+    "id": "core:dispense-reagent",
+    "label": "Dispensing a reagent",
+    "kind": "technique"
+  },
+  {
+    "id": "core:incubate",
+    "label": "Incubating",
+    "kind": "technique"
+  },
+  {
+    "id": "core:blanking",
+    "label": "Blanking an instrument",
+    "kind": "equipment"
+  },
+  {
+    "id": "core:spectrophotometer-read",
+    "label": "Reading a spectrophotometer",
+    "kind": "equipment"
+  },
+  {
+    "id": "core:ph-meter-calibration",
+    "label": "Calibrating a pH meter",
+    "kind": "equipment"
+  },
+  {
+    "id": "core:centrifuge-balancing",
+    "label": "Balancing a centrifuge rotor",
+    "kind": "operation"
+  },
+  {
+    "id": "core:plate-layout",
+    "label": "Designing a plate layout",
+    "kind": "design"
+  },
+  {
+    "id": "core:control-design",
+    "label": "Designing controls",
+    "kind": "design"
+  },
+  {
+    "id": "core:experimental-design",
+    "label": "Designing an experiment: question, hypothesis, treatments and replicates",
+    "kind": "design"
+  },
+  {
+    "id": "core:calibration-analysis",
+    "label": "Building and using a calibration curve",
+    "kind": "analysis"
+  },
+  {
+    "id": "core:standard-curve-analysis",
+    "label": "Standard-curve analysis",
+    "kind": "analysis"
+  },
+  {
+    "id": "core:calibration-range",
+    "label": "Staying within the calibrated range",
+    "kind": "reasoning"
+  },
+  {
+    "id": "core:uncertainty-propagation",
+    "label": "Propagating uncertainty",
+    "kind": "analysis"
+  },
+  {
+    "id": "core:replicate-statistics",
+    "label": "Statistics of replicates",
+    "kind": "analysis"
+  },
+  {
+    "id": "core:hypothesis-testing",
+    "label": "Choosing and applying a statistical test",
+    "kind": "analysis"
+  },
+  {
+    "id": "core:validity-judgement",
+    "label": "Judging validity",
+    "kind": "reasoning"
+  },
+  {
+    "id": "core:troubleshooting",
+    "label": "Troubleshooting",
+    "kind": "reasoning"
+  },
+  {
+    "id": "core:labelling",
+    "label": "Labelling",
+    "kind": "practice"
+  },
+  {
+    "id": "core:chemical-waste",
+    "label": "Chemical waste disposal",
+    "kind": "practice"
+  },
+  {
+    "id": "core:ppe",
+    "label": "Personal protective equipment",
+    "kind": "practice"
+  },
+  {
+    "id": "core:titration",
+    "label": "Titration to an end point",
+    "kind": "technique"
+  },
+  {
+    "id": "core:prepare-burette",
+    "label": "Preparing a burette",
+    "kind": "technique"
+  },
+  {
+    "id": "core:replicate-agreement",
+    "label": "Obtaining concordant replicates",
+    "kind": "analysis"
+  },
+  {
+    "id": "core:vacuum-filtration",
+    "label": "Vacuum filtration and washing a filter cake",
+    "kind": "technique"
+  },
+  {
+    "id": "core:drying",
+    "label": "Drying a solid product",
+    "kind": "technique"
+  },
+  {
+    "id": "core:microscope-setup",
+    "label": "Setting up a compound microscope",
+    "kind": "equipment"
+  },
+  {
+    "id": "core:oil-immersion",
+    "label": "Oil-immersion microscopy",
+    "kind": "technique"
+  },
+  {
+    "id": "core:phase-contrast",
+    "label": "Phase-contrast microscopy",
+    "kind": "technique"
+  },
+  {
+    "id": "core:sequence-analysis",
+    "label": "Searching and aligning sequences, and reading what a mutation does",
+    "kind": "analysis"
+  },
+  {
+    "id": "core:inert-atmosphere",
+    "label": "Working under an inert atmosphere: septa, balloons and syringes",
+    "kind": "technique"
+  },
+  {
+    "id": "core:dissolved-oxygen",
+    "label": "Measuring dissolved oxygen",
+    "kind": "technique"
+  },
+  {
+    "id": "core:flame-test",
+    "label": "Carrying out a flame test",
+    "kind": "operation"
+  }
+]

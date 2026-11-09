@@ -1,0 +1,338 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem34-chromate-dichromate",
+  "version": "1.0.0",
+  "title": "Chromate and dichromate: an equilibrium you can see",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Turn yellow chromate orange with acid and back with alkali, and pull the equilibrium towards chromate by precipitating barium chromate from orange dichromate.",
+  "briefing": "In water, chromate and dichromate are in equilibrium: 2CrO₄²⁻ (yellow) + 2H⁺ ⇌ Cr₂O₇²⁻ (orange) + H₂O. Adding acid adds H⁺, and the position moves right; alkali removes H⁺, and it moves left. Barium ions take chromate out as insoluble barium chromate, so more dichromate turns into chromate to replace it. Wear gloves: chromium(VI) compounds are toxic and carcinogenic.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "equilibrium",
+      "Le Chatelier",
+      "chromate",
+      "dichromate",
+      "reversible reaction"
+    ],
+    "topics": [
+      "Chemical equilibrium"
+    ],
+    "concepts": [
+      {
+        "id": "le-chatelier",
+        "label": "A system at equilibrium shifts to oppose a change in conditions"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-observe",
+        "kind": "outcome",
+        "statement": "Observe the colour of the equilibrium mixture as acid, alkali and barium ions are added"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain each change with Le Chatelier’s principle",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP",
+      "T Level"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "chromate",
+        "label": "Potassium chromate, 0.020 M",
+        "contains": [
+          {
+            "substance": "aq:potassium-chromate",
+            "conc": "0.020 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "dichromate",
+        "label": "Potassium dichromate, 0.010 M",
+        "contains": [
+          {
+            "substance": "aq:potassium-dichromate",
+            "conc": "0.010 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "hcl",
+        "label": "Hydrochloric acid, 2 M",
+        "contains": [
+          {
+            "substance": "aq:hydrochloric-acid",
+            "conc": "2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "naoh",
+        "label": "Sodium hydroxide, 2 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydroxide",
+            "conc": "2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "bacl2",
+        "label": "Barium chloride, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:barium-chloride",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "tubes",
+        "kind": "group",
+        "title": "Three tubes",
+        "objectives": [
+          "o-observe"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A','Tube A: chromate, then acid, then alkali','chromate',[['hcl','0.5 mL','acid'],['naoh','1 mL','alkali']]],['B','Tube B: dichromate, then alkali, then acid','dichromate',[['naoh','0.5 mL','alkali'],['hcl','1 mL','acid']]],['C','Tube C: dichromate and barium chloride','dichromate',[['bacl2','1 mL','barium']]]]"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='tube-' + x[0]",
+              "label": "=x[1]"
+            }
+          },
+          {
+            "id": "start",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "='tube-' + x[0]",
+              "volume": "2 mL",
+              "tool": "dropper"
+            }
+          },
+          {
+            "id": "look-start",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "='tube-' + x[0]"
+            }
+          },
+          {
+            "id": "note-start",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + x[0] + '-start'",
+              "value": "=look-start.out.appearance"
+            }
+          },
+          {
+            "id": "additions",
+            "kind": "group",
+            "title": "Add each reagent in turn",
+            "forEach": {
+              "var": "y",
+              "in": "=x[3]"
+            },
+            "steps": [
+              {
+                "id": "add",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "=y[0]",
+                  "destination": "='tube-' + x[0]",
+                  "volume": "=quantity(y[1])",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "shake",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='tube-' + x[0]",
+                  "method": "swirl",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='tube-' + x[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + x[0] + '-' + y[2]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "why-acid",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does acid turn yellow chromate orange?",
+        "options": [
+          {
+            "id": "shift-right",
+            "label": "The added H⁺ is used up by shifting the equilibrium to the right, towards orange dichromate"
+          },
+          {
+            "id": "reacts",
+            "label": "The acid oxidises the chromate"
+          },
+          {
+            "id": "indicator",
+            "label": "Chromate is an indicator"
+          }
+        ],
+        "correctWhen": "'shift-right'"
+      },
+      {
+        "id": "why-barium",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does barium chloride give a yellow precipitate from orange dichromate solution?",
+        "options": [
+          {
+            "id": "removes-chromate",
+            "label": "Barium removes chromate as barium chromate, so dichromate keeps turning into chromate to replace it"
+          },
+          {
+            "id": "barium-dichromate",
+            "label": "Barium dichromate is yellow and insoluble"
+          },
+          {
+            "id": "no-chromate",
+            "label": "Dichromate solution contains no chromate, so the barium oxidises it"
+          }
+        ],
+        "correctWhen": "'removes-chromate'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-explain",
+        "statement": "The shifts are explained",
+        "check": "decision('why-acid') == 'shift-right' && decision('why-barium') == 'removes-chromate'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-acid",
+        "statement": "Chromate is yellow and turns orange with acid, then yellow again with alkali",
+        "check": "mentions(first(recorded('seen-A-start')), 'yellow') && mentions(first(recorded('seen-A-acid')), 'orange|red') && mentions(first(recorded('seen-A-alkali')), 'yellow')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-alkali",
+        "statement": "Dichromate is orange and turns yellow with alkali, then orange again with acid",
+        "check": "mentions(first(recorded('seen-B-start')), 'orange|red') && mentions(first(recorded('seen-B-alkali')), 'yellow') && mentions(first(recorded('seen-B-acid')), 'orange|red')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-barium",
+        "statement": "Barium chloride gives a yellow precipitate from dichromate",
+        "check": "mentions(first(recorded('seen-C-barium')), 'yellow precipitate')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

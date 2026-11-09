@@ -1,0 +1,76 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio10-enzyme-inhibition",
+  "version": "1.0.0",
+  "title": "What kind of inhibitor is oxamate?",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "core:dilution-series" }, { "technique": "bio:kinetic-absorbance-read" }, { "technique": "bio:michaelis-menten-fit" }] },
+  "summary": "Measure lactate dehydrogenase's initial rates across a range of pyruvate concentrations with and without oxamate, fit Km and Vmax to each set, and decide from how they change what kind of inhibitor oxamate is.",
+  "briefing": "A competitive inhibitor competes with the substrate for the active site: enough substrate outcompetes it, so Vmax is unchanged but the apparent Km rises. A non-competitive inhibitor lowers Vmax and leaves Km alone; an uncompetitive one lowers both in proportion. Run both plates in the same way, so the only difference is the inhibitor.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-2", "disciplines": ["biochemistry"] },
+    "concepts": [{ "id": "inhibition", "label": "Types of reversible inhibition" }],
+    "objectives": [
+      { "id": "o-assay", "kind": "skill", "statement": "Run two matched kinetic assays", "skills": ["bio:kinetic-absorbance-read", "bio:initial-rate-analysis"] },
+      { "id": "o-fit", "kind": "analysis", "statement": "Fit Km and Vmax with and without inhibitor", "skills": ["bio:michaelis-menten-fit"] },
+      { "id": "o-type", "kind": "reasoning", "statement": "Classify the inhibition from the fitted constants", "goal": "g-type" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "buffer", "label": "Tris-HCl 50 mM, pH 7.5", "preparation": "core:tris-50mm-ph7.5", "amount": "50 mL", "container": "core:reagent-bottle-50ml" },
+      { "id": "nadh", "label": "NADH, 2 mM", "contains": [{ "substance": "bio:nadh", "conc": "2 mM" }], "amount": "1.5 mL", "container": "core:microtube-1.5ml" },
+      { "id": "pyr", "label": "Sodium pyruvate, 100 mM", "preparation": "bio:pyruvate-stock-100mm", "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "oxamate", "label": "Oxamate, 1.6 mM", "contains": [{ "substance": "bio:oxamate", "conc": "1.6 mM" }], "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "enzyme", "label": "LDH, 10 µg/mL", "contains": [{ "substance": "bio:ldh", "conc": "10 ug/mL" }], "amount": "1 mL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "reader", "requires": { "purpose": "measure.absorbance", "wavelength": "340 nm", "format": "96-well" } },
+      { "id": "plate", "requires": { "class": "core:microplate-96" } },
+      { "id": "plate2", "requires": { "class": "core:microplate-96" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "series", "kind": "technique", "ref": "core:dilution-series", "title": "Prepare the pyruvate series (10× final)", "params": { "stock": "pyr", "diluent": "buffer", "analyte": "bio:pyruvate", "targets": ["0.25 mM", "0.5 mM", "1 mM", "2 mM", "4 mM", "8 mM", "16 mM"], "volumeEach": "500 uL" } },
+      { "id": "conditions", "kind": "group", "objectives": ["o-assay"], "forEach": { "var": "c", "in": "=[['none', 'plate'], ['oxamate', 'plate2']]" },
+        "steps": [
+          { "id": "layout", "kind": "design", "ref": "core:plate-layout", "params": { "plate": "=c[1]", "groups": [{ "group": "substrate", "items": "=series.out.vessels", "role": "sample" }], "replicates": 3 } },
+          { "id": "add-buffer", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "buffer", "volume": "=if(c[0] == 'none', 150 uL, 130 uL)", "into": "=map(layout.out.layout.entries, well)" } },
+          { "id": "add-inhibitor", "kind": "technique", "ref": "core:dispense-reagent", "when": "c[0] == 'oxamate'", "params": { "reagent": "oxamate", "volume": "20 uL", "into": "=map(layout.out.layout.entries, well)" } },
+          { "id": "add-nadh", "kind": "technique", "ref": "core:dispense-reagent", "params": { "reagent": "nadh", "volume": "20 uL", "into": "=map(layout.out.layout.entries, well)" } },
+          { "id": "add-substrate", "kind": "technique", "ref": "core:transfer-to-plate", "params": { "layout": "=layout.out.layout", "volume": "20 uL" } },
+          { "id": "start", "kind": "technique", "ref": "core:dispense-reagent", "title": "Start the reactions with enzyme", "params": { "reagent": "enzyme", "volume": "10 uL", "into": "=map(layout.out.layout.entries, well)" } },
+          { "id": "shake", "kind": "operation", "ref": "core:mix", "params": { "container": "=c[1]", "method": "shake" } },
+          { "id": "read", "kind": "technique", "ref": "bio:kinetic-absorbance-read", "title": "Read A340 every 5 s for 2 min", "params": { "plate": "=c[1]", "wavelength": "340 nm", "interval": "5 s", "duration": "2 min" }, "bind": { "instrument": "reader" } },
+          { "id": "rates", "kind": "data", "ref": "bio:initial-rate-analysis", "params": { "reading": "=read.out.reading", "layout": "=layout.out.layout", "window": "30 s" } },
+          { "id": "mm", "kind": "data", "ref": "bio:michaelis-menten-fit", "objectives": ["o-fit"], "params": { "substrate": "=map(series.out.concentrations, it / 10)", "rates": "=map(rates.out.groups, -mean)" } },
+          { "id": "note-km", "kind": "operation", "ref": "core:record", "params": { "field": "='Km-' + c[0]", "value": "=mm.out.fit.params.km" } },
+          { "id": "note-vmax", "kind": "operation", "ref": "core:record", "params": { "field": "='Vmax-' + c[0]", "value": "=mm.out.fit.params.vmax" } }
+        ] },
+      { "id": "type", "kind": "decision", "objectives": ["o-type"], "prompt": "Compare Km and Vmax with and without oxamate. What kind of inhibitor is it?",
+        "options": [
+          { "id": "competitive", "label": "Competitive: Km rises, Vmax unchanged" },
+          { "id": "noncompetitive", "label": "Non-competitive: Vmax falls, Km unchanged" },
+          { "id": "uncompetitive", "label": "Uncompetitive: both fall in proportion" },
+          { "id": "mixed", "label": "Mixed: Vmax falls and Km changes" }
+        ],
+        "correctWhen": "if(first(recorded('Vmax-oxamate')) / first(recorded('Vmax-none')) > 0.8, if(first(recorded('Km-oxamate')) / first(recorded('Km-none')) > 1.4, 'competitive', 'mixed'), if(abs(first(recorded('Km-oxamate')) / first(recorded('Km-none')) - 1) < 0.3, 'noncompetitive', if(first(recorded('Km-oxamate')) < first(recorded('Km-none')), 'uncompetitive', 'mixed')))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-type", "statement": "Oxamate is found to be competitive (Km at least doubles; Vmax within 20 %)", "check": "decision(type) == 'competitive' && first(recorded('Km-oxamate')) / first(recorded('Km-none')) > 2 && abs(first(recorded('Vmax-oxamate')) / first(recorded('Vmax-none')) - 1) < 0.2" }
+    ],
+    "expectedObservations": [
+      { "id": "e-slower", "statement": "At low pyruvate the inhibited wells are much slower", "check": "first(recorded('Km-oxamate')) > first(recorded('Km-none'))", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

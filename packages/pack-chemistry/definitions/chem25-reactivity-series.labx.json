@@ -1,0 +1,626 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem25-reactivity-series",
+  "version": "1.0.0",
+  "title": "The reactivity series by displacement",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Put magnesium, zinc, iron and copper into each other's sulfate solutions, look for deposits and colour changes, feel for warming, and work out the reactivity series.",
+  "briefing": "A more reactive metal gives its electrons to the ions of a less reactive one, which come out of solution as the metal: zinc in copper(II) sulfate turns red-brown with copper as the blue fades. A less reactive metal does nothing in a solution of a more reactive metal's ions. Use a small piece of each metal in about 10 mL of each solution, wait ten minutes and look.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": "{{keywords}}",
+    "topics": [
+      "Metals",
+      "Redox"
+    ],
+    "curricula": [
+      "GCSE",
+      "BTEC"
+    ],
+    "concepts": [
+      {
+        "id": "reactivity",
+        "label": "The reactivity series and electron transfer"
+      }
+    ],
+    "objectives": "{{objectives}}"
+  },
+  "parameters": {
+    "tubes": {
+      "default": "=[['mg-zn', 'Magnesium in zinc sulfate', 'znso4', 'mg', 0.5], ['mg-fe', 'Magnesium in iron sulfate', 'feso4', 'mg', 0.5], ['mg-cu', 'Magnesium in copper sulfate', 'cuso4', 'mg', 0.5], ['zn-mg', 'Zinc in magnesium sulfate', 'mgso4', 'zn', 0.5], ['zn-fe', 'Zinc in iron sulfate', 'feso4', 'zn', 0.5], ['zn-cu', 'Zinc in copper sulfate', 'cuso4', 'zn', 0.5], ['fe-mg', 'Iron in magnesium sulfate', 'mgso4', 'fe', 0.5], ['fe-zn', 'Iron in zinc sulfate', 'znso4', 'fe', 0.5], ['fe-cu', 'Iron in copper sulfate', 'cuso4', 'fe', 0.5], ['cu-mg', 'Copper in magnesium sulfate', 'mgso4', 'cu', 0.5], ['cu-zn', 'Copper in zinc sulfate', 'znso4', 'cu', 0.5], ['cu-fe', 'Copper in iron sulfate', 'feso4', 'cu', 0.5]]"
+    },
+    "wait": {
+      "default": "10 min"
+    },
+    "volume": {
+      "default": "10 mL"
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "supplies": {
+      "default": [
+        {
+          "id": "mgso4",
+          "label": "Magnesium sulfate, 0.5 M",
+          "contains": [
+            {
+              "substance": "aq:magnesium-sulfate",
+              "conc": "0.5 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "100 mL",
+          "container": "core:reagent-bottle-250ml"
+        },
+        {
+          "id": "znso4",
+          "label": "Zinc sulfate, 0.5 M",
+          "contains": [
+            {
+              "substance": "aq:zinc-sulfate",
+              "conc": "0.5 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "100 mL",
+          "container": "core:reagent-bottle-250ml"
+        },
+        {
+          "id": "feso4",
+          "label": "Iron(II) sulfate, 0.5 M",
+          "contains": [
+            {
+              "substance": "aq:iron-ii-sulfate",
+              "conc": "0.5 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "100 mL",
+          "container": "core:reagent-bottle-250ml"
+        },
+        {
+          "id": "cuso4",
+          "label": "Copper(II) sulfate, 0.5 M",
+          "contains": [
+            {
+              "substance": "aq:copper-ii-sulfate",
+              "conc": "0.5 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "100 mL",
+          "container": "core:reagent-bottle-250ml"
+        },
+        {
+          "id": "mg",
+          "label": "Magnesium powder",
+          "contains": [
+            {
+              "substance": "aq:magnesium-powder",
+              "purity": "99 %"
+            }
+          ],
+          "amount": "20 g",
+          "container": "core:weighing-bottle"
+        },
+        {
+          "id": "zn",
+          "label": "Zinc powder",
+          "contains": [
+            {
+              "substance": "aq:zinc-powder",
+              "purity": "99 %"
+            }
+          ],
+          "amount": "20 g",
+          "container": "core:weighing-bottle"
+        },
+        {
+          "id": "fe",
+          "label": "Iron filings",
+          "contains": [
+            {
+              "substance": "aq:iron-filings",
+              "purity": "99 %"
+            }
+          ],
+          "amount": "20 g",
+          "container": "core:weighing-bottle"
+        },
+        {
+          "id": "cu",
+          "label": "Copper turnings",
+          "contains": [
+            {
+              "substance": "aq:copper-turnings",
+              "purity": "99 %"
+            }
+          ],
+          "amount": "20 g",
+          "container": "core:weighing-bottle"
+        }
+      ]
+    },
+    "analysis": {
+      "default": [
+        {
+          "id": "order",
+          "kind": "decision",
+          "objectives": [
+            "o-order"
+          ],
+          "prompt": "From which metals displaced which, put them in order of reactivity (most reactive first).",
+          "options": [
+            {
+              "id": "mg-zn-fe-cu",
+              "label": "magnesium > zinc > iron > copper"
+            },
+            {
+              "id": "zn-mg-fe-cu",
+              "label": "zinc > magnesium > iron > copper"
+            },
+            {
+              "id": "mg-fe-zn-cu",
+              "label": "magnesium > iron > zinc > copper"
+            },
+            {
+              "id": "cu-fe-zn-mg",
+              "label": "copper > iron > zinc > magnesium"
+            }
+          ],
+          "correctWhen": "choice == 'mg-zn-fe-cu'"
+        },
+        {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does zinc displace copper from copper(II) sulfate, but copper not displace zinc?",
+          "options": [
+            {
+              "id": "electrons",
+              "label": "Zinc gives up its electrons more readily than copper, so copper ions take them and deposit as copper"
+            },
+            {
+              "id": "heavier",
+              "label": "Copper is heavier than zinc"
+            },
+            {
+              "id": "colour",
+              "label": "Copper sulfate is coloured"
+            }
+          ],
+          "correctWhen": "choice == 'electrons'"
+        }
+      ]
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-order",
+            "statement": "The reactivity series is put in the right order",
+            "check": "decision(order) == 'mg-zn-fe-cu'"
+          },
+          {
+            "id": "g-explain",
+            "statement": "Displacement is explained by which metal loses electrons more readily",
+            "check": "decision(why) == 'electrons'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-deposits",
+            "statement": "A metal throws down a deposit only from the solution of a less reactive metal",
+            "check": "mentions(first(recorded('seen-mg-zn')), 'deposit') && mentions(first(recorded('seen-mg-fe')), 'deposit') && mentions(first(recorded('seen-mg-cu')), 'deposit') && !mentions(first(recorded('seen-zn-mg')), 'deposit') && mentions(first(recorded('seen-zn-fe')), 'deposit') && mentions(first(recorded('seen-zn-cu')), 'deposit') && !mentions(first(recorded('seen-fe-mg')), 'deposit') && !mentions(first(recorded('seen-fe-zn')), 'deposit') && mentions(first(recorded('seen-fe-cu')), 'deposit') && !mentions(first(recorded('seen-cu-mg')), 'deposit') && !mentions(first(recorded('seen-cu-zn')), 'deposit') && !mentions(first(recorded('seen-cu-fe')), 'deposit')",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-blue-fades",
+            "statement": "Magnesium and zinc take the blue out of copper(II) sulfate",
+            "check": "mentions(first(recorded('seen-mg-cu')), 'colourless') && !mentions(first(recorded('seen-zn-cu')), 'blue')",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-warm",
+            "statement": "Displacing copper warms the tube; copper in other solutions does not",
+            "check": "first(recorded('dT-zn-cu')) > 1 && first(recorded('dT-cu-zn')) < 0.5",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    },
+    "objectives": {
+      "default": [
+        {
+          "id": "o-observe",
+          "kind": "skill",
+          "statement": "Observe and record displacement reactions in test tubes"
+        },
+        {
+          "id": "o-order",
+          "kind": "reasoning",
+          "statement": "Deduce the reactivity series from displacement",
+          "goal": "g-order"
+        },
+        {
+          "id": "o-explain",
+          "kind": "reasoning",
+          "statement": "Explain displacement in terms of electron transfer",
+          "goal": "g-explain"
+        }
+      ]
+    },
+    "keywords": {
+      "default": [
+        "reactivity series",
+        "displacement",
+        "metals",
+        "copper sulfate",
+        "redox",
+        "electron transfer"
+      ]
+    }
+  },
+  "materials": {
+    "supplies": "{{supplies}}"
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "thermo",
+        "requires": {
+          "class": "core:thermometer-digital"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "tubes",
+        "kind": "group",
+        "title": "Each tube",
+        "objectives": [
+          "o-observe"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "{{tubes}}"
+        },
+        "let": {
+          "tube": "='tube-' + x[0]"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "=tube",
+              "label": "=x[1]"
+            }
+          },
+          {
+            "id": "solution-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "=tube",
+              "volume": "{{volume}}",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "t-before",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "thermo",
+              "subject": "=tube"
+            }
+          },
+          {
+            "id": "metal-in",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=x[3]",
+              "destination": "=tube",
+              "mass": "=quantity(text(x[4]) + ' g')"
+            }
+          },
+          {
+            "id": "shake",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=tube",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "{{wait}}"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "=tube"
+            }
+          },
+          {
+            "id": "t-after",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "thermo",
+              "subject": "=tube"
+            }
+          },
+          {
+            "id": "note-seen",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + x[0]",
+              "value": "=look.out.appearance"
+            }
+          },
+          {
+            "id": "note-dt",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='dT-' + x[0]",
+              "value": "=t-after.out.value - t-before.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "kind": "group",
+        "title": "Conclusions",
+        "steps": "{{analysis}}"
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "variants": [
+    {
+      "id": "chem25-metals-and-acid",
+      "title": "Metals with acid: comparing reactivity",
+      "summary": "Add magnesium, zinc, iron and copper to dilute hydrochloric acid, compare how hard each fizzes and how much it warms the acid, and place them in a reactivity series.",
+      "briefing": "Metals above hydrogen in the reactivity series give their electrons to hydrogen ions: hydrogen fizzes off and the metal dissolves. The more reactive the metal, the faster it fizzes and the more heat it gives out. Copper, below hydrogen, does not react.",
+      "curricula": [
+        "GCSE",
+        "BTEC"
+      ],
+      "values": {
+        "tubes": "=[['mg', 'Magnesium ribbon in hydrochloric acid', 'hcl', 'mgr', 0.05], ['zn', 'Zinc powder in hydrochloric acid', 'hcl', 'zn', 0.1], ['fe', 'Iron filings in hydrochloric acid', 'hcl', 'fe', 0.5], ['cu', 'Copper turnings in hydrochloric acid', 'hcl', 'cu', 0.5]]",
+        "wait": "20 s",
+        "volume": "20 mL",
+        "level": "ages-14-16",
+        "supplies": [
+          {
+            "id": "hcl",
+            "label": "Hydrochloric acid, 1.0 M",
+            "contains": [
+              {
+                "substance": "aq:hydrochloric-acid",
+                "conc": "1.0 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "100 mL",
+            "container": "core:reagent-bottle-250ml"
+          },
+          {
+            "id": "mgr",
+            "label": "Magnesium ribbon (5 cm lengths)",
+            "contains": [
+              {
+                "substance": "aq:magnesium-ribbon",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "20 g",
+            "container": "core:weighing-bottle"
+          },
+          {
+            "id": "zn",
+            "label": "Zinc powder",
+            "contains": [
+              {
+                "substance": "aq:zinc-powder",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "20 g",
+            "container": "core:weighing-bottle"
+          },
+          {
+            "id": "fe",
+            "label": "Iron filings",
+            "contains": [
+              {
+                "substance": "aq:iron-filings",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "20 g",
+            "container": "core:weighing-bottle"
+          },
+          {
+            "id": "cu",
+            "label": "Copper turnings",
+            "contains": [
+              {
+                "substance": "aq:copper-turnings",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "20 g",
+            "container": "core:weighing-bottle"
+          }
+        ],
+        "analysis": [
+          {
+            "id": "order",
+            "kind": "decision",
+            "objectives": [
+              "o-order"
+            ],
+            "prompt": "From how fast each fizzed and how much it warmed, put the metals in order of reactivity (most reactive first).",
+            "options": [
+              {
+                "id": "mg-zn-fe-cu",
+                "label": "magnesium > zinc > iron > copper"
+              },
+              {
+                "id": "zn-mg-fe-cu",
+                "label": "zinc > magnesium > iron > copper"
+              },
+              {
+                "id": "mg-fe-zn-cu",
+                "label": "magnesium > iron > zinc > copper"
+              },
+              {
+                "id": "cu-fe-zn-mg",
+                "label": "copper > iron > zinc > magnesium"
+              }
+            ],
+            "correctWhen": "choice == 'mg-zn-fe-cu'"
+          },
+          {
+            "id": "why",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "What is the gas, and why does copper give none?",
+            "options": [
+              {
+                "id": "hydrogen",
+                "label": "Hydrogen: the metal gives its electrons to hydrogen ions; copper holds its electrons more tightly than hydrogen does"
+              },
+              {
+                "id": "oxygen",
+                "label": "Oxygen, from the water"
+              },
+              {
+                "id": "co2",
+                "label": "Carbon dioxide"
+              }
+            ],
+            "correctWhen": "choice == 'hydrogen'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-order",
+              "statement": "The metals are put in the right order",
+              "check": "decision(order) == 'mg-zn-fe-cu'"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The gas and copper's behaviour are explained",
+              "check": "decision(why) == 'hydrogen'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-fizz",
+              "statement": "Magnesium fizzes hardest, copper not at all",
+              "check": "mentions(first(recorded('seen-mg')), 'vigorous') && !mentions(first(recorded('seen-cu')), 'bubbl') && !mentions(first(recorded('seen-cu')), 'fizz')",
+              "source": "reference-standard"
+            },
+            {
+              "id": "e-warm",
+              "statement": "Magnesium warms the acid most",
+              "check": "first(recorded('dT-mg')) > first(recorded('dT-zn')) && first(recorded('dT-zn')) >= first(recorded('dT-cu'))",
+              "source": "reference-standard"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-observe",
+            "kind": "skill",
+            "statement": "Observe and compare reactions of metals with acid"
+          },
+          {
+            "id": "o-order",
+            "kind": "reasoning",
+            "statement": "Place metals in a reactivity series",
+            "goal": "g-order"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Explain the reaction of metals with acid",
+            "goal": "g-explain"
+          }
+        ],
+        "keywords": [
+          "reactivity series",
+          "metals and acids",
+          "hydrogen",
+          "magnesium",
+          "zinc",
+          "iron",
+          "copper"
+        ]
+      }
+    }
+  ]
+}

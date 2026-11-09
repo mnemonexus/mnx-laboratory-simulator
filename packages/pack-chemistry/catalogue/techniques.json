@@ -1,0 +1,247 @@
+[
+  {
+    "id": "chem:recrystallise",
+    "version": 1,
+    "status": "experimental",
+    "label": "Recrystallise from hot water",
+    "description": "Dissolve the crude solid in a small volume of near-boiling solvent, let it cool slowly on the bench, then in an ice bath, so that the product crystallises and soluble impurities stay in solution.",
+    "purposes": [
+      "separate.by-solubility",
+      "purify.solid"
+    ],
+    "params": {
+      "flask": {
+        "type": "container",
+        "required": true,
+        "description": "The flask holding the crude solid"
+      },
+      "solvent": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "40 mL"
+      },
+      "heaterSetting": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "150 Cel"
+      },
+      "benchCool": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "30 min"
+      },
+      "iceCool": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "20 min"
+      }
+    },
+    "roles": {
+      "hotplate": {
+        "kind": "place",
+        "requires": {
+          "purpose": "condition.heat"
+        },
+        "prefer": [
+          "core:hot-plate"
+        ]
+      },
+      "icebath": {
+        "kind": "place",
+        "requires": {
+          "purpose": "condition.cool"
+        },
+        "prefer": [
+          "core:ice-bath"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "add-solvent",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=solvent",
+          "destination": "=flask",
+          "volume": "=volume",
+          "tool": "pour"
+        }
+      },
+      {
+        "id": "set-heater",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "when": "adjustable(hotplate)",
+        "params": {
+          "device": "=hotplate",
+          "temperature": "=heaterSetting"
+        }
+      },
+      {
+        "id": "on-heat",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=flask",
+          "place": "=hotplate"
+        }
+      },
+      {
+        "id": "heat-up",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "8 min"
+        }
+      },
+      {
+        "id": "dissolve",
+        "kind": "group",
+        "repeat": {
+          "until": "undissolved(flask) < 1 mg",
+          "max": 10
+        },
+        "steps": [
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=flask",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "keep-hot",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "1 min"
+            }
+          }
+        ]
+      },
+      {
+        "id": "off-heat",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=flask"
+        }
+      },
+      {
+        "id": "cool",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "=benchCool"
+        }
+      },
+      {
+        "id": "into-ice",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=flask",
+          "place": "=icebath"
+        }
+      },
+      {
+        "id": "chill",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "=iceCool"
+        }
+      }
+    ],
+    "quality": [
+      {
+        "id": "crystals",
+        "statement": "Crystals have formed in the cold solution",
+        "check": "undissolved(flask) > 10 mg",
+        "severity": "major",
+        "skills": [
+          "chem:recrystallisation"
+        ],
+        "feedbackKind": "procedural"
+      }
+    ],
+    "errors": [
+      {
+        "id": "excess-solvent",
+        "statement": "Too much solvent",
+        "consequence": "More product stays dissolved when cold: the yield falls (solubility model)",
+        "tag": "excess-solvent"
+      },
+      {
+        "id": "too-little-solvent",
+        "statement": "Too little solvent, or not hot enough",
+        "consequence": "Undissolved solid, with its impurities, is collected with the crystals",
+        "tag": "incomplete-dissolution"
+      },
+      {
+        "id": "warm-filtration",
+        "statement": "Filtered before the solution is cold",
+        "consequence": "Product still in solution is lost to the filtrate (solubility model)",
+        "tag": "warm-filtration"
+      }
+    ],
+    "skills": [
+      "chem:recrystallisation"
+    ]
+  },
+  {
+    "id": "chem:melting-point",
+    "version": 1,
+    "status": "experimental",
+    "label": "Measure a melting point",
+    "description": "Pack a little of the dry solid into a capillary and heat it slowly; note where it starts to melt and where it is clear.",
+    "purposes": [
+      "analyse.purity",
+      "measure.melting-point"
+    ],
+    "params": {
+      "sample": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "roles": {
+      "apparatus": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "measure.melting-point"
+        },
+        "prefer": [
+          "core:melting-point-apparatus"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=apparatus",
+          "subject": "=sample"
+        }
+      }
+    ],
+    "outputs": {
+      "onset": "=read.out.onset",
+      "clear": "=read.out.clear",
+      "record": "=read.out.record"
+    },
+    "skills": [
+      "chem:melting-point"
+    ]
+  }
+]

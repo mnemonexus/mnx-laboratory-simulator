@@ -1,0 +1,518 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio11-end-binding-emsa",
+  "version": "1.0.0",
+  "title": "End-binding or coating? An agarose gel shift with two DNA lengths",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:run-gel"
+      }
+    ]
+  },
+  "summary": "Titrate a Gam-like DNA-end-binding protein onto a supercoiled plasmid and onto 300 bp and 900 bp linear DNAs, run the reactions on an agarose gel, and from the shifts decide whether it needs DNA ends, whether it coats the DNA, and roughly how tightly it binds.",
+  "briefing": "Protein bound to a DNA makes it run as a larger molecule: apparent mass = DNA mass + n × protein mass (660 g/mol per base pair; this protein 30.5 kDa a monomer). Compare the saturated shift of two lengths: a protein that sits only at the two ends gives the same n for both, one that coats the DNA gives n in proportion to length. Make a 3 µM working dilution for the lowest protein points.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "molecular-biology",
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "emsa",
+        "label": "Electrophoretic mobility shift"
+      },
+      {
+        "id": "footprint",
+        "label": "Binding-site size from the saturated shift"
+      },
+      {
+        "id": "end-binding",
+        "label": "DNA-end binding proteins"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-emsa",
+        "kind": "skill",
+        "statement": "Set up binding titrations and run them on an agarose gel",
+        "skills": [
+          "core:micropipetting",
+          "molbio:gel-electrophoresis"
+        ]
+      },
+      {
+        "id": "o-analyse",
+        "kind": "skill",
+        "statement": "Turn shifted band positions into apparent masses and proteins bound",
+        "goal": "g-n"
+      },
+      {
+        "id": "o-reason",
+        "kind": "reasoning",
+        "statement": "Decide whether the protein needs ends, coats the DNA, and roughly how tightly it binds",
+        "goal": "g-reason"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "protein",
+        "label": "Gam-like protein (Im9-HiGam), 30 µM monomer",
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "contains": [
+          {
+            "substance": "molbio:im9-higam",
+            "conc": "30 uM"
+          }
+        ],
+        "amount": "35 uL",
+        "container": "core:microtube-0.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "sc",
+        "label": "Supercoiled plasmid, 100 µg/mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:puc-phi600",
+            "conc": "100 ug/mL"
+          }
+        ],
+        "amount": "20 uL",
+        "container": "core:microtube-0.5ml"
+      },
+      {
+        "id": "l300",
+        "label": "Linear DNA, 300 bp, 100 µg/mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:linear-dna-300bp",
+            "conc": "100 ug/mL"
+          }
+        ],
+        "amount": "20 uL",
+        "container": "core:microtube-0.5ml"
+      },
+      {
+        "id": "l900",
+        "label": "Linear DNA, 900 bp, 100 µg/mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:linear-dna-900bp",
+            "conc": "100 ug/mL"
+          }
+        ],
+        "amount": "20 uL",
+        "container": "core:microtube-0.5ml"
+      },
+      {
+        "id": "phosphate",
+        "label": "100 mM sodium phosphate pH 7",
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "400 uL",
+        "container": "core:microtube-0.5ml"
+      },
+      {
+        "id": "dye",
+        "label": "Loading dye (6×)",
+        "preparation": "molbio:loading-dye-6x",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "ladder",
+        "label": "1 kb ladder",
+        "preparation": "molbio:ladder-1kb-ready",
+        "amount": "20 uL",
+        "container": "core:microtube-0.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "gel",
+        "requires": {
+          "class": "core:agarose-gel-1.5pct-14"
+        }
+      },
+      {
+        "id": "imager",
+        "requires": {
+          "class": "core:gel-imager"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "dilute-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-0.5ml",
+          "id": "protein-3",
+          "label": "Protein, 3 µM"
+        }
+      },
+      {
+        "id": "dilute-buf",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "phosphate",
+          "destination": "protein-3",
+          "volume": "45 uL"
+        }
+      },
+      {
+        "id": "dilute-p",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "protein",
+          "destination": "protein-3",
+          "volume": "5 uL"
+        }
+      },
+      {
+        "id": "dilute-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "protein-3",
+          "method": "pipette-mix",
+          "cycles": 5
+        }
+      },
+      {
+        "id": "reactions",
+        "kind": "group",
+        "title": "Binding reactions: buffer, then DNA, then protein (20 µL)",
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-0.5ml",
+              "id": "=x[0]",
+              "label": "=x[0]"
+            }
+          },
+          {
+            "id": "buffer-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "phosphate",
+              "destination": "=x[0]",
+              "volume": "=text(x[2]) + ' uL'"
+            }
+          },
+          {
+            "id": "dna-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "2 uL"
+            }
+          },
+          {
+            "id": "protein-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[3]",
+              "destination": "=x[0]",
+              "volume": "=text(x[4]) + ' uL'"
+            },
+            "when": "x[4] > 0"
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "pipette-mix",
+              "cycles": 5
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['l300-0', 'l300', 18, 'phosphate', 0], ['l300-0.25', 'l300', 16.3, 'protein-3', 1.7], ['l300-1', 'l300', 11.3, 'protein-3', 6.7], ['l300-2', 'l300', 16.7, 'protein', 1.3], ['l300-8', 'l300', 12.7, 'protein', 5.3], ['l900-0', 'l900', 18, 'phosphate', 0], ['l900-0.25', 'l900', 16.3, 'protein-3', 1.7], ['l900-1', 'l900', 11.3, 'protein-3', 6.7], ['l900-2', 'l900', 16.7, 'protein', 1.3], ['l900-8', 'l900', 12.7, 'protein', 5.3], ['sc-0', 'sc', 18, 'phosphate', 0], ['sc-8', 'sc', 12.7, 'protein', 5.3]]"
+        },
+        "objectives": [
+          "o-emsa"
+        ]
+      },
+      {
+        "id": "bind",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "20 min"
+        }
+      },
+      {
+        "id": "dye",
+        "kind": "group",
+        "title": "Loading dye into every reaction",
+        "steps": [
+          {
+            "id": "dye-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dye",
+              "destination": "=x[0]",
+              "volume": "4 uL"
+            }
+          },
+          {
+            "id": "dye-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "pipette-mix",
+              "cycles": 5
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['l300-0', 'l300', 18, 'phosphate', 0], ['l300-0.25', 'l300', 16.3, 'protein-3', 1.7], ['l300-1', 'l300', 11.3, 'protein-3', 6.7], ['l300-2', 'l300', 16.7, 'protein', 1.3], ['l300-8', 'l300', 12.7, 'protein', 5.3], ['l900-0', 'l900', 18, 'phosphate', 0], ['l900-0.25', 'l900', 16.3, 'protein-3', 1.7], ['l900-1', 'l900', 11.3, 'protein-3', 6.7], ['l900-2', 'l900', 16.7, 'protein', 1.3], ['l900-8', 'l900', 12.7, 'protein', 5.3], ['sc-0', 'sc', 18, 'phosphate', 0], ['sc-8', 'sc', 12.7, 'protein', 5.3]]"
+        }
+      },
+      {
+        "id": "ladder",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ladder",
+          "destination": "gel/A2",
+          "volume": "6 uL"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=x[0]",
+          "destination": "=x[1]",
+          "volume": "20 uL"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=[['l300-0', 'gel/A3'], ['l300-0.25', 'gel/A4'], ['l300-1', 'gel/A5'], ['l300-2', 'gel/A6'], ['l300-8', 'gel/A7'], ['l900-0', 'gel/A8'], ['l900-0.25', 'gel/A9'], ['l900-1', 'gel/A10'], ['l900-2', 'gel/A11'], ['l900-8', 'gel/A12'], ['sc-0', 'gel/A13'], ['sc-8', 'gel/A14']]"
+        },
+        "objectives": [
+          "o-emsa"
+        ]
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "gel",
+          "voltage": 100,
+          "duration": "60 min"
+        }
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "imager",
+          "subject": "gel"
+        }
+      },
+      {
+        "id": "sizing",
+        "kind": "group",
+        "title": "Apparent size of each lane's bands",
+        "steps": [
+          {
+            "id": "size",
+            "kind": "technique",
+            "ref": "molbio:size-band",
+            "params": {
+              "ladderLane": "gel/A2",
+              "lane": "=x[1]",
+              "ladder": "molbio:ladder-1kb"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='bp-' + x[0]",
+              "value": "=size.out.sizes"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['l300-0', 'gel/A3'], ['l300-0.25', 'gel/A4'], ['l300-1', 'gel/A5'], ['l300-2', 'gel/A6'], ['l300-8', 'gel/A7'], ['l900-0', 'gel/A8'], ['l900-0.25', 'gel/A9'], ['l900-1', 'gel/A10'], ['l900-2', 'gel/A11'], ['l900-8', 'gel/A12'], ['sc-0', 'gel/A13'], ['sc-8', 'gel/A14']]"
+        },
+        "objectives": [
+          "o-analyse"
+        ]
+      },
+      {
+        "id": "n-300",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "n-300",
+          "value": "=(max(first(recorded('bp-l300-8'))) - 300) * 660 / 30500"
+        }
+      },
+      {
+        "id": "n-900",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "n-900",
+          "value": "=(max(first(recorded('bp-l900-8'))) - 900) * 660 / 30500"
+        }
+      },
+      {
+        "id": "fp-300",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "footprint-300",
+          "value": "=300 / first(recorded('n-300'))"
+        }
+      },
+      {
+        "id": "fp-900",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "footprint-900",
+          "value": "=900 / first(recorded('n-900'))"
+        }
+      },
+      {
+        "id": "ends",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "The supercoiled plasmid with the most protein: what does it show?",
+        "options": [
+          {
+            "id": "needs-ends",
+            "label": "No shift: the protein needs a free DNA end to bind"
+          },
+          {
+            "id": "binds",
+            "label": "A shift: it binds closed circles too"
+          }
+        ],
+        "correctWhen": "if(max(first(recorded('bp-sc-8'))) > 1.15 * max(first(recorded('bp-sc-0'))), 'binds', 'needs-ends')"
+      },
+      {
+        "id": "coats",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "At saturation, compare the monomers bound to the 300 bp and the 900 bp DNA. Does the protein sit only at the ends, or coat the DNA?",
+        "options": [
+          {
+            "id": "coats",
+            "label": "It coats the DNA: three times the length holds about three times the protein, so it loads at an end and spreads along"
+          },
+          {
+            "id": "ends-only",
+            "label": "It sits only at the ends: both DNAs hold the same number"
+          }
+        ],
+        "correctWhen": "if(first(recorded('n-900')) > 2 * first(recorded('n-300')), 'coats', 'ends-only')"
+      },
+      {
+        "id": "isotherm",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Where is the 300 bp DNA's shift about half its saturated value?",
+        "options": [
+          {
+            "id": "below-1",
+            "label": "Below 1 µM protein: the Kd per site is a few tenths of a micromolar"
+          },
+          {
+            "id": "around-2",
+            "label": "Around 2 µM"
+          },
+          {
+            "id": "above-4",
+            "label": "Above 4 µM"
+          }
+        ],
+        "correctWhen": "if((max(first(recorded('bp-l300-1'))) - 300) > 0.5 * (max(first(recorded('bp-l300-8'))) - 300), 'below-1', if((max(first(recorded('bp-l300-2'))) - 300) > 0.5 * (max(first(recorded('bp-l300-8'))) - 300), 'around-2', 'above-4'))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-n",
+        "statement": "Both footprints are within a factor of two of 25 bp per monomer",
+        "check": "between(first(recorded('footprint-300')), 12.5, 50) && between(first(recorded('footprint-900')), 12.5, 50)"
+      },
+      {
+        "id": "g-reason",
+        "statement": "End-dependence, coating and the binding range are all read correctly",
+        "check": "decision('ends') == 'needs-ends' && decision('coats') == 'coats' && decision('isotherm') == 'below-1'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-length",
+        "statement": "The 900 bp DNA holds about three times the protein of the 300 bp DNA at saturation",
+        "check": "between(first(recorded('n-900')) / first(recorded('n-300')), 2.2, 3.8)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

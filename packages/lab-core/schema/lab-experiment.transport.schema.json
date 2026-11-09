@@ -1,0 +1,1841 @@
+{
+  "type": "object",
+  "properties": {
+    "format": {
+      "type": "string",
+      "enum": [
+        "lab-experiment"
+      ]
+    },
+    "formatVersion": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "requires": {
+      "type": "object",
+      "properties": {
+        "framework": {
+          "type": "string"
+        },
+        "manifest": {
+          "type": "string"
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "briefing": {
+      "type": "string"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "intendedContexts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "lecture-introduction",
+              "spaced-recall",
+              "transferal",
+              "practical-session",
+              "assessment",
+              "open-exploration"
+            ]
+          }
+        },
+        "audience": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string"
+            },
+            "disciplines": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "curricula": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prerequisites": {
+          "type": "object",
+          "properties": {
+            "skills": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "definitions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "xref": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "skill",
+                  "outcome",
+                  "reasoning",
+                  "concept",
+                  "practice",
+                  "design",
+                  "analysis"
+                ]
+              },
+              "statement": {
+                "type": "string"
+              },
+              "skills": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "goal": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "statement"
+            ]
+          }
+        }
+      }
+    },
+    "materials": {
+      "type": "object",
+      "properties": {
+        "substances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "inline": {
+                "type": "object",
+                "properties": {}
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        "supplies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "unknown",
+                  "standard",
+                  "control-positive",
+                  "control-negative",
+                  "blank",
+                  "specimen",
+                  "culture",
+                  "product",
+                  "reagent"
+                ]
+              },
+              "contains": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "substance": {
+                      "type": "string"
+                    },
+                    "conc": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "string"
+                    },
+                    "mass": {
+                      "type": "string"
+                    },
+                    "purity": {
+                      "type": "string"
+                    },
+                    "viability": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "substance"
+                  ]
+                }
+              },
+              "solvent": {
+                "type": "string"
+              },
+              "preparation": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              },
+              "container": {
+                "type": "string"
+              },
+              "storage": {
+                "type": "string"
+              },
+              "water": {
+                "type": "string"
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "truth": {
+                "type": "object",
+                "properties": {
+                  "contains": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "substance": {
+                          "type": "string"
+                        },
+                        "conc": {
+                          "type": "string"
+                        },
+                        "count": {
+                          "type": "string"
+                        },
+                        "mass": {
+                          "type": "string"
+                        },
+                        "purity": {
+                          "type": "string"
+                        },
+                        "viability": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "substance"
+                      ]
+                    }
+                  },
+                  "activityFactor": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "samples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "unknown",
+                  "standard",
+                  "control-positive",
+                  "control-negative",
+                  "blank",
+                  "specimen",
+                  "culture",
+                  "product",
+                  "reagent"
+                ]
+              },
+              "contains": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "substance": {
+                      "type": "string"
+                    },
+                    "conc": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "string"
+                    },
+                    "mass": {
+                      "type": "string"
+                    },
+                    "purity": {
+                      "type": "string"
+                    },
+                    "viability": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "substance"
+                  ]
+                }
+              },
+              "solvent": {
+                "type": "string"
+              },
+              "preparation": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              },
+              "container": {
+                "type": "string"
+              },
+              "storage": {
+                "type": "string"
+              },
+              "water": {
+                "type": "string"
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "truth": {
+                "type": "object",
+                "properties": {
+                  "contains": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "substance": {
+                          "type": "string"
+                        },
+                        "conc": {
+                          "type": "string"
+                        },
+                        "count": {
+                          "type": "string"
+                        },
+                        "mass": {
+                          "type": "string"
+                        },
+                        "purity": {
+                          "type": "string"
+                        },
+                        "viability": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "substance"
+                      ]
+                    }
+                  },
+                  "activityFactor": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "waste": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stream": {
+                "type": "string"
+              },
+              "accepts": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "stream"
+            ]
+          }
+        }
+      }
+    },
+    "equipment": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "requires": {
+                "type": "object",
+                "properties": {}
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "truth": {
+                "type": "object",
+                "properties": {
+                  "bias": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "requires"
+            ]
+          }
+        },
+        "prescribed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "asNamed": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          }
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "class": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "class"
+            ]
+          }
+        }
+      }
+    },
+    "procedure": {
+      "type": "object",
+      "properties": {
+        "fidelity": {
+          "type": "string",
+          "enum": [
+            "prescribed",
+            "prescribed-tolerant",
+            "objective",
+            "open"
+          ]
+        },
+        "sessions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "operation",
+                  "technique",
+                  "purpose",
+                  "wait",
+                  "observe",
+                  "data",
+                  "decision",
+                  "design",
+                  "checkpoint",
+                  "offstage",
+                  "group"
+                ]
+              },
+              "ref": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "instructions": {
+                "type": "string"
+              },
+              "params": {
+                "type": "object",
+                "properties": {}
+              },
+              "bind": {
+                "type": "object",
+                "properties": {}
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "order": {
+                "type": "string",
+                "enum": [
+                  "strict",
+                  "advisory"
+                ]
+              },
+              "forEach": {
+                "type": "object",
+                "properties": {
+                  "var": {
+                    "type": "string"
+                  },
+                  "in": {
+                    "type": "string"
+                  },
+                  "index": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "var",
+                  "in"
+                ]
+              },
+              "repeat": {
+                "type": "object",
+                "properties": {
+                  "until": {
+                    "type": "string"
+                  },
+                  "times": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000
+                  }
+                }
+              },
+              "when": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "background": {
+                "type": "boolean"
+              },
+              "session": {
+                "type": "string"
+              },
+              "critical": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "safety",
+                    "quality",
+                    "irreversible"
+                  ]
+                }
+              },
+              "fidelity": {
+                "type": "string",
+                "enum": [
+                  "prescribed",
+                  "prescribed-tolerant",
+                  "objective",
+                  "open"
+                ]
+              },
+              "objectives": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "prompt": {
+                "type": "string"
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "then": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "label"
+                  ]
+                }
+              },
+              "correctWhen": {
+                "type": "string"
+              },
+              "outcome": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string"
+                  },
+                  "declared": {
+                    "type": "string"
+                  }
+                }
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "operation",
+                        "technique",
+                        "purpose",
+                        "wait",
+                        "observe",
+                        "data",
+                        "decision",
+                        "design",
+                        "checkpoint",
+                        "offstage",
+                        "group"
+                      ]
+                    },
+                    "ref": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "instructions": {
+                      "type": "string"
+                    },
+                    "params": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "bind": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "after": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "order": {
+                      "type": "string",
+                      "enum": [
+                        "strict",
+                        "advisory"
+                      ]
+                    },
+                    "forEach": {
+                      "type": "object",
+                      "properties": {
+                        "var": {
+                          "type": "string"
+                        },
+                        "in": {
+                          "type": "string"
+                        },
+                        "index": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "var",
+                        "in"
+                      ]
+                    },
+                    "repeat": {
+                      "type": "object",
+                      "properties": {
+                        "until": {
+                          "type": "string"
+                        },
+                        "times": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "max": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10000
+                        }
+                      }
+                    },
+                    "when": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "string"
+                    },
+                    "background": {
+                      "type": "boolean"
+                    },
+                    "session": {
+                      "type": "string"
+                    },
+                    "critical": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "safety",
+                          "quality",
+                          "irreversible"
+                        ]
+                      }
+                    },
+                    "fidelity": {
+                      "type": "string",
+                      "enum": [
+                        "prescribed",
+                        "prescribed-tolerant",
+                        "objective",
+                        "open"
+                      ]
+                    },
+                    "objectives": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "prompt": {
+                      "type": "string"
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "then": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "label"
+                        ]
+                      }
+                    },
+                    "correctWhen": {
+                      "type": "string"
+                    },
+                    "outcome": {
+                      "type": "object",
+                      "properties": {
+                        "model": {
+                          "type": "string"
+                        },
+                        "declared": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "steps": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "type": "string",
+                            "enum": [
+                              "operation",
+                              "technique",
+                              "purpose",
+                              "wait",
+                              "observe",
+                              "data",
+                              "decision",
+                              "design",
+                              "checkpoint",
+                              "offstage",
+                              "group"
+                            ]
+                          },
+                          "ref": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "instructions": {
+                            "type": "string"
+                          },
+                          "params": {
+                            "type": "object",
+                            "properties": {}
+                          },
+                          "bind": {
+                            "type": "object",
+                            "properties": {}
+                          },
+                          "after": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "order": {
+                            "type": "string",
+                            "enum": [
+                              "strict",
+                              "advisory"
+                            ]
+                          },
+                          "forEach": {
+                            "type": "object",
+                            "properties": {
+                              "var": {
+                                "type": "string"
+                              },
+                              "in": {
+                                "type": "string"
+                              },
+                              "index": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "var",
+                              "in"
+                            ]
+                          },
+                          "repeat": {
+                            "type": "object",
+                            "properties": {
+                              "until": {
+                                "type": "string"
+                              },
+                              "times": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "max": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 10000
+                              }
+                            }
+                          },
+                          "when": {
+                            "type": "string"
+                          },
+                          "duration": {
+                            "type": "string"
+                          },
+                          "background": {
+                            "type": "boolean"
+                          },
+                          "session": {
+                            "type": "string"
+                          },
+                          "critical": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "safety",
+                                "quality",
+                                "irreversible"
+                              ]
+                            }
+                          },
+                          "fidelity": {
+                            "type": "string",
+                            "enum": [
+                              "prescribed",
+                              "prescribed-tolerant",
+                              "objective",
+                              "open"
+                            ]
+                          },
+                          "objectives": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "prompt": {
+                            "type": "string"
+                          },
+                          "options": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "label": {
+                                  "type": "string"
+                                },
+                                "then": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "label"
+                              ]
+                            }
+                          },
+                          "correctWhen": {
+                            "type": "string"
+                          },
+                          "outcome": {
+                            "type": "object",
+                            "properties": {
+                              "model": {
+                                "type": "string"
+                              },
+                              "declared": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "steps": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "notes": {
+                            "type": "string"
+                          },
+                          "let": {
+                            "type": "object",
+                            "properties": {}
+                          },
+                          "reference": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "kind"
+                        ]
+                      }
+                    },
+                    "notes": {
+                      "type": "string"
+                    },
+                    "let": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "reference": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "kind"
+                  ]
+                }
+              },
+              "notes": {
+                "type": "string"
+              },
+              "let": {
+                "type": "object",
+                "properties": {}
+              },
+              "reference": {
+                "type": "object",
+                "properties": {}
+              }
+            },
+            "required": [
+              "id",
+              "kind"
+            ]
+          }
+        }
+      }
+    },
+    "goals": {
+      "type": "object",
+      "properties": {
+        "predicates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "check"
+            ]
+          }
+        },
+        "expectedObservations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "at": {
+                "type": "string"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "source-explicit",
+                  "source-inferred",
+                  "reference-standard",
+                  "general-knowledge",
+                  "framework-default",
+                  "author-choice",
+                  "simulation-derived"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "statement"
+            ]
+          }
+        },
+        "expectedResults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "source-explicit",
+                  "source-inferred",
+                  "reference-standard",
+                  "general-knowledge",
+                  "framework-default",
+                  "author-choice",
+                  "simulation-derived"
+                ]
+              },
+              "calibrateTo": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "quantity",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "from": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "from"
+            ]
+          }
+        },
+        "notebook": {
+          "type": "object",
+          "properties": {
+            "sections": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "required": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "section": {
+                    "type": "string"
+                  },
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "check": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "section",
+                  "prompt"
+                ]
+              }
+            },
+            "manualRecording": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "measurement": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "auto",
+                      "manual",
+                      "manual-checked"
+                    ]
+                  }
+                },
+                "required": [
+                  "measurement",
+                  "mode"
+                ]
+              }
+            }
+          }
+        },
+        "calculations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "inputs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "answer": {
+                "type": "object",
+                "properties": {
+                  "unit": {
+                    "type": "string"
+                  },
+                  "per": {
+                    "type": "string"
+                  }
+                }
+              },
+              "accept": {
+                "type": "object",
+                "properties": {
+                  "fromOwnData": {
+                    "type": "string"
+                  },
+                  "fromTruth": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "statement"
+            ]
+          }
+        },
+        "graphs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "x": {
+                "type": "string"
+              },
+              "y": {
+                "type": "string"
+              },
+              "fit": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "learnerBuilds": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "x",
+              "y"
+            ]
+          }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "prompt": {
+                "type": "string"
+              },
+              "rubric": {
+                "type": "string"
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "prompt"
+            ]
+          }
+        },
+        "report": {
+          "type": "object",
+          "properties": {
+            "template": {
+              "type": "string"
+            },
+            "sections": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "template"
+          ]
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "properties": {
+        "emphasis": {
+          "type": "object",
+          "properties": {}
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string"
+              },
+              "objective": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "critical",
+                  "major",
+                  "minor"
+                ]
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string"
+                  },
+                  "timing": {
+                    "type": "string",
+                    "enum": [
+                      "immediate",
+                      "step-end",
+                      "review",
+                      "by-competence"
+                    ]
+                  }
+                }
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "statement",
+              "check"
+            ]
+          }
+        },
+        "validity": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "when": {
+                "type": "string"
+              },
+              "cap": {
+                "type": "string",
+                "enum": [
+                  "valid",
+                  "valid-with-limitations",
+                  "partially-interpretable",
+                  "invalid",
+                  "inconclusive"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "when",
+              "cap",
+              "reason"
+            ]
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "checkpoints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "criteria": {
+              "type": "string",
+              "enum": [
+                "all"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "variation": {
+      "type": "object",
+      "properties": {
+        "params": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "step": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "domain"
+            ]
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "faults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "apply": {
+                "type": "object",
+                "properties": {}
+              },
+              "diagnostics": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "apply"
+            ]
+          }
+        },
+        "noise": {
+          "type": "string",
+          "enum": [
+            "ideal",
+            "low",
+            "default",
+            "high"
+          ]
+        }
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "string",
+          "enum": [
+            "station",
+            "bench",
+            "room",
+            "wing",
+            "facility"
+          ]
+        },
+        "startAt": {
+          "type": "object",
+          "properties": {
+            "place": {
+              "type": "string"
+            }
+          }
+        },
+        "insightLayers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "time": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "locator": {
+                "type": "string"
+              },
+              "access": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "title"
+            ]
+          }
+        },
+        "defaultClass": {
+          "type": "string",
+          "enum": [
+            "source-explicit",
+            "source-inferred",
+            "reference-standard",
+            "general-knowledge",
+            "framework-default",
+            "author-choice",
+            "simulation-derived"
+          ]
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string",
+                "enum": [
+                  "source-explicit",
+                  "source-inferred",
+                  "reference-standard",
+                  "general-knowledge",
+                  "framework-default",
+                  "author-choice",
+                  "simulation-derived"
+                ]
+              },
+              "source": {
+                "type": "string"
+              },
+              "quote": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "string",
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "class"
+            ]
+          }
+        },
+        "review": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "generated-unreviewed",
+                "validated",
+                "reviewed",
+                "curated"
+              ]
+            },
+            "generator": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "version"
+              ]
+            },
+            "reviewer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ]
+        }
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "properties": {}
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "briefing": {
+            "type": "string"
+          },
+          "values": {
+            "type": "object",
+            "properties": {}
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "curricula": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "required": [
+    "format",
+    "formatVersion",
+    "id",
+    "version",
+    "title"
+  ]
+}

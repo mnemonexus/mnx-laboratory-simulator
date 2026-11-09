@@ -1,0 +1,1159 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem18-phenol-acylation-ir",
+  "version": "1.0.0",
+  "title": "Acylating a phenol under nitrogen: following the work-up by IR",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:purge"
+      },
+      {
+        "operation": "core:drain"
+      },
+      {
+        "operation": "core:concentrate"
+      }
+    ]
+  },
+  "summary": "Make 4-nitrophenyl 4-chlorobenzoate from 4-nitrophenol and an excess of 4-chlorobenzoyl chloride with triethylamine in dried THF under nitrogen, then work it up, taking an IR spectrum of the organic layer before the bicarbonate washes and another of the product.",
+  "briefing": "Acid chlorides acylate phenols fast with a base to take up the HCl; water turns them into the carboxylic acid. Here the acid chloride is in excess (1.5 equivalents), so the quench leaves 4-chlorobenzoic acid. Dilute HCl takes triethylamine into the water; bicarbonate takes carboxylic acids. IR: aryl ester C=O near 1740 cm⁻¹; carboxylic acid C=O near 1690 with a very broad O–H across 2500-3300; nitro near 1525 and 1345. RMM of the ester 277.66.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "chemistry",
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "acylation",
+        "label": "Acylation of phenols by acid chlorides"
+      },
+      {
+        "id": "acid-base-extraction",
+        "label": "Acid–base extraction"
+      },
+      {
+        "id": "ir",
+        "label": "Infrared spectroscopy of carbonyl compounds"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-synth",
+        "kind": "skill",
+        "statement": "Run a moisture-sensitive acylation under nitrogen with syringes",
+        "skills": [
+          "core:inert-atmosphere"
+        ]
+      },
+      {
+        "id": "o-workup",
+        "kind": "skill",
+        "statement": "Work up the reaction: quench, extract, wash, dry and concentrate",
+        "skills": [
+          "chem:liquid-liquid-extraction",
+          "chem:rotary-evaporation"
+        ]
+      },
+      {
+        "id": "o-ir",
+        "kind": "analysis",
+        "statement": "Read from IR spectra what the bicarbonate wash removed and that the product is the ester",
+        "goal": "g-ir"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "pnp",
+        "label": "4-Nitrophenol",
+        "contains": [
+          {
+            "substance": "bio:p-nitrophenol",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "5 g",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "thf",
+        "label": "Tetrahydrofuran (dried)",
+        "contains": [
+          {
+            "substance": "chem:tetrahydrofuran",
+            "conc": "888.95 g/L"
+          }
+        ],
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml",
+        "solvent": "chem:tetrahydrofuran"
+      },
+      {
+        "id": "et3n",
+        "label": "Triethylamine",
+        "contains": [
+          {
+            "substance": "chem:triethylamine",
+            "conc": "726 g/L"
+          }
+        ],
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml",
+        "solvent": "chem:triethylamine"
+      },
+      {
+        "id": "acyl",
+        "label": "4-Chlorobenzoyl chloride",
+        "contains": [
+          {
+            "substance": "chem:4-chloro-benzoyl-chloride",
+            "conc": "1365 g/L"
+          }
+        ],
+        "amount": "25 mL",
+        "container": "core:reagent-bottle-250ml",
+        "solvent": "chem:4-chloro-benzoyl-chloride"
+      },
+      {
+        "id": "hcl",
+        "label": "Hydrochloric acid, 3 M",
+        "contains": [
+          {
+            "substance": "core:hydrochloric-acid",
+            "conc": "3 M"
+          }
+        ],
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml",
+        "solvent": "core:water"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "contains": [],
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml",
+        "preparation": "core:water-deionised"
+      },
+      {
+        "id": "etoac",
+        "label": "Ethyl acetate",
+        "contains": [
+          {
+            "substance": "chem:ethyl-acetate",
+            "conc": "902 g/L"
+          }
+        ],
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml",
+        "solvent": "chem:ethyl-acetate"
+      },
+      {
+        "id": "bicarb",
+        "label": "Saturated aqueous sodium bicarbonate",
+        "contains": [],
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml",
+        "preparation": "core:sodium-bicarbonate-saturated"
+      },
+      {
+        "id": "brine",
+        "label": "Saturated brine",
+        "contains": [],
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml",
+        "preparation": "core:brine-saturated"
+      },
+      {
+        "id": "mgso4",
+        "label": "Magnesium sulfate (anhydrous)",
+        "contains": [
+          {
+            "substance": "core:magnesium-sulfate-anhydrous",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "25 g",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      },
+      {
+        "id": "ice",
+        "requires": {
+          "class": "core:ice-bath"
+        }
+      },
+      {
+        "id": "balloon",
+        "requires": {
+          "class": "core:nitrogen-balloon"
+        }
+      },
+      {
+        "id": "syringe-20",
+        "requires": {
+          "class": "core:syringe-20ml"
+        }
+      },
+      {
+        "id": "syringe-base",
+        "requires": {
+          "class": "core:syringe-1ml"
+        }
+      },
+      {
+        "id": "syringe-acyl",
+        "requires": {
+          "class": "core:syringe-1ml"
+        }
+      },
+      {
+        "id": "pipette",
+        "requires": {
+          "class": "core:serological-pipette-10ml"
+        }
+      },
+      {
+        "id": "evaporator",
+        "requires": {
+          "class": "core:rotary-evaporator"
+        }
+      },
+      {
+        "id": "spectrometer",
+        "requires": {
+          "class": "core:ir-spectrometer"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "coat",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "lab-coat"
+        }
+      },
+      {
+        "id": "specs",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "goggles"
+        }
+      },
+      {
+        "id": "gloves",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "gloves"
+        }
+      },
+      {
+        "id": "setup",
+        "kind": "group",
+        "title": "4-Nitrophenol (2.0 mmol, 0.278 g) in a 100 mL round-bottomed flask under a septum, purged with nitrogen; dried THF (15 mL) and triethylamine (3.2 mmol, 0.446 mL) by flushed syringe; cooled in ice",
+        "steps": [
+          {
+            "id": "rbf",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-100ml",
+              "id": "rbf",
+              "label": "Reaction flask"
+            }
+          },
+          {
+            "id": "pnp-in",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "pnp",
+              "destination": "rbf",
+              "mass": "0.278 g"
+            }
+          },
+          {
+            "id": "septum",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "rbf",
+              "cover": "septum"
+            }
+          },
+          {
+            "id": "purge",
+            "kind": "operation",
+            "ref": "core:purge",
+            "params": {
+              "container": "rbf",
+              "balloon": "balloon",
+              "duration": "3 min"
+            }
+          },
+          {
+            "id": "flush-20",
+            "kind": "operation",
+            "ref": "core:flush-syringe",
+            "params": {
+              "syringe": "syringe-20",
+              "source": "rbf"
+            }
+          },
+          {
+            "id": "thf-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "thf",
+              "destination": "rbf",
+              "volume": "15 mL",
+              "tool": "syringe-20"
+            }
+          },
+          {
+            "id": "flush-base",
+            "kind": "operation",
+            "ref": "core:flush-syringe",
+            "params": {
+              "syringe": "syringe-base",
+              "source": "rbf"
+            }
+          },
+          {
+            "id": "base-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "et3n",
+              "destination": "rbf",
+              "volume": "0.446 mL",
+              "tool": "syringe-base"
+            }
+          },
+          {
+            "id": "stir",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "rbf",
+              "method": "stir"
+            }
+          },
+          {
+            "id": "to-ice",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "rbf",
+              "place": "ice"
+            }
+          },
+          {
+            "id": "chill",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          }
+        ],
+        "objectives": [
+          "o-synth"
+        ]
+      },
+      {
+        "id": "acylate",
+        "kind": "group",
+        "title": "4-Chlorobenzoyl chloride (3.0 mmol, 1.5 equiv, 0.385 mL) by flushed syringe in three portions over 15 minutes at 0 °C, then an hour at room temperature",
+        "steps": [
+          {
+            "id": "flush-acyl",
+            "kind": "operation",
+            "ref": "core:flush-syringe",
+            "params": {
+              "syringe": "syringe-acyl",
+              "source": "rbf"
+            }
+          },
+          {
+            "id": "portions",
+            "kind": "group",
+            "title": "A third, then five minutes' stirring",
+            "steps": [
+              {
+                "id": "acyl-in",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "acyl",
+                  "destination": "rbf",
+                  "volume": "0.128 mL",
+                  "tool": "syringe-acyl"
+                }
+              },
+              {
+                "id": "stir-acyl",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "rbf",
+                  "method": "stir"
+                }
+              },
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "5 min"
+                }
+              }
+            ],
+            "forEach": {
+              "var": "i",
+              "in": "=[1, 2, 3]"
+            }
+          },
+          {
+            "id": "off-ice",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "rbf"
+            }
+          },
+          {
+            "id": "stir-rt",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "1 h"
+            }
+          }
+        ],
+        "objectives": [
+          "o-synth"
+        ]
+      },
+      {
+        "id": "quench",
+        "kind": "group",
+        "title": "Septum off, water (10 mL) stirred in for 10 minutes; ethyl acetate (20 mL) added in a separating funnel, shaken, the water run off; washed with 3 M HCl (10 mL)",
+        "steps": [
+          {
+            "id": "unseal",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "rbf"
+            }
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "rbf",
+              "volume": "10 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "stir-q",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "rbf",
+              "method": "stir"
+            }
+          },
+          {
+            "id": "hydrolyse",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "sep",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:separating-funnel-250ml",
+              "id": "sep",
+              "label": "Separating funnel"
+            }
+          },
+          {
+            "id": "waste",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-250ml",
+              "id": "washings",
+              "label": "Aqueous layers and washings"
+            }
+          },
+          {
+            "id": "to-sep",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "rbf",
+              "destination": "sep",
+              "all": true
+            }
+          },
+          {
+            "id": "etoac-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "etoac",
+              "destination": "sep",
+              "volume": "20 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "stopper-1",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "shake-1",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "sep",
+              "method": "shake",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "vent-1",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "run-off-1",
+            "kind": "operation",
+            "ref": "core:drain",
+            "params": {
+              "funnel": "sep",
+              "receiver": "washings"
+            }
+          },
+          {
+            "id": "hcl-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "hcl",
+              "destination": "sep",
+              "volume": "10 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "stopper-2",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "shake-2",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "sep",
+              "method": "shake",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "vent-2",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "run-off-2",
+            "kind": "operation",
+            "ref": "core:drain",
+            "params": {
+              "funnel": "sep",
+              "receiver": "washings"
+            }
+          }
+        ],
+        "objectives": [
+          "o-workup"
+        ]
+      },
+      {
+        "id": "before",
+        "kind": "group",
+        "title": "Before the bicarbonate: 5 mL of the organic layer taken from the top, evaporated, and its IR spectrum run",
+        "steps": [
+          {
+            "id": "sample",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-100ml",
+              "id": "before",
+              "label": "Organic layer before bicarbonate"
+            }
+          },
+          {
+            "id": "sample-take",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "sep",
+              "destination": "before",
+              "volume": "5 mL",
+              "tool": "pipette"
+            }
+          },
+          {
+            "id": "sample-dry",
+            "kind": "operation",
+            "ref": "core:concentrate",
+            "params": {
+              "flask": "before",
+              "evaporator": "evaporator",
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "ir-before",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spectrometer",
+              "subject": "before"
+            }
+          },
+          {
+            "id": "ir-before-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "ir-before",
+              "value": "=ir-before.out.bands"
+            }
+          }
+        ],
+        "objectives": [
+          "o-ir"
+        ]
+      },
+      {
+        "id": "finish",
+        "kind": "group",
+        "title": "Washed with saturated bicarbonate (2 × 10 mL) and brine (10 mL); dried over magnesium sulfate, filtered into a tared flask (the drying agent rinsed), concentrated and weighed",
+        "steps": [
+          {
+            "id": "bicarb-in-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "bicarb",
+              "destination": "sep",
+              "volume": "10 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "stopper-3",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "shake-3",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "sep",
+              "method": "shake",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "vent-3",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "run-off-3",
+            "kind": "operation",
+            "ref": "core:drain",
+            "params": {
+              "funnel": "sep",
+              "receiver": "washings"
+            }
+          },
+          {
+            "id": "bicarb-in-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "bicarb",
+              "destination": "sep",
+              "volume": "10 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "stopper-4",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "shake-4",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "sep",
+              "method": "shake",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "vent-4",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "run-off-4",
+            "kind": "operation",
+            "ref": "core:drain",
+            "params": {
+              "funnel": "sep",
+              "receiver": "washings"
+            }
+          },
+          {
+            "id": "brine-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "brine",
+              "destination": "sep",
+              "volume": "10 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "stopper-5",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "shake-5",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "sep",
+              "method": "shake",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "vent-5",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "sep"
+            }
+          },
+          {
+            "id": "run-off-5",
+            "kind": "operation",
+            "ref": "core:drain",
+            "params": {
+              "funnel": "sep",
+              "receiver": "washings"
+            }
+          },
+          {
+            "id": "dry",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "dry",
+              "label": "Organic layer, drying"
+            }
+          },
+          {
+            "id": "org-out",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "sep",
+              "destination": "dry",
+              "all": true
+            }
+          },
+          {
+            "id": "mgso4-in",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "mgso4",
+              "destination": "dry",
+              "mass": "1.5 g"
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "dry",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "prod",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-100ml",
+              "id": "prod",
+              "label": "Crude product"
+            }
+          },
+          {
+            "id": "prod-on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "prod",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "prod-tare",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "prod-off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "prod"
+            }
+          },
+          {
+            "id": "funnel",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:filter-funnel",
+              "id": "funnel",
+              "label": "Fluted filter paper"
+            }
+          },
+          {
+            "id": "filter",
+            "kind": "operation",
+            "ref": "core:filter",
+            "params": {
+              "source": "dry",
+              "filter": "funnel",
+              "filtrate": "prod"
+            }
+          },
+          {
+            "id": "rinse",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "etoac",
+              "destination": "funnel",
+              "volume": "3 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "rinse-through",
+            "kind": "operation",
+            "ref": "core:filter",
+            "params": {
+              "filter": "funnel",
+              "filtrate": "prod"
+            }
+          },
+          {
+            "id": "rotavap",
+            "kind": "operation",
+            "ref": "core:concentrate",
+            "params": {
+              "flask": "prod",
+              "evaporator": "evaporator",
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "prod-on-2",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "prod",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "crude-weigh",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "crude-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "crude-mass",
+              "value": "=crude-weigh.out.value"
+            }
+          },
+          {
+            "id": "yield-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "yield",
+              "value": "=100 * value(crude-weigh.out.value, 'g') / (2.0e-3 * 277.66)"
+            }
+          },
+          {
+            "id": "prod-off-2",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "prod"
+            }
+          }
+        ],
+        "objectives": [
+          "o-workup"
+        ]
+      },
+      {
+        "id": "after",
+        "kind": "group",
+        "title": "The product's IR spectrum",
+        "steps": [
+          {
+            "id": "ir-after",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spectrometer",
+              "subject": "prod"
+            }
+          },
+          {
+            "id": "ir-after-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "ir-after",
+              "value": "=ir-after.out.bands"
+            }
+          }
+        ],
+        "objectives": [
+          "o-ir"
+        ]
+      },
+      {
+        "id": "sharps",
+        "kind": "group",
+        "title": "Needles and syringes into the sharps bin",
+        "steps": [
+          {
+            "id": "bin",
+            "kind": "operation",
+            "ref": "core:dispose",
+            "params": {
+              "item": "=s",
+              "stream": "core:sharps-bin"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "s",
+          "in": "=['syringe-20', 'syringe-base', 'syringe-acyl']"
+        }
+      },
+      {
+        "id": "acid-before",
+        "kind": "decision",
+        "objectives": [
+          "o-ir"
+        ],
+        "prompt": "What does the spectrum before the bicarbonate wash show besides the ester (C=O near 1742)?",
+        "options": [
+          {
+            "id": "acid",
+            "label": "A carboxylic acid: a very broad O–H across 2500-3300 and a second C=O near 1690"
+          },
+          {
+            "id": "phenol",
+            "label": "Unreacted 4-nitrophenol: a broad O–H near 3300 only"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing else"
+          }
+        ],
+        "correctWhen": "if(any(p in ir-before.out.peaks: between(p, 1680, 1700)) && len(ir-before.out.broad) > 0, 'acid', if(len(ir-before.out.broad) > 0, 'phenol', 'nothing'))"
+      },
+      {
+        "id": "source",
+        "kind": "decision",
+        "objectives": [
+          "o-ir"
+        ],
+        "prompt": "Where did that acid come from?",
+        "options": [
+          {
+            "id": "excess",
+            "label": "The excess acid chloride (half an equivalent), turned into 4-chlorobenzoic acid by the water at the quench"
+          },
+          {
+            "id": "ester",
+            "label": "The ester, hydrolysed during the work-up"
+          }
+        ],
+        "correctWhen": "'excess'"
+      },
+      {
+        "id": "clean",
+        "kind": "decision",
+        "objectives": [
+          "o-ir"
+        ],
+        "prompt": "After the bicarbonate washes, is the acid gone?",
+        "options": [
+          {
+            "id": "gone",
+            "label": "Yes: the broad O–H and the C=O near 1690 have gone; only the ester's bands are left"
+          },
+          {
+            "id": "left",
+            "label": "No: they are still there"
+          }
+        ],
+        "correctWhen": "if(!any(p in ir-after.out.peaks: between(p, 1680, 1700)) && len(ir-after.out.broad) == 0, 'gone', 'left')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-ir",
+        "statement": "The ester is isolated in fair yield, and the spectra are read correctly",
+        "check": "first(recorded('yield')) > 50 && decision('acid-before') == 'acid' && decision('source') == 'excess' && decision('clean') == 'gone' && count(disposals(), it.stream == 'core:sharps-bin') == 3"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-yield",
+        "statement": "Crude yields of about 50-80 % (the sample taken before the washes is lost)",
+        "check": "between(first(recorded('yield')), 50, 80)",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-ester",
+        "statement": "The product's C=O at 1740-1748 cm⁻¹ with its nitro bands",
+        "check": "any(p in ir-after.out.peaks: between(p, 1740, 1748)) && any(p in ir-after.out.peaks: between(p, 1515, 1530))",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-acid",
+        "statement": "Before bicarbonate the acid's C=O shows near 1687 cm⁻¹",
+        "check": "any(p in ir-before.out.peaks: between(p, 1680, 1695))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio1-pglo-transformation",
+  "version": "1.0.0",
+  "title": "Transforming E. coli with a GFP plasmid",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [{ "technique": "molbio:heat-shock" }, { "technique": "micro:spread-plate" }, { "technique": "micro:colony-count" }]
+  },
+  "summary": "Heat-shock competent E. coli with the pGLO plasmid, plate transformed and untransformed cells on LB, LB/ampicillin and LB/ampicillin/arabinose, grow them overnight, count colonies, look for fluorescence and calculate the transformation efficiency.",
+  "briefing": "pGLO carries a gene for ampicillin resistance and the gene for green fluorescent protein, switched on by arabinose. Only cells that take up the plasmid can grow on ampicillin, and only those given arabinose should glow. Your control plates tell you whether your conclusions are sound.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["molecular-biology", "microbiology"] },
+    "concepts": [{ "id": "selection", "label": "Selection by an antibiotic resistance marker" }, { "id": "regulation", "label": "An inducible promoter (araBAD)" }],
+    "objectives": [
+      { "id": "o-aseptic", "kind": "skill", "statement": "Maintain sterility throughout", "skills": ["micro:aseptic-technique", "micro:spread-plating"] },
+      { "id": "o-heatshock", "kind": "skill", "statement": "Perform the heat shock with correct timing", "skills": ["molbio:heat-shock"], "goal": "g-transformants" },
+      { "id": "o-eff", "kind": "analysis", "statement": "Calculate the transformation efficiency", "skills": ["molbio:transformation-efficiency"] },
+      { "id": "o-controls", "kind": "reasoning", "statement": "Interpret the control plates", "skills": ["micro:control-plates"], "goal": "g-controls" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "cells", "label": "Competent E. coli HB101", "role": "culture", "container": "core:microtube-1.5ml", "amount": "250 uL", "storage": "0 Cel",
+        "preparation": "micro:transformation-solution",
+        "contains": [{ "substance": "micro:escherichia-coli-hb101-competent", "count": "2e9 cells/mL" }] },
+      { "id": "plasmid", "label": "pGLO plasmid, 0.08 µg/µL", "role": "reagent", "container": "core:microtube-1.5ml", "amount": "20 uL",
+        "contains": [{ "substance": "molbio:pglo-plasmid", "conc": "0.08 ug/uL" }] }
+    ],
+    "supplies": [
+      { "id": "lb", "label": "LB broth", "preparation": "micro:lb-broth-sterile", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "plate-lb", "label": "−pGLO LB", "preparation": "micro:lb-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" },
+      { "id": "plate-minus-amp", "label": "−pGLO LB/amp", "preparation": "micro:lb-amp-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" },
+      { "id": "plate-plus-amp", "label": "+pGLO LB/amp", "preparation": "micro:lb-amp-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" },
+      { "id": "plate-plus-ara", "label": "+pGLO LB/amp/ara", "preparation": "micro:lb-amp-ara-agar-plate", "amount": "20 mL", "container": "core:petri-dish-90mm" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "ice", "requires": { "class": "core:ice-bucket" } },
+      { "id": "incubator", "requires": { "class": "core:incubator", "temperature": "37 Cel" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [{ "id": "d1", "title": "Transformation and plating" }, { "id": "d2", "title": "Results" }],
+    "steps": [
+      { "id": "cells-on-ice", "kind": "operation", "ref": "core:place-in", "session": "d1", "params": { "container": "cells", "place": "ice" } },
+      { "id": "tubes", "kind": "group", "session": "d1", "title": "Two tubes of cells on ice", "forEach": { "var": "t", "in": "=['plus', 'minus']" },
+        "steps": [
+          { "id": "get-tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=t", "label": "=if(t == 'plus', '+pGLO', '−pGLO')" } },
+          { "id": "tube-on-ice", "kind": "operation", "ref": "core:place-in", "params": { "container": "=t", "place": "ice" } },
+          { "id": "aliquot", "kind": "technique", "ref": "micro:aseptic-transfer", "params": { "from": "cells", "into": "=t", "volume": "100 uL" }, "objectives": ["o-aseptic"] }
+        ] },
+      { "id": "add-dna", "kind": "technique", "ref": "micro:aseptic-transfer", "session": "d1", "params": { "from": "plasmid", "into": "plus", "volume": "10 uL" } },
+      { "id": "mix-dna", "kind": "operation", "ref": "core:mix", "session": "d1", "params": { "container": "plus", "method": "flick", "cycles": 3 } },
+      { "id": "ice-incubation", "kind": "wait", "session": "d1", "duration": "10 min" },
+      { "id": "shock", "kind": "technique", "ref": "molbio:heat-shock", "session": "d1", "critical": ["quality"], "objectives": ["o-heatshock"],
+        "params": { "tubes": ["plus", "minus"], "temperature": "42 Cel", "duration": "50 s" } },
+      { "id": "recover", "kind": "technique", "ref": "micro:recovery-incubation", "session": "d1",
+        "params": { "tubes": ["plus", "minus"], "medium": "lb", "volume": "250 uL", "duration": "10 min" } },
+      { "id": "plating", "kind": "group", "session": "d1", "title": "Spread 100 µL on each plate", "objectives": ["o-aseptic"],
+        "forEach": { "var": "pair", "in": "=[['minus', 'plate-lb'], ['minus', 'plate-minus-amp'], ['plus', 'plate-plus-amp'], ['plus', 'plate-plus-ara']]" },
+        "steps": [
+          { "id": "resuspend", "kind": "operation", "ref": "core:mix", "params": { "container": "=pair[0]", "method": "flick", "cycles": 3 } },
+          { "id": "spread", "kind": "technique", "ref": "micro:spread-plate", "params": { "source": "=pair[0]", "plate": "=pair[1]", "volume": "100 uL" } }
+        ] },
+      { "id": "grow", "kind": "offstage", "session": "d1", "duration": "20 h", "title": "Overnight at 37 °C",
+        "params": { "place": "incubator", "containers": ["plate-lb", "plate-minus-amp", "plate-plus-amp", "plate-plus-ara"] } },
+      { "id": "results", "kind": "group", "session": "d2", "title": "Count colonies and look under UV",
+        "forEach": { "var": "p", "in": "=['plate-lb', 'plate-minus-amp', 'plate-plus-amp', 'plate-plus-ara']" },
+        "steps": [
+          { "id": "count", "kind": "technique", "ref": "micro:colony-count", "params": { "plate": "=p" } },
+          { "id": "note-count", "kind": "operation", "ref": "core:record", "params": { "field": "='colonies:' + p", "value": "=count.out.count" } },
+          { "id": "uv", "kind": "technique", "ref": "molbio:check-fluorescence", "params": { "plate": "=p" } },
+          { "id": "note-uv", "kind": "operation", "ref": "core:record", "params": { "field": "='glows:' + p", "value": "=uv.out.fluorescent" } }
+        ] },
+      { "id": "efficiency", "kind": "technique", "ref": "molbio:transformation-efficiency", "session": "d2", "objectives": ["o-eff"],
+        "params": { "colonies": "=first(recorded('colonies:plate-plus-amp'))", "dnaSpread": "=0.08 ug/uL * 10 uL * 100 uL / (110 uL + 250 uL)" } },
+      { "id": "controls", "kind": "decision", "session": "d2", "objectives": ["o-controls"],
+        "prompt": "What does the −pGLO LB/amp plate tell you, next to the −pGLO LB plate?",
+        "options": [
+          { "id": "selection", "label": "Cells without the plasmid cannot grow on ampicillin, though they grow on LB" },
+          { "id": "dead", "label": "The cells were dead" },
+          { "id": "contaminated", "label": "Something other than our cells grew" }
+        ],
+        "correctWhen": "if(colonies('plate-lb') > 0 && colonies('plate-minus-amp') == 0, 'selection', if(colonies('plate-lb') == 0, 'dead', 'contaminated'))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-transformants", "statement": "Transformants grow on both ampicillin plates", "check": "colonies('plate-plus-amp') >= 20 && colonies('plate-plus-ara') >= 20" },
+      { "id": "g-controls", "statement": "The controls work: a lawn on LB, nothing on −pGLO ampicillin", "check": "colonies('plate-lb') > 5000 && colonies('plate-minus-amp') == 0" }
+    ],
+    "expectedObservations": [
+      { "id": "e-glow", "statement": "Only the arabinose plate glows under UV", "check": "fluorescent('plate-plus-ara') && !fluorescent('plate-plus-amp')", "source": "reference-standard" },
+      { "id": "e-efficiency", "statement": "About 10³ transformants per µg (5 × 10² to 5 × 10³)", "check": "between(first(recorded('efficiency')), 500, 5000)", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

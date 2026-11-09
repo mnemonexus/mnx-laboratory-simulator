@@ -1,0 +1,826 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio14-elisa-four-parameter",
+  "version": "1.0.0",
+  "title": "Quantifying antigen by ELISA: a four-parameter logistic standard curve",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:wash"
+      },
+      {
+        "technique": "core:serial-dilution"
+      },
+      {
+        "operation": "core:fit"
+      },
+      {
+        "operation": "core:interpolate"
+      }
+    ]
+  },
+  "summary": "Coat an ELISA plate with an eight-point, three-fold ovalbumin standard series (3 µg/mL down to 0.004 µg/mL and a blank) and two samples, one of them also diluted twenty-fold. Fit a four-parameter logistic to the standards and read the samples from it, diluting any that lie above the curve.",
+  "briefing": "An ELISA's response is S-shaped against log concentration: flat at the blank, rising, then flat again as the plastic fills with antigen. A straight line cannot describe it; the four-parameter logistic y = d + (a − d)/(1 + (x/c)^b) can, with a the blank's response, d the plateau, c the mid-point (EC50) and b the steepness. Read samples only where the curve is steep: a response at the plateau fits any concentration above it, so such a sample must be diluted and assayed again.",
+  "context": {
+    "intendedContexts": [
+      "practical-session"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry",
+        "immunology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "four-pl",
+        "label": "Four-parameter logistic calibration"
+      },
+      {
+        "id": "dynamic-range",
+        "label": "An assay's working range"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-plate",
+        "kind": "skill",
+        "statement": "Run the ELISA on a full standard series",
+        "skills": [
+          "core:micropipetting",
+          "core:serial-dilution"
+        ]
+      },
+      {
+        "id": "o-fit",
+        "kind": "analysis",
+        "statement": "Fit a four-parameter logistic and read samples from it",
+        "goal": "g-x"
+      },
+      {
+        "id": "o-range",
+        "kind": "reasoning",
+        "statement": "Recognise a sample above the working range and dilute it",
+        "goal": "g-y"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "x",
+        "label": "Sample X (ovalbumin)",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "bio:ovalbumin",
+            "conc": {
+              "vary": "0.04..0.2 mg/L"
+            }
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "y",
+        "label": "Sample Y (ovalbumin)",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "bio:ovalbumin",
+            "conc": {
+              "vary": "3..8 mg/L"
+            }
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      }
+    ],
+    "supplies": [
+      {
+        "id": "coat",
+        "label": "Ovalbumin, 10 µg/mL",
+        "preparation": "bio:ovalbumin-coating-10ug",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "pbs",
+        "label": "PBS (diluent and wash buffer)",
+        "preparation": "core:pbs-1x",
+        "amount": "200 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "block",
+        "label": "Blocking buffer (1 % BSA)",
+        "preparation": "bio:blocking-bsa-1pct",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "primary",
+        "label": "Anti-ovalbumin (primary)",
+        "preparation": "bio:primary-anti-ovalbumin",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "secondary",
+        "label": "Anti-mouse–HRP (secondary)",
+        "preparation": "bio:secondary-hrp",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "tmb",
+        "label": "TMB substrate",
+        "preparation": "bio:tmb-substrate",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "stop",
+        "label": "Stop solution (1 M HCl)",
+        "preparation": "bio:stop-hcl-1m",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "plate",
+        "requires": {
+          "class": "core:microplate-96-elisa"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "reader",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "wavelength": "450 nm",
+          "format": "96-well"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "top",
+        "kind": "group",
+        "title": "Top standard: 3 µg/mL",
+        "steps": [
+          {
+            "id": "top-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "s3",
+              "label": "Ovalbumin 3 µg/mL"
+            }
+          },
+          {
+            "id": "top-pbs",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "pbs",
+              "destination": "s3",
+              "volume": "700 uL"
+            }
+          },
+          {
+            "id": "top-coat",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "coat",
+              "destination": "s3",
+              "volume": "300 uL"
+            }
+          },
+          {
+            "id": "top-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "s3",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "standards",
+        "kind": "technique",
+        "ref": "core:serial-dilution",
+        "title": "Three-fold dilutions: 1 down to 0.004 µg/mL",
+        "objectives": [
+          "o-plate"
+        ],
+        "params": {
+          "stock": "s3",
+          "diluent": "pbs",
+          "factor": 3,
+          "count": 6,
+          "volumeEach": "400 uL"
+        }
+      },
+      {
+        "id": "dilute-y",
+        "kind": "group",
+        "title": "Sample Y, twenty-fold",
+        "steps": [
+          {
+            "id": "y-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "y-dil",
+              "label": "Sample Y, 1 in 20"
+            }
+          },
+          {
+            "id": "y-pbs",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "pbs",
+              "destination": "y-dil",
+              "volume": "950 uL"
+            }
+          },
+          {
+            "id": "y-sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "y",
+              "destination": "y-dil",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "y-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "y-dil",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "coating",
+        "kind": "group",
+        "title": "100 µL into each well (duplicates)",
+        "objectives": [
+          "o-plate"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['s3', 'A1'], ['s3', 'A2'], [standards.out.vessels[0], 'B1'], [standards.out.vessels[0], 'B2'], [standards.out.vessels[1], 'C1'], [standards.out.vessels[1], 'C2'], [standards.out.vessels[2], 'D1'], [standards.out.vessels[2], 'D2'], [standards.out.vessels[3], 'E1'], [standards.out.vessels[3], 'E2'], [standards.out.vessels[4], 'F1'], [standards.out.vessels[4], 'F2'], [standards.out.vessels[5], 'G1'], [standards.out.vessels[5], 'G2'], ['pbs', 'H1'], ['pbs', 'H2'], ['x', 'A3'], ['x', 'A4'], ['y', 'B3'], ['y', 'B4'], ['y-dil', 'C3'], ['y-dil', 'C4'], ['s3', 'D3']]"
+        },
+        "steps": [
+          {
+            "id": "coat-well",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "='plate/' + x[1]",
+              "volume": "100 uL"
+            }
+          }
+        ]
+      },
+      {
+        "id": "coat-incubate",
+        "kind": "group",
+        "title": "1 h at 37 °C, then wash",
+        "steps": [
+          {
+            "id": "in-1",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "wait-1",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "out-1",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          },
+          {
+            "id": "wash-1",
+            "kind": "operation",
+            "ref": "core:wash",
+            "params": {
+              "target": "plate",
+              "buffer": "pbs",
+              "volume": "300 uL",
+              "cycles": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "blocking",
+        "kind": "group",
+        "title": "Block with 200 µL BSA for 1 h, then wash",
+        "objectives": [
+          "o-plate"
+        ],
+        "steps": [
+          {
+            "id": "add-block",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "block",
+              "volume": "200 uL",
+              "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1', 'H2', 'A3', 'A4', 'B3', 'B4', 'C3', 'C4', 'D3'], 'plate/' + it)"
+            }
+          },
+          {
+            "id": "in-2",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "wait-2",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "out-2",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          },
+          {
+            "id": "wash-2",
+            "kind": "operation",
+            "ref": "core:wash",
+            "params": {
+              "target": "plate",
+              "buffer": "pbs",
+              "volume": "300 uL",
+              "cycles": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "primary-step",
+        "kind": "group",
+        "title": "Primary antibody 1 h (D3 gets blocking buffer only), then wash",
+        "objectives": [
+          "o-plate"
+        ],
+        "steps": [
+          {
+            "id": "add-primary",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "primary",
+              "volume": "100 uL",
+              "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1', 'H2', 'A3', 'A4', 'B3', 'B4', 'C3', 'C4'], 'plate/' + it)"
+            }
+          },
+          {
+            "id": "no-primary",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "block",
+              "destination": "plate/D3",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "in-3",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "wait-3",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "out-3",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          },
+          {
+            "id": "wash-3",
+            "kind": "operation",
+            "ref": "core:wash",
+            "params": {
+              "target": "plate",
+              "buffer": "pbs",
+              "volume": "300 uL",
+              "cycles": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "secondary-step",
+        "kind": "group",
+        "title": "Secondary antibody 1 h, then wash five times",
+        "objectives": [
+          "o-plate"
+        ],
+        "steps": [
+          {
+            "id": "add-secondary",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "secondary",
+              "volume": "100 uL",
+              "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1', 'H2', 'A3', 'A4', 'B3', 'B4', 'C3', 'C4', 'D3'], 'plate/' + it)"
+            }
+          },
+          {
+            "id": "in-4",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "plate",
+              "place": "incubator"
+            }
+          },
+          {
+            "id": "wait-4",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "60 min"
+            }
+          },
+          {
+            "id": "out-4",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "plate"
+            }
+          },
+          {
+            "id": "wash-4",
+            "kind": "operation",
+            "ref": "core:wash",
+            "params": {
+              "target": "plate",
+              "buffer": "pbs",
+              "volume": "300 uL",
+              "cycles": 5
+            }
+          }
+        ]
+      },
+      {
+        "id": "develop",
+        "kind": "group",
+        "title": "TMB for 15 min at room temperature, then stop",
+        "objectives": [
+          "o-plate"
+        ],
+        "steps": [
+          {
+            "id": "add-tmb",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "tmb",
+              "volume": "100 uL",
+              "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1', 'H2', 'A3', 'A4', 'B3', 'B4', 'C3', 'C4', 'D3'], 'plate/' + it)"
+            }
+          },
+          {
+            "id": "colour",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "15 min"
+            }
+          },
+          {
+            "id": "add-stop",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "stop",
+              "volume": "50 uL",
+              "into": "=map(['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2', 'F1', 'F2', 'G1', 'G2', 'H1', 'H2', 'A3', 'A4', 'B3', 'B4', 'C3', 'C4', 'D3'], 'plate/' + it)"
+            }
+          },
+          {
+            "id": "shake",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "plate",
+              "method": "shake"
+            }
+          }
+        ]
+      },
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "objectives": [
+          "o-plate"
+        ],
+        "params": {
+          "instrument": "reader",
+          "subject": "plate",
+          "wavelength": "450 nm"
+        }
+      },
+      {
+        "id": "means",
+        "kind": "group",
+        "objectives": [
+          "o-fit"
+        ],
+        "let": {
+          "std": "=[(reading(read, 'plate/A1') + reading(read, 'plate/A2')) / 2, (reading(read, 'plate/B1') + reading(read, 'plate/B2')) / 2, (reading(read, 'plate/C1') + reading(read, 'plate/C2')) / 2, (reading(read, 'plate/D1') + reading(read, 'plate/D2')) / 2, (reading(read, 'plate/E1') + reading(read, 'plate/E2')) / 2, (reading(read, 'plate/F1') + reading(read, 'plate/F2')) / 2, (reading(read, 'plate/G1') + reading(read, 'plate/G2')) / 2, (reading(read, 'plate/H1') + reading(read, 'plate/H2')) / 2]"
+        },
+        "steps": [
+          {
+            "id": "note-curve",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A450-standards",
+              "value": "=std"
+            }
+          },
+          {
+            "id": "note-x",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A450-x",
+              "value": "=(reading(read, 'plate/A3') + reading(read, 'plate/A4')) / 2"
+            }
+          },
+          {
+            "id": "note-y",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A450-y",
+              "value": "=(reading(read, 'plate/B3') + reading(read, 'plate/B4')) / 2"
+            }
+          },
+          {
+            "id": "note-y-dil",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A450-y-dil",
+              "value": "=(reading(read, 'plate/C3') + reading(read, 'plate/C4')) / 2"
+            }
+          },
+          {
+            "id": "note-no-primary",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A450-no-primary",
+              "value": "=reading(read, 'plate/D3')"
+            }
+          }
+        ]
+      },
+      {
+        "id": "curve",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-fit"
+        ],
+        "params": {
+          "x": [
+            3,
+            1,
+            0.333333,
+            0.111111,
+            0.037037,
+            0.012346,
+            0.004115,
+            0
+          ],
+          "y": "=first(recorded('A450-standards'))",
+          "model": "four-pl"
+        }
+      },
+      {
+        "id": "read-samples",
+        "kind": "data",
+        "ref": "core:interpolate",
+        "objectives": [
+          "o-fit"
+        ],
+        "params": {
+          "fit": "=curve.out.fit",
+          "points": [
+            "=first(recorded('A450-x'))",
+            "=first(recorded('A450-y'))",
+            "=first(recorded('A450-y-dil'))"
+          ]
+        }
+      },
+      {
+        "id": "results",
+        "kind": "group",
+        "objectives": [
+          "o-fit",
+          "o-range"
+        ],
+        "let": {
+          "xs": "=map(read-samples.out.results, x)",
+          "ok": "=map(read-samples.out.results, inRange)"
+        },
+        "steps": [
+          {
+            "id": "note-ec50",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "EC50-ug-per-mL",
+              "value": "=fit(curve).params.c"
+            }
+          },
+          {
+            "id": "note-x-conc",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "x-ug-per-mL",
+              "value": "=xs[0]"
+            }
+          },
+          {
+            "id": "note-y-direct",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "y-direct-in-range",
+              "value": "=ok[1]"
+            }
+          },
+          {
+            "id": "note-y-conc",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "y-ug-per-mL",
+              "value": "=xs[2] * 20"
+            }
+          }
+        ]
+      },
+      {
+        "id": "above-range",
+        "kind": "decision",
+        "objectives": [
+          "o-range"
+        ],
+        "prompt": "Sample Y read neat sits at the top plateau of the curve. What do you report?",
+        "options": [
+          {
+            "id": "dilute",
+            "label": "Nothing from the neat reading: use the twenty-fold dilution, which falls on the steep part, and multiply by 20"
+          },
+          {
+            "id": "extrapolate",
+            "label": "Extrapolate the curve beyond the top standard"
+          },
+          {
+            "id": "top",
+            "label": "Report it as equal to the top standard, 3 µg/mL"
+          }
+        ],
+        "correctWhen": "if(first(recorded('y-direct-in-range')) == false, 'dilute', 'extrapolate')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-x",
+        "statement": "Sample X is within 15 % of its true concentration",
+        "check": "within(first(recorded('x-ug-per-mL')), value(truth(conc, 'x', 'bio:ovalbumin'), 'mg/L'), 15%)"
+      },
+      {
+        "id": "g-y",
+        "statement": "Sample Y, from its dilution, is within 20 % of its true concentration",
+        "check": "within(first(recorded('y-ug-per-mL')), value(truth(conc, 'y', 'bio:ovalbumin'), 'mg/L'), 20%) && decision('above-range') == 'dilute'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-sigmoid",
+        "statement": "The standards level off at both ends (an S-shaped curve)",
+        "check": "first(recorded('A450-standards'))[1] - first(recorded('A450-standards'))[2] < first(recorded('A450-standards'))[3] - first(recorded('A450-standards'))[4]",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-good-fit",
+        "statement": "The four-parameter logistic describes the standards (R² above 0.99)",
+        "check": "fit(curve).r2 > 0.99",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-y-high",
+        "statement": "Sample Y read neat lies above the working range",
+        "check": "first(recorded('y-direct-in-range')) == false",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-clean",
+        "statement": "The control without primary antibody stays near the blank",
+        "check": "first(recorded('A450-no-primary')) < first(recorded('A450-standards'))[7] + 0.1",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

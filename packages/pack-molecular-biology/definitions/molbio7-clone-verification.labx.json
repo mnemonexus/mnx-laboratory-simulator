@@ -1,0 +1,429 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio7-clone-verification",
+  "version": "1.0.0",
+  "title": "Checking clones by restriction digestion: insert and orientation",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:run-gel"
+      },
+      {
+        "technique": "molbio:size-band"
+      }
+    ]
+  },
+  "summary": "A 6.0 kb fragment was cloned into the BamHI site of a 3.0 kb vector. Digest the empty vector and two clones with BamHI and with EcoRI, run the six digests beside a 1 kb ladder, and decide whether each clone carries the insert and in which orientation.",
+  "briefing": "Cutting at the cloning site releases the insert: a BamHI digest of a recombinant gives the insert and the vector. A fragment cloned into one site can go in either way round. An enzyme that cuts once in the vector and once inside the insert, off-centre, tells the orientations apart: the fragment between the two sites is short one way and long the other. Here the insert's own EcoRI site lies 1.0 kb from one end, and the vector's EcoRI site sits just beside the BamHI site.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "molecular-biology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "clone-screening",
+        "label": "Screening recombinant clones"
+      },
+      {
+        "id": "orientation",
+        "label": "Insert orientation"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-digest",
+        "kind": "skill",
+        "statement": "Set up single digests in a small volume",
+        "skills": [
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-size",
+        "kind": "analysis",
+        "statement": "Size the fragments against the ladder"
+      },
+      {
+        "id": "o-orient",
+        "kind": "reasoning",
+        "statement": "Decide each clone's orientation",
+        "goal": "g-orientation"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "vec",
+        "label": "Vector DNA, 250 ng/µL",
+        "preparation": "molbio:vector-3kb-stock",
+        "amount": "20 uL",
+        "container": "core:pcr-tube-0.2ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "c1",
+        "label": "Clone 1 DNA, 250 ng/µL",
+        "preparation": "molbio:recombinant-9kb-reverse-stock",
+        "amount": "20 uL",
+        "container": "core:pcr-tube-0.2ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "c2",
+        "label": "Clone 2 DNA, 250 ng/µL",
+        "preparation": "molbio:recombinant-9kb-forward-stock",
+        "amount": "20 uL",
+        "container": "core:pcr-tube-0.2ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "ecori",
+        "label": "EcoRI (20 U/µL)",
+        "preparation": "molbio:ecori-20u",
+        "amount": "10 uL",
+        "container": "core:pcr-tube-0.2ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "bamhi",
+        "label": "BamHI (20 U/µL)",
+        "preparation": "molbio:bamhi-20u",
+        "amount": "10 uL",
+        "container": "core:pcr-tube-0.2ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "buffer",
+        "label": "Restriction buffer (10×)",
+        "preparation": "molbio:restriction-buffer-10x",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "water",
+        "label": "Nuclease-free water",
+        "preparation": "core:water-deionised",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "dye",
+        "label": "Sucrose loading dye",
+        "preparation": "molbio:loading-dye-sucrose",
+        "amount": "100 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "ladder",
+        "label": "1 kb ladder (ready to load)",
+        "preparation": "molbio:ladder-1kb-ready",
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "gel",
+        "requires": {
+          "class": "core:agarose-gel-1pct"
+        }
+      },
+      {
+        "id": "imager",
+        "requires": {
+          "class": "core:gel-imager-blue-light"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "setup",
+        "kind": "group",
+        "title": "Six 15 µL digests, enzyme last",
+        "objectives": [
+          "o-digest"
+        ],
+        "forEach": {
+          "var": "d",
+          "in": "=[['vec-ecori', 'vec', 'ecori'], ['vec-bamhi', 'vec', 'bamhi'], ['c1-ecori', 'c1', 'ecori'], ['c1-bamhi', 'c1', 'bamhi'], ['c2-ecori', 'c2', 'ecori'], ['c2-bamhi', 'c2', 'bamhi']]"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=d[0]",
+              "label": "=d[0]"
+            }
+          },
+          {
+            "id": "add-water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=d[0]",
+              "volume": "9.5 uL"
+            }
+          },
+          {
+            "id": "add-buffer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "=d[0]",
+              "volume": "1.5 uL"
+            }
+          },
+          {
+            "id": "add-dna",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=d[1]",
+              "destination": "=d[0]",
+              "volume": "3 uL"
+            }
+          },
+          {
+            "id": "add-enzyme",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=d[2]",
+              "destination": "=d[0]",
+              "volume": "1 uL"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=d[0]",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "into-bath",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "forEach": {
+          "var": "t",
+          "in": "=['vec-ecori', 'vec-bamhi', 'c1-ecori', 'c1-bamhi', 'c2-ecori', 'c2-bamhi']"
+        },
+        "params": {
+          "container": "=t",
+          "place": "bath"
+        }
+      },
+      {
+        "id": "digest",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "title": "45 minutes at 37 °C",
+        "params": {
+          "duration": "45 min"
+        }
+      },
+      {
+        "id": "dye",
+        "kind": "group",
+        "forEach": {
+          "var": "t",
+          "in": "=['vec-ecori', 'vec-bamhi', 'c1-ecori', 'c1-bamhi', 'c2-ecori', 'c2-bamhi']"
+        },
+        "steps": [
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=t"
+            }
+          },
+          {
+            "id": "dye-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dye",
+              "destination": "=t",
+              "volume": "3 uL"
+            }
+          },
+          {
+            "id": "dye-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=t",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "load-ladder",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ladder",
+          "destination": "gel/A1",
+          "volume": "8 uL"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "forEach": {
+          "var": "x",
+          "in": "=[['vec-ecori', 'gel/A2'], ['vec-bamhi', 'gel/A3'], ['c1-ecori', 'gel/A4'], ['c1-bamhi', 'gel/A5'], ['c2-ecori', 'gel/A6'], ['c2-bamhi', 'gel/A7']]"
+        },
+        "params": {
+          "source": "=x[0]",
+          "destination": "=x[1]",
+          "volume": "12 uL"
+        }
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "gel",
+          "voltage": 90,
+          "duration": "50 min"
+        }
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "imager",
+          "subject": "gel"
+        }
+      },
+      {
+        "id": "sizing",
+        "kind": "group",
+        "objectives": [
+          "o-size"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['vec-ecori', 'gel/A2'], ['vec-bamhi', 'gel/A3'], ['c1-ecori', 'gel/A4'], ['c1-bamhi', 'gel/A5'], ['c2-ecori', 'gel/A6'], ['c2-bamhi', 'gel/A7']]"
+        },
+        "steps": [
+          {
+            "id": "size",
+            "kind": "technique",
+            "ref": "molbio:size-band",
+            "params": {
+              "ladderLane": "gel/A1",
+              "lane": "=x[1]",
+              "ladder": "molbio:ladder-1kb"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='sizes-' + x[0]",
+              "value": "=size.out.sizes"
+            }
+          }
+        ]
+      },
+      {
+        "id": "orient",
+        "kind": "decision",
+        "objectives": [
+          "o-orient"
+        ],
+        "prompt": "Which clone has the insert's EcoRI site next to the vector's EcoRI site (giving a short EcoRI fragment)?",
+        "options": [
+          {
+            "id": "clone-1",
+            "label": "Clone 1"
+          },
+          {
+            "id": "clone-2",
+            "label": "Clone 2"
+          },
+          {
+            "id": "neither",
+            "label": "Neither: the two clones give the same EcoRI pattern"
+          }
+        ],
+        "correctWhen": "if(last(first(recorded('sizes-c2-ecori'))) < 2000, 'clone-2', if(last(first(recorded('sizes-c1-ecori'))) < 2000, 'clone-1', 'neither'))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-orientation",
+        "statement": "The clone with the short EcoRI fragment (about 1 kb) is identified",
+        "check": "decision('orient') == 'clone-2'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-insert",
+        "statement": "BamHI releases a 6 kb insert from both clones and leaves the 3 kb vector",
+        "check": "all(c in ['c1', 'c2']: abs(first(first(recorded('sizes-' + c + '-bamhi'))) - 6000) < 600)",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-vector",
+        "statement": "The empty vector gives a single 3 kb band with either enzyme",
+        "check": "len(first(recorded('sizes-vec-ecori'))) == 1 && abs(first(first(recorded('sizes-vec-bamhi'))) - 3000) < 300",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

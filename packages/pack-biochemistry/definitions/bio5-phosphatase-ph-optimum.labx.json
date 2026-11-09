@@ -1,0 +1,104 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio5-phosphatase-ph-optimum",
+  "version": "1.0.0",
+  "title": "The pH optimum of alkaline phosphatase",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:measure" }] },
+  "summary": "Run alkaline phosphatase on p-nitrophenyl phosphate for 10 minutes in buffers from pH 7.5 to 11, stop each reaction with sodium hydroxide, read the yellow p-nitrophenolate at 405 nm and find the pH at which the enzyme works fastest.",
+  "briefing": "The enzyme cuts the phosphate off pNPP, leaving p-nitrophenol, which is yellow only once it has lost its proton (above about pH 7). Sodium hydroxide stops the enzyme and turns all the product yellow, so every tube is read the same way. Start and stop the tubes in the same order so each gets the same time.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["biochemistry", "biosciences"] },
+    "concepts": [{ "id": "ph-optimum", "label": "Enzyme activity depends on ionisable groups, so on pH" }, { "id": "stopped-assay", "label": "A stopped (end-point) assay" }],
+    "objectives": [
+      { "id": "o-assay", "kind": "skill", "statement": "Run a timed, stopped enzyme assay", "skills": ["core:micropipetting", "core:spectrophotometer-read", "core:blanking"] },
+      { "id": "o-optimum", "kind": "analysis", "statement": "Find the pH optimum", "goal": "g-optimum" },
+      { "id": "o-stop", "kind": "reasoning", "statement": "Explain what the stop solution does" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "b75", "label": "Tris-HCl pH 7.5", "preparation": "core:tris-50mm-ph7.5", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "b80", "label": "Tris-HCl pH 8.0", "preparation": "bio:tris-hcl-50mm-ph8.0", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "b85", "label": "Tris-HCl pH 8.5", "preparation": "bio:tris-hcl-50mm-ph8.5", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "b90", "label": "Glycine–NaOH pH 9.0", "preparation": "bio:glycine-naoh-50mm-ph9.0", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "b95", "label": "Glycine–NaOH pH 9.5", "preparation": "bio:glycine-naoh-50mm-ph9.5", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "b100", "label": "Glycine–NaOH pH 10.0", "preparation": "bio:glycine-naoh-50mm-ph10.0", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "b105", "label": "Glycine–NaOH pH 10.5", "preparation": "bio:glycine-naoh-50mm-ph10.5", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "b110", "label": "Glycine–NaOH pH 11.0", "preparation": "bio:glycine-naoh-50mm-ph11.0", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "pnpp", "label": "pNPP, 10 mM", "preparation": "bio:pnpp-10mm", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "enzyme", "label": "Alkaline phosphatase", "preparation": "bio:alp-stock", "amount": "1.2 mL", "container": "core:microtube-1.5ml", "storage": "0 Cel" },
+      { "id": "water", "label": "Deionised water", "preparation": "core:water-deionised", "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "stop", "label": "NaOH, 1 M (stop)", "preparation": "bio:naoh-1m-stop", "amount": "5 mL", "container": "core:conical-tube-15ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [{ "id": "spec", "requires": { "class": "core:spectrophotometer.visible-single-beam" } }]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "setup", "kind": "group", "title": "Buffer and substrate in each tube; a blank with water for enzyme",
+        "forEach": { "var": "b", "in": "=[['r75', 'b75', 7.5], ['r80', 'b80', 8.0], ['r85', 'b85', 8.5], ['r90', 'b90', 9.0], ['r95', 'b95', 9.5], ['r100', 'b100', 10.0], ['r105', 'b105', 10.5], ['r110', 'b110', 11.0], ['blank', 'b100', 10.0]]" },
+        "steps": [
+          { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=b[0]", "label": "=if(b[0] == 'blank', 'Blank', 'pH ' + text(b[2]))" } },
+          { "id": "buffer", "kind": "operation", "ref": "core:transfer", "params": { "source": "=b[1]", "destination": "=b[0]", "volume": "800 uL" } },
+          { "id": "substrate", "kind": "operation", "ref": "core:transfer", "params": { "source": "pnpp", "destination": "=b[0]", "volume": "100 uL" } },
+          { "id": "mix-setup", "kind": "operation", "ref": "core:mix", "params": { "container": "=b[0]", "method": "vortex", "cycles": 1 } }
+        ] },
+      { "id": "start", "kind": "group", "title": "Start each reaction with enzyme (water for the blank)", "objectives": ["o-assay"],
+        "forEach": { "var": "t", "in": "=['r75', 'r80', 'r85', 'r90', 'r95', 'r100', 'r105', 'r110', 'blank']" },
+        "steps": [
+          { "id": "add-enzyme", "kind": "operation", "ref": "core:transfer", "params": { "source": "=if(t == 'blank', 'water', 'enzyme')", "destination": "=t", "volume": "100 uL" } },
+          { "id": "mix-start", "kind": "operation", "ref": "core:mix", "params": { "container": "=t", "method": "vortex", "cycles": 1 } }
+        ] },
+      { "id": "react", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "10 min" } },
+      { "id": "stopping", "kind": "group", "title": "Stop in the same order", "objectives": ["o-assay"],
+        "forEach": { "var": "t", "in": "=['r75', 'r80', 'r85', 'r90', 'r95', 'r100', 'r105', 'r110', 'blank']" },
+        "steps": [
+          { "id": "add-stop", "kind": "operation", "ref": "core:transfer", "params": { "source": "stop", "destination": "=t", "volume": "100 uL" } },
+          { "id": "mix-stop", "kind": "operation", "ref": "core:mix", "params": { "container": "=t", "method": "vortex", "cycles": 1 } }
+        ] },
+      { "id": "blank-cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-ps-1cm", "id": "c-blank", "label": "Blank" } },
+      { "id": "blank-fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "blank", "destination": "c-blank", "volume": "1 mL" } },
+      { "id": "zero", "kind": "operation", "ref": "core:calibrate", "objectives": ["o-assay"], "params": { "instrument": "spec", "mode": "blank", "reference": "c-blank", "wavelength": "405 nm" } },
+      { "id": "reading", "kind": "group", "objectives": ["o-assay"],
+        "forEach": { "var": "x", "in": "=[['r75', 7.5], ['r80', 8.0], ['r85', 8.5], ['r90', 9.0], ['r95', 9.5], ['r100', 10.0], ['r105', 10.5], ['r110', 11.0]]" },
+        "let": { "cuvette": "='c-' + x[0]" },
+        "steps": [
+          { "id": "cuvette", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:cuvette-ps-1cm", "id": "=cuvette" } },
+          { "id": "fill", "kind": "operation", "ref": "core:transfer", "params": { "source": "=x[0]", "destination": "=cuvette", "volume": "1 mL" } },
+          { "id": "read", "kind": "operation", "ref": "core:measure", "params": { "instrument": "spec", "subject": "=cuvette", "wavelength": "405 nm" } },
+          { "id": "note-a", "kind": "operation", "ref": "core:record", "params": { "field": "A405", "value": "=read.out.value" } },
+          { "id": "note-ph", "kind": "operation", "ref": "core:record", "params": { "field": "buffer-pH", "value": "=x[1]" } }
+        ] },
+      { "id": "analyse", "kind": "group", "objectives": ["o-optimum"],
+        "let": { "a": "=recorded('A405')", "p": "=recorded('buffer-pH')" },
+        "steps": [
+          { "id": "optimum", "kind": "operation", "ref": "core:record",
+            "params": { "field": "optimum-pH", "value": "=p[first(filter(range(0, len(a) - 1, len(a)), a[it] == max(a)))]" } }
+        ] },
+      { "id": "why-stop", "kind": "decision", "objectives": ["o-stop"], "prompt": "Why add sodium hydroxide before reading?",
+        "options": [
+          { "id": "both", "label": "It stops the enzyme and turns all the p-nitrophenol into the yellow phenolate" },
+          { "id": "stop-only", "label": "Only to stop the enzyme" },
+          { "id": "colour-only", "label": "Only to develop the colour" }
+        ],
+        "correctWhen": "'both'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-optimum", "statement": "The optimum is found at pH 9.5 to 10", "check": "between(first(recorded('optimum-pH')), 9.25, 10.25)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-bell", "statement": "Activity falls off on both sides: under a quarter of the best at pH 7.5, and lower again at pH 11", "check": "first(recorded('A405')) < 0.25 * max(recorded('A405')) && last(recorded('A405')) < 0.8 * max(recorded('A405'))", "source": "reference-standard" },
+      { "id": "e-readable", "statement": "The best tube reads between 0.3 and 1.5", "check": "between(max(recorded('A405')), 0.3, 1.5)", "source": "simulation-derived" },
+      { "id": "e-stopped", "statement": "The stop solution takes every tube above pH 12", "check": "pH('r75') > 12 && pH('r110') > 12", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

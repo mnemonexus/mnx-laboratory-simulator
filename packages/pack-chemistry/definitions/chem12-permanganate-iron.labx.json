@@ -1,0 +1,108 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem12-permanganate-iron",
+  "version": "1.0.0",
+  "title": "Iron(II) by permanganate: a redox titration, by eye and by electrode",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "core:titrate-to-endpoint" }, { "operation": "core:measure" }] },
+  "summary": "Titrate 25.00 mL portions of an acidified iron(II) solution with 0.0200 M potassium permanganate to the first permanent pink, then follow a further portion with a platinum electrode, 1 mL at a time. Find the iron(II) concentration both ways, and the formal potential of Fe³⁺/Fe²⁺ from the curve.",
+  "briefing": "MnO₄⁻ + 5 Fe²⁺ + 8 H⁺ → Mn²⁺ + 5 Fe³⁺ + 4 H₂O, so c(Fe²⁺) = 5 × c(MnO₄⁻) × titre ÷ 25.00 mL. Permanganate is its own indicator: it is decolourised while any iron(II) is left, so the first lasting pink is the end point. The electrode reads the potential the solution's couples share. Before equivalence it is set by Fe³⁺/Fe²⁺, and at half-equivalence (equal iron(II) and iron(III)) it equals that couple's formal potential. After equivalence it is set by MnO₄⁻/Mn²⁺. The electrode's reference is Ag/AgCl, 0.21 V above the hydrogen electrode.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "redox-titration", "label": "Redox titration" }, { "id": "nernst", "label": "Electrode potentials and the Nernst equation" }],
+    "objectives": [
+      { "id": "o-titrate", "kind": "skill", "statement": "Titrate to a self-indicating end point", "skills": ["core:burette-technique", "core:titration"] },
+      { "id": "o-iron", "kind": "outcome", "statement": "Find the iron(II) concentration within 1 %", "goal": "g-iron" },
+      { "id": "o-curve", "kind": "analysis", "statement": "Find the equivalence point and the formal potential from the electrode's curve", "goal": "g-formal" },
+      { "id": "o-indicator", "kind": "reasoning", "statement": "Explain why no indicator is needed", "goal": "g-indicator" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "iron", "label": "Iron(II) solution in 1 M H₂SO₄", "role": "unknown", "solvent": "core:water",
+        "contains": [{ "substance": "chem:ammonium-iron-ii-sulfate", "conc": { "vary": "0.080..0.120 mol/L" } }, { "substance": "core:sulfuric-acid", "conc": "1.0 mol/L" }],
+        "amount": "250 mL", "container": "core:reagent-bottle-250ml" }
+    ],
+    "supplies": [
+      { "id": "kmno4", "label": "KMnO₄, 0.0200 M", "preparation": "chem:kmno4-0.0200m", "amount": "500 mL", "container": "core:reagent-bottle-1l" },
+      { "id": "acid", "label": "H₂SO₄, 1 M", "preparation": "chem:sulfuric-acid-1m", "amount": "250 mL", "container": "core:reagent-bottle-250ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "burette", "requires": { "class": "core:burette-50ml-class-a" } },
+      { "id": "pipette25", "requires": { "class": "core:volumetric-pipette-25ml" } },
+      { "id": "electrode", "requires": { "class": "core:redox-electrode" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "fill", "kind": "technique", "ref": "core:prepare-burette", "title": "Fill the burette with permanganate", "params": { "burette": "burette", "titrant": "kmno4", "volume": "48 mL" }, "objectives": ["o-titrate"] },
+      { "id": "rough", "kind": "group", "title": "Rough titration",
+        "steps": [
+          { "id": "rough-flask", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:conical-flask-250ml", "id": "flask-rough", "label": "Rough" } },
+          { "id": "rough-sample", "kind": "operation", "ref": "core:transfer", "params": { "source": "iron", "destination": "flask-rough", "volume": "25 mL", "tool": "pipette25" } },
+          { "id": "rough-acid", "kind": "operation", "ref": "core:transfer", "params": { "source": "acid", "destination": "flask-rough", "volume": "25 mL", "tool": "pour" } },
+          { "id": "rough-start", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "rough-titrate", "kind": "technique", "ref": "core:titrate-to-endpoint", "params": { "burette": "burette", "flask": "flask-rough", "endColour": "pink" } },
+          { "id": "rough-end", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "rough-titre", "kind": "operation", "ref": "core:record", "params": { "field": "rough-titre", "value": "=quantity(rough-end.out.value) - quantity(rough-start.out.value)" } }
+        ] },
+      { "id": "accurate", "kind": "group", "title": "Three accurate titrations", "objectives": ["o-titrate"], "forEach": { "var": "n", "in": "=[1, 2, 3]" },
+        "let": { "flask": "='flask-' + text(n)" },
+        "steps": [
+          { "id": "get-flask", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:conical-flask-250ml", "id": "=flask", "label": "='Titration ' + text(n)" } },
+          { "id": "sample", "kind": "operation", "ref": "core:transfer", "params": { "source": "iron", "destination": "=flask", "volume": "25 mL", "tool": "pipette25" } },
+          { "id": "acid-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "acid", "destination": "=flask", "volume": "25 mL", "tool": "pour" } },
+          { "id": "refill", "kind": "technique", "ref": "core:prepare-burette", "when": "volume(burette) < 30 mL", "params": { "burette": "burette", "titrant": "kmno4", "volume": "=48 mL - volume(burette)" } },
+          { "id": "start", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "titrate", "kind": "technique", "ref": "core:titrate-to-endpoint", "params": { "burette": "burette", "flask": "=flask", "endColour": "pink", "approx": "=first(recorded('rough-titre'))" } },
+          { "id": "end", "kind": "operation", "ref": "core:read-volume", "params": { "container": "burette" } },
+          { "id": "titre", "kind": "operation", "ref": "core:record", "params": { "field": "titre", "value": "=quantity(end.out.value) - quantity(start.out.value)" } }
+        ] },
+      { "id": "iron-conc", "kind": "operation", "ref": "core:record", "objectives": ["o-iron"], "title": "c(Fe²⁺) from the mean titre",
+        "params": { "field": "Fe-mol-per-L", "value": "=5 * 0.0200 * value(mean(recorded('titre')), 'mL') / 25.00" } },
+      { "id": "electrode-refill", "kind": "technique", "ref": "core:prepare-burette", "title": "Refill the burette for the curve", "params": { "burette": "burette", "titrant": "kmno4", "volume": "=48 mL - volume(burette)" } },
+      { "id": "beaker", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:beaker-250ml", "id": "curve-beaker", "label": "Electrode titration" } },
+      { "id": "curve-sample", "kind": "operation", "ref": "core:transfer", "params": { "source": "iron", "destination": "curve-beaker", "volume": "25 mL", "tool": "pipette25" } },
+      { "id": "curve-acid", "kind": "operation", "ref": "core:transfer", "params": { "source": "acid", "destination": "curve-beaker", "volume": "25 mL", "tool": "pour" } },
+      { "id": "curve", "kind": "group", "objectives": ["o-curve"], "forEach": { "var": "i", "in": "=range(0, 40, 41)" },
+        "steps": [
+          { "id": "add", "kind": "operation", "ref": "core:transfer", "when": "i > 0", "params": { "source": "burette", "destination": "curve-beaker", "volume": "1 mL" } },
+          { "id": "stir", "kind": "operation", "ref": "core:mix", "params": { "container": "curve-beaker", "method": "swirl", "cycles": 3 } },
+          { "id": "potential", "kind": "operation", "ref": "core:measure", "params": { "instrument": "electrode", "subject": "curve-beaker" } },
+          { "id": "note-v", "kind": "operation", "ref": "core:record", "params": { "field": "v", "value": "=i" } },
+          { "id": "note-e", "kind": "operation", "ref": "core:record", "params": { "field": "E-mV", "value": "=potential.out.value" } }
+        ] },
+      { "id": "analyse", "kind": "group", "objectives": ["o-curve"], "let": { "veq": "=steepest(recorded('v'), recorded('E-mV'))" },
+        "steps": [
+          { "id": "equivalence", "kind": "operation", "ref": "core:record", "params": { "field": "Veq", "value": "=veq" } },
+          { "id": "formal", "kind": "operation", "ref": "core:record", "params": { "field": "E-half-mV", "value": "=interpolateAt(recorded('v'), recorded('E-mV'), veq / 2)" } }
+        ] },
+      { "id": "why-no-indicator", "kind": "decision", "objectives": ["o-indicator"], "prompt": "Why does this titration need no indicator?",
+        "options": [
+          { "id": "self", "label": "Permanganate is intensely coloured and Mn²⁺ almost colourless: the first excess drop shows pink" },
+          { "id": "iron", "label": "Iron(III) turns pink at the end point" },
+          { "id": "acid", "label": "The sulfuric acid changes colour at the end point" }
+        ],
+        "correctWhen": "'self'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-iron", "statement": "The iron(II) concentration is within 1 % of the truth", "check": "within(first(recorded('Fe-mol-per-L')), value(truth(conc, 'iron', 'chem:ammonium-iron-ii-sulfate'), 'mol/L'), 1%)" },
+      { "id": "g-formal", "statement": "The half-equivalence potential is within 15 mV of Fe³⁺/Fe²⁺'s formal potential in 1 M H₂SO₄ (0.68 V, so 470 mV against Ag/AgCl)", "check": "abs(first(recorded('E-half-mV')) - 470) <= 15" },
+      { "id": "g-indicator", "statement": "The self-indicating end point is explained", "check": "decision('why-no-indicator') == 'self'" }
+    ],
+    "expectedObservations": [
+      { "id": "e-agree", "statement": "The electrode's equivalence volume agrees with the mean titre within 1 mL", "check": "abs(first(recorded('Veq')) - value(mean(recorded('titre')), 'mL')) <= 1", "source": "reference-standard" },
+      { "id": "e-jump", "statement": "The potential jumps by more than 300 mV across the equivalence point", "check": "interpolateAt(recorded('v'), recorded('E-mV'), first(recorded('Veq')) + 2) - interpolateAt(recorded('v'), recorded('E-mV'), first(recorded('Veq')) - 2) > 300", "source": "reference-standard" },
+      { "id": "e-pink", "statement": "Each accurate titration ends pink", "check": "all(n in [1, 2, 3]: colour('flask-' + text(n)) == 'pink')", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

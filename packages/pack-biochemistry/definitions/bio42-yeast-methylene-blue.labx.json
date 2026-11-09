@@ -1,0 +1,348 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio42-yeast-methylene-blue",
+  "version": "1.0.0",
+  "title": "Respiration in yeast with methylene blue",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Time how long respiring yeast takes to decolourise methylene blue at different temperatures, with controls without glucose and with heat-killed yeast.",
+  "briefing": "Respiring cells pass hydrogen (electrons) from their food along to carriers; methylene blue can take them, and turns colourless when it does. So the faster the yeast respires, the sooner the blue goes. Warm 5 mL of yeast suspension with 5 mL of glucose (or water) to the temperature, add 1 mL of methylene blue, swirl gently, and time until the blue has gone (do not shake: oxygen from the air turns it blue again).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "respiration",
+      "yeast",
+      "methylene blue",
+      "redox indicator",
+      "dehydrogenase",
+      "temperature"
+    ],
+    "topics": [
+      "Respiration"
+    ],
+    "concepts": [
+      {
+        "id": "redox-indicator",
+        "label": "A redox indicator shows the rate at which respiration releases hydrogen"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-time",
+        "kind": "skill",
+        "statement": "Time the decolourisation of methylene blue"
+      },
+      {
+        "id": "o-rate",
+        "kind": "analysis",
+        "statement": "Relate the rate of respiration to temperature",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain what the controls show",
+        "goal": "g-controls"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "yeast",
+        "label": "Yeast suspension (2 % dried yeast)",
+        "contains": [
+          {
+            "substance": "bio:bakers-yeast",
+            "conc": "20 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "glucose",
+        "label": "Glucose, 0.10 M",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "0.10 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "water",
+        "label": "Distilled water",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "mb",
+        "label": "Methylene blue (0.01 %)",
+        "contains": [
+          {
+            "substance": "bio:methylene-blue",
+            "conc": "0.31 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "35 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each tube in turn",
+        "forEach": {
+          "var": "r",
+          "in": "=[['t21','Room temperature (about 21 °C)',0,1],['t30','30 °C',30,1],['t35','35 °C',35,1],['t40','40 °C',40,1],['t35-nosugar','35 °C, no glucose',35,0],['t60','60 °C (yeast boiled first)',60,1]]"
+        },
+        "objectives": [
+          "o-time"
+        ],
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='tube-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "yeast-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "yeast",
+              "destination": "='tube-' + r[0]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "sugar-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=if(r[3] > 0, 'glucose', 'water')",
+              "destination": "='tube-' + r[0]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[2]) + ' Cel')"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "in-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "dye",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "mb",
+              "destination": "='tube-' + r[0]",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "method": "swirl",
+              "cycles": 2
+            }
+          },
+          {
+            "id": "watch",
+            "kind": "group",
+            "title": "Look every 30 s until the blue has gone",
+            "repeat": {
+              "until": "!mentions(last(recorded('seen-' + r[0])), 'blue') || count(recorded('seen-' + r[0])) >= 40",
+              "max": 41
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "30 s"
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='tube-' + r[0]"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + r[0]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "note-time",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='time-' + r[0]",
+              "value": "=30 * count(recorded('seen-' + r[0]))"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=if(mentions(last(recorded('seen-' + r[0])), 'blue'), 0, 1000 / (30 * count(recorded('seen-' + r[0]))))"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='tube-' + r[0]"
+            },
+            "when": "r[2] > 0"
+          }
+        ]
+      },
+      {
+        "id": "controls",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "The tubes without glucose and with heat-killed yeast stayed blue. What do they show?",
+        "options": [
+          {
+            "id": "living-respiring",
+            "label": "That the colour change needs living yeast respiring a substrate, not something else in the tube"
+          },
+          {
+            "id": "glucose-reduces",
+            "label": "That glucose itself decolourises methylene blue"
+          },
+          {
+            "id": "heat-blue",
+            "label": "That heat turns methylene blue blue"
+          }
+        ],
+        "correctWhen": "'living-respiring'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-rate",
+        "statement": "Warmer yeast decolourises the dye sooner, up to 40 °C",
+        "check": "first(recorded('rate-t21')) < first(recorded('rate-t30')) && first(recorded('rate-t30')) < first(recorded('rate-t40'))"
+      },
+      {
+        "id": "g-controls",
+        "statement": "The controls are explained",
+        "check": "decision('controls') == 'living-respiring'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-controls",
+        "statement": "Without glucose, or with heat-killed yeast, the blue stays for 20 minutes",
+        "check": "mentions(last(recorded('seen-t35-nosugar')), 'blue') && mentions(last(recorded('seen-t60')), 'blue')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

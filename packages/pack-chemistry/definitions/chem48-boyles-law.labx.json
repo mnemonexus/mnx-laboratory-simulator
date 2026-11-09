@@ -1,0 +1,215 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem48-boyles-law",
+  "title": "Boyle’s law: pressure and volume of a gas",
+  "summary": "Trap 50 mL of air in a sealed syringe connected to a pressure sensor, hold the plunger at volumes from 100 mL to 25 mL, and show that pressure × volume stays constant.",
+  "briefing": "Draw 50 mL of air into the syringe and cap it, with the pressure sensor connected. Push or pull the plunger to each volume, hold it, wait a minute for the gas to return to room temperature, and read the pressure. At constant temperature pV is constant (Boyle’s law): p is proportional to 1/V.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry",
+        "physics"
+      ]
+    },
+    "keywords": [
+      "Boyle’s law",
+      "gas pressure",
+      "ideal gas",
+      "pV = nRT"
+    ],
+    "topics": [
+      "Gases"
+    ],
+    "concepts": [
+      {
+        "id": "boyle",
+        "label": "At constant temperature the pressure of a fixed amount of gas is inversely proportional to its volume"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the pressure of a trapped gas at several volumes"
+      },
+      {
+        "id": "o-law",
+        "kind": "analysis",
+        "statement": "Show that pV is constant",
+        "goal": "g-boyle"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the result with the kinetic model",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB"
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "sensor",
+        "requires": {
+          "class": "core:pressure-sensor"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "syringe",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:gas-syringe-sealed",
+          "id": "syringe",
+          "label": "Sealed syringe"
+        }
+      },
+      {
+        "id": "trap",
+        "kind": "operation",
+        "ref": "core:trap-air",
+        "params": {
+          "container": "syringe",
+          "volume": "50 mL"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "volumes",
+        "kind": "group",
+        "title": "Each volume in turn",
+        "forEach": {
+          "var": "v",
+          "in": "=[100,80,60,50,40,30,25]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "hold",
+            "kind": "operation",
+            "ref": "core:hold-plunger",
+            "params": {
+              "container": "syringe",
+              "volume": "=quantity(text(v) + ' mL')"
+            }
+          },
+          {
+            "id": "settle",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "1 min"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "sensor",
+              "subject": "syringe"
+            }
+          },
+          {
+            "id": "n-p",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='p at ' + text(v) + ' mL'",
+              "value": "=value(quantity(read.out.value), 'kPa')"
+            }
+          },
+          {
+            "id": "n-pv",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='pV at ' + text(v) + ' mL'",
+              "value": "=value(quantity(read.out.value), 'kPa') * v"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does squeezing the gas into half the volume double its pressure?",
+        "options": [
+          {
+            "id": "collisions",
+            "label": "The same molecules in half the space hit each square centimetre of wall twice as often"
+          },
+          {
+            "id": "faster",
+            "label": "The molecules move twice as fast"
+          },
+          {
+            "id": "bigger",
+            "label": "The molecules get bigger"
+          }
+        ],
+        "correctWhen": "choice == 'collisions'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-boyle",
+        "statement": "pV at 25 mL is within 2 % of pV at 100 mL, and the pressure at 25 mL is about four times that at 100 mL",
+        "check": "abs(first(recorded('pV at 25 mL')) / first(recorded('pV at 100 mL')) - 1) < 0.02 && abs(first(recorded('p at 25 mL')) / first(recorded('p at 100 mL')) - 4) < 0.1"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The result is explained",
+        "check": "decision('why') == 'collisions'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-50",
+        "statement": "At 50 mL, the volume it was trapped at, the pressure is atmospheric (about 101 kPa)",
+        "check": "abs(first(recorded('p at 50 mL')) - 101.3) < 1.5",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

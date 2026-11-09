@@ -1,0 +1,81 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem5-ester-hydrolysis-kinetics",
+  "version": "1.0.0",
+  "title": "The rate of ester hydrolysis at two temperatures",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "operation": "core:calibrate" }, { "operation": "core:fit" }] },
+  "summary": "Mix equal amounts of sodium hydroxide and ethyl ethanoate at 25 °C and at 35 °C, follow the falling pH for 30 minutes, convert pH to hydroxide concentration, find the second-order rate constant from a plot of 1/[OH⁻] against time, and the activation energy from the two rate constants.",
+  "briefing": "The ester uses up hydroxide, so the pH falls as the reaction goes. [OH⁻] = 10^(pH − pKw), and pKw depends on temperature: 14.00 at 25 °C but 13.68 at 35 °C. With equal starting concentrations, 1/[OH⁻] rises in a straight line whose slope is the rate constant k. Then ln(k₂/k₁) = (Ea/R)(1/T₁ − 1/T₂).",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "second-order", "label": "Second-order kinetics and the integrated rate law" }, { "id": "arrhenius", "label": "The Arrhenius equation" }],
+    "objectives": [
+      { "id": "o-follow", "kind": "skill", "statement": "Follow a reaction by pH at a controlled temperature", "skills": ["core:ph-meter-calibration"] },
+      { "id": "o-k", "kind": "analysis", "statement": "Find k at 25 °C within 15 %", "goal": "g-k" },
+      { "id": "o-ea", "kind": "analysis", "statement": "Find the activation energy within 20 %", "goal": "g-ea" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "naoh", "label": "NaOH, 0.0400 M", "contains": [{ "substance": "core:sodium-hydroxide", "conc": "0.0400 mol/L" }], "solvent": "core:water", "amount": "200 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "ester", "label": "Ethyl ethanoate, 0.0400 M (aqueous)", "contains": [{ "substance": "chem:ethyl-acetate", "conc": "0.0400 mol/L" }], "solvent": "core:water", "amount": "200 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "buf4", "label": "pH 4.00 buffer", "preparation": "core:ph-buffer-4", "amount": "50 mL", "container": "core:beaker-100ml" },
+      { "id": "buf7", "label": "pH 7.00 buffer", "preparation": "core:ph-buffer-7", "amount": "50 mL", "container": "core:beaker-100ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "meter", "requires": { "class": "core:ph-meter.benchtop" } },
+      { "id": "bath", "requires": { "class": "core:water-bath", "temperature": "25 Cel" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "calibrate", "kind": "operation", "ref": "core:calibrate", "objectives": ["o-follow"], "params": { "instrument": "meter", "mode": "two-point", "buffers": ["buf4", "buf7"] } },
+      { "id": "runs", "kind": "group", "objectives": ["o-follow"], "forEach": { "var": "T", "in": "=[25, 35]" },
+        "let": { "rxn": "='rxn-' + text(T)" },
+        "steps": [
+          { "id": "set-bath", "kind": "operation", "ref": "core:set-environment", "params": { "device": "bath", "temperature": "=quantity(text(T) + ' Cel')" } },
+          { "id": "beaker", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:beaker-250ml", "id": "=rxn", "label": "='Reaction at ' + text(T) + ' °C'" } },
+          { "id": "base-in", "kind": "operation", "ref": "core:transfer", "params": { "source": "naoh", "destination": "=rxn", "volume": "50 mL" } },
+          { "id": "beaker-in-bath", "kind": "operation", "ref": "core:place-in", "params": { "container": "=rxn", "place": "bath" } },
+          { "id": "ester-in-bath", "kind": "operation", "ref": "core:place-in", "params": { "container": "ester", "place": "bath" } },
+          { "id": "equilibrate", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "10 min" } },
+          { "id": "start", "kind": "operation", "ref": "core:transfer", "params": { "source": "ester", "destination": "=rxn", "volume": "50 mL" } },
+          { "id": "stir", "kind": "operation", "ref": "core:mix", "params": { "container": "=rxn", "method": "stir", "cycles": 3 } },
+          { "id": "follow", "kind": "group", "forEach": { "var": "m", "in": "=range(0, 30, 16)" },
+            "steps": [
+              { "id": "wait", "kind": "operation", "ref": "core:advance-time", "when": "m > 0", "params": { "duration": "2 min" } },
+              { "id": "ph", "kind": "operation", "ref": "core:measure", "params": { "instrument": "meter", "subject": "=rxn" } },
+              { "id": "note-t", "kind": "operation", "ref": "core:record", "params": { "field": "='t-' + text(T)", "value": "=m * 60" } },
+              { "id": "note-ph", "kind": "operation", "ref": "core:record", "params": { "field": "='pH-' + text(T)", "value": "=ph.out.value" } }
+            ] },
+          { "id": "ester-out", "kind": "operation", "ref": "core:remove-from", "params": { "container": "ester" } }
+        ] },
+      { "id": "rate-constants", "kind": "group", "objectives": ["o-k"], "forEach": { "var": "x", "in": "=[[25, 14.0], [35, 13.68]]" },
+        "steps": [
+          { "id": "fit", "kind": "operation", "ref": "core:fit",
+            "params": { "x": "=recorded('t-' + text(x[0]))", "y": "=map(recorded('pH-' + text(x[0])), 1 / 10 ^ (it - x[1]))", "model": "linear" } },
+          { "id": "note-k", "kind": "operation", "ref": "core:record", "params": { "field": "='k-' + text(x[0])", "value": "=fit.out.fit.params.slope" } }
+        ] },
+      { "id": "activation", "kind": "operation", "ref": "core:compute", "objectives": ["o-ea"],
+        "params": { "expression": "8.314 * ln(k2 / k1) / (1 / 298.15 - 1 / 308.15) / 1000", "values": { "k1": "=first(recorded('k-25'))", "k2": "=first(recorded('k-35'))" }, "field": "Ea-kJ" } }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-k", "statement": "k at 25 °C is within 15 % of 0.11 L mol⁻¹ s⁻¹", "check": "within(first(recorded('k-25')), 0.11, 15%)" },
+      { "id": "g-ea", "statement": "The activation energy is within 20 % of 43 kJ/mol", "check": "within(first(recorded('Ea-kJ')), 43, 20%)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-falls", "statement": "The pH falls throughout each run", "check": "last(recorded('pH-25')) < first(recorded('pH-25')) - 0.5 && last(recorded('pH-35')) < first(recorded('pH-35')) - 0.5", "source": "simulation-derived" },
+      { "id": "e-faster", "statement": "The reaction is faster at 35 °C", "check": "first(recorded('k-35')) > 1.4 * first(recorded('k-25'))", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

@@ -1,0 +1,1017 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem16-fischer-ester-workup",
+  "version": "1.0.0",
+  "title": "Fischer esterification and work-up: what does each wash do?",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:drain"
+      },
+      {
+        "operation": "core:concentrate"
+      },
+      {
+        "technique": "chem:melting-point"
+      }
+    ]
+  },
+  "summary": "Esterify 4-nitrocinnamic acid in refluxing ethanol with sulfuric acid in two flasks side by side; quench, extract into ethyl acetate, wash only A with bicarbonate and both with brine, dry over magnesium sulfate, filter, take off the solvent, weigh, and compare the two crude esters' melting points.",
+  "briefing": "The Fischer esterification is acid-catalysed and reversible (K about 4), so it is run in a large excess of ethanol and stops short of completion: some acid is left. Uncharged, both the acid (pKa about 4) and the ester go into ethyl acetate from the acidic quench; saturated bicarbonate (pH about 8) turns the acid into its anion. Brine draws dissolved water out of the organic layer, magnesium sulfate binds the rest. Yield: from the acid weighed in (RMM 193.16) to the ester (RMM 221.21). Ethyl 4-nitrocinnamate melts at 137–140 °C, the acid near 289 °C.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "chemistry",
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "fischer",
+        "label": "Acid-catalysed esterification and its equilibrium"
+      },
+      {
+        "id": "extraction",
+        "label": "Liquid–liquid extraction and partition"
+      },
+      {
+        "id": "acid-base-extraction",
+        "label": "Acid–base extraction"
+      },
+      {
+        "id": "mp-depression",
+        "label": "Melting-point depression by impurities"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-synth",
+        "kind": "skill",
+        "statement": "Set up and run a reaction under reflux",
+        "skills": [
+          "chem:reflux"
+        ]
+      },
+      {
+        "id": "o-workup",
+        "kind": "skill",
+        "statement": "Extract, wash, dry and concentrate an organic product",
+        "skills": [
+          "chem:liquid-liquid-extraction",
+          "chem:rotary-evaporation"
+        ]
+      },
+      {
+        "id": "o-purity",
+        "kind": "analysis",
+        "statement": "Judge from melting points what the bicarbonate wash removed",
+        "goal": "g-workup"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "acid",
+        "label": "4-Nitrocinnamic acid",
+        "contains": [
+          {
+            "substance": "chem:4-nitrocinnamic-acid",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "5 g",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "h2so4",
+        "label": "Sulfuric acid (concentrated, 18 M)",
+        "contains": [
+          {
+            "substance": "core:sulfuric-acid",
+            "conc": "18 M"
+          }
+        ],
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "ethanol",
+        "label": "Ethanol (absolute)",
+        "contains": [
+          {
+            "substance": "core:ethanol",
+            "conc": "789 g/L"
+          }
+        ],
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l",
+        "solvent": "core:ethanol"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "contains": [],
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l",
+        "preparation": "core:water-deionised"
+      },
+      {
+        "id": "etoac",
+        "label": "Ethyl acetate",
+        "contains": [
+          {
+            "substance": "chem:ethyl-acetate",
+            "conc": "902 g/L"
+          }
+        ],
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l",
+        "solvent": "chem:ethyl-acetate"
+      },
+      {
+        "id": "bicarb",
+        "label": "Saturated aqueous sodium bicarbonate",
+        "contains": [],
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l",
+        "preparation": "core:sodium-bicarbonate-saturated"
+      },
+      {
+        "id": "brine",
+        "label": "Saturated brine",
+        "contains": [],
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l",
+        "preparation": "core:brine-saturated"
+      },
+      {
+        "id": "mgso4",
+        "label": "Magnesium sulfate (anhydrous)",
+        "contains": [
+          {
+            "substance": "core:magnesium-sulfate-anhydrous",
+            "purity": "99 %"
+          }
+        ],
+        "amount": "25 g",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      },
+      {
+        "id": "mantle",
+        "requires": {
+          "class": "core:reflux-apparatus"
+        }
+      },
+      {
+        "id": "pasteur",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "evaporator",
+        "requires": {
+          "class": "core:rotary-evaporator"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "coat",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "lab-coat"
+        }
+      },
+      {
+        "id": "specs",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "goggles"
+        }
+      },
+      {
+        "id": "gloves",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "gloves"
+        }
+      },
+      {
+        "id": "charge",
+        "kind": "group",
+        "title": "Flasks A and B: 4-nitrocinnamic acid (2.5 mmol, 0.483 g) weighed into each, then ethanol (10 mL) and, dropwise, concentrated sulfuric acid (0.5 mL)",
+        "steps": [
+          {
+            "id": "rbf",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-100ml",
+              "id": "='rbf-' + x[0]",
+              "label": "='Reaction flask ' + x[2]"
+            }
+          },
+          {
+            "id": "rbf-on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='rbf-' + x[0]",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "rbf-tare",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "acid-in",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "acid",
+              "destination": "='rbf-' + x[0]",
+              "mass": "0.483 g"
+            }
+          },
+          {
+            "id": "acid-weigh",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "acid-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='acid-mass-' + x[0]",
+              "value": "=acid-weigh.out.value"
+            }
+          },
+          {
+            "id": "rbf-off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='rbf-' + x[0]"
+            }
+          },
+          {
+            "id": "ethanol-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ethanol",
+              "destination": "='rbf-' + x[0]",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "stir",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='rbf-' + x[0]",
+              "method": "stir"
+            }
+          },
+          {
+            "id": "catalyst",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "h2so4",
+              "destination": "='rbf-' + x[0]",
+              "volume": "0.5 mL",
+              "tool": "pasteur"
+            }
+          },
+          {
+            "id": "stir-again",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='rbf-' + x[0]",
+              "method": "stir"
+            }
+          },
+          {
+            "id": "to-mantle",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='rbf-' + x[0]",
+              "place": "mantle"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['a', 1, 'A'], ['b', 0, 'B']]"
+        },
+        "objectives": [
+          "o-synth"
+        ]
+      },
+      {
+        "id": "reflux",
+        "kind": "group",
+        "title": "Both heated at reflux for an hour, then cooled to room temperature",
+        "steps": [
+          {
+            "id": "heat",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "mantle",
+              "temperature": "110 Cel"
+            }
+          },
+          {
+            "id": "reflux-1h",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "1 h"
+            }
+          },
+          {
+            "id": "off-a",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "rbf-a"
+            }
+          },
+          {
+            "id": "off-b",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "rbf-b"
+            }
+          },
+          {
+            "id": "cool",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "20 min"
+            }
+          }
+        ],
+        "objectives": [
+          "o-synth"
+        ]
+      },
+      {
+        "id": "workup",
+        "kind": "group",
+        "title": "Each flask: quenched with water (20 mL), extracted with ethyl acetate (2 × 10 mL); the combined organic layers washed with bicarbonate (10 mL, flask A only) and brine (10 mL)",
+        "steps": [
+          {
+            "id": "quench",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='rbf-' + x[0]",
+              "volume": "20 mL"
+            }
+          },
+          {
+            "id": "sep",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:separating-funnel-250ml",
+              "id": "='sep-' + x[0]",
+              "label": "='Separating funnel ' + x[2]"
+            }
+          },
+          {
+            "id": "aq",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "='aq-' + x[0]",
+              "label": "='Aqueous layer ' + x[2]"
+            }
+          },
+          {
+            "id": "org",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "='org-' + x[0]",
+              "label": "='Organic layers ' + x[2]"
+            }
+          },
+          {
+            "id": "washings",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='washings-' + x[0]",
+              "label": "='Washings ' + x[2]"
+            }
+          },
+          {
+            "id": "to-sep",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='rbf-' + x[0]",
+              "destination": "='sep-' + x[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "etoac-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "etoac",
+              "destination": "='sep-' + x[0]",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "stopper-1",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='sep-' + x[0]"
+            }
+          },
+          {
+            "id": "shake-1",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='sep-' + x[0]",
+              "method": "shake",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "vent-1",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='sep-' + x[0]"
+            }
+          },
+          {
+            "id": "run-off-1",
+            "kind": "operation",
+            "ref": "core:drain",
+            "params": {
+              "funnel": "='sep-' + x[0]",
+              "receiver": "='aq-' + x[0]"
+            }
+          },
+          {
+            "id": "org-1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='sep-' + x[0]",
+              "destination": "='org-' + x[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "aq-back",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='aq-' + x[0]",
+              "destination": "='sep-' + x[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "etoac-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "etoac",
+              "destination": "='sep-' + x[0]",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "stopper-2",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='sep-' + x[0]"
+            }
+          },
+          {
+            "id": "shake-2",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='sep-' + x[0]",
+              "method": "shake",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "vent-2",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='sep-' + x[0]"
+            }
+          },
+          {
+            "id": "run-off-2",
+            "kind": "operation",
+            "ref": "core:drain",
+            "params": {
+              "funnel": "='sep-' + x[0]",
+              "receiver": "='aq-' + x[0]"
+            }
+          },
+          {
+            "id": "org-2",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='sep-' + x[0]",
+              "destination": "='org-' + x[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "org-back",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='org-' + x[0]",
+              "destination": "='sep-' + x[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "bicarb",
+            "kind": "group",
+            "title": "Saturated sodium bicarbonate wash (flask A)",
+            "steps": [
+              {
+                "id": "bicarb-in",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "bicarb",
+                  "destination": "='sep-' + x[0]",
+                  "volume": "10 mL"
+                }
+              },
+              {
+                "id": "stopper-3",
+                "kind": "operation",
+                "ref": "core:close",
+                "params": {
+                  "container": "='sep-' + x[0]"
+                }
+              },
+              {
+                "id": "shake-3",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='sep-' + x[0]",
+                  "method": "shake",
+                  "cycles": 3
+                }
+              },
+              {
+                "id": "vent-3",
+                "kind": "operation",
+                "ref": "core:open",
+                "params": {
+                  "container": "='sep-' + x[0]"
+                }
+              },
+              {
+                "id": "run-off-3",
+                "kind": "operation",
+                "ref": "core:drain",
+                "params": {
+                  "funnel": "='sep-' + x[0]",
+                  "receiver": "='washings-' + x[0]"
+                }
+              }
+            ],
+            "when": "x[1] == 1"
+          },
+          {
+            "id": "brine-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "brine",
+              "destination": "='sep-' + x[0]",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "stopper-4",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='sep-' + x[0]"
+            }
+          },
+          {
+            "id": "shake-4",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='sep-' + x[0]",
+              "method": "shake",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "vent-4",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='sep-' + x[0]"
+            }
+          },
+          {
+            "id": "run-off-4",
+            "kind": "operation",
+            "ref": "core:drain",
+            "params": {
+              "funnel": "='sep-' + x[0]",
+              "receiver": "='washings-' + x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['a', 1, 'A'], ['b', 0, 'B']]"
+        },
+        "objectives": [
+          "o-workup"
+        ]
+      },
+      {
+        "id": "isolate",
+        "kind": "group",
+        "title": "Each organic layer dried over magnesium sulfate, filtered into a tared flask (the drying agent rinsed with ethyl acetate) and concentrated; the crude solid weighed",
+        "steps": [
+          {
+            "id": "dry",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "='dry-' + x[0]",
+              "label": "='Drying ' + x[2]"
+            }
+          },
+          {
+            "id": "org-out",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='sep-' + x[0]",
+              "destination": "='dry-' + x[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "mgso4-in",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "mgso4",
+              "destination": "='dry-' + x[0]",
+              "mass": "1 g"
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='dry-' + x[0]",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "stand",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "prod",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-100ml",
+              "id": "='prod-' + x[0]",
+              "label": "='Crude product ' + x[2]"
+            }
+          },
+          {
+            "id": "prod-on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='prod-' + x[0]",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "prod-tare",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "prod-off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='prod-' + x[0]"
+            }
+          },
+          {
+            "id": "funnel",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:filter-funnel",
+              "id": "='funnel-' + x[0]",
+              "label": "='Fluted filter paper ' + x[2]"
+            }
+          },
+          {
+            "id": "filter",
+            "kind": "operation",
+            "ref": "core:filter",
+            "params": {
+              "source": "='dry-' + x[0]",
+              "filter": "='funnel-' + x[0]",
+              "filtrate": "='prod-' + x[0]"
+            }
+          },
+          {
+            "id": "rinse",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "etoac",
+              "destination": "='funnel-' + x[0]",
+              "volume": "3 mL"
+            }
+          },
+          {
+            "id": "rinse-through",
+            "kind": "operation",
+            "ref": "core:filter",
+            "params": {
+              "filter": "='funnel-' + x[0]",
+              "filtrate": "='prod-' + x[0]"
+            }
+          },
+          {
+            "id": "rotavap",
+            "kind": "operation",
+            "ref": "core:concentrate",
+            "params": {
+              "flask": "='prod-' + x[0]",
+              "evaporator": "evaporator",
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "prod-on-2",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='prod-' + x[0]",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "crude-weigh",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "crude-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='crude-mass-' + x[0]",
+              "value": "=crude-weigh.out.value"
+            }
+          },
+          {
+            "id": "yield-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='yield-' + x[0]",
+              "value": "=100 * value(crude-weigh.out.value, 'g') / (value(acid-weigh.out.value, 'g') / 193.16 * 221.21)"
+            }
+          },
+          {
+            "id": "prod-off-2",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='prod-' + x[0]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['a', 1, 'A'], ['b', 0, 'B']]"
+        },
+        "objectives": [
+          "o-workup"
+        ]
+      },
+      {
+        "id": "melting",
+        "kind": "group",
+        "title": "A melting point of each crude solid",
+        "steps": [
+          {
+            "id": "mp",
+            "kind": "technique",
+            "ref": "chem:melting-point",
+            "params": {
+              "sample": "='prod-' + x[0]"
+            }
+          },
+          {
+            "id": "mp-onset",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='mp-onset-' + x[0]",
+              "value": "=mp.out.onset"
+            }
+          },
+          {
+            "id": "mp-clear",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='mp-clear-' + x[0]",
+              "value": "=mp.out.clear"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['a', 1, 'A'], ['b', 0, 'B']]"
+        },
+        "objectives": [
+          "o-purity"
+        ]
+      },
+      {
+        "id": "purer",
+        "kind": "decision",
+        "objectives": [
+          "o-purity"
+        ],
+        "prompt": "Which crude ester is purer, and how do the melting points show it? (Ethyl 4-nitrocinnamate melts at 137–140 °C.)",
+        "options": [
+          {
+            "id": "a",
+            "label": "A: it melts sharply, within the literature range; B melts lower and over a wider range"
+          },
+          {
+            "id": "b",
+            "label": "B: it melts sharply, within the literature range; A melts lower and over a wider range"
+          },
+          {
+            "id": "same",
+            "label": "Neither: they melt alike"
+          }
+        ],
+        "correctWhen": "if(value(first(recorded('mp-clear-a')), 'Cel') > value(first(recorded('mp-clear-b')), 'Cel') + 2 && (value(first(recorded('mp-clear-a')), 'Cel') - value(first(recorded('mp-onset-a')), 'Cel')) < (value(first(recorded('mp-clear-b')), 'Cel') - value(first(recorded('mp-onset-b')), 'Cel')), 'a', if(value(first(recorded('mp-clear-b')), 'Cel') > value(first(recorded('mp-clear-a')), 'Cel') + 2 && (value(first(recorded('mp-clear-b')), 'Cel') - value(first(recorded('mp-onset-b')), 'Cel')) < (value(first(recorded('mp-clear-a')), 'Cel') - value(first(recorded('mp-onset-a')), 'Cel')), 'b', 'same'))"
+      },
+      {
+        "id": "what",
+        "kind": "decision",
+        "objectives": [
+          "o-purity"
+        ],
+        "prompt": "What did the bicarbonate wash take out of A's organic layer?",
+        "options": [
+          {
+            "id": "acid",
+            "label": "Unreacted 4-nitrocinnamic acid: bicarbonate turns it into its anion, which goes into the water; the neutral ester stays in the ethyl acetate"
+          },
+          {
+            "id": "ester",
+            "label": "Some of the ester, which is why A's yield is lower"
+          },
+          {
+            "id": "water",
+            "label": "Water, so A dried better"
+          }
+        ],
+        "correctWhen": "if(value(first(recorded('mp-clear-b')), 'Cel') < value(first(recorded('mp-clear-a')), 'Cel') - 2, 'acid', 'water')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-workup",
+        "statement": "The washed ester is isolated in fair yield and melts in the literature range, and the effect of the bicarbonate wash is read correctly",
+        "check": "first(recorded('yield-a')) > 35 && between(value(first(recorded('mp-clear-a')), 'Cel'), 136.5, 140) && decision('purer') == 'a' && decision('what') == 'acid'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-yield",
+        "statement": "Crude yields of about 50-75 %",
+        "check": "between(first(recorded('yield-a')), 45, 80)",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-acid",
+        "statement": "Unwashed, B keeps nearly all its unreacted acid; A almost none",
+        "check": "mass('prod-b', 'chem:4-nitrocinnamic-acid') > 0.05 * mass('prod-b') && mass('prod-a', 'chem:4-nitrocinnamic-acid') < 0.01 * mass('prod-a')",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-depressed",
+        "statement": "B melts several degrees lower and over a wider range than A",
+        "check": "value(first(recorded('mp-clear-a')), 'Cel') - value(first(recorded('mp-clear-b')), 'Cel') > 2 && (value(first(recorded('mp-clear-b')), 'Cel') - value(first(recorded('mp-onset-b')), 'Cel')) > (value(first(recorded('mp-clear-a')), 'Cel') - value(first(recorded('mp-onset-a')), 'Cel')) + 1.5",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

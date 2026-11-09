@@ -1,0 +1,361 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio36-vitamin-c-dcpip",
+  "version": "1.0.0",
+  "title": "Vitamin C in fruit juice with DCPIP",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Find how much vitamin C solution decolourises 10 mL of blue DCPIP: first a 1 mg/mL ascorbic acid standard, then orange juice and an unknown juice, and work out their vitamin C content.",
+  "briefing": "Vitamin C (ascorbic acid) reduces the blue dye DCPIP to a colourless form. Pipette 10 mL of DCPIP into a flask and run the vitamin C solution in from a burette (emptied and rinsed with each new solution), swirling, until the blue (pink once the juice makes it acidic) just disappears. The dye slowly loses strength, so titrate a 1.00 mg/mL standard first: the juice’s vitamin C is then 1.00 mg/mL × (standard titre ÷ juice titre).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology",
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "vitamin C",
+      "ascorbic acid",
+      "DCPIP",
+      "redox",
+      "titration",
+      "fruit juice"
+    ],
+    "topics": [
+      "Biological molecules",
+      "Nutrition"
+    ],
+    "concepts": [
+      {
+        "id": "redox-dye",
+        "label": "A reducing agent decolourises an oxidised dye mole for mole"
+      },
+      {
+        "id": "standard",
+        "label": "An unknown is measured against a standard treated the same way"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-titrate",
+        "kind": "skill",
+        "statement": "Titrate to the point where the dye just loses its colour"
+      },
+      {
+        "id": "o-calculate",
+        "kind": "analysis",
+        "statement": "Work out the vitamin C content from the titres",
+        "goal": "g-unknown"
+      },
+      {
+        "id": "o-standard",
+        "kind": "reasoning",
+        "statement": "Explain why a vitamin C standard is titrated",
+        "goal": "g-standard"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "std",
+        "label": "Vitamin C standard, 1.00 mg/mL",
+        "contains": [
+          {
+            "substance": "chem:ascorbic-acid",
+            "conc": "1 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "150 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "orange",
+        "label": "Orange juice (filtered)",
+        "contains": [
+          {
+            "substance": "chem:ascorbic-acid",
+            "conc": "0.5 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "150 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "unknown",
+        "label": "Unknown fruit juice (filtered)",
+        "contains": [
+          {
+            "substance": "chem:ascorbic-acid",
+            "conc": "0.6 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "150 mL",
+        "container": "core:reagent-bottle-250ml",
+        "role": "unknown"
+      },
+      {
+        "id": "dcpip",
+        "label": "DCPIP solution (0.1 %)",
+        "preparation": "bio:dcpip-solution",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "burette",
+        "requires": {
+          "class": "core:burette-50ml-class-a"
+        }
+      },
+      {
+        "id": "pipette10",
+        "requires": {
+          "class": "core:volumetric-pipette-10ml"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "waste-beaker",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:beaker-250ml",
+          "id": "waste",
+          "label": "Waste"
+        }
+      },
+      {
+        "id": "titrations",
+        "kind": "group",
+        "title": "Titrate DCPIP with each solution",
+        "objectives": [
+          "o-titrate"
+        ],
+        "forEach": {
+          "var": "s",
+          "in": "=['std', 'orange', 'unknown']"
+        },
+        "let": {
+          "flask": "='flask-' + s"
+        },
+        "steps": [
+          {
+            "id": "empty",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "burette",
+              "destination": "waste",
+              "all": true
+            },
+            "when": "s != 'std'"
+          },
+          {
+            "id": "rinse-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=s",
+              "destination": "burette",
+              "volume": "5 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "rinse-out",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "burette",
+              "destination": "waste",
+              "all": true
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "technique",
+            "ref": "core:prepare-burette",
+            "params": {
+              "burette": "burette",
+              "titrant": "=s",
+              "volume": "45 mL"
+            }
+          },
+          {
+            "id": "get-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "=flask",
+              "label": "='DCPIP for ' + s"
+            }
+          },
+          {
+            "id": "dye",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dcpip",
+              "destination": "=flask",
+              "volume": "10 mL",
+              "tool": "pipette10"
+            }
+          },
+          {
+            "id": "start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "params": {
+              "burette": "burette",
+              "flask": "=flask",
+              "endColour": "colourless",
+              "increment": "0.5 mL",
+              "drop": "0.05 mL"
+            }
+          },
+          {
+            "id": "end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='titre-' + s",
+              "value": "=quantity(end.out.value) - quantity(start.out.value)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "vitc-orange",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "vitC-orange",
+          "value": "=1.00 * value(first(recorded('titre-std')), 'mL') / value(first(recorded('titre-orange')), 'mL')"
+        }
+      },
+      {
+        "id": "vitc-unknown",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "vitC-unknown",
+          "value": "=1.00 * value(first(recorded('titre-std')), 'mL') / value(first(recorded('titre-unknown')), 'mL')"
+        }
+      },
+      {
+        "id": "why-standard",
+        "kind": "decision",
+        "objectives": [
+          "o-standard"
+        ],
+        "prompt": "Why is the 1.00 mg/mL vitamin C standard titrated as well as the juices?",
+        "options": [
+          {
+            "id": "calibrate",
+            "label": "The DCPIP’s strength is not exactly known (it fades), so the standard finds how much vitamin C 10 mL of it takes"
+          },
+          {
+            "id": "practice",
+            "label": "For practice before the real titrations"
+          },
+          {
+            "id": "colour",
+            "label": "To see what colour the end point is"
+          }
+        ],
+        "correctWhen": "'calibrate'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-unknown",
+        "statement": "The unknown juice’s vitamin C is found within 10 %",
+        "check": "within(first(recorded('vitC-unknown')), value(truth('conc', 'unknown', 'chem:ascorbic-acid'), 'mol/L') * 176.12, 10%)"
+      },
+      {
+        "id": "g-standard",
+        "statement": "The standard is explained",
+        "check": "decision('why-standard') == 'calibrate'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-orange",
+        "statement": "Orange juice holds about 0.5 mg/mL of vitamin C (50 mg per 100 mL)",
+        "check": "within(first(recorded('vitC-orange')), 0.5, 10%)",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-ratio",
+        "statement": "Half the vitamin C needs twice the volume",
+        "check": "within(value(first(recorded('titre-orange')), 'mL') / value(first(recorded('titre-std')), 'mL'), 2, 10%)",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default",
+    "params": [
+      {
+        "path": "/materials/supplies/2/contains/0/conc",
+        "domain": [
+          "0.3 g/L",
+          "0.4 g/L",
+          "0.6 g/L",
+          "0.8 g/L"
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

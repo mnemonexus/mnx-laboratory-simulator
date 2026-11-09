@@ -1,0 +1,63 @@
+[
+  {
+    "id": "bio:plate-absorbance-read",
+    "label": "Reading absorbance on a plate reader",
+    "kind": "equipment"
+  },
+  {
+    "id": "bio:plate-reader-setup",
+    "label": "Setting up a plate reader",
+    "kind": "equipment"
+  },
+  {
+    "id": "bio:bca-assay",
+    "label": "The BCA protein assay",
+    "kind": "technique"
+  },
+  {
+    "id": "bio:kinetic-absorbance-read",
+    "label": "Kinetic absorbance reads",
+    "kind": "equipment"
+  },
+  {
+    "id": "bio:initial-rate-analysis",
+    "label": "Initial-rate analysis",
+    "kind": "analysis"
+  },
+  {
+    "id": "bio:michaelis-menten-fit",
+    "label": "Fitting Michaelis–Menten kinetics",
+    "kind": "analysis"
+  },
+  {
+    "id": "bio:substrate-range-design",
+    "label": "Choosing a substrate range",
+    "kind": "design"
+  },
+  {
+    "id": "bio:bradford-assay",
+    "label": "The Bradford protein assay",
+    "kind": "technique"
+  },
+  {
+    "id": "bio:salting-out",
+    "label": "Ammonium sulfate precipitation",
+    "kind": "technique"
+  },
+  {
+    "id": "bio:pellet-handling",
+    "label": "Removing a supernatant without disturbing the pellet",
+    "kind": "technique"
+  },
+  {
+    "id": "bio:sds-page",
+    "label": "SDS-PAGE",
+    "kind": "technique",
+    "description": "Denature proteins in SDS, load, run and image a polyacrylamide gel."
+  },
+  {
+    "id": "bio:subunit-structure",
+    "label": "Subunit structure from native and denatured sizes",
+    "kind": "reasoning"
+  }
+]

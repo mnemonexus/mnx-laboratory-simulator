@@ -1,0 +1,865 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro11-faecal-indicators",
+  "version": "1.0.0",
+  "title": "Is it safe to swim? Viable counts and faecal indicator bacteria",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:spread"
+      }
+    ]
+  },
+  "summary": "Serially dilute water from two sites, spread nutrient agar for a total viable count and EMB agar for E. coli (green sheen) and other coliforms (pink); count plates of 30–300 colonies, and judge the water against a bathing guideline, knowing what a plate cannot show.",
+  "briefing": "A total viable count on nutrient agar at 37 °C counts what grows there, not everything in the water. E. coli lives in guts and dies off in water, so finding it means recent faecal contamination: on EMB agar it grows dark with a green metallic sheen, while other lactose fermenters are pink-purple and Gram-positives do not grow. Count only plates with 30–300 colonies; bacteria per mL = colonies × dilution factor ÷ 0.1 mL.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "microbiology",
+        "bioscience",
+        "environmental-science"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "viable-count",
+        "label": "Viable counts"
+      },
+      {
+        "id": "indicator",
+        "label": "Faecal indicator organisms"
+      },
+      {
+        "id": "detection-limit",
+        "label": "Limits of detection"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-dilute",
+        "kind": "skill",
+        "statement": "Make a tenfold dilution series aseptically",
+        "skills": [
+          "core:serial-dilution"
+        ]
+      },
+      {
+        "id": "o-count",
+        "kind": "analysis",
+        "statement": "Count plates and calculate bacteria per mL",
+        "skills": [
+          "micro:spread-plating",
+          "micro:colony-counting"
+        ],
+        "goal": "g-count"
+      },
+      {
+        "id": "o-interpret",
+        "kind": "reasoning",
+        "statement": "Judge water against a guideline, allowing for the limit of detection",
+        "goal": "g-interpret"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "site-a",
+        "label": "Site A (below a storm overflow)",
+        "role": "specimen",
+        "container": "core:universal-bottle-28ml",
+        "amount": "20 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:bacillus-subtilis",
+            "count": {
+              "vary": "5e6..2e7 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:enterobacter-aerogenes",
+            "count": {
+              "vary": "50..150 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": {
+              "vary": "100..300 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:pseudomonas-fluorescens",
+            "count": "5e3 cells/mL"
+          }
+        ]
+      },
+      {
+        "id": "site-b",
+        "label": "Site B (open lake)",
+        "role": "specimen",
+        "container": "core:universal-bottle-28ml",
+        "amount": "20 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:bacillus-subtilis",
+            "count": {
+              "vary": "5e5..1.5e6 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:enterobacter-aerogenes",
+            "count": {
+              "vary": "1..4 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": {
+              "vary": "0.1..0.3 cells/mL"
+            }
+          },
+          {
+            "substance": "micro:pseudomonas-fluorescens",
+            "count": "5e3 cells/mL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "ringer",
+        "label": "¼-strength Ringer solution",
+        "preparation": "micro:ringer-quarter",
+        "amount": "25 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "na-a3",
+        "label": "na-a3",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "na-a4",
+        "label": "na-a4",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "na-a5",
+        "label": "na-a5",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "na-b3",
+        "label": "na-b3",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "na-b4",
+        "label": "na-b4",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "na-b5",
+        "label": "na-b5",
+        "preparation": "micro:nutrient-agar",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "emb-a0",
+        "label": "emb-a0",
+        "preparation": "micro:emb-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "emb-a1",
+        "label": "emb-a1",
+        "preparation": "micro:emb-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "emb-b0",
+        "label": "emb-b0",
+        "preparation": "micro:emb-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "emb-b1",
+        "label": "emb-b1",
+        "preparation": "micro:emb-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "spreader",
+        "requires": {
+          "class": "core:cell-spreader"
+        }
+      },
+      {
+        "id": "counter",
+        "requires": {
+          "class": "core:colony-counter"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [
+      {
+        "id": "d1",
+        "title": "Dilute and plate"
+      },
+      {
+        "id": "d2",
+        "title": "Count and judge"
+      }
+    ],
+    "steps": [
+      {
+        "id": "wash",
+        "kind": "operation",
+        "ref": "core:wash-hands",
+        "params": {
+          "method": "soap"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "a-diluent",
+        "kind": "group",
+        "title": "site-a: five tubes of 0.9 mL Ringer",
+        "steps": [
+          {
+            "id": "a-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=x",
+              "label": "=x"
+            }
+          },
+          {
+            "id": "a-ringer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ringer",
+              "destination": "=x",
+              "volume": "0.9 mL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['a1', 'a2', 'a3', 'a4', 'a5']"
+        },
+        "objectives": [
+          "o-dilute"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "a-series",
+        "kind": "group",
+        "title": "site-a: tenfold to 10⁻⁵, a fresh tip each step",
+        "steps": [
+          {
+            "id": "a-carry",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "a-vortex",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[1]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['site-a', 'a1'], ['a1', 'a2'], ['a2', 'a3'], ['a3', 'a4'], ['a4', 'a5']]"
+        },
+        "objectives": [
+          "o-dilute"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "a-tvc",
+        "kind": "group",
+        "title": "site-a: 0.1 mL of 10⁻³, 10⁻⁴ and 10⁻⁵ on nutrient agar",
+        "steps": [
+          {
+            "id": "a-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[1]"
+            }
+          },
+          {
+            "id": "a-drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "a-flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "a-spread",
+            "kind": "operation",
+            "ref": "core:spread",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "a-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['a3', 'na-a3'], ['a4', 'na-a4'], ['a5', 'na-a5']]"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "a-emb",
+        "kind": "group",
+        "title": "site-a: 0.1 mL undiluted and of 10⁻¹ on EMB agar",
+        "steps": [
+          {
+            "id": "a-e-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[1]"
+            }
+          },
+          {
+            "id": "a-e-drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "a-e-flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "a-e-spread",
+            "kind": "operation",
+            "ref": "core:spread",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "a-e-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['site-a', 'emb-a0'], ['a1', 'emb-a1']]"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "b-diluent",
+        "kind": "group",
+        "title": "site-b: five tubes of 0.9 mL Ringer",
+        "steps": [
+          {
+            "id": "b-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=x",
+              "label": "=x"
+            }
+          },
+          {
+            "id": "b-ringer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ringer",
+              "destination": "=x",
+              "volume": "0.9 mL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['b1', 'b2', 'b3', 'b4', 'b5']"
+        },
+        "objectives": [
+          "o-dilute"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "b-series",
+        "kind": "group",
+        "title": "site-b: tenfold to 10⁻⁵, a fresh tip each step",
+        "steps": [
+          {
+            "id": "b-carry",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "b-vortex",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[1]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['site-b', 'b1'], ['b1', 'b2'], ['b2', 'b3'], ['b3', 'b4'], ['b4', 'b5']]"
+        },
+        "objectives": [
+          "o-dilute"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "b-tvc",
+        "kind": "group",
+        "title": "site-b: 0.1 mL of 10⁻³, 10⁻⁴ and 10⁻⁵ on nutrient agar",
+        "steps": [
+          {
+            "id": "b-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[1]"
+            }
+          },
+          {
+            "id": "b-drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "b-flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "b-spread",
+            "kind": "operation",
+            "ref": "core:spread",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "b-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['b3', 'na-b3'], ['b4', 'na-b4'], ['b5', 'na-b5']]"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "b-emb",
+        "kind": "group",
+        "title": "site-b: 0.1 mL undiluted and of 10⁻¹ on EMB agar",
+        "steps": [
+          {
+            "id": "b-e-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[1]"
+            }
+          },
+          {
+            "id": "b-e-drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "b-e-flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "b-e-spread",
+            "kind": "operation",
+            "ref": "core:spread",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "spreader"
+            }
+          },
+          {
+            "id": "b-e-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x[1]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['site-b', 'emb-b0'], ['b1', 'emb-b1']]"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "session": "d1"
+      },
+      {
+        "id": "incubate-in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=x",
+          "place": "incubator"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['na-a3', 'na-a4', 'na-a5', 'na-b3', 'na-b4', 'na-b5', 'emb-a0', 'emb-a1', 'emb-b0', 'emb-b1']"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "incubate",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "24 h"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=x"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['na-a3', 'na-a4', 'na-a5', 'na-b3', 'na-b4', 'na-b5', 'emb-a0', 'emb-a1', 'emb-b0', 'emb-b1']"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "tvc-counts",
+        "kind": "group",
+        "title": "Count the nutrient agar plates",
+        "steps": [
+          {
+            "id": "c",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "counter",
+              "subject": "=x"
+            }
+          },
+          {
+            "id": "c-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='count-' + x",
+              "value": "=c.out.count"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['na-a3', 'na-a4', 'na-a5', 'na-b3', 'na-b4', 'na-b5']"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "session": "d2"
+      },
+      {
+        "id": "emb-looks",
+        "kind": "group",
+        "title": "Count the green-sheen (E. coli) and pink (other coliform) colonies on EMB",
+        "steps": [
+          {
+            "id": "e",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "=x"
+            }
+          },
+          {
+            "id": "e-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='EMB-' + x",
+              "value": "=e.out.appearance"
+            }
+          },
+          {
+            "id": "e-total",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "counter",
+              "subject": "=x"
+            }
+          },
+          {
+            "id": "e-count",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='count-' + x",
+              "value": "=e-total.out.count"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['emb-a0', 'emb-a1', 'emb-b0', 'emb-b1']"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "session": "d2"
+      },
+      {
+        "id": "tvc-a",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "TVC-per-mL-a",
+          "value": "=first(map(filter([[coalesce(first(recorded('count-na-a3')), 0), 1000], [coalesce(first(recorded('count-na-a4')), 0), 10000], [coalesce(first(recorded('count-na-a5')), 0), 100000]], between(it[0], 30, 300)), it[0] * it[1] / 0.1))"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "session": "d2"
+      },
+      {
+        "id": "tvc-b",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "TVC-per-mL-b",
+          "value": "=first(map(filter([[coalesce(first(recorded('count-na-b3')), 0), 1000], [coalesce(first(recorded('count-na-b4')), 0), 10000], [coalesce(first(recorded('count-na-b5')), 0), 100000]], between(it[0], 30, 300)), it[0] * it[1] / 0.1))"
+        },
+        "objectives": [
+          "o-count"
+        ],
+        "session": "d2"
+      },
+      {
+        "id": "below-limit",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Site B's undiluted EMB plate (0.1 mL) has no green-sheen colonies. What can you say about E. coli at site B?",
+        "options": [
+          {
+            "id": "none",
+            "label": "There are no E. coli in the water at site B"
+          },
+          {
+            "id": "below-limit",
+            "label": "Fewer than about 10 per mL (one colony from 0.1 mL): too few to see this way. To compare with a bathing limit per 100 mL, a much larger volume must be tested (membrane filtration)"
+          },
+          {
+            "id": "failed",
+            "label": "The plate failed: EMB cannot grow E. coli"
+          }
+        ],
+        "correctWhen": "if(mentions(first(recorded('EMB-emb-b0')), 'sheen'), 'none', 'below-limit')",
+        "session": "d2"
+      },
+      {
+        "id": "site-a-fit",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Site A's undiluted EMB plate shows green-sheen colonies. Against a guideline of 1000 E. coli per 100 mL for bathing water, is site A acceptable?",
+        "options": [
+          {
+            "id": "fails",
+            "label": "No: even a few colonies from 0.1 mL is tens per mL, thousands per 100 mL"
+          },
+          {
+            "id": "passes",
+            "label": "Yes: only a few colonies grew"
+          }
+        ],
+        "correctWhen": "if(mentions(first(recorded('EMB-emb-a0')), 'sheen'), 'fails', 'passes')",
+        "session": "d2"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-count",
+        "statement": "Site A's total viable count is within a factor of two of the truth",
+        "check": "abs(ln(first(recorded('TVC-per-mL-a')) / cells('site-a', 'viable'))) < ln(2)"
+      },
+      {
+        "id": "g-interpret",
+        "statement": "Site A is judged unfit, and site B's empty plate is read as below the limit of detection",
+        "check": "decision('site-a-fit') == 'fails' && decision('below-limit') == 'below-limit'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-sheen",
+        "statement": "Green-sheen E. coli colonies grow from site A's undiluted water",
+        "check": "mentions(first(recorded('EMB-emb-a0')), 'sheen')",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

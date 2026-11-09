@@ -1,0 +1,530 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio28-immune-response-data",
+  "version": "1.0.0",
+  "title": "Reading immune responses from data: T helper subsets, costimulation and killing",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:record"
+      }
+    ]
+  },
+  "summary": "Judge from supplied data which T helper response each traveller mounts, what two knockout mice lack, whether T-cell proliferation needs CD80/CD86 costimulation, why a CTL fails to kill by the intrinsic pathway, and which tissue shows germinal centres.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "immunology"
+      ]
+    },
+    "objectives": [
+      {
+        "id": "o-immuno",
+        "kind": "reasoning",
+        "statement": "Interpret immunological data: T helper subsets, costimulation, cytotoxic killing and germinal centres",
+        "goal": "g-immuno"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed",
+    "steps": [
+      {
+        "id": "people",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "subjects",
+          "value": [
+            "traveller A",
+            "traveller B",
+            "traveller C",
+            "traveller D",
+            "control E",
+            "control F",
+            "control G",
+            "control H"
+          ]
+        }
+      },
+      {
+        "id": "c-ifng",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "IFNg-pg-per-mL",
+          "value": [
+            95,
+            110,
+            1650,
+            100,
+            85,
+            90,
+            100,
+            95
+          ]
+        }
+      },
+      {
+        "id": "c-il17",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "IL17-pg-per-mL",
+          "value": [
+            1250,
+            80,
+            75,
+            70,
+            60,
+            65,
+            1100,
+            70
+          ]
+        }
+      },
+      {
+        "id": "c-il10",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "IL10-pg-per-mL",
+          "value": [
+            140,
+            150,
+            145,
+            160,
+            130,
+            135,
+            150,
+            140
+          ]
+        }
+      },
+      {
+        "id": "c-il5",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "IL5-pg-per-mL",
+          "value": [
+            70,
+            1700,
+            60,
+            55,
+            45,
+            50,
+            60,
+            40
+          ]
+        }
+      },
+      {
+        "id": "who-intracellular",
+        "kind": "decision",
+        "prompt": "Which traveller is likely infected with intracellular bacteria or protozoa (Th1: IFN-γ)?",
+        "options": [
+          {
+            "id": "s1",
+            "label": "traveller A"
+          },
+          {
+            "id": "s2",
+            "label": "traveller B"
+          },
+          {
+            "id": "s3",
+            "label": "traveller C"
+          },
+          {
+            "id": "s4",
+            "label": "traveller D"
+          }
+        ],
+        "correctWhen": "'s' + text(first(filter(i in range(0, 3, 4): first(recorded('IFNg-pg-per-mL'))[i] == max([first(recorded('IFNg-pg-per-mL'))[0], first(recorded('IFNg-pg-per-mL'))[1], first(recorded('IFNg-pg-per-mL'))[2], first(recorded('IFNg-pg-per-mL'))[3]]))) + 1)"
+      },
+      {
+        "id": "who-worm",
+        "kind": "decision",
+        "prompt": "Which traveller is likely infected with a parasitic worm (Th2: IL-5)?",
+        "options": [
+          {
+            "id": "s1",
+            "label": "traveller A"
+          },
+          {
+            "id": "s2",
+            "label": "traveller B"
+          },
+          {
+            "id": "s3",
+            "label": "traveller C"
+          },
+          {
+            "id": "s4",
+            "label": "traveller D"
+          }
+        ],
+        "correctWhen": "'s' + text(first(filter(i in range(0, 3, 4): first(recorded('IL5-pg-per-mL'))[i] == max([first(recorded('IL5-pg-per-mL'))[0], first(recorded('IL5-pg-per-mL'))[1], first(recorded('IL5-pg-per-mL'))[2], first(recorded('IL5-pg-per-mL'))[3]]))) + 1)"
+      },
+      {
+        "id": "who-fungus",
+        "kind": "decision",
+        "prompt": "Which traveller is likely infected with fungi (Th17: IL-17)?",
+        "options": [
+          {
+            "id": "s1",
+            "label": "traveller A"
+          },
+          {
+            "id": "s2",
+            "label": "traveller B"
+          },
+          {
+            "id": "s3",
+            "label": "traveller C"
+          },
+          {
+            "id": "s4",
+            "label": "traveller D"
+          }
+        ],
+        "correctWhen": "'s' + text(first(filter(i in range(0, 3, 4): first(recorded('IL17-pg-per-mL'))[i] == max([first(recorded('IL17-pg-per-mL'))[0], first(recorded('IL17-pg-per-mL'))[1], first(recorded('IL17-pg-per-mL'))[2], first(recorded('IL17-pg-per-mL'))[3]]))) + 1)"
+      },
+      {
+        "id": "outlier",
+        "kind": "decision",
+        "prompt": "One of the uninfected children is an outlier. What might explain it?",
+        "options": [
+          {
+            "id": "allergy",
+            "label": "High IL-5 without infection: a type 2 response, as in allergy"
+          },
+          {
+            "id": "th17",
+            "label": "High IL-17 without infection: a type 17 condition (an autoimmune or chronic inflammatory disease, e.g. psoriasis)"
+          },
+          {
+            "id": "none",
+            "label": "No outlier"
+          }
+        ],
+        "correctWhen": "if(max([first(recorded('IL5-pg-per-mL'))[4], first(recorded('IL5-pg-per-mL'))[5], first(recorded('IL5-pg-per-mL'))[6], first(recorded('IL5-pg-per-mL'))[7]]) > 500, 'allergy', if(max([first(recorded('IL17-pg-per-mL'))[4], first(recorded('IL17-pg-per-mL'))[5], first(recorded('IL17-pg-per-mL'))[6], first(recorded('IL17-pg-per-mL'))[7]]) > 500, 'th17', 'none'))"
+      },
+      {
+        "id": "mice",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "mice",
+          "value": [
+            "WT",
+            "IL-12p35-/-",
+            "X",
+            "Y"
+          ]
+        }
+      },
+      {
+        "id": "eae",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "EAE-score",
+          "value": [
+            3.0,
+            3.0,
+            0.6,
+            4.5
+          ]
+        }
+      },
+      {
+        "id": "eos",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "eosinophils-1e4",
+          "value": [
+            40,
+            41,
+            39,
+            72
+          ]
+        }
+      },
+      {
+        "id": "mouse-x",
+        "kind": "decision",
+        "prompt": "What cytokine is mouse X likely deficient in?",
+        "options": [
+          {
+            "id": "regulatory",
+            "label": "A regulatory cytokine (IL-10 or TGF-β): Treg suppression fails, so both type 17 (EAE) and type 2 (allergy) inflammation worsen"
+          },
+          {
+            "id": "type2",
+            "label": "A type 2 cytokine (IL-4, IL-5 or IL-13): allergic inflammation collapses, EAE is unchanged"
+          },
+          {
+            "id": "type17",
+            "label": "A type 17 cytokine (IL-17 or IL-23): EAE is prevented"
+          },
+          {
+            "id": "none",
+            "label": "Nothing relevant"
+          }
+        ],
+        "correctWhen": "if(first(recorded('EAE-score'))[2] > 1.3 * first(recorded('EAE-score'))[0] && first(recorded('eosinophils-1e4'))[2] > 1.3 * first(recorded('eosinophils-1e4'))[0], 'regulatory', if(first(recorded('eosinophils-1e4'))[2] < 0.5 * first(recorded('eosinophils-1e4'))[0] && abs(first(recorded('EAE-score'))[2] - first(recorded('EAE-score'))[0]) < 0.5, 'type2', if(first(recorded('EAE-score'))[2] < 0.5 * first(recorded('EAE-score'))[0], 'type17', if(first(recorded('eosinophils-1e4'))[2] > 1.3 * first(recorded('eosinophils-1e4'))[0], 'regulatory', 'none'))))"
+      },
+      {
+        "id": "mouse-y",
+        "kind": "decision",
+        "prompt": "What cytokine is mouse Y likely deficient in?",
+        "options": [
+          {
+            "id": "regulatory",
+            "label": "A regulatory cytokine (IL-10 or TGF-β): Treg suppression fails, so both type 17 (EAE) and type 2 (allergy) inflammation worsen"
+          },
+          {
+            "id": "type2",
+            "label": "A type 2 cytokine (IL-4, IL-5 or IL-13): allergic inflammation collapses, EAE is unchanged"
+          },
+          {
+            "id": "type17",
+            "label": "A type 17 cytokine (IL-17 or IL-23): EAE is prevented"
+          },
+          {
+            "id": "none",
+            "label": "Nothing relevant"
+          }
+        ],
+        "correctWhen": "if(first(recorded('EAE-score'))[3] > 1.3 * first(recorded('EAE-score'))[0] && first(recorded('eosinophils-1e4'))[3] > 1.3 * first(recorded('eosinophils-1e4'))[0], 'regulatory', if(first(recorded('eosinophils-1e4'))[3] < 0.5 * first(recorded('eosinophils-1e4'))[0] && abs(first(recorded('EAE-score'))[3] - first(recorded('EAE-score'))[0]) < 0.5, 'type2', if(first(recorded('EAE-score'))[3] < 0.5 * first(recorded('EAE-score'))[0], 'type17', if(first(recorded('eosinophils-1e4'))[3] > 1.3 * first(recorded('eosinophils-1e4'))[0], 'regulatory', 'none'))))"
+      },
+      {
+        "id": "conds",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "conditions",
+          "value": [
+            "no antigen",
+            "antigen",
+            "antigen + anti-CD80",
+            "antigen + anti-CD86",
+            "antigen + anti-CD80 + anti-CD86"
+          ]
+        }
+      },
+      {
+        "id": "a",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "cpm-A",
+          "value": [
+            3,
+            64,
+            40,
+            38,
+            9
+          ]
+        }
+      },
+      {
+        "id": "b",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "cpm-B",
+          "value": [
+            2,
+            60,
+            58,
+            59,
+            57
+          ]
+        }
+      },
+      {
+        "id": "il4",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "IL4-ng-per-mL",
+          "value": [
+            0.1,
+            0.2
+          ]
+        }
+      },
+      {
+        "id": "ifn",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "IFNg-ng-per-mL",
+          "value": [
+            0.1,
+            2.8
+          ]
+        }
+      },
+      {
+        "id": "costim",
+        "kind": "decision",
+        "prompt": "What do individual A's proliferation data show?",
+        "options": [
+          {
+            "id": "costimulation",
+            "label": "Antigen-specific proliferation that needs CD28 costimulation: blocking CD80 or CD86 cuts it, both together almost abolish it (each ligand can costimulate)"
+          },
+          {
+            "id": "nonspecific",
+            "label": "Proliferation without antigen"
+          }
+        ],
+        "correctWhen": "if(first(recorded('cpm-A'))[1] > 10 * first(recorded('cpm-A'))[0] && first(recorded('cpm-A'))[4] < 0.3 * first(recorded('cpm-A'))[1] && first(recorded('cpm-A'))[2] < first(recorded('cpm-A'))[1], 'costimulation', 'nonspecific')"
+      },
+      {
+        "id": "individual-b",
+        "kind": "decision",
+        "prompt": "How and why does individual B differ?",
+        "options": [
+          {
+            "id": "independent",
+            "label": "B's antigen-specific proliferation does not need CD80/CD86: effector or memory T cells, or another costimulatory pathway"
+          },
+          {
+            "id": "same",
+            "label": "No difference"
+          }
+        ],
+        "correctWhen": "if(first(recorded('cpm-B'))[4] > 0.7 * first(recorded('cpm-B'))[1], 'independent', 'same')"
+      },
+      {
+        "id": "pathogen",
+        "kind": "decision",
+        "prompt": "From the cytokine made, which pathogen class, and which antibody class would you expect?",
+        "options": [
+          {
+            "id": "helminth-ige",
+            "label": "IL-4: a Th2 response, typical of helminths; IL-4 switches B cells to IgE"
+          },
+          {
+            "id": "intracellular-igg",
+            "label": "IFN-γ: a Th1 response to an intracellular pathogen; IFN-γ favours opsonising IgG"
+          }
+        ],
+        "correctWhen": "if(first(recorded('IL4-ng-per-mL'))[1] > first(recorded('IFNg-ng-per-mL'))[1], 'helminth-ige', 'intracellular-igg')"
+      },
+      {
+        "id": "et",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "effector-target",
+          "value": [
+            1,
+            5,
+            10,
+            20
+          ]
+        }
+      },
+      {
+        "id": "l1",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "lysis-CTL1",
+          "value": [
+            4,
+            20,
+            45,
+            68
+          ]
+        }
+      },
+      {
+        "id": "l2",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "lysis-CTL2",
+          "value": [
+            2,
+            3,
+            3,
+            5
+          ]
+        }
+      },
+      {
+        "id": "ctl2",
+        "kind": "decision",
+        "prompt": "CTL2 binds and delivers granzyme B, its targets present antigen and can die by the extrinsic pathway, yet it kills none by the intrinsic pathway. Your hypothesis and test?",
+        "options": [
+          {
+            "id": "bcl2",
+            "label": "The target cannot release cytochrome c: granzyme B fails to free Bax from Bcl-2 (e.g. a Bcl-2 that resists cleavage, or overexpressed), so no apoptosome forms. Test: cytochrome c release and Bid/Bax activation in the targets, Bcl-2 levels or mutants"
+          },
+          {
+            "id": "binding",
+            "label": "CTL2 cannot bind its target"
+          }
+        ],
+        "correctWhen": "if(max(first(recorded('lysis-CTL2'))) < 10 && max(first(recorded('lysis-CTL1'))) > 50, 'bcl2', 'binding')"
+      },
+      {
+        "id": "germinal",
+        "kind": "decision",
+        "prompt": "After a strong IgG2a response to a virus, which biopsy shows an effective antibody response: tissue A (circular structures in the cortex) or B (cortex and medulla, no follicles)?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A: germinal centres, where B cells class-switch, hypermutate and are selected for better binding"
+          },
+          {
+            "id": "b",
+            "label": "B"
+          }
+        ],
+        "correctWhen": "'a'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-immuno",
+        "statement": "Every judgement follows from the data",
+        "check": "decision('who-intracellular') == 's3' && decision('who-worm') == 's2' && decision('who-fungus') == 's1' && decision('outlier') == 'th17' && decision('mouse-x') == 'type17' && decision('mouse-y') == 'regulatory' && decision('costim') == 'costimulation' && decision('individual-b') == 'independent' && decision('pathogen') == 'intracellular-igg' && decision('ctl2') == 'bcl2' && decision('germinal') == 'a'"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "ideal"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    },
+    "annotations": [
+      {
+        "path": "/procedure",
+        "class": "simulation-derived",
+        "note": "Illustrative data: traveller C Th1, A Th17, B Th2, control G high IL-17; mouse X type 17-deficient, Y regulatory-deficient; individual A costimulation-dependent, B not; IFN-γ (Th1)."
+      }
+    ]
+  }
+}

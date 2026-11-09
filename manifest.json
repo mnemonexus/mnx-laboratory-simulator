@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "mnxpack_manifest_v1",
+  "id": "biochemistry-lab",
+  "version": "0.3.0",
+  "kind": "experience",
+  "label": "Laboratory Simulator",
+  "description": "A walkable 3D laboratory for the biosciences and chemistry. Prepare samples at the bench, run plate-reader assays, work titrations and reactions, and visit the centrifuge and chromatography stations. Early preview: some stations are still demonstrations.",
+  "tagline": "Practise the decisions behind the result",
+  "icon": "fa-solid fa-flask-vial",
+  "author": "MnemoNexus",
+  "subjects": ["biochemistry", "biology", "chemistry", "laboratory"],
+  "packId": "laboratory",
+  "knowledgeBinding": { "mode": "none" },
+  "surfaces": {
+    "calendar": { "defaultMinutes": 30, "recurrable": true }
+  },
+  "practice": { "version": 1, "catalogue": "assets/practice/catalogue.json" },
+  "permissions": ["render:3d", "runtime:wasm", "storage:local", "schedule:calendar"],
+  "settings": [
+    {
+      "id": "graphicsQuality",
+      "label": "Graphics quality",
+      "description": "Automatic picks a level for this device and lowers it if frames run slow.",
+      "type": "choice",
+      "default": "auto",
+      "options": [
+        { "value": "auto", "label": "Automatic" },
+        { "value": "low", "label": "Low" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "high", "label": "High" },
+        { "value": "ultra", "label": "Ultra" }
+      ]
+    }
+  ],
+  "presentation": { "fit": "canvas" },
+  "engines": { "mnxSdk": "1.0.0" },
+  "entry": { "logicalPath": "code/main.cjs" },
+  "assets": [
+    { "logicalPath": "assets/notices/aq/NOTICE-PHREEQC.txt", "mimeType": "text/plain" },
+    { "logicalPath": "assets/lighting/bake.bin", "mimeType": "application/octet-stream" },
+    { "logicalPath": "assets/content/index.json", "mimeType": "application/json" },
+    { "logicalPath": "assets/content/core.json", "mimeType": "application/json" },
+    { "logicalPath": "assets/content/aqueous.json", "mimeType": "application/json" },
+    { "logicalPath": "assets/content/biochemistry.json", "mimeType": "application/json" },
+    { "logicalPath": "assets/content/chemistry.json", "mimeType": "application/json" },
+    { "logicalPath": "assets/content/microbiology.json", "mimeType": "application/json" },
+    { "logicalPath": "assets/content/molecular-biology.json", "mimeType": "application/json" },
+    { "logicalPath": "assets/content/other.json", "mimeType": "application/json" },
+    { "logicalPath": "assets/practice/catalogue.json", "mimeType": "application/json" }
+  ]
+}

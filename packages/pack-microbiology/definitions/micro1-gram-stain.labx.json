@@ -1,0 +1,66 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro1-gram-stain",
+  "version": "1.0.0",
+  "title": "Gram staining two bacteria",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [{ "technique": "micro:prepare-smear" }, { "technique": "micro:gram-stain" }, { "technique": "micro:brightfield-microscopy" }]
+  },
+  "summary": "Make a smear of each of two broth cultures, heat-fix and Gram stain them, look at them under oil immersion, and classify each organism.",
+  "briefing": "Gram-positive bacteria have a thick peptidoglycan wall that holds the crystal violet–iodine complex when a decolouriser is applied; Gram-negative bacteria lose it and take up the red counterstain. Stain both cultures and decide which is which from what you see.",
+  "context": {
+    "intendedContexts": ["practical-session", "lecture-introduction"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["microbiology", "biosciences"] },
+    "concepts": [{ "id": "gram-wall", "label": "Gram-positive vs Gram-negative cell wall" }],
+    "objectives": [
+      { "id": "o-aseptic", "kind": "skill", "statement": "Take cells from a culture without contaminating it or the next one", "skills": ["micro:aseptic-technique"] },
+      { "id": "o-tech", "kind": "skill", "statement": "Prepare, fix and Gram stain a smear", "skills": ["micro:smear-preparation", "micro:heat-fixing", "micro:gram-stain"] },
+      { "id": "o-id", "kind": "outcome", "statement": "Classify each organism", "skills": ["micro:gram-interpretation"], "goal": "g-class" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "sa", "label": "Culture A", "role": "culture", "contains": [{ "substance": "micro:staphylococcus-aureus-teaching-strain", "count": "1e9 CFU/mL" }], "amount": "5 mL", "container": "core:conical-tube-15ml" },
+      { "id": "ec", "label": "Culture B", "role": "culture", "contains": [{ "substance": "micro:escherichia-coli-k12", "count": "1e9 CFU/mL" }], "amount": "5 mL", "container": "core:conical-tube-15ml" }
+    ],
+    "supplies": [
+      { "id": "cv", "label": "Crystal violet", "preparation": "micro:crystal-violet-stain", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "iodine", "label": "Gram's iodine", "preparation": "micro:grams-iodine", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "decol", "label": "Decolouriser (acetone–ethanol)", "preparation": "micro:acetone-ethanol-decolouriser", "amount": "10 mL", "container": "core:conical-tube-15ml" },
+      { "id": "saf", "label": "Safranin", "preparation": "micro:safranin-stain", "amount": "10 mL", "container": "core:conical-tube-15ml" }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "per-culture", "kind": "group", "title": "Smear, fix, stain and look at each culture", "forEach": { "var": "c", "in": "=['sa', 'ec']" },
+        "let": { "slide": "='slide-' + c" },
+        "steps": [
+          { "id": "get-slide", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microscope-slide", "id": "=slide", "label": "='Smear of ' + labelOf(c)" } },
+          { "id": "smear", "kind": "technique", "ref": "micro:prepare-smear", "params": { "culture": "=c", "slide": "=slide" }, "objectives": ["o-aseptic", "o-tech"] },
+          { "id": "fix", "kind": "technique", "ref": "micro:heat-fix", "params": { "slide": "=slide" }, "objectives": ["o-tech"] },
+          { "id": "stain", "kind": "technique", "ref": "micro:gram-stain", "objectives": ["o-tech"],
+            "params": { "slide": "=slide", "primary": "cv", "mordant": "iodine", "decolouriser": "decol", "counterstain": "saf", "decolouriseTime": "10 s" } },
+          { "id": "look", "kind": "technique", "ref": "micro:brightfield-microscopy", "params": { "slide": "=slide", "objective": "100x-oil" } }
+        ] },
+      { "id": "classify", "kind": "decision", "prompt": "Is each culture Gram-positive or Gram-negative?", "forEach": { "var": "c", "in": "=['sa', 'ec']" },
+        "options": [{ "id": "positive", "label": "Gram-positive" }, { "id": "negative", "label": "Gram-negative" }],
+        "correctWhen": "choice == gramClass(c)", "objectives": ["o-id"] }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-class", "statement": "Each culture is classified correctly", "check": "all(c in ['sa', 'ec']: decision(classify, c) == gramClass(c))" }
+    ],
+    "expectedObservations": [
+      { "id": "e-purple", "statement": "Culture A's smear shows purple cocci", "check": "stainColour('slide-sa') == 'purple'", "source": "reference-standard" },
+      { "id": "e-pink", "statement": "Culture B's smear shows pink rods", "check": "stainColour('slide-ec') == 'pink'", "source": "reference-standard" },
+      { "id": "e-pure", "statement": "Each smear holds one kind of cell", "check": "all(c in ['sa', 'ec']: count(organisms('slide-' + c)) == 1)", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

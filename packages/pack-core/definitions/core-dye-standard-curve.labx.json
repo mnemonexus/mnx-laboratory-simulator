@@ -1,0 +1,558 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "core-dye-standard-curve",
+  "version": "1.0.0",
+  "title": "Accuracy and precision: a dye standard curve from a weighed stock",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:make-up-to-mark"
+      },
+      {
+        "technique": "core:weigh-by-difference"
+      },
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "Weigh about 200 mg of a blue dye powder, make it up to 50.00 mL in a volumetric flask, dilute it to five standards, and measure their absorbance at 628 nm. Then read an unknown three times from fresh portions and report its concentration with the spread of the three.",
+  "briefing": "Accuracy is how close a result is to the true value; precision is how close repeated results are to each other. Neither one implies the other. Record the exact mass you weigh rather than chasing a round number: the stock's concentration is that mass over the flask's volume. Zero the spectrophotometer on water, read every solution in the same cuvette type, and keep the standards' range wide enough to bracket the unknown.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "bioscience",
+        "chemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "accuracy-precision",
+        "label": "Accuracy and precision"
+      },
+      {
+        "id": "calibration",
+        "label": "Calibration curves"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-stock",
+        "kind": "skill",
+        "statement": "Weigh a solid and make a stock solution in a volumetric flask",
+        "skills": [
+          "core:tare-and-weigh",
+          "core:make-up-to-volume"
+        ]
+      },
+      {
+        "id": "o-read",
+        "kind": "skill",
+        "statement": "Blank a spectrophotometer and read standards and an unknown",
+        "skills": [
+          "core:blanking",
+          "core:spectrophotometer-read",
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-unknown",
+        "kind": "outcome",
+        "statement": "Find the unknown's concentration within 4 %",
+        "goal": "g-accurate"
+      },
+      {
+        "id": "o-precision",
+        "kind": "analysis",
+        "statement": "Judge the precision of the repeated readings",
+        "goal": "g-precise"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "unknown",
+        "label": "Unknown dye solution",
+        "role": "unknown",
+        "solvent": "core:water",
+        "contains": [
+          {
+            "substance": "core:brilliant-blue-fcf",
+            "conc": {
+              "vary": "1.0..3.5 mg/L"
+            }
+          },
+          {
+            "substance": "core:sucrose",
+            "conc": "2 g/L"
+          }
+        ],
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      }
+    ],
+    "supplies": [
+      {
+        "id": "powder",
+        "label": "Blue dye in sucrose (0.1 % dye)",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "mass": "10 g"
+          },
+          {
+            "substance": "core:brilliant-blue-fcf",
+            "mass": "10 mg"
+          }
+        ],
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-4dp"
+        }
+      },
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "flask",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:volumetric-flask-50ml",
+          "id": "stock",
+          "label": "Dye stock (50.00 mL)"
+        }
+      },
+      {
+        "id": "weigh",
+        "kind": "technique",
+        "ref": "core:weigh-by-difference",
+        "objectives": [
+          "o-stock"
+        ],
+        "params": {
+          "source": "powder",
+          "destination": "stock",
+          "mass": "200 mg"
+        },
+        "bind": {
+          "balance": "balance"
+        }
+      },
+      {
+        "id": "note-mass",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "powder-mg",
+          "value": "=value(weigh.out.delivered, 'mg')"
+        }
+      },
+      {
+        "id": "dissolve-water",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "stock",
+          "volume": "25 mL",
+          "tool": "pour"
+        }
+      },
+      {
+        "id": "dissolve",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "stock",
+          "method": "swirl",
+          "cycles": 10
+        }
+      },
+      {
+        "id": "make-up",
+        "kind": "operation",
+        "ref": "core:make-up-to-mark",
+        "objectives": [
+          "o-stock"
+        ],
+        "params": {
+          "container": "stock",
+          "solvent": "water"
+        }
+      },
+      {
+        "id": "invert",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "stock",
+          "method": "invert",
+          "cycles": 15
+        }
+      },
+      {
+        "id": "note-stock",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "stock-dye-mg-per-L",
+          "value": "=first(recorded('powder-mg')) * 0.001 / 0.050"
+        }
+      },
+      {
+        "id": "standards",
+        "kind": "group",
+        "title": "Five standards, 1.0 mL each, in tubes",
+        "objectives": [
+          "o-read"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[[1, 1.0], [2, 0.75], [3, 0.5], [4, 0.25], [5, 0.125]]"
+        },
+        "let": {
+          "tube": "='std-' + text(x[0])"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=tube",
+              "label": "='Standard ' + text(x[0])"
+            }
+          },
+          {
+            "id": "stock-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "stock",
+              "destination": "=tube",
+              "volume": "=x[1] * 1 mL"
+            }
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "when": "x[1] < 1",
+            "params": {
+              "source": "water",
+              "destination": "=tube",
+              "volume": "=(1 - x[1]) * 1 mL"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "when": "x[1] < 1",
+            "params": {
+              "container": "=tube",
+              "method": "vortex",
+              "cycles": 1
+            }
+          },
+          {
+            "id": "note-c",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "standard-mg-per-L",
+              "value": "=first(recorded('stock-dye-mg-per-L')) * x[1]"
+            }
+          }
+        ]
+      },
+      {
+        "id": "blank-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-blank",
+          "label": "Blank (water)"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "c-blank",
+          "volume": "1 mL"
+        }
+      },
+      {
+        "id": "zero",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "objectives": [
+          "o-read"
+        ],
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-blank",
+          "wavelength": "628 nm"
+        }
+      },
+      {
+        "id": "read-standards",
+        "kind": "group",
+        "objectives": [
+          "o-read"
+        ],
+        "forEach": {
+          "var": "k",
+          "in": "=[1, 2, 3, 4, 5]"
+        },
+        "let": {
+          "cuvette": "='c-std-' + text(k)"
+        },
+        "steps": [
+          {
+            "id": "cuvette",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-1cm",
+              "id": "=cuvette"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='std-' + text(k)",
+              "destination": "=cuvette",
+              "volume": "900 uL"
+            }
+          },
+          {
+            "id": "a628",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=cuvette",
+              "wavelength": "628 nm"
+            }
+          },
+          {
+            "id": "note-a",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A628-standard",
+              "value": "=a628.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "curve",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-unknown"
+        ],
+        "params": {
+          "x": "=recorded('standard-mg-per-L')",
+          "y": "=recorded('A628-standard')",
+          "model": "linear"
+        }
+      },
+      {
+        "id": "unknown-reads",
+        "kind": "group",
+        "title": "The unknown, three fresh portions",
+        "objectives": [
+          "o-unknown",
+          "o-precision"
+        ],
+        "forEach": {
+          "var": "r",
+          "in": "=[1, 2, 3]"
+        },
+        "let": {
+          "cuvette": "='c-unknown-' + text(r)"
+        },
+        "steps": [
+          {
+            "id": "u-cuvette",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-1cm",
+              "id": "=cuvette"
+            }
+          },
+          {
+            "id": "u-fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "unknown",
+              "destination": "=cuvette",
+              "volume": "900 uL"
+            }
+          },
+          {
+            "id": "u-read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=cuvette",
+              "wavelength": "628 nm"
+            }
+          },
+          {
+            "id": "u-note-a",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A628-unknown",
+              "value": "=u-read.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "read-off",
+        "kind": "data",
+        "ref": "core:interpolate",
+        "objectives": [
+          "o-unknown"
+        ],
+        "params": {
+          "fit": "=curve.out.fit",
+          "points": "=recorded('A628-unknown')"
+        }
+      },
+      {
+        "id": "results",
+        "kind": "group",
+        "objectives": [
+          "o-unknown",
+          "o-precision"
+        ],
+        "let": {
+          "cs": "=map(read-off.out.results, x)"
+        },
+        "steps": [
+          {
+            "id": "note-mean",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "unknown-mg-per-L",
+              "value": "=mean(cs)"
+            }
+          },
+          {
+            "id": "note-cv",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "unknown-cv-%",
+              "value": "=sd(cs) / mean(cs) * 100"
+            }
+          }
+        ]
+      },
+      {
+        "id": "precise-not-accurate",
+        "kind": "decision",
+        "objectives": [
+          "o-precision"
+        ],
+        "prompt": "Three readings agree within 0.5 %, but your stock's mass was recorded wrongly by 10 %. What is true of the result?",
+        "options": [
+          {
+            "id": "precise",
+            "label": "It is precise but not accurate: every reading shares the same calibration error"
+          },
+          {
+            "id": "accurate",
+            "label": "It is accurate, because the readings agree"
+          },
+          {
+            "id": "neither",
+            "label": "It is neither: agreement between readings means nothing"
+          }
+        ],
+        "correctWhen": "'precise'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-accurate",
+        "statement": "The unknown's dye concentration within 4 % of its true value",
+        "check": "within(first(recorded('unknown-mg-per-L')), value(truth(conc, 'unknown', 'core:brilliant-blue-fcf'), 'mol/L') * 792850, 4%)"
+      },
+      {
+        "id": "g-precise",
+        "statement": "The three readings agree within 2 %, and precision is told apart from accuracy",
+        "check": "first(recorded('unknown-cv-%')) < 2 && decision('precise-not-accurate') == 'precise'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-linear",
+        "statement": "The standards fall on a straight line",
+        "check": "fit(curve).r2 > 0.995",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

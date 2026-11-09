@@ -1,0 +1,358 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio4-ammonium-sulfate-precipitation",
+  "version": "1.0.0",
+  "title": "Concentrating a protein by ammonium sulfate precipitation",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "bio:salt-precipitate"
+      },
+      {
+        "technique": "core:load-rotor"
+      }
+    ]
+  },
+  "summary": "Bring a BSA solution to 70 % saturation with ammonium sulfate, pellet the precipitate in a balanced microcentrifuge, remove the supernatant, redissolve the pellet in a smaller volume of PBS and check the recovery at 280 nm.",
+  "briefing": "At high salt concentrations proteins come out of solution. Here you use that to collect BSA as a pellet. The centrifuge does the separating: until it has spun, the precipitate is only a cloudiness in the liquid.",
+  "context": {
+    "intendedContexts": [
+      "practical-session"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "salting-out",
+        "label": "Salting out"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-ppt",
+        "kind": "skill",
+        "statement": "Precipitate a protein with ammonium sulfate",
+        "skills": [
+          "bio:salting-out"
+        ]
+      },
+      {
+        "id": "o-spin",
+        "kind": "skill",
+        "statement": "Pellet it in a balanced centrifuge and remove the supernatant",
+        "skills": [
+          "core:centrifuge-balancing",
+          "bio:pellet-handling"
+        ]
+      },
+      {
+        "id": "o-recovery",
+        "kind": "outcome",
+        "statement": "Recover at least 80 % of the protein in the pellet",
+        "goal": "g-recovery"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "bsa",
+        "label": "BSA, 5 mg/mL in PBS",
+        "contains": [
+          {
+            "substance": "bio:bovine-serum-albumin",
+            "conc": "5 mg/mL"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "as-sat",
+        "label": "Saturated ammonium sulfate",
+        "preparation": "core:ammonium-sulfate-saturated",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "pbs",
+        "label": "PBS",
+        "preparation": "core:pbs-1x",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "rotor",
+        "requires": {
+          "class": "core:microcentrifuge-24"
+        }
+      },
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.uv-vis"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-2ml",
+          "id": "ppt",
+          "label": "Precipitate"
+        }
+      },
+      {
+        "id": "sample-in",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "bsa",
+          "destination": "ppt",
+          "volume": "500 uL"
+        }
+      },
+      {
+        "id": "precipitate",
+        "kind": "technique",
+        "ref": "bio:salt-precipitate",
+        "objectives": [
+          "o-ppt"
+        ],
+        "params": {
+          "sample": "ppt",
+          "saturated": "as-sat",
+          "volume": "1167 uL"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "technique",
+        "ref": "core:load-rotor",
+        "params": {
+          "tubes": [
+            "ppt"
+          ],
+          "by": "mass"
+        },
+        "bind": {
+          "rotor": "rotor"
+        },
+        "objectives": [
+          "o-spin"
+        ]
+      },
+      {
+        "id": "spin",
+        "kind": "operation",
+        "ref": "core:centrifuge",
+        "params": {
+          "rcf": "12000 [RCF]",
+          "duration": "10 min"
+        }
+      },
+      {
+        "id": "open",
+        "kind": "operation",
+        "ref": "core:open",
+        "params": {
+          "container": "ppt"
+        }
+      },
+      {
+        "id": "sup-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-2ml",
+          "id": "sup",
+          "label": "Supernatant"
+        }
+      },
+      {
+        "id": "remove-sup",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "objectives": [
+          "o-spin"
+        ],
+        "params": {
+          "source": "ppt",
+          "destination": "sup",
+          "volume": "1600 uL"
+        }
+      },
+      {
+        "id": "redissolve",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "pbs",
+          "destination": "ppt",
+          "volume": "500 uL"
+        }
+      },
+      {
+        "id": "resuspend",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "ppt",
+          "method": "pipette-mix",
+          "cycles": 8
+        }
+      },
+      {
+        "id": "blank-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-quartz-1cm",
+          "id": "c-blank",
+          "label": "Blank"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "pbs",
+          "destination": "c-blank",
+          "volume": "1000 uL"
+        }
+      },
+      {
+        "id": "blank",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "wavelength": "280 nm",
+          "reference": "c-blank"
+        }
+      },
+      {
+        "id": "read-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-quartz-1cm",
+          "id": "c-pellet",
+          "label": "Redissolved pellet, 1 in 6"
+        }
+      },
+      {
+        "id": "dilute",
+        "kind": "group",
+        "steps": [
+          {
+            "id": "diluent",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "pbs",
+              "destination": "c-pellet",
+              "volume": "1000 uL"
+            }
+          },
+          {
+            "id": "aliquot",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ppt",
+              "destination": "c-pellet",
+              "volume": "200 uL"
+            }
+          },
+          {
+            "id": "mix-cuvette",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "c-pellet",
+              "method": "pipette-mix",
+              "cycles": 5
+            }
+          }
+        ]
+      },
+      {
+        "id": "a280",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "spec",
+          "subject": "c-pellet",
+          "wavelength": "280 nm"
+        }
+      },
+      {
+        "id": "recovery",
+        "kind": "operation",
+        "ref": "core:compute",
+        "params": {
+          "expression": "a / 0.66 * 6 * volume / (5 * 0.5)",
+          "values": {
+            "a": "=a280.out.value",
+            "volume": "=value(volume('ppt'), 'mL') + 0.2"
+          },
+          "field": "recovery"
+        }
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-recovery",
+        "statement": "At least 80 % of the BSA is in the redissolved pellet",
+        "check": "mass('ppt', 'bio:bovine-serum-albumin') + mass('c-pellet', 'bio:bovine-serum-albumin') >= 0.8 * 2.5 mg"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-sup",
+        "statement": "Less than 10 % of the protein is left in the supernatant",
+        "check": "mass('sup', 'bio:bovine-serum-albumin') < 0.25 mg",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-a280",
+        "statement": "The A280 estimate of recovery agrees with the truth within 10 %",
+        "check": "within(first(recorded('recovery')), (mass('ppt', 'bio:bovine-serum-albumin') + mass('c-pellet', 'bio:bovine-serum-albumin')) / 2.5 mg, 10%)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

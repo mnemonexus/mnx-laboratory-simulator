@@ -1,0 +1,9 @@
+{
+  "id": "chem",
+  "version": "0.1.0",
+  "label": "Chemistry",
+  "description": "General, analytical, physical and organic chemistry practicals. Cross-discipline foundations (titration, weighing, pH) live in core.",
+  "dependsOn": [
+    "core"
+  ]
+}

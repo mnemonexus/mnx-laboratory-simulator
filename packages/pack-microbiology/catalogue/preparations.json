@@ -1,0 +1,520 @@
+[
+  {
+    "id": "micro:crystal-violet-stain",
+    "label": "Crystal violet (Hucker's, 2 %)",
+    "components": [
+      {
+        "substance": "micro:crystal-violet",
+        "conc": "49 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "2 g crystal violet in 20 mL ethanol with 80 mL 1 % ammonium oxalate. Only the dye is modelled."
+  },
+  {
+    "id": "micro:grams-iodine",
+    "label": "Gram's iodine",
+    "components": [
+      {
+        "substance": "micro:iodine",
+        "conc": "13 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "1 g iodine and 2 g potassium iodide in 300 mL water. Potassium iodide is not modelled."
+  },
+  {
+    "id": "micro:acetone-ethanol-decolouriser",
+    "label": "Decolouriser (acetone–ethanol 1:1)",
+    "components": [
+      {
+        "substance": "micro:acetone",
+        "conc": "6.75 mol/L"
+      },
+      {
+        "substance": "core:ethanol",
+        "conc": "8.1 mol/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Equal volumes of acetone and 95 % ethanol. A fast decolouriser: seconds matter."
+  },
+  {
+    "id": "micro:safranin-stain",
+    "label": "Safranin (0.25 %)",
+    "components": [
+      {
+        "substance": "micro:safranin",
+        "conc": "7.1 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "micro:lb-broth-sterile",
+    "label": "LB broth (sterile)",
+    "components": [
+      {
+        "substance": "micro:lb-nutrients",
+        "conc": "15 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "10 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "10 g/L tryptone, 5 g/L yeast extract (modelled together as LB nutrients) and 10 g/L NaCl."
+  },
+  {
+    "id": "micro:lb-agar-plate",
+    "label": "LB agar",
+    "components": [
+      {
+        "substance": "micro:lb-nutrients",
+        "conc": "15 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "10 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "15 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "micro:lb-amp-agar-plate",
+    "label": "LB agar with ampicillin (100 µg/mL)",
+    "components": [
+      {
+        "substance": "micro:lb-nutrients",
+        "conc": "15 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "10 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "15 g/L"
+      },
+      {
+        "substance": "micro:ampicillin",
+        "conc": "100 mg/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "micro:lb-amp-ara-agar-plate",
+    "label": "LB agar with ampicillin and arabinose",
+    "components": [
+      {
+        "substance": "micro:lb-nutrients",
+        "conc": "15 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "10 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "15 g/L"
+      },
+      {
+        "substance": "micro:ampicillin",
+        "conc": "100 mg/L"
+      },
+      {
+        "substance": "micro:l-arabinose",
+        "conc": "6 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "micro:transformation-solution",
+    "label": "Transformation solution (50 mM CaCl₂)",
+    "components": [],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Calcium chloride is not modelled; the solution is the medium competent cells are kept in."
+  },
+  {
+    "id": "micro:trypan-blue-0.4pct",
+    "label": "Trypan blue (0.4 %)",
+    "components": [
+      {
+        "substance": "micro:trypan-blue",
+        "conc": "4 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "micro:macconkey-agar-plate",
+    "label": "MacConkey agar plate",
+    "components": [
+      {
+        "substance": "micro:macconkey-base",
+        "conc": "40 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "13.5 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Selective for Gram-negatives; lactose fermenters grow pink."
+  },
+  {
+    "id": "micro:catalase-reagent",
+    "label": "Hydrogen peroxide, 3 % (catalase test)",
+    "components": [
+      {
+        "substance": "core:hydrogen-peroxide",
+        "conc": "30 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "micro:oxidase-reagent-1pct",
+    "label": "Oxidase reagent (1 % TMPD)",
+    "components": [
+      {
+        "substance": "micro:oxidase-reagent",
+        "conc": "10 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "micro:mueller-hinton-agar-plate",
+    "label": "Mueller–Hinton agar plate",
+    "components": [
+      {
+        "substance": "micro:mueller-hinton-base",
+        "conc": "21 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "17 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Poured 4 mm deep (25 mL in a 90 mm dish) for disc diffusion: a thinner agar gives larger zones, a thicker one smaller."
+  },
+  {
+    "id": "micro:mueller-hinton-broth",
+    "label": "Mueller–Hinton broth (sterile)",
+    "components": [
+      {
+        "substance": "micro:mueller-hinton-base",
+        "conc": "21 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "The standard broth for MICs: low in thymidine and the other antagonists of the folate-pathway drugs."
+  },
+  {
+    "id": "micro:nutrient-broth-sterile",
+    "label": "Nutrient broth (sterile)",
+    "components": [
+      {
+        "substance": "micro:lb-nutrients",
+        "conc": "8 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "5 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "5 g/L peptone and 3 g/L beef extract, modelled as general nutrients (as LB's are); 5 g/L NaCl."
+  },
+  {
+    "id": "micro:nutrient-agar",
+    "label": "Nutrient agar",
+    "components": [
+      {
+        "substance": "micro:lb-nutrients",
+        "conc": "8 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "5 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "15 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Nutrient broth set with 1.5 % agar: plates, deeps and slopes."
+  },
+  {
+    "id": "micro:emb-agar-plate",
+    "label": "EMB agar plate",
+    "components": [
+      {
+        "substance": "micro:emb-base",
+        "conc": "22.5 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "13.5 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Eosin methylene blue: selective for Gram-negatives; E. coli grows with a green metallic sheen, other lactose fermenters pink-purple."
+  },
+  {
+    "id": "micro:ringer-quarter",
+    "label": "Ringer solution, ¼ strength",
+    "components": [
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "2.25 g/L"
+      },
+      {
+        "substance": "core:potassium-chloride",
+        "conc": "0.105 g/L"
+      },
+      {
+        "substance": "core:calcium-chloride",
+        "conc": "0.06 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "An isotonic diluent for bacteria: cells neither burst nor grow in it."
+  },
+  {
+    "id": "micro:pseudomonas-cfc-agar-plate",
+    "label": "Pseudomonas selective agar with CFC supplement",
+    "components": [
+      {
+        "substance": "micro:lb-nutrients",
+        "conc": "15 g/L"
+      },
+      {
+        "substance": "micro:cfc-supplement",
+        "conc": "0.05 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "15 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Nutrient base with cetrimide, fucidin and cephaloridine: pseudomonads grow, most others do not."
+  },
+  {
+    "id": "micro:mineral-salts-medium",
+    "label": "Mineral salts medium (no carbon source)",
+    "components": [
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "1 g/L"
+      },
+      {
+        "substance": "core:ammonium-chloride",
+        "conc": "1 g/L"
+      },
+      {
+        "substance": "core:magnesium-chloride",
+        "conc": "0.2 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "1 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Salts and nitrogen only: bacteria grow in it only on a carbon source added to it."
+  },
+  {
+    "id": "micro:y-per-lysis",
+    "label": "Y-PER-type lysis reagent",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "20 mM"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "50 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "A mild detergent lysis buffer; with 98 °C for 5 minutes the cells burst and release their DNA (the detergent is not modelled)."
+  },
+  {
+    "id": "micro:ethanol-95-decolouriser",
+    "label": "Ethanol, 95 % (decolouriser)",
+    "components": [
+      {
+        "substance": "core:ethanol",
+        "conc": "16.3 mol/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "micro:dmso-tris-2pct",
+    "label": "2 % DMSO in Tris buffer",
+    "components": [
+      {
+        "substance": "core:dmso",
+        "conc": "22 g/L"
+      },
+      {
+        "substance": "core:tris",
+        "conc": "50 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.5,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "The solvent for sulfamethoxazole stocks, and its solvent-only control."
+  },
+  {
+    "id": "micro:minimal-glucose-agar-plate",
+    "label": "Minimal glucose agar (Vogel–Bonner salts, 2 % glucose)",
+    "components": [
+      {
+        "substance": "core:glucose",
+        "conc": "20 g/L"
+      },
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "3 g/L"
+      },
+      {
+        "substance": "core:ammonium-chloride",
+        "conc": "1 g/L"
+      },
+      {
+        "substance": "core:magnesium-chloride",
+        "conc": "0.2 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "15 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "The bottom agar of an Ames test: mineral salts and glucose, no histidine. A prototroph grows on it; a histidine auxotroph does not."
+  },
+  {
+    "id": "micro:minimal-top-agar",
+    "label": "Minimal top agar (0.6 % agar, 0.5 % NaCl, 0.05 mM histidine and biotin)",
+    "components": [
+      {
+        "substance": "micro:agar",
+        "conc": "6 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "5 g/L"
+      },
+      {
+        "substance": "micro:l-histidine",
+        "conc": "0.05 mM"
+      },
+      {
+        "substance": "micro:biotin",
+        "conc": "0.05 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "Soft agar poured over a plate with the cells in it. Its trace of histidine lets His⁻ cells divide a few times (a mutation is fixed only when the DNA is copied) without growing into colonies; melted, it is held at 45-60 °C and sets at about 38 °C."
+  },
+  {
+    "id": "micro:soft-agar",
+    "label": "Soft agar (0.6 % agar, 0.5 % NaCl)",
+    "components": [
+      {
+        "substance": "micro:agar",
+        "conc": "6 g/L"
+      },
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "5 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "status": "experimental",
+    "description": "Soft agar for an overlay, with nothing added: melted, it is held at 45-60 °C and sets at about 38 °C."
+  },
+  {
+    "id": "micro:mrs-agar-plate",
+    "label": "MRS agar plate",
+    "components": [
+      {
+        "substance": "micro:mrs-base",
+        "conc": "52 g/L"
+      },
+      {
+        "substance": "micro:agar",
+        "conc": "12 g/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Selective for lactobacilli: incubate at 37 °C for two days."
+  }
+]

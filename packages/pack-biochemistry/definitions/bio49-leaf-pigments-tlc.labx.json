@@ -1,0 +1,310 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio49-leaf-pigments-tlc",
+  "version": "1.0.0",
+  "title": "Separating leaf pigments by thin-layer chromatography",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Extract the pigments from leaves with propanone, run them on a TLC plate in a hexane–propanone solvent, and identify carotene, xanthophyll, the chlorophylls and phaeophytin by their colours and Rf values.",
+  "briefing": "Grind leaves with a little sand and propanone and filter: the green extract holds several pigments. Spot it many times on the origin of a silica TLC plate, letting each spot dry, to build a small concentrated spot. Run the plate in 9 : 1 hexane : propanone until the front is near the top, mark the front, and look at it in daylight. Rf = distance moved by the spot ÷ distance moved by the solvent. Less polar pigments are held less by the silica and travel further.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology",
+        "biochemistry"
+      ]
+    },
+    "keywords": [
+      "chromatography",
+      "TLC",
+      "photosynthetic pigments",
+      "chlorophyll",
+      "carotene",
+      "xanthophyll",
+      "Rf value"
+    ],
+    "topics": [
+      "Photosynthesis",
+      "Chromatography"
+    ],
+    "concepts": [
+      {
+        "id": "pigments",
+        "label": "Leaves hold several pigments that absorb different wavelengths"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-run",
+        "kind": "skill",
+        "statement": "Spot, develop and view a TLC plate of a leaf extract"
+      },
+      {
+        "id": "o-rf",
+        "kind": "analysis",
+        "statement": "Calculate Rf values and identify the pigments",
+        "goal": "g-pigments"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain why the pigments separate",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "extract",
+        "label": "Leaf pigment extract (spinach, in propanone)",
+        "contains": [
+          {
+            "substance": "bio:chlorophyll-a",
+            "conc": "0.3 mg/mL"
+          },
+          {
+            "substance": "bio:chlorophyll-b",
+            "conc": "0.1 mg/mL"
+          },
+          {
+            "substance": "bio:beta-carotene",
+            "conc": "0.03 mg/mL"
+          },
+          {
+            "substance": "bio:xanthophyll",
+            "conc": "0.06 mg/mL"
+          },
+          {
+            "substance": "bio:phaeophytin",
+            "conc": "0.02 mg/mL"
+          },
+          {
+            "substance": "chem:propanone",
+            "conc": "784 g/L"
+          }
+        ],
+        "solvent": "chem:propanone",
+        "amount": "5 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "eluent",
+        "label": "Hexane : propanone, 9 : 1",
+        "contains": [
+          {
+            "substance": "chem:hexane",
+            "conc": "589 g/L"
+          },
+          {
+            "substance": "chem:propanone",
+            "conc": "78 g/L"
+          }
+        ],
+        "solvent": "chem:hexane",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "plate",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:tlc-plate-silica",
+          "id": "plate",
+          "label": "TLC plate"
+        }
+      },
+      {
+        "id": "spot",
+        "kind": "operation",
+        "ref": "core:spot",
+        "params": {
+          "plate": "plate",
+          "source": "extract",
+          "lane": 1,
+          "volume": "10 uL"
+        },
+        "objectives": [
+          "o-run"
+        ]
+      },
+      {
+        "id": "chamber",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:tlc-chamber",
+          "id": "chamber",
+          "label": "Developing chamber"
+        }
+      },
+      {
+        "id": "fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "eluent",
+          "destination": "chamber",
+          "volume": "10 mL"
+        }
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:develop",
+        "params": {
+          "plate": "plate",
+          "chamber": "chamber",
+          "front": "55 mm"
+        },
+        "objectives": [
+          "o-run"
+        ]
+      },
+      {
+        "id": "look",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "eye",
+          "subject": "plate"
+        },
+        "objectives": [
+          "o-run"
+        ]
+      },
+      {
+        "id": "note",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "plate",
+          "value": "=look.out.appearance"
+        }
+      },
+      {
+        "id": "rfs",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Rf",
+          "value": "=map(tlcSpots('plate', 1), it / solventFront('plate'))"
+        },
+        "objectives": [
+          "o-rf"
+        ]
+      },
+      {
+        "id": "furthest",
+        "kind": "decision",
+        "objectives": [
+          "o-rf"
+        ],
+        "prompt": "Which pigment travels furthest?",
+        "options": [
+          {
+            "id": "carotene",
+            "label": "Carotene (orange)"
+          },
+          {
+            "id": "xanthophyll",
+            "label": "Xanthophyll (yellow)"
+          },
+          {
+            "id": "chl-a",
+            "label": "Chlorophyll a (blue-green)"
+          },
+          {
+            "id": "chl-b",
+            "label": "Chlorophyll b (yellow-green)"
+          }
+        ],
+        "correctWhen": "'carotene'"
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does carotene travel furthest?",
+        "options": [
+          {
+            "id": "least-polar",
+            "label": "It has no polar groups, so the polar silica holds it least and the non-polar solvent carries it furthest"
+          },
+          {
+            "id": "smallest",
+            "label": "It is the smallest molecule"
+          },
+          {
+            "id": "most-soluble-water",
+            "label": "It dissolves best in water"
+          }
+        ],
+        "correctWhen": "'least-polar'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-pigments",
+        "statement": "At least four pigments are separated, the furthest (carotene) at Rf above 0.9",
+        "check": "count(first(recorded('Rf'))) >= 4 && max(map(first(recorded('Rf')), value(it, ''))) > 0.9 && decision('furthest') == 'carotene'"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The separation is explained",
+        "check": "decision('why') == 'least-polar'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-colours",
+        "statement": "In daylight the spots are orange, yellow, blue-green and yellow-green",
+        "check": "mentions(first(recorded('plate')), 'orange') && mentions(first(recorded('plate')), 'blue-green') && mentions(first(recorded('plate')), 'yellow-green')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

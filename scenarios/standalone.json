@@ -1,0 +1,30 @@
+{
+  "title": "Standalone: start an experience, visit the plate reader, end the session",
+  "surface": "standalone",
+  "drive": [
+    {
+      "wait": 15000
+    },
+    {
+      "waitFor": "[data-testid=start-experience]"
+    },
+    {
+      "click": "[data-testid=start-experience]"
+    },
+    {
+      "wait": 25000
+    },
+    {
+      "click": "[data-testid=station-plate-reader]"
+    },
+    {
+      "wait": 25000
+    },
+    {
+      "click": "[data-testid=end-session]"
+    },
+    {
+      "expect": "complete"
+    }
+  ]
+}

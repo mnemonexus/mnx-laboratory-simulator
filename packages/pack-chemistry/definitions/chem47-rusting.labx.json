@@ -1,0 +1,438 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem47-rusting",
+  "title": "{{title}}",
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "rusting",
+      "corrosion",
+      "iron",
+      "oxygen",
+      "water",
+      "sacrificial protection",
+      "galvanising"
+    ],
+    "topics": [
+      "Corrosion",
+      "Reactivity series"
+    ],
+    "concepts": [
+      {
+        "id": "rusting",
+        "label": "Iron rusts only when both water and oxygen are present; salt speeds it up; a more reactive metal in contact corrodes instead"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-setup",
+        "kind": "skill",
+        "statement": "Set up a controlled comparison of conditions over several days"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "{{compareObjective}}",
+        "goal": "g-rust"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the results",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "What makes iron rust?"
+    },
+    "summary": {
+      "default": "Leave clean iron nails for three days in tap water, in boiled water under oil, in dry air over calcium chloride, and in salt water, and compare how much each rusts."
+    },
+    "briefing": {
+      "default": "Sand four nails clean. Tube 1: tap water, open to the air. Tube 2: water that has been boiled to drive out the air, cooled, with a layer of oil on top to keep air out. Tube 3: anhydrous calcium chloride to dry the air, stoppered. Tube 4: salt water. Leave them for three days, then look at the nails."
+    },
+    "runs": {
+      "default": "=[['air-water','Air and water','tap',false,false,''],['no-air','Boiled water under oil (no air)','boiled',true,false,''],['no-water','Dry air (calcium chloride, stoppered)','',false,true,''],['salt','Salt water','salt',false,false,'']]"
+    },
+    "compareObjective": {
+      "default": "Find which conditions iron needs to rust"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "What does iron need in order to rust?",
+        "options": [
+          {
+            "id": "both",
+            "label": "Both water and oxygen (air)"
+          },
+          {
+            "id": "water",
+            "label": "Water only"
+          },
+          {
+            "id": "air",
+            "label": "Air only"
+          },
+          {
+            "id": "salt",
+            "label": "Salt"
+          }
+        ],
+        "correctWhen": "choice == 'both'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rust",
+            "statement": "The nail in air and water rusts; those without air or without water do not",
+            "check": "mentions(first(recorded('seen-air-water')), 'rust') && !mentions(first(recorded('seen-no-water')), 'rust') && !mentions(first(recorded('seen-no-air')), 'rust-brown coating on the metal') "
+          },
+          {
+            "id": "g-explain",
+            "statement": "The conditions are explained",
+            "check": "decision('why') == 'both'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-salt",
+            "statement": "The nail in salt water rusts most",
+            "check": "first(recorded('rust-salt')) > first(recorded('rust-air-water'))",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "tap",
+        "label": "Tap water",
+        "contains": [
+          {
+            "substance": "core:oxygen",
+            "conc": "0.28 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "boiled",
+        "label": "Boiled water, cooled (air driven out)",
+        "contains": [
+          {
+            "substance": "core:oxygen",
+            "conc": "0.005 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "salt",
+        "label": "Salt water (3 % sodium chloride)",
+        "contains": [
+          {
+            "substance": "core:oxygen",
+            "conc": "0.25 mM"
+          },
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "oil",
+        "label": "Cooking oil",
+        "contains": [
+          {
+            "substance": "core:vegetable-oil",
+            "conc": "920 g/L"
+          }
+        ],
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "setup",
+        "kind": "group",
+        "title": "Set up the tubes",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-setup"
+        ],
+        "steps": [
+          {
+            "id": "fetch",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "='tube-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "nail",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "aq:iron-nail",
+              "destination": "='tube-' + r[0]",
+              "mass": "3 g"
+            }
+          },
+          {
+            "id": "wrap",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[5]",
+              "destination": "='tube-' + r[0]",
+              "mass": "0.5 g"
+            },
+            "when": "r[5] != ''"
+          },
+          {
+            "id": "dry",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "aq:calcium-chloride",
+              "destination": "='tube-' + r[0]",
+              "mass": "2 g"
+            },
+            "when": "r[4]"
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='tube-' + r[0]",
+              "volume": "20 mL",
+              "tool": "pour"
+            },
+            "when": "r[2] != ''"
+          },
+          {
+            "id": "oil",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "oil",
+              "destination": "='tube-' + r[0]",
+              "volume": "3 mL",
+              "tool": "pour"
+            },
+            "when": "r[3]"
+          },
+          {
+            "id": "stopper",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "cover": "parafilm"
+            },
+            "when": "r[4]"
+          }
+        ]
+      },
+      {
+        "id": "wait",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "3 d"
+        }
+      },
+      {
+        "id": "look",
+        "kind": "group",
+        "title": "Look at the nails",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-compare"
+        ],
+        "steps": [
+          {
+            "id": "see",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "='tube-' + r[0]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='seen-' + r[0]",
+              "value": "=see.out.appearance"
+            }
+          },
+          {
+            "id": "score",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rust-' + r[0]",
+              "value": "=if(mentions(see.out.appearance, 'light rust-brown'), 1, if(mentions(see.out.appearance, 'rust-brown coating'), 2, 0))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "chem47-sacrificial-protection",
+      "title": "Sacrificial protection: stopping iron rusting with another metal",
+      "summary": "Leave iron nails in salt water for three days alone and wrapped in zinc, magnesium and copper, and compare how much each nail rusts.",
+      "briefing": "Wrap a strip of each metal tightly round a clean nail so they touch, and stand each in salt water. A more reactive metal in contact with iron gives up its electrons first and corrodes instead: this is sacrificial protection, as in galvanised (zinc-coated) steel and magnesium blocks on ships’ hulls. A less reactive metal makes the iron the one that corrodes.",
+      "values": {
+        "runs": "=[['alone','Nail alone','salt',false,false,''],['zinc','Nail wrapped in zinc','salt',false,false,'aq:zinc-strip'],['magnesium','Nail wrapped in magnesium ribbon','salt',false,false,'aq:magnesium-ribbon'],['copper','Nail wrapped in copper','salt',false,false,'aq:copper-strip']]",
+        "compareObjective": "Compare how other metals in contact affect rusting",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does zinc stop the nail rusting?",
+          "options": [
+            {
+              "id": "reactive",
+              "label": "Zinc is more reactive than iron, so it loses electrons and corrodes instead of the iron"
+            },
+            {
+              "id": "barrier",
+              "label": "The zinc keeps the water off the iron"
+            },
+            {
+              "id": "heavier",
+              "label": "Zinc is heavier than iron"
+            }
+          ],
+          "correctWhen": "choice == 'reactive'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rust",
+              "statement": "Zinc and magnesium stop the nail rusting; alone, and with copper, it rusts",
+              "check": "first(recorded('rust-zinc')) == 0 && first(recorded('rust-magnesium')) == 0 && first(recorded('rust-alone')) > 0 && first(recorded('rust-copper')) > 0"
+            },
+            {
+              "id": "g-explain",
+              "statement": "Sacrificial protection is explained",
+              "check": "decision('why') == 'reactive'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-zinc",
+              "statement": "The zinc itself corrodes (a white coating)",
+              "check": "mentions(first(recorded('seen-zinc')), 'white')",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "sacrificial protection",
+        "galvanising",
+        "reactivity series"
+      ]
+    }
+  ]
+}

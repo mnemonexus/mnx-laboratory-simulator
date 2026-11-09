@@ -1,0 +1,1145 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro18-probiotic-identification",
+  "version": "1.0.0",
+  "title": "Is it Lactobacillus acidophilus? A probiotic by Gram stain, MRS agar and PCR",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "micro:gram-stain"
+      },
+      {
+        "technique": "micro:spread-plate"
+      },
+      {
+        "operation": "core:thermocycle"
+      },
+      {
+        "operation": "core:run-gel"
+      },
+      {
+        "technique": "molbio:size-band"
+      }
+    ]
+  },
+  "summary": "Gram stain a reference Lactobacillus acidophilus beside Staphylococcus aureus and Escherichia coli; grow the controls, a probiotic capsule and a fermented milk drink on MRS agar, which is selective for lactobacilli; and test colonies by a PCR specific for L. acidophilus (129 bp).",
+  "briefing": "Three tests, each answering a different question. The Gram stain tells you the kind of cell wall: S. aureus (Gram-positive, purple) and E. coli (Gram-negative, pink) show you what each colour looks like. MRS agar asks whether something is a lactic acid bacterium: its acetate and low pH stop most other bacteria, so E. coli should not grow. Only the PCR names the species: its primers match a sequence found in L. acidophilus alone. Use the oil immersion lens for the Gram stains: oil touching the lens, focus with the fine focus, and clean the lens before and after. For the PCR, a light touch of a colony is enough, and the E. coli and no-template reactions tell you whether to trust the bands.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "microbiology",
+        "molecular-biology",
+        "biosciences"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "gram-wall",
+        "label": "Gram-positive vs Gram-negative cell wall"
+      },
+      {
+        "id": "selective-media",
+        "label": "Selective media"
+      },
+      {
+        "id": "species-pcr",
+        "label": "Species-specific PCR"
+      },
+      {
+        "id": "controls",
+        "label": "Positive and negative controls"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-gram",
+        "kind": "skill",
+        "statement": "Gram stain colonies and read them under oil immersion",
+        "skills": [
+          "micro:smear-preparation",
+          "micro:gram-stain",
+          "micro:gram-interpretation"
+        ],
+        "goal": "g-identify"
+      },
+      {
+        "id": "o-selective",
+        "kind": "reasoning",
+        "statement": "Use a selective medium to find lactobacilli in a product",
+        "skills": [
+          "micro:aseptic-technique"
+        ],
+        "goal": "g-identify"
+      },
+      {
+        "id": "o-pcr",
+        "kind": "analysis",
+        "statement": "Read a species-specific PCR against its controls",
+        "skills": [
+          "molbio:pcr-setup",
+          "molbio:gel-electrophoresis",
+          "molbio:band-sizing"
+        ],
+        "goal": "g-identify"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "la-plate",
+        "label": "Lactobacillus acidophilus (reference strain)",
+        "role": "control-positive",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:mrs-agar-plate",
+        "contains": [
+          {
+            "substance": "micro:lactobacillus-acidophilus",
+            "count": "40 {colonies}"
+          }
+        ]
+      },
+      {
+        "id": "sa-plate",
+        "label": "Staphylococcus aureus (Gram-positive comparison)",
+        "role": "control-positive",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:nutrient-agar",
+        "contains": [
+          {
+            "substance": "micro:staphylococcus-aureus-teaching-strain",
+            "count": "40 {colonies}"
+          }
+        ]
+      },
+      {
+        "id": "ec-plate",
+        "label": "Escherichia coli (Gram-negative comparison)",
+        "role": "control-negative",
+        "container": "core:petri-dish-90mm",
+        "amount": "20 mL",
+        "preparation": "micro:nutrient-agar",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "40 {colonies}"
+          }
+        ]
+      },
+      {
+        "id": "capsule",
+        "label": "Probiotic capsule, suspended and diluted 10⁻⁵",
+        "role": "unknown",
+        "container": "core:universal-bottle-28ml",
+        "amount": "5 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:lactobacillus-acidophilus",
+            "count": "800 cells/mL"
+          },
+          {
+            "substance": "micro:lacticaseibacillus-rhamnosus",
+            "count": "600 cells/mL"
+          }
+        ]
+      },
+      {
+        "id": "drink",
+        "label": "Fermented milk drink, diluted 10⁻⁴",
+        "role": "unknown",
+        "container": "core:universal-bottle-28ml",
+        "amount": "5 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:lacticaseibacillus-rhamnosus",
+            "count": "1500 cells/mL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Sterile water",
+        "preparation": "core:water-deionised",
+        "amount": "1.5 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "crystal-violet",
+        "label": "Crystal violet",
+        "preparation": "micro:crystal-violet-stain",
+        "amount": "5 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "iodine",
+        "label": "Gram's iodine",
+        "preparation": "micro:grams-iodine",
+        "amount": "5 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "decolouriser",
+        "label": "Acetone–ethanol decolouriser",
+        "preparation": "micro:acetone-ethanol-decolouriser",
+        "amount": "5 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "safranin",
+        "label": "Safranin",
+        "preparation": "micro:safranin-stain",
+        "amount": "5 mL",
+        "container": "core:universal-bottle-28ml"
+      },
+      {
+        "id": "mrs-controls",
+        "label": "MRS agar: the controls",
+        "preparation": "micro:mrs-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "mrs-capsule",
+        "label": "MRS agar: the capsule",
+        "preparation": "micro:mrs-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "mrs-drink",
+        "label": "MRS agar: the drink",
+        "preparation": "micro:mrs-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "lysis",
+        "label": "Lysis buffer",
+        "preparation": "micro:y-per-lysis",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "dye",
+        "label": "Sucrose loading dye",
+        "preparation": "molbio:loading-dye-sucrose",
+        "amount": "60 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "ladder",
+        "label": "100 bp ladder",
+        "preparation": "molbio:ladder-100bp",
+        "amount": "12 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-la1",
+        "label": "pcr-la1",
+        "preparation": "molbio:l-acidophilus-pcr-mix",
+        "amount": "18 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-la2",
+        "label": "pcr-la2",
+        "preparation": "molbio:l-acidophilus-pcr-mix",
+        "amount": "18 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-ec",
+        "label": "pcr-ec",
+        "preparation": "molbio:l-acidophilus-pcr-mix",
+        "amount": "18 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "pcr-water",
+        "label": "pcr-water",
+        "preparation": "molbio:l-acidophilus-pcr-mix",
+        "amount": "18 uL",
+        "container": "core:pcr-tube-0.2ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "loop",
+        "requires": {
+          "class": "core:loop"
+        }
+      },
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:microscope"
+        }
+      },
+      {
+        "id": "warm",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "block",
+        "requires": {
+          "class": "core:heating-block",
+          "temperature": "98 Cel"
+        }
+      },
+      {
+        "id": "microfuge",
+        "requires": {
+          "class": "core:microcentrifuge-24"
+        }
+      },
+      {
+        "id": "cycler",
+        "requires": {
+          "class": "core:thermal-cycler-96-tube"
+        }
+      },
+      {
+        "id": "gel",
+        "requires": {
+          "class": "core:agarose-gel-2pct"
+        }
+      },
+      {
+        "id": "imager",
+        "requires": {
+          "class": "core:gel-imager-blue-light"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [
+      {
+        "id": "d1",
+        "title": "Stains, plates and the PCR"
+      },
+      {
+        "id": "d2",
+        "title": "Two days later: the gel and the plates"
+      }
+    ],
+    "steps": [
+      {
+        "id": "gloves",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "gloves"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "films",
+        "kind": "group",
+        "title": "A film of a colony of each strain",
+        "session": "d1",
+        "objectives": [
+          "o-gram"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['LA', 'la-plate'], ['SA', 'sa-plate'], ['EC', 'ec-plate']]"
+        },
+        "steps": [
+          {
+            "id": "slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microscope-slide",
+              "id": "='slide-' + x[0]",
+              "label": "=x[0]"
+            }
+          },
+          {
+            "id": "drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='slide-' + x[0]",
+              "volume": "10 uL"
+            }
+          },
+          {
+            "id": "flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "smear",
+            "kind": "operation",
+            "ref": "core:pick-colony",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "loop",
+              "destination": "='slide-' + x[0]"
+            }
+          },
+          {
+            "id": "air",
+            "kind": "operation",
+            "ref": "core:dry",
+            "params": {
+              "container": "='slide-' + x[0]",
+              "method": "air"
+            }
+          },
+          {
+            "id": "fix",
+            "kind": "operation",
+            "ref": "core:dry",
+            "params": {
+              "container": "='slide-' + x[0]",
+              "method": "heat"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gram",
+        "kind": "group",
+        "title": "Gram stain and look under oil",
+        "session": "d1",
+        "objectives": [
+          "o-gram"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['slide-LA', 'slide-SA', 'slide-EC']"
+        },
+        "steps": [
+          {
+            "id": "cv",
+            "kind": "operation",
+            "ref": "core:flood",
+            "params": {
+              "container": "=x",
+              "reagent": "crystal-violet",
+              "duration": "60 s"
+            }
+          },
+          {
+            "id": "cv-wash",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "io",
+            "kind": "operation",
+            "ref": "core:flood",
+            "params": {
+              "container": "=x",
+              "reagent": "iodine",
+              "duration": "60 s"
+            }
+          },
+          {
+            "id": "io-wash",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "de",
+            "kind": "operation",
+            "ref": "core:flood",
+            "params": {
+              "container": "=x",
+              "reagent": "decolouriser",
+              "duration": "5 s"
+            }
+          },
+          {
+            "id": "de-wash",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "sa",
+            "kind": "operation",
+            "ref": "core:flood",
+            "params": {
+              "container": "=x",
+              "reagent": "safranin",
+              "duration": "45 s"
+            }
+          },
+          {
+            "id": "sa-wash",
+            "kind": "operation",
+            "ref": "core:rinse",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x",
+              "objective": "100x-oil"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='gram-' + x",
+              "value": "=look.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mrs-patch",
+        "kind": "group",
+        "title": "MRS agar: a patch of each control",
+        "session": "d1",
+        "objectives": [
+          "o-selective"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['la-plate', 1], ['ec-plate', 2]]"
+        },
+        "steps": [
+          {
+            "id": "p-flame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "p-pick",
+            "kind": "operation",
+            "ref": "core:pick-colony",
+            "params": {
+              "plate": "=x[0]",
+              "tool": "loop"
+            }
+          },
+          {
+            "id": "p-streak",
+            "kind": "operation",
+            "ref": "core:streak",
+            "params": {
+              "plate": "mrs-controls",
+              "tool": "loop",
+              "sector": "=x[1]",
+              "cross": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "spread-capsule",
+        "kind": "technique",
+        "ref": "micro:spread-plate",
+        "params": {
+          "source": "capsule",
+          "plate": "mrs-capsule",
+          "volume": "100 uL"
+        },
+        "session": "d1",
+        "objectives": [
+          "o-selective"
+        ]
+      },
+      {
+        "id": "spread-drink",
+        "kind": "technique",
+        "ref": "micro:spread-plate",
+        "params": {
+          "source": "drink",
+          "plate": "mrs-drink",
+          "volume": "100 uL"
+        },
+        "session": "d1",
+        "objectives": [
+          "o-selective"
+        ]
+      },
+      {
+        "id": "mrs-in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=x",
+          "place": "warm"
+        },
+        "session": "d1",
+        "forEach": {
+          "var": "x",
+          "in": "=['mrs-controls', 'mrs-capsule', 'mrs-drink']"
+        }
+      },
+      {
+        "id": "extracts",
+        "kind": "group",
+        "title": "Boiled extracts: two L. acidophilus colonies and one E. coli",
+        "session": "d1",
+        "objectives": [
+          "o-pcr"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['LA1', 'la-plate'], ['LA2', 'la-plate'], ['EC', 'ec-plate']]"
+        },
+        "steps": [
+          {
+            "id": "e-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "='ext-' + x[0]",
+              "label": "='extract ' + x[0]"
+            }
+          },
+          {
+            "id": "e-buffer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "lysis",
+              "destination": "='ext-' + x[0]",
+              "volume": "30 uL"
+            }
+          },
+          {
+            "id": "e-clear",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "e-tip",
+            "kind": "operation",
+            "ref": "core:attach-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "e-pick",
+            "kind": "operation",
+            "ref": "core:pick-colony",
+            "params": {
+              "plate": "=x[1]",
+              "tool": "p20",
+              "destination": "='ext-' + x[0]"
+            }
+          },
+          {
+            "id": "e-eject",
+            "kind": "operation",
+            "ref": "core:eject-tip",
+            "params": {
+              "pipette": "p20"
+            }
+          },
+          {
+            "id": "e-close",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "='ext-' + x[0]"
+            }
+          },
+          {
+            "id": "e-block",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='ext-' + x[0]",
+              "place": "block"
+            }
+          }
+        ]
+      },
+      {
+        "id": "boil",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "10 min"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "unblock",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=x"
+        },
+        "session": "d1",
+        "forEach": {
+          "var": "x",
+          "in": "=['ext-LA1', 'ext-LA2', 'ext-EC']"
+        }
+      },
+      {
+        "id": "rotor",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "=x[0]",
+          "place": "microfuge",
+          "position": "=x[1]"
+        },
+        "session": "d1",
+        "forEach": {
+          "var": "x",
+          "in": "=[['ext-LA1', 1], ['ext-LA2', 9], ['ext-EC', 17]]"
+        }
+      },
+      {
+        "id": "spin",
+        "kind": "operation",
+        "ref": "core:centrifuge",
+        "params": {
+          "centrifuge": "microfuge",
+          "rcf": "13000 [RCF]",
+          "duration": "2 min"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "pcr",
+        "kind": "group",
+        "title": "2 µL of supernatant into each PCR",
+        "session": "d1",
+        "objectives": [
+          "o-pcr"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['ext-LA1', 'pcr-la1'], ['ext-LA2', 'pcr-la2'], ['ext-EC', 'pcr-ec']]"
+        },
+        "steps": [
+          {
+            "id": "p-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "p-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x[0]"
+            }
+          },
+          {
+            "id": "p-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=x[1]",
+              "volume": "2 uL"
+            }
+          },
+          {
+            "id": "p-cycler",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=x[1]",
+              "place": "cycler"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ntc",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "pcr-water",
+          "volume": "2 uL"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "ntc-cycler",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "pcr-water",
+          "place": "cycler"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "cycle",
+        "kind": "operation",
+        "ref": "core:thermocycle",
+        "params": {
+          "cycler": "cycler",
+          "cycles": 32,
+          "extendTime": "20 s"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "two-days",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "48 h"
+        },
+        "session": "d1"
+      },
+      {
+        "id": "dye-in",
+        "kind": "group",
+        "title": "Loading dye",
+        "session": "d2",
+        "forEach": {
+          "var": "x",
+          "in": "=['pcr-la1', 'pcr-la2', 'pcr-ec', 'pcr-water', 'ladder']"
+        },
+        "steps": [
+          {
+            "id": "d-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "dye",
+              "destination": "=x",
+              "volume": "4 uL"
+            }
+          },
+          {
+            "id": "d-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "load-ladder",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "ladder",
+          "destination": "gel/A1",
+          "volume": "10 uL"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=x[0]",
+          "destination": "=x[1]",
+          "volume": "15 uL"
+        },
+        "session": "d2",
+        "forEach": {
+          "var": "x",
+          "in": "=[['pcr-la1', 'gel/A2'], ['pcr-la2', 'gel/A3'], ['pcr-ec', 'gel/A4'], ['pcr-water', 'gel/A5']]"
+        }
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "gel",
+          "voltage": 100,
+          "duration": "40 min"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "imager",
+          "subject": "gel"
+        },
+        "session": "d2"
+      },
+      {
+        "id": "sizing",
+        "kind": "group",
+        "title": "Bands",
+        "session": "d2",
+        "objectives": [
+          "o-pcr"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['pcr-la1', 'gel/A2'], ['pcr-la2', 'gel/A3'], ['pcr-ec', 'gel/A4'], ['pcr-water', 'gel/A5']]"
+        },
+        "steps": [
+          {
+            "id": "size",
+            "kind": "technique",
+            "ref": "molbio:size-band",
+            "params": {
+              "ladderLane": "gel/A1",
+              "lane": "=x[1]",
+              "ladder": "molbio:ladder-100bp"
+            }
+          },
+          {
+            "id": "s-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='sizes-' + x[0]",
+              "value": "=size.out.sizes"
+            }
+          }
+        ]
+      },
+      {
+        "id": "plates",
+        "kind": "group",
+        "title": "The MRS plates",
+        "session": "d2",
+        "objectives": [
+          "o-selective"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['mrs-controls', 'mrs-capsule', 'mrs-drink']"
+        },
+        "steps": [
+          {
+            "id": "m-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "m-see",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "eye",
+              "subject": "=x"
+            }
+          },
+          {
+            "id": "m-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "=x",
+              "value": "=m-see.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "classify",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-gram"
+        ],
+        "prompt": "Is each strain Gram-positive or Gram-negative?",
+        "forEach": {
+          "var": "x",
+          "in": "=['la-plate', 'sa-plate', 'ec-plate']"
+        },
+        "options": [
+          {
+            "id": "positive",
+            "label": "Gram-positive"
+          },
+          {
+            "id": "negative",
+            "label": "Gram-negative"
+          }
+        ],
+        "correctWhen": "choice == gramClass(x)"
+      },
+      {
+        "id": "lactobacilli",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-selective"
+        ],
+        "prompt": "What do the MRS plates show about the capsule and the drink?",
+        "options": [
+          {
+            "id": "both",
+            "label": "Both hold live lactobacilli; the capsule plate has two kinds of colony, so it holds more than one"
+          },
+          {
+            "id": "capsule-only",
+            "label": "Only the capsule holds lactobacilli"
+          },
+          {
+            "id": "neither",
+            "label": "Neither: MRS lets anything grow, as the E. coli patch shows"
+          }
+        ],
+        "correctWhen": "if(mentions(first(recorded('mrs-controls')), 'sector 2: none') && !mentions(first(recorded('mrs-drink')), 'no colonies') && !mentions(first(recorded('mrs-capsule')), 'no colonies'), 'both', if(!mentions(first(recorded('mrs-controls')), 'sector 2: none'), 'neither', 'capsule-only'))"
+      },
+      {
+        "id": "pcr-read",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-pcr"
+        ],
+        "prompt": "What does the gel tell you?",
+        "options": [
+          {
+            "id": "specific",
+            "label": "Both L. acidophilus colonies give the 129 bp product, between the 100 and 200 bp ladder bands; E. coli and the no-template control are blank, so the PCR is specific and clean"
+          },
+          {
+            "id": "contaminated",
+            "label": "A band in the E. coli or no-template lane: something was contaminated, so the gel cannot be trusted"
+          },
+          {
+            "id": "failed",
+            "label": "No band from L. acidophilus: the extract or the reaction failed"
+          }
+        ],
+        "correctWhen": "if(any(first(recorded('sizes-pcr-ec')), between(it, 110, 150)) || any(first(recorded('sizes-pcr-water')), between(it, 110, 150)), 'contaminated', if(any(first(recorded('sizes-pcr-la1')), between(it, 110, 150)) && any(first(recorded('sizes-pcr-la2')), between(it, 110, 150)), 'specific', 'failed'))"
+      },
+      {
+        "id": "next-test",
+        "kind": "decision",
+        "session": "d2",
+        "objectives": [
+          "o-pcr"
+        ],
+        "prompt": "Which test could tell you whether the drink's lactobacillus is L. acidophilus?",
+        "options": [
+          {
+            "id": "pcr",
+            "label": "The species-specific PCR on a colony from the drink's MRS plate"
+          },
+          {
+            "id": "gram",
+            "label": "A Gram stain of a colony"
+          },
+          {
+            "id": "mrs",
+            "label": "Growth on a second MRS plate"
+          }
+        ],
+        "correctWhen": "'pcr'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-identify",
+        "statement": "The strains are classified, the products' lactobacilli recognised and the PCR read against its controls",
+        "check": "all(x in ['la-plate', 'sa-plate', 'ec-plate']: decision(classify, x) == gramClass(x)) && decision('lactobacilli') == 'both' && decision('pcr-read') == 'specific' && decision('next-test') == 'pcr'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-purple",
+        "statement": "L. acidophilus stains as purple rods",
+        "check": "stainColour('slide-LA') == 'purple'",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-pink",
+        "statement": "E. coli stains as pink rods",
+        "check": "stainColour('slide-EC') == 'pink'",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-mrs",
+        "statement": "L. acidophilus grows on MRS and E. coli does not",
+        "check": "mentions(first(recorded('mrs-controls')), 'sector 1: confluent') && mentions(first(recorded('mrs-controls')), 'sector 2: none')",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-band",
+        "statement": "The L. acidophilus PCRs give one band near 129 bp; E. coli and water give none",
+        "check": "any(first(recorded('sizes-pcr-la1')), between(it, 110, 150)) && !any(first(recorded('sizes-pcr-ec')), between(it, 110, 150)) && !any(first(recorded('sizes-pcr-water')), between(it, 110, 150))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

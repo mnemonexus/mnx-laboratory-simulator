@@ -1,0 +1,108 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "drill-balance-rotor",
+  "version": "1.0.0",
+  "title": "Balance the rotor",
+  "summary": "A 30–60 second recall drill: load a microcentrifuge in balance. The number of tubes varies, so an odd number needs a balance tube.",
+  "context": {
+    "intendedContexts": [
+      "spaced-recall"
+    ],
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "skill",
+        "statement": "Load a microcentrifuge rotor in balance",
+        "skills": [
+          "core:centrifuge-balancing"
+        ],
+        "goal": "g1"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "s",
+        "label": "Sample",
+        "role": "specimen",
+        "contains": [
+          {
+            "substance": "core:water",
+            "conc": "1 mol/mol"
+          }
+        ],
+        "amount": "1.0 mL",
+        "container": "core:microtube-1.5ml",
+        "count": {
+          "vary": [
+            3,
+            5,
+            7,
+            9
+          ]
+        }
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "cfg",
+        "requires": {
+          "class": "core:microcentrifuge-24"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "objective",
+    "steps": [
+      {
+        "id": "load",
+        "kind": "technique",
+        "ref": "core:load-rotor",
+        "params": {
+          "tubes": "=samples()"
+        },
+        "bind": {
+          "rotor": "cfg"
+        }
+      },
+      {
+        "id": "spin",
+        "kind": "operation",
+        "ref": "core:centrifuge",
+        "params": {
+          "rcf": "12000 [RCF]",
+          "duration": "1 min"
+        },
+        "after": [
+          "load"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g1",
+        "statement": "The rotor is balanced when the run starts",
+        "check": "rotorImbalance(cfg) <= 0.05 g && count(incidents()) == 0"
+      }
+    ]
+  },
+  "assessment": {
+    "emphasis": {
+      "technique": 1.0,
+      "safety": "gate"
+    }
+  },
+  "provenance": {
+    "defaultClass": "author-choice",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

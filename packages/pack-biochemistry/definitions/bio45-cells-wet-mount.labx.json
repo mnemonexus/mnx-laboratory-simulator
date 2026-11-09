@@ -1,0 +1,335 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio45-cells-wet-mount",
+  "version": "1.0.0",
+  "title": "Plant and animal cells: wet mounts and stains",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Make wet mounts of onion epidermis (in water and in iodine) and of cheek cells (in methylene blue), look at them at ×100 and ×400, and compare plant and animal cells.",
+  "briefing": "Peel a thin strip of epidermis from the inside of an onion scale and lay it flat in a drop of water or iodine solution on a slide; lower a coverslip at an angle. Scrape the inside of your cheek gently with a cotton bud and smear it into a drop of methylene blue (dispose of the bud in disinfectant). Unstained cells are almost transparent; a stain makes the parts that take it up visible. Find each at low power, then look at high power.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "cells",
+      "plant cell",
+      "animal cell",
+      "microscope",
+      "wet mount",
+      "stain",
+      "iodine",
+      "methylene blue",
+      "onion",
+      "cheek cells"
+    ],
+    "topics": [
+      "Cell structure",
+      "Microscopy"
+    ],
+    "concepts": [
+      {
+        "id": "cell-structures",
+        "label": "Plant cells have a cell wall; both have a nucleus, cytoplasm and membrane"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-mount",
+        "kind": "skill",
+        "statement": "Prepare a wet mount and stain it"
+      },
+      {
+        "id": "o-observe",
+        "kind": "outcome",
+        "statement": "Observe and compare plant and animal cells",
+        "goal": "g-compare"
+      },
+      {
+        "id": "o-stain",
+        "kind": "reasoning",
+        "statement": "Explain why a stain is used",
+        "goal": "g-stain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Distilled water",
+        "preparation": "core:water-deionised",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "iodine",
+        "label": "Iodine solution",
+        "preparation": "bio:iodine-solution",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "mb",
+        "label": "Methylene blue (0.01 %)",
+        "contains": [
+          {
+            "substance": "bio:methylene-blue",
+            "conc": "0.31 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:compound-microscope"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "mounts",
+        "kind": "group",
+        "title": "Make and look at each mount",
+        "objectives": [
+          "o-mount"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['onion-water','core:specimen.onion-epidermis','water','Onion epidermis in water'],['onion-iodine','core:specimen.onion-epidermis','iodine','Onion epidermis in iodine'],['cheek-mb','core:specimen.cheek-cells','mb','Cheek cells in methylene blue']]"
+        },
+        "steps": [
+          {
+            "id": "slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microscope-slide",
+              "id": "=x[0]",
+              "label": "=x[3]"
+            }
+          },
+          {
+            "id": "drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "=x[0]",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "specimen",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=x[1]",
+              "destination": "=x[0]",
+              "mass": "5 mg"
+            }
+          },
+          {
+            "id": "low",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "10x",
+              "lamp": 0.5,
+              "illumination": "brightfield",
+              "condenser": "adjusted"
+            }
+          },
+          {
+            "id": "coarse",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x[0]",
+              "knob": "coarse"
+            }
+          },
+          {
+            "id": "fine-low",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x[0]",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "look-low",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x[0]"
+            }
+          },
+          {
+            "id": "note-low",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='low-' + x[0]",
+              "value": "=look-low.out.appearance"
+            }
+          },
+          {
+            "id": "high",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "40x",
+              "lamp": 0.65
+            }
+          },
+          {
+            "id": "fine-high",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x[0]",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "look-high",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "=x[0]"
+            }
+          },
+          {
+            "id": "note-high",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='high-' + x[0]",
+              "value": "=look-high.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wall",
+        "kind": "decision",
+        "objectives": [
+          "o-observe"
+        ],
+        "prompt": "Which cells had a regular, box-like outline from a cell wall?",
+        "options": [
+          {
+            "id": "onion",
+            "label": "The onion cells"
+          },
+          {
+            "id": "cheek",
+            "label": "The cheek cells"
+          },
+          {
+            "id": "both",
+            "label": "Both"
+          }
+        ],
+        "correctWhen": "'onion'"
+      },
+      {
+        "id": "stain",
+        "kind": "decision",
+        "objectives": [
+          "o-stain"
+        ],
+        "prompt": "Why were the nuclei clear in iodine but hard to see in water?",
+        "options": [
+          {
+            "id": "contrast",
+            "label": "Unstained cell parts are almost transparent; the stain is taken up by some parts and gives them colour and contrast"
+          },
+          {
+            "id": "magnify",
+            "label": "The stain magnifies the nuclei"
+          },
+          {
+            "id": "kills",
+            "label": "The water hides the nuclei"
+          }
+        ],
+        "correctWhen": "'contrast'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-compare",
+        "statement": "The cell wall is recognised in the plant cells",
+        "check": "decision('wall') == 'onion'"
+      },
+      {
+        "id": "g-stain",
+        "statement": "The use of a stain is explained",
+        "check": "decision('stain') == 'contrast'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-iodine",
+        "statement": "Iodine shows the onion nuclei brown; cheek-cell nuclei are dark blue in methylene blue",
+        "check": "mentions(first(recorded('low-onion-iodine')), 'brown nuclei') && mentions(first(recorded('low-cheek-mb')), 'dark blue nuclei')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-water",
+        "statement": "In water the onion cells are faint and their nuclei hard to make out",
+        "check": "!mentions(first(recorded('low-onion-water')), 'brown') && mentions(first(recorded('low-onion-water')), 'faint')",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

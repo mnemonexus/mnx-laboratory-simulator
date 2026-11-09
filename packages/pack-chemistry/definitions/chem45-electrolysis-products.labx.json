@@ -1,0 +1,506 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem45-electrolysis-products",
+  "title": "{{title}}",
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "electrolysis",
+      "electrodes",
+      "cathode",
+      "anode",
+      "discharge",
+      "products of electrolysis"
+    ],
+    "topics": [
+      "Electrolysis"
+    ],
+    "concepts": [
+      {
+        "id": "discharge",
+        "label": "At the cathode the least reactive cation is discharged (a metal below hydrogen, else hydrogen); at the anode halides give halogens, otherwise oxygen forms"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-run",
+        "kind": "skill",
+        "statement": "Electrolyse solutions, collect the gases and test them"
+      },
+      {
+        "id": "o-identify",
+        "kind": "analysis",
+        "statement": "{{identifyObjective}}",
+        "goal": "g-products"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the products",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Electrolysis of aqueous solutions: the products"
+    },
+    "summary": {
+      "default": "Electrolyse seven solutions between graphite electrodes, collect any gas at each electrode and test it, and work out the rules for which products form."
+    },
+    "briefing": {
+      "default": "Pour 100 mL of the solution into a beaker, clip in two graphite rods and stand a test tube full of the solution upside down over each. Pass 0.5 A for five minutes. Look at each electrode; test the gas from the cathode with a lighted splint and the gas from the anode with a glowing splint and damp blue litmus paper. Rinse the rods (or use fresh ones) between solutions."
+    },
+    "runs": {
+      "default": "=[['cuso4','Copper(II) sulfate','cuso4','core:graphite-rod'],['cucl2','Copper(II) chloride','cucl2','core:graphite-rod'],['brine','Concentrated sodium chloride','brine','core:graphite-rod'],['h2so4','Dilute sulfuric acid','h2so4','core:graphite-rod'],['na2so4','Sodium sulfate','na2so4','core:graphite-rod'],['ki','Potassium iodide','ki','core:graphite-rod'],['kbr','Potassium bromide','kbr','core:graphite-rod']]"
+    },
+    "identifyObjective": {
+      "default": "Identify the product at each electrode for each solution"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does sodium chloride solution give hydrogen, not sodium, at the cathode?",
+        "options": [
+          {
+            "id": "reactive",
+            "label": "Sodium is more reactive than hydrogen, so hydrogen ions (from water) are discharged instead"
+          },
+          {
+            "id": "gas",
+            "label": "Sodium is a gas at that temperature"
+          },
+          {
+            "id": "chlorine",
+            "label": "The chlorine reacts with the sodium"
+          }
+        ],
+        "correctWhen": "choice == 'reactive'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-products",
+            "statement": "Copper forms on the cathode from copper salts and hydrogen (a pop) otherwise; chlorine bleaches litmus from chlorides; oxygen relights a splint from sulfates; iodine colours the liquid from iodide",
+            "check": "mentions(first(recorded('cathode-cuso4')), 'deposit') && mentions(first(recorded('pop-brine')), 'pop') && mentions(first(recorded('litmus-brine')), 'bleached') && mentions(first(recorded('litmus-cucl2')), 'bleached') && mentions(first(recorded('glow-h2so4')), 'relights') && mentions(first(recorded('glow-na2so4')), 'relights') && mentions(first(recorded('anode-ki')), 'turns')"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The cathode rule is explained",
+            "check": "decision('why') == 'reactive'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-cu",
+            "statement": "Copper(II) sulfate gives no gas at the cathode",
+            "check": "mentions(first(recorded('pop-cuso4')), 'no pop')",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "cuso4",
+        "label": "Copper(II) sulfate, 0.5 M",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-sulfate",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "cucl2",
+        "label": "Copper(II) chloride, 0.5 M",
+        "contains": [
+          {
+            "substance": "aq:copper-ii-chloride",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "brine",
+        "label": "Sodium chloride, 3 M (concentrated)",
+        "contains": [
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "3 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "h2so4",
+        "label": "Sulfuric acid, 0.5 M",
+        "contains": [
+          {
+            "substance": "core:sulfuric-acid",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "na2so4",
+        "label": "Sodium sulfate, 0.5 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-sulfate",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "ki",
+        "label": "Potassium iodide, 0.5 M",
+        "contains": [
+          {
+            "substance": "aq:potassium-iodide",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "kbr",
+        "label": "Potassium bromide, 0.5 M",
+        "contains": [
+          {
+            "substance": "aq:potassium-bromide",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "psu",
+        "requires": {
+          "class": "core:dc-power-supply"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each solution in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-run"
+        ],
+        "steps": [
+          {
+            "id": "beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-250ml",
+              "id": "='cell-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='cell-' + r[0]",
+              "volume": "100 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "an",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:electrode-holder",
+              "id": "='anode-' + r[0]",
+              "label": "='Anode: ' + r[1]"
+            }
+          },
+          {
+            "id": "an-rod",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[3]",
+              "destination": "='anode-' + r[0]",
+              "mass": "2 g"
+            }
+          },
+          {
+            "id": "ca",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:electrode-holder",
+              "id": "='cathode-' + r[0]",
+              "label": "='Cathode: ' + r[1]"
+            }
+          },
+          {
+            "id": "ca-rod",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "=r[3]",
+              "destination": "='cathode-' + r[0]",
+              "mass": "2 g"
+            }
+          },
+          {
+            "id": "ta",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='ta-' + r[0]",
+              "label": "='Tube over the anode: ' + r[1]"
+            }
+          },
+          {
+            "id": "tc",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='tc-' + r[0]",
+              "label": "='Tube over the cathode: ' + r[1]"
+            }
+          },
+          {
+            "id": "run",
+            "kind": "operation",
+            "ref": "core:electrolyse",
+            "params": {
+              "supply": "psu",
+              "cell": "='cell-' + r[0]",
+              "anode": "='anode-' + r[0]",
+              "cathode": "='cathode-' + r[0]",
+              "current": "0.5 A",
+              "duration": "5 min",
+              "anodeGas": "='ta-' + r[0]",
+              "cathodeGas": "='tc-' + r[0]"
+            }
+          },
+          {
+            "id": "n-cathode",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='cathode-' + r[0]",
+              "value": "=run.out.cathode"
+            }
+          },
+          {
+            "id": "n-anode",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='anode-' + r[0]",
+              "value": "=run.out.anode"
+            }
+          },
+          {
+            "id": "pop",
+            "kind": "operation",
+            "ref": "core:test-gas",
+            "params": {
+              "container": "='tc-' + r[0]",
+              "test": "lighted-splint"
+            }
+          },
+          {
+            "id": "n-pop",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='pop-' + r[0]",
+              "value": "=pop.out.appearance"
+            }
+          },
+          {
+            "id": "glow",
+            "kind": "operation",
+            "ref": "core:test-gas",
+            "params": {
+              "container": "='ta-' + r[0]",
+              "test": "glowing-splint"
+            }
+          },
+          {
+            "id": "n-glow",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='glow-' + r[0]",
+              "value": "=glow.out.appearance"
+            }
+          },
+          {
+            "id": "litmus",
+            "kind": "operation",
+            "ref": "core:test-gas",
+            "params": {
+              "container": "='ta-' + r[0]",
+              "test": "damp-blue-litmus"
+            }
+          },
+          {
+            "id": "n-litmus",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='litmus-' + r[0]",
+              "value": "=litmus.out.appearance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "chem45-copper-electrodes",
+      "title": "Electrolysis of copper(II) sulfate: graphite against copper electrodes",
+      "summary": "Electrolyse copper(II) sulfate between graphite rods and between copper strips, and compare what happens at the anode.",
+      "briefing": "As before, with copper(II) sulfate only: once between graphite rods and once between copper strips. A copper anode can give up electrons itself: Cu → Cu²⁺ + 2e⁻. This is how copper is purified.",
+      "values": {
+        "runs": "=[['graphite','Copper(II) sulfate, graphite electrodes','cuso4','core:graphite-rod'],['copper','Copper(II) sulfate, copper electrodes','cuso4','aq:copper-strip']]",
+        "identifyObjective": "Compare the anode products with inert and copper electrodes",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why is no gas given off at a copper anode?",
+          "options": [
+            {
+              "id": "dissolves",
+              "label": "The copper atoms of the anode lose electrons and go into solution as Cu²⁺ more easily than water gives oxygen"
+            },
+            {
+              "id": "absorbs",
+              "label": "Copper absorbs the oxygen"
+            },
+            {
+              "id": "current",
+              "label": "No current flows through copper"
+            }
+          ],
+          "correctWhen": "choice == 'dissolves'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-products",
+              "statement": "With graphite the anode gives oxygen; with copper it wears away instead",
+              "check": "mentions(first(recorded('glow-graphite')), 'relights') && mentions(first(recorded('anode-copper')), 'wears away') && !mentions(first(recorded('glow-copper')), 'relights')"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The copper anode is explained",
+              "check": "decision('why') == 'dissolves'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-both",
+              "statement": "Copper forms on the cathode either way",
+              "check": "mentions(first(recorded('cathode-graphite')), 'deposit') && mentions(first(recorded('cathode-copper')), 'deposit')",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "copper purification",
+        "active electrode",
+        "inert electrode"
+      ]
+    }
+  ]
+}

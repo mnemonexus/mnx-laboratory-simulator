@@ -1,0 +1,635 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem17-inert-atmosphere-oxygen",
+  "version": "1.0.0",
+  "title": "Working under nitrogen: what each step keeps out",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:purge"
+      },
+      {
+        "operation": "core:flush-syringe"
+      }
+    ]
+  },
+  "summary": "Bubble nitrogen through water in a septum-sealed flask, then move 10 mL of it four ways: a flushed syringe into a purged flask, an unflushed syringe into a purged flask, a flushed syringe into a flask of air, and pouring into a beaker. An hour later, read each one's dissolved oxygen.",
+  "briefing": "Air-saturated water holds about 9 mg/L of oxygen at room temperature. Reactions with air- or water-sensitive reagents are run in flasks sealed with septa and kept under nitrogen from a balloon; liquids go in and out by syringe and needle, and a syringe is flushed with nitrogen from the flask before it draws liquid. Each needle and syringe goes into the sharps bin after one use, never resheathed. The dissolved-oxygen meter shows what each step keeps out.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "chemistry",
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "inert-atmosphere",
+        "label": "Inert atmospheres: septa, balloons and syringes"
+      },
+      {
+        "id": "henry",
+        "label": "Gas solubility (Henry's law)"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-technique",
+        "kind": "skill",
+        "statement": "Seal, purge and sparge a flask, and move liquid by syringe under nitrogen",
+        "skills": [
+          "core:inert-atmosphere"
+        ]
+      },
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Read dissolved oxygen",
+        "skills": [
+          "core:dissolved-oxygen"
+        ]
+      },
+      {
+        "id": "o-reason",
+        "kind": "analysis",
+        "statement": "Explain from the readings what each step of the technique keeps out",
+        "goal": "g-reason"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Deionised water (air-saturated)",
+        "contains": [
+          {
+            "substance": "core:oxygen",
+            "conc": "0.28 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "meter",
+        "requires": {
+          "class": "core:do-meter"
+        }
+      },
+      {
+        "id": "balloon-source",
+        "requires": {
+          "class": "core:nitrogen-balloon"
+        }
+      },
+      {
+        "id": "balloon-a",
+        "requires": {
+          "class": "core:nitrogen-balloon"
+        }
+      },
+      {
+        "id": "balloon-b",
+        "requires": {
+          "class": "core:nitrogen-balloon"
+        }
+      },
+      {
+        "id": "syringe-a",
+        "requires": {
+          "class": "core:syringe-10ml"
+        }
+      },
+      {
+        "id": "syringe-b",
+        "requires": {
+          "class": "core:syringe-10ml"
+        }
+      },
+      {
+        "id": "syringe-c",
+        "requires": {
+          "class": "core:syringe-10ml"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "coat",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "lab-coat"
+        }
+      },
+      {
+        "id": "specs",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "goggles"
+        }
+      },
+      {
+        "id": "gloves",
+        "kind": "operation",
+        "ref": "core:don",
+        "params": {
+          "item": "gloves"
+        }
+      },
+      {
+        "id": "start",
+        "kind": "group",
+        "title": "The water as it comes: dissolved oxygen of a sample in a beaker",
+        "steps": [
+          {
+            "id": "air-beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "as-supplied",
+              "label": "Water as supplied"
+            }
+          },
+          {
+            "id": "air-pour",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "as-supplied",
+              "volume": "30 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "air-read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "meter",
+              "subject": "as-supplied"
+            }
+          },
+          {
+            "id": "air-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "do-supplied",
+              "value": "=air-read.out.value"
+            }
+          }
+        ],
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "deoxygenate",
+        "kind": "group",
+        "title": "150 mL of the water in a 250 mL round-bottomed flask under a septum, nitrogen bubbled through it for 15 minutes from a balloon, the balloon left on",
+        "steps": [
+          {
+            "id": "src",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-250ml",
+              "id": "source",
+              "label": "Deoxygenated water"
+            }
+          },
+          {
+            "id": "src-fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "source",
+              "volume": "150 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "src-septum",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "source",
+              "cover": "septum"
+            }
+          },
+          {
+            "id": "src-sparge",
+            "kind": "operation",
+            "ref": "core:purge",
+            "params": {
+              "container": "source",
+              "balloon": "balloon-source",
+              "duration": "15 min",
+              "sparge": true
+            }
+          }
+        ],
+        "objectives": [
+          "o-technique"
+        ]
+      },
+      {
+        "id": "a",
+        "kind": "group",
+        "title": "A: a flushed syringe into a flask purged with nitrogen",
+        "steps": [
+          {
+            "id": "fetch-a",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-100ml",
+              "id": "flask-a",
+              "label": "Flask A"
+            }
+          },
+          {
+            "id": "septum-a",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "flask-a",
+              "cover": "septum"
+            }
+          },
+          {
+            "id": "purge-a",
+            "kind": "operation",
+            "ref": "core:purge",
+            "params": {
+              "container": "flask-a",
+              "balloon": "balloon-a",
+              "duration": "3 min"
+            }
+          },
+          {
+            "id": "flush-a",
+            "kind": "operation",
+            "ref": "core:flush-syringe",
+            "params": {
+              "syringe": "syringe-a",
+              "source": "source"
+            }
+          },
+          {
+            "id": "move-a",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "source",
+              "destination": "flask-a",
+              "volume": "10 mL",
+              "tool": "syringe-a"
+            }
+          },
+          {
+            "id": "sharps-a",
+            "kind": "operation",
+            "ref": "core:dispose",
+            "params": {
+              "item": "syringe-a",
+              "stream": "core:sharps-bin"
+            }
+          }
+        ],
+        "objectives": [
+          "o-technique"
+        ]
+      },
+      {
+        "id": "b",
+        "kind": "group",
+        "title": "B: the same, but the syringe not flushed",
+        "steps": [
+          {
+            "id": "fetch-b",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-100ml",
+              "id": "flask-b",
+              "label": "Flask B"
+            }
+          },
+          {
+            "id": "septum-b",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "flask-b",
+              "cover": "septum"
+            }
+          },
+          {
+            "id": "purge-b",
+            "kind": "operation",
+            "ref": "core:purge",
+            "params": {
+              "container": "flask-b",
+              "balloon": "balloon-b",
+              "duration": "3 min"
+            }
+          },
+          {
+            "id": "move-b",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "source",
+              "destination": "flask-b",
+              "volume": "10 mL",
+              "tool": "syringe-b"
+            }
+          },
+          {
+            "id": "sharps-b",
+            "kind": "operation",
+            "ref": "core:dispose",
+            "params": {
+              "item": "syringe-b",
+              "stream": "core:sharps-bin"
+            }
+          }
+        ],
+        "objectives": [
+          "o-technique"
+        ]
+      },
+      {
+        "id": "c",
+        "kind": "group",
+        "title": "C: a flushed syringe into a septum-sealed flask left full of air",
+        "steps": [
+          {
+            "id": "fetch-c",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:round-bottom-flask-100ml",
+              "id": "flask-c",
+              "label": "Flask C"
+            }
+          },
+          {
+            "id": "septum-c",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "flask-c",
+              "cover": "septum"
+            }
+          },
+          {
+            "id": "flush-c",
+            "kind": "operation",
+            "ref": "core:flush-syringe",
+            "params": {
+              "syringe": "syringe-c",
+              "source": "source"
+            }
+          },
+          {
+            "id": "move-c",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "source",
+              "destination": "flask-c",
+              "volume": "10 mL",
+              "tool": "syringe-c"
+            }
+          },
+          {
+            "id": "sharps-c",
+            "kind": "operation",
+            "ref": "core:dispose",
+            "params": {
+              "item": "syringe-c",
+              "stream": "core:sharps-bin"
+            }
+          }
+        ],
+        "objectives": [
+          "o-technique"
+        ]
+      },
+      {
+        "id": "d",
+        "kind": "group",
+        "title": "D: the septum off and 10 mL poured into an open beaker",
+        "steps": [
+          {
+            "id": "fetch-d",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "flask-d",
+              "label": "Beaker D"
+            }
+          },
+          {
+            "id": "open-src",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "source"
+            }
+          },
+          {
+            "id": "move-d",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "source",
+              "destination": "flask-d",
+              "volume": "10 mL",
+              "tool": "pour"
+            }
+          }
+        ],
+        "objectives": [
+          "o-technique"
+        ]
+      },
+      {
+        "id": "stand",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "1 h"
+        }
+      },
+      {
+        "id": "readings",
+        "kind": "group",
+        "title": "After an hour, each opened and its dissolved oxygen read",
+        "steps": [
+          {
+            "id": "open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "='flask-' + t"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "meter",
+              "subject": "='flask-' + t"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='do-' + t",
+              "value": "=read.out.value"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "t",
+          "in": "=['a', 'b', 'c', 'd']"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "best",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "Which transfer kept the most oxygen out of the water?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A: flushed syringe, flask under nitrogen"
+          },
+          {
+            "id": "b",
+            "label": "B: unflushed syringe, flask under nitrogen"
+          },
+          {
+            "id": "c",
+            "label": "C: flushed syringe, flask under air"
+          },
+          {
+            "id": "d",
+            "label": "D: poured into a beaker"
+          }
+        ],
+        "correctWhen": "if(value(first(recorded('do-a')), 'mg/L') <= min([value(first(recorded('do-b')), 'mg/L'), value(first(recorded('do-c')), 'mg/L'), value(first(recorded('do-d')), 'mg/L')]), 'a', if(value(first(recorded('do-b')), 'mg/L') <= min([value(first(recorded('do-c')), 'mg/L'), value(first(recorded('do-d')), 'mg/L')]), 'b', if(value(first(recorded('do-c')), 'mg/L') <= value(first(recorded('do-d')), 'mg/L'), 'c', 'd')))"
+      },
+      {
+        "id": "flushing",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "What does flushing the syringe achieve (compare A and B)?",
+        "options": [
+          {
+            "id": "air",
+            "label": "It keeps the air in the barrel and needle from going in with the liquid: B picked up oxygen A did not"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing measurable: A and B read the same"
+          }
+        ],
+        "correctWhen": "if(value(first(recorded('do-b')), 'mg/L') > value(first(recorded('do-a')), 'mg/L') + 0.5, 'air', 'nothing')"
+      },
+      {
+        "id": "blanket",
+        "kind": "decision",
+        "objectives": [
+          "o-reason"
+        ],
+        "prompt": "What does the nitrogen over the liquid do while it stands (compare A and C)?",
+        "options": [
+          {
+            "id": "keeps-off",
+            "label": "Under air, oxygen dissolves back into the water over the hour; under nitrogen it cannot"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing: once the water is in, the gas above it does not matter"
+          }
+        ],
+        "correctWhen": "if(value(first(recorded('do-c')), 'mg/L') > value(first(recorded('do-a')), 'mg/L') + 0.5, 'keeps-off', 'nothing')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-reason",
+        "statement": "The readings rank the transfers and each step's purpose is read correctly, with every syringe in the sharps bin",
+        "check": "decision('best') == 'a' && decision('flushing') == 'air' && decision('blanket') == 'keeps-off' && count(disposals(), it.stream == 'core:sharps-bin') == 3 && len(incidents()) == 0"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-supplied",
+        "statement": "The supplied water is near air saturation (8.5-9.5 mg/L)",
+        "check": "between(value(first(recorded('do-supplied')), 'mg/L'), 8.5, 9.5)",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-a",
+        "statement": "A stays below 0.5 mg/L",
+        "check": "value(first(recorded('do-a')), 'mg/L') < 0.5",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-order",
+        "statement": "Pouring lets in the most oxygen",
+        "check": "value(first(recorded('do-d')), 'mg/L') > max([value(first(recorded('do-a')), 'mg/L'), value(first(recorded('do-b')), 'mg/L'), value(first(recorded('do-c')), 'mg/L')])",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

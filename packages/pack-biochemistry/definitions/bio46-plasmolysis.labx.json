@@ -1,0 +1,389 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio46-plasmolysis",
+  "version": "1.0.0",
+  "title": "Plasmolysis in red onion cells",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Mount strips of red onion epidermis in water and sucrose solutions from 0.2 to 0.8 M, count the plasmolysed cells under the microscope, and find the concentration at which half are plasmolysed and the solute potential of the cell sap.",
+  "briefing": "Peel a strip of the coloured outer epidermis of a red onion scale and lay it in a drop of the solution on a slide; after ten minutes look at ×100. In a solution with a lower water potential than the sap, water leaves the vacuole and the red protoplast shrinks away from the cell wall: the cell is plasmolysed. Count turgid and plasmolysed cells in three fields at each concentration. Where half are plasmolysed (incipient plasmolysis) the solution’s solute potential equals the sap’s: Ψs = −iCRT, about −C(mol dm⁻³) × 2.44 MPa at 21 °C.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "plasmolysis",
+      "osmosis",
+      "water potential",
+      "solute potential",
+      "red onion",
+      "microscope",
+      "incipient plasmolysis"
+    ],
+    "topics": [
+      "Transport across membranes"
+    ],
+    "concepts": [
+      {
+        "id": "plasmolysis",
+        "label": "In a solution of lower water potential the protoplast loses water and pulls away from the wall"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-count",
+        "kind": "skill",
+        "statement": "Count turgid and plasmolysed cells in a wet mount"
+      },
+      {
+        "id": "o-incipient",
+        "kind": "analysis",
+        "statement": "Find the concentration at which half the cells are plasmolysed and the sap’s solute potential",
+        "goal": "g-incipient"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain plasmolysis with water potential",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "BTEC",
+      "T Level"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "s0",
+        "label": "Distilled water",
+        "preparation": "core:water-deionised",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "s02",
+        "label": "Sucrose, 0.2 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "s03",
+        "label": "Sucrose, 0.3 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.3 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "s04",
+        "label": "Sucrose, 0.4 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.4 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "s05",
+        "label": "Sucrose, 0.5 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.5 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "s06",
+        "label": "Sucrose, 0.6 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.6 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      },
+      {
+        "id": "s08",
+        "label": "Sucrose, 0.8 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.8 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:compound-microscope"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "mounts",
+        "kind": "group",
+        "title": "A mount in each solution",
+        "objectives": [
+          "o-count"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['s0','s02','s03','s04','s05','s06','s08']"
+        },
+        "steps": [
+          {
+            "id": "slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microscope-slide",
+              "id": "='slide-' + x",
+              "label": "='Red onion in ' + x"
+            }
+          },
+          {
+            "id": "drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x",
+              "destination": "='slide-' + x",
+              "volume": "50 uL"
+            }
+          },
+          {
+            "id": "strip",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "core:specimen.red-onion-epidermis",
+              "destination": "='slide-' + x",
+              "mass": "5 mg"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wait",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "10 min"
+        }
+      },
+      {
+        "id": "look",
+        "kind": "group",
+        "title": "Count each mount at ×100",
+        "objectives": [
+          "o-count"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['s0','s02','s03','s04','s05','s06','s08']"
+        },
+        "steps": [
+          {
+            "id": "low",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "10x",
+              "lamp": 0.5,
+              "illumination": "brightfield",
+              "condenser": "adjusted"
+            }
+          },
+          {
+            "id": "coarse",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "='slide-' + x",
+              "knob": "coarse"
+            }
+          },
+          {
+            "id": "fine",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "='slide-' + x",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "fields",
+            "kind": "group",
+            "title": "Three fields",
+            "forEach": {
+              "var": "n",
+              "in": "=[1, 2, 3]"
+            },
+            "steps": [
+              {
+                "id": "see",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "scope",
+                  "subject": "='slide-' + x"
+                }
+              },
+              {
+                "id": "note-p",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='plasmolysed-' + x",
+                  "value": "=sum(map(filter(see.out.counts, mentions(it[0], 'plasmolysed')), it[1]))"
+                }
+              },
+              {
+                "id": "note-t",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='turgid-' + x",
+                  "value": "=sum(map(filter(see.out.counts, mentions(it[0], 'fills them')), it[1]))"
+                }
+              }
+            ]
+          },
+          {
+            "id": "pct",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='pct-' + x",
+              "value": "=100 * sum(recorded('plasmolysed-' + x)) / max(1, sum(recorded('plasmolysed-' + x)) + sum(recorded('turgid-' + x)))"
+            }
+          }
+        ]
+      },
+      {
+        "id": "incipient",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "incipient-M",
+          "value": "=interpolateAt(map(['s0','s02','s03','s04','s05','s06','s08'], first(recorded('pct-' + it))), [0,0.2,0.3,0.4,0.5,0.6,0.8], 50)"
+        }
+      },
+      {
+        "id": "psi",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "solute-potential-MPa",
+          "value": "=-first(recorded('incipient-M')) * 8.31 * 294.15 / 1000"
+        }
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why do the protoplasts shrink away from the walls in 0.8 M sucrose?",
+        "options": [
+          {
+            "id": "water-out",
+            "label": "The solution has a lower water potential than the sap, so water leaves the vacuole by osmosis; the wall is rigid, so the protoplast pulls away from it"
+          },
+          {
+            "id": "sucrose-in",
+            "label": "Sucrose enters the cells and pushes the protoplast inwards"
+          },
+          {
+            "id": "walls-grow",
+            "label": "The cell walls swell"
+          }
+        ],
+        "correctWhen": "'water-out'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-incipient",
+        "statement": "Half the cells are plasmolysed between 0.3 and 0.5 M sucrose",
+        "check": "first(recorded('incipient-M')) > 0.3 && first(recorded('incipient-M')) < 0.5"
+      },
+      {
+        "id": "g-explain",
+        "statement": "Plasmolysis is explained",
+        "check": "decision('why') == 'water-out'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-ends",
+        "statement": "In water no cells are plasmolysed; in 0.8 M sucrose almost all are",
+        "check": "first(recorded('pct-s0')) < 5 && first(recorded('pct-s08')) > 90",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

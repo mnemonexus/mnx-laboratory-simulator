@@ -1,0 +1,573 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro15-folate-antibiotic-mics",
+  "version": "1.0.0",
+  "title": "Trimethoprim for a urinary infection? MICs of two folate-pathway antibiotics",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:transfer"
+      },
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Two-fold dilutions of trimethoprim and sulfamethoxazole along a 96-well plate against a reference E. coli, a urinary isolate and S. aureus, with a solvent-only row; read the turbidity after a night at 37 °C, find each MIC and decide whether trimethoprim could treat the patient.",
+  "briefing": "Both antibiotics block folate synthesis: sulfamethoxazole at dihydropteroate synthase, trimethoprim at dihydrofolate reductase. Sulfamethoxazole is dissolved in 2 % DMSO, so a row of the solvent alone, diluted the same way, shows whether the solvent inhibits anything. Column 1 starts at twice the top concentration and is halved along the row to column 10; 100 µL of cells then halves every well once more. Column 11 is the growth control and column 12 broth alone.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "biomedical-science",
+        "microbiology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "mic",
+        "label": "Minimum inhibitory concentration"
+      },
+      {
+        "id": "breakpoint",
+        "label": "Clinical breakpoints"
+      },
+      {
+        "id": "vehicle-control",
+        "label": "Solvent (vehicle) controls"
+      },
+      {
+        "id": "folate",
+        "label": "The folate pathway as a drug target"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-dilute",
+        "kind": "skill",
+        "statement": "Make two-fold dilution series in a plate and inoculate it",
+        "skills": [
+          "core:serial-dilution",
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-read",
+        "kind": "skill",
+        "statement": "Read MICs from turbidity",
+        "skills": [
+          "micro:mic-determination"
+        ],
+        "goal": "g-mics"
+      },
+      {
+        "id": "o-interpret",
+        "kind": "reasoning",
+        "statement": "Interpret the solvent control, a breakpoint and the drugs' partnership",
+        "goal": "g-interpret"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "k12",
+        "label": "E. coli K-12 (reference), 1 × 10⁶ CFU/mL",
+        "role": "culture",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "4 mL",
+        "container": "core:conical-tube-15ml",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "1e6 cells/mL"
+          }
+        ]
+      },
+      {
+        "id": "uti",
+        "label": "Urinary isolate, 1 × 10⁶ CFU/mL",
+        "role": "culture",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "4 mL",
+        "container": "core:conical-tube-15ml",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-uti-tmpr",
+            "count": "1e6 cells/mL"
+          }
+        ]
+      },
+      {
+        "id": "aureus",
+        "label": "S. aureus, 1 × 10⁶ CFU/mL",
+        "role": "culture",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "4 mL",
+        "container": "core:conical-tube-15ml",
+        "contains": [
+          {
+            "substance": "micro:staphylococcus-aureus-teaching-strain",
+            "count": "1e6 cells/mL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "lb",
+        "label": "Sterile LB broth",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "25 mL",
+        "container": "core:conical-tube-50ml"
+      },
+      {
+        "id": "tmp",
+        "label": "Trimethoprim, 1 mg/mL in water",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:trimethoprim",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "smx",
+        "label": "Sulfamethoxazole, 1 mg/mL in 2 % DMSO/Tris",
+        "preparation": "micro:dmso-tris-2pct",
+        "contains": [
+          {
+            "substance": "micro:sulfamethoxazole",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "dmso",
+        "label": "2 % DMSO/Tris (solvent)",
+        "preparation": "micro:dmso-tris-2pct",
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "plate",
+        "requires": {
+          "class": "core:microplate-96"
+        }
+      },
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "reader",
+        "requires": {
+          "purpose": "measure.absorbance",
+          "wavelength": "600 nm",
+          "format": "96-well"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "waste-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-1.5ml",
+          "id": "waste",
+          "label": "Discard"
+        }
+      },
+      {
+        "id": "tops",
+        "kind": "group",
+        "title": "Each series' top in LB, 1 mL: trimethoprim at 16 µg/mL, sulfamethoxazole at 256 µg/mL, and the solvent diluted as the sulfamethoxazole is",
+        "steps": [
+          {
+            "id": "top-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "=x[0]",
+              "label": "=x[0]"
+            }
+          },
+          {
+            "id": "top-lb",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "lb",
+              "destination": "=x[0]",
+              "volume": "=x[2]"
+            }
+          },
+          {
+            "id": "top-stock",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "=x[0]",
+              "volume": "=x[3]"
+            }
+          },
+          {
+            "id": "top-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "vortex",
+              "cycles": 1
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['tmp-top', 'tmp', '984 uL', '16 uL'], ['smx-top', 'smx', '744 uL', '256 uL'], ['vehicle-top', 'dmso', '744 uL', '256 uL']]"
+        },
+        "objectives": [
+          "o-dilute"
+        ]
+      },
+      {
+        "id": "rows",
+        "kind": "group",
+        "title": "A two-fold series along each row, columns 1 to 10",
+        "steps": [
+          {
+            "id": "broth",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "lb",
+              "volume": "100 uL",
+              "into": "=map(range(2, 12, 11), 'plate/' + x[0] + text(it))"
+            }
+          },
+          {
+            "id": "sterility",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "lb",
+              "destination": "='plate/' + x[0] + '12'",
+              "volume": "200 uL"
+            }
+          },
+          {
+            "id": "top",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[1]",
+              "destination": "='plate/' + x[0] + '1'",
+              "volume": "200 uL"
+            }
+          },
+          {
+            "id": "series",
+            "kind": "group",
+            "title": "Halve along the row",
+            "steps": [
+              {
+                "id": "carry",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "='plate/' + x[0] + text(c)",
+                  "destination": "='plate/' + x[0] + text(c + 1)",
+                  "volume": "100 uL"
+                }
+              },
+              {
+                "id": "mix",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "='plate/' + x[0] + text(c + 1)",
+                  "method": "pipette-mix",
+                  "cycles": 5
+                }
+              }
+            ],
+            "forEach": {
+              "var": "c",
+              "in": "=range(1, 9, 9)"
+            }
+          },
+          {
+            "id": "discard",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='plate/' + x[0] + '10'",
+              "destination": "waste",
+              "volume": "100 uL"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A', 'tmp-top', 'k12', 8], ['B', 'tmp-top', 'uti', 8], ['C', 'tmp-top', 'aureus', 8], ['D', 'smx-top', 'k12', 128], ['E', 'smx-top', 'uti', 128], ['F', 'smx-top', 'aureus', 128], ['G', 'vehicle-top', 'k12', 128]]"
+        },
+        "objectives": [
+          "o-dilute"
+        ]
+      },
+      {
+        "id": "resuspend",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "=x",
+          "method": "vortex",
+          "cycles": 1
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['k12', 'uti', 'aureus']"
+        }
+      },
+      {
+        "id": "inoculate",
+        "kind": "group",
+        "title": "100 µL of the row's culture into columns 1 to 11 (11 is the growth control)",
+        "steps": [
+          {
+            "id": "cells",
+            "kind": "technique",
+            "ref": "core:dispense-reagent",
+            "params": {
+              "reagent": "=x[2]",
+              "volume": "100 uL",
+              "into": "=map(range(1, 11, 11), 'plate/' + x[0] + text(it))"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A', 'tmp-top', 'k12', 8], ['B', 'tmp-top', 'uti', 8], ['C', 'tmp-top', 'aureus', 8], ['D', 'smx-top', 'k12', 128], ['E', 'smx-top', 'uti', 128], ['F', 'smx-top', 'aureus', 128], ['G', 'vehicle-top', 'k12', 128]]"
+        },
+        "objectives": [
+          "o-dilute"
+        ]
+      },
+      {
+        "id": "shake",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "plate",
+          "method": "shake"
+        }
+      },
+      {
+        "id": "into-incubator",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "plate",
+          "place": "incubator"
+        }
+      },
+      {
+        "id": "overnight",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "18 h"
+        }
+      },
+      {
+        "id": "out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "plate"
+        }
+      },
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "reader",
+          "subject": "plate",
+          "wavelength": "600 nm"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "mics",
+        "kind": "group",
+        "title": "Each row's MIC: the lowest concentration whose well is as clear as the row's sterility well",
+        "steps": [
+          {
+            "id": "note-growth",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='growth-' + x[0]",
+              "value": "=reading(read, 'plate/' + x[0] + '11') - reading(read, 'plate/' + x[0] + '12')"
+            }
+          },
+          {
+            "id": "note-mic",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='MIC-' + x[0]",
+              "value": "=if(count(filter(range(1, 10, 10), reading(read, 'plate/' + x[0] + text(it)) - reading(read, 'plate/' + x[0] + '12') < 0.05)) == 0, 2 * x[3], min(map(filter(range(1, 10, 10), reading(read, 'plate/' + x[0] + text(it)) - reading(read, 'plate/' + x[0] + '12') < 0.05), x[3] / 2 ^ (it - 1))))"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['A', 'tmp-top', 'k12', 8], ['B', 'tmp-top', 'uti', 8], ['C', 'tmp-top', 'aureus', 8], ['D', 'smx-top', 'k12', 128], ['E', 'smx-top', 'uti', 128], ['F', 'smx-top', 'aureus', 128], ['G', 'vehicle-top', 'k12', 128]]"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "solvent",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Row G holds the solvent alone, diluted exactly as the sulfamethoxazole is. What does it show?",
+        "options": [
+          {
+            "id": "none",
+            "label": "The solvent does not inhibit K-12 at these concentrations, so row D's clear wells are the antibiotic's doing"
+          },
+          {
+            "id": "some",
+            "label": "The solvent inhibits growth, so row D's MIC is too low"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing: a solvent control only matters for disc tests"
+          }
+        ],
+        "correctWhen": "if(first(recorded('MIC-G')) > 128, 'none', 'some')"
+      },
+      {
+        "id": "breakpoint",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "For E. coli in an uncomplicated urinary infection, trimethoprim's clinical breakpoint is resistant above 4 µg/mL. Is the urinary isolate susceptible?",
+        "options": [
+          {
+            "id": "susceptible",
+            "label": "Susceptible: trimethoprim alone could treat the infection"
+          },
+          {
+            "id": "resistant",
+            "label": "Resistant: trimethoprim alone would likely fail; choose another antibiotic"
+          }
+        ],
+        "correctWhen": "if(first(recorded('MIC-B')) > 4, 'resistant', 'susceptible')"
+      },
+      {
+        "id": "partners",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Sulfamethoxazole needs 30 to 60 µg/mL on its own here. Why is it usually given with trimethoprim?",
+        "options": [
+          {
+            "id": "pathway",
+            "label": "They block two successive steps of folate synthesis (dihydropteroate synthase, then dihydrofolate reductase), and together inhibit at far lower doses than either alone"
+          },
+          {
+            "id": "absorb",
+            "label": "Trimethoprim helps sulfamethoxazole be absorbed"
+          },
+          {
+            "id": "spectrum",
+            "label": "Each covers organisms the other cannot reach at all"
+          }
+        ],
+        "correctWhen": "'pathway'"
+      },
+      {
+        "id": "bag",
+        "kind": "operation",
+        "ref": "core:dispose",
+        "params": {
+          "container": "plate",
+          "stream": "core:biohazard-waste"
+        }
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-mics",
+        "statement": "The reference MICs are within one dilution of trimethoprim 0.25 (E. coli) and 1 µg/mL (S. aureus), and sulfamethoxazole 32 and 64 µg/mL",
+        "check": "between(first(recorded('MIC-A')), 0.125, 0.5) && between(first(recorded('MIC-C')), 0.5, 2) && between(first(recorded('MIC-D')), 16, 64) && between(first(recorded('MIC-F')), 32, 128)"
+      },
+      {
+        "id": "g-interpret",
+        "statement": "The solvent control, the isolate's resistance and the partnership are all explained",
+        "check": "decision('solvent') == 'none' && decision('breakpoint') == 'resistant' && decision('partners') == 'pathway'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-isolate",
+        "statement": "The urinary isolate grows in every trimethoprim well but is inhibited by sulfamethoxazole like K-12",
+        "check": "first(recorded('MIC-B')) > 8 && first(recorded('MIC-E')) == first(recorded('MIC-D'))",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-controls",
+        "statement": "Every growth control is turbid and every sterility well clear",
+        "check": "all(r in ['A', 'B', 'C', 'D', 'E', 'F', 'G']: first(recorded('growth-' + r)) > 0.2) && reading(read, 'plate/A12') < 0.1",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

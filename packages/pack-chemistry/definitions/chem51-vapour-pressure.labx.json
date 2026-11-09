@@ -1,0 +1,307 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem51-vapour-pressure",
+  "title": "The vapour pressure of water and its enthalpy of vaporisation",
+  "summary": "Trap air over a little water in a sealed syringe, find the amount of air at 0 °C, then measure the volume from 30 to 90 °C; the extra volume beyond Charles’s law is water vapour, giving the vapour pressure at each temperature and, from a Clausius–Clapeyron plot, the enthalpy of vaporisation.",
+  "briefing": "Put 5 mL of water and 20 mL of air in the syringe and cap it. In ice and water (0 °C) the vapour pressure of water is tiny, so the reading gives the amount of air. At each higher temperature the air alone would fill V₀ × T/273 at one atmosphere; water vapour fills the rest, so its partial pressure is p = 101.3 × (1 − V₀T/(273V)) kPa. ln p against 1/T is a straight line of slope −ΔH/R.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry",
+        "physics"
+      ]
+    },
+    "keywords": [
+      "vapour pressure",
+      "Clausius–Clapeyron",
+      "enthalpy of vaporisation",
+      "Dalton’s law",
+      "partial pressure"
+    ],
+    "topics": [
+      "Gases",
+      "Thermodynamics"
+    ],
+    "concepts": [
+      {
+        "id": "vp",
+        "label": "A liquid’s vapour pressure rises steeply with temperature: ln p = −ΔH/RT + constant"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the volume of air and water vapour at several temperatures"
+      },
+      {
+        "id": "o-calc",
+        "kind": "analysis",
+        "statement": "Find the vapour pressure and the enthalpy of vaporisation",
+        "goal": "g-vp"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the steep rise",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "AP"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "ice",
+        "requires": {
+          "class": "core:ice-bath"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "syringe",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:gas-syringe-sealed",
+          "id": "syringe",
+          "label": "Sealed syringe with water"
+        }
+      },
+      {
+        "id": "water",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "syringe",
+          "volume": "5 mL"
+        }
+      },
+      {
+        "id": "trap",
+        "kind": "operation",
+        "ref": "core:trap-air",
+        "params": {
+          "container": "syringe",
+          "volume": "20 mL"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "cold",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "syringe",
+          "place": "ice"
+        }
+      },
+      {
+        "id": "cold-wait",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "10 min"
+        }
+      },
+      {
+        "id": "read0",
+        "kind": "operation",
+        "ref": "core:read-volume",
+        "params": {
+          "container": "syringe"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "n-v0",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "V at 0 °C",
+          "value": "=value(quantity(read0.out.value), 'mL')"
+        }
+      },
+      {
+        "id": "cold-out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "syringe"
+        }
+      },
+      {
+        "id": "temps",
+        "kind": "group",
+        "title": "Each temperature in turn",
+        "forEach": {
+          "var": "t",
+          "in": "=[30,40,50,60,70,80,90]"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "set",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(t) + ' Cel')"
+            }
+          },
+          {
+            "id": "in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "syringe",
+              "place": "bath"
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "syringe"
+            }
+          },
+          {
+            "id": "n-p",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='p at ' + text(t)",
+              "value": "=101.325 * (1 - first(recorded('V at 0 °C')) * (t + 273.15) / (273.15 * value(quantity(read.out.value), 'mL')))"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "syringe"
+            }
+          }
+        ]
+      },
+      {
+        "id": "dh",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "enthalpy of vaporisation (kJ/mol)",
+          "value": "=8.314 * ln(first(recorded('p at 90')) / first(recorded('p at 50'))) / (1 / 323.15 - 1 / 363.15) / 1000"
+        },
+        "objectives": [
+          "o-calc"
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the vapour pressure rise so steeply as the water warms?",
+        "options": [
+          {
+            "id": "energy",
+            "label": "The fraction of molecules with enough energy to escape the liquid rises exponentially with temperature"
+          },
+          {
+            "id": "expansion",
+            "label": "The water expands and pushes the plunger"
+          },
+          {
+            "id": "air",
+            "label": "The air dissolves in the water"
+          }
+        ],
+        "correctWhen": "choice == 'energy'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-vp",
+        "statement": "The vapour pressure at 80 °C is within 15 % of 47 kPa and the enthalpy of vaporisation within 15 % of 42 kJ/mol",
+        "check": "abs(first(recorded('p at 80')) / 47.4 - 1) < 0.15 && abs(first(recorded('enthalpy of vaporisation (kJ/mol)')) / 42 - 1) < 0.15"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The rise is explained",
+        "check": "decision('why') == 'energy'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-steep",
+        "statement": "The vapour pressure more than doubles from 60 to 80 °C",
+        "check": "first(recorded('p at 80')) > 2 * first(recorded('p at 60'))",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

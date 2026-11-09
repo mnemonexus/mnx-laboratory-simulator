@@ -1,0 +1,1076 @@
+[
+  {
+    "id": "provision",
+    "label": "Provision",
+    "status": "stable",
+    "description": "Obtain or make available material"
+  },
+  {
+    "id": "provision.from-stock",
+    "label": "Provision: from stock",
+    "parent": "provision",
+    "status": "stable"
+  },
+  {
+    "id": "provision.thaw",
+    "label": "Provision: thaw",
+    "parent": "provision",
+    "status": "stable"
+  },
+  {
+    "id": "provision.reconstitute",
+    "label": "Provision: reconstitute",
+    "parent": "provision",
+    "status": "stable"
+  },
+  {
+    "id": "measure-out",
+    "label": "Measure out",
+    "status": "stable",
+    "description": "Obtain a defined amount"
+  },
+  {
+    "id": "measure-out.volume",
+    "label": "Measure out a volume",
+    "parent": "measure-out",
+    "signature": {
+      "in": [
+        "liquid"
+      ],
+      "out": [
+        "portion"
+      ]
+    },
+    "dimensions": [
+      "range",
+      "accuracy",
+      "precision",
+      "resolution",
+      "liquid-compatibility",
+      "sterility",
+      "speed"
+    ],
+    "status": "stable"
+  },
+  {
+    "id": "measure-out.mass",
+    "label": "Measure out a mass",
+    "parent": "measure-out",
+    "signature": {
+      "in": [
+        "solid or liquid"
+      ],
+      "out": [
+        "portion"
+      ]
+    },
+    "dimensions": [
+      "range",
+      "readability",
+      "repeatability",
+      "capacity"
+    ],
+    "requires": [
+      "calibrate.tare"
+    ],
+    "status": "stable"
+  },
+  {
+    "id": "measure-out.count",
+    "label": "Measure out: count",
+    "parent": "measure-out",
+    "status": "stable"
+  },
+  {
+    "id": "measure-out.volume.dispense-variable",
+    "label": "Dispense a variable volume (burette)",
+    "parent": "measure-out.volume",
+    "status": "experimental"
+  },
+  {
+    "id": "transfer",
+    "label": "Transfer",
+    "status": "stable",
+    "description": "Move material between places"
+  },
+  {
+    "id": "transfer.blot",
+    "label": "Transfer: blot",
+    "parent": "transfer",
+    "status": "stable"
+  },
+  {
+    "id": "transfer.liquid",
+    "label": "Transfer a liquid",
+    "parent": "transfer",
+    "status": "stable"
+  },
+  {
+    "id": "transfer.solid",
+    "label": "Transfer: solid",
+    "parent": "transfer",
+    "status": "stable"
+  },
+  {
+    "id": "transfer.organisms",
+    "label": "Transfer: organisms",
+    "parent": "transfer",
+    "status": "stable"
+  },
+  {
+    "id": "transfer.organisms.plate",
+    "label": "Transfer: organisms onto agar (plating)",
+    "parent": "transfer.organisms",
+    "status": "stable",
+    "description": "Put cells on an agar plate and spread them so that each cell grows into its own colony"
+  },
+  {
+    "id": "transfer.to-plate",
+    "label": "Transfer into plate wells",
+    "parent": "transfer",
+    "status": "stable"
+  },
+  {
+    "id": "combine",
+    "label": "Combine",
+    "status": "stable",
+    "description": "Bring materials together into a defined state"
+  },
+  {
+    "id": "combine.dissolve",
+    "label": "Combine: dissolve",
+    "parent": "combine",
+    "status": "stable"
+  },
+  {
+    "id": "combine.mix",
+    "label": "Mix",
+    "parent": "combine",
+    "status": "stable"
+  },
+  {
+    "id": "combine.dilute",
+    "label": "Dilute",
+    "parent": "combine",
+    "status": "stable"
+  },
+  {
+    "id": "combine.make-up-to-volume",
+    "label": "Make up to volume",
+    "parent": "combine",
+    "status": "stable"
+  },
+  {
+    "id": "combine.suspend",
+    "label": "Combine: suspend",
+    "parent": "combine",
+    "status": "stable"
+  },
+  {
+    "id": "prepare",
+    "label": "Prepare",
+    "status": "stable",
+    "description": "Produce a defined material for later use"
+  },
+  {
+    "id": "prepare.solution-by-mass",
+    "label": "Prepare: solution by mass",
+    "parent": "prepare",
+    "status": "stable"
+  },
+  {
+    "id": "prepare.dilution-series",
+    "label": "Prepare a dilution series",
+    "parent": "prepare",
+    "status": "stable"
+  },
+  {
+    "id": "prepare.buffer",
+    "label": "Prepare: buffer",
+    "parent": "prepare",
+    "status": "stable"
+  },
+  {
+    "id": "prepare.master-mix",
+    "label": "Prepare: master mix",
+    "parent": "prepare",
+    "status": "stable"
+  },
+  {
+    "id": "prepare.standard-series",
+    "label": "Prepare a standard series",
+    "parent": "prepare",
+    "status": "stable"
+  },
+  {
+    "id": "prepare.medium",
+    "label": "Prepare: medium",
+    "parent": "prepare",
+    "status": "stable"
+  },
+  {
+    "id": "prepare.gel",
+    "label": "Prepare: gel",
+    "parent": "prepare",
+    "status": "stable"
+  },
+  {
+    "id": "prepare.smear",
+    "label": "Prepare: smear",
+    "parent": "prepare",
+    "status": "stable"
+  },
+  {
+    "id": "prepare.burette",
+    "label": "Prepare a burette",
+    "parent": "prepare",
+    "status": "experimental"
+  },
+  {
+    "id": "condition",
+    "label": "Condition",
+    "status": "stable",
+    "description": "Put material under defined conditions"
+  },
+  {
+    "id": "condition.heat",
+    "label": "Condition: heat",
+    "parent": "condition",
+    "status": "stable"
+  },
+  {
+    "id": "condition.cool",
+    "label": "Condition: cool",
+    "parent": "condition",
+    "status": "stable"
+  },
+  {
+    "id": "condition.hold-temperature",
+    "label": "Condition: hold temperature",
+    "parent": "condition",
+    "signature": {
+      "in": [
+        "material",
+        "target temperature",
+        "duration"
+      ],
+      "out": [
+        "conditioned material"
+      ]
+    },
+    "dimensions": [
+      "temperature-range",
+      "stability",
+      "heating-rate",
+      "uniformity",
+      "capacity",
+      "vessel-compatibility"
+    ],
+    "status": "stable"
+  },
+  {
+    "id": "condition.incubate",
+    "label": "Incubate",
+    "parent": "condition",
+    "status": "stable"
+  },
+  {
+    "id": "condition.illuminate",
+    "label": "Illuminate",
+    "parent": "condition",
+    "status": "experimental"
+  },
+  {
+    "id": "condition.agitate",
+    "label": "Condition: agitate",
+    "parent": "condition",
+    "status": "stable"
+  },
+  {
+    "id": "condition.atmosphere",
+    "label": "Condition: atmosphere",
+    "parent": "condition",
+    "status": "stable"
+  },
+  {
+    "id": "condition.protect-from-light",
+    "label": "Condition: protect from light",
+    "parent": "condition",
+    "status": "stable"
+  },
+  {
+    "id": "condition.reflux",
+    "label": "Condition: reflux",
+    "parent": "condition",
+    "status": "stable"
+  },
+  {
+    "id": "condition.wait",
+    "label": "Let time pass",
+    "parent": "condition",
+    "status": "experimental"
+  },
+  {
+    "id": "transform",
+    "label": "Transform",
+    "status": "stable",
+    "description": "Cause a chemical or biological change"
+  },
+  {
+    "id": "transform.react",
+    "label": "Transform: react",
+    "parent": "transform",
+    "status": "stable"
+  },
+  {
+    "id": "transform.digest",
+    "label": "Transform: digest",
+    "parent": "transform",
+    "status": "stable"
+  },
+  {
+    "id": "transform.amplify-dna",
+    "label": "Transform: amplify dna",
+    "parent": "transform",
+    "status": "stable"
+  },
+  {
+    "id": "transform.grow-culture",
+    "label": "Transform: grow culture",
+    "parent": "transform",
+    "status": "stable"
+  },
+  {
+    "id": "transform.expose-to-antimicrobial",
+    "label": "Transform: expose cells to an antimicrobial",
+    "parent": "transform",
+    "status": "experimental"
+  },
+  {
+    "id": "transform.stain",
+    "label": "Transform: stain",
+    "parent": "transform",
+    "status": "stable"
+  },
+  {
+    "id": "transform.fix",
+    "label": "Transform: fix cells",
+    "parent": "transform",
+    "status": "stable",
+    "description": "Attach cells to a surface and kill them so that later reagents do not wash them off"
+  },
+  {
+    "id": "transform.lyse",
+    "label": "Transform: lyse",
+    "parent": "transform",
+    "status": "stable"
+  },
+  {
+    "id": "transform.denature",
+    "label": "Transform: denature",
+    "parent": "transform",
+    "status": "stable"
+  },
+  {
+    "id": "transform.transform-cells",
+    "label": "Transform: transform cells",
+    "parent": "transform",
+    "status": "stable"
+  },
+  {
+    "id": "separate",
+    "label": "Separate",
+    "status": "stable",
+    "description": "Partition a mixture"
+  },
+  {
+    "id": "separate.solid-from-liquid",
+    "label": "Separate: solid from liquid",
+    "parent": "separate",
+    "signature": {
+      "in": [
+        "mixture"
+      ],
+      "out": [
+        "solid fraction",
+        "liquid fraction"
+      ]
+    },
+    "dimensions": [
+      "recovery",
+      "retained-liquid",
+      "temperature-regime",
+      "scale",
+      "speed",
+      "sterility",
+      "shear",
+      "fine-particles"
+    ],
+    "status": "stable"
+  },
+  {
+    "id": "separate.liquid-liquid",
+    "label": "Separate: liquid liquid",
+    "parent": "separate",
+    "status": "stable"
+  },
+  {
+    "id": "separate.by-size",
+    "label": "Separate: by size",
+    "parent": "separate",
+    "status": "stable"
+  },
+  {
+    "id": "separate.by-charge",
+    "label": "Separate: by charge",
+    "parent": "separate",
+    "status": "stable"
+  },
+  {
+    "id": "separate.bound-from-free",
+    "label": "Separate: bound from free",
+    "parent": "separate",
+    "status": "stable"
+  },
+  {
+    "id": "separate.by-affinity",
+    "label": "Separate: by affinity",
+    "parent": "separate",
+    "status": "stable"
+  },
+  {
+    "id": "separate.by-solubility",
+    "label": "Separate: by solubility",
+    "parent": "separate",
+    "status": "stable",
+    "description": "Separate components that dissolve to different extents in a solvent (recrystallisation, washing out a soluble impurity, precipitation)"
+  },
+  {
+    "id": "separate.by-polarity",
+    "label": "Separate: by polarity",
+    "parent": "separate",
+    "status": "stable"
+  },
+  {
+    "id": "separate.by-volatility",
+    "label": "Separate: by volatility",
+    "parent": "separate",
+    "status": "stable"
+  },
+  {
+    "id": "separate.cells-from-medium",
+    "label": "Separate: cells from medium",
+    "parent": "separate",
+    "status": "stable"
+  },
+  {
+    "id": "purify",
+    "label": "Purify",
+    "status": "stable",
+    "description": "Increase the proportion of a target"
+  },
+  {
+    "id": "purify.solid",
+    "label": "Purify: solid",
+    "parent": "purify",
+    "status": "stable"
+  },
+  {
+    "id": "purify.culture",
+    "label": "Purify: isolate a pure culture",
+    "parent": "purify",
+    "status": "stable",
+    "description": "Obtain cells descended from a single cell, free of other organisms"
+  },
+  {
+    "id": "purify.protein",
+    "label": "Purify: protein",
+    "parent": "purify",
+    "status": "stable"
+  },
+  {
+    "id": "purify.dna",
+    "label": "Purify: dna",
+    "parent": "purify",
+    "status": "stable"
+  },
+  {
+    "id": "concentrate",
+    "label": "Concentrate",
+    "status": "stable",
+    "description": "Remove solvent or reduce volume"
+  },
+  {
+    "id": "concentrate.evaporate",
+    "label": "Concentrate: evaporate",
+    "parent": "concentrate",
+    "status": "stable"
+  },
+  {
+    "id": "concentrate.dry",
+    "label": "Concentrate: dry",
+    "parent": "concentrate",
+    "signature": {
+      "in": [
+        "wet solid or solution"
+      ],
+      "out": [
+        "dry material"
+      ]
+    },
+    "dimensions": [
+      "residual-solvent",
+      "temperature-exposure",
+      "time",
+      "scale"
+    ],
+    "status": "stable"
+  },
+  {
+    "id": "concentrate.precipitate-and-resuspend",
+    "label": "Concentrate: precipitate and resuspend",
+    "parent": "concentrate",
+    "status": "stable"
+  },
+  {
+    "id": "measure",
+    "label": "Measure",
+    "status": "stable",
+    "description": "Obtain a quantitative value"
+  },
+  {
+    "id": "measure.absorbance",
+    "label": "Measure absorbance",
+    "parent": "measure",
+    "signature": {
+      "in": [
+        "sample",
+        "configuration"
+      ],
+      "out": [
+        "absorbance values"
+      ]
+    },
+    "dimensions": [
+      "wavelength-range",
+      "bandwidth",
+      "path-length",
+      "linear-range",
+      "sample-volume",
+      "throughput",
+      "kinetic",
+      "temperature-control"
+    ],
+    "requires": [
+      "calibrate.blank"
+    ],
+    "status": "stable"
+  },
+  {
+    "id": "measure.fluorescence",
+    "label": "Measure: fluorescence",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.ph",
+    "label": "Measure: ph",
+    "parent": "measure",
+    "requires": [
+      "calibrate.ph-meter"
+    ],
+    "status": "stable"
+  },
+  {
+    "id": "measure.dissolved-oxygen",
+    "label": "Measure: dissolved oxygen",
+    "parent": "measure",
+    "status": "experimental"
+  },
+  {
+    "id": "measure.potential",
+    "label": "Measure: electrode potential",
+    "parent": "measure",
+    "status": "experimental"
+  },
+  {
+    "id": "measure.mass",
+    "label": "Measure: mass",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.volume",
+    "label": "Measure: volume",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.temperature",
+    "label": "Measure: temperature",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.melting-point",
+    "label": "Measure: melting point",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.cell-density",
+    "label": "Measure: cell density",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.colony-count",
+    "label": "Measure: colony count",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.inhibition-zone",
+    "label": "Measure: inhibition zone diameter",
+    "parent": "measure",
+    "status": "experimental"
+  },
+  {
+    "id": "measure.band-size",
+    "label": "Measure: band size",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.retention-factor",
+    "label": "Measure: retention factor",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "measure.spectrum",
+    "label": "Measure: spectrum",
+    "parent": "measure",
+    "status": "stable"
+  },
+  {
+    "id": "observe",
+    "label": "Observe",
+    "status": "stable",
+    "description": "Obtain a qualitative observation"
+  },
+  {
+    "id": "observe.colour",
+    "label": "Observe: colour",
+    "parent": "observe",
+    "status": "stable"
+  },
+  {
+    "id": "observe.precipitate",
+    "label": "Observe: precipitate",
+    "parent": "observe",
+    "status": "stable"
+  },
+  {
+    "id": "observe.gas",
+    "label": "Observe: gas",
+    "parent": "observe",
+    "status": "stable"
+  },
+  {
+    "id": "observe.morphology",
+    "label": "Observe: morphology",
+    "parent": "observe",
+    "status": "stable"
+  },
+  {
+    "id": "observe.growth",
+    "label": "Observe: growth",
+    "parent": "observe",
+    "status": "stable"
+  },
+  {
+    "id": "observe.fluorescence",
+    "label": "Observe: fluorescence",
+    "parent": "observe",
+    "status": "stable"
+  },
+  {
+    "id": "analyse",
+    "label": "Analyse",
+    "status": "stable",
+    "description": "Determine identity or quantity by combining measurements"
+  },
+  {
+    "id": "analyse.protein-concentration",
+    "label": "Determine protein concentration",
+    "parent": "analyse",
+    "status": "stable"
+  },
+  {
+    "id": "analyse.purity",
+    "label": "Analyse: purity",
+    "parent": "analyse",
+    "status": "stable"
+  },
+  {
+    "id": "analyse.identity",
+    "label": "Analyse: identity",
+    "parent": "analyse",
+    "status": "stable"
+  },
+  {
+    "id": "analyse.enzyme-activity",
+    "label": "Analyse: enzyme activity",
+    "parent": "analyse",
+    "status": "stable"
+  },
+  {
+    "id": "analyse.viability",
+    "label": "Analyse: viability",
+    "parent": "analyse",
+    "status": "stable"
+  },
+  {
+    "id": "analyse.concentration",
+    "label": "Analyse: concentration",
+    "parent": "analyse",
+    "status": "experimental"
+  },
+  {
+    "id": "analyse.titration",
+    "label": "Titrate to an end point",
+    "parent": "analyse",
+    "status": "experimental"
+  },
+  {
+    "id": "calibrate",
+    "label": "Calibrate",
+    "status": "stable",
+    "description": "Establish or verify the response of an instrument"
+  },
+  {
+    "id": "calibrate.ph-meter",
+    "label": "Calibrate: ph meter",
+    "parent": "calibrate",
+    "status": "stable"
+  },
+  {
+    "id": "calibrate.blank",
+    "label": "Blank an instrument",
+    "parent": "calibrate",
+    "status": "stable"
+  },
+  {
+    "id": "calibrate.tare",
+    "label": "Calibrate: tare",
+    "parent": "calibrate",
+    "status": "stable"
+  },
+  {
+    "id": "calibrate.standard-curve",
+    "label": "Calibrate: standard curve",
+    "parent": "calibrate",
+    "status": "stable"
+  },
+  {
+    "id": "contain",
+    "label": "Contain",
+    "status": "stable",
+    "description": "Hold and protect material"
+  },
+  {
+    "id": "contain.store",
+    "label": "Contain: store",
+    "parent": "contain",
+    "status": "stable"
+  },
+  {
+    "id": "contain.label",
+    "label": "Contain: label",
+    "parent": "contain",
+    "status": "stable"
+  },
+  {
+    "id": "contain.seal",
+    "label": "Contain: seal",
+    "parent": "contain",
+    "status": "stable"
+  },
+  {
+    "id": "contain.open",
+    "label": "Contain: open",
+    "parent": "contain",
+    "status": "experimental"
+  },
+  {
+    "id": "sterilise",
+    "label": "Sterilise",
+    "status": "stable",
+    "description": "Remove or prevent contamination of material"
+  },
+  {
+    "id": "sterilise.loop",
+    "label": "Sterilise: loop",
+    "parent": "sterilise",
+    "status": "stable"
+  },
+  {
+    "id": "sterilise.autoclave",
+    "label": "Sterilise: autoclave",
+    "parent": "sterilise",
+    "status": "stable"
+  },
+  {
+    "id": "sterilise.filter",
+    "label": "Sterilise: filter",
+    "parent": "sterilise",
+    "status": "stable"
+  },
+  {
+    "id": "decontaminate",
+    "label": "Decontaminate",
+    "status": "stable",
+    "description": "Remove contamination from surfaces and equipment"
+  },
+  {
+    "id": "decontaminate.surface",
+    "label": "Decontaminate: surface",
+    "parent": "decontaminate",
+    "status": "stable"
+  },
+  {
+    "id": "decontaminate.optics",
+    "label": "Clean optics",
+    "parent": "decontaminate",
+    "status": "experimental"
+  },
+  {
+    "id": "protect",
+    "label": "Protect",
+    "status": "stable",
+    "description": "Protect the operator, the sample or the environment"
+  },
+  {
+    "id": "protect.ppe",
+    "label": "Protect: ppe",
+    "parent": "protect",
+    "status": "stable"
+  },
+  {
+    "id": "protect.containment",
+    "label": "Protect: containment",
+    "parent": "protect",
+    "status": "stable"
+  },
+  {
+    "id": "protect.aseptic-field",
+    "label": "Protect: aseptic field",
+    "parent": "protect",
+    "status": "stable"
+  },
+  {
+    "id": "dispose",
+    "label": "Dispose",
+    "status": "stable",
+    "description": "Discard to the correct stream"
+  },
+  {
+    "id": "dispose.chemical",
+    "label": "Dispose of chemical waste",
+    "parent": "dispose",
+    "status": "stable"
+  },
+  {
+    "id": "dispose.biohazard",
+    "label": "Dispose: biohazard",
+    "parent": "dispose",
+    "status": "stable"
+  },
+  {
+    "id": "dispose.sharps",
+    "label": "Dispose: sharps",
+    "parent": "dispose",
+    "status": "stable"
+  },
+  {
+    "id": "dispose.aqueous",
+    "label": "Dispose: aqueous",
+    "parent": "dispose",
+    "status": "stable"
+  },
+  {
+    "id": "dispose.general",
+    "label": "Dispose: general",
+    "parent": "dispose",
+    "status": "experimental"
+  },
+  {
+    "id": "plan",
+    "label": "Plan",
+    "status": "stable",
+    "description": "Decide before acting"
+  },
+  {
+    "id": "plan.layout",
+    "label": "Plan a plate layout",
+    "parent": "plan",
+    "status": "stable"
+  },
+  {
+    "id": "plan.concentration-range",
+    "label": "Plan: concentration range",
+    "parent": "plan",
+    "status": "stable"
+  },
+  {
+    "id": "plan.controls",
+    "label": "Plan: controls",
+    "parent": "plan",
+    "status": "stable"
+  },
+  {
+    "id": "plan.replicates",
+    "label": "Plan: replicates",
+    "parent": "plan",
+    "status": "stable"
+  },
+  {
+    "id": "record",
+    "label": "Record",
+    "status": "stable",
+    "description": "Record data"
+  },
+  {
+    "id": "record.measurement",
+    "label": "Record: measurement",
+    "parent": "record",
+    "status": "stable"
+  },
+  {
+    "id": "record.observation",
+    "label": "Record: observation",
+    "parent": "record",
+    "status": "stable"
+  },
+  {
+    "id": "analyse-data",
+    "label": "Analyse data",
+    "status": "stable",
+    "description": "Process and model data"
+  },
+  {
+    "id": "analyse-data.calibration",
+    "label": "Build and use a calibration",
+    "parent": "analyse-data",
+    "status": "stable"
+  },
+  {
+    "id": "analyse-data.fit",
+    "label": "Analyse data: fit",
+    "parent": "analyse-data",
+    "status": "stable"
+  },
+  {
+    "id": "analyse-data.uncertainty",
+    "label": "Analyse data: propagate uncertainty",
+    "parent": "analyse-data",
+    "status": "experimental"
+  },
+  {
+    "id": "analyse-data.statistics",
+    "label": "Analyse data: statistics",
+    "parent": "analyse-data",
+    "status": "stable"
+  },
+  {
+    "id": "analyse-data.transform",
+    "label": "Analyse data: transform",
+    "parent": "analyse-data",
+    "status": "experimental"
+  },
+  {
+    "id": "analyse-data.compute",
+    "label": "Analyse data: compute",
+    "parent": "analyse-data",
+    "status": "experimental"
+  },
+  {
+    "id": "analyse-data.interpolate",
+    "label": "Analyse data: interpolate",
+    "parent": "analyse-data",
+    "status": "experimental"
+  },
+  {
+    "id": "conclude",
+    "label": "Conclude",
+    "status": "stable",
+    "description": "Draw and justify conclusions"
+  },
+  {
+    "id": "conclude.claim",
+    "label": "Conclude: claim",
+    "parent": "conclude",
+    "status": "stable"
+  },
+  {
+    "id": "handle",
+    "label": "Handle",
+    "status": "experimental",
+    "description": "Prepare a tool or change its state"
+  },
+  {
+    "id": "handle.tip",
+    "label": "Handle: tip",
+    "parent": "handle",
+    "status": "experimental"
+  },
+  {
+    "id": "handle.set-volume",
+    "label": "Handle: set volume",
+    "parent": "handle",
+    "status": "experimental"
+  },
+  {
+    "id": "handle.controls",
+    "label": "Handle: instrument controls",
+    "parent": "handle",
+    "status": "experimental"
+  },
+  {
+    "id": "measure.sequence",
+    "label": "Measure: DNA sequence",
+    "parent": "measure",
+    "status": "experimental"
+  },
+  {
+    "id": "analyse-data.sequence",
+    "label": "Analyse data: sequences (search, alignment)",
+    "parent": "analyse-data",
+    "status": "experimental"
+  },
+  {
+    "id": "measure.conductivity",
+    "label": "Measure: conductivity",
+    "parent": "measure",
+    "status": "experimental"
+  },
+  {
+    "id": "transform.electrolyse",
+    "label": "Electrolyse",
+    "parent": "transform",
+    "status": "experimental"
+  },
+  {
+    "id": "measure.pressure",
+    "label": "Measure: pressure",
+    "parent": "measure",
+    "status": "experimental"
+  },
+  {
+    "id": "measure.length",
+    "label": "Measure: length",
+    "parent": "measure",
+    "status": "experimental"
+  }
+]

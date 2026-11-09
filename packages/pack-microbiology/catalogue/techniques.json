@@ -1,0 +1,1080 @@
+[
+  {
+    "id": "micro:prepare-smear",
+    "version": 1,
+    "status": "experimental",
+    "label": "Prepare a smear from a liquid culture",
+    "description": "Flame the loop, take a loopful of culture onto a slide, flame the loop again, and let the smear air-dry.",
+    "purposes": [
+      "prepare.smear"
+    ],
+    "params": {
+      "culture": {
+        "type": "container",
+        "required": true
+      },
+      "slide": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "10 uL"
+      }
+    },
+    "roles": {
+      "loop": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "transfer.organisms"
+        },
+        "prefer": [
+          "core:inoculating-loop-10ul"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "flame-before",
+        "kind": "operation",
+        "ref": "core:sterilise",
+        "params": {
+          "tool": "=loop"
+        }
+      },
+      {
+        "id": "take",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=culture",
+          "destination": "=slide",
+          "volume": "=volume",
+          "tool": "=loop"
+        }
+      },
+      {
+        "id": "flame-after",
+        "kind": "operation",
+        "ref": "core:sterilise",
+        "params": {
+          "tool": "=loop"
+        }
+      },
+      {
+        "id": "air-dry",
+        "kind": "operation",
+        "ref": "core:dry",
+        "params": {
+          "container": "=slide",
+          "method": "air",
+          "duration": "5 min"
+        }
+      }
+    ],
+    "quality": [
+      {
+        "id": "pure",
+        "statement": "The smear holds only the organism from its own culture",
+        "check": "count(organisms(slide)) == count(organisms(culture))",
+        "severity": "major",
+        "skills": [
+          "micro:aseptic-technique"
+        ],
+        "feedbackKind": "procedural"
+      }
+    ],
+    "errors": [
+      {
+        "id": "unflamed-loop",
+        "statement": "The loop is not flamed before or after touching a culture",
+        "consequence": "Cells ride on the loop into the next culture and onto the next slide (core:transfer, core:sterilise)",
+        "tag": "cross-contamination"
+      }
+    ],
+    "skills": [
+      "micro:smear-preparation",
+      "micro:aseptic-technique"
+    ]
+  },
+  {
+    "id": "micro:heat-fix",
+    "version": 1,
+    "status": "experimental",
+    "label": "Heat-fix a smear",
+    "description": "Pass the dried slide through a flame, smear side up, two or three times.",
+    "purposes": [
+      "transform.fix"
+    ],
+    "params": {
+      "slide": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "steps": [
+      {
+        "id": "pass",
+        "kind": "operation",
+        "ref": "core:dry",
+        "params": {
+          "container": "=slide",
+          "method": "heat",
+          "duration": "5 s"
+        }
+      }
+    ],
+    "errors": [
+      {
+        "id": "unfixed",
+        "statement": "The smear is not heat-fixed",
+        "consequence": "Each reagent and rinse washes cells off; the slide ends nearly empty (core:flood, core:rinse)",
+        "tag": "smear-washed-off"
+      }
+    ],
+    "skills": [
+      "micro:heat-fixing"
+    ]
+  },
+  {
+    "id": "micro:gram-stain",
+    "version": 1,
+    "status": "experimental",
+    "label": "Gram stain",
+    "description": "Crystal violet, rinse; Gram's iodine, rinse; decolourise briefly, rinse at once; safranin, rinse; blot dry.",
+    "purposes": [
+      "transform.stain"
+    ],
+    "params": {
+      "slide": {
+        "type": "container",
+        "required": true
+      },
+      "primary": {
+        "type": "container",
+        "required": true
+      },
+      "mordant": {
+        "type": "container",
+        "required": true
+      },
+      "decolouriser": {
+        "type": "container",
+        "required": true
+      },
+      "counterstain": {
+        "type": "container",
+        "required": true
+      },
+      "primaryTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "60 s"
+      },
+      "mordantTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "60 s"
+      },
+      "decolouriseTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "10 s"
+      },
+      "counterstainTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "45 s"
+      }
+    },
+    "steps": [
+      {
+        "id": "crystal-violet",
+        "kind": "operation",
+        "ref": "core:flood",
+        "params": {
+          "container": "=slide",
+          "reagent": "=primary",
+          "duration": "=primaryTime"
+        }
+      },
+      {
+        "id": "rinse-1",
+        "kind": "operation",
+        "ref": "core:rinse",
+        "params": {
+          "container": "=slide"
+        }
+      },
+      {
+        "id": "iodine",
+        "kind": "operation",
+        "ref": "core:flood",
+        "params": {
+          "container": "=slide",
+          "reagent": "=mordant",
+          "duration": "=mordantTime"
+        }
+      },
+      {
+        "id": "rinse-2",
+        "kind": "operation",
+        "ref": "core:rinse",
+        "params": {
+          "container": "=slide"
+        }
+      },
+      {
+        "id": "decolourise",
+        "kind": "operation",
+        "ref": "core:flood",
+        "params": {
+          "container": "=slide",
+          "reagent": "=decolouriser",
+          "duration": "=decolouriseTime"
+        }
+      },
+      {
+        "id": "rinse-3",
+        "kind": "operation",
+        "ref": "core:rinse",
+        "params": {
+          "container": "=slide"
+        }
+      },
+      {
+        "id": "safranin",
+        "kind": "operation",
+        "ref": "core:flood",
+        "params": {
+          "container": "=slide",
+          "reagent": "=counterstain",
+          "duration": "=counterstainTime"
+        }
+      },
+      {
+        "id": "rinse-4",
+        "kind": "operation",
+        "ref": "core:rinse",
+        "params": {
+          "container": "=slide"
+        }
+      },
+      {
+        "id": "blot",
+        "kind": "operation",
+        "ref": "core:dry",
+        "params": {
+          "container": "=slide",
+          "method": "air",
+          "duration": "1 min"
+        }
+      }
+    ],
+    "quality": [
+      {
+        "id": "true-colour",
+        "statement": "The cells show the colour their Gram class should give",
+        "check": "stainColour(slide) == if(gramClass(slide) == 'positive', 'purple', 'pink')",
+        "severity": "major",
+        "skills": [
+          "micro:gram-stain"
+        ],
+        "feedbackKind": "procedural"
+      }
+    ],
+    "errors": [
+      {
+        "id": "over-decolourised",
+        "statement": "Decolouriser left on too long",
+        "consequence": "Gram-positive cells lose crystal violet, take up safranin and look Gram-negative (staining model)",
+        "tag": "over-decolourised"
+      },
+      {
+        "id": "under-decolourised",
+        "statement": "Decolouriser rinsed off too soon",
+        "consequence": "Gram-negative cells keep crystal violet and look Gram-positive (staining model)",
+        "tag": "under-decolourised"
+      },
+      {
+        "id": "no-mordant",
+        "statement": "Iodine step left out",
+        "consequence": "Crystal violet is not complexed and washes out of every cell (staining model)",
+        "tag": "no-mordant"
+      }
+    ],
+    "skills": [
+      "micro:gram-stain"
+    ]
+  },
+  {
+    "id": "micro:brightfield-microscopy",
+    "version": 1,
+    "status": "experimental",
+    "label": "Look at a stained slide under the microscope",
+    "description": "Find the smear at low power, then add a drop of immersion oil and look with the 100× objective.",
+    "purposes": [
+      "observe.morphology"
+    ],
+    "params": {
+      "slide": {
+        "type": "container",
+        "required": true
+      },
+      "objective": {
+        "type": "text",
+        "default": "100x-oil"
+      }
+    },
+    "roles": {
+      "microscope": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "observe.morphology"
+        },
+        "prefer": [
+          "core:brightfield-microscope"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "look",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=microscope",
+          "subject": "=slide",
+          "objective": "=objective"
+        }
+      }
+    ],
+    "outputs": {
+      "observation": "=look.out.record"
+    },
+    "skills": [
+      "micro:brightfield-microscopy"
+    ]
+  },
+  {
+    "id": "micro:aseptic-transfer",
+    "version": 1,
+    "status": "experimental",
+    "label": "Aseptic transfer with a sterile tip",
+    "description": "Transfer cells or reagents with a fresh sterile tip, opening tubes only as long as needed.",
+    "purposes": [
+      "transfer.organisms"
+    ],
+    "params": {
+      "from": {
+        "type": "container",
+        "required": true
+      },
+      "into": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true
+      }
+    },
+    "steps": [
+      {
+        "id": "move",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=from",
+          "destination": "=into",
+          "volume": "=volume"
+        }
+      }
+    ],
+    "skills": [
+      "micro:aseptic-technique"
+    ]
+  },
+  {
+    "id": "micro:recovery-incubation",
+    "version": 1,
+    "status": "experimental",
+    "label": "Recover transformed cells in broth",
+    "description": "Add broth to each tube and let the cells recover and start making the resistance protein before plating.",
+    "purposes": [
+      "transform.grow-culture"
+    ],
+    "params": {
+      "tubes": {
+        "type": "list",
+        "items": {
+          "type": "container"
+        },
+        "required": true
+      },
+      "medium": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "250 uL"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "10 min"
+      }
+    },
+    "steps": [
+      {
+        "id": "add-broth",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "forEach": {
+          "var": "t",
+          "in": "=tubes"
+        },
+        "params": {
+          "source": "=medium",
+          "destination": "=t",
+          "volume": "=volume"
+        }
+      },
+      {
+        "id": "out-of-ice",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "forEach": {
+          "var": "t",
+          "in": "=tubes"
+        },
+        "params": {
+          "container": "=t"
+        }
+      },
+      {
+        "id": "recover",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "=duration"
+        }
+      }
+    ],
+    "errors": [
+      {
+        "id": "no-recovery",
+        "statement": "Plated straight after the heat shock",
+        "consequence": "Transformants have had no time to make β-lactamase; fewer survive on ampicillin (transformation model)",
+        "tag": "no-recovery"
+      }
+    ],
+    "skills": [
+      "micro:aseptic-technique"
+    ]
+  },
+  {
+    "id": "micro:spread-plate",
+    "version": 1,
+    "status": "experimental",
+    "label": "Spread a plate",
+    "description": "Pipette the cells onto the agar, sterilise the spreader (ethanol and flame, then let it cool), and spread until the surface is dry.",
+    "purposes": [
+      "transfer.organisms.plate"
+    ],
+    "params": {
+      "source": {
+        "type": "container",
+        "required": true
+      },
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "100 uL"
+      }
+    },
+    "roles": {
+      "spreader": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "transfer.organisms.plate"
+        },
+        "prefer": [
+          "core:cell-spreader"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "drop",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=source",
+          "destination": "=plate",
+          "volume": "=volume"
+        }
+      },
+      {
+        "id": "sterilise",
+        "kind": "operation",
+        "ref": "core:sterilise",
+        "params": {
+          "tool": "=spreader"
+        }
+      },
+      {
+        "id": "spread",
+        "kind": "operation",
+        "ref": "core:spread",
+        "params": {
+          "plate": "=plate",
+          "tool": "=spreader"
+        }
+      }
+    ],
+    "errors": [
+      {
+        "id": "dirty-spreader",
+        "statement": "The spreader is not sterilised between plates",
+        "consequence": "Cells from the last plate are spread onto this one (core:spread)",
+        "tag": "cross-contamination"
+      },
+      {
+        "id": "unspread",
+        "statement": "The drop is not spread",
+        "consequence": "Colonies grow together where the drop sat and cannot be counted (core:spread)",
+        "tag": "unspread-plate"
+      }
+    ],
+    "skills": [
+      "micro:spread-plating",
+      "micro:aseptic-technique"
+    ]
+  },
+  {
+    "id": "micro:incubate-plates",
+    "version": 1,
+    "status": "experimental",
+    "label": "Incubate plates",
+    "description": "Put the plates in the incubator upside down and leave them, typically overnight at 37 °C.",
+    "purposes": [
+      "transform.grow-culture",
+      "condition.incubate"
+    ],
+    "params": {
+      "plates": {
+        "type": "list",
+        "items": {
+          "type": "container"
+        },
+        "required": true
+      },
+      "temperature": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "37 Cel"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "20 h"
+      }
+    },
+    "roles": {
+      "incubator": {
+        "kind": "place",
+        "requires": {
+          "purpose": "condition.incubate",
+          "temperature": "=temperature"
+        },
+        "prefer": [
+          "core:incubator"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "set",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "when": "adjustable(incubator)",
+        "params": {
+          "device": "=incubator",
+          "temperature": "=temperature"
+        }
+      },
+      {
+        "id": "in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "forEach": {
+          "var": "p",
+          "in": "=plates"
+        },
+        "params": {
+          "container": "=p",
+          "place": "=incubator"
+        }
+      },
+      {
+        "id": "wait",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "=duration"
+        }
+      },
+      {
+        "id": "out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "forEach": {
+          "var": "p",
+          "in": "=plates"
+        },
+        "params": {
+          "container": "=p"
+        }
+      }
+    ],
+    "skills": [
+      "core:incubate"
+    ]
+  },
+  {
+    "id": "micro:colony-count",
+    "version": 1,
+    "status": "experimental",
+    "label": "Count colonies",
+    "description": "Count the colonies on a plate on a light box, marking each one as it is counted.",
+    "purposes": [
+      "measure.colony-count"
+    ],
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "roles": {
+      "counter": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "measure.colony-count"
+        },
+        "prefer": [
+          "core:colony-counter"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=counter",
+          "subject": "=plate"
+        }
+      }
+    ],
+    "outputs": {
+      "count": "=read.out.count",
+      "display": "=read.out.display",
+      "record": "=read.out.record"
+    },
+    "skills": [
+      "micro:colony-counting"
+    ]
+  },
+  {
+    "id": "micro:streak-plate",
+    "version": 1,
+    "status": "experimental",
+    "label": "Streak a plate for single colonies",
+    "description": "Put a loopful of culture in one sector and streak it out; flame the loop and draw each new sector out of the end of the last, four sectors in all.",
+    "purposes": [
+      "purify.culture"
+    ],
+    "params": {
+      "source": {
+        "type": "container",
+        "required": true
+      },
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "sectors": {
+        "type": "integer",
+        "default": 4
+      }
+    },
+    "roles": {
+      "loop": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "transfer.organisms"
+        },
+        "prefer": [
+          "core:inoculating-loop-10ul"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "flame",
+        "kind": "operation",
+        "ref": "core:sterilise",
+        "params": {
+          "tool": "=loop"
+        }
+      },
+      {
+        "id": "inoculate",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=source",
+          "destination": "=plate",
+          "volume": "10 uL",
+          "tool": "=loop"
+        }
+      },
+      {
+        "id": "first",
+        "kind": "operation",
+        "ref": "core:streak",
+        "params": {
+          "plate": "=plate",
+          "tool": "=loop",
+          "sector": 1
+        }
+      },
+      {
+        "id": "draw-out",
+        "kind": "group",
+        "forEach": {
+          "var": "k",
+          "in": "=range(2, sectors, sectors - 1)"
+        },
+        "steps": [
+          {
+            "id": "reflame",
+            "kind": "operation",
+            "ref": "core:sterilise",
+            "params": {
+              "tool": "=loop"
+            }
+          },
+          {
+            "id": "next",
+            "kind": "operation",
+            "ref": "core:streak",
+            "params": {
+              "plate": "=plate",
+              "tool": "=loop",
+              "sector": "=k"
+            }
+          }
+        ]
+      },
+      {
+        "id": "done",
+        "kind": "operation",
+        "ref": "core:sterilise",
+        "params": {
+          "tool": "=loop"
+        }
+      }
+    ],
+    "errors": [
+      {
+        "id": "no-flaming",
+        "statement": "The loop is not flamed between sectors",
+        "consequence": "Each sector gets most of what the loop carried: no single colonies anywhere (core:streak)",
+        "tag": "unflamed-streak"
+      }
+    ],
+    "skills": [
+      "micro:streak-plating",
+      "micro:aseptic-technique"
+    ]
+  },
+  {
+    "id": "micro:pick-colony",
+    "version": 1,
+    "status": "experimental",
+    "label": "Pick a single colony",
+    "description": "Flame and cool the loop, touch one well-separated colony, and put the cells into the broth.",
+    "purposes": [
+      "transfer.organisms",
+      "purify.culture"
+    ],
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "destination": {
+        "type": "container",
+        "required": true
+      },
+      "appearance": {
+        "type": "text",
+        "description": "Which kind of colony"
+      }
+    },
+    "roles": {
+      "loop": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "transfer.organisms"
+        },
+        "prefer": [
+          "core:inoculating-loop-10ul"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "flame",
+        "kind": "operation",
+        "ref": "core:sterilise",
+        "params": {
+          "tool": "=loop"
+        }
+      },
+      {
+        "id": "pick",
+        "kind": "operation",
+        "ref": "core:pick-colony",
+        "params": {
+          "plate": "=plate",
+          "tool": "=loop",
+          "destination": "=destination",
+          "appearance": "=appearance"
+        }
+      },
+      {
+        "id": "reflame",
+        "kind": "operation",
+        "ref": "core:sterilise",
+        "params": {
+          "tool": "=loop"
+        }
+      }
+    ],
+    "quality": [
+      {
+        "id": "pure",
+        "statement": "The subculture holds one organism",
+        "check": "count(organisms(destination)) == 1",
+        "severity": "major",
+        "skills": [
+          "micro:streak-plating"
+        ],
+        "feedbackKind": "procedural"
+      }
+    ],
+    "skills": [
+      "micro:aseptic-technique"
+    ]
+  },
+  {
+    "id": "micro:haemocytometer-count",
+    "version": 1,
+    "status": "experimental",
+    "label": "Count cells with a haemocytometer and trypan blue",
+    "description": "Mix the cells 1:1 with trypan blue, load the chamber, count the four large corner squares (clear and blue cells separately), and work out cells per mL and the proportion alive.",
+    "purposes": [
+      "measure.cell-density"
+    ],
+    "params": {
+      "sample": {
+        "type": "container",
+        "required": true
+      },
+      "stain": {
+        "type": "container",
+        "required": true
+      },
+      "squares": {
+        "type": "integer",
+        "default": 4
+      },
+      "dilution": {
+        "type": "number",
+        "default": 1,
+        "description": "Any dilution already made before staining"
+      }
+    },
+    "roles": {
+      "microscope": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "observe.morphology"
+        },
+        "prefer": [
+          "core:brightfield-microscope"
+        ]
+      },
+      "chamber": {
+        "kind": "container",
+        "requires": {
+          "class": "core:haemocytometer"
+        },
+        "prefer": [
+          "core:haemocytometer"
+        ]
+      },
+      "tube": {
+        "kind": "container",
+        "requires": {
+          "class": "core:microtube-1.5ml"
+        },
+        "prefer": [
+          "core:microtube-1.5ml"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "resuspend",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "=sample",
+          "method": "vortex",
+          "cycles": 2
+        }
+      },
+      {
+        "id": "cells-in",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=sample",
+          "destination": "=tube",
+          "volume": "50 uL"
+        }
+      },
+      {
+        "id": "stain-in",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=stain",
+          "destination": "=tube",
+          "volume": "50 uL"
+        }
+      },
+      {
+        "id": "mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "=tube",
+          "method": "vortex",
+          "cycles": 2
+        }
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=tube",
+          "destination": "=chamber",
+          "volume": "10 uL"
+        }
+      },
+      {
+        "id": "count",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=microscope",
+          "subject": "=chamber",
+          "squares": "=squares"
+        }
+      },
+      {
+        "id": "density",
+        "kind": "operation",
+        "ref": "core:compute",
+        "params": {
+          "expression": "(sum(c) + sum(b)) / n * 2 * d * 10000",
+          "values": {
+            "c": "=count.out.counts",
+            "b": "=count.out.blue",
+            "n": "=squares",
+            "d": "=dilution"
+          },
+          "field": "cells-per-ml"
+        }
+      },
+      {
+        "id": "alive",
+        "kind": "operation",
+        "ref": "core:compute",
+        "params": {
+          "expression": "sum(c) / (sum(c) + sum(b))",
+          "values": {
+            "c": "=count.out.counts",
+            "b": "=count.out.blue"
+          },
+          "field": "viability"
+        }
+      }
+    ],
+    "outputs": {
+      "perMl": "=density.out.value",
+      "viability": "=alive.out.value"
+    },
+    "quality": [
+      {
+        "id": "enough",
+        "statement": "Enough cells counted for a 10 % estimate (about 100)",
+        "check": "sum(count.out.counts) + sum(count.out.blue) >= 100",
+        "severity": "minor",
+        "skills": [
+          "micro:haemocytometer"
+        ],
+        "feedbackKind": "measurement"
+      }
+    ],
+    "errors": [
+      {
+        "id": "too-dense",
+        "statement": "Too concentrated to count",
+        "consequence": "The squares are too crowded: dilute and count again (core:measure)",
+        "tag": "count-too-dense"
+      },
+      {
+        "id": "too-few",
+        "statement": "Too few cells counted",
+        "consequence": "Poisson error: counting N cells gives about 1/√N relative error (counting model)",
+        "tag": "count-too-few"
+      },
+      {
+        "id": "unmixed",
+        "statement": "Sample not mixed before it is taken",
+        "consequence": "Cells are not evenly spread: the count is biased (mixing model)",
+        "tag": "unmixed-sample"
+      }
+    ],
+    "skills": [
+      "micro:haemocytometer"
+    ]
+  }
+]

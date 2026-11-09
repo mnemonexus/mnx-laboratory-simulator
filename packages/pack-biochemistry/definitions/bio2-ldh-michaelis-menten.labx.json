@@ -1,0 +1,80 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio2-ldh-michaelis-menten",
+  "version": "1.0.0",
+  "title": "Michaelis–Menten kinetics of lactate dehydrogenase",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      { "technique": "core:dilution-series" },
+      { "technique": "bio:kinetic-absorbance-read" },
+      { "processModel": "bio:enzyme-kinetics/mm-depletion", "minTier": "T3" }
+    ]
+  },
+  "summary": "Measure the initial rate of NADH oxidation by lactate dehydrogenase across a range of pyruvate concentrations, and fit the Michaelis–Menten equation to find Km and Vmax.",
+  "briefing": "LDH reduces pyruvate to lactate while oxidising NADH to NAD⁺. NADH absorbs at 340 nm and NAD⁺ does not, so the absorbance falls as the reaction proceeds. The initial slope at each pyruvate concentration gives the initial rate.",
+  "context": {
+    "intendedContexts": ["practical-session", "transferal"],
+    "audience": { "level": "undergraduate-2", "disciplines": ["biochemistry"] },
+    "prerequisites": { "skills": ["core:micropipetting", "core:dilution-series"] },
+    "concepts": [{ "id": "michaelis-menten", "label": "Michaelis–Menten kinetics" }, { "id": "initial-rate", "label": "Initial rate" }],
+    "objectives": [
+      { "id": "o-design", "kind": "design", "statement": "Use a pyruvate range that brackets Km", "skills": ["bio:substrate-range-design"] },
+      { "id": "o-rate", "kind": "analysis", "statement": "Extract initial rates from the linear part of each progress curve", "skills": ["bio:initial-rate-analysis"] },
+      { "id": "o-fit", "kind": "outcome", "statement": "Determine Km for pyruvate", "skills": ["bio:michaelis-menten-fit"], "goal": "g-km" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "buffer", "label": "Tris-HCl 50 mM, pH 7.5", "preparation": "core:tris-50mm-ph7.5", "amount": "50 mL", "container": "core:reagent-bottle-50ml" },
+      { "id": "nadh", "label": "NADH, 2 mM", "contains": [{ "substance": "bio:nadh", "conc": "2 mM" }], "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "pyr", "label": "Sodium pyruvate, 100 mM", "preparation": "bio:pyruvate-stock-100mm", "amount": "1 mL", "container": "core:microtube-1.5ml" },
+      { "id": "enzyme", "label": "LDH, 10 µg/mL", "contains": [{ "substance": "bio:ldh", "conc": "10 ug/mL" }], "amount": "500 uL", "container": "core:microtube-1.5ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "reader", "requires": { "purpose": "measure.absorbance", "wavelength": "340 nm", "format": "96-well" } },
+      { "id": "plate", "requires": { "class": "core:microplate-96" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "series", "kind": "technique", "ref": "core:dilution-series", "title": "Prepare the pyruvate series (10× final)",
+        "params": { "stock": "pyr", "diluent": "buffer", "analyte": "bio:pyruvate",
+                    "targets": ["0.25 mM", "0.5 mM", "1 mM", "2 mM", "4 mM", "8 mM", "16 mM"], "volumeEach": "500 uL" },
+        "objectives": ["o-design"] },
+      { "id": "layout", "kind": "design", "ref": "core:plate-layout",
+        "params": { "plate": "plate", "groups": [{ "group": "substrate", "items": "=series.out.vessels", "role": "sample" }], "replicates": 3 } },
+      { "id": "add-buffer", "kind": "technique", "ref": "core:dispense-reagent",
+        "params": { "reagent": "buffer", "volume": "150 uL", "into": "=map(layout.out.layout.entries, well)" } },
+      { "id": "add-nadh", "kind": "technique", "ref": "core:dispense-reagent",
+        "params": { "reagent": "nadh", "volume": "20 uL", "into": "=map(layout.out.layout.entries, well)" } },
+      { "id": "add-substrate", "kind": "technique", "ref": "core:transfer-to-plate",
+        "params": { "layout": "=layout.out.layout", "volume": "20 uL" } },
+      { "id": "start", "kind": "technique", "ref": "core:dispense-reagent", "title": "Start the reactions with enzyme",
+        "params": { "reagent": "enzyme", "volume": "10 uL", "into": "=map(layout.out.layout.entries, well)" } },
+      { "id": "shake", "kind": "operation", "ref": "core:mix", "params": { "container": "plate", "method": "shake" } },
+      { "id": "read", "kind": "technique", "ref": "bio:kinetic-absorbance-read", "title": "Read A340 every 5 s for 2 min",
+        "params": { "plate": "plate", "wavelength": "340 nm", "interval": "5 s", "duration": "2 min" }, "bind": { "instrument": "reader" } },
+      { "id": "rates", "kind": "data", "ref": "bio:initial-rate-analysis",
+        "params": { "reading": "=read.out.reading", "layout": "=layout.out.layout", "window": "30 s" }, "objectives": ["o-rate"] },
+      { "id": "mm", "kind": "data", "ref": "bio:michaelis-menten-fit",
+        "params": { "substrate": "=map(series.out.concentrations, it / 10)", "rates": "=map(rates.out.groups, -mean)" }, "objectives": ["o-fit"] }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-km", "statement": "Km for pyruvate within 40 % of the enzyme's true value (0.15 mM): the spread a careful class gets from this design", "check": "within(fit(mm).params.km, 0.15, 40%)" }
+    ],
+    "expectedObservations": [
+      { "id": "e-fit", "statement": "The initial rates follow a hyperbola (r² > 0.98)", "check": "fit(mm).r2 > 0.98", "source": "simulation-derived" },
+      { "id": "e-falls", "statement": "A340 falls in every well", "check": "all(rates.out.groups, mean < 0)", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "author-choice", "review": { "status": "draft" } }
+}

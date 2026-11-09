@@ -1,0 +1,77 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem2-recrystallise-benzoic-acid",
+  "version": "1.0.0",
+  "title": "Purifying benzoic acid by recrystallisation from water",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [{ "technique": "chem:recrystallise" }, { "technique": "core:vacuum-filtration" }, { "technique": "chem:melting-point" }]
+  },
+  "summary": "Recrystallise benzoic acid from a mixture with sodium chloride: dissolve it in near-boiling water, cool, collect the crystals by vacuum filtration, wash them with ice-cold water, dry, weigh and take a melting point.",
+  "briefing": "Benzoic acid is about thirty times more soluble in boiling water than in ice-cold water; sodium chloride is very soluble at any temperature. Use that difference to recover pure benzoic acid from this 2.0 g mixture, then check its purity by its melting point.",
+  "context": {
+    "intendedContexts": ["practical-session", "lecture-introduction"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry"] },
+    "concepts": [{ "id": "solubility-temperature", "label": "Solubility and temperature" }, { "id": "mp-depression", "label": "Melting-point depression by impurities" }],
+    "objectives": [
+      { "id": "o-recryst", "kind": "skill", "statement": "Recrystallise a solid from a hot solvent", "skills": ["chem:recrystallisation"] },
+      { "id": "o-filter", "kind": "skill", "statement": "Collect and wash crystals by vacuum filtration", "skills": ["core:vacuum-filtration", "core:drying"] },
+      { "id": "o-recover", "kind": "outcome", "statement": "Recover at least 60 % of the benzoic acid at 98 % purity or better", "goal": "g-recover" },
+      { "id": "o-mp", "kind": "analysis", "statement": "Judge purity from a melting point", "skills": ["chem:melting-point"] }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "mix", "label": "Mixture M (2.0 g)", "role": "specimen", "container": "core:conical-flask-100ml",
+        "contains": [{ "substance": "chem:benzoic-acid", "mass": { "vary": "0.9..1.3 g" } },
+                     { "substance": "core:sodium-chloride", "mass": "=2.0 g - mass('chem:benzoic-acid')" }] }
+    ],
+    "supplies": [
+      { "id": "water", "label": "Deionised water", "preparation": "core:water-deionised", "amount": "500 mL", "container": "core:reagent-bottle-1l" },
+      { "id": "wash", "label": "Ice-cold deionised water", "preparation": "core:water-deionised", "amount": "50 mL", "container": "core:reagent-bottle-50ml", "storage": "0 Cel" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "balance", "requires": { "class": "core:balance-2dp" } },
+      { "id": "icebath", "requires": { "class": "core:ice-bath" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "chill-wash", "kind": "operation", "ref": "core:place-in", "title": "Stand the wash water in the ice bath", "params": { "container": "wash", "place": "icebath" } },
+      { "id": "dish", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:watch-glass", "id": "dish", "label": "Product" } },
+      { "id": "dish-on", "kind": "operation", "ref": "core:place-in", "params": { "container": "dish", "place": "balance" } },
+      { "id": "tare", "kind": "operation", "ref": "core:tare", "params": { "balance": "balance" } },
+      { "id": "dish-off", "kind": "operation", "ref": "core:remove-from", "params": { "container": "dish" } },
+      { "id": "recrystallise", "kind": "technique", "ref": "chem:recrystallise", "objectives": ["o-recryst"],
+        "params": { "flask": "mix", "solvent": "water", "volume": "40 mL" } },
+      { "id": "collect", "kind": "technique", "ref": "core:vacuum-filtration", "objectives": ["o-filter"],
+        "params": { "source": "mix", "wash": "wash", "washVolume": "5 mL", "washes": 2 } },
+      { "id": "dry", "kind": "technique", "ref": "core:dry-solid", "objectives": ["o-filter"],
+        "params": { "source": "=collect.out.cake", "dish": "dish", "method": "heat", "duration": "20 min" } },
+      { "id": "weigh-on", "kind": "operation", "ref": "core:place-in", "params": { "container": "dish", "place": "balance" } },
+      { "id": "weigh", "kind": "operation", "ref": "core:weigh", "params": { "balance": "balance" } },
+      { "id": "yield", "kind": "operation", "ref": "core:record", "params": { "field": "yield", "value": "=weigh.out.value" } },
+      { "id": "weigh-off", "kind": "operation", "ref": "core:remove-from", "params": { "container": "dish" } },
+      { "id": "mp", "kind": "technique", "ref": "chem:melting-point", "objectives": ["o-mp"], "params": { "sample": "dish" } },
+      { "id": "record-mp", "kind": "operation", "ref": "core:record", "params": { "field": "mp", "value": "=mp.out.clear" } }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-recover", "statement": "At least 60 % of the benzoic acid is recovered at 98 % purity or better",
+        "check": "purity('dish', 'chem:benzoic-acid') >= 0.98 && mass('dish', 'chem:benzoic-acid') >= 0.6 * truth(mass, 'mix', 'chem:benzoic-acid')" }
+    ],
+    "expectedObservations": [
+      { "id": "e-mp", "statement": "The dry product melts within 2 °C of 122.4 °C", "check": "within(quantity(mp.out.clear), 122.4 Cel, 2 K)", "source": "reference-standard" },
+      { "id": "e-recovery", "statement": "Careful work recovers more than 80 %", "check": "mass('dish', 'chem:benzoic-acid') > 0.8 * truth(mass, 'mix', 'chem:benzoic-acid')", "source": "simulation-derived" },
+      { "id": "e-weighed", "statement": "The weighed yield is the product's true mass to within 0.02 g (a 2 dp balance)", "check": "within(quantity(weigh.out.value), mass('dish'), 0.02 g)", "source": "simulation-derived" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

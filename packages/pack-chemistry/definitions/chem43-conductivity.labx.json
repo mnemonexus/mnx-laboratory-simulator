@@ -1,0 +1,447 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem43-conductivity",
+  "title": "{{title}}",
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "conductivity",
+      "electrolyte",
+      "strong electrolyte",
+      "weak electrolyte",
+      "ions",
+      "molar conductivity"
+    ],
+    "topics": [
+      "Electrolytes",
+      "Acids and bases"
+    ],
+    "concepts": [
+      {
+        "id": "ions",
+        "label": "A solution conducts by its ions: strong electrolytes are fully ionised, weak ones only slightly"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the conductivity of solutions"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "{{compareObjective}}",
+        "goal": "g-cond"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the differences by ionisation",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Conductivity of strong and weak electrolytes"
+    },
+    "summary": {
+      "default": "Measure the conductivity of 0.1 M solutions of acids, alkalis, a salt and sugar and of deionised water, and sort them into strong, weak and non-electrolytes."
+    },
+    "briefing": {
+      "default": "Pour about 40 mL of each solution into a clean beaker, dip in the conductivity cell, and read the meter; rinse the cell with deionised water between samples. Only ions carry charge through a solution: a strong electrolyte is fully ionised, a weak one only slightly, and a non-electrolyte not at all."
+    },
+    "runs": {
+      "default": "=[['water','Deionised water','water',0],['sucrose','Sucrose, 0.1 M','sucrose',0.1],['hcl','Hydrochloric acid, 0.1 M','hcl',0.1],['acetic','Ethanoic acid, 0.1 M','acetic',0.1],['naoh','Sodium hydroxide, 0.1 M','naoh',0.1],['ammonia','Ammonia, 0.1 M','ammonia',0.1],['nacl','Sodium chloride, 0.1 M','nacl',0.1]]"
+    },
+    "compareObjective": {
+      "default": "Sort the solutions into strong, weak and non-electrolytes"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does 0.1 M ethanoic acid conduct far less than 0.1 M hydrochloric acid?",
+        "options": [
+          {
+            "id": "weak",
+            "label": "Ethanoic acid is a weak acid: only about 1 % of its molecules ionise, so there are far fewer ions"
+          },
+          {
+            "id": "heavy",
+            "label": "Its molecules are heavier and move more slowly"
+          },
+          {
+            "id": "dilute",
+            "label": "It is more dilute"
+          }
+        ],
+        "correctWhen": "choice == 'weak'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-cond",
+            "statement": "Hydrochloric acid, sodium hydroxide and sodium chloride conduct strongly; ethanoic acid and ammonia weakly; sucrose and water hardly at all",
+            "check": "first(recorded('k-hcl')) > 20 * first(recorded('k-acetic')) && first(recorded('k-naoh')) > 20 * first(recorded('k-ammonia')) && first(recorded('k-nacl')) > 5000 && first(recorded('k-sucrose')) < 5"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The weak acid is explained",
+            "check": "decision('why') == 'weak'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-hcl",
+            "statement": "Hydrochloric acid conducts best: its H⁺ ions move fastest",
+            "check": "first(recorded('k-hcl')) > first(recorded('k-naoh')) && first(recorded('k-naoh')) > first(recorded('k-nacl'))",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "sucrose",
+        "label": "Sucrose, 0.1 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "hcl",
+        "label": "Hydrochloric acid, 0.1 M",
+        "contains": [
+          {
+            "substance": "core:hydrochloric-acid",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "acetic",
+        "label": "Ethanoic acid, 0.1 M",
+        "contains": [
+          {
+            "substance": "core:acetic-acid",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "acetic001",
+        "label": "Ethanoic acid, 0.01 M",
+        "contains": [
+          {
+            "substance": "core:acetic-acid",
+            "conc": "0.01 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "acetic0001",
+        "label": "Ethanoic acid, 0.001 M",
+        "contains": [
+          {
+            "substance": "core:acetic-acid",
+            "conc": "0.001 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "naoh",
+        "label": "Sodium hydroxide, 0.1 M",
+        "contains": [
+          {
+            "substance": "core:sodium-hydroxide",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "ammonia",
+        "label": "Ammonia, 0.1 M",
+        "contains": [
+          {
+            "substance": "core:ammonia",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "nacl",
+        "label": "Sodium chloride, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-chloride",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "kcl01",
+        "label": "Potassium chloride, 0.1 M",
+        "contains": [
+          {
+            "substance": "aq:potassium-chloride",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "kcl001",
+        "label": "Potassium chloride, 0.01 M",
+        "contains": [
+          {
+            "substance": "aq:potassium-chloride",
+            "conc": "0.01 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "kcl0001",
+        "label": "Potassium chloride, 0.001 M",
+        "contains": [
+          {
+            "substance": "aq:potassium-chloride",
+            "conc": "0.001 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "meter",
+        "requires": {
+          "class": "core:conductivity-meter"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each solution in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "beaker",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:beaker-100ml",
+              "id": "='b-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='b-' + r[0]",
+              "volume": "40 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "meter",
+              "subject": "='b-' + r[0]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='k-' + r[0]",
+              "value": "=read.out.value"
+            }
+          },
+          {
+            "id": "molar",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='molar conductivity ' + r[0]",
+              "value": "=read.out.value / 1000 / r[3]"
+            },
+            "when": "r[3] > 0"
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "chem43-molar-conductivity",
+      "title": "Molar conductivity on dilution: strong and weak electrolytes",
+      "summary": "Measure the conductivity of potassium chloride and ethanoic acid at 0.1, 0.01 and 0.001 M and compare how their molar conductivity changes on dilution.",
+      "briefing": "Molar conductivity Λ = κ ÷ c (S cm² mol⁻¹ = µS/cm ÷ 1000 ÷ mol/L). A strong electrolyte’s rises only a little on dilution, as its ions crowd each other less (Kohlrausch’s law); a weak electrolyte’s rises steeply, as more of it ionises.",
+      "values": {
+        "runs": "=[['kcl1','Potassium chloride, 0.1 M','kcl01',0.1],['kcl2','Potassium chloride, 0.01 M','kcl001',0.01],['kcl3','Potassium chloride, 0.001 M','kcl0001',0.001],['ac1','Ethanoic acid, 0.1 M','acetic',0.1],['ac2','Ethanoic acid, 0.01 M','acetic001',0.01],['ac3','Ethanoic acid, 0.001 M','acetic0001',0.001]]",
+        "compareObjective": "Compare the molar conductivity of a strong and a weak electrolyte on dilution",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the molar conductivity of ethanoic acid rise so steeply on dilution?",
+          "options": [
+            {
+              "id": "ionises",
+              "label": "A larger fraction of it ionises when diluted (Ostwald’s dilution law)"
+            },
+            {
+              "id": "crowding",
+              "label": "Its ions crowd each other less"
+            },
+            {
+              "id": "temperature",
+              "label": "Dilution warms the solution"
+            }
+          ],
+          "correctWhen": "choice == 'ionises'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-cond",
+              "statement": "Ethanoic acid’s molar conductivity at least doubles from 0.1 to 0.01 M; potassium chloride’s changes by under 15 %",
+              "check": "first(recorded('molar conductivity ac2')) > 2 * first(recorded('molar conductivity ac1')) && first(recorded('molar conductivity kcl2')) < 1.15 * first(recorded('molar conductivity kcl1'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The weak electrolyte is explained",
+              "check": "decision('why') == 'ionises'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-kcl",
+              "statement": "0.01 M potassium chloride reads about 1413 µS/cm (the calibration standard)",
+              "check": "abs(first(recorded('k-kcl2')) - 1413) < 60",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "molar conductivity",
+        "Kohlrausch",
+        "Ostwald dilution law"
+      ]
+    }
+  ]
+}

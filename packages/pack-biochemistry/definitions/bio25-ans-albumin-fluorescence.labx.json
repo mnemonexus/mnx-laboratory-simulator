@@ -1,0 +1,511 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio25-ans-albumin-fluorescence",
+  "version": "1.0.0",
+  "title": "A hydrophobic probe: ANS binding to serum albumin by fluorescence",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      },
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "Scan ANS's absorption spectrum and check its concentration, compare its emission free and bound to BSA (brighter and blue-shifted), work out its Stokes shift, and titrate BSA into fixed ANS to fit an apparent binding constant, checking that the inner filter effect is negligible.",
+  "briefing": "ANS (1-anilinonaphthalene-8-sulfonate) absorbs near 260 and 350 nm (ε350 = 4950 M⁻¹ cm⁻¹). In water it barely fluoresces; in a hydrophobic pocket it lights up. Stocks: ANS 0.5 mM, BSA 100 µM, both in phosphate buffer. Use quartz cuvettes and excite at 350 nm. Fit the gain in fluorescence over the ANS-only cuvette against [BSA] to F = Fmax·[BSA]/(K + [BSA]).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "fluorescence",
+        "label": "Fluorescence, quantum yield and the Stokes shift"
+      },
+      {
+        "id": "probe",
+        "label": "Environment-sensitive probes"
+      },
+      {
+        "id": "inner-filter",
+        "label": "The inner filter effect"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-spectra",
+        "kind": "analysis",
+        "statement": "Read absorption and emission spectra",
+        "goal": "g-ans"
+      },
+      {
+        "id": "o-titrate",
+        "kind": "analysis",
+        "statement": "Fit a fluorescence titration for an apparent binding constant",
+        "goal": "g-ans"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "ans",
+        "label": "ANS, 0.5 mM in phosphate buffer",
+        "contains": [
+          {
+            "substance": "bio:ans",
+            "conc": "0.5 mM"
+          }
+        ],
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "1 mL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "bsa",
+        "label": "BSA, 100 µM in phosphate buffer",
+        "contains": [
+          {
+            "substance": "bio:bovine-serum-albumin",
+            "conc": "100 uM"
+          }
+        ],
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "2 mL",
+        "container": "core:microtube-2ml"
+      },
+      {
+        "id": "buffer",
+        "label": "100 mM sodium phosphate pH 7",
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "50 mL",
+        "container": "core:conical-tube-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "uv",
+        "requires": {
+          "class": "core:spectrophotometer.uv-vis"
+        }
+      },
+      {
+        "id": "fluorimeter",
+        "requires": {
+          "class": "core:fluorimeter"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "absorbance",
+        "kind": "group",
+        "title": "ANS's absorption spectrum: 300 µL of the 0.5 mM stock to 3 mL (50 µM), scanned 240-450 nm against a buffer reference read the same way",
+        "steps": [
+          {
+            "id": "abs-cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-quartz-1cm",
+              "id": "ans-abs",
+              "label": "ANS, 50 µM"
+            }
+          },
+          {
+            "id": "abs-buf",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "ans-abs",
+              "volume": "2700 uL"
+            }
+          },
+          {
+            "id": "abs-ans",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ans",
+              "destination": "ans-abs",
+              "volume": "300 uL"
+            }
+          },
+          {
+            "id": "abs-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "ans-abs",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "ref-cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-quartz-1cm",
+              "id": "reference",
+              "label": "Buffer"
+            }
+          },
+          {
+            "id": "ref-buf",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "reference",
+              "volume": "3000 uL"
+            }
+          },
+          {
+            "id": "scan-ans",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "uv",
+              "subject": "ans-abs",
+              "mode": "scan",
+              "from": "240 nm",
+              "to": "450 nm"
+            }
+          },
+          {
+            "id": "scan-ref",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "uv",
+              "subject": "reference",
+              "mode": "scan",
+              "from": "240 nm",
+              "to": "450 nm"
+            }
+          },
+          {
+            "id": "ans-max",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "ANS-maxima-nm",
+              "value": "=scan-ans.out.maxima"
+            }
+          },
+          {
+            "id": "ans-a350",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A350",
+              "value": "=scan-ans.out.absorbance[55] - scan-ref.out.absorbance[55]"
+            }
+          },
+          {
+            "id": "ans-conc",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "ANS-uM",
+              "value": "=1e6 * first(recorded('A350')) / 4950"
+            }
+          }
+        ],
+        "objectives": [
+          "o-spectra"
+        ]
+      },
+      {
+        "id": "titration",
+        "kind": "group",
+        "title": "Eight quartz cuvettes: buffer, BSA (0-20 µM from the 100 µM stock), then 30 µL of ANS (5 µM); mixed, 5 minutes, emission excited at 350 nm",
+        "steps": [
+          {
+            "id": "cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-quartz-1cm",
+              "id": "=x[0]",
+              "label": "='BSA ' + text(x[1]) + ' µM, ANS 5 µM'"
+            }
+          },
+          {
+            "id": "buf-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "=x[0]",
+              "volume": "=text(x[3]) + ' uL'"
+            }
+          },
+          {
+            "id": "bsa-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "bsa",
+              "destination": "=x[0]",
+              "volume": "=text(x[2]) + ' uL'"
+            },
+            "when": "x[2] > 0"
+          },
+          {
+            "id": "ans-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ans",
+              "destination": "=x[0]",
+              "volume": "30 uL"
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "pipette-mix",
+              "cycles": 3
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['t0', 0, 0, 2970], ['t1', 0.5, 15.0, 2955.0], ['t2', 1, 30, 2940], ['t3', 2, 60, 2910], ['t4', 4, 120, 2850], ['t5', 8, 240, 2730], ['t6', 12, 360, 2610], ['t7', 20, 600, 2370]]"
+        },
+        "objectives": [
+          "o-titrate"
+        ]
+      },
+      {
+        "id": "equilibrate",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "5 min"
+        }
+      },
+      {
+        "id": "read",
+        "kind": "group",
+        "title": "Each cuvette's emission spectrum; the counts at the maximum, and where it is",
+        "steps": [
+          {
+            "id": "em",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "fluorimeter",
+              "subject": "=x[0]",
+              "wavelength": "350 nm",
+              "from": "380 nm",
+              "to": "650 nm"
+            }
+          },
+          {
+            "id": "f",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='F-' + x[0]",
+              "value": "=em.out.intensityMax"
+            }
+          },
+          {
+            "id": "w",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='max-' + x[0]",
+              "value": "=em.out.emissionMax"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['t0', 0, 0, 2970], ['t1', 0.5, 15.0, 2955.0], ['t2', 1, 30, 2940], ['t3', 2, 60, 2910], ['t4', 4, 120, 2850], ['t5', 8, 240, 2730], ['t6', 12, 360, 2610], ['t7', 20, 600, 2370]]"
+        },
+        "objectives": [
+          "o-titrate"
+        ]
+      },
+      {
+        "id": "conc",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "BSA-uM",
+          "value": [
+            0,
+            0.5,
+            1,
+            2,
+            4,
+            8,
+            12,
+            20
+          ]
+        }
+      },
+      {
+        "id": "f-gain",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "F-gain",
+          "value": "=[first(recorded('F-t0')) - first(recorded('F-t0')), first(recorded('F-t1')) - first(recorded('F-t0')), first(recorded('F-t2')) - first(recorded('F-t0')), first(recorded('F-t3')) - first(recorded('F-t0')), first(recorded('F-t4')) - first(recorded('F-t0')), first(recorded('F-t5')) - first(recorded('F-t0')), first(recorded('F-t6')) - first(recorded('F-t0')), first(recorded('F-t7')) - first(recorded('F-t0'))]"
+        },
+        "objectives": [
+          "o-titrate"
+        ]
+      },
+      {
+        "id": "binding",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-titrate"
+        ],
+        "params": {
+          "x": "=first(recorded('BSA-uM'))",
+          "y": "=first(recorded('F-gain'))",
+          "model": "michaelis-menten"
+        }
+      },
+      {
+        "id": "k-app",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "K-apparent-uM",
+          "value": "=binding.out.fit.params.km"
+        },
+        "objectives": [
+          "o-titrate"
+        ]
+      },
+      {
+        "id": "stokes",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Stokes-shift-nm",
+          "value": "=first(recorded('max-t7')) - last(first(recorded('ANS-maxima-nm')))"
+        },
+        "objectives": [
+          "o-spectra"
+        ]
+      },
+      {
+        "id": "blue",
+        "kind": "decision",
+        "objectives": [
+          "o-spectra"
+        ],
+        "prompt": "Compare the emission without BSA and with plenty. What has happened to the ANS?",
+        "options": [
+          {
+            "id": "hydrophobic",
+            "label": "It has moved into hydrophobic pockets of the protein: far brighter (water quenched it) and shifted to the blue (a less polar surrounding)"
+          },
+          {
+            "id": "concentrated",
+            "label": "It is simply more concentrated"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing: BSA itself fluoresces"
+          }
+        ],
+        "correctWhen": "if(first(recorded('F-t7')) > 20 * first(recorded('F-t0')) && first(recorded('max-t7')) < first(recorded('max-t0')) - 20, 'hydrophobic', 'concentrated')"
+      },
+      {
+        "id": "inner",
+        "kind": "decision",
+        "objectives": [
+          "o-spectra"
+        ],
+        "prompt": "In the titration cuvettes (ANS 5 µM), does the inner filter effect matter?",
+        "options": [
+          {
+            "id": "no",
+            "label": "No: ANS's absorbance at 350 nm there is about 0.025 (a tenth of the 50 µM scan's), far below 0.1"
+          },
+          {
+            "id": "yes",
+            "label": "Yes"
+          }
+        ],
+        "correctWhen": "if(first(recorded('A350')) / 10 < 0.05, 'no', 'yes')"
+      },
+      {
+        "id": "caveat",
+        "kind": "decision",
+        "objectives": [
+          "o-titrate"
+        ],
+        "prompt": "What does the fitted constant mean?",
+        "options": [
+          {
+            "id": "apparent",
+            "label": "An apparent constant: BSA has several ANS sites, and with ANS at 5 µM the free dye is not constant, so it is not simply one site's Kd"
+          },
+          {
+            "id": "kd",
+            "label": "It is exactly the Kd of ANS for BSA"
+          }
+        ],
+        "correctWhen": "'apparent'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-ans",
+        "statement": "ANS's concentration is confirmed, its binding curve fitted and its spectra read correctly",
+        "check": "within(first(recorded('ANS-uM')), 50, 10%) && between(first(recorded('K-apparent-uM')), 0.2, 5) && between(first(recorded('Stokes-shift-nm')), 100, 140) && decision('blue') == 'hydrophobic' && decision('inner') == 'no' && decision('caveat') == 'apparent'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-sat",
+        "statement": "The fluorescence levels off as the sites outnumber the dye",
+        "check": "(first(recorded('F-t7')) - first(recorded('F-t6'))) < (first(recorded('F-t3')) - first(recorded('F-t2')))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

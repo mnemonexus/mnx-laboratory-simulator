@@ -1,0 +1,728 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio19-michaelis-menten-from-rates",
+  "version": "1.0.0",
+  "title": "KM and Vmax from initial rates: a substrate series, two ways to fit",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      },
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "Find p-nitrophenol's extinction coefficient from a standard, make a two-fold series of p-nitrophenyl phosphate, measure alkaline phosphatase's initial rate at each concentration in duplicate, and work out its specific activity and its KM and Vmax, from a double-reciprocal plot and from a direct Michaelis–Menten fit.",
+  "briefing": "Alkaline phosphatase releases yellow p-nitrophenolate from p-nitrophenyl phosphate. Read a 50 µM p-nitrophenol standard against buffer first: A = ε c l gives ε at 405 nm. Each assay is 2.7 mL of substrate solution started with 20 µL of enzyme (5 µg/mL, so 0.1 µg); take the initial rate from the first two minutes. One unit (U) converts 1 µmol of substrate a minute.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "biochemistry",
+        "molecular-biology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "beer-lambert",
+        "label": "Extinction coefficients from a standard"
+      },
+      {
+        "id": "michaelis-menten",
+        "label": "Michaelis–Menten kinetics"
+      },
+      {
+        "id": "linearisation",
+        "label": "What linear transformations do to errors"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-series",
+        "kind": "skill",
+        "statement": "Make a two-fold dilution series from a stock",
+        "skills": [
+          "core:serial-dilution",
+          "core:make-up-to-volume"
+        ]
+      },
+      {
+        "id": "o-rates",
+        "kind": "skill",
+        "statement": "Measure initial rates in a continuous assay, with a no-enzyme control",
+        "skills": [
+          "core:spectrophotometer-read",
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-fit",
+        "kind": "analysis",
+        "statement": "Turn rates into specific activity, and KM and Vmax by two fits; judge which to report",
+        "goal": "g-fit"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "npp",
+        "label": "p-Nitrophenyl phosphate, 50 mM",
+        "contains": [
+          {
+            "substance": "bio:pnpp",
+            "conc": "50 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "2 mL",
+        "container": "core:microtube-2ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "ap",
+        "label": "Alkaline phosphatase (high activity), 5 µg/mL",
+        "contains": [
+          {
+            "substance": "bio:alkaline-phosphatase-high-activity",
+            "conc": "5 mg/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "0.5 mL",
+        "container": "core:microtube-1.5ml",
+        "storage": "0 Cel"
+      },
+      {
+        "id": "pnp",
+        "label": "p-Nitrophenol standard, 50 µM in the buffer",
+        "preparation": "core:tris-100mm-ph9.0",
+        "contains": [
+          {
+            "substance": "bio:p-nitrophenol",
+            "conc": "50 uM"
+          }
+        ],
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "buffer",
+        "label": "Tris-HCl, 100 mM, pH 9.0",
+        "preparation": "core:tris-100mm-ph9.0",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-250ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "std-cuv",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-macro-1cm",
+          "id": "c-std",
+          "label": "p-Nitrophenol standard"
+        }
+      },
+      {
+        "id": "std-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "pnp",
+          "destination": "c-std",
+          "volume": "2.7 mL"
+        }
+      },
+      {
+        "id": "blank-cuv",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-macro-1cm",
+          "id": "c-buf",
+          "label": "Buffer"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "buffer",
+          "destination": "c-buf",
+          "volume": "2.7 mL"
+        }
+      },
+      {
+        "id": "zero-buf",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-buf",
+          "wavelength": "405 nm"
+        }
+      },
+      {
+        "id": "std-read",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "spec",
+          "subject": "c-std",
+          "wavelength": "405 nm"
+        }
+      },
+      {
+        "id": "eps",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "epsilon-405",
+          "value": "=std-read.out.value / 50e-6"
+        }
+      },
+      {
+        "id": "top",
+        "kind": "group",
+        "title": "2 mM substrate: 1 mL of the 50 mM stock made up to 25 mL with buffer",
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:volumetric-flask-25ml",
+              "id": "vf",
+              "label": "2 mM substrate (flask)"
+            }
+          },
+          {
+            "id": "stock",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "npp",
+              "destination": "vf",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "make-up",
+            "kind": "operation",
+            "ref": "core:make-up-to-mark",
+            "params": {
+              "container": "vf",
+              "solvent": "buffer"
+            }
+          },
+          {
+            "id": "stopper",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "vf"
+            }
+          },
+          {
+            "id": "invert",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "vf",
+              "method": "invert",
+              "cycles": 10
+            }
+          },
+          {
+            "id": "unstopper",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "vf"
+            }
+          },
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-tube-50ml",
+              "id": "s2",
+              "label": "2 mM"
+            }
+          },
+          {
+            "id": "pour",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "vf",
+              "destination": "s2",
+              "all": true
+            }
+          }
+        ],
+        "objectives": [
+          "o-series"
+        ]
+      },
+      {
+        "id": "halves",
+        "kind": "group",
+        "title": "Two-fold dilutions in buffer down to 31 µM",
+        "steps": [
+          {
+            "id": "h-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-tube-15ml",
+              "id": "=x[0]",
+              "label": "=text(x[1]) + ' mM'"
+            }
+          },
+          {
+            "id": "h-buffer",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "buffer",
+              "destination": "=x[0]",
+              "volume": "7 mL"
+            }
+          },
+          {
+            "id": "h-prev",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[2]",
+              "destination": "=x[0]",
+              "volume": "7 mL"
+            }
+          },
+          {
+            "id": "h-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x[0]",
+              "method": "vortex",
+              "cycles": 2
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['s1', 1.0, 's2'], ['s05', 0.5, 's1'], ['s025', 0.25, 's05'], ['s0125', 0.125, 's025'], ['s006', 0.0625, 's0125'], ['s003', 0.03125, 's006']]"
+        },
+        "objectives": [
+          "o-series"
+        ]
+      },
+      {
+        "id": "zero-sub",
+        "kind": "group",
+        "title": "Zero on substrate solution",
+        "steps": [
+          {
+            "id": "ref",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "c-ref",
+              "label": "Reference"
+            }
+          },
+          {
+            "id": "ref-fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "s003",
+              "destination": "c-ref",
+              "volume": "2.7 mL"
+            }
+          },
+          {
+            "id": "zero-it",
+            "kind": "operation",
+            "ref": "core:calibrate",
+            "params": {
+              "instrument": "spec",
+              "mode": "blank",
+              "reference": "c-ref",
+              "wavelength": "405 nm"
+            }
+          }
+        ]
+      },
+      {
+        "id": "control",
+        "kind": "group",
+        "title": "No enzyme, at the top concentration",
+        "steps": [
+          {
+            "id": "ctl-cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "=cuv",
+              "label": "=cuv"
+            }
+          },
+          {
+            "id": "ctl-sub",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "s2",
+              "destination": "=cuv",
+              "volume": "2.7 mL"
+            }
+          },
+          {
+            "id": "ctl-cover",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=cuv",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "ctl-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=cuv",
+              "method": "invert",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "ctl-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=cuv"
+            }
+          },
+          {
+            "id": "ctl-trace",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=cuv",
+              "wavelength": "405 nm",
+              "mode": "kinetic",
+              "interval": "10 s",
+              "duration": "3 min"
+            }
+          },
+          {
+            "id": "ctl-rate",
+            "kind": "data",
+            "ref": "core:transform",
+            "params": {
+              "op": "initial-rate",
+              "input": "=ctl-trace.out.record",
+              "window": "2 min"
+            }
+          },
+          {
+            "id": "ctl-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "rate-control",
+              "value": "=ctl-rate.out.values[cuv]"
+            }
+          }
+        ],
+        "let": {
+          "cuv": "='c-control'"
+        }
+      },
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each concentration in duplicate, started with 20 µL of enzyme",
+        "steps": [
+          {
+            "id": "run-cuv",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-macro-1cm",
+              "id": "=cuv",
+              "label": "=cuv"
+            }
+          },
+          {
+            "id": "run-sub",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x[0]",
+              "destination": "=cuv",
+              "volume": "2.7 mL"
+            }
+          },
+          {
+            "id": "run-enz",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ap",
+              "destination": "=cuv",
+              "volume": "20 uL"
+            }
+          },
+          {
+            "id": "run-cover",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=cuv",
+              "cover": "parafilm"
+            }
+          },
+          {
+            "id": "run-mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=cuv",
+              "method": "invert",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "run-open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=cuv"
+            }
+          },
+          {
+            "id": "run-trace",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "=cuv",
+              "wavelength": "405 nm",
+              "mode": "kinetic",
+              "interval": "10 s",
+              "duration": "3 min"
+            }
+          },
+          {
+            "id": "run-rate",
+            "kind": "data",
+            "ref": "core:transform",
+            "params": {
+              "op": "initial-rate",
+              "input": "=run-trace.out.record",
+              "window": "2 min"
+            }
+          },
+          {
+            "id": "run-note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + text(x[1])",
+              "value": "=run-rate.out.values[cuv]"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['s2', 2.0, 1], ['s2', 2.0, 2], ['s1', 1.0, 1], ['s1', 1.0, 2], ['s05', 0.5, 1], ['s05', 0.5, 2], ['s025', 0.25, 1], ['s025', 0.25, 2], ['s0125', 0.125, 1], ['s0125', 0.125, 2], ['s006', 0.0625, 1], ['s006', 0.0625, 2], ['s003', 0.03125, 1], ['s003', 0.03125, 2]]"
+        },
+        "let": {
+          "cuv": "='c-' + x[0] + '-' + text(x[2])"
+        },
+        "objectives": [
+          "o-rates"
+        ]
+      },
+      {
+        "id": "specific",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "specific-activity",
+          "value": "=mean(recorded('rate-2')) / first(recorded('epsilon-405')) * 0.0027 * 1e6 / 0.0001"
+        }
+      },
+      {
+        "id": "lb",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-fit"
+        ],
+        "params": {
+          "model": "linear",
+          "x": "=[1 / 2.0, 1 / 1.0, 1 / 0.5, 1 / 0.25, 1 / 0.125, 1 / 0.0625, 1 / 0.03125]",
+          "y": "=[1 / mean(recorded('rate-2')), 1 / mean(recorded('rate-1')), 1 / mean(recorded('rate-0.5')), 1 / mean(recorded('rate-0.25')), 1 / mean(recorded('rate-0.125')), 1 / mean(recorded('rate-0.0625')), 1 / mean(recorded('rate-0.03125'))]"
+        }
+      },
+      {
+        "id": "lb-km",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "km-lb",
+          "value": "=lb.out.fit.params.slope / lb.out.fit.params.intercept"
+        }
+      },
+      {
+        "id": "lb-vmax",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "vmax-lb",
+          "value": "=1 / lb.out.fit.params.intercept"
+        }
+      },
+      {
+        "id": "mm",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-fit"
+        ],
+        "params": {
+          "model": "michaelis-menten",
+          "x": "=[2.0, 1.0, 0.5, 0.25, 0.125, 0.0625, 0.03125]",
+          "y": "=[mean(recorded('rate-2')), mean(recorded('rate-1')), mean(recorded('rate-0.5')), mean(recorded('rate-0.25')), mean(recorded('rate-0.125')), mean(recorded('rate-0.0625')), mean(recorded('rate-0.03125'))]"
+        }
+      },
+      {
+        "id": "mm-km",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "km-mm",
+          "value": "=mm.out.fit.params.km"
+        }
+      },
+      {
+        "id": "mm-vmax",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "vmax-mm",
+          "value": "=mm.out.fit.params.vmax"
+        }
+      },
+      {
+        "id": "which",
+        "kind": "decision",
+        "objectives": [
+          "o-fit"
+        ],
+        "prompt": "The double-reciprocal plot and the direct fit give different KM values. Which do you report, and why?",
+        "options": [
+          {
+            "id": "direct",
+            "label": "The direct fit: taking reciprocals magnifies the errors of the slowest rates, which then pull the straight line"
+          },
+          {
+            "id": "double-reciprocal",
+            "label": "The double-reciprocal plot: a straight line is always more reliable"
+          },
+          {
+            "id": "either",
+            "label": "Either: they are bound to agree"
+          }
+        ],
+        "correctWhen": "'direct'"
+      },
+      {
+        "id": "control-q",
+        "kind": "decision",
+        "objectives": [
+          "o-rates"
+        ],
+        "prompt": "What does the no-enzyme cuvette tell you?",
+        "options": [
+          {
+            "id": "enzymic",
+            "label": "Nothing happens without the enzyme: the rates are the enzyme's"
+          },
+          {
+            "id": "spontaneous",
+            "label": "The substrate breaks down by itself as fast"
+          }
+        ],
+        "correctWhen": "if(abs(first(recorded('rate-control'))) < 0.05 * mean(recorded('rate-2')), 'enzymic', 'spontaneous')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-fit",
+        "statement": "Both fits are made, the direct fit's KM is within a factor of 1.5 of the enzyme's, and the choice of fit is explained",
+        "check": "between(first(recorded('km-mm')), 0.067, 0.15) && len(recorded('km-lb')) > 0 && decision('which') == 'direct' && decision('control-q') == 'enzymic'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-epsilon",
+        "statement": "The standard gives ε405 of about 15 000 to 19 000 per molar per cm",
+        "check": "between(first(recorded('epsilon-405')), 13000, 20000)",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-specific",
+        "statement": "The specific activity at 2 mM is a few hundred U/mg",
+        "check": "between(first(recorded('specific-activity')), 150, 600)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

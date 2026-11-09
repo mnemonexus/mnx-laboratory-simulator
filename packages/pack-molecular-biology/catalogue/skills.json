@@ -1,0 +1,37 @@
+[
+  {
+    "id": "molbio:heat-shock",
+    "label": "Heat-shock transformation",
+    "kind": "technique"
+  },
+  {
+    "id": "molbio:transformation-efficiency",
+    "label": "Calculating transformation efficiency",
+    "kind": "analysis"
+  },
+  {
+    "id": "molbio:gene-regulation",
+    "label": "Relating gene regulation to phenotype",
+    "kind": "concept"
+  },
+  {
+    "id": "molbio:pcr-setup",
+    "label": "Setting up a PCR",
+    "kind": "technique"
+  },
+  {
+    "id": "molbio:pcr-program",
+    "label": "Choosing a PCR program",
+    "kind": "design"
+  },
+  {
+    "id": "molbio:gel-electrophoresis",
+    "label": "Agarose gel electrophoresis",
+    "kind": "technique"
+  },
+  {
+    "id": "molbio:band-sizing",
+    "label": "Sizing bands against a ladder",
+    "kind": "analysis"
+  }
+]

@@ -1,0 +1,257 @@
+[
+  {
+    "id": "core:pbs-1x",
+    "label": "Phosphate-buffered saline (1×)",
+    "components": [
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "137 mM"
+      },
+      {
+        "substance": "core:potassium-chloride",
+        "conc": "2.7 mM"
+      },
+      {
+        "substance": "core:disodium-hydrogen-phosphate",
+        "conc": "10 mM"
+      },
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "1.8 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.4,
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "core:tris-50mm-ph7.5",
+    "label": "Tris-HCl, 50 mM, pH 7.5",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "50 mM"
+      },
+      {
+        "substance": "core:hydrochloric-acid",
+        "conc": "39.4 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.5,
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "HCl from Henderson–Hasselbalch with pKa 8.07 at 25 °C."
+  },
+  {
+    "id": "core:tris-100mm-ph9.0",
+    "label": "Tris-HCl, 100 mM, pH 9.0",
+    "components": [
+      {
+        "substance": "core:tris",
+        "conc": "100 mM"
+      },
+      {
+        "substance": "core:hydrochloric-acid",
+        "conc": "10.5 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 9.0,
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "HCl from Henderson-Hasselbalch with pKa 8.07 at 25 C."
+  },
+  {
+    "id": "core:water-deionised",
+    "label": "Deionised water",
+    "components": [],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "core:ph-buffer-4",
+    "label": "pH 4.00 calibration buffer (acetate)",
+    "components": [
+      {
+        "substance": "core:acetic-acid",
+        "conc": "58.2 mM"
+      },
+      {
+        "substance": "core:sodium-acetate",
+        "conc": "10 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 4.0,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Recipe chosen so the ideal (activity-free) solver gives pH 4.00 at 25 °C."
+  },
+  {
+    "id": "core:ph-buffer-7",
+    "label": "pH 7.00 calibration buffer (phosphate)",
+    "components": [
+      {
+        "substance": "core:potassium-dihydrogen-phosphate",
+        "conc": "25 mM"
+      },
+      {
+        "substance": "core:disodium-hydrogen-phosphate",
+        "conc": "15.8 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "pH": 7.0,
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Recipe chosen so the ideal (activity-free) solver gives pH 7.00 at 25 °C."
+  },
+  {
+    "id": "core:phenolphthalein-indicator",
+    "label": "Phenolphthalein indicator (1 % in ethanol)",
+    "components": [
+      {
+        "substance": "core:phenolphthalein",
+        "conc": "31.4 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Solvent modelled as water (ethanol not tracked)."
+  },
+  {
+    "id": "core:potassium-chromate-indicator",
+    "label": "Potassium chromate indicator (5 %)",
+    "components": [
+      {
+        "substance": "aq:potassium-chromate",
+        "conc": "0.26 mol/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "For the Mohr titration of chloride with silver nitrate."
+  },
+  {
+    "id": "core:universal-indicator-solution",
+    "label": "Universal indicator solution",
+    "components": [
+      {
+        "substance": "core:universal-indicator",
+        "conc": "1 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "core:methyl-orange-indicator",
+    "label": "Methyl orange indicator (0.1 %)",
+    "components": [
+      {
+        "substance": "core:methyl-orange",
+        "conc": "3.05 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "core:bromothymol-blue-indicator",
+    "label": "Bromothymol blue indicator (0.04 %)",
+    "components": [
+      {
+        "substance": "core:bromothymol-blue",
+        "conc": "0.64 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental"
+  },
+  {
+    "id": "core:litmus-solution",
+    "label": "Litmus solution",
+    "components": [
+      {
+        "substance": "core:litmus",
+        "conc": "4 mM"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "Neutral litmus: purple, turning red in acid and blue in alkali."
+  },
+  {
+    "id": "core:ice",
+    "label": "Ice (crushed, with a little water)",
+    "components": [],
+    "solvent": "core:water",
+    "storage": "0 Cel",
+    "status": "experimental",
+    "description": "Modelled as water at 0 °C: a supply of it starts cold (give the supply a storage temperature). An ice bath to stand a flask in is a place, core:ice-bath."
+  },
+  {
+    "id": "core:ammonium-sulfate-saturated",
+    "label": "Ammonium sulfate, saturated (about 4 M)",
+    "components": [
+      {
+        "substance": "core:ammonium-sulfate",
+        "conc": "4.0 mol/L"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "4 Cel",
+    "status": "experimental",
+    "description": "Added by volume to reach a percentage saturation: V(sat) = V × s / (100 − s) for s % saturation."
+  },
+  {
+    "id": "core:immersion-oil",
+    "label": "Immersion oil (type A)",
+    "components": [
+      {
+        "substance": "core:immersion-oil",
+        "conc": "1020 g/L"
+      }
+    ],
+    "solvent": "core:immersion-oil",
+    "status": "experimental",
+    "description": "Neat oil, matched to glass (n = 1.515): for oil-immersion objectives only."
+  },
+  {
+    "id": "core:sodium-bicarbonate-saturated",
+    "label": "Saturated aqueous sodium hydrogen carbonate",
+    "components": [
+      {
+        "substance": "core:sodium-bicarbonate",
+        "conc": "1.1 M"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "About 96 g/L at 20 °C: mildly alkaline (pH about 8.3), so it takes carboxylic acids out of an organic layer as their salts and neutralises traces of mineral acid, giving off carbon dioxide."
+  },
+  {
+    "id": "core:brine-saturated",
+    "label": "Saturated brine (aqueous sodium chloride)",
+    "components": [
+      {
+        "substance": "core:sodium-chloride",
+        "conc": "6.1 M"
+      }
+    ],
+    "solvent": "core:water",
+    "storage": "21 Cel",
+    "status": "experimental",
+    "description": "About 360 g/L: its low water activity draws dissolved water out of an organic layer before it is dried."
+  }
+]

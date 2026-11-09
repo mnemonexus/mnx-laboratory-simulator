@@ -1,0 +1,252 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "version": "1.0.0",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "id": "chem53-heating-curve",
+  "title": "A heating curve: melting stearic acid",
+  "summary": "Warm solid stearic acid in a boiling tube in a water bath at 75 °C, reading its temperature every 30 seconds, and find its melting point from the level part of the heating curve.",
+  "briefing": "Put 5 g of solid stearic acid in a boiling tube with a thermometer in it and stand it in a water bath at 75 °C. Read the temperature every 30 seconds for 20 minutes and plot it against time. While the solid melts the temperature stays level: the energy taken in goes into separating the particles, not raising the temperature.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "chemistry",
+        "physics"
+      ]
+    },
+    "keywords": [
+      "heating curve",
+      "melting point",
+      "latent heat",
+      "states of matter",
+      "stearic acid"
+    ],
+    "topics": [
+      "States of matter"
+    ],
+    "concepts": [
+      {
+        "id": "latent",
+        "label": "While a substance melts its temperature stays constant: the energy goes into breaking forces between particles"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Follow the temperature of a melting solid"
+      },
+      {
+        "id": "o-plateau",
+        "kind": "analysis",
+        "statement": "Find the melting point from the heating curve",
+        "goal": "g-melt"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the level part of the curve",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "BTEC"
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "thermo",
+        "requires": {
+          "class": "core:thermometer-digital"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "75 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "set-bath",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "bath",
+          "temperature": "75 Cel"
+        }
+      },
+      {
+        "id": "tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:boiling-tube",
+          "id": "tube",
+          "label": "Stearic acid"
+        }
+      },
+      {
+        "id": "add",
+        "kind": "operation",
+        "ref": "core:add-solid",
+        "params": {
+          "substance": "chem:stearic-acid",
+          "destination": "tube",
+          "mass": "5 g"
+        }
+      },
+      {
+        "id": "read-start",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "thermo",
+          "subject": "tube"
+        }
+      },
+      {
+        "id": "in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "tube",
+          "place": "bath"
+        }
+      },
+      {
+        "id": "follow",
+        "kind": "group",
+        "title": "Read every 30 s for 20 minutes",
+        "forEach": {
+          "var": "n",
+          "in": "=range(0, 20, 41)"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 s"
+            },
+            "when": "n > 0"
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "thermo",
+              "subject": "tube"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "T",
+              "value": "=read.out.value"
+            }
+          },
+          {
+            "id": "note-t",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "t",
+              "value": "=n"
+            }
+          }
+        ]
+      },
+      {
+        "id": "plateau",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "melting-point",
+          "value": "=mean(closest(filter(recorded('T'), it < 73), 8))"
+        },
+        "objectives": [
+          "o-plateau"
+        ]
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does the temperature stay almost constant for a few minutes?",
+        "options": [
+          {
+            "id": "latent",
+            "label": "The energy taken in goes into overcoming the forces between particles as the solid melts, not into raising the temperature"
+          },
+          {
+            "id": "bath",
+            "label": "The water bath stops heating"
+          },
+          {
+            "id": "thermometer",
+            "label": "The thermometer is slow to respond"
+          }
+        ],
+        "correctWhen": "'latent'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-melt",
+        "statement": "The melting point is found within 2 °C of 69 °C",
+        "check": "abs(first(recorded('melting-point')) - 69.3) < 2"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The plateau is explained",
+        "check": "decision('why') == 'latent'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-plateau",
+        "statement": "The temperature stays within a degree of 69 °C for at least two minutes, then rises towards 75 °C",
+        "check": "count(filter(recorded('T'), abs(it - 69.3) < 1)) >= 4 && last(recorded('T')) > 73",
+        "source": "reference-standard"
+      }
+    ]
+  }
+}

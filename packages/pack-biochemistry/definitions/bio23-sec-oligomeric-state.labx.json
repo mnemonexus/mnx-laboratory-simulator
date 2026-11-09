@@ -1,0 +1,470 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio23-sec-oligomeric-state",
+  "version": "1.0.0",
+  "title": "Is it a monomer? Native mass by size-exclusion chromatography",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:chromatograph"
+      },
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "Calibrate an analytical gel-filtration column with two mixtures of standard proteins (elution volume against ln MW), run three purified proteins, read their native masses from the calibration and, from their subunit masses on SDS-PAGE, decide whether each is a monomer, dimer or tetramer.",
+  "briefing": "Inject 100 µL; the system records A280 against elution volume. Large molecules leave first. Standards: mixture A holds thyroglobulin (669 kDa), transferrin (81 kDa) and myoglobin (17 kDa); mixture B ferritin (440 kDa), ovalbumin (43 kDa) and vitamin B12 (1.355 kDa). Fit Ve = a + b·ln(MW) and invert it for each protein's peak: MW = exp((Ve − a)/b). SDS-PAGE subunit masses: P 30.5 kDa, Q 44 kDa, R 35 kDa.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "sec",
+        "label": "Size-exclusion chromatography and Kav"
+      },
+      {
+        "id": "calibration",
+        "label": "Calibration curves"
+      },
+      {
+        "id": "quaternary",
+        "label": "Quaternary structure"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-calibrate",
+        "kind": "analysis",
+        "statement": "Calibrate a gel-filtration column from standards",
+        "goal": "g-sec"
+      },
+      {
+        "id": "o-oligomer",
+        "kind": "analysis",
+        "statement": "Find native masses and oligomeric states",
+        "goal": "g-sec"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "mix-a",
+        "label": "Standard mixture A",
+        "role": "standard",
+        "contains": [
+          {
+            "substance": "bio:thyroglobulin",
+            "conc": "3 mg/mL"
+          },
+          {
+            "substance": "bio:transferrin",
+            "conc": "3 mg/mL"
+          },
+          {
+            "substance": "bio:myoglobin",
+            "conc": "3 mg/mL"
+          }
+        ],
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "mix-b",
+        "label": "Standard mixture B",
+        "role": "standard",
+        "contains": [
+          {
+            "substance": "bio:ferritin",
+            "conc": "1 mg/mL"
+          },
+          {
+            "substance": "bio:ovalbumin",
+            "conc": "4 mg/mL"
+          },
+          {
+            "substance": "bio:cyanocobalamin",
+            "conc": "0.1 mg/mL"
+          }
+        ],
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "p",
+        "label": "Protein P",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "molbio:im9-higam",
+            "conc": "30 uM"
+          }
+        ],
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "q",
+        "label": "Protein Q",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "bio:his-patb",
+            "conc": "2 mg/mL"
+          }
+        ],
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "r",
+        "label": "Protein R",
+        "role": "unknown",
+        "contains": [
+          {
+            "substance": "bio:ldh",
+            "conc": "2 mg/mL"
+          }
+        ],
+        "preparation": "molbio:phosphate-100mm-ph7",
+        "amount": "300 uL",
+        "container": "core:microtube-1.5ml",
+        "storage": "4 Cel"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "monitor",
+        "requires": {
+          "class": "core:uv-monitor"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "column",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:sec-column-analytical",
+          "id": "column",
+          "label": "Analytical SEC column"
+        }
+      },
+      {
+        "id": "mix-a",
+        "kind": "group",
+        "title": "Standard mixture A (thyroglobulin 669 kDa, transferrin 81 kDa, myoglobin 17 kDa): its three peaks, largest first",
+        "steps": [
+          {
+            "id": "run-a",
+            "kind": "operation",
+            "ref": "core:chromatograph",
+            "params": {
+              "column": "column",
+              "sample": "mix-a",
+              "volume": "100 uL",
+              "detector": "monitor",
+              "wavelengths": [
+                280
+              ]
+            }
+          },
+          {
+            "id": "note-a",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "peaks-a",
+              "value": "=run-a.out.peaks.A280"
+            }
+          }
+        ],
+        "objectives": [
+          "o-calibrate"
+        ]
+      },
+      {
+        "id": "mix-b",
+        "kind": "group",
+        "title": "Standard mixture B (ferritin 440 kDa, ovalbumin 43 kDa, vitamin B12 1.355 kDa): its three peaks, largest first",
+        "steps": [
+          {
+            "id": "run-b",
+            "kind": "operation",
+            "ref": "core:chromatograph",
+            "params": {
+              "column": "column",
+              "sample": "mix-b",
+              "volume": "100 uL",
+              "detector": "monitor",
+              "wavelengths": [
+                280
+              ]
+            }
+          },
+          {
+            "id": "note-b",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "peaks-b",
+              "value": "=run-b.out.peaks.A280"
+            }
+          }
+        ],
+        "objectives": [
+          "o-calibrate"
+        ]
+      },
+      {
+        "id": "vols",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Ve",
+          "value": "=[first(recorded('peaks-a'))[0], first(recorded('peaks-b'))[0], first(recorded('peaks-a'))[1], first(recorded('peaks-b'))[1], first(recorded('peaks-a'))[2], first(recorded('peaks-b'))[2]]"
+        },
+        "objectives": [
+          "o-calibrate"
+        ]
+      },
+      {
+        "id": "mws",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "MW",
+          "value": [
+            669000,
+            440000,
+            81000,
+            43000,
+            17000,
+            1355
+          ]
+        }
+      },
+      {
+        "id": "calibration",
+        "kind": "data",
+        "ref": "core:fit",
+        "objectives": [
+          "o-calibrate"
+        ],
+        "params": {
+          "x": "=map(first(recorded('MW')), ln(it))",
+          "y": "=first(recorded('Ve'))",
+          "model": "linear"
+        }
+      },
+      {
+        "id": "unknowns",
+        "kind": "group",
+        "title": "Each purified protein on the column; its peak's elution volume and native mass from the calibration",
+        "steps": [
+          {
+            "id": "run-u",
+            "kind": "operation",
+            "ref": "core:chromatograph",
+            "params": {
+              "column": "column",
+              "sample": "=u[0]",
+              "volume": "100 uL",
+              "detector": "monitor",
+              "wavelengths": [
+                280
+              ]
+            }
+          },
+          {
+            "id": "ve-u",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='Ve-' + u[0]",
+              "value": "=run-u.out.apex.A280"
+            }
+          },
+          {
+            "id": "mass-u",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='native-' + u[0]",
+              "value": "=exp((run-u.out.apex.A280 - calibration.out.fit.params.intercept) / calibration.out.fit.params.slope)"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "u",
+          "in": "=[['p', 30.5], ['q', 44], ['r', 35]]"
+        },
+        "objectives": [
+          "o-oligomer"
+        ]
+      },
+      {
+        "id": "state-p",
+        "kind": "decision",
+        "objectives": [
+          "o-oligomer"
+        ],
+        "prompt": "Protein P runs as a single 30.5 kDa band on SDS-PAGE. What is it in solution?",
+        "options": [
+          {
+            "id": "monomer",
+            "label": "A monomer"
+          },
+          {
+            "id": "dimer",
+            "label": "A dimer"
+          },
+          {
+            "id": "trimer",
+            "label": "A trimer"
+          },
+          {
+            "id": "tetramer",
+            "label": "A tetramer"
+          }
+        ],
+        "correctWhen": "if(first(recorded('native-p')) / 30500.0 < 1.5, 'monomer', if(first(recorded('native-p')) / 30500.0 < 2.5, 'dimer', if(first(recorded('native-p')) / 30500.0 < 3.5, 'trimer', 'tetramer')))"
+      },
+      {
+        "id": "state-q",
+        "kind": "decision",
+        "objectives": [
+          "o-oligomer"
+        ],
+        "prompt": "Protein Q runs as a single 44 kDa band on SDS-PAGE. What is it in solution?",
+        "options": [
+          {
+            "id": "monomer",
+            "label": "A monomer"
+          },
+          {
+            "id": "dimer",
+            "label": "A dimer"
+          },
+          {
+            "id": "trimer",
+            "label": "A trimer"
+          },
+          {
+            "id": "tetramer",
+            "label": "A tetramer"
+          }
+        ],
+        "correctWhen": "if(first(recorded('native-q')) / 44000 < 1.5, 'monomer', if(first(recorded('native-q')) / 44000 < 2.5, 'dimer', if(first(recorded('native-q')) / 44000 < 3.5, 'trimer', 'tetramer')))"
+      },
+      {
+        "id": "state-r",
+        "kind": "decision",
+        "objectives": [
+          "o-oligomer"
+        ],
+        "prompt": "Protein R runs as a single 35 kDa band on SDS-PAGE. What is it in solution?",
+        "options": [
+          {
+            "id": "monomer",
+            "label": "A monomer"
+          },
+          {
+            "id": "dimer",
+            "label": "A dimer"
+          },
+          {
+            "id": "trimer",
+            "label": "A trimer"
+          },
+          {
+            "id": "tetramer",
+            "label": "A tetramer"
+          }
+        ],
+        "correctWhen": "if(first(recorded('native-r')) / 35000 < 1.5, 'monomer', if(first(recorded('native-r')) / 35000 < 2.5, 'dimer', if(first(recorded('native-r')) / 35000 < 3.5, 'trimer', 'tetramer')))"
+      },
+      {
+        "id": "why-ln",
+        "kind": "decision",
+        "objectives": [
+          "o-calibrate"
+        ],
+        "prompt": "Why plot elution volume against the logarithm of molecular weight?",
+        "options": [
+          {
+            "id": "log",
+            "label": "Within the column's fractionation range the share of the pores a protein can enter falls with the log of its size, so Ve is linear in ln(MW)"
+          },
+          {
+            "id": "habit",
+            "label": "Only to spread the points out"
+          },
+          {
+            "id": "linear-mass",
+            "label": "Ve is linear in the mass itself"
+          }
+        ],
+        "correctWhen": "'log'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-sec",
+        "statement": "Each protein's native mass is within 20 % of the truth and its oligomeric state is read correctly",
+        "check": "within(first(recorded('native-p')), 30500, 20%) && within(first(recorded('native-q')), 88000, 20%) && within(first(recorded('native-r')), 140000, 20%) && decision('state-p') == 'monomer' && decision('state-q') == 'dimer' && decision('state-r') == 'tetramer' && decision('why-ln') == 'log'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-cal",
+        "statement": "The calibration is a straight line (r² above 0.98)",
+        "check": "fit(calibration).r2 > 0.98",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-order",
+        "statement": "The tetramer elutes first, the monomer last",
+        "check": "first(recorded('Ve-r')) < first(recorded('Ve-q')) && first(recorded('Ve-q')) < first(recorded('Ve-p'))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

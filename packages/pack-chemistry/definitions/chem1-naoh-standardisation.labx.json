@@ -1,0 +1,584 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem1-naoh-standardisation",
+  "version": "1.0.0",
+  "title": "Standardising sodium hydroxide with potassium hydrogen phthalate",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "core:weigh-by-difference"
+      },
+      {
+        "technique": "core:titrate-to-endpoint"
+      }
+    ]
+  },
+  "summary": "Weigh the primary standard KHP by difference, titrate it with the sodium hydroxide solution to a phenolphthalein end point (one rough, three accurate titrations), and calculate the hydroxide concentration.",
+  "briefing": "Sodium hydroxide absorbs water and carbon dioxide, so a solution made by weighing NaOH is only approximately 0.1 M. You will find its exact concentration by titrating a weighed amount of potassium hydrogen phthalate (KHP), a stable primary standard that reacts 1:1 with hydroxide. Finally, build an uncertainty budget: each input's standard uncertainty (a ±a tolerance counts as a/√3) propagates into the concentration, and the largest share shows what to improve.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "primary-standard",
+        "label": "Primary standards"
+      },
+      {
+        "id": "equivalence-point",
+        "label": "Equivalence point and end point"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-weigh",
+        "kind": "skill",
+        "statement": "Weigh a primary standard by difference",
+        "skills": [
+          "core:weigh-by-difference"
+        ]
+      },
+      {
+        "id": "o-burette",
+        "kind": "skill",
+        "statement": "Use a burette correctly",
+        "skills": [
+          "core:burette-technique",
+          "core:read-meniscus",
+          "core:titration"
+        ]
+      },
+      {
+        "id": "o-conc",
+        "kind": "outcome",
+        "statement": "Determine [NaOH] to within 0.5 %",
+        "goal": "g-conc"
+      },
+      {
+        "id": "o-concord",
+        "kind": "analysis",
+        "statement": "Obtain concordant results",
+        "skills": [
+          "core:replicate-agreement"
+        ],
+        "goal": "g-concordant"
+      },
+      {
+        "id": "o-uncertainty",
+        "kind": "analysis",
+        "statement": "Build an uncertainty budget and find what limits the result",
+        "goal": "g-budget"
+      }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "khp-solid",
+        "label": "KHP (primary standard, dried)",
+        "contains": [
+          {
+            "substance": "core:potassium-hydrogen-phthalate",
+            "purity": "99.95 %"
+          }
+        ],
+        "amount": "10 g",
+        "container": "core:weighing-bottle"
+      },
+      {
+        "id": "naoh-soln",
+        "label": "NaOH solution, approx. 0.1 M",
+        "contains": [
+          {
+            "substance": "core:sodium-hydroxide",
+            "conc": {
+              "vary": "0.092..0.108 mol/L"
+            }
+          }
+        ],
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "indicator",
+        "label": "Phenolphthalein indicator",
+        "preparation": "core:phenolphthalein-indicator",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "water",
+        "label": "Deionised water",
+        "preparation": "core:water-deionised",
+        "amount": "1 L",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-4dp"
+        }
+      },
+      {
+        "id": "burette",
+        "requires": {
+          "class": "core:burette-50ml-class-a"
+        }
+      }
+    ],
+    "prescribed": [
+      {
+        "role": "burette",
+        "asNamed": "50 mL burette",
+        "class": "core:burette-50ml-class-a"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed",
+    "steps": [
+      {
+        "id": "fill",
+        "kind": "technique",
+        "ref": "core:prepare-burette",
+        "title": "Fill the burette with NaOH",
+        "params": {
+          "burette": "burette",
+          "titrant": "naoh-soln",
+          "volume": "48 mL"
+        },
+        "objectives": [
+          "o-burette"
+        ]
+      },
+      {
+        "id": "rough",
+        "kind": "group",
+        "title": "Rough titration",
+        "steps": [
+          {
+            "id": "rough-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "flask-rough",
+              "label": "Rough"
+            }
+          },
+          {
+            "id": "rough-weigh",
+            "kind": "technique",
+            "ref": "core:weigh-by-difference",
+            "params": {
+              "source": "khp-solid",
+              "destination": "flask-rough",
+              "mass": "0.5 g"
+            },
+            "bind": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "rough-water",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "flask-rough",
+              "volume": "50 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "rough-indicator",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "indicator",
+              "destination": "flask-rough",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "rough-dissolve",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "flask-rough",
+              "method": "swirl",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "rough-start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "rough-titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "params": {
+              "burette": "burette",
+              "flask": "flask-rough",
+              "endColour": "pink"
+            }
+          },
+          {
+            "id": "rough-end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "rough-titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "rough-titre",
+              "value": "=quantity(rough-end.out.value) - quantity(rough-start.out.value)"
+            }
+          },
+          {
+            "id": "rough-mass",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "rough-mass",
+              "value": "=rough-weigh.out.delivered"
+            }
+          }
+        ]
+      },
+      {
+        "id": "accurate",
+        "kind": "group",
+        "title": "Three accurate titrations",
+        "forEach": {
+          "var": "n",
+          "in": "=[1, 2, 3]"
+        },
+        "let": {
+          "flask": "='flask-' + text(n)"
+        },
+        "steps": [
+          {
+            "id": "get-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "=flask",
+              "label": "='Titration ' + text(n)"
+            }
+          },
+          {
+            "id": "weigh",
+            "kind": "technique",
+            "ref": "core:weigh-by-difference",
+            "params": {
+              "source": "khp-solid",
+              "destination": "=flask",
+              "mass": "0.5 g"
+            },
+            "bind": {
+              "balance": "balance"
+            },
+            "objectives": [
+              "o-weigh"
+            ]
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=flask",
+              "volume": "50 mL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "indicator-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "indicator",
+              "destination": "=flask",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "dissolve",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=flask",
+              "method": "swirl",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "refill",
+            "kind": "technique",
+            "ref": "core:prepare-burette",
+            "when": "volume(burette) < 30 mL",
+            "params": {
+              "burette": "burette",
+              "titrant": "naoh-soln",
+              "volume": "=48 mL - volume(burette)"
+            }
+          },
+          {
+            "id": "start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "objectives": [
+              "o-burette"
+            ],
+            "params": {
+              "burette": "burette",
+              "flask": "=flask",
+              "endColour": "pink",
+              "approx": "=first(recorded('rough-titre')) * weigh.out.delivered / first(recorded('rough-mass'))"
+            }
+          },
+          {
+            "id": "end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "titre",
+              "value": "=quantity(end.out.value) - quantity(start.out.value)"
+            }
+          },
+          {
+            "id": "conc",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "conc",
+              "value": "=weigh.out.delivered / 204.22 g/mol / (quantity(end.out.value) - quantity(start.out.value))"
+            }
+          },
+          {
+            "id": "note-mass",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "mass",
+              "value": "=weigh.out.delivered"
+            }
+          }
+        ]
+      },
+      {
+        "id": "report",
+        "kind": "operation",
+        "ref": "core:compute",
+        "title": "Mean concentration",
+        "params": {
+          "expression": "mean(c)",
+          "values": {
+            "c": "=recorded('conc')"
+          },
+          "report": {
+            "quantity": "conc",
+            "sample": "naoh-soln"
+          }
+        },
+        "objectives": [
+          "o-conc"
+        ]
+      },
+      {
+        "id": "budget",
+        "kind": "data",
+        "ref": "core:uncertainty",
+        "title": "Uncertainty budget for the concentration",
+        "objectives": [
+          "o-uncertainty"
+        ],
+        "params": {
+          "expression": "m * purity / (204.22 g/mol * V) * rep",
+          "values": {
+            "m": "=mean(recorded('mass'))",
+            "V": "=mean(recorded('titre'))",
+            "purity": 0.9995,
+            "rep": 1
+          },
+          "uncertainties": {
+            "m": "0.00012 g",
+            "V": "0.035 mL",
+            "purity": 0.0003,
+            "rep": "=value(sd(recorded('conc')), 'mol/L') / value(mean(recorded('conc')), 'mol/L') / sqrt(3)"
+          }
+        }
+      },
+      {
+        "id": "budget-notes",
+        "kind": "group",
+        "objectives": [
+          "o-uncertainty"
+        ],
+        "steps": [
+          {
+            "id": "note-u",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "u-conc",
+              "value": "=budget.out.u"
+            }
+          },
+          {
+            "id": "note-rel",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "relative-u",
+              "value": "=budget.out.relative"
+            }
+          },
+          {
+            "id": "note-dominant",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "dominant-source",
+              "value": "=budget.out.dominant"
+            }
+          }
+        ]
+      },
+      {
+        "id": "limits",
+        "kind": "decision",
+        "objectives": [
+          "o-uncertainty"
+        ],
+        "prompt": "Which input limits the precision of your NaOH concentration most?",
+        "options": [
+          {
+            "id": "burette",
+            "label": "The titre: the burette's tolerance, its two readings and judging the end point"
+          },
+          {
+            "id": "balance",
+            "label": "The mass of KHP from the balance"
+          },
+          {
+            "id": "purity",
+            "label": "The purity of the KHP"
+          },
+          {
+            "id": "repeatability",
+            "label": "The scatter between the three titrations"
+          }
+        ],
+        "correctWhen": "if(first(recorded('dominant-source')) == 'V', 'burette', if(first(recorded('dominant-source')) == 'm', 'balance', if(first(recorded('dominant-source')) == 'purity', 'purity', 'repeatability')))"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-conc",
+        "statement": "The reported NaOH concentration is within 0.5 % of the truth",
+        "check": "within(reported(conc, 'naoh-soln'), truth(conc, 'naoh-soln', 'core:sodium-hydroxide'), 0.5%)"
+      },
+      {
+        "id": "g-concordant",
+        "statement": "The three concentrations agree within 0.5 % (separately weighed portions give different titres, so it is the concentrations that must be concordant)",
+        "check": "(max(recorded('conc')) - min(recorded('conc'))) / mean(recorded('conc')) <= 0.5%"
+      },
+      {
+        "id": "g-budget",
+        "statement": "The limiting source of uncertainty is identified",
+        "check": "decision('limits') == if(first(recorded('dominant-source')) == 'V', 'burette', if(first(recorded('dominant-source')) == 'm', 'balance', if(first(recorded('dominant-source')) == 'purity', 'purity', 'repeatability')))"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-pink",
+        "statement": "Each accurate titration ends faint pink",
+        "check": "all(n in [1, 2, 3]: colour('flask-' + text(n)) == 'pink')",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-titre",
+        "statement": "Titres of about 23–27 mL for 0.5 g of KHP",
+        "check": "all(recorded('titre'), it > 20 mL && it < 30 mL)",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-precise",
+        "statement": "The relative standard uncertainty is below 0.3 %",
+        "check": "first(recorded('relative-u')) < 0.003",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "data": {
+    "calculations": [
+      {
+        "id": "c-conc",
+        "statement": "c(NaOH) = m(KHP) / (204.22 g/mol × titre), for each titration and as the mean of concordant titres",
+        "answer": {
+          "unit": "mol/L",
+          "per": "titration"
+        },
+        "accept": {
+          "fromOwnData": "0.2%",
+          "fromTruth": "1%"
+        }
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

@@ -1,0 +1,549 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio41-yeast-fermentation",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:connect-gas"
+      }
+    ]
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "biology",
+        "biochemistry"
+      ]
+    },
+    "keywords": [
+      "yeast",
+      "fermentation",
+      "anaerobic respiration",
+      "carbon dioxide",
+      "gas syringe",
+      "sugars"
+    ],
+    "topics": [
+      "Respiration"
+    ],
+    "concepts": [
+      {
+        "id": "fermentation",
+        "label": "Yeast respires anaerobically, turning sugar into ethanol and carbon dioxide"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the rate of gas production with a gas syringe"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "{{compareObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "{{explainObjective}}",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC",
+      "AP"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Yeast fermentation: which sugars?"
+    },
+    "summary": {
+      "default": "Mix yeast with glucose, fructose, sucrose, maltose, lactose or water at 35 °C and measure how fast each gives off carbon dioxide into a gas syringe."
+    },
+    "briefing": {
+      "default": "Yeast respires sugar anaerobically: C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂. Warm 10 mL of the sugar solution in a flask and 10 mL of yeast suspension in a tube to 35 °C, mix them and let the mixture ferment for ten minutes (the liquid has to fill with carbon dioxide before gas comes off). Then bung the flask with a gas syringe and read it every minute for ten minutes. Yeast can only use the sugars it has enzymes and transport proteins for."
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "runs": {
+      "default": "=[['glu','Glucose','glucose',35],['fru','Fructose','fructose',35],['suc','Sucrose','sucrose',35],['mal','Maltose','maltose',35],['lac','Lactose','lactose',35],['none','Water (no sugar)','water',35]]"
+    },
+    "compareObjective": {
+      "default": "Compare how fast yeast ferments each sugar"
+    },
+    "explainObjective": {
+      "default": "Explain why yeast cannot ferment lactose"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why did the yeast give off almost no gas with lactose?",
+        "options": [
+          {
+            "id": "no-enzyme",
+            "label": "Yeast has no enzyme (lactase) to split lactose into sugars it can respire"
+          },
+          {
+            "id": "too-big",
+            "label": "Lactose is too big to dissolve"
+          },
+          {
+            "id": "poison",
+            "label": "Lactose kills yeast"
+          }
+        ],
+        "correctWhen": "choice == 'no-enzyme'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "Glucose, fructose and sucrose are fermented fast, maltose more slowly, and lactose hardly at all",
+            "check": "first(recorded('rate-glu')) > 3 * first(recorded('rate-lac')) && first(recorded('rate-suc')) > 3 * first(recorded('rate-lac')) && first(recorded('rate-mal')) < first(recorded('rate-glu'))"
+          },
+          {
+            "id": "g-explain",
+            "statement": "Lactose is explained",
+            "check": "decision('why') == 'no-enzyme'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-control",
+            "statement": "Without sugar almost no gas is given off",
+            "check": "last(recorded('V-none')) < 3",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "glucose",
+        "label": "Glucose, 0.10 M",
+        "contains": [
+          {
+            "substance": "core:glucose",
+            "conc": "0.10 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "fructose",
+        "label": "Fructose, 0.10 M",
+        "contains": [
+          {
+            "substance": "core:fructose",
+            "conc": "0.10 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "sucrose",
+        "label": "Sucrose, 0.10 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.10 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "maltose",
+        "label": "Maltose, 0.10 M",
+        "contains": [
+          {
+            "substance": "core:maltose",
+            "conc": "0.10 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "lactose",
+        "label": "Lactose, 0.10 M",
+        "contains": [
+          {
+            "substance": "core:lactose",
+            "conc": "0.10 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "water",
+        "label": "Distilled water",
+        "preparation": "core:water-deionised",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml"
+      },
+      {
+        "id": "yeast",
+        "label": "Yeast suspension (2 % dried yeast)",
+        "contains": [
+          {
+            "substance": "bio:bakers-yeast",
+            "conc": "20 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "syringe",
+        "requires": {
+          "class": "core:gas-syringe"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "35 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each mixture in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "='flask-' + r[0]",
+              "label": "=r[1] + ' and yeast'"
+            }
+          },
+          {
+            "id": "sugar-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='flask-' + r[0]",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "='yeast-' + r[0]",
+              "label": "='Yeast for ' + r[1]"
+            }
+          },
+          {
+            "id": "yeast-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "yeast",
+              "destination": "='yeast-' + r[0]",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[3]) + ' Cel')"
+            }
+          },
+          {
+            "id": "flask-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='flask-' + r[0]",
+              "place": "bath"
+            }
+          },
+          {
+            "id": "tube-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='yeast-' + r[0]",
+              "place": "bath"
+            }
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "combine",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='yeast-' + r[0]",
+              "destination": "='flask-' + r[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='flask-' + r[0]",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "settle",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            }
+          },
+          {
+            "id": "bung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "='flask-' + r[0]",
+              "syringe": "syringe"
+            }
+          },
+          {
+            "id": "follow",
+            "kind": "group",
+            "title": "Read the syringe every minute",
+            "forEach": {
+              "var": "m",
+              "in": "=range(0, 600, 11)"
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "60 s"
+                },
+                "when": "m > 0"
+              },
+              {
+                "id": "read",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "syringe",
+                  "subject": "='flask-' + r[0]"
+                }
+              },
+              {
+                "id": "note-t",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='t-' + r[0]",
+                  "value": "=m"
+                }
+              },
+              {
+                "id": "note-v",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='V-' + r[0]",
+                  "value": "=value(quantity(read.out.value), 'mL')"
+                }
+              }
+            ]
+          },
+          {
+            "id": "unbung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "='flask-' + r[0]"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='flask-' + r[0]"
+            }
+          },
+          {
+            "id": "rate",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=recorded('t-' + r[0])",
+              "y": "=recorded('V-' + r[0])",
+              "model": "linear",
+              "xLabel": "time / s"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=60 * rate.out.fit.params.slope"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio41-yeast-temperature",
+      "title": "Yeast fermentation and temperature",
+      "summary": "Measure how fast yeast ferments glucose from 25 to 55 °C by the carbon dioxide collected in a gas syringe, and find where its enzymes begin to denature.",
+      "briefing": "As with the sugars: warm the glucose and the yeast separately to the temperature, mix them, let them ferment for ten minutes, then collect the gas for ten minutes. Enzymes speed up with warmth until the heat begins to denature them; yeast dies above about 45 °C.",
+      "values": {
+        "level": "ages-14-16",
+        "runs": "=[['t25','25 °C','glucose',25],['t30','30 °C','glucose',30],['t35','35 °C','glucose',35],['t40','40 °C','glucose',40],['t45','45 °C','glucose',45],['t55','55 °C','glucose',55]]",
+        "compareObjective": "Find the temperature at which yeast ferments fastest",
+        "explainObjective": "Explain the fall in rate above the optimum",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why is there almost no gas at 55 °C?",
+          "options": [
+            {
+              "id": "denatured",
+              "label": "The yeast’s enzymes are denatured and the cells killed by the heat"
+            },
+            {
+              "id": "gas-dissolves",
+              "label": "Carbon dioxide dissolves better when hot"
+            },
+            {
+              "id": "sugar-used",
+              "label": "The sugar has been used up"
+            }
+          ],
+          "correctWhen": "choice == 'denatured'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "Faster from 25 °C to 35 °C, and much slower at 55 °C than at 35 °C",
+              "check": "first(recorded('rate-t25')) < first(recorded('rate-t35')) && first(recorded('rate-t55')) < 0.3 * first(recorded('rate-t35'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The fall is explained",
+              "check": "decision('why') == 'denatured'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-warmer",
+              "statement": "From 25 °C to 30 °C the rate increases",
+              "check": "first(recorded('rate-t25')) < first(recorded('rate-t30'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "temperature",
+        "enzymes",
+        "denaturation"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

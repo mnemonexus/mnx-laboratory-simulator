@@ -1,0 +1,1123 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem21-magnesium-acid-gas-volume",
+  "version": "1.0.0",
+  "title": "Magnesium and acid: following a reaction by gas volume",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:connect-gas"
+      },
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Drop magnesium ribbon into hydrochloric acid, collect the hydrogen in a gas syringe, read the volume every 10 seconds and explain the shape of the graph.",
+  "briefing": "Magnesium reacts with hydrochloric acid to give magnesium chloride and hydrogen: Mg + 2HCl → MgCl₂ + H₂. Each mole of magnesium gives a mole of hydrogen, which at room temperature and pressure takes up about 24 litres. The rate is the gradient of the volume–time graph; it is steepest at the start.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": "{{keywords}}",
+    "topics": [
+      "Rates of reaction",
+      "Amount of substance"
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ],
+    "concepts": [
+      {
+        "id": "rate",
+        "label": "Rate as the gradient of an amount–time graph"
+      },
+      {
+        "id": "collision",
+        "label": "Collision theory"
+      }
+    ],
+    "objectives": "{{objectives}}"
+  },
+  "parameters": {
+    "runs": {
+      "default": "=[['a', 'Flask: 1.0 M acid', 'hcl', 50, 0, 0, 0.04]]"
+    },
+    "solid": {
+      "default": "mg"
+    },
+    "analysis": {
+      "default": [
+        {
+          "id": "predict",
+          "kind": "operation",
+          "ref": "core:compute",
+          "params": {
+            "expression": "m / 24.305 * Vm * 1000",
+            "values": {
+              "m": "=value(first(recorded('mass-a')), 'g')",
+              "Vm": 24.14
+            },
+            "field": "V-predicted"
+          }
+        },
+        {
+          "id": "why-stops",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the volume of gas stop rising?",
+          "options": [
+            {
+              "id": "magnesium-used-up",
+              "label": "The magnesium has all reacted: it was the limiting reagent"
+            },
+            {
+              "id": "acid-used-up",
+              "label": "The acid has all reacted"
+            },
+            {
+              "id": "syringe-full",
+              "label": "The syringe is full"
+            }
+          ],
+          "correctWhen": "choice == 'magnesium-used-up'"
+        }
+      ]
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-volume",
+            "statement": "The final volume is within 8 % of what the mass of magnesium predicts",
+            "check": "within(mean(slice(recorded('V-a'), -3)), first(recorded('V-predicted')), 8%)"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The levelling off is explained by the magnesium running out",
+            "check": "decision(why-stops) == 'magnesium-used-up'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-rises",
+            "statement": "Gas collects quickly at first",
+            "check": "first(recorded('rate-a')) > 0.3",
+            "source": "simulation-derived"
+          },
+          {
+            "id": "e-levels",
+            "statement": "The volume levels off once the ribbon has gone",
+            "check": "last(recorded('V-a')) - recorded('V-a')[length(recorded('V-a')) - 3] <= 2",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    },
+    "objectives": {
+      "default": [
+        {
+          "id": "o-measure",
+          "kind": "skill",
+          "statement": "Collect a gas in a gas syringe and read its volume at intervals"
+        },
+        {
+          "id": "o-volume",
+          "kind": "analysis",
+          "statement": "Predict the volume of hydrogen from the mass of magnesium",
+          "goal": "g-volume"
+        },
+        {
+          "id": "o-explain",
+          "kind": "reasoning",
+          "statement": "Explain the shape of the graph",
+          "goal": "g-explain"
+        }
+      ]
+    },
+    "supplies": {
+      "default": [
+        {
+          "id": "hcl",
+          "label": "Hydrochloric acid, 1.0 M",
+          "contains": [
+            {
+              "substance": "aq:hydrochloric-acid",
+              "conc": "1.0 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "250 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        {
+          "id": "water",
+          "label": "Deionised water",
+          "preparation": "core:water-deionised",
+          "amount": "250 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        {
+          "id": "mg",
+          "label": "Magnesium ribbon (cleaned, cut into short lengths)",
+          "contains": [
+            {
+              "substance": "aq:magnesium-ribbon",
+              "purity": "99.5 %"
+            }
+          ],
+          "amount": "2 g",
+          "container": "core:weighing-bottle"
+        }
+      ]
+    },
+    "roles": {
+      "default": [
+        {
+          "id": "syringe",
+          "requires": {
+            "class": "core:gas-syringe"
+          }
+        },
+        {
+          "id": "balance",
+          "requires": {
+            "class": "core:balance-4dp"
+          }
+        }
+      ]
+    },
+    "readEvery": {
+      "default": 10
+    },
+    "readSpan": {
+      "default": 120
+    },
+    "readCount": {
+      "default": 13
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "keywords": {
+      "default": [
+        "rate of reaction",
+        "gas syringe",
+        "magnesium",
+        "hydrochloric acid",
+        "hydrogen",
+        "limiting reagent"
+      ]
+    }
+  },
+  "materials": {
+    "supplies": "{{supplies}}"
+  },
+  "equipment": {
+    "roles": "{{roles}}"
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each run",
+        "objectives": [
+          "o-measure"
+        ],
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "let": {
+          "flask": "='flask-' + r[0]"
+        },
+        "steps": [
+          {
+            "id": "flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-100ml",
+              "id": "=flask",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "acid-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "=flask",
+              "volume": "=quantity(text(r[3]) + ' mL')",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "=flask",
+              "volume": "=quantity(text(r[4]) + ' mL')",
+              "tool": "pour"
+            },
+            "when": "r[4] > 0"
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[5]) + ' Cel')"
+            },
+            "when": "r[5] > 0"
+          },
+          {
+            "id": "into-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=flask",
+              "place": "bath"
+            },
+            "when": "r[5] > 0"
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "10 min"
+            },
+            "when": "r[5] > 0"
+          },
+          {
+            "id": "weigh",
+            "kind": "technique",
+            "ref": "core:weigh-by-difference",
+            "params": {
+              "source": "{{solid}}",
+              "destination": "=flask",
+              "mass": "=quantity(text(r[6]) + ' g')"
+            },
+            "bind": {
+              "balance": "balance"
+            },
+            "when": "r[6] > 0"
+          },
+          {
+            "id": "bung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "=flask",
+              "syringe": "syringe"
+            }
+          },
+          {
+            "id": "note-mass",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='mass-' + r[0]",
+              "value": "=weigh.out.delivered"
+            },
+            "when": "r[6] > 0"
+          },
+          {
+            "id": "follow",
+            "kind": "group",
+            "forEach": {
+              "var": "m",
+              "in": "=range(0, {{readSpan}}, {{readCount}})"
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "=quantity('{{readEvery}} s')"
+                },
+                "when": "m > 0"
+              },
+              {
+                "id": "read",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "syringe",
+                  "subject": "=flask"
+                }
+              },
+              {
+                "id": "note-t",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='t-' + r[0]",
+                  "value": "=m"
+                }
+              },
+              {
+                "id": "note-v",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='V-' + r[0]",
+                  "value": "=value(quantity(read.out.value), 'mL')"
+                }
+              }
+            ]
+          },
+          {
+            "id": "unbung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "=flask"
+            }
+          },
+          {
+            "id": "out-of-bath",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "=flask"
+            },
+            "when": "r[5] > 0"
+          },
+          {
+            "id": "initial",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=slice(recorded('t-' + r[0]), 0, 3)",
+              "y": "=slice(recorded('V-' + r[0]), 0, 3)",
+              "model": "linear",
+              "xLabel": "time / s"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=initial.out.fit.params.slope"
+            }
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "kind": "group",
+        "title": "Analysis",
+        "steps": "{{analysis}}"
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "variants": [
+    {
+      "id": "chem21-concentration-and-rate",
+      "title": "Concentration and rate: magnesium in acid",
+      "summary": "Repeat the magnesium and acid reaction with the acid diluted to four concentrations, find each initial rate from the gas syringe and see how rate depends on concentration.",
+      "briefing": "Only the concentration changes: the same mass of ribbon, the same total volume of liquid, the same temperature. A more concentrated acid has more hydrogen ions per unit volume to collide with the magnesium surface. Plot initial rate against concentration: a straight line through the origin means the rate is proportional to it (first order).",
+      "curricula": [
+        "GCSE",
+        "A level",
+        "IB"
+      ],
+      "values": {
+        "runs": "=[['a', 'Flask: 0.50 M acid', 'hcl', 12.5, 37.5, 0, 0.04], ['b', 'Flask: 1.0 M acid', 'hcl', 25, 25, 0, 0.04], ['c', 'Flask: 1.5 M acid', 'hcl', 37.5, 12.5, 0, 0.04], ['d', 'Flask: 2.0 M acid', 'hcl', 50, 0, 0, 0.04]]",
+        "solid": "mg",
+        "analysis": [
+          {
+            "id": "order",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=[0.5, 1.0, 1.5, 2.0]",
+              "y": "=map(['a', 'b', 'c', 'd'], first(recorded('rate-' + it)))",
+              "model": "linear-through-origin",
+              "xLabel": "acid concentration / mol L⁻¹"
+            }
+          },
+          {
+            "id": "note-gradient",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "rate-per-conc",
+              "value": "=order.out.fit.params.slope"
+            }
+          },
+          {
+            "id": "how",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "When the acid concentration doubles, the initial rate…",
+            "options": [
+              {
+                "id": "doubles",
+                "label": "about doubles: rate is proportional to concentration (first order)"
+              },
+              {
+                "id": "quadruples",
+                "label": "about quadruples (second order)"
+              },
+              {
+                "id": "same",
+                "label": "stays the same (zero order)"
+              }
+            ],
+            "correctWhen": "choice == 'doubles'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-proportional",
+              "statement": "The initial rate at 2.0 M is about twice that at 1.0 M",
+              "check": "within(first(recorded('rate-d')) / first(recorded('rate-b')), 2, 25%)"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The rate is identified as proportional to the acid concentration",
+              "check": "decision(how) == 'doubles'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-faster",
+              "statement": "Each stronger acid gives gas faster",
+              "check": "first(recorded('rate-a')) < first(recorded('rate-b')) && first(recorded('rate-b')) < first(recorded('rate-c')) && first(recorded('rate-c')) < first(recorded('rate-d'))",
+              "source": "reference-standard"
+            },
+            {
+              "id": "e-same-total",
+              "statement": "Every run gives the same volume per gram of magnesium (the magnesium is limiting)",
+              "check": "within(mean(slice(recorded('V-a'), -3)) / value(first(recorded('mass-a')), 'g'), mean(slice(recorded('V-d'), -3)) / value(first(recorded('mass-d')), 'g'), 8%)",
+              "source": "reference-standard"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-measure",
+            "kind": "skill",
+            "statement": "Collect a gas in a gas syringe and read its volume at intervals"
+          },
+          {
+            "id": "o-rate",
+            "kind": "analysis",
+            "statement": "Find the initial rate from the gradient at the start",
+            "goal": "g-proportional"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Relate the rate to the concentration",
+            "goal": "g-explain"
+          }
+        ],
+        "supplies": [
+          {
+            "id": "hcl",
+            "label": "Hydrochloric acid, 2.0 M",
+            "contains": [
+              {
+                "substance": "aq:hydrochloric-acid",
+                "conc": "2.0 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "water",
+            "label": "Deionised water",
+            "preparation": "core:water-deionised",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "mg",
+            "label": "Magnesium ribbon (cleaned, cut into short lengths)",
+            "contains": [
+              {
+                "substance": "aq:magnesium-ribbon",
+                "purity": "99.5 %"
+              }
+            ],
+            "amount": "2 g",
+            "container": "core:weighing-bottle"
+          }
+        ],
+        "roles": [
+          {
+            "id": "syringe",
+            "requires": {
+              "class": "core:gas-syringe"
+            }
+          },
+          {
+            "id": "balance",
+            "requires": {
+              "class": "core:balance-4dp"
+            }
+          }
+        ],
+        "readEvery": 10,
+        "readSpan": 180,
+        "readCount": 19,
+        "level": "ages-14-16",
+        "keywords": [
+          "rate of reaction",
+          "concentration",
+          "order of reaction",
+          "gas syringe",
+          "magnesium",
+          "initial rate"
+        ]
+      }
+    },
+    {
+      "id": "chem21-temperature-and-rate",
+      "title": "Temperature and rate: an Arrhenius plot",
+      "summary": "Warm the acid to four temperatures in a water bath, measure the initial rate of hydrogen production at each, and find the activation energy from a plot of ln(rate) against 1/T.",
+      "briefing": "The rate constant follows the Arrhenius equation, k = A e^(−Ea/RT). With everything else the same, the initial rate is proportional to k, so ln(rate) against 1/T is a straight line with gradient −Ea/R. Warm the flask of acid in the bath before adding the magnesium so that it starts at the bath's temperature.",
+      "curricula": [
+        "A level",
+        "IB"
+      ],
+      "values": {
+        "runs": "=[['a', 'Flask at 25 °C', 'hcl', 50, 0, 25, 0.04], ['b', 'Flask at 35 °C', 'hcl', 50, 0, 35, 0.04], ['c', 'Flask at 45 °C', 'hcl', 50, 0, 45, 0.04], ['d', 'Flask at 55 °C', 'hcl', 50, 0, 55, 0.04]]",
+        "solid": "mg",
+        "analysis": [
+          {
+            "id": "arrhenius",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map([25, 35, 45, 55], 1 / (it + 273.15))",
+              "y": "=map(['a', 'b', 'c', 'd'], ln(first(recorded('rate-' + it))))",
+              "model": "linear",
+              "xLabel": "1/T / K⁻¹"
+            }
+          },
+          {
+            "id": "ea",
+            "kind": "operation",
+            "ref": "core:compute",
+            "params": {
+              "expression": "-g * 8.314 / 1000",
+              "values": {
+                "g": "=arrhenius.out.fit.params.slope"
+              },
+              "field": "Ea-kJ"
+            }
+          },
+          {
+            "id": "why",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why is the reaction faster when the acid is warmer?",
+            "options": [
+              {
+                "id": "energetic-collisions",
+                "label": "More collisions have at least the activation energy"
+              },
+              {
+                "id": "more-acid",
+                "label": "There is more acid"
+              },
+              {
+                "id": "bigger-ribbon",
+                "label": "The ribbon has a larger surface"
+              }
+            ],
+            "correctWhen": "choice == 'energetic-collisions'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-ea",
+              "statement": "The activation energy from an Arrhenius plot is within 25 % of 40 kJ/mol",
+              "check": "within(first(recorded('Ea-kJ')), 40, 25%)"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The faster rate is explained by collisions with enough energy",
+              "check": "decision(why) == 'energetic-collisions'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-faster",
+              "statement": "Each warmer run gives gas faster",
+              "check": "first(recorded('rate-a')) < first(recorded('rate-b')) && first(recorded('rate-b')) < first(recorded('rate-c')) && first(recorded('rate-c')) < first(recorded('rate-d'))",
+              "source": "reference-standard"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-measure",
+            "kind": "skill",
+            "statement": "Collect a gas in a gas syringe and read its volume at intervals"
+          },
+          {
+            "id": "o-ea",
+            "kind": "analysis",
+            "statement": "Find the activation energy from an Arrhenius plot",
+            "goal": "g-ea"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Explain the effect of temperature with collision theory",
+            "goal": "g-explain"
+          }
+        ],
+        "supplies": [
+          {
+            "id": "hcl",
+            "label": "Hydrochloric acid, 0.50 M",
+            "contains": [
+              {
+                "substance": "aq:hydrochloric-acid",
+                "conc": "0.50 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "water",
+            "label": "Deionised water",
+            "preparation": "core:water-deionised",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "mg",
+            "label": "Magnesium ribbon (cleaned, cut into short lengths)",
+            "contains": [
+              {
+                "substance": "aq:magnesium-ribbon",
+                "purity": "99.5 %"
+              }
+            ],
+            "amount": "2 g",
+            "container": "core:weighing-bottle"
+          }
+        ],
+        "roles": [
+          {
+            "id": "syringe",
+            "requires": {
+              "class": "core:gas-syringe"
+            }
+          },
+          {
+            "id": "balance",
+            "requires": {
+              "class": "core:balance-4dp"
+            }
+          },
+          {
+            "id": "bath",
+            "requires": {
+              "class": "core:water-bath",
+              "temperature": "35 Cel"
+            }
+          }
+        ],
+        "readEvery": 5,
+        "readSpan": 60,
+        "readCount": 13,
+        "level": "ages-16-19",
+        "keywords": [
+          "rate of reaction",
+          "temperature",
+          "Arrhenius",
+          "activation energy",
+          "collision theory",
+          "gas syringe"
+        ]
+      }
+    },
+    {
+      "id": "chem21-molar-volume",
+      "title": "The molar volume of a gas",
+      "summary": "React weighed pieces of magnesium ribbon with excess acid, collect the hydrogen in a gas syringe and find the volume one mole of gas occupies from the gradient of volume against moles.",
+      "briefing": "Each mole of magnesium gives one mole of hydrogen. Weigh three different masses of ribbon by difference, let each react completely, and read the final volume. The gradient of volume against moles of magnesium is the molar volume, about 24 L/mol at room temperature and pressure.",
+      "curricula": [
+        "GCSE",
+        "A level",
+        "IB"
+      ],
+      "values": {
+        "runs": "=[['a', 'Flask: 0.030 g magnesium', 'hcl', 50, 0, 0, 0.03], ['b', 'Flask: 0.050 g magnesium', 'hcl', 50, 0, 0, 0.05], ['c', 'Flask: 0.070 g magnesium', 'hcl', 50, 0, 0, 0.07]]",
+        "solid": "mg",
+        "analysis": [
+          {
+            "id": "line",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map(['a', 'b', 'c'], value(first(recorded('mass-' + it)), 'g') / 24.305)",
+              "y": "=map(['a', 'b', 'c'], mean(slice(recorded('V-' + it), -4)))",
+              "model": "linear",
+              "xLabel": "magnesium / mol"
+            }
+          },
+          {
+            "id": "vm",
+            "kind": "operation",
+            "ref": "core:compute",
+            "params": {
+              "expression": "g / 1000",
+              "values": {
+                "g": "=line.out.fit.params.slope"
+              },
+              "field": "Vm-L-per-mol"
+            }
+          },
+          {
+            "id": "why-line",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why use the gradient of volume against moles rather than one run?",
+            "options": [
+              {
+                "id": "offset",
+                "label": "A constant loss (gas dissolved, the bung's delay) shifts every run alike: the gradient ignores it"
+              },
+              {
+                "id": "faster",
+                "label": "It makes the reaction faster"
+              },
+              {
+                "id": "no-reason",
+                "label": "There is no advantage"
+              }
+            ],
+            "correctWhen": "choice == 'offset'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-vm",
+              "statement": "The molar volume is within 5 % of 24.14 L/mol (21 °C, 1 atm)",
+              "check": "within(first(recorded('Vm-L-per-mol')), 24.14, 5%)"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The gradient method is justified",
+              "check": "decision(why-line) == 'offset'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-proportional",
+              "statement": "The volume of gas is in proportion to the mass of magnesium",
+              "check": "within(mean(slice(recorded('V-c'), -4)) / mean(slice(recorded('V-a'), -4)), 7 / 3, 10%)",
+              "source": "reference-standard"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-measure",
+            "kind": "skill",
+            "statement": "Collect a gas in a gas syringe and read its volume"
+          },
+          {
+            "id": "o-vm",
+            "kind": "analysis",
+            "statement": "Find the molar volume of a gas",
+            "goal": "g-vm"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Justify using a graph to remove a systematic error",
+            "goal": "g-explain"
+          }
+        ],
+        "supplies": [
+          {
+            "id": "hcl",
+            "label": "Hydrochloric acid, 1.0 M",
+            "contains": [
+              {
+                "substance": "aq:hydrochloric-acid",
+                "conc": "1.0 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "water",
+            "label": "Deionised water",
+            "preparation": "core:water-deionised",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "mg",
+            "label": "Magnesium ribbon (cleaned, cut into short lengths)",
+            "contains": [
+              {
+                "substance": "aq:magnesium-ribbon",
+                "purity": "99.5 %"
+              }
+            ],
+            "amount": "2 g",
+            "container": "core:weighing-bottle"
+          }
+        ],
+        "roles": [
+          {
+            "id": "syringe",
+            "requires": {
+              "class": "core:gas-syringe"
+            }
+          },
+          {
+            "id": "balance",
+            "requires": {
+              "class": "core:balance-4dp"
+            }
+          }
+        ],
+        "readEvery": 15,
+        "readSpan": 150,
+        "readCount": 11,
+        "level": "ages-16-19",
+        "keywords": [
+          "molar volume",
+          "gas volume",
+          "moles",
+          "magnesium",
+          "hydrogen",
+          "gas syringe",
+          "ideal gas"
+        ]
+      }
+    },
+    {
+      "id": "chem21-catalyst-and-rate",
+      "title": "Catalysts and rate: hydrogen peroxide and manganese(IV) oxide",
+      "summary": "Add different masses of manganese(IV) oxide to hydrogen peroxide, collect the oxygen in a gas syringe and see how the amount of catalyst changes the rate (and that without it almost nothing happens).",
+      "briefing": "Hydrogen peroxide decomposes very slowly on its own: 2H₂O₂ → 2H₂O + O₂. Manganese(IV) oxide speeds it up: the reaction happens on the catalyst's surface, by a route with a lower activation energy, and the catalyst is left at the end. The more catalyst, the more surface. Test the gas with a glowing splint afterwards.",
+      "curricula": [
+        "GCSE",
+        "A level",
+        "IB",
+        "BTEC"
+      ],
+      "values": {
+        "runs": "=[['z', 'Flask: no catalyst', 'h2o2', 14, 6, 0, 0], ['a', 'Flask: 0.20 g catalyst', 'h2o2', 14, 6, 0, 0.2], ['b', 'Flask: 0.40 g catalyst', 'h2o2', 14, 6, 0, 0.4], ['c', 'Flask: 0.80 g catalyst', 'h2o2', 14, 6, 0, 0.8]]",
+        "solid": "mno2",
+        "analysis": [
+          {
+            "id": "per-gram",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map(['a', 'b', 'c'], value(first(recorded('mass-' + it)), 'g'))",
+              "y": "=map(['a', 'b', 'c'], first(recorded('rate-' + it)))",
+              "model": "linear-through-origin",
+              "xLabel": "catalyst / g"
+            }
+          },
+          {
+            "id": "note-per-gram",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "rate-per-gram",
+              "value": "=per-gram.out.fit.params.slope"
+            }
+          },
+          {
+            "id": "what",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "How does manganese(IV) oxide speed up the decomposition?",
+            "options": [
+              {
+                "id": "lower-ea",
+                "label": "It offers a route with a lower activation energy on its surface, and is not used up"
+              },
+              {
+                "id": "reactant",
+                "label": "It reacts with the peroxide and is used up"
+              },
+              {
+                "id": "heats",
+                "label": "It heats the solution"
+              }
+            ],
+            "correctWhen": "choice == 'lower-ea'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-proportional",
+              "statement": "Twice the catalyst gives about twice the initial rate",
+              "check": "within(first(recorded('rate-c')) / first(recorded('rate-b')), 2, 30%)"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The catalyst's action is explained",
+              "check": "decision(what) == 'lower-ea'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-none",
+              "statement": "Without a catalyst almost no oxygen comes off",
+              "check": "last(recorded('V-z')) < 3",
+              "source": "reference-standard"
+            },
+            {
+              "id": "e-faster",
+              "statement": "More catalyst gives oxygen faster",
+              "check": "first(recorded('rate-a')) < first(recorded('rate-b')) && first(recorded('rate-b')) < first(recorded('rate-c'))",
+              "source": "reference-standard"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-measure",
+            "kind": "skill",
+            "statement": "Collect a gas in a gas syringe and read its volume at intervals"
+          },
+          {
+            "id": "o-rate",
+            "kind": "analysis",
+            "statement": "Relate the initial rate to the amount of catalyst",
+            "goal": "g-proportional"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Explain how a catalyst works",
+            "goal": "g-explain"
+          }
+        ],
+        "supplies": [
+          {
+            "id": "h2o2",
+            "label": "Hydrogen peroxide, 0.50 M",
+            "contains": [
+              {
+                "substance": "core:hydrogen-peroxide",
+                "conc": "0.50 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "water",
+            "label": "Deionised water",
+            "preparation": "core:water-deionised",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "mno2",
+            "label": "Manganese(IV) oxide powder",
+            "contains": [
+              {
+                "substance": "aq:manganese-dioxide",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "5 g",
+            "container": "core:weighing-bottle"
+          }
+        ],
+        "roles": [
+          {
+            "id": "syringe",
+            "requires": {
+              "class": "core:gas-syringe"
+            }
+          },
+          {
+            "id": "balance",
+            "requires": {
+              "class": "core:balance-4dp"
+            }
+          }
+        ],
+        "readEvery": 10,
+        "readSpan": 120,
+        "readCount": 13,
+        "level": "ages-14-16",
+        "keywords": [
+          "rate of reaction",
+          "catalyst",
+          "manganese dioxide",
+          "hydrogen peroxide",
+          "oxygen",
+          "gas syringe"
+        ]
+      }
+    }
+  ]
+}

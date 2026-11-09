@@ -1,0 +1,63 @@
+{
+  "title": "Standalone: run a practical from its definition, have each step demonstrated, finish, review, end the session",
+  "surface": "standalone",
+  "drive": [
+    {
+      "wait": 15000
+    },
+    {
+      "waitFor": "[data-testid=open-practicals]"
+    },
+    {
+      "click": "[data-testid=open-practicals]"
+    },
+    {
+      "wait": 15000
+    },
+    {
+      "waitFor": "[data-testid=practical-drill-balance-rotor]"
+    },
+    {
+      "click": "[data-testid=practical-drill-balance-rotor]"
+    },
+    {
+      "click": "[data-testid=practical-start-drill-balance-rotor]"
+    },
+    {
+      "wait": 20000
+    },
+    {
+      "waitFor": "[data-testid=procedure-panel]"
+    },
+    {
+      "click": "[data-testid=practical-demonstrate]"
+    },
+    {
+      "wait": 3000
+    },
+    {
+      "click": "[data-testid=practical-demonstrate]"
+    },
+    {
+      "wait": 3000
+    },
+    {
+      "click": "[data-testid=practical-notebook]"
+    },
+    {
+      "waitFor": "[data-testid=notebook-panel]"
+    },
+    {
+      "click": "[data-testid=practical-finish]"
+    },
+    {
+      "waitFor": "[data-testid=review-view]"
+    },
+    {
+      "click": "[data-testid=review-end-session]"
+    },
+    {
+      "expect": "complete"
+    }
+  ]
+}

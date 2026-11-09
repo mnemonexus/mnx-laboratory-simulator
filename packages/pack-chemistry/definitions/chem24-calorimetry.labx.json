@@ -1,0 +1,921 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem24-calorimetry",
+  "version": "1.0.0",
+  "title": "Calorimetry: the enthalpy of displacement",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:measure"
+      }
+    ]
+  },
+  "summary": "Add zinc powder to copper(II) sulfate in a polystyrene cup, follow the temperature, correct for heat loss by extrapolating the cooling line, and calculate the enthalpy change of the reaction.",
+  "briefing": "Zinc displaces copper from copper(II) sulfate: Zn + CuSO₄ → ZnSO₄ + Cu. The heat given out warms the solution: q = m c ΔT, with m the mass of solution (taken as its volume of water) and c = 4.18 J g⁻¹ K⁻¹. The cup loses heat while the reaction runs, so the peak underestimates ΔT: extrapolate the cooling line back to the moment the zinc went in. ΔH = −q / n, per mole of the limiting reagent.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": "{{keywords}}",
+    "topics": [
+      "Energetics",
+      "Thermochemistry"
+    ],
+    "curricula": [
+      "GCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ],
+    "concepts": [
+      {
+        "id": "calorimetry",
+        "label": "q = m c ΔT and the enthalpy change per mole"
+      },
+      {
+        "id": "heat-loss",
+        "label": "Correcting for heat loss by extrapolation"
+      }
+    ],
+    "objectives": "{{objectives}}"
+  },
+  "parameters": {
+    "runs": {
+      "default": "=[['zn1', 'Zinc and copper(II) sulfate (1)', 'cuso4', 25, 'zn', 1.5, 'solid', 0, 0.0125], ['zn2', 'Zinc and copper(II) sulfate (2)', 'cuso4', 25, 'zn', 1.5, 'solid', 0, 0.0125]]"
+    },
+    "supplies": {
+      "default": [
+        {
+          "id": "cuso4",
+          "label": "Copper(II) sulfate, 0.50 M",
+          "contains": [
+            {
+              "substance": "aq:copper-ii-sulfate",
+              "conc": "0.50 mol/L"
+            }
+          ],
+          "solvent": "core:water",
+          "amount": "250 mL",
+          "container": "core:reagent-bottle-1l"
+        },
+        {
+          "id": "zn",
+          "label": "Zinc powder",
+          "contains": [
+            {
+              "substance": "aq:zinc-powder",
+              "purity": "99 %"
+            }
+          ],
+          "amount": "50 g",
+          "container": "core:weighing-bottle"
+        }
+      ]
+    },
+    "analysis": {
+      "default": [
+        {
+          "id": "mean-dh",
+          "kind": "operation",
+          "ref": "core:compute",
+          "params": {
+            "expression": "(a + b) / 2",
+            "values": {
+              "a": "=first(recorded('dH-zn1'))",
+              "b": "=first(recorded('dH-zn2'))"
+            },
+            "field": "dH-mean"
+          }
+        },
+        {
+          "id": "why-excess",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why is the zinc in excess, and ΔH worked out per mole of copper(II) sulfate?",
+          "options": [
+            {
+              "id": "limiting",
+              "label": "So that all the copper ions react: the copper sulfate is the limiting reagent and fixes the amount reacting"
+            },
+            {
+              "id": "faster",
+              "label": "Only to make it faster"
+            },
+            {
+              "id": "zinc-limiting",
+              "label": "Because zinc is the limiting reagent"
+            }
+          ],
+          "correctWhen": "choice == 'limiting'"
+        }
+      ]
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-dh",
+            "statement": "ΔH for Zn + CuSO₄ is within 15 % of −217 kJ/mol",
+            "check": "within(first(recorded('dH-mean')), -217, 15%)"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The limiting reagent is identified",
+            "check": "decision(why-excess) == 'limiting'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-rise",
+            "statement": "The temperature rises by over 20 K",
+            "check": "first(recorded('dT-zn1')) > 20",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-repeat",
+            "statement": "The two runs agree within 5 %",
+            "check": "within(first(recorded('dH-zn1')), first(recorded('dH-zn2')), 5%)",
+            "source": "simulation-derived"
+          }
+        ]
+      }
+    },
+    "objectives": {
+      "default": [
+        {
+          "id": "o-measure",
+          "kind": "skill",
+          "statement": "Measure a temperature change in a calorimeter, correcting for heat loss"
+        },
+        {
+          "id": "o-dh",
+          "kind": "analysis",
+          "statement": "Calculate the enthalpy change of displacement",
+          "goal": "g-dh"
+        },
+        {
+          "id": "o-explain",
+          "kind": "reasoning",
+          "statement": "Explain the choice of reagent in excess",
+          "goal": "g-explain"
+        }
+      ]
+    },
+    "level": {
+      "default": "ages-16-19"
+    },
+    "keywords": {
+      "default": [
+        "calorimetry",
+        "enthalpy",
+        "displacement",
+        "zinc",
+        "copper sulfate",
+        "exothermic",
+        "heat loss",
+        "extrapolation"
+      ]
+    }
+  },
+  "materials": {
+    "supplies": "{{supplies}}"
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "thermo",
+        "requires": {
+          "class": "core:thermometer-digital"
+        }
+      },
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each run",
+        "objectives": [
+          "o-measure"
+        ],
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "let": {
+          "cup": "='cup-' + r[0]"
+        },
+        "steps": [
+          {
+            "id": "cup",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:calorimeter-cup",
+              "id": "=cup",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "liquid-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "=cup",
+              "volume": "=quantity(text(r[3]) + ' mL')",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "before",
+            "kind": "group",
+            "forEach": {
+              "var": "k",
+              "in": "=range(0, 5, 6)"
+            },
+            "steps": [
+              {
+                "id": "wait-before",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "30 s"
+                },
+                "when": "k > 0"
+              },
+              {
+                "id": "read-before",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "thermo",
+                  "subject": "=cup"
+                }
+              },
+              {
+                "id": "note-temp-before",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='T-' + r[0]",
+                  "value": "=read-before.out.value"
+                }
+              },
+              {
+                "id": "note-t-before",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='t-' + r[0]",
+                  "value": "=k * 30"
+                }
+              }
+            ]
+          },
+          {
+            "id": "to-mixing",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 s"
+            }
+          },
+          {
+            "id": "weigh",
+            "kind": "technique",
+            "ref": "core:weigh-by-difference",
+            "params": {
+              "source": "=r[4]",
+              "destination": "=cup",
+              "mass": "=quantity(text(r[5]) + ' g')"
+            },
+            "bind": {
+              "balance": "balance"
+            },
+            "when": "r[6] == 'solid'"
+          },
+          {
+            "id": "note-mass",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='mass-' + r[0]",
+              "value": "=weigh.out.delivered"
+            },
+            "when": "r[6] == 'solid'"
+          },
+          {
+            "id": "pour-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[4]",
+              "destination": "=cup",
+              "volume": "=quantity(text(r[5]) + ' mL')",
+              "tool": "pour"
+            },
+            "when": "r[6] == 'liquid'"
+          },
+          {
+            "id": "stir",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=cup",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "after",
+            "kind": "group",
+            "forEach": {
+              "var": "k",
+              "in": "=range(7, 20, 14)"
+            },
+            "steps": [
+              {
+                "id": "wait-after",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "30 s"
+                }
+              },
+              {
+                "id": "stir-after",
+                "kind": "operation",
+                "ref": "core:mix",
+                "params": {
+                  "container": "=cup",
+                  "method": "swirl",
+                  "cycles": 1
+                }
+              },
+              {
+                "id": "read-after",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "thermo",
+                  "subject": "=cup"
+                }
+              },
+              {
+                "id": "note-temp-after",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='T-' + r[0]",
+                  "value": "=read-after.out.value"
+                }
+              },
+              {
+                "id": "note-t-after",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='t-' + r[0]",
+                  "value": "=k * 30"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "per-run",
+        "kind": "group",
+        "title": "Temperature change and ΔH",
+        "objectives": [
+          "o-dh"
+        ],
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "let": {
+          "T": "=recorded('T-' + r[0])",
+          "t": "=recorded('t-' + r[0])",
+          "late": "=filter(range(0, len(recorded('t-' + r[0])) - 1, len(recorded('t-' + r[0]))), recorded('t-' + r[0])[it] >= 300)"
+        },
+        "steps": [
+          {
+            "id": "cooling",
+            "kind": "operation",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map(late, t[it])",
+              "y": "=map(late, T[it])",
+              "model": "linear",
+              "xLabel": "time / s"
+            }
+          },
+          {
+            "id": "rise",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='dT-' + r[0]",
+              "value": "=cooling.out.fit.params.intercept + cooling.out.fit.params.slope * 180 - mean(map(range(0, 5, 6), T[it]))"
+            }
+          },
+          {
+            "id": "amount",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='n-' + r[0]",
+              "value": "=if(r[6] == 'solid' && r[7] > 0, value(first(recorded('mass-' + r[0])), 'g') / r[7], r[8])"
+            }
+          },
+          {
+            "id": "dh",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='dH-' + r[0]",
+              "value": "=-((r[3] + if(r[6] == 'liquid', r[5], 0)) * 4.18 * first(recorded('dT-' + r[0]))) / first(recorded('n-' + r[0])) / 1000"
+            }
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "kind": "group",
+        "title": "Conclusions",
+        "steps": "{{analysis}}"
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  },
+  "variants": [
+    {
+      "id": "chem24-enthalpy-of-solution",
+      "title": "Enthalpy of solution: salts dissolving",
+      "summary": "Dissolve ammonium nitrate, potassium chloride and calcium chloride in water in a calorimeter, measure each temperature change and calculate the enthalpy of solution per mole.",
+      "briefing": "Dissolving a salt breaks its lattice (taking in energy) and surrounds its ions with water (giving out energy). Which wins decides whether the water warms or cools. Measure the temperature change, correct it for heat loss, and work out ΔH per mole of salt dissolved.",
+      "curricula": [
+        "A level",
+        "IB",
+        "BTEC"
+      ],
+      "values": {
+        "runs": "=[['nh4no3', 'Ammonium nitrate in water', 'water', 50, 'nh4no3', 5, 'solid', 80.04, 0], ['kcl', 'Potassium chloride in water', 'water', 50, 'kcl', 5, 'solid', 74.55, 0], ['cacl2', 'Calcium chloride in water', 'water', 50, 'cacl2', 5, 'solid', 110.98, 0]]",
+        "supplies": [
+          {
+            "id": "water",
+            "label": "Deionised water",
+            "preparation": "core:water-deionised",
+            "amount": "500 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "nh4no3",
+            "label": "Ammonium nitrate",
+            "contains": [
+              {
+                "substance": "aq:ammonium-nitrate",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "50 g",
+            "container": "core:weighing-bottle"
+          },
+          {
+            "id": "kcl",
+            "label": "Potassium chloride",
+            "contains": [
+              {
+                "substance": "aq:potassium-chloride",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "50 g",
+            "container": "core:weighing-bottle"
+          },
+          {
+            "id": "cacl2",
+            "label": "Calcium chloride (anhydrous)",
+            "contains": [
+              {
+                "substance": "aq:calcium-chloride",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "50 g",
+            "container": "core:weighing-bottle"
+          }
+        ],
+        "analysis": [
+          {
+            "id": "why",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why does ammonium nitrate cool the water as it dissolves?",
+            "options": [
+              {
+                "id": "lattice",
+                "label": "Breaking up the crystal takes more energy than the ions give out as water surrounds them"
+              },
+              {
+                "id": "reaction",
+                "label": "It reacts with the water"
+              },
+              {
+                "id": "evaporation",
+                "label": "The water evaporates"
+              }
+            ],
+            "correctWhen": "choice == 'lattice'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-dh",
+              "statement": "ΔH of solution is within 20 % of +25.7 kJ/mol (NH₄NO₃) and −81.3 kJ/mol (CaCl₂)",
+              "check": "within(first(recorded('dH-nh4no3')), 25.7, 20%) && within(first(recorded('dH-cacl2')), -81.3, 20%)"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The cooling is explained",
+              "check": "decision(why) == 'lattice'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-signs",
+              "statement": "Ammonium nitrate and potassium chloride cool the water; calcium chloride warms it",
+              "check": "first(recorded('dT-nh4no3')) < 0 && first(recorded('dT-kcl')) < 0 && first(recorded('dT-cacl2')) > 0",
+              "source": "reference-standard"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-measure",
+            "kind": "skill",
+            "statement": "Measure a temperature change in a calorimeter, correcting for heat loss"
+          },
+          {
+            "id": "o-dh",
+            "kind": "analysis",
+            "statement": "Calculate enthalpies of solution",
+            "goal": "g-dh"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Explain an endothermic dissolution",
+            "goal": "g-explain"
+          }
+        ],
+        "level": "ages-16-19",
+        "keywords": [
+          "calorimetry",
+          "enthalpy of solution",
+          "dissolving",
+          "endothermic",
+          "exothermic",
+          "ammonium nitrate",
+          "lattice enthalpy"
+        ]
+      }
+    },
+    {
+      "id": "chem24-hess-copper-sulfate",
+      "title": "Hess's law: the hydration of copper(II) sulfate",
+      "summary": "Measure the enthalpy of solution of anhydrous copper(II) sulfate and of its pentahydrate, and use Hess's law to find the enthalpy change when the anhydrous salt takes up water.",
+      "briefing": "CuSO₄(s) + 5H₂O(l) → CuSO₄·5H₂O(s) cannot be measured directly. Both solids dissolve to the same solution, so ΔH(hydration) = ΔH(solution, anhydrous) − ΔH(solution, pentahydrate). Use about 25 mmol of each in 50 mL of water.",
+      "curricula": [
+        "GCSE",
+        "A level",
+        "IB"
+      ],
+      "values": {
+        "runs": "=[['anhydrous', 'Anhydrous copper(II) sulfate in water', 'water', 50, 'anh', 4.0, 'solid', 159.61, 0], ['hydrated', 'Copper(II) sulfate pentahydrate in water', 'water', 50, 'hyd', 6.25, 'solid', 249.69, 0]]",
+        "supplies": [
+          {
+            "id": "water",
+            "label": "Deionised water",
+            "preparation": "core:water-deionised",
+            "amount": "500 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "anh",
+            "label": "Anhydrous copper(II) sulfate (white)",
+            "contains": [
+              {
+                "substance": "aq:copper-ii-sulfate",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "50 g",
+            "container": "core:weighing-bottle"
+          },
+          {
+            "id": "hyd",
+            "label": "Copper(II) sulfate pentahydrate (blue crystals)",
+            "contains": [
+              {
+                "substance": "aq:copper-ii-sulfate-pentahydrate",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "50 g",
+            "container": "core:weighing-bottle"
+          }
+        ],
+        "analysis": [
+          {
+            "id": "hydration",
+            "kind": "operation",
+            "ref": "core:compute",
+            "params": {
+              "expression": "a - b",
+              "values": {
+                "a": "=first(recorded('dH-anhydrous'))",
+                "b": "=first(recorded('dH-hydrated'))"
+              },
+              "field": "dH-hydration"
+            }
+          },
+          {
+            "id": "why",
+            "kind": "decision",
+            "objectives": [
+              "o-explain"
+            ],
+            "prompt": "Why is the enthalpy of hydration found indirectly?",
+            "options": [
+              {
+                "id": "indirect",
+                "label": "Water cannot be added to the solid so that only the pentahydrate forms, with a temperature change we can measure: Hess's law gives it from two dissolutions"
+              },
+              {
+                "id": "dangerous",
+                "label": "The reaction is explosive"
+              },
+              {
+                "id": "no-reason",
+                "label": "It could equally be measured directly"
+              }
+            ],
+            "correctWhen": "choice == 'indirect'"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-hess",
+              "statement": "The enthalpy of hydration is within 15 % of −78 kJ/mol",
+              "check": "within(first(recorded('dH-hydration')), -78, 15%)"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The indirect route is explained",
+              "check": "decision(why) == 'indirect'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-signs",
+              "statement": "The anhydrous salt warms the water; the hydrate cools it slightly",
+              "check": "first(recorded('dT-anhydrous')) > 0 && first(recorded('dT-hydrated')) < 0.5",
+              "source": "reference-standard"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-measure",
+            "kind": "skill",
+            "statement": "Measure a temperature change in a calorimeter, correcting for heat loss"
+          },
+          {
+            "id": "o-dh",
+            "kind": "analysis",
+            "statement": "Use Hess's law to find an enthalpy change that cannot be measured directly",
+            "goal": "g-hess"
+          },
+          {
+            "id": "o-explain",
+            "kind": "reasoning",
+            "statement": "Explain why an indirect route is needed",
+            "goal": "g-explain"
+          }
+        ],
+        "level": "ages-16-19",
+        "keywords": [
+          "Hess's law",
+          "calorimetry",
+          "enthalpy of hydration",
+          "copper sulfate",
+          "enthalpy cycle"
+        ]
+      }
+    },
+    {
+      "id": "chem24-exothermic-endothermic",
+      "title": "Exothermic and endothermic changes",
+      "summary": "Follow the temperature of four changes in a polystyrene cup (neutralisation, ammonium nitrate dissolving, citric acid with sodium hydrogencarbonate, magnesium in acid) and decide which give out heat and which take it in.",
+      "briefing": "An exothermic change gives out heat to its surroundings, so the solution warms; an endothermic one takes heat in, so it cools. Read the temperature before and after each change.",
+      "curricula": [
+        "GCSE",
+        "BTEC"
+      ],
+      "values": {
+        "runs": "=[['neut', 'Hydrochloric acid and sodium hydroxide', 'hcl', 25, 'naoh', 25, 'liquid', 0, 0.025], ['nh4no3', 'Ammonium nitrate dissolving', 'water', 50, 'nh4no3', 5, 'solid', 80.04, 0], ['citric', 'Citric acid and sodium hydrogencarbonate solution', 'nahco3', 25, 'citric', 3, 'solid', 192.12, 0], ['mg', 'Magnesium and hydrochloric acid', 'hcl', 25, 'mg', 0.2, 'solid', 24.305, 0]]",
+        "supplies": [
+          {
+            "id": "water",
+            "label": "Deionised water",
+            "preparation": "core:water-deionised",
+            "amount": "500 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "hcl",
+            "label": "Hydrochloric acid, 1.0 M",
+            "contains": [
+              {
+                "substance": "aq:hydrochloric-acid",
+                "conc": "1.0 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "naoh",
+            "label": "Sodium hydroxide, 1.0 M",
+            "contains": [
+              {
+                "substance": "aq:sodium-hydroxide",
+                "conc": "1.0 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "nahco3",
+            "label": "Sodium hydrogencarbonate, 1.0 M",
+            "contains": [
+              {
+                "substance": "core:sodium-bicarbonate",
+                "conc": "1.0 mol/L"
+              }
+            ],
+            "solvent": "core:water",
+            "amount": "250 mL",
+            "container": "core:reagent-bottle-1l"
+          },
+          {
+            "id": "nh4no3",
+            "label": "Ammonium nitrate",
+            "contains": [
+              {
+                "substance": "aq:ammonium-nitrate",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "50 g",
+            "container": "core:weighing-bottle"
+          },
+          {
+            "id": "citric",
+            "label": "Citric acid",
+            "contains": [
+              {
+                "substance": "core:citric-acid",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "50 g",
+            "container": "core:weighing-bottle"
+          },
+          {
+            "id": "mg",
+            "label": "Magnesium powder",
+            "contains": [
+              {
+                "substance": "aq:magnesium-powder",
+                "purity": "99 %"
+              }
+            ],
+            "amount": "50 g",
+            "container": "core:weighing-bottle"
+          }
+        ],
+        "analysis": [
+          {
+            "id": "classify",
+            "kind": "decision",
+            "objectives": [
+              "o-classify"
+            ],
+            "prompt": "Is this change exothermic or endothermic?",
+            "forEach": {
+              "var": "x",
+              "in": "=['neut', 'nh4no3', 'citric', 'mg']"
+            },
+            "options": [
+              {
+                "id": "exothermic",
+                "label": "Exothermic: it gives out heat"
+              },
+              {
+                "id": "endothermic",
+                "label": "Endothermic: it takes in heat"
+              }
+            ],
+            "correctWhen": "choice == first(filter([['neut', 'exothermic'], ['nh4no3', 'endothermic'], ['citric', 'endothermic'], ['mg', 'exothermic']], it[0] == x))[1]"
+          }
+        ],
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-classify",
+              "statement": "Every change is classified correctly",
+              "check": "all(x in ['neut', 'nh4no3', 'citric', 'mg']: decision(classify, x) == first(filter([['neut', 'exothermic'], ['nh4no3', 'endothermic'], ['citric', 'endothermic'], ['mg', 'exothermic']], it[0] == x))[1])"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-signs",
+              "statement": "Neutralisation and magnesium warm the cup; ammonium nitrate and citric acid with hydrogencarbonate cool it",
+              "check": "first(recorded('dT-neut')) > 3 && first(recorded('dT-mg')) > 3 && first(recorded('dT-nh4no3')) < -3 && first(recorded('dT-citric')) < -2",
+              "source": "reference-standard"
+            }
+          ]
+        },
+        "objectives": [
+          {
+            "id": "o-measure",
+            "kind": "skill",
+            "statement": "Measure a temperature change in a calorimeter, correcting for heat loss"
+          },
+          {
+            "id": "o-dh",
+            "kind": "analysis",
+            "statement": "Find each temperature change"
+          },
+          {
+            "id": "o-classify",
+            "kind": "reasoning",
+            "statement": "Classify changes as exothermic or endothermic",
+            "goal": "g-classify"
+          }
+        ],
+        "level": "ages-14-16",
+        "keywords": [
+          "exothermic",
+          "endothermic",
+          "temperature change",
+          "neutralisation",
+          "dissolving",
+          "citric acid",
+          "energy changes"
+        ]
+      }
+    }
+  ]
+}

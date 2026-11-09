@@ -1,0 +1,337 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "micro2-streak-isolation",
+  "version": "1.0.0",
+  "title": "Isolating a pure culture from a mixture by streaking",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "micro:streak-plate"
+      },
+      {
+        "technique": "micro:pick-colony"
+      },
+      {
+        "technique": "micro:gram-stain"
+      }
+    ]
+  },
+  "summary": "Streak a mixed broth culture for single colonies, pick a golden colony into fresh broth, grow it overnight, and confirm by Gram stain that it is a pure Gram-positive coccus.",
+  "briefing": "This broth holds two organisms. A streak plate thins the cells out until each colony grows from one cell; a colony is then a pure culture. Pick one of the golden colonies and check what you have.",
+  "context": {
+    "intendedContexts": [
+      "practical-session"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "microbiology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "pure-culture",
+        "label": "A colony grows from a single cell"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-streak",
+        "kind": "skill",
+        "statement": "Streak a plate for single colonies",
+        "skills": [
+          "micro:streak-plating",
+          "micro:aseptic-technique"
+        ]
+      },
+      {
+        "id": "o-pure",
+        "kind": "outcome",
+        "statement": "Obtain a pure culture of the golden organism",
+        "goal": "g-pure"
+      },
+      {
+        "id": "o-check",
+        "kind": "reasoning",
+        "statement": "Confirm purity and identity with a Gram stain",
+        "skills": [
+          "micro:gram-interpretation"
+        ]
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "mix",
+        "label": "Mixed culture",
+        "role": "culture",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml",
+        "contains": [
+          {
+            "substance": "micro:staphylococcus-aureus-teaching-strain",
+            "count": "5e8 CFU/mL"
+          },
+          {
+            "substance": "micro:escherichia-coli-k12",
+            "count": "5e8 CFU/mL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "plate",
+        "label": "LB agar plate",
+        "preparation": "micro:lb-agar-plate",
+        "amount": "20 mL",
+        "container": "core:petri-dish-90mm"
+      },
+      {
+        "id": "broth",
+        "label": "LB broth (subculture)",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "5 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "cv",
+        "label": "Crystal violet",
+        "preparation": "micro:crystal-violet-stain",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "iodine",
+        "label": "Gram's iodine",
+        "preparation": "micro:grams-iodine",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "decol",
+        "label": "Decolouriser",
+        "preparation": "micro:acetone-ethanol-decolouriser",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      },
+      {
+        "id": "saf",
+        "label": "Safranin",
+        "preparation": "micro:safranin-stain",
+        "amount": "10 mL",
+        "container": "core:conical-tube-15ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "incubator",
+        "requires": {
+          "class": "core:incubator"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "sessions": [
+      {
+        "id": "d1",
+        "title": "Streak"
+      },
+      {
+        "id": "d2",
+        "title": "Pick"
+      },
+      {
+        "id": "d3",
+        "title": "Check"
+      }
+    ],
+    "steps": [
+      {
+        "id": "streak",
+        "kind": "technique",
+        "ref": "micro:streak-plate",
+        "session": "d1",
+        "params": {
+          "source": "mix",
+          "plate": "plate"
+        },
+        "objectives": [
+          "o-streak"
+        ]
+      },
+      {
+        "id": "grow-plate",
+        "kind": "offstage",
+        "session": "d1",
+        "duration": "24 h",
+        "params": {
+          "place": "incubator",
+          "containers": [
+            "plate"
+          ]
+        }
+      },
+      {
+        "id": "look",
+        "kind": "technique",
+        "ref": "micro:colony-count",
+        "session": "d2",
+        "params": {
+          "plate": "plate"
+        }
+      },
+      {
+        "id": "note",
+        "kind": "operation",
+        "ref": "core:record",
+        "session": "d2",
+        "params": {
+          "field": "plate",
+          "value": "=look.out.display"
+        }
+      },
+      {
+        "id": "pick",
+        "kind": "technique",
+        "ref": "micro:pick-colony",
+        "session": "d2",
+        "params": {
+          "plate": "plate",
+          "destination": "broth",
+          "appearance": "golden"
+        }
+      },
+      {
+        "id": "grow-broth",
+        "kind": "offstage",
+        "session": "d2",
+        "duration": "18 h",
+        "params": {
+          "place": "incubator",
+          "containers": [
+            "broth"
+          ]
+        }
+      },
+      {
+        "id": "check",
+        "kind": "group",
+        "session": "d3",
+        "objectives": [
+          "o-check"
+        ],
+        "steps": [
+          {
+            "id": "slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microscope-slide",
+              "id": "slide-isolate",
+              "label": "Isolate"
+            }
+          },
+          {
+            "id": "smear",
+            "kind": "technique",
+            "ref": "micro:prepare-smear",
+            "params": {
+              "culture": "broth",
+              "slide": "slide-isolate"
+            }
+          },
+          {
+            "id": "fix",
+            "kind": "technique",
+            "ref": "micro:heat-fix",
+            "params": {
+              "slide": "slide-isolate"
+            }
+          },
+          {
+            "id": "stain",
+            "kind": "technique",
+            "ref": "micro:gram-stain",
+            "params": {
+              "slide": "slide-isolate",
+              "primary": "cv",
+              "mordant": "iodine",
+              "decolouriser": "decol",
+              "counterstain": "saf"
+            }
+          },
+          {
+            "id": "micro",
+            "kind": "technique",
+            "ref": "micro:brightfield-microscopy",
+            "params": {
+              "slide": "slide-isolate"
+            }
+          }
+        ]
+      },
+      {
+        "id": "classify",
+        "kind": "decision",
+        "session": "d3",
+        "prompt": "Is the isolate Gram-positive or Gram-negative?",
+        "options": [
+          {
+            "id": "positive",
+            "label": "Gram-positive"
+          },
+          {
+            "id": "negative",
+            "label": "Gram-negative"
+          }
+        ],
+        "correctWhen": "choice == gramClass('broth')",
+        "objectives": [
+          "o-check"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-pure",
+        "statement": "The subculture is a pure culture of the Gram-positive organism",
+        "check": "count(organisms('broth')) == 1 && gramClass('broth') == 'positive'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-single",
+        "statement": "The last sectors have separate colonies",
+        "check": "isolated('plate') > 0",
+        "source": "reference-standard"
+      },
+      {
+        "id": "e-purple",
+        "statement": "The isolate stains as purple cocci",
+        "check": "stainColour('slide-isolate') == 'purple'",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

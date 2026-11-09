@@ -1,0 +1,363 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem35-bleach-iodometry",
+  "version": "1.0.0",
+  "title": "Available chlorine in bleach by iodometric titration",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "Let diluted bleach liberate iodine from acidified potassium iodide, titrate the iodine with standard sodium thiosulfate to a starch end point, and work out the bleach’s available chlorine.",
+  "briefing": "Bleach is sodium hypochlorite. In acid it oxidises iodide to iodine: OCl⁻ + 2I⁻ + 2H⁺ → Cl⁻ + I₂ + H₂O. Thiosulfate turns the iodine back into iodide: I₂ + 2S₂O₃²⁻ → 2I⁻ + S₄O₆²⁻. Pipette 10.0 mL of the diluted bleach into a flask, add 10 mL of potassium iodide, 10 mL of ethanoic acid and 1 mL of starch, and titrate from blue-black to colourless. One hypochlorite needs two thiosulfates; available chlorine is reported as the mass of Cl₂ that would do the same, 70.90 g per mole of hypochlorite.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "iodometry",
+      "redox titration",
+      "thiosulfate",
+      "bleach",
+      "hypochlorite",
+      "available chlorine",
+      "starch"
+    ],
+    "topics": [
+      "Redox",
+      "Volumetric analysis"
+    ],
+    "concepts": [
+      {
+        "id": "iodometry",
+        "label": "An oxidising agent is measured by the iodine it releases from iodide"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-titrate",
+        "kind": "skill",
+        "statement": "Titrate iodine with thiosulfate to a starch end point, to concordant titres"
+      },
+      {
+        "id": "o-calculate",
+        "kind": "analysis",
+        "statement": "Work out the available chlorine of the bleach",
+        "goal": "g-chlorine"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the stoichiometry",
+        "goal": "g-ratio"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "T Level",
+      "BTEC"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "bleach",
+        "label": "Bleach, diluted 1 in 10",
+        "contains": [
+          {
+            "substance": "chem:sodium-hypochlorite",
+            "conc": "0.065 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "100 mL",
+        "container": "core:reagent-bottle-250ml",
+        "role": "unknown"
+      },
+      {
+        "id": "ki",
+        "label": "Potassium iodide, 10 %",
+        "contains": [
+          {
+            "substance": "core:potassium-iodide",
+            "conc": "0.60 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "acid",
+        "label": "Ethanoic acid, 2 M",
+        "contains": [
+          {
+            "substance": "core:acetic-acid",
+            "conc": "2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "thio",
+        "label": "Sodium thiosulfate, 0.100 M (standard)",
+        "contains": [
+          {
+            "substance": "chem:sodium-thiosulfate",
+            "conc": "0.100 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "500 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "starch",
+        "label": "Starch indicator (1 %)",
+        "preparation": "chem:starch-indicator-1pct",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "burette",
+        "requires": {
+          "class": "core:burette-50ml-class-a"
+        }
+      },
+      {
+        "id": "pipette10",
+        "requires": {
+          "class": "core:volumetric-pipette-10ml"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "fill",
+        "kind": "technique",
+        "ref": "core:prepare-burette",
+        "params": {
+          "burette": "burette",
+          "titrant": "thio",
+          "volume": "48 mL"
+        }
+      },
+      {
+        "id": "titrations",
+        "kind": "group",
+        "title": "A rough titration, then two accurate ones",
+        "objectives": [
+          "o-titrate"
+        ],
+        "forEach": {
+          "var": "n",
+          "in": "=[1, 2, 3]"
+        },
+        "let": {
+          "flask": "='flask-' + text(n)"
+        },
+        "steps": [
+          {
+            "id": "get-flask",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:conical-flask-250ml",
+              "id": "=flask",
+              "label": "='Titration ' + text(n)"
+            }
+          },
+          {
+            "id": "sample",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "bleach",
+              "destination": "=flask",
+              "volume": "10 mL",
+              "tool": "pipette10"
+            }
+          },
+          {
+            "id": "iodide",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ki",
+              "destination": "=flask",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "acidify",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "acid",
+              "destination": "=flask",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "starch-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "starch",
+              "destination": "=flask",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "swirl",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=flask",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "refill",
+            "kind": "technique",
+            "ref": "core:prepare-burette",
+            "when": "volume(burette) < 30 mL",
+            "params": {
+              "burette": "burette",
+              "titrant": "thio",
+              "volume": "=48 mL - volume(burette)"
+            }
+          },
+          {
+            "id": "start",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titrate",
+            "kind": "technique",
+            "ref": "core:titrate-to-endpoint",
+            "params": {
+              "burette": "burette",
+              "flask": "=flask",
+              "endColour": "colourless",
+              "approx": "=if(count(recorded('titre')) > 0, first(recorded('titre')), null)"
+            }
+          },
+          {
+            "id": "end",
+            "kind": "operation",
+            "ref": "core:read-volume",
+            "params": {
+              "container": "burette"
+            }
+          },
+          {
+            "id": "titre",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "titre",
+              "value": "=quantity(end.out.value) - quantity(start.out.value)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "chlorine",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "available-Cl2-g-per-L",
+          "value": "=value(mean(slice(recorded('titre'), 1, 3)), 'L') * 0.100 / 2 * 70.90 * 10 / 0.0100"
+        }
+      },
+      {
+        "id": "ratio",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "How many moles of thiosulfate does each mole of hypochlorite need?",
+        "options": [
+          {
+            "id": "two",
+            "label": "Two: one hypochlorite gives one iodine, which takes two thiosulfates"
+          },
+          {
+            "id": "one",
+            "label": "One"
+          },
+          {
+            "id": "half",
+            "label": "One half"
+          }
+        ],
+        "correctWhen": "'two'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-chlorine",
+        "statement": "The available chlorine of the undiluted bleach is found within 3 %",
+        "check": "within(first(recorded('available-Cl2-g-per-L')), value(truth('conc', 'bleach', 'chem:sodium-hypochlorite'), 'mol/L') * 10 * 70.90, 3%)"
+      },
+      {
+        "id": "g-ratio",
+        "statement": "The 1 : 2 ratio is explained",
+        "check": "decision('ratio') == 'two'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-titre",
+        "statement": "Each titre is twice the moles of hypochlorite in 10 mL, over the thiosulfate concentration",
+        "check": "within(value(mean(slice(recorded('titre'), 1, 3)), 'mL'), value(truth('conc', 'bleach', 'chem:sodium-hypochlorite'), 'mol/L') * 10 * 2 / 0.100, 2%)",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default",
+    "params": [
+      {
+        "path": "/materials/supplies/0/contains/0/conc",
+        "domain": [
+          "0.050 mol/L",
+          "0.060 mol/L",
+          "0.070 mol/L",
+          "0.080 mol/L"
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

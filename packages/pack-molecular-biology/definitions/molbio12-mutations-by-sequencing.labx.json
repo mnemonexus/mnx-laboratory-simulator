@@ -1,0 +1,521 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "molbio12-mutations-by-sequencing",
+  "version": "1.0.0",
+  "title": "What changed? Finding mutations and reversions by sequencing",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:search-sequences"
+      },
+      {
+        "operation": "core:align-sequences"
+      }
+    ]
+  },
+  "summary": "Sequence PCR products from two histidine-requiring Salmonella mutants and three of their revertants, find the mutated gene by searching reference sequences, read each mutation and each reversion from alignments, and spot a read from a mixed colony.",
+  "briefing": "Each tube holds a PCR product of the his operon from one strain. Search a mutant's read against the references to find which gene it covers; align it with the best reference to see the change and what it does to the protein. A revertant grows without histidine again: align it with the reference and with its mutant to see whether the original change was undone, changed again, or compensated nearby.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "molecular-biology",
+        "genetics"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "mutation-effects",
+        "label": "Missense, nonsense, silent and frameshift mutations"
+      },
+      {
+        "id": "reversion",
+        "label": "True, same-site and second-site reversion"
+      },
+      {
+        "id": "sequence-search",
+        "label": "Identity and coverage in a sequence search"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-search",
+        "kind": "skill",
+        "statement": "Sequence products and search references to identify a gene",
+        "skills": [
+          "core:sequence-analysis"
+        ],
+        "goal": "g-genes"
+      },
+      {
+        "id": "o-read",
+        "kind": "reasoning",
+        "statement": "Read mutations and reversions from alignments, and recognise a mixed template",
+        "goal": "g-reversions"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "m1",
+        "label": "Mutant 1: his region PCR product",
+        "role": "unknown",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:ta1535-hisg-amplicon",
+            "conc": "25 ug/mL"
+          }
+        ],
+        "amount": "15 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "m2",
+        "label": "Mutant 2: his region PCR product",
+        "role": "unknown",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:ta1538-hisd-amplicon",
+            "conc": "25 ug/mL"
+          }
+        ],
+        "amount": "15 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "r1",
+        "label": "Revertant R1 (from mutant 1): PCR product",
+        "role": "specimen",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:ta1535-pseudorevertant-hisg-amplicon",
+            "conc": "25 ug/mL"
+          }
+        ],
+        "amount": "15 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "r2",
+        "label": "Revertant R2 (from mutant 2): PCR product",
+        "role": "specimen",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:ta1538-insertion-revertant-hisd-amplicon",
+            "conc": "25 ug/mL"
+          }
+        ],
+        "amount": "15 uL",
+        "container": "core:pcr-tube-0.2ml"
+      },
+      {
+        "id": "r3",
+        "label": "Revertant R3 (from mutant 2): PCR product",
+        "role": "specimen",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:ta1538-insertion-revertant-hisd-amplicon",
+            "conc": "15 ug/mL"
+          },
+          {
+            "substance": "molbio:ta1538-hisd-amplicon",
+            "conc": "10 ug/mL"
+          }
+        ],
+        "amount": "15 uL",
+        "container": "core:pcr-tube-0.2ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "sequencer",
+        "requires": {
+          "class": "core:sequencer"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "reads",
+        "kind": "group",
+        "title": "Sequence each PCR product",
+        "steps": [
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "sequencer",
+              "subject": "=x[0]"
+            }
+          },
+          {
+            "id": "keep",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='read-' + x[0]",
+              "value": "=read.out.sequence"
+            }
+          },
+          {
+            "id": "look",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='trace-' + x[0]",
+              "value": "=read.out.display"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['m1', 'Mutant 1'], ['m2', 'Mutant 2'], ['r1', 'Revertant R1 (from mutant 1)'], ['r2', 'Revertant R2 (from mutant 2)'], ['r3', 'Revertant R3 (from mutant 2)']]"
+        },
+        "objectives": [
+          "o-search"
+        ]
+      },
+      {
+        "id": "search",
+        "kind": "group",
+        "title": "Search the references with each mutant's read",
+        "steps": [
+          {
+            "id": "blast",
+            "kind": "operation",
+            "ref": "core:search-sequences",
+            "params": {
+              "query": "=first(recorded('read-' + x))",
+              "maxHits": 5
+            }
+          },
+          {
+            "id": "gene",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='gene-' + x",
+              "value": "=blast.out.gene"
+            }
+          },
+          {
+            "id": "hit",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='hit-' + x",
+              "value": "=blast.out.top.title"
+            }
+          },
+          {
+            "id": "identity",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='identity-' + x",
+              "value": "=blast.out.top.identity"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['m1', 'm2']"
+        },
+        "objectives": [
+          "o-search"
+        ]
+      },
+      {
+        "id": "mutations",
+        "kind": "group",
+        "title": "Align each mutant and the clean revertants with the reference",
+        "steps": [
+          {
+            "id": "pair",
+            "kind": "operation",
+            "ref": "core:align-sequences",
+            "params": {
+              "query": "=first(recorded('read-' + x))",
+              "subject": "molbio:salmonella-his-reference"
+            }
+          },
+          {
+            "id": "n",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='diffs-' + x",
+              "value": "=len(pair.out.differences)"
+            }
+          },
+          {
+            "id": "effect",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='effect-' + x",
+              "value": "=if(len(pair.out.differences) > 0, pair.out.first.effect, 'none')"
+            }
+          },
+          {
+            "id": "codon",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='codon-' + x",
+              "value": "=if(len(pair.out.differences) > 0, pair.out.first.codon, 0)"
+            }
+          },
+          {
+            "id": "pos",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='pos-' + x",
+              "value": "=if(len(pair.out.differences) > 0, pair.out.first.queryPos, 0)"
+            }
+          },
+          {
+            "id": "what",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='change-' + x",
+              "value": "=pair.out.summary"
+            }
+          },
+          {
+            "id": "protein",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='protein-' + x",
+              "value": "=pair.out.protein"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['m1', 'm2', 'r1', 'r2']"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "versus",
+        "kind": "group",
+        "title": "Align each revertant with its mutant: where did the reversion happen?",
+        "steps": [
+          {
+            "id": "two",
+            "kind": "operation",
+            "ref": "core:align-sequences",
+            "params": {
+              "query": "=first(recorded('read-' + x[1]))",
+              "subject": "=first(recorded('read-' + x[0]))"
+            }
+          },
+          {
+            "id": "kind",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rev-kind-' + x[0]",
+              "value": "=two.out.first.kind"
+            }
+          },
+          {
+            "id": "rev-pos",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rev-pos-' + x[0]",
+              "value": "=two.out.first.queryPos"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['r1', 'm1'], ['r2', 'm2']]"
+        },
+        "objectives": [
+          "o-read"
+        ]
+      },
+      {
+        "id": "what-m1",
+        "kind": "decision",
+        "objectives": [
+          "o-read"
+        ],
+        "prompt": "Mutant 1: which gene is mutated, and how?",
+        "options": [
+          {
+            "id": "hisg-missense",
+            "label": "hisG: a missense substitution (one amino acid changed)"
+          },
+          {
+            "id": "hisd-frameshift",
+            "label": "hisD: a frameshift (the protein garbled after it, then a stop)"
+          },
+          {
+            "id": "hisg-frameshift",
+            "label": "hisG: a frameshift"
+          },
+          {
+            "id": "hisd-missense",
+            "label": "hisD: a missense substitution"
+          }
+        ],
+        "correctWhen": "if(first(recorded('gene-m1')) == 'hisG', 'hisg', 'hisd') + '-' + first(recorded('effect-m1'))"
+      },
+      {
+        "id": "what-m2",
+        "kind": "decision",
+        "objectives": [
+          "o-read"
+        ],
+        "prompt": "Mutant 2: which gene is mutated, and how?",
+        "options": [
+          {
+            "id": "hisg-missense",
+            "label": "hisG: a missense substitution"
+          },
+          {
+            "id": "hisd-frameshift",
+            "label": "hisD: a frameshift"
+          },
+          {
+            "id": "hisg-frameshift",
+            "label": "hisG: a frameshift"
+          },
+          {
+            "id": "hisd-missense",
+            "label": "hisD: a missense substitution"
+          }
+        ],
+        "correctWhen": "if(first(recorded('gene-m2')) == 'hisG', 'hisg', 'hisd') + '-' + first(recorded('effect-m2'))"
+      },
+      {
+        "id": "how-r1",
+        "kind": "decision",
+        "objectives": [
+          "o-read"
+        ],
+        "prompt": "Revertant R1: how did it revert?",
+        "options": [
+          {
+            "id": "true",
+            "label": "A true revertant: the original base is back"
+          },
+          {
+            "id": "same-codon",
+            "label": "At the same codon, but to a different amino acid from the wild type's, which works well enough"
+          },
+          {
+            "id": "second-site",
+            "label": "A second mutation elsewhere"
+          }
+        ],
+        "correctWhen": "if(first(recorded('diffs-r1')) == 0, 'true', if(first(recorded('codon-r1')) == first(recorded('codon-m1')) && first(recorded('protein-r1')) == 'substituted', 'same-codon', 'second-site'))"
+      },
+      {
+        "id": "how-r2",
+        "kind": "decision",
+        "objectives": [
+          "o-read"
+        ],
+        "prompt": "Revertant R2: how did it revert?",
+        "options": [
+          {
+            "id": "true",
+            "label": "A true revertant: the lost base is back"
+          },
+          {
+            "id": "compensating",
+            "label": "A second frameshift a few bases away puts the frame back; only the codons between are changed"
+          },
+          {
+            "id": "elsewhere",
+            "label": "A mutation far away, in another gene"
+          }
+        ],
+        "correctWhen": "if(first(recorded('diffs-r2')) == 0, 'true', if(first(recorded('protein-r2')) == 'local-change' && abs(first(recorded('rev-pos-r2')) - first(recorded('pos-m2'))) < 30, 'compensating', 'elsewhere'))"
+      },
+      {
+        "id": "r3",
+        "kind": "decision",
+        "objectives": [
+          "o-read"
+        ],
+        "prompt": "Revertant R3's read: what does it tell you?",
+        "options": [
+          {
+            "id": "mixed",
+            "label": "Double peaks: the colony held two kinds of cell (or two templates); re-streak it and sequence a single colony"
+          },
+          {
+            "id": "new-mutation",
+            "label": "Many new mutations: the mutagen hit it hard"
+          },
+          {
+            "id": "fine",
+            "label": "A clean read like the others"
+          }
+        ],
+        "correctWhen": "if(mentions(first(recorded('trace-r3')), 'double peaks'), 'mixed', 'fine')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-genes",
+        "statement": "Both mutants' genes and mutations are identified",
+        "check": "decision('what-m1') == 'hisg-missense' && decision('what-m2') == 'hisd-frameshift'"
+      },
+      {
+        "id": "g-reversions",
+        "statement": "R1 is read as a same-codon revertant, R2 as a compensating frameshift, and R3 as a mixed template",
+        "check": "decision('how-r1') == 'same-codon' && decision('how-r2') == 'compensating' && decision('r3') == 'mixed'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-top",
+        "statement": "Each mutant's best hit is the Typhimurium reference at about 99.9 % identity",
+        "check": "between(first(recorded('identity-m1')), 99.8, 99.95) && between(first(recorded('identity-m2')), 99.8, 99.95)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

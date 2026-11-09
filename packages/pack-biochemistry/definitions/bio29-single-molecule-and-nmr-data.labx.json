@@ -1,0 +1,359 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio29-single-molecule-and-nmr-data",
+  "version": "1.0.0",
+  "title": "Conformations and binding from smFRET and NMR shift mapping",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "From single-molecule FRET, the distance between two dyes in each of a molecule's states and the rate of leaving one state; from NMR chemical-shift titrations, which of three ligands binds tightest and where.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "objectives": [
+      {
+        "id": "o-data",
+        "kind": "analysis",
+        "statement": "Analyse biophysical data",
+        "goal": "g-data"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed",
+    "steps": [
+      {
+        "id": "r0",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "R0-nm",
+          "value": 5.4
+        }
+      },
+      {
+        "id": "e",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "E-states",
+          "value": [
+            0.85,
+            0.15
+          ]
+        }
+      },
+      {
+        "id": "r-folded",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "R-folded-nm",
+          "value": "=first(recorded('R0-nm')) * (1 / first(recorded('E-states'))[0] - 1) ^ (1 / 6)"
+        }
+      },
+      {
+        "id": "r-open",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "R-open-nm",
+          "value": "=first(recorded('R0-nm')) * (1 / first(recorded('E-states'))[1] - 1) ^ (1 / 6)"
+        }
+      },
+      {
+        "id": "dwell",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "dwell-s",
+          "value": [
+            0.2,
+            0.6,
+            1.0,
+            1.4,
+            1.8,
+            2.2,
+            2.6
+          ]
+        }
+      },
+      {
+        "id": "n",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "observed",
+          "value": [
+            48,
+            30,
+            19,
+            12,
+            8,
+            5,
+            3
+          ]
+        }
+      },
+      {
+        "id": "decay",
+        "kind": "data",
+        "ref": "core:fit",
+        "params": {
+          "x": "=first(recorded('dwell-s'))",
+          "y": "=map(first(recorded('observed')), ln(it))",
+          "model": "linear"
+        }
+      },
+      {
+        "id": "k",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "k-unfold-per-s",
+          "value": "=-decay.out.fit.params.slope"
+        }
+      },
+      {
+        "id": "first-order",
+        "kind": "decision",
+        "prompt": "Is unfolding a first-order process?",
+        "options": [
+          {
+            "id": "yes",
+            "label": "Yes: the dwell times fall off as a single exponential (ln of the count is a straight line against dwell time), so the folded state escapes at one constant rate"
+          },
+          {
+            "id": "no",
+            "label": "No"
+          }
+        ],
+        "correctWhen": "if(decay.out.fit.r2 > 0.97, 'yes', 'no')"
+      },
+      {
+        "id": "lig-conc",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "ligand-uM",
+          "value": [
+            0,
+            25,
+            50,
+            100,
+            200,
+            400,
+            800
+          ]
+        }
+      },
+      {
+        "id": "csp-a",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "CSP-ppm-A",
+          "value": [
+            -0.0028,
+            0.083,
+            0.1312,
+            0.1796,
+            0.2189,
+            0.2436,
+            0.2615
+          ]
+        }
+      },
+      {
+        "id": "fit-a",
+        "kind": "data",
+        "ref": "core:fit",
+        "params": {
+          "x": "=first(recorded('ligand-uM'))",
+          "y": "=first(recorded('CSP-ppm-A'))",
+          "model": "michaelis-menten"
+        }
+      },
+      {
+        "id": "kd-a",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Kd-uM-A",
+          "value": "=fit-a.out.fit.params.km"
+        }
+      },
+      {
+        "id": "csp-b",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "CSP-ppm-B",
+          "value": [
+            -0.0007,
+            0.0085,
+            0.0225,
+            0.0471,
+            0.0782,
+            0.1231,
+            0.174
+          ]
+        }
+      },
+      {
+        "id": "fit-b",
+        "kind": "data",
+        "ref": "core:fit",
+        "params": {
+          "x": "=first(recorded('ligand-uM'))",
+          "y": "=first(recorded('CSP-ppm-B'))",
+          "model": "michaelis-menten"
+        }
+      },
+      {
+        "id": "kd-b",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Kd-uM-B",
+          "value": "=fit-b.out.fit.params.km"
+        }
+      },
+      {
+        "id": "csp-c",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "CSP-ppm-C",
+          "value": [
+            -0.0003,
+            0.1608,
+            0.2001,
+            0.2275,
+            0.2351,
+            0.2503,
+            0.2509
+          ]
+        }
+      },
+      {
+        "id": "fit-c",
+        "kind": "data",
+        "ref": "core:fit",
+        "params": {
+          "x": "=first(recorded('ligand-uM'))",
+          "y": "=first(recorded('CSP-ppm-C'))",
+          "model": "michaelis-menten"
+        }
+      },
+      {
+        "id": "kd-c",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "Kd-uM-C",
+          "value": "=fit-c.out.fit.params.km"
+        }
+      },
+      {
+        "id": "tightest",
+        "kind": "decision",
+        "prompt": "Which ligand binds most tightly?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A: its shifts saturate at the lowest concentration (smallest Kd)"
+          },
+          {
+            "id": "b",
+            "label": "B: its shifts saturate at the lowest concentration (smallest Kd)"
+          },
+          {
+            "id": "c",
+            "label": "C: its shifts saturate at the lowest concentration (smallest Kd)"
+          }
+        ],
+        "correctWhen": "if(first(recorded('Kd-uM-A')) == min([first(recorded('Kd-uM-A')), first(recorded('Kd-uM-B')), first(recorded('Kd-uM-C'))]), 'a', if(first(recorded('Kd-uM-B')) == min([first(recorded('Kd-uM-A')), first(recorded('Kd-uM-B')), first(recorded('Kd-uM-C'))]), 'b', if(first(recorded('Kd-uM-C')) == min([first(recorded('Kd-uM-A')), first(recorded('Kd-uM-B')), first(recorded('Kd-uM-C'))]), 'c', 'none')))"
+      },
+      {
+        "id": "site",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "CSP-by-residue-saturated",
+          "value": [
+            0.01,
+            0.02,
+            0.01,
+            0.05,
+            0.31,
+            0.42,
+            0.28,
+            0.06,
+            0.02,
+            0.01,
+            0.0,
+            0.01
+          ]
+        }
+      },
+      {
+        "id": "binding-site",
+        "kind": "decision",
+        "prompt": "Where is the binding site?",
+        "options": [
+          {
+            "id": "5-7",
+            "label": "Around residues 5-7, whose amide shifts move most; the rest barely shift, so the fold is unchanged"
+          },
+          {
+            "id": "everywhere",
+            "label": "Everywhere: the whole protein changes"
+          }
+        ],
+        "correctWhen": "if(first(recorded('CSP-by-residue-saturated'))[5] > 5 * first(recorded('CSP-by-residue-saturated'))[0], '5-7', 'everywhere')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-data",
+        "statement": "The values are right and every judgement follows from the data",
+        "check": "decision('first-order') == 'yes' && decision('tightest') == 'c' && decision('binding-site') == '5-7' && within(first(recorded('R-folded-nm')), 4.0, 0.2) && within(first(recorded('Kd-uM-C')), 15, 3)"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "ideal"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    },
+    "annotations": [
+      {
+        "path": "/procedure",
+        "class": "simulation-derived",
+        "note": "Illustrative data: R0 5.4 nm, E 0.85 and 0.15; dwell counts from k about 1.1 s⁻¹; ligand Kds 60, 600 and 15 µM, site residues 5-7."
+      }
+    ]
+  },
+  "briefing": "FRET: E = 1/(1 + (R/R0)^6), so R = R0(1/E − 1)^(1/6). A first-order escape gives dwell times falling as e^(−kt): ln(count) against t has slope −k. Shift mapping: the combined amide shift change saturates as the ligand fills the site, CSP = CSPmax·[L]/(Kd + [L])."
+}

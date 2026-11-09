@@ -1,0 +1,441 @@
+@import "tailwindcss";
+/* The MnemoNexus token mappings for Tailwind (bg-mnx-surface…; rounded-*,
+   shadow-* and font-* follow the user's look). Importing it ourselves keeps
+   Tailwind's palette: without it the add-on kit adds its preset, which
+   removes the palette the components still use. */
+@import "@mnemonexus/addon-ui/tailwind-tokens.css";
+
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Light: warm paper + ink (lab notebook)
+   Dark: graphite instrument panel
+   Accent is used sparingly; primary actions are ink-on-paper, not “SaaS blue”.
+*/
+
+:root {
+  --bg: #f3efe6;
+  --bg-2: #e8e2d6;
+  --surface: rgba(255, 252, 246, 0.88);
+  --surface-solid: #fffdf8;
+  --ink: #161513;
+  --muted: #6a645c;
+  --faint: #9a9388;
+  --line: #d9d2c6;
+  --line-strong: #c4bbaa;
+  --accent: #0f6f6a;
+  --accent-soft: #d7efed;
+  --accent-ink: #0a4f4b;
+  --warn: #9a4a12;
+  --warn-soft: #f3e1cf;
+  --ok: #2f6b45;
+  --ok-soft: #d7eadc;
+  --danger: #9b2c2c;
+  --shadow: 0 1px 0 rgba(22, 21, 19, 0.04), 0 12px 32px -16px rgba(22, 21, 19, 0.18);
+  --overlay: rgba(243, 239, 230, 0.72);
+  --overlay-strong: rgba(243, 239, 230, 0.92);
+  --radius: 10px;
+  --font: "Segoe UI", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+
+  /* Standalone values for the host tokens Tailwind's radius, shadow and font
+     utilities read. In MnemoNexus the frame sets every --mnx-* token inline
+     on <html>, which overrides these. */
+  --mnx-radius-chip: 4px;
+  --mnx-radius-button: 6px;
+  --mnx-radius-field: 6px;
+  --mnx-radius-surface: 10px;
+  --mnx-radius-overlay: 16px;
+  --mnx-shadow: 0 1px 2px rgba(22, 21, 19, 0.06), 0 8px 24px -12px rgba(22, 21, 19, 0.22);
+  --mnx-shadow-overlay: 0 24px 48px -16px rgba(0, 0, 0, 0.35);
+  --mnx-font: "Segoe UI", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --mnx-font-heading: "Segoe UI", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --mnx-font-mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  --mnx-duration: 160ms;
+}
+
+html.dark {
+  --bg: #101114;
+  --bg-2: #17181c;
+  --surface: rgba(24, 25, 30, 0.86);
+  --surface-solid: #1b1c21;
+  --ink: #f0eee8;
+  --muted: #9b978e;
+  --faint: #6d6a64;
+  --line: #2c2e35;
+  --line-strong: #3d4048;
+  --accent: #5fd0c6;
+  --accent-soft: #163532;
+  --accent-ink: #b7f0ea;
+  --warn: #e0a15a;
+  --warn-soft: #3a2a18;
+  --ok: #7dcea0;
+  --ok-soft: #1c3326;
+  --danger: #e07a7a;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 18px 40px -20px rgba(0, 0, 0, 0.7);
+  --overlay: rgba(16, 17, 20, 0.62);
+  --overlay-strong: rgba(16, 17, 20, 0.9);
+  color-scheme: dark;
+}
+
+/* Inside MnemoNexus (the frame marks <html> with data-mnx-scheme) the UI
+   follows the user's look: these tokens are defined by the host's (08 §2).
+   Light/dark still comes from html.dark, which tracks mnx.theme.scheme. Text
+   uses only --mnx-text and --mnx-text-muted, so it stays readable in every
+   look. The 3D world keeps its fixed art. */
+html[data-mnx-scheme] {
+  --bg: var(--mnx-canvas);
+  --bg-2: var(--mnx-surface-2);
+  --surface: color-mix(in srgb, var(--mnx-surface) 90%, transparent);
+  --surface-solid: var(--mnx-surface);
+  --ink: var(--mnx-text);
+  --muted: var(--mnx-text-muted);
+  --faint: var(--mnx-text-muted);
+  --line: var(--mnx-border-inner);
+  --line-strong: var(--mnx-border);
+  --accent: var(--mnx-accent);
+  --accent-soft: var(--mnx-accent-soft);
+  --accent-ink: var(--mnx-text);
+  --warn: var(--mnx-warning);
+  --warn-soft: color-mix(in srgb, var(--mnx-warning) 14%, var(--mnx-surface));
+  --ok: var(--mnx-success);
+  --ok-soft: color-mix(in srgb, var(--mnx-success) 14%, var(--mnx-surface));
+  --danger: var(--mnx-danger);
+  --shadow: var(--mnx-shadow);
+  --overlay: color-mix(in srgb, var(--mnx-canvas) 72%, transparent);
+  --overlay-strong: color-mix(in srgb, var(--mnx-canvas) 92%, transparent);
+  --radius: var(--mnx-radius-surface);
+  --font: var(--mnx-font);
+  --serif: var(--mnx-font-heading);
+  --mono: var(--mnx-font-mono);
+}
+
+/* The user's "reduce motion" in MnemoNexus, as well as the system's. */
+html[data-mnx-motion="reduced"] *,
+html[data-mnx-motion="reduced"] *::before,
+html[data-mnx-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+canvas.lab-canvas,
+.three-lab-scene canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  outline: none;
+}
+
+/* ── Primitives ─────────────────────────────────────────────────────────── */
+
+.ui-page {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.ui-bar {
+  background: var(--surface);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  min-height: 48px;
+}
+
+.ui-panel {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.ui-panel-solid {
+  background: var(--surface-solid);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.ui-kicker {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 600;
+}
+
+.ui-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.ui-muted { color: var(--muted); }
+.ui-faint { color: var(--faint); }
+.ui-ink { color: var(--ink); }
+
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid var(--line);
+  background: var(--surface-solid);
+  color: var(--ink);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 550;
+  padding: 0.45rem 0.8rem;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+.ui-btn:hover { border-color: var(--line-strong); background: var(--bg-2); }
+
+.ui-btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.12s ease;
+}
+.ui-btn-solid:hover { opacity: 0.88; }
+.ui-btn-solid:active { transform: translateY(1px); }
+.ui-btn-solid:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.ui-btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+html.dark .ui-btn-accent { color: #062423; }
+html[data-mnx-scheme] .ui-btn-accent { color: var(--mnx-accent-text); }
+.ui-btn-accent:hover { filter: brightness(1.06); }
+.ui-btn-accent:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.ui-tab {
+  padding: 0.3rem 0.7rem;
+  border-radius: 7px;
+  font-size: 11.5px;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.ui-tab:hover { color: var(--ink); }
+.ui-tab-on,
+.ui-tab-on:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.ui-input, .ui-select, .ui-textarea {
+  width: 100%;
+  background: var(--surface-solid);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+  font-size: 12px;
+  outline: none;
+}
+.ui-input:focus, .ui-select:focus, .ui-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.ui-select option { background: var(--surface-solid); color: var(--ink); }
+
+.ui-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-weight: 650;
+}
+
+.ui-nav {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  /* When the bar is narrow the tabs scroll rather than run under the buttons beside them. */
+  scrollbar-width: none;
+}
+.ui-nav > * { flex-shrink: 0; white-space: nowrap; }
+/* Muted tab text is readable on a surface, not on --mnx-surface-2, in every look. */
+html[data-mnx-scheme] .ui-nav { background: var(--surface-solid); }
+
+.scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroll-thin::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 8px; }
+.scroll-thin::-webkit-scrollbar-track { background: transparent; }
+
+input[type="range"] { accent-color: var(--accent); }
+
+.font-serif-ui { font-family: var(--serif); }
+.font-mono-ui { font-family: var(--mono); }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.rise-in { animation: rise-in 0.28s ease-out both; }
+
+/* ── in-game facility map (components/LabMap.tsx) ─────────────────────────
+   The plan itself comes from scripts/facility/floorplan.mjs (MAP_STYLE);
+   these rules map it onto the app's light and dark tokens. */
+/* app tokens under other names: .fp reuses --ink, --muted and --accent for the plan */
+.lab-map { --here: var(--accent); --route: var(--accent); --app-ink: var(--ink); --app-muted: var(--muted); }
+.lab-map > * { z-index: 60; }
+.lab-map .fp {
+  --bg: var(--surface-solid); --wall: #2b2f36; --ink: var(--app-ink); --muted: var(--app-muted); --sector: #94a3b8;
+  --door-gap: var(--surface-solid); --glass: #7cc4e4; --existing: #0f766e; --accent: #b45309;
+  display: block;
+}
+html.dark .lab-map .fp { --wall: #b9c3cf; --sector: #64748b; --glass: #4aa3cc; --existing: #3cc4b2; --accent: #f0a050; }
+html.dark .lab-map .fp-room { --fill: var(--fill-dark); }
+.lab-map .fp text { font-family: var(--font); }
+.lab-map .fp .fp-id { font-family: var(--mono); }
+.lab-map .fp-title, .lab-map .fp-subtitle { display: none; }
+.lab-map-compact .fp-scale, .lab-map-compact .fp-north, .lab-map-compact .fp-reserved text { display: none; }
+.lab-map-zoom-2 .fp-label tspan:not(.fp-id) { display: none; }
+.lab-map .fp-room.is-route polygon { stroke: var(--route); stroke-width: 2.5px; stroke-dasharray: 6 3; }
+.lab-map .fp-room.is-selected polygon { stroke: var(--route); stroke-width: 3px; }
+.lab-map .fp-room.is-here polygon { stroke: var(--here); stroke-width: 4px; stroke-dasharray: none; }
+.lab-map-plan { display: block; }
+.lab-map-plan .fp-floors g { cursor: pointer; }
+.lab-map-plan .fp-room:hover polygon { filter: brightness(0.95); }
+.lab-map-me { pointer-events: none; }
+.lab-map-me .lab-map-cone { fill: var(--here); opacity: 0.2; }
+.lab-map-me .lab-map-dot { fill: var(--here); stroke: var(--surface-solid); stroke-width: 2.5px; }
+.lab-map-me .lab-map-arrow { fill: var(--surface-solid); }
+.lab-map-badge { pointer-events: none; }
+.lab-map-badge circle { fill: var(--route); }
+.lab-map-badge text { fill: var(--surface-solid); font: 700 11px var(--mono); }
+.lab-map-full { background: var(--surface-solid); }
+.lab-map-btn {
+  height: 1.6rem; padding: 0 0.55rem; border-radius: 7px; border: 1px solid var(--line);
+  background: var(--surface-solid); color: var(--ink); font-size: 11.5px;
+}
+.lab-map-btn:hover { background: var(--bg-2); }
+.lab-map-pill {
+  display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.65rem; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted); font-size: 11px; font-weight: 600;
+  box-shadow: var(--shadow); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.lab-map-pill:hover { color: var(--ink); }
+.lab-map-tag { font-size: 10.5px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.lab-map-tag.accent { border-color: var(--accent); color: var(--accent); }
+.lab-map-tag.ok { border-color: var(--ok); color: var(--ok); }
+.lab-map-tag.warn { border-color: var(--warn); color: var(--warn); }
+.lab-map-h { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.25rem; }
+.lab-map-legend i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; background: var(--fill); border: 1px solid var(--line); }
+.lab-map-legend .lab-map-legend-built { background: transparent; border: 2px dashed #0f766e; }
+html.dark .lab-map-legend .lab-map-legend-built { border-color: #3cc4b2; }
+@media (prefers-reduced-motion: no-preference) {
+  .lab-map-compact, .lab-map-full { animation: rise-in 0.18s ease-out both; }
+}
+
+/* Contextual room interactions share the lab's existing panel material. */
+.environment-hud { position: fixed; z-index: 55; pointer-events: none; }
+.environment-look-capture { position: fixed; inset: 0; z-index: 3; pointer-events: auto; cursor: none; }
+html.lab-mouse-look, html.lab-mouse-look * { cursor: none !important; }
+.environment-look { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 4px 8px; font-size: 11px; white-space: nowrap; pointer-events: auto; }
+.environment-look select { color: var(--ink); background: var(--bg-2); border: 1px solid var(--line); border-radius: 4px; padding: 3px; font: inherit; max-width: 150px; }
+.environment-look span { color: var(--muted); }
+.environment-reticle { position: absolute; z-index: 4; left: 50%; top: 50%; transform: translate(-50%, -50%); color: white; text-shadow: 0 1px 3px black; font-size: 26px; }
+.environment-prompt { position: absolute; left: 50%; bottom: 130px; transform: translateX(-50%); max-width: min(340px, calc(100% - 24px)); padding: 9px 12px; font-size: 12px; text-align: center; }
+.environment-target { font-weight: 600; text-transform: capitalize; margin-bottom: 3px; }
+.environment-detail { color: var(--muted); font-size: 11px; margin-bottom: 6px; }
+.environment-prompt button { pointer-events: auto; font-size: 12px; }
+.environment-prompt kbd { font-size: 10px; border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; margin-right: 4px; }
+.environment-notice { position: absolute; left: 50%; top: 58px; transform: translateX(-50%); width: min(410px, calc(100% - 24px)); padding: 10px 32px 10px 12px; font-size: 12px; line-height: 1.5; pointer-events: auto; }
+.environment-notice[data-tone="warning"] { border-left: 3px solid var(--warn); }
+.environment-notice button { position: absolute; right: 8px; top: 6px; color: var(--muted); font-size: 18px; }
+@media (max-width: 680px) { .environment-look span { display: none; } }
+.environment-settings { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(370px, calc(100% - 24px)); padding: 20px; pointer-events: auto; font-size: 12px; }
+.environment-settings-look { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+.environment-settings-look span, .environment-settings p { color: var(--muted); font-size: 11px; }
+.environment-settings select { color: var(--ink); background: var(--bg-2); padding: 4px; border: 1px solid var(--line); border-radius: 4px; }
+.environment-settings button { margin-top: 14px; }
+
+.practical-mobile-nav { display: none; }
+.practical-notebook { left: 50%; transform: translateX(-50%); }
+.lab-navbar .station-picker { display: none; }
+canvas.lab-canvas { touch-action: none; }
+@media (max-width: 767px) {
+  .lab-navbar .station-nav,
+  .lab-navbar .navbar-notebook,
+  .lab-navbar .navbar-extra { display: none; }
+  .lab-navbar .station-picker { display: block; }
+  [data-testid="practical-shell"] .practical-views { display: none; }
+  [data-testid="practical-shell"] .practical-header { padding: 6px; }
+  [data-testid="practical-shell"] .practical-header > div { gap: 4px; padding: 6px 8px; }
+  [data-testid="practical-shell"] .practical-header > div > div:first-child { width: 100%; }
+  [data-testid="practical-shell"] .practical-header .ui-chip { display: none; }
+  [data-testid="practical-shell"] .practical-header button { min-height: 40px; }
+  [data-testid="practical-shell"] .practical-header [data-testid="practical-notebook"] { display: none; }
+  [data-testid="practical-shell"] .practical-procedure,
+  [data-testid="practical-shell"] .practical-bench { top: 100px; left: 6px; right: 6px; bottom: calc(62px + env(safe-area-inset-bottom)); width: auto; max-width: none; }
+  [data-mobile-panel="procedure"] .practical-bench,
+  [data-mobile-panel="bench"] .practical-procedure,
+  [data-mobile-panel="scene"] .practical-procedure,
+  [data-mobile-panel="scene"] .practical-bench { display: none; }
+  .practical-mobile-nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 6px calc(4px + env(safe-area-inset-bottom)); z-index: 40; background: var(--bg); border-top: 1px solid var(--line); }
+  .practical-mobile-nav button { min-height: 48px; font-size: 12px; }
+  [data-testid="bench-panel"] button,
+  [data-testid="bench-panel"] select,
+  [data-testid="bench-panel"] input,
+  [data-testid="procedure-panel"] button,
+  [data-testid="notebook-panel"] button { min-height: 44px; }
+  [data-testid="bench-panel"] input,
+  [data-testid="bench-panel"] select,
+  [data-testid="notebook-panel"] input,
+  [data-testid="notebook-panel"] textarea { font-size: 16px; }
+  [data-testid="practical-shell"] .practical-notebook { inset: 6px 6px calc(62px + env(safe-area-inset-bottom)); width: auto; max-width: none; transform: none; }
+  [data-testid="station-select"] { min-height: 40px; font-size: 14px; }
+  [data-testid="practical-launcher"] [data-testid="practical-start"] { min-height: 44px; }
+}

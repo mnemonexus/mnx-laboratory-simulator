@@ -1,0 +1,486 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio27-sedimentation-equilibrium",
+  "version": "1.0.0",
+  "title": "Native molecular weight by sedimentation equilibrium",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:fit"
+      }
+    ]
+  },
+  "summary": "From sedimentation-equilibrium scans at three speeds, fit ln A against r²/2 for the buoyant molecular weight, convert it with the partial specific volume, check it holds at every speed, and compare it with SEC for the protein's oligomeric state.",
+  "briefing": "At equilibrium A(r) = A0·exp[M(1 − v̄ρ)ω²(r² − r0²)/(2RT)], so ln A against r²/2 is a line of slope M(1 − v̄ρ)ω²/(RT) (r in cm: ×10⁴ for m²). v̄ = 0.73 mL/g, ρ = 1.003 g/mL, T = 293.15 K, ω = 2π·rpm/60. Use points between 0.05 and 1.4 AU. On the lab's analytical SEC column (Ve = 39.4 − 2.23 ln MW) the protein elutes at 12.82 mL.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-2",
+      "disciplines": [
+        "biochemistry"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "seauc",
+        "label": "Sedimentation equilibrium"
+      },
+      {
+        "id": "quaternary",
+        "label": "Quaternary structure"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-auc",
+        "kind": "analysis",
+        "statement": "Find a native molecular weight and oligomeric state from seAUC",
+        "goal": "g-auc"
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "speed-s8k",
+        "kind": "group",
+        "title": "8000 rpm: absorbance (280 nm) against radius at equilibrium; ln A against r²/2 over 0.05-1.4 AU",
+        "steps": [
+          {
+            "id": "r-s8k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "r-cm-s8k",
+              "value": [
+                6.95,
+                6.96,
+                6.97,
+                6.98,
+                6.99,
+                7.0,
+                7.01,
+                7.02,
+                7.03,
+                7.04,
+                7.05,
+                7.06,
+                7.07,
+                7.08,
+                7.09,
+                7.1,
+                7.11,
+                7.12,
+                7.13,
+                7.14,
+                7.15,
+                7.16,
+                7.17,
+                7.18,
+                7.19,
+                7.2
+              ]
+            }
+          },
+          {
+            "id": "a-s8k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A-s8k",
+              "value": [
+                0.2061,
+                0.2168,
+                0.2228,
+                0.2374,
+                0.2513,
+                0.2668,
+                0.2802,
+                0.2985,
+                0.3159,
+                0.3382,
+                0.3581,
+                0.3729,
+                0.4051,
+                0.4299,
+                0.4446,
+                0.4688,
+                0.4972,
+                0.5387,
+                0.5488,
+                0.5964,
+                0.6241,
+                0.6559,
+                0.7142,
+                0.7525,
+                0.7868,
+                0.8324
+              ]
+            }
+          },
+          {
+            "id": "fit-s8k",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map(filter(i in range(0, 25, 26): first(recorded('A-s8k'))[i] > 0.05 && first(recorded('A-s8k'))[i] < 1.4), first(recorded('r-cm-s8k'))[it] ^ 2 / 2)",
+              "y": "=map(filter(i in range(0, 25, 26): first(recorded('A-s8k'))[i] > 0.05 && first(recorded('A-s8k'))[i] < 1.4), ln(first(recorded('A-s8k'))[it]))",
+              "model": "linear"
+            }
+          },
+          {
+            "id": "m-s8k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "M-s8k",
+              "value": "=fit-s8k.out.fit.params.slope * 1e4 * 8.3145 * 293.15 / ((1 - 0.73 * 1.003) * (8000 * 2 * 3.14159265 / 60) ^ 2) * 1000"
+            }
+          }
+        ],
+        "objectives": [
+          "o-auc"
+        ]
+      },
+      {
+        "id": "speed-s12k",
+        "kind": "group",
+        "title": "12000 rpm: absorbance (280 nm) against radius at equilibrium; ln A against r²/2 over 0.05-1.4 AU",
+        "steps": [
+          {
+            "id": "r-s12k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "r-cm-s12k",
+              "value": [
+                6.95,
+                6.96,
+                6.97,
+                6.98,
+                6.99,
+                7.0,
+                7.01,
+                7.02,
+                7.03,
+                7.04,
+                7.05,
+                7.06,
+                7.07,
+                7.08,
+                7.09,
+                7.1,
+                7.11,
+                7.12,
+                7.13,
+                7.14,
+                7.15,
+                7.16,
+                7.17,
+                7.18,
+                7.19,
+                7.2
+              ]
+            }
+          },
+          {
+            "id": "a-s12k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A-s12k",
+              "value": [
+                0.056,
+                0.069,
+                0.0695,
+                0.0889,
+                0.1017,
+                0.1168,
+                0.1226,
+                0.1418,
+                0.1663,
+                0.1858,
+                0.2121,
+                0.2443,
+                0.2706,
+                0.3131,
+                0.3571,
+                0.4028,
+                0.4603,
+                0.523,
+                0.5974,
+                0.6737,
+                0.7736,
+                0.8681,
+                0.9942,
+                1.1393,
+                1.2857,
+                1.4736
+              ]
+            }
+          },
+          {
+            "id": "fit-s12k",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map(filter(i in range(0, 25, 26): first(recorded('A-s12k'))[i] > 0.05 && first(recorded('A-s12k'))[i] < 1.4), first(recorded('r-cm-s12k'))[it] ^ 2 / 2)",
+              "y": "=map(filter(i in range(0, 25, 26): first(recorded('A-s12k'))[i] > 0.05 && first(recorded('A-s12k'))[i] < 1.4), ln(first(recorded('A-s12k'))[it]))",
+              "model": "linear"
+            }
+          },
+          {
+            "id": "m-s12k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "M-s12k",
+              "value": "=fit-s12k.out.fit.params.slope * 1e4 * 8.3145 * 293.15 / ((1 - 0.73 * 1.003) * (12000 * 2 * 3.14159265 / 60) ^ 2) * 1000"
+            }
+          }
+        ],
+        "objectives": [
+          "o-auc"
+        ]
+      },
+      {
+        "id": "speed-s16k",
+        "kind": "group",
+        "title": "16000 rpm: absorbance (280 nm) against radius at equilibrium; ln A against r²/2 over 0.05-1.4 AU",
+        "steps": [
+          {
+            "id": "r-s16k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "r-cm-s16k",
+              "value": [
+                6.95,
+                6.96,
+                6.97,
+                6.98,
+                6.99,
+                7.0,
+                7.01,
+                7.02,
+                7.03,
+                7.04,
+                7.05,
+                7.06,
+                7.07,
+                7.08,
+                7.09,
+                7.1,
+                7.11,
+                7.12,
+                7.13,
+                7.14,
+                7.15,
+                7.16,
+                7.17,
+                7.18,
+                7.19,
+                7.2
+              ]
+            }
+          },
+          {
+            "id": "a-s16k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "A-s16k",
+              "value": [
+                0.0115,
+                0.009,
+                0.009,
+                0.0126,
+                0.015,
+                0.0264,
+                0.0309,
+                0.0353,
+                0.0513,
+                0.0633,
+                0.0755,
+                0.1009,
+                0.1246,
+                0.1576,
+                0.1943,
+                0.2387,
+                0.3107,
+                0.3825,
+                0.4787,
+                0.6054,
+                0.7679,
+                0.9754,
+                1.2265,
+                1.5279,
+                1.9118,
+                2.408
+              ]
+            }
+          },
+          {
+            "id": "fit-s16k",
+            "kind": "data",
+            "ref": "core:fit",
+            "params": {
+              "x": "=map(filter(i in range(0, 25, 26): first(recorded('A-s16k'))[i] > 0.05 && first(recorded('A-s16k'))[i] < 1.4), first(recorded('r-cm-s16k'))[it] ^ 2 / 2)",
+              "y": "=map(filter(i in range(0, 25, 26): first(recorded('A-s16k'))[i] > 0.05 && first(recorded('A-s16k'))[i] < 1.4), ln(first(recorded('A-s16k'))[it]))",
+              "model": "linear"
+            }
+          },
+          {
+            "id": "m-s16k",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "M-s16k",
+              "value": "=fit-s16k.out.fit.params.slope * 1e4 * 8.3145 * 293.15 / ((1 - 0.73 * 1.003) * (16000 * 2 * 3.14159265 / 60) ^ 2) * 1000"
+            }
+          }
+        ],
+        "objectives": [
+          "o-auc"
+        ]
+      },
+      {
+        "id": "mean-s",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "M-mean-s",
+          "value": "=mean([first(recorded('M-s8k')), first(recorded('M-s12k')), first(recorded('M-s16k'))])"
+        },
+        "objectives": [
+          "o-auc"
+        ]
+      },
+      {
+        "id": "state",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "subunits",
+          "value": "=round(first(recorded('M-mean-s')) / 52000)"
+        },
+        "objectives": [
+          "o-auc"
+        ]
+      },
+      {
+        "id": "sec-mw",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "SEC-kDa",
+          "value": "=exp((12.82 - 39.4) / -2.23) / 1000"
+        },
+        "objectives": [
+          "o-auc"
+        ]
+      },
+      {
+        "id": "oligomer",
+        "kind": "decision",
+        "objectives": [
+          "o-auc"
+        ],
+        "prompt": "The subunit is 52 kDa by SDS-PAGE. What is the protein in solution?",
+        "options": [
+          {
+            "id": "dimer",
+            "label": "A dimer: seAUC gives about 104 kDa at every speed; SEC's larger figure (about 150 kDa) is the shape, not the mass"
+          },
+          {
+            "id": "monomer",
+            "label": "A monomer"
+          },
+          {
+            "id": "tetramer",
+            "label": "A tetramer"
+          }
+        ],
+        "correctWhen": "if(first(recorded('subunits')) == 2, 'dimer', if(first(recorded('subunits')) == 1, 'monomer', 'tetramer'))"
+      },
+      {
+        "id": "speeds",
+        "kind": "decision",
+        "objectives": [
+          "o-auc"
+        ],
+        "prompt": "Why record at several speeds?",
+        "options": [
+          {
+            "id": "consistency",
+            "label": "A single, non-associating species gives the same M at every speed; a drift with speed would point to a mixture or self-association"
+          },
+          {
+            "id": "average",
+            "label": "Only to average the noise"
+          }
+        ],
+        "correctWhen": "if(abs(first(recorded('M-s8k')) - first(recorded('M-s16k'))) < 0.05 * first(recorded('M-mean-s')), 'consistency', 'average')"
+      },
+      {
+        "id": "why-shape",
+        "kind": "decision",
+        "objectives": [
+          "o-auc"
+        ],
+        "prompt": "SEC puts the protein near 150 kDa, seAUC at 104 kDa. Why the difference?",
+        "options": [
+          {
+            "id": "shape",
+            "label": "SEC separates by hydrodynamic size, so an elongated protein runs larger than its mass; sedimentation equilibrium depends on mass (and v̄), not shape"
+          },
+          {
+            "id": "none",
+            "label": "One of them is simply wrong"
+          }
+        ],
+        "correctWhen": "if(first(recorded('SEC-kDa')) > 1.25 * first(recorded('M-mean-s')) / 1000, 'shape', 'none')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-auc",
+        "statement": "M is found within 5 % at each speed and the state read correctly",
+        "check": "within(first(recorded('M-s8k')), 104000, 5%) && within(first(recorded('M-s12k')), 104000, 5%) && within(first(recorded('M-s16k')), 104000, 5%) && decision('oligomer') == 'dimer' && decision('speeds') == 'consistency' && decision('why-shape') == 'shape'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-sec",
+        "statement": "SEC overestimates it (an elongated dimer), near 150 kDa",
+        "check": "between(first(recorded('SEC-kDa')), 135, 165)",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "ideal"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    },
+    "annotations": [
+      {
+        "path": "/procedure",
+        "class": "simulation-derived",
+        "note": "Scans generated for a 104 kDa species (v̄ 0.73, ρ 1.003, 20 °C), mean absorbance 0.45, 1 % proportional and 0.003 AU noise."
+      }
+    ]
+  }
+}

@@ -1,0 +1,523 @@
+[
+  {
+    "id": "molbio:heat-shock",
+    "version": 1,
+    "status": "experimental",
+    "label": "Heat-shock transformation",
+    "description": "Move the tubes straight from ice into the 42 °C water bath for the set time, then straight back onto ice for two minutes.",
+    "purposes": [
+      "transform.transform-cells"
+    ],
+    "params": {
+      "tubes": {
+        "type": "list",
+        "items": {
+          "type": "container"
+        },
+        "required": true
+      },
+      "temperature": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "42 Cel"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "50 s"
+      }
+    },
+    "roles": {
+      "bath": {
+        "kind": "place",
+        "requires": {
+          "purpose": "condition.heat"
+        },
+        "prefer": [
+          "core:water-bath"
+        ]
+      },
+      "ice": {
+        "kind": "place",
+        "requires": {
+          "purpose": "condition.cool"
+        },
+        "prefer": [
+          "core:ice-bucket"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "set",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "when": "adjustable(bath)",
+        "params": {
+          "device": "=bath",
+          "temperature": "=temperature"
+        }
+      },
+      {
+        "id": "into-bath",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "forEach": {
+          "var": "t",
+          "in": "=tubes"
+        },
+        "params": {
+          "container": "=t",
+          "place": "=bath"
+        }
+      },
+      {
+        "id": "shock",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "=duration"
+        }
+      },
+      {
+        "id": "onto-ice",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "forEach": {
+          "var": "t",
+          "in": "=tubes"
+        },
+        "params": {
+          "container": "=t",
+          "place": "=ice"
+        }
+      },
+      {
+        "id": "chill",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "2 min"
+        }
+      }
+    ],
+    "errors": [
+      {
+        "id": "short-shock",
+        "statement": "Heat shock too short",
+        "consequence": "The cells barely warm: few take up the plasmid (transformation model)",
+        "tag": "short-heat-shock"
+      },
+      {
+        "id": "long-shock",
+        "statement": "Heat shock too long",
+        "consequence": "Uptake falls and cells die (transformation model)",
+        "tag": "long-heat-shock"
+      },
+      {
+        "id": "warm-cells",
+        "statement": "Cells left warm before the shock",
+        "consequence": "Competence and bound DNA are lost (transformation model)",
+        "tag": "lost-competence"
+      }
+    ],
+    "skills": [
+      "molbio:heat-shock"
+    ]
+  },
+  {
+    "id": "molbio:check-fluorescence",
+    "version": 1,
+    "status": "experimental",
+    "label": "Look at plates under UV light",
+    "description": "In a darkened room, with UV-protective glasses, hold the lamp over the plate.",
+    "purposes": [
+      "observe.fluorescence"
+    ],
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "roles": {
+      "lamp": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "observe.fluorescence"
+        },
+        "prefer": [
+          "core:uv-lamp"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "look",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=lamp",
+          "subject": "=plate"
+        }
+      }
+    ],
+    "outputs": {
+      "fluorescent": "=look.out.fluorescent",
+      "record": "=look.out.record"
+    },
+    "skills": [
+      "molbio:gene-regulation"
+    ]
+  },
+  {
+    "id": "molbio:transformation-efficiency",
+    "version": 1,
+    "status": "experimental",
+    "label": "Transformation efficiency",
+    "description": "Transformants per microgram of DNA: the colonies on the selective plate divided by the mass of plasmid that was spread on it.",
+    "purposes": [
+      "analyse-data.compute"
+    ],
+    "params": {
+      "colonies": {
+        "type": "number",
+        "required": true
+      },
+      "dnaSpread": {
+        "type": "quantity",
+        "dimension": "mass",
+        "required": true,
+        "description": "Plasmid mass in the volume spread"
+      }
+    },
+    "steps": [
+      {
+        "id": "calc",
+        "kind": "operation",
+        "ref": "core:compute",
+        "params": {
+          "expression": "n / value(m, 'ug')",
+          "values": {
+            "n": "=colonies",
+            "m": "=dnaSpread"
+          },
+          "field": "efficiency"
+        }
+      }
+    ],
+    "outputs": {
+      "efficiency": "=calc.out.value"
+    },
+    "skills": [
+      "molbio:transformation-efficiency"
+    ]
+  },
+  {
+    "id": "molbio:pcr",
+    "version": 1,
+    "status": "experimental",
+    "label": "Run a PCR",
+    "description": "Put the tubes in the cycler, run the program, and take them out when it holds.",
+    "purposes": [
+      "transform.amplify-dna"
+    ],
+    "params": {
+      "tubes": {
+        "type": "list",
+        "items": {
+          "type": "container"
+        },
+        "required": true
+      },
+      "cycles": {
+        "type": "integer",
+        "default": 30
+      },
+      "annealTemperature": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "55 Cel"
+      },
+      "extendTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "60 s"
+      }
+    },
+    "roles": {
+      "cycler": {
+        "kind": "place",
+        "requires": {
+          "purpose": "transform.amplify-dna"
+        },
+        "prefer": [
+          "core:thermal-cycler"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "forEach": {
+          "var": "t",
+          "in": "=tubes"
+        },
+        "params": {
+          "container": "=t",
+          "place": "=cycler"
+        }
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:thermocycle",
+        "params": {
+          "cycler": "=cycler",
+          "cycles": "=cycles",
+          "annealTemperature": "=annealTemperature",
+          "extendTime": "=extendTime"
+        }
+      },
+      {
+        "id": "unload",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "forEach": {
+          "var": "t",
+          "in": "=tubes"
+        },
+        "params": {
+          "container": "=t"
+        }
+      }
+    ],
+    "errors": [
+      {
+        "id": "hot-anneal",
+        "statement": "Annealing above the primers' Tm",
+        "consequence": "The primers do not bind: little or no product (PCR model)",
+        "tag": "anneal-too-hot"
+      },
+      {
+        "id": "cold-anneal",
+        "statement": "Annealing far below the primers' Tm",
+        "consequence": "Primer-dimers: a fast-running band in every lane, including the no-template control (PCR model)",
+        "tag": "anneal-too-cold"
+      },
+      {
+        "id": "short-extension",
+        "statement": "Extension too short for the product",
+        "consequence": "Incomplete products: a weak band (PCR model)",
+        "tag": "short-extension"
+      }
+    ],
+    "skills": [
+      "molbio:pcr-program"
+    ]
+  },
+  {
+    "id": "molbio:agarose-gel",
+    "version": 1,
+    "status": "experimental",
+    "label": "Run and image an agarose gel",
+    "description": "Load the ladder and the samples (mixed with loading dye) into the wells, run the gel towards the red electrode, and image it.",
+    "purposes": [
+      "separate.by-size"
+    ],
+    "params": {
+      "gel": {
+        "type": "container",
+        "required": true
+      },
+      "ladder": {
+        "type": "container",
+        "required": true
+      },
+      "ladderLane": {
+        "type": "container",
+        "required": true
+      },
+      "loads": {
+        "type": "list",
+        "required": true,
+        "description": "Pairs [sample, lane]"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "10 uL"
+      },
+      "voltage": {
+        "type": "number",
+        "default": 100
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "40 min"
+      }
+    },
+    "roles": {
+      "imager": {
+        "kind": "equipment",
+        "requires": {
+          "purpose": "measure.band-size"
+        },
+        "prefer": [
+          "core:gel-imager"
+        ]
+      }
+    },
+    "steps": [
+      {
+        "id": "load-ladder",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "=ladder",
+          "destination": "=ladderLane",
+          "volume": "5 uL"
+        }
+      },
+      {
+        "id": "load",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "forEach": {
+          "var": "x",
+          "in": "=loads"
+        },
+        "params": {
+          "source": "=x[0]",
+          "destination": "=x[1]",
+          "volume": "=volume"
+        }
+      },
+      {
+        "id": "run",
+        "kind": "operation",
+        "ref": "core:run-gel",
+        "params": {
+          "gel": "=gel",
+          "voltage": "=voltage",
+          "duration": "=duration"
+        }
+      },
+      {
+        "id": "image",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "=imager",
+          "subject": "=gel"
+        }
+      }
+    ],
+    "outputs": {
+      "image": "=image.out.record"
+    },
+    "errors": [
+      {
+        "id": "no-dye",
+        "statement": "Samples loaded without loading dye",
+        "consequence": "They float out of the wells: faint or no bands (core:transfer)",
+        "tag": "sample-floated"
+      },
+      {
+        "id": "reversed",
+        "statement": "Leads connected the wrong way round",
+        "consequence": "The DNA runs out of the wells into the buffer (core:run-gel)",
+        "tag": "gel-reversed"
+      },
+      {
+        "id": "overrun",
+        "statement": "Run too long",
+        "consequence": "Small fragments run off the end of the gel (core:run-gel)",
+        "tag": "gel-overrun"
+      }
+    ],
+    "skills": [
+      "molbio:gel-electrophoresis"
+    ]
+  },
+  {
+    "id": "molbio:size-band",
+    "version": 1,
+    "status": "experimental",
+    "label": "Size a band against a ladder",
+    "description": "Fit log₁₀(size) of the ladder bands against how far they ran, and read the unknown band's size from the line.",
+    "purposes": [
+      "analyse-data.interpolate"
+    ],
+    "params": {
+      "ladderLane": {
+        "type": "container",
+        "required": true
+      },
+      "lane": {
+        "type": "container",
+        "required": true
+      },
+      "ladder": {
+        "type": "text",
+        "required": true,
+        "description": "The ladder substance (for its data sheet)"
+      }
+    },
+    "steps": [
+      {
+        "id": "fit",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": "=map(ladderSizes(ladder), log10(it))",
+          "y": "=map(bandsIn(ladderLane), value(it, 'mm'))",
+          "model": "linear"
+        }
+      },
+      {
+        "id": "read",
+        "kind": "operation",
+        "ref": "core:interpolate",
+        "params": {
+          "fit": "=fit.out.fit",
+          "points": "=map(bandsIn(lane), value(it, 'mm'))"
+        }
+      },
+      {
+        "id": "size",
+        "kind": "operation",
+        "ref": "core:compute",
+        "params": {
+          "expression": "map(r, 10 ^ it.x)",
+          "values": {
+            "r": "=read.out.results"
+          },
+          "field": "band-size"
+        }
+      }
+    ],
+    "outputs": {
+      "sizes": "=size.out.value",
+      "fit": "=fit.out.fit"
+    },
+    "quality": [
+      {
+        "id": "ladder-fit",
+        "statement": "The ladder gives a straight line of log size against distance",
+        "check": "fit.out.fit.r2 > 0.98",
+        "severity": "major",
+        "skills": [
+          "molbio:band-sizing"
+        ],
+        "feedbackKind": "calculation"
+      }
+    ],
+    "skills": [
+      "molbio:band-sizing"
+    ]
+  }
+]

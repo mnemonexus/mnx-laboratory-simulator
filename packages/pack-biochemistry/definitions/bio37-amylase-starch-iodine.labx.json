@@ -1,0 +1,643 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio37-amylase-starch-iodine",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "biology",
+        "biochemistry"
+      ]
+    },
+    "keywords": [
+      "amylase",
+      "starch",
+      "iodine",
+      "enzyme",
+      "rate",
+      "achromic point",
+      "spotting tile"
+    ],
+    "topics": [
+      "Enzymes"
+    ],
+    "concepts": [
+      {
+        "id": "enzyme-conditions",
+        "label": "An enzyme works fastest at its optimum and is denatured by heat or extremes of pH"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-sample",
+        "kind": "skill",
+        "statement": "Sample a reaction into iodine at regular intervals and time the end point"
+      },
+      {
+        "id": "o-rate",
+        "kind": "analysis",
+        "statement": "{{rateObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "{{explainObjective}}",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Amylase and temperature: timing starch digestion with iodine"
+    },
+    "summary": {
+      "default": "Digest 1 % starch with amylase at temperatures from room temperature to 70 °C, take a drop into iodine every 30 seconds until it no longer turns blue-black, and find the optimum temperature from the times."
+    },
+    "briefing": {
+      "default": "Put 5 mL of starch and 1 mL of pH 7 buffer in one tube and 1 mL of amylase in another, and stand both at the temperature for five minutes. Mix them and start timing. Every 30 seconds put a drop of the mixture into a fresh drop of iodine: blue-black while starch is left, staying yellow-brown once it has all been digested. The rate is 1 ÷ the time taken. Warmth speeds the enzyme up until it begins to denature."
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "runs": {
+      "default": "=[['t21','Room temperature (about 21 °C)',0,'ph7'],['t30','30 °C',30,'ph7'],['t40','40 °C',40,'ph7'],['t50','50 °C',50,'ph7'],['t60','60 °C',60,'ph7'],['t70','70 °C',70,'ph7']]"
+    },
+    "rateObjective": {
+      "default": "Find the optimum temperature from the times to digest the starch"
+    },
+    "explainObjective": {
+      "default": "Explain why the rate falls above the optimum"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why did the starch still turn iodine blue-black at 70 °C after 15 minutes?",
+        "options": [
+          {
+            "id": "denatured",
+            "label": "The heat changed the shape of the amylase’s active site (it denatured), so it no longer fits starch"
+          },
+          {
+            "id": "killed",
+            "label": "The amylase was killed"
+          },
+          {
+            "id": "starch-changed",
+            "label": "The heat turned the starch into something else"
+          }
+        ],
+        "correctWhen": "choice == 'denatured'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "The fastest digestion is at 40 or 50 °C, and 70 °C is slower than room temperature",
+            "check": "max(map(['t21', 't30', 't60', 't70'], first(recorded('rate-' + it)))) < max(first(recorded('rate-t40')), first(recorded('rate-t50'))) && first(recorded('rate-t70')) < first(recorded('rate-t21'))"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The fall above the optimum is explained",
+            "check": "decision('why') == 'denatured'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-warmer",
+            "statement": "From room temperature to 40 °C the starch is digested faster",
+            "check": "first(recorded('rate-t21')) < first(recorded('rate-t30')) && first(recorded('rate-t30')) < first(recorded('rate-t40'))",
+            "source": "reference-standard"
+          },
+          {
+            "id": "e-hot",
+            "statement": "At 70 °C the iodine is still blue-black after 15 minutes",
+            "check": "mentions(last(recorded('seen-t70')), 'blue-black')",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "starch",
+        "label": "Starch suspension (1 %)",
+        "contains": [
+          {
+            "substance": "core:starch-soluble",
+            "conc": "10 g/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "amylase",
+        "label": "Amylase solution",
+        "contains": [
+          {
+            "substance": "bio:amylase",
+            "conc": "1 mg/mL"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml",
+        "storage": "4 Cel"
+      },
+      {
+        "id": "iodine",
+        "label": "Iodine solution (dilute)",
+        "contains": [
+          {
+            "substance": "core:iodine",
+            "conc": "1 mM"
+          },
+          {
+            "substance": "core:potassium-iodide",
+            "conc": "6 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "ph4",
+        "label": "pH 4 buffer (ethanoate)",
+        "contains": [
+          {
+            "substance": "core:acetic-acid",
+            "conc": "85.5 mM"
+          },
+          {
+            "substance": "core:sodium-acetate",
+            "conc": "14.5 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "ph5",
+        "label": "pH 5 buffer (ethanoate)",
+        "contains": [
+          {
+            "substance": "core:acetic-acid",
+            "conc": "36.5 mM"
+          },
+          {
+            "substance": "core:sodium-acetate",
+            "conc": "63.5 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "ph6",
+        "label": "pH 6 buffer (phosphate)",
+        "contains": [
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": "94 mM"
+          },
+          {
+            "substance": "core:disodium-hydrogen-phosphate",
+            "conc": "6 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "ph7",
+        "label": "pH 7 buffer (phosphate)",
+        "contains": [
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": "61.3 mM"
+          },
+          {
+            "substance": "core:disodium-hydrogen-phosphate",
+            "conc": "38.7 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "ph8",
+        "label": "pH 8 buffer (phosphate)",
+        "contains": [
+          {
+            "substance": "core:potassium-dihydrogen-phosphate",
+            "conc": "13.7 mM"
+          },
+          {
+            "substance": "core:disodium-hydrogen-phosphate",
+            "conc": "86.3 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "ph9",
+        "label": "pH 9 buffer (carbonate)",
+        "contains": [
+          {
+            "substance": "core:sodium-bicarbonate",
+            "conc": "95.5 mM"
+          },
+          {
+            "substance": "core:sodium-carbonate",
+            "conc": "4.5 mM"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "dropper",
+        "requires": {
+          "class": "core:pasteur-pipette"
+        }
+      },
+      {
+        "id": "eye",
+        "requires": {
+          "class": "core:visual-inspection"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "37 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each condition in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-sample"
+        ],
+        "steps": [
+          {
+            "id": "starch-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='starch-' + r[0]",
+              "label": "='Starch: ' + r[1]"
+            }
+          },
+          {
+            "id": "starch-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "starch",
+              "destination": "='starch-' + r[0]",
+              "volume": "5 mL"
+            }
+          },
+          {
+            "id": "buffer-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[3]",
+              "destination": "='starch-' + r[0]",
+              "volume": "1 mL",
+              "tool": "dropper"
+            }
+          },
+          {
+            "id": "enzyme-tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:test-tube",
+              "id": "='enzyme-' + r[0]",
+              "label": "='Amylase: ' + r[1]"
+            }
+          },
+          {
+            "id": "enzyme-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "amylase",
+              "destination": "='enzyme-' + r[0]",
+              "volume": "1 mL",
+              "tool": "dropper"
+            }
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[2]) + ' Cel')"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "starch-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='starch-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "enzyme-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='enzyme-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "equilibrate",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "combine",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='enzyme-' + r[0]",
+              "destination": "='starch-' + r[0]",
+              "all": true
+            }
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='starch-' + r[0]",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "sampling",
+            "kind": "group",
+            "title": "A drop into iodine every 30 s until it stays yellow-brown",
+            "repeat": {
+              "until": "!mentions(last(recorded('seen-' + r[0])), 'blue|black|violet|purple') || count(recorded('seen-' + r[0])) >= 30",
+              "max": 31
+            },
+            "steps": [
+              {
+                "id": "wait",
+                "kind": "operation",
+                "ref": "core:advance-time",
+                "params": {
+                  "duration": "30 s"
+                }
+              },
+              {
+                "id": "well",
+                "kind": "operation",
+                "ref": "core:fetch",
+                "params": {
+                  "equipment": "core:test-tube",
+                  "id": "='iodine-' + r[0] + '-' + text(count(recorded('seen-' + r[0])) + 1)",
+                  "label": "='Iodine ' + r[0]"
+                }
+              },
+              {
+                "id": "iodine-in",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "iodine",
+                  "destination": "='iodine-' + r[0] + '-' + text(count(recorded('seen-' + r[0])) + 1)",
+                  "volume": "1 mL"
+                }
+              },
+              {
+                "id": "drop",
+                "kind": "operation",
+                "ref": "core:transfer",
+                "params": {
+                  "source": "='starch-' + r[0]",
+                  "destination": "='iodine-' + r[0] + '-' + text(count(recorded('seen-' + r[0])) + 1)",
+                  "volume": "0.1 mL",
+                  "tool": "dropper"
+                }
+              },
+              {
+                "id": "look",
+                "kind": "operation",
+                "ref": "core:measure",
+                "params": {
+                  "instrument": "eye",
+                  "subject": "='iodine-' + r[0] + '-' + text(count(recorded('seen-' + r[0])) + 1)"
+                }
+              },
+              {
+                "id": "note",
+                "kind": "operation",
+                "ref": "core:record",
+                "params": {
+                  "field": "='seen-' + r[0]",
+                  "value": "=look.out.appearance"
+                }
+              }
+            ]
+          },
+          {
+            "id": "note-time",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='time-' + r[0]",
+              "value": "=30 * count(recorded('seen-' + r[0]))"
+            }
+          },
+          {
+            "id": "note-rate",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=if(mentions(last(recorded('seen-' + r[0])), 'blue|black|violet|purple'), 0, 1000 / (30 * count(recorded('seen-' + r[0]))))"
+            }
+          },
+          {
+            "id": "starch-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='starch-' + r[0]"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "enzyme-out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='enzyme-' + r[0]"
+            },
+            "when": "r[2] > 0"
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio37-amylase-ph",
+      "title": "Amylase and pH: timing starch digestion with iodine",
+      "summary": "Digest 1 % starch with amylase at 37 °C in buffers from pH 4 to pH 9, sampling into iodine every 30 seconds, and find the optimum pH.",
+      "briefing": "Put 5 mL of starch and 1 mL of one buffer in a tube and 1 mL of amylase in another, and stand both in the 37 °C water bath for five minutes. Mix them and every 30 seconds put a drop into iodine, until it stays yellow-brown. Each enzyme has an optimum pH: away from it the charges on its active site change, and far from it the enzyme denatures.",
+      "values": {
+        "level": "ages-14-16",
+        "runs": "=[['p4','pH 4',37,'ph4'],['p5','pH 5',37,'ph5'],['p6','pH 6',37,'ph6'],['p7','pH 7',37,'ph7'],['p8','pH 8',37,'ph8'],['p9','pH 9',37,'ph9']]",
+        "rateObjective": "Find the optimum pH from the times to digest the starch",
+        "explainObjective": "Explain why the rate is lower away from the optimum pH",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why is amylase slower at pH 5 than at pH 7?",
+          "options": [
+            {
+              "id": "charges",
+              "label": "The pH changes the charges on the active site’s amino acids, so starch binds and reacts less well"
+            },
+            {
+              "id": "starch-acid",
+              "label": "Acid breaks the starch down instead"
+            },
+            {
+              "id": "killed",
+              "label": "Acid kills the enzyme"
+            }
+          ],
+          "correctWhen": "choice == 'charges'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The fastest digestion is at pH 6, 7 or 8",
+              "check": "max(map(['p4', 'p5', 'p9'], first(recorded('rate-' + it)))) < max(map(['p6', 'p7', 'p8'], first(recorded('rate-' + it))))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The effect of pH is explained",
+              "check": "decision('why') == 'charges'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-acid",
+              "statement": "At pH 4 the starch is still there after 15 minutes",
+              "check": "mentions(last(recorded('seen-p4')), 'blue-black')",
+              "source": "reference-standard"
+            },
+            {
+              "id": "e-neutral",
+              "statement": "Near pH 7 the starch is gone within five minutes",
+              "check": "first(recorded('time-p7')) <= 300",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "pH",
+        "optimum pH",
+        "buffer"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

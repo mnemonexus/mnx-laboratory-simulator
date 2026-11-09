@@ -1,0 +1,469 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio40-beetroot-membranes",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1"
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-16-19",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "membranes",
+      "permeability",
+      "beetroot",
+      "betalain",
+      "colorimeter",
+      "temperature",
+      "ethanol"
+    ],
+    "topics": [
+      "Cell membranes"
+    ],
+    "concepts": [
+      {
+        "id": "membrane-damage",
+        "label": "Heat and solvents disrupt membranes, so cell contents leak out"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the pigment that has leaked with a colorimeter"
+      },
+      {
+        "id": "o-relate",
+        "kind": "analysis",
+        "statement": "{{relateObjective}}",
+        "goal": "g-trend"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the leakage with membrane structure",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "A level",
+      "IB",
+      "BTEC",
+      "T Level"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Beetroot membranes and temperature"
+    },
+    "summary": {
+      "default": "Stand rinsed beetroot pieces in water from room temperature to 80 °C for 20 minutes, and measure with a colorimeter how much red pigment has leaked out at each temperature."
+    },
+    "briefing": {
+      "default": "Beetroot cells keep their red pigment, betanin, inside the vacuole behind the tonoplast and the cell surface membrane. Warm 10 mL of water to the temperature, add a 2 g piece of beetroot (cut and rinsed), leave it 20 minutes, then take it out and read the absorbance of the water at 530 nm against a water blank. More pigment, higher absorbance."
+    },
+    "runs": {
+      "default": "=[['t21','Room temperature (about 21 °C)',0,0],['t30','30 °C',30,0],['t40','40 °C',40,0],['t50','50 °C',50,0],['t60','60 °C',60,0],['t70','70 °C',70,0],['t80','80 °C',80,0]]"
+    },
+    "relateObjective": {
+      "default": "Relate the pigment leaked to the temperature"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why does much more pigment leak out above about 50 °C?",
+        "options": [
+          {
+            "id": "membranes",
+            "label": "Heat denatures the membrane proteins and disrupts the phospholipid bilayer, so the membranes let the pigment through"
+          },
+          {
+            "id": "diffusion",
+            "label": "The pigment simply diffuses faster when warm"
+          },
+          {
+            "id": "cell-wall",
+            "label": "The cell wall dissolves"
+          }
+        ],
+        "correctWhen": "choice == 'membranes'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-trend",
+            "statement": "Little pigment leaks up to 40 °C and several times as much at 70 °C",
+            "check": "first(recorded('A-t70')) > 3 * first(recorded('A-t40'))"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The leakage is explained",
+            "check": "decision('why') == 'membranes'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-low",
+            "statement": "At room temperature the water stays almost colourless (absorbance below 0.2)",
+            "check": "first(recorded('A-t21')) < 0.2",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Distilled water",
+        "preparation": "core:water-deionised",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "ethanol",
+        "label": "Ethanol, 96 % (17.1 M)",
+        "contains": [
+          {
+            "substance": "core:ethanol",
+            "conc": "17.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "40 Cel"
+        }
+      },
+      {
+        "id": "spec",
+        "requires": {
+          "class": "core:spectrophotometer.visible-single-beam"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "blank-cuvette",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:cuvette-ps-1cm",
+          "id": "c-blank",
+          "label": "Blank"
+        }
+      },
+      {
+        "id": "blank-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "c-blank",
+          "volume": "1 mL"
+        }
+      },
+      {
+        "id": "blank",
+        "kind": "operation",
+        "ref": "core:calibrate",
+        "params": {
+          "instrument": "spec",
+          "mode": "blank",
+          "reference": "c-blank",
+          "wavelength": "530 nm"
+        }
+      },
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each condition in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "='tube-' + r[0]",
+              "label": "=r[1]"
+            }
+          },
+          {
+            "id": "water-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "water",
+              "destination": "='tube-' + r[0]",
+              "volume": "=quantity(text(10 - r[3] * 10 / 17.1) + ' mL')"
+            }
+          },
+          {
+            "id": "ethanol-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ethanol",
+              "destination": "='tube-' + r[0]",
+              "volume": "=quantity(text(r[3] * 10 / 17.1) + ' mL')"
+            },
+            "when": "r[3] > 0"
+          },
+          {
+            "id": "mix",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "method": "shake",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "set-bath",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "bath",
+              "temperature": "=quantity(text(r[2]) + ' Cel')"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "into-bath",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "place": "bath"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "warm",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "beet",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "bio:beetroot-tissue",
+              "destination": "='tube-' + r[0]",
+              "mass": "2 g"
+            }
+          },
+          {
+            "id": "stand",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "20 min"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='tube-' + r[0]"
+            },
+            "when": "r[2] > 0"
+          },
+          {
+            "id": "dish",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:weighing-boat",
+              "id": "='dish-' + r[0]",
+              "label": "='Spent beetroot ' + r[0]"
+            }
+          },
+          {
+            "id": "lift",
+            "kind": "operation",
+            "ref": "core:lift-out",
+            "params": {
+              "source": "='tube-' + r[0]",
+              "destination": "='dish-' + r[0]"
+            }
+          },
+          {
+            "id": "mix-out",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "method": "shake",
+              "cycles": 5
+            }
+          },
+          {
+            "id": "cuvette",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:cuvette-ps-1cm",
+              "id": "='c-' + r[0]",
+              "label": "='Cuvette ' + r[0]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "='tube-' + r[0]",
+              "destination": "='c-' + r[0]",
+              "volume": "1 mL"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "spec",
+              "subject": "='c-' + r[0]",
+              "wavelength": "530 nm"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='A-' + r[0]",
+              "value": "=read.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio40-beetroot-ethanol",
+      "title": "Beetroot membranes and ethanol",
+      "summary": "Stand rinsed beetroot pieces in ethanol solutions from 0 to 60 % at room temperature for 20 minutes, and measure the pigment that leaks with a colorimeter.",
+      "briefing": "Make 10 mL of each ethanol concentration, add a 2 g piece of rinsed beetroot, leave it 20 minutes at room temperature, take it out and read the absorbance at 530 nm. Ethanol dissolves into the phospholipid bilayer and above about a quarter by volume disrupts it.",
+      "values": {
+        "runs": "=[['e0','Water',0,0],['e10','10 % ethanol',0,1.71],['e20','20 % ethanol',0,3.43],['e30','30 % ethanol',0,5.14],['e40','40 % ethanol',0,6.86],['e60','60 % ethanol',0,10.3]]",
+        "relateObjective": "Relate the pigment leaked to the ethanol concentration",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does pigment leak from beetroot in 40 % ethanol?",
+          "options": [
+            {
+              "id": "membranes",
+              "label": "Ethanol, a solvent, dissolves into and disrupts the phospholipid bilayer, so the membranes let the pigment out"
+            },
+            {
+              "id": "osmosis",
+              "label": "Osmosis pulls the pigment out"
+            },
+            {
+              "id": "denature-wall",
+              "label": "Ethanol breaks down the cell wall"
+            }
+          ],
+          "correctWhen": "choice == 'membranes'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-trend",
+              "statement": "Little pigment leaks below 20 % ethanol and much more at 40 % and above",
+              "check": "first(recorded('A-e40')) > 3 * first(recorded('A-e10')) && first(recorded('A-e60')) > first(recorded('A-e20'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The leakage is explained",
+              "check": "decision('why') == 'membranes'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-low",
+              "statement": "In water the beetroot keeps its pigment (absorbance below 0.2)",
+              "check": "first(recorded('A-e0')) < 0.2",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "ethanol",
+        "solvent"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

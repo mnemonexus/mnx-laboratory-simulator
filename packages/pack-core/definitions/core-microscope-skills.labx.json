@@ -1,0 +1,688 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "core-microscope-skills",
+  "version": "1.0.0",
+  "title": "The compound microscope: magnification, resolution and contrast",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:configure"
+      },
+      {
+        "operation": "core:focus"
+      },
+      {
+        "operation": "core:clean-lens"
+      }
+    ]
+  },
+  "summary": "Set up a compound microscope, see which way round its image is, work up from 4× to 100× oil immersion on a stained blood smear, and compare bright field with phase contrast on living yeast. Then leave it clean.",
+  "briefing": "Find and focus everything at low power with the coarse knob, then go up one objective at a time and use only the fine knob: at 40× and 100× the lens is a fraction of a millimetre from the slide. Higher power needs more light. Oil goes only under the 100× oil objective: turn the nosepiece to between objectives before adding the drop, and clean the lens and slide afterwards. For phase contrast, the condenser annulus must match the objective's phase ring (Ph1 for 10×, Ph2 for 40×).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "bioscience"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "magnification",
+        "label": "Magnification and field of view"
+      },
+      {
+        "id": "resolution",
+        "label": "Resolution and numerical aperture"
+      },
+      {
+        "id": "contrast",
+        "label": "Contrast: absorption and phase"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-setup",
+        "kind": "skill",
+        "statement": "Set up a compound microscope and focus safely from low power",
+        "skills": [
+          "core:microscope-setup"
+        ],
+        "goal": "g-safe"
+      },
+      {
+        "id": "o-image",
+        "kind": "reasoning",
+        "statement": "Explain the image's orientation and how the field narrows with magnification",
+        "goal": "g-image"
+      },
+      {
+        "id": "o-oil",
+        "kind": "reasoning",
+        "statement": "Use oil immersion and explain why it resolves finer detail",
+        "skills": [
+          "core:oil-immersion"
+        ],
+        "goal": "g-oil"
+      },
+      {
+        "id": "o-phase",
+        "kind": "reasoning",
+        "statement": "Choose phase contrast for unstained cells and explain why",
+        "skills": [
+          "core:phase-contrast"
+        ],
+        "goal": "g-phase"
+      },
+      {
+        "id": "o-tidy",
+        "kind": "skill",
+        "statement": "Leave no oil on the objectives",
+        "goal": "g-clean"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "yeast",
+        "label": "Living yeast in water",
+        "role": "specimen",
+        "container": "core:microtube-1.5ml",
+        "amount": "0.5 mL",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "micro:saccharomyces-cerevisiae",
+            "count": {
+              "vary": "1e7..3e7 cells/mL"
+            }
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "oil",
+        "label": "Immersion oil",
+        "preparation": "core:immersion-oil",
+        "amount": "10 mL",
+        "container": "core:dropper-bottle-10ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "scope",
+        "requires": {
+          "class": "core:compound-microscope"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "setup",
+        "kind": "group",
+        "title": "Switch on and set up for bright field",
+        "objectives": [
+          "o-setup"
+        ],
+        "steps": [
+          {
+            "id": "coat",
+            "kind": "operation",
+            "ref": "core:don",
+            "params": {
+              "item": "lab-coat"
+            }
+          },
+          {
+            "id": "power",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "lamp": 0.4,
+              "objective": "4x",
+              "illumination": "brightfield"
+            }
+          },
+          {
+            "id": "eyepieces",
+            "kind": "checkpoint",
+            "title": "Set the eyepiece spacing for one circle of light, and the diopter rings to their marks"
+          },
+          {
+            "id": "e-slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:prepared-slide.letter-e",
+              "id": "letter",
+              "label": "Letter e slide"
+            }
+          },
+          {
+            "id": "find-e",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "letter",
+              "knob": "coarse"
+            }
+          },
+          {
+            "id": "sharpen-e",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "letter",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "condenser",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "condenser": "adjusted"
+            }
+          },
+          {
+            "id": "look-e",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "letter"
+            }
+          }
+        ]
+      },
+      {
+        "id": "orient",
+        "kind": "decision",
+        "objectives": [
+          "o-image"
+        ],
+        "prompt": "The slide reads \"e\" the right way up on the stage. How does it look down the eyepieces?",
+        "options": [
+          {
+            "id": "same",
+            "label": "The same way round"
+          },
+          {
+            "id": "mirrored",
+            "label": "Back to front only"
+          },
+          {
+            "id": "rotated",
+            "label": "Upside down and back to front (turned through 180°)"
+          }
+        ],
+        "correctWhen": "'rotated'"
+      },
+      {
+        "id": "smear",
+        "kind": "group",
+        "title": "A stained blood smear, from low power up",
+        "objectives": [
+          "o-setup",
+          "o-image"
+        ],
+        "steps": [
+          {
+            "id": "smear-slide",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:prepared-slide.blood-smear",
+              "id": "smear",
+              "label": "Blood smear"
+            }
+          },
+          {
+            "id": "find-smear",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear",
+              "knob": "coarse"
+            }
+          },
+          {
+            "id": "sharpen-4x",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "look-4x",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear"
+            }
+          },
+          {
+            "id": "to-10x",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "10x",
+              "lamp": 0.5
+            }
+          },
+          {
+            "id": "sharpen-10x",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "look-10x",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear"
+            }
+          },
+          {
+            "id": "to-40x",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "40x",
+              "lamp": 0.65
+            }
+          },
+          {
+            "id": "sharpen-40x",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "look-40x",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear"
+            }
+          }
+        ]
+      },
+      {
+        "id": "field",
+        "kind": "decision",
+        "objectives": [
+          "o-image"
+        ],
+        "prompt": "Compared with the 4× objective, how wide is the field of view with the 40×?",
+        "options": [
+          {
+            "id": "same",
+            "label": "About the same: only the detail changes"
+          },
+          {
+            "id": "tenth",
+            "label": "About a tenth as wide"
+          },
+          {
+            "id": "hundredth",
+            "label": "About a hundredth as wide"
+          }
+        ],
+        "correctWhen": "'tenth'"
+      },
+      {
+        "id": "oil",
+        "kind": "group",
+        "title": "Oil immersion at 100×",
+        "objectives": [
+          "o-oil"
+        ],
+        "steps": [
+          {
+            "id": "swing-out",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "none"
+            }
+          },
+          {
+            "id": "drop",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "oil",
+              "destination": "smear",
+              "volume": "25 uL",
+              "tool": "pour"
+            }
+          },
+          {
+            "id": "to-100x",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "100x-oil",
+              "lamp": 0.85
+            }
+          },
+          {
+            "id": "sharpen-100x",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "look-100x",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "smear"
+            }
+          },
+          {
+            "id": "out-of-oil",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "none"
+            }
+          },
+          {
+            "id": "clean-100x",
+            "kind": "operation",
+            "ref": "core:clean-lens",
+            "params": {
+              "instrument": "scope",
+              "objective": "100x-oil",
+              "slide": "smear"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why-oil",
+        "kind": "decision",
+        "objectives": [
+          "o-oil"
+        ],
+        "prompt": "The small purple fragments (platelets) only show their form at 100× with oil. Why?",
+        "options": [
+          {
+            "id": "magnification",
+            "label": "The image is bigger: magnification alone shows more"
+          },
+          {
+            "id": "resolution",
+            "label": "Oil lets the objective collect light at a wider angle (higher numerical aperture), so finer detail is resolved"
+          },
+          {
+            "id": "brightness",
+            "label": "There is more light at 100×"
+          }
+        ],
+        "correctWhen": "if(seen('look-100x', 'fragments') == 'clearly' && seen('look-40x', 'fragments') != 'clearly', 'resolution', 'magnification')"
+      },
+      {
+        "id": "phase",
+        "kind": "group",
+        "title": "Unstained cells: bright field, then phase contrast",
+        "objectives": [
+          "o-phase"
+        ],
+        "steps": [
+          {
+            "id": "wet",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microscope-slide",
+              "id": "wet",
+              "label": "Yeast wet mount"
+            }
+          },
+          {
+            "id": "mount",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "yeast",
+              "destination": "wet",
+              "volume": "10 uL"
+            }
+          },
+          {
+            "id": "wet-4x",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "4x",
+              "lamp": 0.4
+            }
+          },
+          {
+            "id": "find-wet",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "wet",
+              "knob": "coarse"
+            }
+          },
+          {
+            "id": "wet-40x",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "40x",
+              "lamp": 0.65
+            }
+          },
+          {
+            "id": "sharpen-wet",
+            "kind": "operation",
+            "ref": "core:focus",
+            "params": {
+              "instrument": "scope",
+              "subject": "wet",
+              "knob": "fine"
+            }
+          },
+          {
+            "id": "look-bf",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "wet"
+            }
+          },
+          {
+            "id": "ph2",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "illumination": "ph2",
+              "lamp": 0.9
+            }
+          },
+          {
+            "id": "look-ph2",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "scope",
+              "subject": "wet"
+            }
+          }
+        ]
+      },
+      {
+        "id": "why-phase",
+        "kind": "decision",
+        "objectives": [
+          "o-phase"
+        ],
+        "prompt": "Why were the yeast cells so faint in bright field?",
+        "options": [
+          {
+            "id": "focus",
+            "label": "They were out of focus"
+          },
+          {
+            "id": "transparent",
+            "label": "Living, unstained cells absorb almost no light: phase contrast turns their slight delay of the light into contrast"
+          },
+          {
+            "id": "small",
+            "label": "They are too small for the 40× objective to resolve"
+          }
+        ],
+        "correctWhen": "if(seen('look-bf', 'yeast') == 'faintly' && seen('look-ph2', 'yeast') == 'clearly', 'transparent', 'focus')"
+      },
+      {
+        "id": "tidy",
+        "kind": "group",
+        "title": "Leave it clean",
+        "objectives": [
+          "o-tidy"
+        ],
+        "steps": [
+          {
+            "id": "wipe",
+            "kind": "operation",
+            "ref": "core:clean-lens",
+            "params": {
+              "instrument": "scope"
+            }
+          },
+          {
+            "id": "park",
+            "kind": "operation",
+            "ref": "core:configure",
+            "params": {
+              "instrument": "scope",
+              "objective": "4x",
+              "illumination": "brightfield",
+              "lamp": 0
+            }
+          },
+          {
+            "id": "off-coat",
+            "kind": "operation",
+            "ref": "core:doff",
+            "params": {
+              "item": "lab-coat"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-safe",
+        "statement": "No slide is driven into an objective",
+        "check": "len(incidents(kind='mechanical')) == 0"
+      },
+      {
+        "id": "g-image",
+        "statement": "The image's orientation and field of view are explained",
+        "check": "decision('orient') == 'rotated' && decision('field') == 'tenth'"
+      },
+      {
+        "id": "g-oil",
+        "statement": "Oil immersion is explained by resolution, not magnification",
+        "check": "decision('why-oil') == 'resolution'"
+      },
+      {
+        "id": "g-phase",
+        "statement": "Phase contrast is chosen for transparent cells",
+        "check": "decision('why-phase') == 'transparent'"
+      },
+      {
+        "id": "g-clean",
+        "statement": "No immersion oil is left on the objectives",
+        "check": "len(lensOil('scope')) == 0"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-letter",
+        "statement": "The letter is seen clearly at 4×, turned through 180°",
+        "check": "seen('look-e', 'e') == 'clearly'",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-cells",
+        "statement": "Red cells are only specks at 10×; their pale centres show at 40×",
+        "check": "seen('look-10x', 'discs') == 'as specks' && seen('look-40x', 'discs') == 'clearly'",
+        "source": "simulation-derived"
+      },
+      {
+        "id": "e-platelets",
+        "statement": "Platelets are specks at 40× and resolved at 100× with oil",
+        "check": "seen('look-40x', 'fragments') == 'as specks' && seen('look-100x', 'fragments') == 'clearly'",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

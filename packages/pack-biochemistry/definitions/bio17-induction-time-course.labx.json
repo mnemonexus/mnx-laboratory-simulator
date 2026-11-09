@@ -1,0 +1,760 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio17-induction-time-course",
+  "version": "1.0.0",
+  "title": "Did induction work? An expression time course by SDS-PAGE",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "technique": "bio:sds-page"
+      }
+    ]
+  },
+  "summary": "Take samples of an E. coli expression culture before and 1 and 3 hours after IPTG, boil the cell pellets in SDS sample buffer with DTT, run them beside the purified protein on a 4-20 % gel, and judge from the bands whether His6-GFP was overexpressed.",
+  "briefing": "BL21(DE3) cells carrying a pET vector make His6-GFP (about 27.5 kDa) once IPTG is added: T7 RNA polymerase, under lac control, transcribes the gene. Whole cells boiled in SDS sample buffer show all their proteins, so look for a band that matches the purified protein and grows after induction. The culture keeps growing, so later samples hold more cells: compare the GFP band with a host band in the same lane.",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "transferal"
+    ],
+    "audience": {
+      "level": "undergraduate-1",
+      "disciplines": [
+        "biochemistry",
+        "molecular-biology"
+      ]
+    },
+    "concepts": [
+      {
+        "id": "induction",
+        "label": "Inducible expression (lac/T7)"
+      },
+      {
+        "id": "whole-cell-page",
+        "label": "Whole-cell SDS-PAGE"
+      },
+      {
+        "id": "loading-normalisation",
+        "label": "Normalising lanes for loading"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-sample",
+        "kind": "skill",
+        "statement": "Take time-course samples and prepare cell pellets for SDS-PAGE",
+        "skills": [
+          "core:micropipetting"
+        ]
+      },
+      {
+        "id": "o-gel",
+        "kind": "skill",
+        "statement": "Run SDS-PAGE and size bands from a marker",
+        "skills": [
+          "bio:sds-page"
+        ],
+        "goal": "g-size"
+      },
+      {
+        "id": "o-interpret",
+        "kind": "reasoning",
+        "statement": "Identify the expressed protein and judge induction with a within-lane comparison",
+        "goal": "g-interpret"
+      }
+    ]
+  },
+  "materials": {
+    "samples": [
+      {
+        "id": "culture",
+        "label": "E. coli BL21(DE3) pET His6-GFP, mid-log",
+        "role": "culture",
+        "preparation": "micro:lb-broth-sterile",
+        "amount": "25 mL",
+        "container": "core:conical-flask-100ml",
+        "contains": [
+          {
+            "substance": "micro:escherichia-coli-bl21-gfp",
+            "count": "5e8 cells/mL"
+          }
+        ]
+      }
+    ],
+    "supplies": [
+      {
+        "id": "iptg",
+        "label": "IPTG, 100 mM",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "molbio:iptg",
+            "conc": "100 mM"
+          }
+        ],
+        "amount": "500 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "pure",
+        "label": "His6-GFP purified by IMAC (0.25 mg/mL)",
+        "preparation": "core:tris-50mm-ph7.5",
+        "contains": [
+          {
+            "substance": "bio:gfp-his6",
+            "conc": "0.25 mg/mL"
+          }
+        ],
+        "amount": "20 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "buffer",
+        "label": "SDS sample buffer (2×)",
+        "preparation": "bio:sds-sample-buffer-2x",
+        "amount": "200 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "dtt",
+        "label": "1 M DTT",
+        "preparation": "core:water-deionised",
+        "contains": [
+          {
+            "substance": "bio:dtt",
+            "conc": "1 M"
+          }
+        ],
+        "amount": "50 uL",
+        "container": "core:microtube-1.5ml"
+      },
+      {
+        "id": "marker",
+        "label": "Pre-stained protein ladder",
+        "preparation": "bio:protein-ladder-prestained-ready",
+        "amount": "20 uL",
+        "container": "core:microtube-1.5ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "shaker",
+        "requires": {
+          "class": "core:incubator",
+          "temperature": "37 Cel"
+        }
+      },
+      {
+        "id": "ice",
+        "requires": {
+          "class": "core:ice-bucket"
+        }
+      },
+      {
+        "id": "block",
+        "requires": {
+          "class": "core:heating-block",
+          "temperature": "95 Cel"
+        }
+      },
+      {
+        "id": "gel",
+        "requires": {
+          "class": "core:sds-page-gel-4-20pct"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "in-shaker",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "culture",
+          "place": "shaker"
+        }
+      },
+      {
+        "id": "sample-t0",
+        "kind": "group",
+        "title": "Before IPTG: 100 µL of the culture",
+        "steps": [
+          {
+            "id": "swirl-t0",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "culture",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "tube-t0",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "t0",
+              "label": "Before IPTG"
+            }
+          },
+          {
+            "id": "take-t0",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "culture",
+              "destination": "t0",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "ice-t0",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "t0",
+              "place": "ice"
+            }
+          }
+        ],
+        "objectives": [
+          "o-sample"
+        ]
+      },
+      {
+        "id": "induce",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "iptg",
+          "destination": "culture",
+          "volume": "250 uL"
+        },
+        "objectives": [
+          "o-sample"
+        ]
+      },
+      {
+        "id": "mix-iptg",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "culture",
+          "method": "swirl",
+          "cycles": 3
+        }
+      },
+      {
+        "id": "hour-1",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "1 h"
+        }
+      },
+      {
+        "id": "sample-t1",
+        "kind": "group",
+        "title": "1 h after IPTG: 100 µL of the culture",
+        "steps": [
+          {
+            "id": "swirl-t1",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "culture",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "tube-t1",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "t1",
+              "label": "1 h after IPTG"
+            }
+          },
+          {
+            "id": "take-t1",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "culture",
+              "destination": "t1",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "ice-t1",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "t1",
+              "place": "ice"
+            }
+          }
+        ],
+        "objectives": [
+          "o-sample"
+        ]
+      },
+      {
+        "id": "hours-3",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "2 h"
+        }
+      },
+      {
+        "id": "sample-t3",
+        "kind": "group",
+        "title": "3 h after IPTG: 100 µL of the culture",
+        "steps": [
+          {
+            "id": "swirl-t3",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "culture",
+              "method": "swirl",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "tube-t3",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:microtube-1.5ml",
+              "id": "t3",
+              "label": "3 h after IPTG"
+            }
+          },
+          {
+            "id": "take-t3",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "culture",
+              "destination": "t3",
+              "volume": "100 uL"
+            }
+          },
+          {
+            "id": "ice-t3",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "t3",
+              "place": "ice"
+            }
+          }
+        ],
+        "objectives": [
+          "o-sample"
+        ]
+      },
+      {
+        "id": "off-ice",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=x"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['t0', 't1', 't3']"
+        }
+      },
+      {
+        "id": "balance",
+        "kind": "technique",
+        "ref": "core:load-rotor",
+        "params": {
+          "tubes": "=['t0', 't1', 't3']"
+        }
+      },
+      {
+        "id": "pellet",
+        "kind": "operation",
+        "ref": "core:centrifuge",
+        "params": {
+          "rcf": "6000 [RCF]",
+          "duration": "5 min"
+        }
+      },
+      {
+        "id": "unload",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=x"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['t0', 't1', 't3']"
+        }
+      },
+      {
+        "id": "waste-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-1.5ml",
+          "id": "waste",
+          "label": "Supernatant"
+        }
+      },
+      {
+        "id": "supernatant",
+        "kind": "group",
+        "title": "Pour off each supernatant, leaving the pellet",
+        "steps": [
+          {
+            "id": "open",
+            "kind": "operation",
+            "ref": "core:open",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "off",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x",
+              "destination": "waste",
+              "all": true
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['t0', 't1', 't3']"
+        },
+        "objectives": [
+          "o-sample"
+        ]
+      },
+      {
+        "id": "ld-tube",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:microtube-1.5ml",
+          "id": "ld",
+          "label": "Sample buffer with DTT"
+        }
+      },
+      {
+        "id": "ld-buffer",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "buffer",
+          "destination": "ld",
+          "volume": "100 uL"
+        }
+      },
+      {
+        "id": "ld-dtt",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "dtt",
+          "destination": "ld",
+          "volume": "20 uL"
+        }
+      },
+      {
+        "id": "ld-mix",
+        "kind": "operation",
+        "ref": "core:mix",
+        "params": {
+          "container": "ld",
+          "method": "pipette-mix",
+          "cycles": 5
+        }
+      },
+      {
+        "id": "boil",
+        "kind": "group",
+        "title": "20 µL of sample buffer into each pellet and the purified GFP, then 95 °C",
+        "steps": [
+          {
+            "id": "ld-in",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "ld",
+              "destination": "=x",
+              "volume": "20 uL"
+            }
+          },
+          {
+            "id": "vortex",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "=x",
+              "method": "vortex",
+              "cycles": 2
+            }
+          },
+          {
+            "id": "lid",
+            "kind": "operation",
+            "ref": "core:close",
+            "params": {
+              "container": "=x"
+            }
+          },
+          {
+            "id": "block-in",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "=x",
+              "place": "block"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['t0', 't1', 't3', 'pure']"
+        },
+        "objectives": [
+          "o-sample"
+        ]
+      },
+      {
+        "id": "heat",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "5 min"
+        }
+      },
+      {
+        "id": "block-out",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "=x"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['t0', 't1', 't3', 'pure']"
+        }
+      },
+      {
+        "id": "open-2",
+        "kind": "operation",
+        "ref": "core:open",
+        "params": {
+          "container": "=x"
+        },
+        "forEach": {
+          "var": "x",
+          "in": "=['t0', 't1', 't3', 'pure']"
+        }
+      },
+      {
+        "id": "electrophoresis",
+        "kind": "technique",
+        "ref": "bio:sds-page",
+        "objectives": [
+          "o-gel"
+        ],
+        "params": {
+          "gel": "gel",
+          "ladder": "marker",
+          "ladderLane": "gel/A1",
+          "loads": [
+            [
+              "t0",
+              "gel/A2"
+            ],
+            [
+              "t1",
+              "gel/A3"
+            ],
+            [
+              "t3",
+              "gel/A4"
+            ],
+            [
+              "pure",
+              "gel/A5"
+            ]
+          ],
+          "volume": "10 uL",
+          "voltage": 200,
+          "duration": "35 min"
+        }
+      },
+      {
+        "id": "sizing",
+        "kind": "group",
+        "title": "Size the bands in each lane",
+        "steps": [
+          {
+            "id": "size",
+            "kind": "technique",
+            "ref": "molbio:size-band",
+            "params": {
+              "ladderLane": "gel/A1",
+              "lane": "=x[1]",
+              "ladder": "bio:protein-ladder-prestained"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='kDa-' + x[0]",
+              "value": "=size.out.sizes"
+            }
+          }
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=[['t0', 'gel/A2'], ['t1', 'gel/A3'], ['t3', 'gel/A4'], ['pure', 'gel/A5']]"
+        },
+        "objectives": [
+          "o-gel"
+        ]
+      },
+      {
+        "id": "share-0",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "gfp-share-t0",
+          "value": "=sum(map(filter(range(0, len(first(recorded('kDa-t0'))) - 1, len(first(recorded('kDa-t0')))), between(first(recorded('kDa-t0'))[it], 26.5, 31)), bandVolumes('gel/A2')[it])) / sum(map(filter(range(0, len(first(recorded('kDa-t0'))) - 1, len(first(recorded('kDa-t0')))), between(first(recorded('kDa-t0'))[it], 52, 70)), bandVolumes('gel/A2')[it]))"
+        }
+      },
+      {
+        "id": "share-3",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "gfp-share-t3",
+          "value": "=sum(map(filter(range(0, len(first(recorded('kDa-t3'))) - 1, len(first(recorded('kDa-t3')))), between(first(recorded('kDa-t3'))[it], 26.5, 31)), bandVolumes('gel/A4')[it])) / sum(map(filter(range(0, len(first(recorded('kDa-t3'))) - 1, len(first(recorded('kDa-t3')))), between(first(recorded('kDa-t3'))[it], 52, 70)), bandVolumes('gel/A4')[it]))"
+        }
+      },
+      {
+        "id": "which-band",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Which band in the induced lanes is the expressed His6-GFP?",
+        "options": [
+          {
+            "id": "27",
+            "label": "The one at about 27-28 kDa, level with the purified protein, that grows after IPTG"
+          },
+          {
+            "id": "60",
+            "label": "The one at about 60 kDa"
+          },
+          {
+            "id": "15",
+            "label": "The smallest band, at about 15 kDa"
+          }
+        ],
+        "correctWhen": "if(any(first(recorded('kDa-pure')), between(it, 24, 31)), '27', '60')"
+      },
+      {
+        "id": "normalise",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "The host bands are stronger at 3 h than before IPTG too. What does that mean for comparing the lanes?",
+        "options": [
+          {
+            "id": "cells",
+            "label": "The culture grew, so more cells went into the later lanes: compare GFP with a host band in the same lane, or load equal amounts of cells (by OD)"
+          },
+          {
+            "id": "induced",
+            "label": "IPTG induces the host proteins as well"
+          },
+          {
+            "id": "nothing",
+            "label": "Nothing: the lanes can be compared band by band as they are"
+          }
+        ],
+        "correctWhen": "'cells'"
+      },
+      {
+        "id": "worked",
+        "kind": "decision",
+        "objectives": [
+          "o-interpret"
+        ],
+        "prompt": "Against the 60 kDa host band in the same lane, did induction work?",
+        "options": [
+          {
+            "id": "yes",
+            "label": "Yes: GFP's share of the cells' protein rose many-fold after IPTG"
+          },
+          {
+            "id": "no",
+            "label": "No: its share did not change"
+          }
+        ],
+        "correctWhen": "if(first(recorded('gfp-share-t3')) > 5 * first(recorded('gfp-share-t0')), 'yes', 'no')"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-size",
+        "statement": "The purified protein is sized within 15 % of 27.5 kDa",
+        "check": "any(first(recorded('kDa-pure')), between(it, 23.5, 31.5))"
+      },
+      {
+        "id": "g-interpret",
+        "statement": "The GFP band is identified, the loading difference recognised and induction judged within lanes",
+        "check": "decision('which-band') == '27' && decision('normalise') == 'cells' && decision('worked') == 'yes'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-induced",
+        "statement": "GFP's share of the cells' protein rises many-fold after IPTG",
+        "check": "first(recorded('gfp-share-t3')) > 5 * first(recorded('gfp-share-t0'))",
+        "source": "simulation-derived"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "reference-standard",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

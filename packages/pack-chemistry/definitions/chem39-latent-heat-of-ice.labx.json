@@ -1,0 +1,353 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem39-latent-heat-of-ice",
+  "version": "1.0.0",
+  "title": "The specific latent heat of fusion of ice",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:lift-out"
+      }
+    ]
+  },
+  "summary": "Melt a weighed mass of ice in warm water in an insulated cup, and work out from the fall in temperature how much energy each gram of ice takes to melt.",
+  "briefing": "Put 100 g of water at about 40 °C in a polystyrene cup and read its temperature. Dry some ice on paper towel, weigh about 20 g of it into the cup, stir until it has all melted and read the lowest temperature. The warm water gave heat to melt the ice and then to warm the melt: m(water) × 4.18 × ΔT(water) = m(ice) × L + m(ice) × 4.18 × (T(final) − 0).",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "physics",
+        "chemistry"
+      ]
+    },
+    "keywords": [
+      "specific latent heat",
+      "fusion",
+      "ice",
+      "melting",
+      "calorimetry"
+    ],
+    "topics": [
+      "Energy",
+      "Thermal physics",
+      "States of matter"
+    ],
+    "concepts": [
+      {
+        "id": "latent",
+        "label": "Melting takes energy without a change of temperature"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the temperature fall and the mass of ice melted"
+      },
+      {
+        "id": "o-calc",
+        "kind": "analysis",
+        "statement": "Calculate the specific latent heat of fusion of ice",
+        "goal": "g-latent"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB"
+    ]
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "water",
+        "label": "Tap water",
+        "preparation": "core:water-deionised",
+        "amount": "1000 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "thermo",
+        "requires": {
+          "class": "core:thermometer-digital"
+        }
+      },
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      },
+      {
+        "id": "bath",
+        "requires": {
+          "class": "core:water-bath",
+          "temperature": "40 Cel"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "set-bath",
+        "kind": "operation",
+        "ref": "core:set-environment",
+        "params": {
+          "device": "bath",
+          "temperature": "40 Cel"
+        }
+      },
+      {
+        "id": "warm",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:beaker-250ml",
+          "id": "warm",
+          "label": "Warm water"
+        }
+      },
+      {
+        "id": "warm-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "water",
+          "destination": "warm",
+          "volume": "150 mL"
+        }
+      },
+      {
+        "id": "warm-in",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "warm",
+          "place": "bath"
+        }
+      },
+      {
+        "id": "warm-wait",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "10 min"
+        }
+      },
+      {
+        "id": "cup",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:calorimeter-cup",
+          "id": "cup",
+          "label": "Polystyrene cup"
+        }
+      },
+      {
+        "id": "cup-fill",
+        "kind": "operation",
+        "ref": "core:transfer",
+        "params": {
+          "source": "warm",
+          "destination": "cup",
+          "volume": "100 mL"
+        }
+      },
+      {
+        "id": "read-start",
+        "kind": "operation",
+        "ref": "core:measure",
+        "params": {
+          "instrument": "thermo",
+          "subject": "cup"
+        },
+        "objectives": [
+          "o-measure"
+        ]
+      },
+      {
+        "id": "note-start",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "T-start",
+          "value": "=read-start.out.value"
+        }
+      },
+      {
+        "id": "boat-ice",
+        "kind": "operation",
+        "ref": "core:fetch",
+        "params": {
+          "equipment": "core:weighing-boat",
+          "id": "boat-ice",
+          "label": "Boat: ice"
+        }
+      },
+      {
+        "id": "on-ice",
+        "kind": "operation",
+        "ref": "core:place-in",
+        "params": {
+          "container": "boat-ice",
+          "place": "balance"
+        }
+      },
+      {
+        "id": "tare-ice",
+        "kind": "operation",
+        "ref": "core:tare",
+        "params": {
+          "balance": "balance"
+        }
+      },
+      {
+        "id": "add-ice",
+        "kind": "operation",
+        "ref": "core:add-solid",
+        "params": {
+          "substance": "core:ice",
+          "destination": "boat-ice",
+          "mass": "20 g"
+        }
+      },
+      {
+        "id": "weigh-ice",
+        "kind": "operation",
+        "ref": "core:weigh",
+        "params": {
+          "balance": "balance"
+        }
+      },
+      {
+        "id": "note-m-ice",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "m-ice",
+          "value": "=weigh-ice.out.value"
+        }
+      },
+      {
+        "id": "off-ice",
+        "kind": "operation",
+        "ref": "core:remove-from",
+        "params": {
+          "container": "boat-ice"
+        }
+      },
+      {
+        "id": "ice-in",
+        "kind": "operation",
+        "ref": "core:lift-out",
+        "params": {
+          "source": "boat-ice",
+          "destination": "cup"
+        }
+      },
+      {
+        "id": "follow",
+        "kind": "group",
+        "title": "Stir and read every 30 s for four minutes",
+        "forEach": {
+          "var": "n",
+          "in": "=range(1, 8, 8)"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "stir",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "cup",
+              "method": "stir",
+              "cycles": 3
+            }
+          },
+          {
+            "id": "wait",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "30 s"
+            }
+          },
+          {
+            "id": "read",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "thermo",
+              "subject": "cup"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "T-mix",
+              "value": "=read.out.value"
+            }
+          }
+        ]
+      },
+      {
+        "id": "latent",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "L-J-per-g",
+          "value": "=(100 * 4.18 * (first(recorded('T-start')) - min(recorded('T-mix'))) - value(first(recorded('m-ice')), 'g') * 4.18 * min(recorded('T-mix'))) / value(first(recorded('m-ice')), 'g')"
+        },
+        "objectives": [
+          "o-calc"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-latent",
+        "statement": "The specific latent heat of fusion of ice is found within 15 % of 334 J/g",
+        "check": "within(first(recorded('L-J-per-g')), 334, 15%)"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-fall",
+        "statement": "The water cools by about 15 °C as the ice melts",
+        "check": "first(recorded('T-start')) - min(recorded('T-mix')) > 10",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

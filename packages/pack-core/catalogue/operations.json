@@ -1,0 +1,2436 @@
+[
+  {
+    "id": "core:fetch",
+    "label": "Fetch a consumable",
+    "purposes": [
+      "provision.from-stock"
+    ],
+    "domain": "bench",
+    "params": {
+      "equipment": {
+        "type": "text",
+        "required": true,
+        "description": "The catalogue model to take from the store: a tube, plate, flask, cuvette …"
+      },
+      "id": {
+        "type": "text",
+        "description": "The id the new container gets"
+      },
+      "label": {
+        "type": "text"
+      },
+      "fill": {
+        "type": "record",
+        "description": "{ preparation, amount }: fetched ready-filled from the stockroom"
+      }
+    },
+    "status": "experimental",
+    "description": "Take an empty container from the store and put it on the bench. Logistics: whether it costs the learner time depends on the support profile."
+  },
+  {
+    "id": "core:transfer",
+    "label": "Transfer a liquid",
+    "purposes": [
+      "transfer.liquid",
+      "measure-out.volume",
+      "transfer.organisms"
+    ],
+    "domain": "bench",
+    "params": {
+      "source": {
+        "type": "container",
+        "required": true
+      },
+      "destination": {
+        "type": "container",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "description": "Required unless pouring it all"
+      },
+      "tool": {
+        "type": "equipment",
+        "description": "A pipette, burette, volumetric pipette or inoculating loop instance; omitted = poured"
+      },
+      "technique": {
+        "type": "record",
+        "description": "Technique-quality inputs from the interaction: prewet, immersion, speed, angle"
+      },
+      "mode": {
+        "type": "enum",
+        "values": [
+          "forward",
+          "reverse"
+        ],
+        "default": "forward",
+        "description": "Air-displacement pipettes: reverse pipetting (aspirate past the first stop, dispense only to it) keeps viscous or foaming liquids accurate"
+      },
+      "all": {
+        "type": "boolean",
+        "default": false,
+        "description": "Pour out everything that drains (no tool, no volume): the vessel keeps its dead volume and a film on its walls"
+      },
+      "spot": {
+        "type": "number",
+        "description": "Onto an agar plate: the numbered spot (1-48) the drop stays in, its colonies counted apart (a spot plate)"
+      },
+      "brim": {
+        "type": "boolean",
+        "default": false,
+        "description": "Pour until the destination runs over, leaving no air in it (a BOD bottle or density bottle); give no volume or tool"
+      }
+    },
+    "skills": [
+      "core:micropipetting",
+      "core:pipette-range-selection"
+    ],
+    "status": "experimental",
+    "description": "Aspirate from the source and dispense into the destination. Refuses only the physically impossible (volume outside the tool's range, no tip, too little liquid, overflow, a closed container). Delivered volume carries the tool's systematic and random error; a reused tip carries a film of its last liquid. Onto an agar plate, cells stay on the surface; into a gel well, a sample without about 3 % glycerol floats away."
+  },
+  {
+    "id": "core:add-solid",
+    "label": "Add a solid",
+    "purposes": [
+      "transfer.solid",
+      "measure-out.mass"
+    ],
+    "domain": "bench",
+    "params": {
+      "substance": {
+        "type": "material",
+        "required": true
+      },
+      "destination": {
+        "type": "container",
+        "required": true
+      },
+      "mass": {
+        "type": "quantity",
+        "dimension": "mass",
+        "description": "About how much to take; required unless all is true"
+      },
+      "all": {
+        "type": "boolean",
+        "description": "Scrape out everything (from a container); a wet solid carries its liquid, and a filter paper keeps a little"
+      }
+    },
+    "status": "experimental",
+    "description": "Add a solid from a stock bottle or another container with a spatula. The amount actually added differs slightly from the intended mass; weighing tells the learner what they really have. A scoop of a wet solid carries its liquid with it."
+  },
+  {
+    "id": "core:lift-out",
+    "label": "Lift pieces out with forceps",
+    "purposes": [
+      "transfer.solid"
+    ],
+    "domain": "bench",
+    "params": {
+      "source": {
+        "type": "container",
+        "required": true,
+        "description": "The vessel the pieces lie in"
+      },
+      "destination": {
+        "type": "container",
+        "required": true,
+        "description": "Where they go: a weighing boat, a tile, another liquid"
+      },
+      "substance": {
+        "type": "material",
+        "description": "Only pieces of this (by default, every solid piece)"
+      },
+      "blot": {
+        "type": "boolean",
+        "default": true,
+        "description": "Blot them on paper towel first, leaving only a thin film of the liquid"
+      }
+    },
+    "status": "experimental",
+    "description": "Take solid pieces (tissue cylinders or discs, a metal strip, marble chips) out of a liquid with forceps into another vessel. They bring a film of the liquid, much less once blotted, and their heat."
+  },
+  {
+    "id": "core:read-volume",
+    "label": "Read a volume",
+    "purposes": [
+      "measure.volume",
+      "record.measurement"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "skills": [
+      "core:read-meniscus"
+    ],
+    "status": "experimental",
+    "description": "Read the scale of a graduated vessel at eye level. Burettes read from the top; the reading carries a small parallax error and is rounded to the half-graduation."
+  },
+  {
+    "id": "core:weigh",
+    "label": "Read a balance",
+    "purposes": [
+      "measure.mass",
+      "measure-out.mass"
+    ],
+    "domain": "bench",
+    "params": {
+      "balance": {
+        "type": "equipment",
+        "required": true
+      }
+    },
+    "skills": [
+      "core:tare-and-weigh"
+    ],
+    "status": "experimental",
+    "description": "Read the load on the balance pan (minus its tare) as a measurement record, at the balance's readability."
+  },
+  {
+    "id": "core:tare",
+    "label": "Tare a balance",
+    "purposes": [
+      "calibrate.tare"
+    ],
+    "domain": "bench",
+    "params": {
+      "balance": {
+        "type": "equipment",
+        "required": true
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "core:mix",
+    "label": "Mix",
+    "purposes": [
+      "combine.mix",
+      "combine.dissolve"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      },
+      "method": {
+        "type": "enum",
+        "values": [
+          "vortex",
+          "invert",
+          "pipette-mix",
+          "swirl",
+          "stir",
+          "shake",
+          "flick"
+        ],
+        "default": "vortex"
+      },
+      "cycles": {
+        "type": "integer",
+        "default": 1
+      }
+    },
+    "status": "experimental",
+    "description": "Homogenise a container's contents and dissolve soluble solids. Each method mixes a fraction per cycle."
+  },
+  {
+    "id": "core:make-up-to-mark",
+    "label": "Make up to the mark",
+    "purposes": [
+      "combine.make-up-to-volume"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      },
+      "solvent": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "skills": [
+      "core:make-up-to-volume"
+    ],
+    "status": "experimental",
+    "description": "Fill a volumetric container to its calibration mark. The final volume is the nominal volume within the class tolerance (meniscus reading error)."
+  },
+  {
+    "id": "core:place-in",
+    "label": "Place in",
+    "purposes": [
+      "condition.hold-temperature",
+      "contain.store"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      },
+      "place": {
+        "type": "place",
+        "required": true
+      },
+      "position": {
+        "type": "integer",
+        "description": "Position in an instrument with slots (rotor positions 1..n); default the first free one"
+      }
+    },
+    "status": "experimental",
+    "description": "Put a container (or plate) into a place: an incubator, water bath, ice, a balance pan, an instrument. Its temperature then moves towards the place's."
+  },
+  {
+    "id": "core:remove-from",
+    "label": "Take out",
+    "purposes": [
+      "condition.hold-temperature"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "status": "experimental",
+    "description": "Return a container to the bench."
+  },
+  {
+    "id": "core:set-environment",
+    "label": "Set a device",
+    "purposes": [
+      "condition.hold-temperature"
+    ],
+    "domain": "bench",
+    "params": {
+      "device": {
+        "type": "equipment",
+        "required": true
+      },
+      "temperature": {
+        "type": "quantity",
+        "dimension": "temperature"
+      },
+      "distance": {
+        "type": "quantity",
+        "dimension": "length",
+        "description": "A lamp: its distance from what it lights (light falls as the square of the distance)"
+      },
+      "filter": {
+        "type": "enum",
+        "values": [
+          "none",
+          "red",
+          "green",
+          "blue"
+        ],
+        "description": "A lamp: a coloured filter in front of it"
+      },
+      "humidity": {
+        "type": "number",
+        "description": "The air: relative humidity, 0 to 1 (a plastic bag over a plant raises it to about 0.95)"
+      },
+      "wind": {
+        "type": "enum",
+        "values": [
+          "still",
+          "low",
+          "high"
+        ],
+        "description": "The air: a fan blowing across, low or high"
+      }
+    },
+    "status": "experimental",
+    "description": "Change a device's setpoint (incubator, water bath, heating block)."
+  },
+  {
+    "id": "core:advance-time",
+    "label": "Let time pass",
+    "purposes": [
+      "condition.wait"
+    ],
+    "domain": "bench",
+    "params": {
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "required": true
+      }
+    },
+    "status": "experimental",
+    "description": "Integrate every time-dependent process (temperature, mixing by diffusion, degradation, reactions, colour development) over simulated time."
+  },
+  {
+    "id": "core:centrifuge",
+    "label": "Centrifuge",
+    "purposes": [
+      "separate.solid-from-liquid",
+      "separate.cells-from-medium"
+    ],
+    "domain": "bench",
+    "params": {
+      "centrifuge": {
+        "type": "place",
+        "description": "Default: the only centrifuge here"
+      },
+      "rcf": {
+        "type": "quantity",
+        "dimension": "dimensionless",
+        "description": "Relative centrifugal force, e.g. \"12000 [RCF]\"; or give rpm"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "required": true
+      },
+      "rpm": {
+        "type": "number",
+        "description": "Rotor speed in revolutions per minute, converted through the centrifuge's rotor radius (RCF = 1.118e-5 × r(cm) × rpm²)"
+      }
+    },
+    "skills": [
+      "core:centrifuge-balancing"
+    ],
+    "status": "experimental",
+    "description": "Spin the loaded rotor. An unbalanced rotor stops with an incident and nothing separates; open tubes spill. Sedimentation is T1 (settled solids, clear supernatant). Cells pellet by the centrifugal dose and the square of their size (5 µm algae or yeast at about 1000 × g in minutes; bacteria need several thousand × g for ten minutes); mixing resuspends them."
+  },
+  {
+    "id": "core:measure",
+    "label": "Measure",
+    "purposes": [
+      "measure.absorbance",
+      "measure.ph",
+      "observe.morphology",
+      "measure.melting-point",
+      "measure.colony-count",
+      "observe.fluorescence",
+      "measure.band-size",
+      "measure.cell-density",
+      "measure.sequence",
+      "measure.potential",
+      "measure.conductivity",
+      "measure.pressure",
+      "measure.length"
+    ],
+    "domain": "bench",
+    "params": {
+      "instrument": {
+        "type": "equipment",
+        "required": true,
+        "description": "A spectrophotometer, plate reader, pH meter, microscope, melting-point apparatus, colony counter, UV lamp, gel imager, sequencer, IR spectrometer, dissolved-oxygen meter, mass spectrometer, fluorimeter, voltmeter, conductivity meter, pressure sensor, ruler or hand lens (flies)"
+      },
+      "subject": {
+        "type": "container",
+        "required": true
+      },
+      "wavelength": {
+        "type": "quantity",
+        "dimension": "length",
+        "description": "The wavelength read (spectrophotometers) or the excitation wavelength (fluorimeters)"
+      },
+      "mode": {
+        "type": "enum",
+        "values": [
+          "endpoint",
+          "kinetic",
+          "scan"
+        ],
+        "default": "endpoint",
+        "description": "Spectrophotometers: one reading, a time course (kinetic), or a spectrum across from-to (scan)"
+      },
+      "interval": {
+        "type": "quantity",
+        "dimension": "time"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time"
+      },
+      "objective": {
+        "type": "text",
+        "description": "Microscopes: the objective, e.g. 100x-oil"
+      },
+      "squares": {
+        "type": "integer",
+        "description": "Counting chambers: how many large squares to count (default 4)"
+      },
+      "polarity": {
+        "type": "enum",
+        "values": [
+          "positive",
+          "negative"
+        ],
+        "default": "positive",
+        "description": "Mass spectrometers: the ion mode"
+      },
+      "conditions": {
+        "type": "enum",
+        "values": [
+          "denaturing",
+          "native"
+        ],
+        "default": "denaturing",
+        "description": "Mass spectrometers: sprayed from acidic organic solvent (proteins unfold, many charges) or a volatile native buffer (fewer charges)"
+      },
+      "from": {
+        "type": "quantity",
+        "dimension": "length",
+        "description": "Scans and fluorimeter emission: the shortest wavelength"
+      },
+      "to": {
+        "type": "quantity",
+        "dimension": "length",
+        "description": "Scans and fluorimeter emission: the longest wavelength"
+      },
+      "electrode": {
+        "type": "text",
+        "description": "Voltmeters: the metal the positive (red) lead is on, where the vessel holds more than one"
+      },
+      "negative": {
+        "type": "container",
+        "description": "Voltmeters: the vessel the negative (black) lead’s electrode is in (the same vessel if left out)"
+      },
+      "negativeElectrode": {
+        "type": "text",
+        "description": "Voltmeters: the metal the negative lead is on, where its vessel holds more than one"
+      }
+    },
+    "status": "experimental",
+    "description": "Run an instrument on a container, plate or slide. Produces raw measurement records (or, for a microscope, an observation of shapes and colours); nothing is corrected automatically."
+  },
+  {
+    "id": "core:calibrate",
+    "label": "Calibrate an instrument",
+    "purposes": [
+      "calibrate.blank",
+      "calibrate.ph-meter"
+    ],
+    "domain": "bench",
+    "params": {
+      "instrument": {
+        "type": "equipment",
+        "required": true
+      },
+      "mode": {
+        "type": "enum",
+        "values": [
+          "blank",
+          "two-point"
+        ],
+        "default": "blank"
+      },
+      "reference": {
+        "type": "container"
+      },
+      "wavelength": {
+        "type": "quantity",
+        "dimension": "length"
+      },
+      "buffers": {
+        "type": "list",
+        "items": {
+          "type": "container"
+        },
+        "description": "Two-point pH calibration: two buffers with labelled pH"
+      }
+    },
+    "skills": [
+      "core:blanking",
+      "core:ph-meter-calibration"
+    ],
+    "status": "experimental",
+    "description": "Set an instrument reference: blank a spectrophotometer against a reference cuvette, or calibrate a pH meter with two buffers (the meter then maps the electrode onto the buffers labelled pH, right or wrong)."
+  },
+  {
+    "id": "core:label",
+    "label": "Label",
+    "purposes": [
+      "contain.label"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      },
+      "text": {
+        "type": "text",
+        "required": true
+      },
+      "position": {
+        "type": "enum",
+        "values": [
+          "label",
+          "centre"
+        ],
+        "default": "label",
+        "description": "Where on the item: its label area, or (slides) the middle, where the light passes"
+      }
+    },
+    "skills": [
+      "core:labelling"
+    ],
+    "status": "experimental"
+  },
+  {
+    "id": "core:dispose",
+    "label": "Dispose",
+    "purposes": [
+      "dispose.chemical",
+      "dispose.aqueous",
+      "dispose.biohazard",
+      "dispose.general"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "description": "What to empty and throw away (or give an item instead)"
+      },
+      "stream": {
+        "type": "text",
+        "required": true,
+        "description": "A waste stream (core:chemical-waste.heavy-metal …)"
+      },
+      "item": {
+        "type": "equipment",
+        "description": "A used tool to throw away: a syringe and needle into the sharps bin"
+      }
+    },
+    "skills": [
+      "core:chemical-waste"
+    ],
+    "status": "experimental",
+    "description": "Empty a container's contents into a waste stream. Disposal events are kept so that disposal can be assessed."
+  },
+  {
+    "id": "core:attach-tip",
+    "label": "Attach a tip",
+    "purposes": [
+      "handle.tip"
+    ],
+    "domain": "bench",
+    "params": {
+      "pipette": {
+        "type": "equipment",
+        "required": true
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "core:eject-tip",
+    "label": "Eject the tip",
+    "purposes": [
+      "handle.tip"
+    ],
+    "domain": "bench",
+    "params": {
+      "pipette": {
+        "type": "equipment",
+        "required": true
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "core:set-volume",
+    "label": "Set a pipette's volume",
+    "purposes": [
+      "handle.set-volume"
+    ],
+    "domain": "bench",
+    "params": {
+      "pipette": {
+        "type": "equipment",
+        "required": true
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true
+      }
+    },
+    "skills": [
+      "core:pipette-range-selection"
+    ],
+    "status": "experimental",
+    "description": "Dial a variable pipette. Refused outside the pipette's range (it cannot be dialled there)."
+  },
+  {
+    "id": "core:open",
+    "label": "Open",
+    "purposes": [
+      "contain.open"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "core:close",
+    "label": "Close",
+    "purposes": [
+      "contain.seal"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      },
+      "cover": {
+        "type": "enum",
+        "values": [
+          "closure",
+          "parafilm",
+          "septum"
+        ],
+        "default": "closure",
+        "description": "The vessel's own cap or stopper, a square of Parafilm (for cuvettes, beakers and tubes without one), or a rubber septum that a needle can pass through"
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "core:purge",
+    "label": "Purge with inert gas",
+    "purposes": [
+      "condition.atmosphere"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true,
+        "description": "A flask sealed with a septum"
+      },
+      "balloon": {
+        "type": "equipment",
+        "required": true,
+        "description": "A balloon of nitrogen (or argon) on a needle"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "2 min",
+        "description": "How long the gas flows out through the vent needle"
+      },
+      "sparge": {
+        "type": "boolean",
+        "description": "Bubble the gas through the liquid too, taking out its dissolved oxygen"
+      }
+    },
+    "status": "experimental",
+    "description": "Flushes the air out of a septum-sealed flask with an inert gas from a balloon, a vent needle letting it out; the balloon stays on, so the flask stays under the gas as liquid is drawn from it. With sparging, the gas is bubbled through the liquid and takes the dissolved oxygen with it."
+  },
+  {
+    "id": "core:flush-syringe",
+    "label": "Flush a syringe with inert gas",
+    "purposes": [
+      "condition.atmosphere"
+    ],
+    "domain": "bench",
+    "params": {
+      "syringe": {
+        "type": "equipment",
+        "required": true
+      },
+      "source": {
+        "type": "container",
+        "required": true,
+        "description": "A septum-sealed flask under an inert gas, its balloon on"
+      }
+    },
+    "status": "experimental",
+    "description": "Draws gas from the headspace of a flask kept under nitrogen and pushes it out, three times, so the syringe carries no air into what it is used for. From a flask without a balloon, air comes in behind the gas."
+  },
+  {
+    "id": "core:don",
+    "label": "Put on protective equipment",
+    "purposes": [
+      "protect.ppe"
+    ],
+    "domain": "bench",
+    "params": {
+      "item": {
+        "type": "enum",
+        "values": [
+          "lab-coat",
+          "gloves",
+          "goggles",
+          "face-shield"
+        ],
+        "required": true
+      }
+    },
+    "skills": [
+      "core:ppe"
+    ],
+    "status": "experimental"
+  },
+  {
+    "id": "core:doff",
+    "label": "Take off protective equipment",
+    "purposes": [
+      "protect.ppe"
+    ],
+    "domain": "bench",
+    "params": {
+      "item": {
+        "type": "enum",
+        "values": [
+          "lab-coat",
+          "gloves",
+          "goggles",
+          "face-shield"
+        ],
+        "required": true
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "core:record",
+    "label": "Record a value",
+    "purposes": [
+      "record.measurement",
+      "record.observation"
+    ],
+    "domain": "data",
+    "params": {
+      "field": {
+        "type": "text",
+        "required": true
+      },
+      "value": {
+        "type": "any",
+        "required": true
+      },
+      "source": {
+        "type": "text",
+        "description": "The measurement record this value was read from"
+      }
+    },
+    "status": "experimental",
+    "description": "Write a value into the notebook, linked to its source measurement if any."
+  },
+  {
+    "id": "core:layout-plate",
+    "label": "Lay out a plate",
+    "purposes": [
+      "plan.layout"
+    ],
+    "domain": "data",
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "groups": {
+        "type": "list",
+        "required": true,
+        "description": "Items to place: { group, items: [containers], role? }"
+      },
+      "replicates": {
+        "type": "integer",
+        "default": 1
+      },
+      "blanks": {
+        "type": "integer",
+        "default": 0
+      },
+      "blankSource": {
+        "type": "container"
+      },
+      "order": {
+        "type": "enum",
+        "values": [
+          "row",
+          "column"
+        ],
+        "default": "row"
+      },
+      "start": {
+        "type": "text",
+        "default": "A1"
+      }
+    },
+    "skills": [
+      "core:plate-layout"
+    ],
+    "status": "experimental",
+    "description": "Assign wells to standards, samples, replicates and blanks. The plan is data the later steps follow."
+  },
+  {
+    "id": "core:transform",
+    "label": "Transform data",
+    "purposes": [
+      "analyse-data.transform"
+    ],
+    "domain": "data",
+    "params": {
+      "op": {
+        "type": "enum",
+        "values": [
+          "blank-subtract",
+          "average-replicates",
+          "scale",
+          "initial-rate"
+        ],
+        "required": true
+      },
+      "input": {
+        "type": "any",
+        "required": true,
+        "description": "A measurement record, or values by well"
+      },
+      "layout": {
+        "type": "record",
+        "description": "The plate layout (which wells are blanks and replicates)"
+      },
+      "factor": {
+        "type": "number"
+      },
+      "window": {
+        "type": "quantity",
+        "dimension": "time",
+        "description": "Initial-rate window from the start of a kinetic read"
+      },
+      "recordAs": {
+        "type": "text",
+        "description": "Optionally record inputs and outputs atomically in this notebook field"
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "core:fit",
+    "label": "Fit a model",
+    "purposes": [
+      "analyse-data.fit",
+      "analyse-data.calibration"
+    ],
+    "domain": "data",
+    "params": {
+      "x": {
+        "type": "list",
+        "required": true
+      },
+      "y": {
+        "type": "list",
+        "required": true
+      },
+      "z": {
+        "type": "list",
+        "description": "A second independent variable for each point: the inhibitor concentration, for model inhibition"
+      },
+      "model": {
+        "type": "enum",
+        "values": [
+          "linear",
+          "linear-through-origin",
+          "quadratic",
+          "michaelis-menten",
+          "four-pl",
+          "inhibition",
+          "first-order"
+        ],
+        "default": "linear"
+      },
+      "recordAs": {
+        "type": "text",
+        "description": "Optionally record inputs and outputs atomically in this notebook field"
+      },
+      "sources": {
+        "type": "list",
+        "description": "Displayed measurement references used by the learner"
+      },
+      "xLabel": {
+        "type": "text"
+      }
+    },
+    "skills": [
+      "core:calibration-analysis"
+    ],
+    "status": "experimental",
+    "description": "A four-parameter logistic (four-pl: y = d + (a − d)/(1 + (x/c)^b)) suits binding assays such as an ELISA, whose response levels off at both ends; samples are read only between 10 and 90 % of its rise. The inhibition model fits rates at several substrate (x) and inhibitor (z) concentrations to the competitive, uncompetitive, non-competitive and mixed mechanisms at once, and keeps the one with the lowest AICc (its fit names the mechanism: inhibition-competitive and so on)."
+  },
+  {
+    "id": "core:test",
+    "label": "Run a statistical test",
+    "purposes": [
+      "analyse-data.statistics"
+    ],
+    "domain": "data",
+    "params": {
+      "test": {
+        "type": "enum",
+        "values": [
+          "welch-t",
+          "student-t",
+          "paired-t",
+          "one-sample-t",
+          "anova",
+          "regression",
+          "chi-square",
+          "chi-square-independence"
+        ],
+        "required": true
+      },
+      "groups": {
+        "type": "list",
+        "description": "The groups' values (t-tests, ANOVA), or the rows of counts of a contingency table"
+      },
+      "x": {
+        "type": "list",
+        "description": "One-sample t: the values; regression: the independent variable"
+      },
+      "y": {
+        "type": "list",
+        "description": "Regression: the dependent variable"
+      },
+      "mu": {
+        "type": "number",
+        "description": "One-sample t: the mean tested against",
+        "default": 0
+      },
+      "observed": {
+        "type": "list",
+        "description": "Chi-square: the observed counts"
+      },
+      "expected": {
+        "type": "list",
+        "description": "Chi-square: the expected counts or proportions"
+      },
+      "alpha": {
+        "type": "number",
+        "description": "The significance level",
+        "default": 0.05
+      }
+    },
+    "skills": [
+      "core:hypothesis-testing"
+    ],
+    "status": "experimental",
+    "description": "Outputs the statistic (t, F or chi-square), its degrees of freedom (df, and df2 for ANOVA), the p-value (two-sided for t and the slope), each group's mean, the difference or slope with its 95 % confidence interval, and whether p is below alpha."
+  },
+  {
+    "id": "core:interpolate",
+    "label": "Read unknowns from a calibration",
+    "purposes": [
+      "analyse-data.interpolate"
+    ],
+    "domain": "data",
+    "params": {
+      "fit": {
+        "type": "record",
+        "required": true
+      },
+      "points": {
+        "type": "list",
+        "required": true,
+        "description": "Readings, or group means from average-replicates"
+      },
+      "factor": {
+        "type": "number",
+        "default": 1,
+        "description": "Dilution factor for every point"
+      },
+      "factors": {
+        "type": "record",
+        "description": "Dilution factor per layout group"
+      },
+      "recordAs": {
+        "type": "text",
+        "description": "Optionally record inputs and outputs atomically in this notebook field"
+      },
+      "sources": {
+        "type": "list",
+        "description": "Displayed measurement references used by the learner"
+      },
+      "calibration": {
+        "type": "record",
+        "description": "Recorded calibration and its lineage"
+      }
+    },
+    "skills": [
+      "core:calibration-analysis",
+      "core:calibration-range"
+    ],
+    "status": "experimental"
+  },
+  {
+    "id": "core:compute",
+    "label": "Calculate",
+    "purposes": [
+      "analyse-data.compute"
+    ],
+    "domain": "data",
+    "params": {
+      "expression": {
+        "type": "text",
+        "required": true
+      },
+      "values": {
+        "type": "record"
+      },
+      "field": {
+        "type": "text"
+      },
+      "report": {
+        "type": "record",
+        "description": "{ quantity, sample }: the value is this run's reported result for that sample"
+      },
+      "recordAs": {
+        "type": "text",
+        "description": "Optionally record inputs and outputs atomically in this notebook field"
+      }
+    },
+    "status": "experimental"
+  },
+  {
+    "id": "core:uncertainty",
+    "label": "Propagate uncertainty",
+    "purposes": [
+      "analyse-data.uncertainty"
+    ],
+    "domain": "data",
+    "params": {
+      "expression": {
+        "type": "text",
+        "required": true,
+        "description": "The result, as an expression of the named inputs"
+      },
+      "values": {
+        "type": "record",
+        "required": true,
+        "description": "Each input's value"
+      },
+      "uncertainties": {
+        "type": "record",
+        "required": true,
+        "description": "Each input's standard uncertainty, in its own units (a ±a tolerance is a/√3)"
+      },
+      "coverage": {
+        "type": "number",
+        "default": 2,
+        "description": "Coverage factor k for the expanded uncertainty U = k·u"
+      }
+    },
+    "status": "experimental",
+    "description": "An uncertainty budget by the law of propagation of uncertainty (first order, independent inputs): the combined standard uncertainty, the expanded uncertainty, and each input's share of the variance, so the dominant source stands out."
+  },
+  {
+    "id": "core:conclude",
+    "label": "State a conclusion",
+    "purposes": [
+      "conclude.claim"
+    ],
+    "domain": "data",
+    "params": {
+      "claim": {
+        "type": "text",
+        "required": true
+      },
+      "evidence": {
+        "type": "list"
+      },
+      "validity": {
+        "type": "enum",
+        "values": [
+          "valid",
+          "valid-with-limitations",
+          "partially-interpretable",
+          "invalid",
+          "inconclusive"
+        ]
+      }
+    },
+    "skills": [
+      "core:validity-judgement"
+    ],
+    "status": "experimental"
+  },
+  {
+    "id": "core:dry",
+    "label": "Dry",
+    "purposes": [
+      "concentrate.dry",
+      "prepare.smear",
+      "transform.fix"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      },
+      "method": {
+        "type": "enum",
+        "values": [
+          "air",
+          "heat"
+        ],
+        "default": "air"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time"
+      }
+    },
+    "status": "experimental",
+    "description": "Dry a container's liquid at the method's rate (air: about 20 µL/min; heat: about 200 µL/min); without a duration, to dryness. Dissolved solutes stay behind as solid, and what exceeds its solubility comes out as the liquid shrinks; cells become a film on the surface. Air-dried cells are only loosely attached and wash off; heat fixes them (and kills them)."
+  },
+  {
+    "id": "core:flood",
+    "label": "Flood with a reagent",
+    "purposes": [
+      "transform.stain"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true,
+        "description": "A slide"
+      },
+      "reagent": {
+        "type": "container",
+        "required": true
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "required": true
+      }
+    },
+    "status": "experimental",
+    "description": "Cover a slide with a reagent (about 0.5 mL) for a time. Stains act on the cells according to the staining model; liquid over unfixed cells lifts some of them off."
+  },
+  {
+    "id": "core:rinse",
+    "label": "Rinse with water",
+    "purposes": [
+      "transform.stain"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "status": "experimental",
+    "description": "Rinse a slide or surface with a gentle stream of water: loose liquid goes, and so do most unfixed cells."
+  },
+  {
+    "id": "core:sterilise",
+    "label": "Flame a loop or spreader",
+    "purposes": [
+      "sterilise.loop"
+    ],
+    "domain": "bench",
+    "params": {
+      "tool": {
+        "type": "equipment",
+        "required": true,
+        "description": "An inoculating loop, needle, spreader or forceps"
+      }
+    },
+    "status": "experimental",
+    "description": "Heat a loop to red heat: whatever it carried is destroyed. An unflamed loop carries organisms from one culture to the next."
+  },
+  {
+    "id": "core:apply-disc",
+    "label": "Apply a disc (antibiotic, mutagen or control)",
+    "purposes": [
+      "transform.expose-to-antimicrobial"
+    ],
+    "domain": "bench",
+    "params": {
+      "disc": {
+        "type": "container",
+        "required": true,
+        "description": "A paper disc carrying an antibiotic or a mutagen (or only water, as a control)"
+      },
+      "plate": {
+        "type": "container",
+        "required": true,
+        "description": "A freshly seeded agar plate"
+      },
+      "position": {
+        "type": "integer",
+        "description": "Position 1–6 round the plate (default: the next free one)"
+      }
+    },
+    "status": "experimental",
+    "description": "Presses a disc onto the agar: what it carries starts diffusing outwards at once, while the cells grow. Apply antibiotic discs within about 15 minutes of seeding; a disc put on late leaves a smaller zone. A mutagen acts on the cells as they divide, and kills where it is concentrated."
+  },
+  {
+    "id": "core:spot-test",
+    "label": "Spot test (catalase, oxidase …)",
+    "purposes": [
+      "observe.colour",
+      "observe.gas"
+    ],
+    "domain": "bench",
+    "params": {
+      "reagent": {
+        "type": "container",
+        "required": true,
+        "description": "The test reagent (a drop is used)"
+      },
+      "target": {
+        "type": "container",
+        "required": true,
+        "description": "A culture, a slide, or a plate"
+      },
+      "appearance": {
+        "type": "text",
+        "description": "On a plate: test the colonies that look like this"
+      }
+    },
+    "status": "experimental",
+    "description": "A drop of reagent on cells shows whether they have the trait the test detects (bubbles for catalase, a purple colour for oxidase). A mixture gives a weak, patchy reaction; too few cells give nothing readable."
+  },
+  {
+    "id": "core:filter",
+    "label": "Filter",
+    "purposes": [
+      "separate.solid-from-liquid"
+    ],
+    "domain": "bench",
+    "params": {
+      "source": {
+        "type": "container",
+        "description": "Pour everything from this vessel onto the filter first; omitted = drain what is already on it (after a wash)"
+      },
+      "filter": {
+        "type": "container",
+        "required": true,
+        "description": "A filter funnel with paper (Büchner or gravity)"
+      },
+      "filtrate": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "status": "experimental",
+    "description": "Solids stay on the filter; the liquid passes into the filtrate except what the wet cake holds (about 1 mL per gram on a Büchner funnel under vacuum, 2 mL per gram by gravity), with whatever is dissolved in it. Liquid on the filter mixes with the cake and reaches solubility equilibrium before it drains."
+  },
+  {
+    "id": "core:drain",
+    "label": "Drain through the tap",
+    "purposes": [
+      "separate.liquid-liquid"
+    ],
+    "domain": "bench",
+    "params": {
+      "funnel": {
+        "type": "container",
+        "required": true,
+        "description": "A separating funnel (a vessel with a tap), unstoppered"
+      },
+      "receiver": {
+        "type": "container",
+        "required": true,
+        "description": "Where the liquid runs to"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "description": "Run off this much from the bottom; omitted = the lower layer, the tap closed at the interface"
+      }
+    },
+    "status": "experimental",
+    "description": "Runs liquid out of the bottom of a separating funnel. By default the lower layer goes, the tap closed as the interface reaches it, so a little of that layer stays behind; with a volume, that much leaves from the bottom, through the interface if need be. The stopper must be out for air to get in."
+  },
+  {
+    "id": "core:concentrate",
+    "label": "Concentrate (rotary evaporator)",
+    "purposes": [
+      "concentrate.evaporate"
+    ],
+    "domain": "bench",
+    "params": {
+      "flask": {
+        "type": "container",
+        "required": true,
+        "description": "The round-bottom flask holding the solution"
+      },
+      "evaporator": {
+        "type": "equipment",
+        "required": true,
+        "description": "A rotary evaporator"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "10 min",
+        "description": "How long it turns in the bath under vacuum"
+      }
+    },
+    "status": "experimental",
+    "description": "Turns the flask in a warm bath under reduced pressure. Volatile solvents distil off, a solvent layer taking the water dissolved in it; water standing as its own layer goes only slowly. What does not evaporate is left on the glass: the crude product, with anything that came through the work-up with it."
+  },
+  {
+    "id": "core:distil",
+    "label": "Distil",
+    "purposes": [
+      "separate.by-volatility"
+    ],
+    "domain": "bench",
+    "params": {
+      "flask": {
+        "type": "container",
+        "required": true,
+        "description": "The distillation pot"
+      },
+      "receiver": {
+        "type": "container",
+        "required": true,
+        "description": "Where this fraction is collected"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true,
+        "description": "Distillate to collect in this fraction"
+      },
+      "column": {
+        "type": "equipment",
+        "description": "A fractionating column between the flask and the still head (none: simple distillation)"
+      }
+    },
+    "status": "experimental",
+    "description": "Boils the pot and collects the condensed vapour: richer in the more volatile component than the pot, and richer still through a fractionating column, up to any azeotrope. The pot is depleted as it goes, so later fractions are poorer and the still head hotter; never distil to dryness."
+  },
+  {
+    "id": "core:blot",
+    "label": "Blot a gel onto a membrane",
+    "purposes": [
+      "transfer.blot"
+    ],
+    "domain": "bench",
+    "params": {
+      "gel": {
+        "type": "container",
+        "required": true,
+        "description": "A run SDS-polyacrylamide gel"
+      },
+      "membrane": {
+        "type": "container",
+        "required": true,
+        "description": "A blotting membrane"
+      }
+    },
+    "status": "experimental",
+    "description": "Every lane's protein bands move onto the membrane at the same positions (about an hour in the tank); large proteins transfer less completely."
+  },
+  {
+    "id": "core:detect",
+    "label": "Develop and photograph a blot",
+    "purposes": [
+      "observe.colour"
+    ],
+    "domain": "bench",
+    "params": {
+      "membrane": {
+        "type": "container",
+        "required": true,
+        "description": "A blot lying in a chromogenic substrate"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "5 min"
+      }
+    },
+    "status": "experimental",
+    "description": "Colour builds up where enzyme-labelled antibody is bound: bands where the antibodies found their target, and a background wherever antibody stuck to unblocked membrane. A prestained marker shows on its own."
+  },
+  {
+    "id": "core:spot",
+    "label": "Spot a TLC plate",
+    "purposes": [
+      "separate.by-polarity"
+    ],
+    "domain": "bench",
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "source": {
+        "type": "container",
+        "required": true,
+        "description": "The solution to spot"
+      },
+      "lane": {
+        "type": "integer",
+        "required": true,
+        "description": "Lane on the origin line, from the left"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "2 uL"
+      }
+    },
+    "status": "experimental",
+    "description": "A small volume of solution onto one lane's origin; the solvent evaporates and the solutes stay on the silica. Loading more makes a bigger spot that runs into its neighbours."
+  },
+  {
+    "id": "core:develop",
+    "label": "Develop a TLC plate",
+    "purposes": [
+      "separate.by-polarity"
+    ],
+    "domain": "bench",
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "chamber": {
+        "type": "container",
+        "required": true,
+        "description": "A chamber with the eluent in it"
+      },
+      "front": {
+        "type": "quantity",
+        "dimension": "length",
+        "default": "50 mm",
+        "description": "How far the solvent front runs from the origin before the plate is taken out"
+      }
+    },
+    "status": "experimental",
+    "description": "Each compound travels a fraction of the solvent front's distance, its Rf, which falls the more strongly silica holds it and rises with the eluent's strength. If the eluent stands above the origin, the spots dissolve into it instead."
+  },
+  {
+    "id": "core:wash",
+    "label": "Wash wells",
+    "purposes": [
+      "separate.bound-from-free"
+    ],
+    "domain": "bench",
+    "params": {
+      "target": {
+        "type": "container",
+        "required": true,
+        "description": "A plate (every well in use) or one well or tube"
+      },
+      "buffer": {
+        "type": "container",
+        "required": true,
+        "description": "The wash buffer"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "default": "300 uL",
+        "description": "Buffer per well per wash"
+      },
+      "cycles": {
+        "type": "integer",
+        "default": 3
+      }
+    },
+    "status": "experimental",
+    "description": "Empty each well, fill it with buffer and empty it again, as many times as asked. What is stuck to the wall (adsorbed protein, bound antibody) stays; what is free is diluted away by the few microlitres a well keeps each time."
+  },
+  {
+    "id": "core:elute",
+    "label": "Collect a fraction from a column",
+    "purposes": [
+      "separate.by-size"
+    ],
+    "domain": "bench",
+    "params": {
+      "column": {
+        "type": "container",
+        "required": true,
+        "description": "A size-exclusion or affinity column; liquid on its bed runs in first"
+      },
+      "buffer": {
+        "type": "container",
+        "required": true,
+        "description": "The running buffer pushed through the column"
+      },
+      "into": {
+        "type": "container",
+        "required": true,
+        "description": "The tube that collects this fraction"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true,
+        "description": "Fraction volume"
+      }
+    },
+    "status": "experimental",
+    "description": "Each solute leaves the column around its elution volume, which falls with its native size across the matrix's fractionation range: large molecules with the void volume, small ones (salts) with the total bed volume. Bands spread with the column's plate count and with the sample's own volume. On an affinity column, the liquid on the bed (and any buffer asked for; the volume may be 0) passes through: tagged proteins stay until enough competitor (imidazole) frees them, and the rest flows out into the fraction."
+  },
+  {
+    "id": "core:chromatograph",
+    "label": "Run an analytical column (UV monitor)",
+    "purposes": [
+      "separate.by-size",
+      "measure.absorbance"
+    ],
+    "domain": "bench",
+    "params": {
+      "column": {
+        "type": "container",
+        "required": true,
+        "description": "An analytical size-exclusion column, equilibrated in running buffer"
+      },
+      "sample": {
+        "type": "container",
+        "required": true,
+        "description": "What to inject"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true,
+        "description": "Injection volume (up to the loop's)"
+      },
+      "detector": {
+        "type": "equipment",
+        "required": true,
+        "description": "The chromatography system's UV monitor"
+      },
+      "wavelengths": {
+        "type": "list",
+        "description": "Wavelengths to record (nm), from those the monitor offers; default 280"
+      },
+      "runVolume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "description": "How much buffer to run through; default the column volume and 2 mL more"
+      }
+    },
+    "status": "experimental",
+    "description": "Injects a sample on an analytical size-exclusion column and records the absorbance of the eluate against the volume passed: each solute a peak at its elution volume, large ones first, sized by how strongly it absorbs at each wavelength. The sample goes to waste."
+  },
+  {
+    "id": "core:spread",
+    "label": "Spread a plate",
+    "purposes": [
+      "transfer.organisms.plate"
+    ],
+    "domain": "bench",
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true,
+        "description": "An agar plate"
+      },
+      "tool": {
+        "type": "equipment",
+        "required": true,
+        "description": "A spreader"
+      }
+    },
+    "status": "experimental",
+    "description": "Spread the cells on an agar plate so that colonies grow apart; unspread cells grow where the drop sat and their colonies run together. The spreader leaves on this plate what it carried from the last one, and takes away a little of this one, until it is sterilised."
+  },
+  {
+    "id": "core:streak",
+    "label": "Streak a sector",
+    "purposes": [
+      "purify.culture",
+      "transfer.organisms.plate"
+    ],
+    "domain": "bench",
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true,
+        "description": "An agar plate"
+      },
+      "tool": {
+        "type": "equipment",
+        "required": true,
+        "description": "A loop"
+      },
+      "sector": {
+        "type": "integer",
+        "required": true,
+        "description": "1 for the inoculum, then 2, 3, 4 … each drawn out of the one before"
+      },
+      "cross": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether the stroke crosses the previous sector (a dilution streak); false streaks a separate patch, as when several cultures share a plate"
+      }
+    },
+    "status": "experimental",
+    "description": "Streak one sector of a plate. Sector 1 spreads the inoculum; each later sector drags about 2 % of the previous sector's cells, plus whatever the loop still carries, so flaming the loop between sectors is what leaves single colonies at the end."
+  },
+  {
+    "id": "core:pick-colony",
+    "label": "Pick a colony",
+    "purposes": [
+      "transfer.organisms"
+    ],
+    "domain": "bench",
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true
+      },
+      "tool": {
+        "type": "equipment",
+        "required": true,
+        "description": "A loop"
+      },
+      "destination": {
+        "type": "container",
+        "description": "Broth, or a drop of water on a slide; left out, the cells stay on the loop (to streak or stab with)"
+      },
+      "appearance": {
+        "type": "text",
+        "description": "Which kind of colony to pick, by its look (\"golden\")"
+      }
+    },
+    "status": "experimental",
+    "description": "Touch a colony with the loop and put the cells (about 10⁷) into a liquid, or keep a loopful on the loop. From a sector of separate colonies the pick is one strain; from crowded growth (or a slope) it is a mixture."
+  },
+  {
+    "id": "core:thermocycle",
+    "label": "Run a PCR program",
+    "purposes": [
+      "transform.amplify-dna"
+    ],
+    "domain": "bench",
+    "params": {
+      "cycler": {
+        "type": "place",
+        "required": true
+      },
+      "cycles": {
+        "type": "integer",
+        "default": 30
+      },
+      "denatureTemperature": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "95 Cel"
+      },
+      "denatureTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "30 s"
+      },
+      "annealTemperature": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "55 Cel"
+      },
+      "annealTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "30 s"
+      },
+      "extendTemperature": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "72 Cel"
+      },
+      "extendTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "60 s"
+      },
+      "initialTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "2 min"
+      },
+      "finalTime": {
+        "type": "quantity",
+        "dimension": "time",
+        "default": "5 min"
+      },
+      "hold": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "4 Cel"
+      },
+      "threshold": {
+        "type": "number",
+        "default": 0.2,
+        "description": "Real-time cyclers: the baseline-corrected signal (ΔRn) at which a well's Cq is read"
+      }
+    },
+    "status": "experimental",
+    "description": "Run a program on every tube in the cycler, then hold. Each cycle copies every target whose two primers are present; the efficiency falls if annealing is above the primers' Tm, if extension is too short for the product, or if denaturation is too cool; primers and nucleotides limit the yield; low annealing temperatures make primer-dimers. A real-time cycler also reads every well after each cycle and records its baseline-corrected signal and Cq (Undetermined if it never crosses the threshold)."
+  },
+  {
+    "id": "core:melt-curve",
+    "label": "Run a melt curve",
+    "purposes": [
+      "measure.fluorescence"
+    ],
+    "domain": "bench",
+    "params": {
+      "cycler": {
+        "type": "place",
+        "required": true,
+        "description": "A real-time cycler holding the finished reactions"
+      },
+      "from": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "65 Cel"
+      },
+      "to": {
+        "type": "quantity",
+        "dimension": "temperature",
+        "default": "95 Cel"
+      }
+    },
+    "status": "experimental",
+    "description": "Heats every reaction slowly while reading the dye. Each duplex melts at its own temperature, so the negative derivative of the signal (−dF/dT) has a peak per product: one sharp peak for a single amplicon, a lower and broader one for primer-dimers."
+  },
+  {
+    "id": "core:run-gel",
+    "label": "Run a gel",
+    "purposes": [
+      "separate.by-size"
+    ],
+    "domain": "bench",
+    "params": {
+      "gel": {
+        "type": "container",
+        "required": true
+      },
+      "voltage": {
+        "type": "number",
+        "default": 100,
+        "description": "Volts; negative if the leads are swapped (the DNA runs out of the wells)"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "required": true
+      }
+    },
+    "status": "experimental",
+    "description": "DNA in each loaded lane runs towards the anode at a speed that falls with the log of its length (range set by the agarose percentage). Bands that run past the end are lost."
+  },
+  {
+    "id": "core:configure",
+    "label": "Set an instrument's controls",
+    "purposes": [
+      "handle.controls"
+    ],
+    "domain": "bench",
+    "params": {
+      "instrument": {
+        "type": "equipment",
+        "required": true
+      },
+      "objective": {
+        "type": "text",
+        "description": "Microscopes: the objective to turn into the light path (4x, 10x, 40x, 100x-oil …), or none to turn the nosepiece between objectives"
+      },
+      "illumination": {
+        "type": "text",
+        "description": "Microscopes: the condenser turret, brightfield or a phase annulus (ph1, ph2 …) matching the objective's phase ring"
+      },
+      "lamp": {
+        "type": "number",
+        "description": "Lamp output as a fraction of full (0 to 1); higher power needs more light"
+      },
+      "condenser": {
+        "type": "enum",
+        "values": [
+          "adjusted",
+          "not-adjusted"
+        ],
+        "description": "Microscopes: condenser focused on the field, or left as found (uneven light, poorer resolution)"
+      }
+    },
+    "skills": [
+      "core:microscope-setup"
+    ],
+    "status": "experimental",
+    "description": "Set controls that persist on the instrument. Microscopes: objective, illumination, lamp and condenser. Turning a high-power dry objective over a slide with immersion oil on it takes the lens into the oil."
+  },
+  {
+    "id": "core:focus",
+    "label": "Focus a microscope",
+    "purposes": [
+      "observe.morphology"
+    ],
+    "domain": "bench",
+    "params": {
+      "instrument": {
+        "type": "equipment",
+        "required": true
+      },
+      "subject": {
+        "type": "container",
+        "required": true,
+        "description": "The slide on the stage"
+      },
+      "knob": {
+        "type": "enum",
+        "values": [
+          "coarse",
+          "fine"
+        ],
+        "default": "fine"
+      }
+    },
+    "skills": [
+      "core:microscope-setup"
+    ],
+    "status": "experimental",
+    "description": "Coarse focus finds the specimen at low power; at high power (working distance under 1 mm) it drives the slide into the lens and cracks it. Fine focus sharpens an image that is nearly in focus and cannot find one that is not. Objectives are parfocal: after turning the nosepiece the image is nearly in focus."
+  },
+  {
+    "id": "core:clean-lens",
+    "label": "Clean oil off a lens",
+    "purposes": [
+      "decontaminate.optics"
+    ],
+    "domain": "bench",
+    "params": {
+      "instrument": {
+        "type": "equipment",
+        "required": true
+      },
+      "objective": {
+        "type": "text",
+        "description": "One objective; left out, every objective with oil on it"
+      },
+      "slide": {
+        "type": "container",
+        "description": "Also wipe the immersion oil off this slide"
+      }
+    },
+    "skills": [
+      "core:oil-immersion"
+    ],
+    "status": "experimental",
+    "description": "Wipe immersion oil off with lens tissue. Oil left on a dry objective blurs every image through it."
+  },
+  {
+    "id": "core:flame-neck",
+    "label": "Flame the neck of a bottle or tube",
+    "purposes": [
+      "protect.aseptic-field"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true
+      }
+    },
+    "skills": [
+      "micro:aseptic-technique"
+    ],
+    "status": "experimental",
+    "description": "Pass the open neck through a hot flame, after opening and before closing. An uncovered vessel's rim, handled unflamed, now and then lets a contaminant in (contract contamination)."
+  },
+  {
+    "id": "core:wash-hands",
+    "label": "Clean your hands",
+    "purposes": [
+      "decontaminate.surface"
+    ],
+    "domain": "bench",
+    "params": {
+      "method": {
+        "type": "enum",
+        "values": [
+          "soap",
+          "antiseptic"
+        ],
+        "default": "soap"
+      }
+    },
+    "skills": [
+      "micro:aseptic-technique"
+    ],
+    "status": "experimental",
+    "description": "Wash at the sink, or use an antiseptic wipe: fewer skin organisms are left on the fingers."
+  },
+  {
+    "id": "core:press-fingers",
+    "label": "Press fingertips on agar",
+    "purposes": [
+      "transfer.organisms.plate"
+    ],
+    "domain": "bench",
+    "params": {
+      "plate": {
+        "type": "container",
+        "required": true,
+        "description": "An agar plate with its lid off"
+      }
+    },
+    "status": "experimental",
+    "description": "One gentle press of the fingertips on the agar: the skin flora the hands carry now is left on it."
+  },
+  {
+    "id": "core:stab",
+    "label": "Stab an agar deep",
+    "purposes": [
+      "transfer.organisms"
+    ],
+    "domain": "bench",
+    "params": {
+      "tube": {
+        "type": "container",
+        "required": true,
+        "description": "A tube of agar (a deep)"
+      },
+      "tool": {
+        "type": "equipment",
+        "required": true,
+        "description": "A loaded loop or needle"
+      },
+      "source": {
+        "type": "container",
+        "description": "A broth culture to dip the loop into first; left out, the loop's own load is stabbed"
+      }
+    },
+    "skills": [
+      "micro:aseptic-technique"
+    ],
+    "status": "experimental",
+    "description": "Plunge the loaded loop straight down the middle of the agar. Where it grows along the stab shows the organism's oxygen requirement."
+  },
+  {
+    "id": "core:search-sequences",
+    "label": "Search references with a sequence",
+    "purposes": [
+      "analyse-data.sequence"
+    ],
+    "domain": "data",
+    "params": {
+      "query": {
+        "type": "text",
+        "required": true,
+        "description": "A sequence: plain bases or FASTA"
+      },
+      "maxHits": {
+        "type": "integer",
+        "description": "How many hits to list",
+        "default": 10
+      }
+    },
+    "skills": [
+      "core:sequence-analysis"
+    ],
+    "status": "experimental",
+    "description": "Compare a sequence with the reference sequences, on both strands (an offline stand-in for a nucleotide BLAST). Outputs the hits ranked by score, each with its title, identity (%), query coverage (%), strand, the span it aligns to and the annotated genes there; `top` and `gene` are the best hit and its first gene."
+  },
+  {
+    "id": "core:align-sequences",
+    "label": "Align two sequences",
+    "purposes": [
+      "analyse-data.sequence"
+    ],
+    "domain": "data",
+    "params": {
+      "query": {
+        "type": "text",
+        "required": true,
+        "description": "A sequence: plain bases or FASTA"
+      },
+      "subject": {
+        "type": "text",
+        "required": true,
+        "description": "A second sequence, or the id of a reference sequence"
+      },
+      "gene": {
+        "type": "text",
+        "description": "The gene whose coding sequence numbers the codons (default: the one the alignment falls in)"
+      }
+    },
+    "skills": [
+      "core:sequence-analysis"
+    ],
+    "status": "experimental",
+    "description": "Align two sequences locally (pairwise, BLASTN scores, both strands). Outputs identity and coverage, and each difference: substitution, insertion or deletion, its position in each sequence, and (against an annotated reference) the codon and its effect: silent, missense (Leu69Pro), nonsense, a frameshift with the residues it changes before a stop, or an in-frame loss or gain."
+  },
+  {
+    "id": "core:connect-gas",
+    "label": "Connect the gas",
+    "purposes": [
+      "measure.volume",
+      "observe.gas"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true,
+        "description": "The vessel the gas comes from"
+      },
+      "syringe": {
+        "type": "equipment",
+        "description": "A gas syringe on a bung: it collects the gas to be read"
+      },
+      "into": {
+        "type": "container",
+        "description": "Another vessel's liquid for the gas to bubble through (limewater)"
+      }
+    },
+    "status": "experimental",
+    "description": "Fit a bung: to a gas syringe, which collects the gas given off so its volume can be read (from zero now), or to a delivery tube into another liquid, which the gas bubbles through. With neither, the bung comes off and the gas goes to the room."
+  },
+  {
+    "id": "core:connect-condenser",
+    "label": "Fit a still head and condenser",
+    "purposes": [
+      "separate.by-volatility"
+    ],
+    "domain": "bench",
+    "params": {
+      "flask": {
+        "type": "container",
+        "required": true,
+        "description": "The flask to distil from (it is heated where it stands)"
+      },
+      "receiver": {
+        "type": "container",
+        "description": "Where the condensed vapour runs (omit to take the still head off again)"
+      }
+    },
+    "status": "experimental",
+    "description": "Set a flask up for distillation into a receiver: while it boils (at the bubble point of what it holds), the vapour, richer in what boils lower, is condensed into the receiver, so a product that boils below the mixture leaves as it forms. Without a receiver the still head comes off, and the head temperatures and the volume that came over are reported."
+  },
+  {
+    "id": "core:test-gas",
+    "label": "Test the gas",
+    "purposes": [
+      "observe.gas",
+      "analyse.identity"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true,
+        "description": "The vessel whose gas is tested at its mouth"
+      },
+      "test": {
+        "type": "enum",
+        "values": [
+          "lighted-splint",
+          "glowing-splint",
+          "damp-red-litmus",
+          "damp-blue-litmus"
+        ],
+        "required": true
+      }
+    },
+    "status": "experimental",
+    "description": "Hold a lighted splint, a glowing splint or damp litmus paper at the mouth of the vessel and see what happens: hydrogen pops, oxygen relights a glowing splint, carbon dioxide puts a flame out, ammonia turns red litmus blue."
+  },
+  {
+    "id": "core:flame-test",
+    "label": "Flame test",
+    "purposes": [
+      "observe.colour",
+      "analyse.identity"
+    ],
+    "domain": "bench",
+    "params": {
+      "sample": {
+        "type": "container",
+        "required": true,
+        "description": "The solution or solid the wire is dipped in"
+      },
+      "wire": {
+        "type": "equipment",
+        "required": true,
+        "description": "A nichrome or platinum wire loop"
+      },
+      "view": {
+        "type": "enum",
+        "values": [
+          "eye",
+          "cobalt-glass",
+          "spectroscope"
+        ],
+        "default": "eye",
+        "description": "By eye, through cobalt-blue glass (which hides sodium's yellow), or through a hand spectroscope (the bright lines and their wavelengths)"
+      },
+      "clean": {
+        "type": "boolean",
+        "default": true,
+        "description": "Clean the wire first: dip it in concentrated hydrochloric acid and heat it until it gives no colour"
+      }
+    },
+    "skills": [
+      "core:flame-test"
+    ],
+    "status": "experimental",
+    "description": "Dip the wire in the sample and hold it at the edge of a roaring Bunsen flame: each metal's atoms emit their own light (sodium yellow-orange, potassium lilac, lithium crimson, calcium orange-red, copper green). The colour comes from the emission lines, so a trace of sodium masks potassium, and cobalt-blue glass shows potassium through it. An uncleaned wire shows what it last held."
+  },
+  {
+    "id": "core:connect-bridge",
+    "label": "Connect a salt bridge",
+    "purposes": [
+      "measure.potential"
+    ],
+    "domain": "bench",
+    "params": {
+      "from": {
+        "type": "container",
+        "required": true,
+        "description": "One half-cell"
+      },
+      "to": {
+        "type": "container",
+        "description": "The other half-cell; leave out to take the bridge away"
+      }
+    },
+    "status": "experimental",
+    "description": "Lay a strip of filter paper soaked in potassium nitrate solution across two beakers so that it dips into both: ions can then move between the half-cells, completing the circuit without mixing them."
+  },
+  {
+    "id": "core:electrolyse",
+    "label": "Electrolyse",
+    "purposes": [
+      "transform.electrolyse"
+    ],
+    "domain": "bench",
+    "params": {
+      "supply": {
+        "type": "equipment",
+        "required": true,
+        "description": "A DC power supply"
+      },
+      "cell": {
+        "type": "container",
+        "required": true,
+        "description": "The vessel of electrolyte the electrodes dip into"
+      },
+      "anode": {
+        "type": "container",
+        "required": true,
+        "description": "The electrode on the positive terminal (an electrode holder with its strip or rod)"
+      },
+      "cathode": {
+        "type": "container",
+        "required": true,
+        "description": "The electrode on the negative terminal"
+      },
+      "current": {
+        "type": "quantity",
+        "dimension": "current",
+        "required": true,
+        "description": "The current set on the supply, e.g. 0.5 A"
+      },
+      "duration": {
+        "type": "quantity",
+        "dimension": "time",
+        "required": true
+      },
+      "anodeGas": {
+        "type": "container",
+        "description": "A tube full of the liquid upturned over the anode, to collect its gas (bung it to a gas syringe to measure the volume)"
+      },
+      "cathodeGas": {
+        "type": "container",
+        "description": "A tube upturned over the cathode, to collect its gas"
+      }
+    },
+    "status": "experimental",
+    "description": "Pass a direct current through the electrolyte between two electrodes for a time. Metal ions or hydrogen are reduced at the cathode; the anode dissolves, or a halogen or oxygen forms there, whichever comes first. Reports the charge passed and what is seen at each electrode."
+  },
+  {
+    "id": "core:trap-air",
+    "label": "Trap air in a syringe",
+    "purposes": [
+      "measure.volume"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true,
+        "description": "A gas syringe that can be sealed"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "required": true,
+        "description": "The volume of room air to draw in before capping the nozzle"
+      }
+    },
+    "status": "experimental",
+    "description": "Draw a volume of the room’s air into a gas syringe and cap its nozzle, trapping the gas (and any liquid already in it)."
+  },
+  {
+    "id": "core:hold-plunger",
+    "label": "Hold the plunger",
+    "purposes": [
+      "measure.pressure"
+    ],
+    "domain": "bench",
+    "params": {
+      "container": {
+        "type": "container",
+        "required": true,
+        "description": "A sealed gas syringe"
+      },
+      "volume": {
+        "type": "quantity",
+        "dimension": "volume",
+        "description": "Push or pull the plunger to this volume and hold it there; leave out to let it go free (atmospheric pressure)"
+      }
+    },
+    "status": "experimental",
+    "description": "Squeeze or expand the trapped gas to a volume and hold it there, or release the plunger so the gas finds its own volume at atmospheric pressure."
+  },
+  {
+    "id": "core:add-flies",
+    "label": "Add flies to a vial",
+    "purposes": [
+      "contain"
+    ],
+    "domain": "bench",
+    "params": {
+      "strain": {
+        "type": "material",
+        "required": true,
+        "description": "A true-breeding stock of flies"
+      },
+      "destination": {
+        "type": "container",
+        "required": true,
+        "description": "A fly vial"
+      },
+      "females": {
+        "type": "integer",
+        "description": "Virgin females"
+      },
+      "males": {
+        "type": "integer",
+        "description": "Males"
+      }
+    },
+    "status": "experimental",
+    "description": "Tip flies of a stock into a vial: virgin females and males, which mate and leave offspring a generation later if the vial is kept warm."
+  },
+  {
+    "id": "core:transfer-flies",
+    "label": "Move flies to another vial",
+    "purposes": [
+      "contain"
+    ],
+    "domain": "bench",
+    "params": {
+      "source": {
+        "type": "container",
+        "required": true
+      },
+      "destination": {
+        "type": "container",
+        "required": true
+      },
+      "females": {
+        "type": "integer",
+        "description": "How many females to move (as virgins)"
+      },
+      "males": {
+        "type": "integer",
+        "description": "How many males to move"
+      },
+      "phenotype": {
+        "type": "text",
+        "description": "Only flies that look like this (e.g. \"wild type\", \"vestigial wings\")"
+      }
+    },
+    "status": "experimental",
+    "description": "Etherise flies and move some to a fresh vial as its parents: the offspring if they have emerged (the next generation), otherwise the adults; picked at random, or only those of one phenotype."
+  },
+  {
+    "id": "core:set-chamber",
+    "label": "Set up a side of a choice chamber",
+    "purposes": [
+      "contain"
+    ],
+    "domain": "bench",
+    "params": {
+      "chamber": {
+        "type": "container",
+        "required": true
+      },
+      "side": {
+        "type": "integer",
+        "required": true,
+        "description": "1 or 2"
+      },
+      "humidity": {
+        "type": "enum",
+        "values": [
+          "dry",
+          "humid"
+        ],
+        "description": "Silica gel (dry) or damp paper (humid) under the gauze"
+      },
+      "light": {
+        "type": "enum",
+        "values": [
+          "light",
+          "dark"
+        ],
+        "description": "Uncovered (light) or under black card (dark)"
+      }
+    },
+    "status": "experimental",
+    "description": "Set the conditions on one side of a choice chamber: the humidity under its gauze and whether it is covered."
+  },
+  {
+    "id": "core:add-animals",
+    "label": "Put animals in a choice chamber",
+    "purposes": [
+      "contain"
+    ],
+    "domain": "bench",
+    "params": {
+      "organism": {
+        "type": "material",
+        "required": true,
+        "description": "Woodlice, maggots or flies"
+      },
+      "chamber": {
+        "type": "container",
+        "required": true
+      },
+      "count": {
+        "type": "integer",
+        "required": true
+      }
+    },
+    "status": "experimental",
+    "description": "Put animals in through the centre hole of a choice chamber; they land on either side at random and then wander."
+  }
+]

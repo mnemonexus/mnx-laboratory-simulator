@@ -1,0 +1,499 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio39-potato-osmosis",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:lift-out"
+      }
+    ]
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "{{level}}",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "osmosis",
+      "water potential",
+      "potato",
+      "sucrose",
+      "percentage change in mass",
+      "isotonic"
+    ],
+    "topics": [
+      "Transport across membranes"
+    ],
+    "concepts": [
+      {
+        "id": "osmosis",
+        "label": "Water moves by osmosis from a higher to a lower water potential across a partially permeable membrane"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-weigh",
+        "kind": "skill",
+        "statement": "Weigh, blot and reweigh tissue, treating every piece alike"
+      },
+      {
+        "id": "o-plot",
+        "kind": "analysis",
+        "statement": "{{plotObjective}}",
+        "goal": "g-iso"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the gains and losses with water potential",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": "{{curricula}}"
+  },
+  "parameters": {
+    "title": {
+      "default": "Osmosis in potato tissue"
+    },
+    "summary": {
+      "default": "Weigh potato cylinders, leave them in sucrose solutions from 0 to 1.0 M for an hour, blot and reweigh them, and find from the percentage change in mass the concentration at which they neither gain nor lose water."
+    },
+    "briefing": {
+      "default": "Weigh each potato cylinder on a tared boat and put it in 10 mL of its sucrose solution. After an hour lift each out with forceps, blot it dry on paper towel and weigh it again. Percentage change = (final − initial) ÷ initial × 100. Water moves into the potato cells where the solution is more dilute than their sap and out where it is more concentrated; where the line crosses zero the solution is isotonic with the cells."
+    },
+    "level": {
+      "default": "ages-14-16"
+    },
+    "curricula": {
+      "default": [
+        "GCSE",
+        "IGCSE",
+        "BTEC"
+      ]
+    },
+    "plotObjective": {
+      "default": "Plot percentage change in mass against concentration and find where it is zero"
+    },
+    "extra": {
+      "default": []
+    },
+    "extraGoals": {
+      "default": []
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "s0",
+        "label": "Distilled water (0 M sucrose)",
+        "preparation": "core:water-deionised",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s02",
+        "label": "Sucrose, 0.2 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.2 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s04",
+        "label": "Sucrose, 0.4 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.4 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s06",
+        "label": "Sucrose, 0.6 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.6 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s08",
+        "label": "Sucrose, 0.8 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "0.8 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      },
+      {
+        "id": "s1",
+        "label": "Sucrose, 1.0 M",
+        "contains": [
+          {
+            "substance": "core:sucrose",
+            "conc": "1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "50 mL",
+        "container": "core:reagent-bottle-50ml"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "balance",
+        "requires": {
+          "class": "core:balance-2dp"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "set-up",
+        "kind": "group",
+        "title": "Weigh a cylinder into each solution",
+        "objectives": [
+          "o-weigh"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['s0','s02','s04','s06','s08','s1']"
+        },
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "='tube-' + x",
+              "label": "='Tube ' + x"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=x",
+              "destination": "='tube-' + x",
+              "volume": "10 mL"
+            }
+          },
+          {
+            "id": "boat",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:weighing-boat",
+              "id": "='boat-' + x",
+              "label": "='Boat ' + x"
+            }
+          },
+          {
+            "id": "on",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='boat-' + x",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "tare",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "cut",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "bio:potato-tissue",
+              "destination": "='boat-' + x",
+              "mass": "2 g"
+            }
+          },
+          {
+            "id": "weigh0",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "note0",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='m0-' + x",
+              "value": "=weigh0.out.value"
+            }
+          },
+          {
+            "id": "off",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='boat-' + x"
+            }
+          },
+          {
+            "id": "in",
+            "kind": "operation",
+            "ref": "core:lift-out",
+            "params": {
+              "source": "='boat-' + x",
+              "destination": "='tube-' + x"
+            }
+          }
+        ]
+      },
+      {
+        "id": "soak",
+        "kind": "operation",
+        "ref": "core:advance-time",
+        "params": {
+          "duration": "60 min"
+        }
+      },
+      {
+        "id": "reweigh",
+        "kind": "group",
+        "title": "Blot and reweigh each cylinder",
+        "objectives": [
+          "o-weigh"
+        ],
+        "forEach": {
+          "var": "x",
+          "in": "=['s0','s02','s04','s06','s08','s1']"
+        },
+        "steps": [
+          {
+            "id": "on2",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='boat-' + x",
+              "place": "balance"
+            }
+          },
+          {
+            "id": "tare2",
+            "kind": "operation",
+            "ref": "core:tare",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:lift-out",
+            "params": {
+              "source": "='tube-' + x",
+              "destination": "='boat-' + x",
+              "blot": true
+            }
+          },
+          {
+            "id": "weigh1",
+            "kind": "operation",
+            "ref": "core:weigh",
+            "params": {
+              "balance": "balance"
+            }
+          },
+          {
+            "id": "note1",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='m1-' + x",
+              "value": "=weigh1.out.value"
+            }
+          },
+          {
+            "id": "off2",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='boat-' + x"
+            }
+          },
+          {
+            "id": "change",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='pct-' + x",
+              "value": "=100 * (value(first(recorded('m1-' + x)), 'g') - value(first(recorded('m0-' + x)), 'g')) / value(first(recorded('m0-' + x)), 'g')"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fit",
+        "kind": "operation",
+        "ref": "core:fit",
+        "params": {
+          "x": "=[0,0.2,0.4,0.6,0.8,1]",
+          "y": "=map(['s0','s02','s04','s06','s08','s1'], first(recorded('pct-' + it)))",
+          "model": "linear",
+          "xLabel": "sucrose / mol dm⁻³"
+        },
+        "objectives": [
+          "o-plot"
+        ]
+      },
+      {
+        "id": "iso",
+        "kind": "operation",
+        "ref": "core:record",
+        "params": {
+          "field": "isotonic-M",
+          "value": "=-fit.out.fit.params.intercept / fit.out.fit.params.slope"
+        },
+        "objectives": [
+          "o-plot"
+        ]
+      },
+      {
+        "id": "extra",
+        "kind": "group",
+        "title": "From the isotonic point",
+        "steps": "{{extra}}"
+      },
+      {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Why did the cylinders in 1.0 M sucrose lose mass?",
+        "options": [
+          {
+            "id": "water-out",
+            "label": "The solution had a lower water potential than the cells, so water left them by osmosis"
+          },
+          {
+            "id": "sucrose-out",
+            "label": "Sucrose moved out of the cells"
+          },
+          {
+            "id": "sucrose-in",
+            "label": "Sucrose moved into the cells and pushed water out"
+          }
+        ],
+        "correctWhen": "'water-out'"
+      }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      {
+        "id": "g-iso",
+        "statement": "The isotonic concentration is found between 0.2 and 0.4 M sucrose",
+        "check": "first(recorded('isotonic-M')) > 0.2 && first(recorded('isotonic-M')) < 0.4"
+      },
+      {
+        "id": "g-explain",
+        "statement": "The loss in strong sucrose is explained",
+        "check": "decision('why') == 'water-out'"
+      }
+    ],
+    "expectedObservations": [
+      {
+        "id": "e-water",
+        "statement": "In water the cylinder gains mass; in 1.0 M sucrose it loses about a tenth or more",
+        "check": "first(recorded('pct-s0')) > 2 && first(recorded('pct-s1')) < -8",
+        "source": "reference-standard"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "bio39-potato-water-potential",
+      "title": "The water potential of potato tissue",
+      "summary": "Find the sucrose concentration isotonic with potato cells from the percentage change in mass of cylinders in 0–1.0 M sucrose, and work out the cells’ water potential from it (Ψ = −iCRT).",
+      "briefing": "As for the GCSE practical, with an hour in each solution. Where the line of percentage change against concentration crosses zero, the solution’s water potential equals the tissue’s. A sucrose solution’s water potential is its solute potential, Ψs = −iCRT, with i = 1, C in mol m⁻³, R = 8.31 J mol⁻¹ K⁻¹ and T in kelvin; in MPa at 21 °C that is −C(mol dm⁻³) × 2.44.",
+      "values": {
+        "level": "ages-16-19",
+        "curricula": [
+          "A level",
+          "IB",
+          "AP",
+          "BTEC",
+          "T Level"
+        ],
+        "plotObjective": "Find the isotonic concentration and the tissue’s water potential",
+        "extra": [
+          {
+            "id": "psi",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "water-potential-MPa",
+              "value": "=-first(recorded('isotonic-M')) * 8.31 * 294.15 / 1000"
+            }
+          }
+        ]
+      },
+      "keywords": [
+        "water potential",
+        "solute potential",
+        "kPa",
+        "MPa"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

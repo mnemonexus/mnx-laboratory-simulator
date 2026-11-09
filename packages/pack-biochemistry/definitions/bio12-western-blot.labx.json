@@ -1,0 +1,110 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio12-western-blot",
+  "version": "1.0.0",
+  "title": "Finding one protein in a mixture: a Western blot",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "bio:sds-page" }, { "operation": "core:blot" }, { "operation": "core:detect" }, { "operation": "core:wash" }] },
+  "summary": "Run a crude protein extract, purified LDH and BSA on an SDS gel, blot it onto nitrocellulose, block, probe with a mouse anti-LDH antibody and an HRP-labelled anti-mouse antibody, develop with TMB, and size the band the antibody finds against a prestained marker.",
+  "briefing": "The gel shows every protein; the blot shows only the one the antibody recognises. The membrane binds any protein, so block it before the antibodies go on, and wash between steps. BSA alone is the specificity control: the antibody should find nothing there. Size the detected band against the prestained marker, which shows on the membrane by itself.",
+  "context": {
+    "intendedContexts": ["practical-session"],
+    "audience": { "level": "undergraduate-2", "disciplines": ["biochemistry", "immunology", "molecular-biology"] },
+    "concepts": [{ "id": "western", "label": "Immunodetection after electrophoresis" }, { "id": "blocking", "label": "Blocking, washing and specificity" }],
+    "objectives": [
+      { "id": "o-gel", "kind": "skill", "statement": "Run the samples on an SDS gel", "skills": ["bio:sds-page"] },
+      { "id": "o-blot", "kind": "skill", "statement": "Blot, block, probe and develop", "skills": ["core:micropipetting"] },
+      { "id": "o-size", "kind": "analysis", "statement": "Size the detected band within 15 %", "goal": "g-size" },
+      { "id": "o-specific", "kind": "reasoning", "statement": "Judge whether the detection is specific", "goal": "g-specific" }
+    ]
+  },
+  "materials": {
+    "samples": [
+      { "id": "extract", "label": "Crude extract", "role": "unknown", "solvent": "core:water", "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel",
+        "contains": [{ "substance": "bio:bovine-serum-albumin", "conc": "0.5 mg/mL" }, { "substance": "bio:ldh", "conc": "0.5 mg/mL" }, { "substance": "bio:ovalbumin", "conc": "0.5 mg/mL" }, { "substance": "bio:lysozyme", "conc": "0.5 mg/mL" }] }
+    ],
+    "supplies": [
+      { "id": "ldh", "label": "LDH, 0.5 mg/mL", "solvent": "core:water", "contains": [{ "substance": "bio:ldh", "conc": "0.5 mg/mL" }], "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "bsa", "label": "BSA, 0.5 mg/mL", "solvent": "core:water", "contains": [{ "substance": "bio:bovine-serum-albumin", "conc": "0.5 mg/mL" }], "amount": "100 uL", "container": "core:microtube-1.5ml", "storage": "4 Cel" },
+      { "id": "buffer", "label": "SDS sample buffer (2×)", "preparation": "bio:sds-sample-buffer-2x", "amount": "200 uL", "container": "core:microtube-1.5ml" },
+      { "id": "marker", "label": "Prestained marker", "preparation": "bio:protein-ladder-prestained-ready", "amount": "50 uL", "container": "core:microtube-1.5ml" },
+      { "id": "block", "label": "Blocking buffer (1 % BSA)", "preparation": "bio:blocking-bsa-1pct", "amount": "30 mL", "container": "core:reagent-bottle-50ml" },
+      { "id": "pbs", "label": "PBS (wash)", "preparation": "core:pbs-1x", "amount": "250 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "primary", "label": "Anti-LDH (primary)", "preparation": "bio:primary-anti-ldh", "amount": "15 mL", "container": "core:reagent-bottle-50ml", "storage": "4 Cel" },
+      { "id": "secondary", "label": "Anti-mouse–HRP (secondary)", "preparation": "bio:secondary-hrp", "amount": "15 mL", "container": "core:reagent-bottle-50ml", "storage": "4 Cel" },
+      { "id": "tmb", "label": "TMB substrate", "preparation": "bio:tmb-substrate", "amount": "15 mL", "container": "core:reagent-bottle-50ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "block-heater", "requires": { "class": "core:heating-block", "temperature": "95 Cel" } },
+      { "id": "gel", "requires": { "class": "core:sds-page-gel-12pct" } },
+      { "id": "membrane", "requires": { "class": "core:membrane-nitrocellulose" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "prepare", "kind": "group", "title": "Each sample 1:1 with sample buffer", "objectives": ["o-gel"],
+        "forEach": { "var": "s", "in": "=[['extract', 't-extract'], ['ldh', 't-ldh'], ['bsa', 't-bsa']]" },
+        "steps": [
+          { "id": "tube", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:microtube-1.5ml", "id": "=s[1]" } },
+          { "id": "protein", "kind": "operation", "ref": "core:transfer", "params": { "source": "=s[0]", "destination": "=s[1]", "volume": "10 uL" } },
+          { "id": "sds", "kind": "operation", "ref": "core:transfer", "params": { "source": "buffer", "destination": "=s[1]", "volume": "10 uL" } },
+          { "id": "mix", "kind": "operation", "ref": "core:mix", "params": { "container": "=s[1]", "method": "flick", "cycles": 3 } }
+        ] },
+      { "id": "into-heater", "kind": "operation", "ref": "core:place-in", "forEach": { "var": "t", "in": "=['t-extract', 't-ldh', 't-bsa']" }, "params": { "container": "=t", "place": "block-heater" } },
+      { "id": "boil", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "5 min" } },
+      { "id": "out-of-heater", "kind": "operation", "ref": "core:remove-from", "forEach": { "var": "t", "in": "=['t-extract', 't-ldh', 't-bsa']" }, "params": { "container": "=t" } },
+      { "id": "electrophoresis", "kind": "technique", "ref": "bio:sds-page", "objectives": ["o-gel"],
+        "params": { "gel": "gel", "ladder": "marker", "ladderLane": "gel/A1", "loads": [["t-extract", "gel/A2"], ["t-ldh", "gel/A3"], ["t-bsa", "gel/A4"]], "volume": "10 uL", "voltage": 200, "duration": "40 min" } },
+      { "id": "transfer", "kind": "operation", "ref": "core:blot", "objectives": ["o-blot"], "params": { "gel": "gel", "membrane": "membrane" } },
+      { "id": "blocking", "kind": "group", "title": "Block for 1 h, then wash", "objectives": ["o-blot"],
+        "steps": [
+          { "id": "add-block", "kind": "operation", "ref": "core:transfer", "params": { "source": "block", "destination": "membrane", "volume": "20 mL", "tool": "pour" } },
+          { "id": "block-wait", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+          { "id": "wash-block", "kind": "operation", "ref": "core:wash", "params": { "target": "membrane", "buffer": "pbs", "volume": "20 mL", "cycles": 3 } }
+        ] },
+      { "id": "primary-step", "kind": "group", "title": "Primary antibody 1 h, then wash", "objectives": ["o-blot"],
+        "steps": [
+          { "id": "add-primary", "kind": "operation", "ref": "core:transfer", "params": { "source": "primary", "destination": "membrane", "volume": "10 mL", "tool": "pour" } },
+          { "id": "primary-wait", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+          { "id": "wash-primary", "kind": "operation", "ref": "core:wash", "params": { "target": "membrane", "buffer": "pbs", "volume": "20 mL", "cycles": 3 } }
+        ] },
+      { "id": "secondary-step", "kind": "group", "title": "Secondary antibody 1 h, then wash", "objectives": ["o-blot"],
+        "steps": [
+          { "id": "add-secondary", "kind": "operation", "ref": "core:transfer", "params": { "source": "secondary", "destination": "membrane", "volume": "10 mL", "tool": "pour" } },
+          { "id": "secondary-wait", "kind": "operation", "ref": "core:advance-time", "params": { "duration": "60 min" } },
+          { "id": "wash-secondary", "kind": "operation", "ref": "core:wash", "params": { "target": "membrane", "buffer": "pbs", "volume": "20 mL", "cycles": 3 } }
+        ] },
+      { "id": "add-substrate", "kind": "operation", "ref": "core:transfer", "objectives": ["o-blot"], "params": { "source": "tmb", "destination": "membrane", "volume": "10 mL", "tool": "pour" } },
+      { "id": "develop", "kind": "operation", "ref": "core:detect", "objectives": ["o-blot"], "params": { "membrane": "membrane", "duration": "5 min" } },
+      { "id": "sizing", "kind": "group", "objectives": ["o-size"],
+        "steps": [
+          { "id": "fit", "kind": "operation", "ref": "core:fit", "params": { "x": "=map(ladderSizes('bio:protein-ladder-prestained'), log10(it))", "y": "=map(blotBands('membrane', 1), value(it, 'mm'))", "model": "linear" } },
+          { "id": "read", "kind": "operation", "ref": "core:interpolate", "params": { "fit": "=fit.out.fit", "points": "=map(blotBands('membrane', 2), value(it, 'mm'))" } },
+          { "id": "size", "kind": "operation", "ref": "core:compute", "params": { "expression": "map(r, 10 ^ it.x)", "values": { "r": "=read.out.results" }, "field": "detected-kDa" } }
+        ] },
+      { "id": "specific", "kind": "decision", "objectives": ["o-specific"], "prompt": "What does the blot show?",
+        "options": [
+          { "id": "specific", "label": "One band, in the extract and the LDH lanes only: the antibody finds LDH and nothing else" },
+          { "id": "cross-reacts", "label": "Bands in the BSA lane too: the antibody also recognises something else" },
+          { "id": "nothing", "label": "No band where LDH should be: a detection step failed" }
+        ],
+        "correctWhen": "if(count(blotBands('membrane', 3)) == 0, 'nothing', if(count(blotBands('membrane', 4)) > 0, 'cross-reacts', 'specific'))" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-size", "statement": "The detected band is within 15 % of LDH's 35 kDa chain", "check": "count(first(recorded('detected-kDa'))) == 1 && within(first(first(recorded('detected-kDa'))), 35, 15%)" },
+      { "id": "g-specific", "statement": "Nothing is detected in the BSA lane", "check": "count(blotBands('membrane', 4)) == 0" }
+    ],
+    "expectedObservations": [
+      { "id": "e-gel", "statement": "The gel shows four proteins in the extract", "check": "count(bandsIn('gel/A2')) == 4", "source": "reference-standard" },
+      { "id": "e-ldh", "statement": "Purified LDH gives the same band on the blot", "check": "count(blotBands('membrane', 3)) == 1", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}

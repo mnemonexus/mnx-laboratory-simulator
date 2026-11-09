@@ -1,0 +1,585 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "bio47-pondweed-photosynthesis",
+  "version": "1.0.0",
+  "title": "{{title}}",
+  "language": "en-GB",
+  "requires": {
+    "framework": ">=0.1",
+    "capabilities": [
+      {
+        "operation": "core:connect-gas"
+      }
+    ]
+  },
+  "summary": "{{summary}}",
+  "briefing": "{{briefing}}",
+  "context": {
+    "intendedContexts": [
+      "practical-session",
+      "lecture-introduction",
+      "assessment"
+    ],
+    "audience": {
+      "level": "ages-14-16",
+      "disciplines": [
+        "biology"
+      ]
+    },
+    "keywords": [
+      "photosynthesis",
+      "pondweed",
+      "Elodea",
+      "rate of photosynthesis",
+      "limiting factors",
+      "oxygen",
+      "photosynthometer"
+    ],
+    "topics": [
+      "Photosynthesis"
+    ],
+    "concepts": [
+      {
+        "id": "limiting",
+        "label": "The rate of photosynthesis is set by whichever factor is in shortest supply"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "o-measure",
+        "kind": "skill",
+        "statement": "Measure the rate of oxygen production by pondweed"
+      },
+      {
+        "id": "o-compare",
+        "kind": "analysis",
+        "statement": "{{compareObjective}}",
+        "goal": "g-rate"
+      },
+      {
+        "id": "o-explain",
+        "kind": "reasoning",
+        "statement": "Explain the result with limiting factors",
+        "goal": "g-explain"
+      }
+    ],
+    "curricula": [
+      "GCSE",
+      "IGCSE",
+      "A level",
+      "IB",
+      "BTEC"
+    ]
+  },
+  "parameters": {
+    "title": {
+      "default": "Photosynthesis in pondweed: light intensity"
+    },
+    "summary": {
+      "default": "Put pondweed in hydrogencarbonate solution at different distances from a lamp and measure the oxygen it gives off with a gas syringe; relate the rate to light intensity."
+    },
+    "briefing": {
+      "default": "Cut a 5 g sprig of pondweed and put it upside down in a boiling tube of 0.1 M sodium hydrogencarbonate (a source of carbon dioxide), connected to a photosynthometer. Stand it at the distance from the lamp, leave it eight minutes to adjust (and reach the temperature), then connect it and measure the gas collected in the next five minutes. Light intensity falls as 1 ÷ distance², so the rate should rise steeply as the lamp comes closer, until something else limits it."
+    },
+    "runs": {
+      "default": "=[['d10','10 cm from the lamp','c10',10,'none',21],['d15','15 cm','c10',15,'none',21],['d20','20 cm','c10',20,'none',21],['d30','30 cm','c10',30,'none',21],['d50','50 cm','c10',50,'none',21],['dark','In the dark','c10',0,'none',21]]"
+    },
+    "compareObjective": {
+      "default": "Relate the rate of photosynthesis to light intensity"
+    },
+    "question": {
+      "default": {
+        "id": "why",
+        "kind": "decision",
+        "objectives": [
+          "o-explain"
+        ],
+        "prompt": "Moving the lamp from 15 cm to 10 cm hardly raised the rate. Why?",
+        "options": [
+          {
+            "id": "other-limit",
+            "label": "Light is no longer the limiting factor: carbon dioxide or the enzymes’ speed now limits the rate"
+          },
+          {
+            "id": "too-hot",
+            "label": "The lamp is too hot"
+          },
+          {
+            "id": "no-oxygen",
+            "label": "The pondweed has run out of oxygen"
+          }
+        ],
+        "correctWhen": "choice == 'other-limit'"
+      }
+    },
+    "goals": {
+      "default": {
+        "predicates": [
+          {
+            "id": "g-rate",
+            "statement": "The rate rises as the lamp comes closer, from 50 cm to 15 cm",
+            "check": "first(recorded('rate-d50')) < first(recorded('rate-d30')) && first(recorded('rate-d30')) < first(recorded('rate-d20')) && first(recorded('rate-d20')) < first(recorded('rate-d15'))"
+          },
+          {
+            "id": "g-explain",
+            "statement": "The levelling off is explained",
+            "check": "decision('why') == 'other-limit'"
+          }
+        ],
+        "expectedObservations": [
+          {
+            "id": "e-dark",
+            "statement": "In the dark no oxygen is collected",
+            "check": "first(recorded('rate-dark')) < 0.02",
+            "source": "reference-standard"
+          }
+        ]
+      }
+    }
+  },
+  "materials": {
+    "supplies": [
+      {
+        "id": "c0",
+        "label": "Distilled water",
+        "preparation": "core:water-deionised",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "c01",
+        "label": "Sodium hydrogencarbonate, 0.01 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydrogencarbonate",
+            "conc": "0.01 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "c02",
+        "label": "Sodium hydrogencarbonate, 0.02 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydrogencarbonate",
+            "conc": "0.02 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "c05",
+        "label": "Sodium hydrogencarbonate, 0.05 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydrogencarbonate",
+            "conc": "0.05 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      },
+      {
+        "id": "c10",
+        "label": "Sodium hydrogencarbonate, 0.10 M",
+        "contains": [
+          {
+            "substance": "aq:sodium-hydrogencarbonate",
+            "conc": "0.1 mol/L"
+          }
+        ],
+        "solvent": "core:water",
+        "amount": "250 mL",
+        "container": "core:reagent-bottle-1l"
+      }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      {
+        "id": "syringe",
+        "requires": {
+          "class": "core:photosynthometer"
+        }
+      },
+      {
+        "id": "lamp",
+        "requires": {
+          "class": "core:lamp"
+        }
+      },
+      {
+        "id": "dark",
+        "requires": {
+          "class": "core:dark-cupboard"
+        }
+      }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      {
+        "id": "runs",
+        "kind": "group",
+        "title": "Each condition in turn",
+        "forEach": {
+          "var": "r",
+          "in": "{{runs}}"
+        },
+        "objectives": [
+          "o-measure"
+        ],
+        "steps": [
+          {
+            "id": "tube",
+            "kind": "operation",
+            "ref": "core:fetch",
+            "params": {
+              "equipment": "core:boiling-tube",
+              "id": "='tube-' + r[0]",
+              "label": "='Pondweed: ' + r[1]"
+            }
+          },
+          {
+            "id": "fill",
+            "kind": "operation",
+            "ref": "core:transfer",
+            "params": {
+              "source": "=r[2]",
+              "destination": "='tube-' + r[0]",
+              "volume": "30 mL"
+            }
+          },
+          {
+            "id": "weed",
+            "kind": "operation",
+            "ref": "core:add-solid",
+            "params": {
+              "substance": "bio:pondweed",
+              "destination": "='tube-' + r[0]",
+              "mass": "5 g"
+            }
+          },
+          {
+            "id": "settle",
+            "kind": "operation",
+            "ref": "core:mix",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "method": "swirl",
+              "cycles": 2
+            }
+          },
+          {
+            "id": "lamp-set",
+            "kind": "operation",
+            "ref": "core:set-environment",
+            "params": {
+              "device": "lamp",
+              "distance": "=quantity(text(r[3]) + ' cm')",
+              "filter": "=r[4]",
+              "temperature": "=quantity(text(r[5]) + ' Cel')"
+            },
+            "when": "r[3] > 0"
+          },
+          {
+            "id": "to-lamp",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "place": "lamp"
+            },
+            "when": "r[3] > 0"
+          },
+          {
+            "id": "to-dark",
+            "kind": "operation",
+            "ref": "core:place-in",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "place": "dark"
+            },
+            "when": "r[3] == 0"
+          },
+          {
+            "id": "adjust",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "8 min"
+            }
+          },
+          {
+            "id": "bung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "='tube-' + r[0]",
+              "syringe": "syringe"
+            }
+          },
+          {
+            "id": "read0",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "syringe",
+              "subject": "='tube-' + r[0]"
+            }
+          },
+          {
+            "id": "collect",
+            "kind": "operation",
+            "ref": "core:advance-time",
+            "params": {
+              "duration": "5 min"
+            }
+          },
+          {
+            "id": "read1",
+            "kind": "operation",
+            "ref": "core:measure",
+            "params": {
+              "instrument": "syringe",
+              "subject": "='tube-' + r[0]"
+            }
+          },
+          {
+            "id": "note",
+            "kind": "operation",
+            "ref": "core:record",
+            "params": {
+              "field": "='rate-' + r[0]",
+              "value": "=(value(quantity(read1.out.value), 'mL') - value(quantity(read0.out.value), 'mL')) / 5"
+            }
+          },
+          {
+            "id": "unbung",
+            "kind": "operation",
+            "ref": "core:connect-gas",
+            "params": {
+              "container": "='tube-' + r[0]"
+            }
+          },
+          {
+            "id": "out",
+            "kind": "operation",
+            "ref": "core:remove-from",
+            "params": {
+              "container": "='tube-' + r[0]"
+            }
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "kind": "group",
+        "title": "Explain",
+        "steps": [
+          "{{question}}"
+        ]
+      }
+    ]
+  },
+  "goals": "{{goals}}",
+  "variants": [
+    {
+      "id": "bio47-pondweed-co2",
+      "title": "Photosynthesis in pondweed: carbon dioxide concentration",
+      "summary": "Measure the oxygen pondweed gives off 10 cm from a lamp in sodium hydrogencarbonate solutions from 0 to 0.1 M, the source of its carbon dioxide.",
+      "briefing": "As for light intensity, but with the lamp fixed at 10 cm and the solution changed: sodium hydrogencarbonate supplies dissolved carbon dioxide. With none, photosynthesis soon stops; with more, the rate rises until light or temperature limits it.",
+      "values": {
+        "runs": "=[['c0','No hydrogencarbonate','c0',10,'none',21],['c01','0.01 M','c01',10,'none',21],['c02','0.02 M','c02',10,'none',21],['c05','0.05 M','c05',10,'none',21],['c10','0.10 M','c10',10,'none',21]]",
+        "compareObjective": "Relate the rate of photosynthesis to carbon dioxide concentration",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why does the rate level off at the highest hydrogencarbonate concentrations?",
+          "options": [
+            {
+              "id": "other-limit",
+              "label": "Carbon dioxide is no longer limiting: light or the enzymes now limit the rate"
+            },
+            {
+              "id": "toxic",
+              "label": "Hydrogencarbonate poisons the pondweed"
+            },
+            {
+              "id": "oxygen",
+              "label": "Oxygen builds up and stops it"
+            }
+          ],
+          "correctWhen": "choice == 'other-limit'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The rate rises from 0.01 M to 0.05 M hydrogencarbonate",
+              "check": "first(recorded('rate-c01')) < first(recorded('rate-c05'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The levelling off is explained",
+              "check": "decision('why') == 'other-limit'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-none",
+              "statement": "Without hydrogencarbonate very little oxygen is given off",
+              "check": "first(recorded('rate-c0')) < 0.3 * first(recorded('rate-c10'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "carbon dioxide",
+        "hydrogencarbonate"
+      ]
+    },
+    {
+      "id": "bio47-pondweed-temperature",
+      "title": "Photosynthesis in pondweed: temperature",
+      "summary": "Measure the oxygen pondweed gives off 10 cm from a lamp with the tube in water from 10 to 45 °C.",
+      "briefing": "Stand the tube in a beaker of water at the temperature, 10 cm from the lamp. The enzymes of the light-independent reactions work faster when warmer, up to an optimum; above it they denature.",
+      "values": {
+        "runs": "=[['t10','10 °C','c10',10,'none',10],['t20','20 °C','c10',10,'none',20],['t30','30 °C','c10',10,'none',30],['t40','40 °C','c10',10,'none',40],['t45','45 °C','c10',10,'none',45]]",
+        "compareObjective": "Find the optimum temperature for photosynthesis",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why is the rate lower at 45 °C than at 30 °C?",
+          "options": [
+            {
+              "id": "denature",
+              "label": "The enzymes that fix carbon dioxide are denatured by the heat"
+            },
+            {
+              "id": "less-light",
+              "label": "Warm water lets less light through"
+            },
+            {
+              "id": "oxygen-dissolves",
+              "label": "More oxygen dissolves when warm"
+            }
+          ],
+          "correctWhen": "choice == 'denature'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "The rate rises from 10 °C to 30 °C and is lower at 45 °C than at 30 °C",
+              "check": "first(recorded('rate-t10')) < first(recorded('rate-t30')) && first(recorded('rate-t45')) < first(recorded('rate-t30'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "The fall is explained",
+              "check": "decision('why') == 'denature'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-warmer",
+              "statement": "From 10 to 20 °C the rate increases",
+              "check": "first(recorded('rate-t10')) < first(recorded('rate-t20'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "temperature",
+        "enzymes"
+      ]
+    },
+    {
+      "id": "bio47-pondweed-colour",
+      "title": "Photosynthesis in pondweed: the colour of light",
+      "summary": "Measure the oxygen pondweed gives off 10 cm from a lamp in white light and through red, blue and green filters.",
+      "briefing": "Chlorophyll absorbs red and blue light strongly and reflects green, which is why leaves look green. Each filter passes one colour; compare the rates with white light.",
+      "values": {
+        "runs": "=[['white','White light','c10',10,'none',21],['red','Red filter','c10',10,'red',21],['blue','Blue filter','c10',10,'blue',21],['green','Green filter','c10',10,'green',21]]",
+        "compareObjective": "Relate the rate of photosynthesis to the colour of light",
+        "question": {
+          "id": "why",
+          "kind": "decision",
+          "objectives": [
+            "o-explain"
+          ],
+          "prompt": "Why is the rate lowest in green light?",
+          "options": [
+            {
+              "id": "reflected",
+              "label": "Chlorophyll absorbs little green light (it reflects it), so little of that light drives photosynthesis"
+            },
+            {
+              "id": "dim",
+              "label": "Green filters are always darker"
+            },
+            {
+              "id": "hot",
+              "label": "Green light is hotter"
+            }
+          ],
+          "correctWhen": "choice == 'reflected'"
+        },
+        "goals": {
+          "predicates": [
+            {
+              "id": "g-rate",
+              "statement": "Red and blue light give higher rates than green",
+              "check": "first(recorded('rate-red')) > first(recorded('rate-green')) && first(recorded('rate-blue')) > first(recorded('rate-green'))"
+            },
+            {
+              "id": "g-explain",
+              "statement": "Green light is explained",
+              "check": "decision('why') == 'reflected'"
+            }
+          ],
+          "expectedObservations": [
+            {
+              "id": "e-white",
+              "statement": "White light gives the highest rate (the filters cut the light)",
+              "check": "first(recorded('rate-white')) > first(recorded('rate-red'))",
+              "source": "reference-standard"
+            }
+          ]
+        }
+      },
+      "keywords": [
+        "wavelength",
+        "colour",
+        "filters",
+        "chlorophyll",
+        "absorption spectrum"
+      ]
+    }
+  ],
+  "variation": {
+    "noise": "default"
+  },
+  "provenance": {
+    "defaultClass": "general-knowledge",
+    "review": {
+      "status": "draft"
+    }
+  }
+}

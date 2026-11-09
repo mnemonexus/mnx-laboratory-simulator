@@ -1,0 +1,87 @@
+{
+  "format": "lab-experiment",
+  "formatVersion": "0.1",
+  "id": "chem6-buffer-capacity",
+  "version": "1.0.0",
+  "title": "Buffer pH and buffer capacity",
+  "language": "en-GB",
+  "requires": { "framework": ">=0.1", "capabilities": [{ "technique": "core:prepare-burette" }, { "operation": "core:calibrate" }] },
+  "summary": "Make an acetate buffer from equal volumes of 0.1 M acetic acid and 0.1 M sodium acetate, the same buffer diluted ten-fold, and a beaker of water. Add 0.1 M sodium hydroxide to each in 1 mL portions, reading the pH after each, and compare how well each resists the change.",
+  "briefing": "By the Henderson–Hasselbalch equation, equal amounts of a weak acid and its conjugate base give pH = pKa (4.76 for acetic acid). A buffer resists added base because the acid takes up the hydroxide. How much it can take, its capacity, depends on how concentrated it is, not on its pH.",
+  "context": {
+    "intendedContexts": ["practical-session", "lecture-introduction"],
+    "audience": { "level": "undergraduate-1", "disciplines": ["chemistry", "biochemistry"] },
+    "concepts": [{ "id": "henderson-hasselbalch", "label": "Henderson–Hasselbalch" }, { "id": "buffer-capacity", "label": "Buffer capacity and concentration" }],
+    "objectives": [
+      { "id": "o-make", "kind": "skill", "statement": "Make a buffer from a weak acid and its salt", "skills": ["core:ph-meter-calibration", "core:burette-technique"] },
+      { "id": "o-predict", "kind": "analysis", "statement": "Predict the buffer's pH with Henderson–Hasselbalch", "goal": "g-ph" },
+      { "id": "o-capacity", "kind": "reasoning", "statement": "Explain what sets a buffer's capacity", "goal": "g-capacity" }
+    ]
+  },
+  "materials": {
+    "supplies": [
+      { "id": "acid", "label": "Acetic acid, 0.100 M", "contains": [{ "substance": "core:acetic-acid", "conc": "0.100 mol/L" }], "solvent": "core:water", "amount": "100 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "salt", "label": "Sodium acetate, 0.100 M", "contains": [{ "substance": "core:sodium-acetate", "conc": "0.100 mol/L" }], "solvent": "core:water", "amount": "100 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "naoh", "label": "NaOH, 0.100 M", "contains": [{ "substance": "core:sodium-hydroxide", "conc": "0.100 mol/L" }], "solvent": "core:water", "amount": "100 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "water", "label": "Deionised water", "preparation": "core:water-deionised", "amount": "250 mL", "container": "core:reagent-bottle-250ml" },
+      { "id": "buf4", "label": "pH 4.00 buffer", "preparation": "core:ph-buffer-4", "amount": "50 mL", "container": "core:beaker-100ml" },
+      { "id": "buf7", "label": "pH 7.00 buffer", "preparation": "core:ph-buffer-7", "amount": "50 mL", "container": "core:beaker-100ml" }
+    ]
+  },
+  "equipment": {
+    "roles": [
+      { "id": "meter", "requires": { "class": "core:ph-meter.benchtop" } },
+      { "id": "burette", "requires": { "class": "core:burette-50ml-class-a" } }
+    ]
+  },
+  "procedure": {
+    "fidelity": "prescribed-tolerant",
+    "steps": [
+      { "id": "calibrate", "kind": "operation", "ref": "core:calibrate", "objectives": ["o-make"], "params": { "instrument": "meter", "mode": "two-point", "buffers": ["buf4", "buf7"] } },
+      { "id": "fill", "kind": "technique", "ref": "core:prepare-burette", "params": { "burette": "burette", "titrant": "naoh", "volume": "40 mL" } },
+      { "id": "make", "kind": "group", "title": "Three 50 mL solutions", "objectives": ["o-make"],
+        "forEach": { "var": "s", "in": "=[['buffer', 25, 0, 'Buffer'], ['dilute', 2.5, 45, 'Buffer, diluted ten-fold'], ['plain', 0, 50, 'Water']]" },
+        "steps": [
+          { "id": "beaker", "kind": "operation", "ref": "core:fetch", "params": { "equipment": "core:beaker-100ml", "id": "=s[0]", "label": "=s[3]" } },
+          { "id": "add-acid", "kind": "operation", "ref": "core:transfer", "when": "s[1] > 0", "params": { "source": "acid", "destination": "=s[0]", "volume": "=quantity(text(s[1]) + ' mL')" } },
+          { "id": "add-salt", "kind": "operation", "ref": "core:transfer", "when": "s[1] > 0", "params": { "source": "salt", "destination": "=s[0]", "volume": "=quantity(text(s[1]) + ' mL')" } },
+          { "id": "add-water", "kind": "operation", "ref": "core:transfer", "when": "s[2] > 0", "params": { "source": "water", "destination": "=s[0]", "volume": "=quantity(text(s[2]) + ' mL')" } },
+          { "id": "swirl", "kind": "operation", "ref": "core:mix", "params": { "container": "=s[0]", "method": "swirl", "cycles": 5 } }
+        ] },
+      { "id": "challenge", "kind": "group", "title": "Add base in 1 mL portions", "objectives": ["o-capacity"],
+        "forEach": { "var": "b", "in": "=['buffer', 'dilute', 'plain']" },
+        "steps": [
+          { "id": "portions", "kind": "group", "forEach": { "var": "i", "in": "=range(0, 10, 11)" },
+            "steps": [
+              { "id": "add", "kind": "operation", "ref": "core:transfer", "when": "i > 0", "params": { "source": "burette", "destination": "=b", "volume": "1 mL" } },
+              { "id": "stir", "kind": "operation", "ref": "core:mix", "params": { "container": "=b", "method": "swirl", "cycles": 3 } },
+              { "id": "ph", "kind": "operation", "ref": "core:measure", "params": { "instrument": "meter", "subject": "=b" } },
+              { "id": "note", "kind": "operation", "ref": "core:record", "params": { "field": "='pH-' + b", "value": "=ph.out.value" } }
+            ] }
+        ] },
+      { "id": "changes", "kind": "group", "objectives": ["o-capacity"], "forEach": { "var": "b", "in": "=['buffer', 'dilute', 'plain']" },
+        "steps": [
+          { "id": "delta", "kind": "operation", "ref": "core:record", "params": { "field": "='rise-' + b", "value": "=last(recorded('pH-' + b)) - first(recorded('pH-' + b))" } }
+        ] },
+      { "id": "why", "kind": "decision", "objectives": ["o-capacity"], "prompt": "The two buffers started at the same pH. Why did the diluted one change more?",
+        "options": [
+          { "id": "concentration", "label": "It had a tenth of the acid to take up the hydroxide: capacity depends on concentration" },
+          { "id": "ratio", "label": "Its acid-to-salt ratio was different" },
+          { "id": "ph", "label": "Its starting pH was further from the pKa" }
+        ],
+        "correctWhen": "'concentration'" }
+    ]
+  },
+  "goals": {
+    "predicates": [
+      { "id": "g-ph", "statement": "Both buffers start within 0.1 of the pKa, 4.76", "check": "abs(first(recorded('pH-buffer')) - 4.76) <= 0.1 && abs(first(recorded('pH-dilute')) - 4.76) <= 0.1" },
+      { "id": "g-capacity", "statement": "10 mL of base moves the buffer by less than 0.5 but the diluted buffer by more than 2", "check": "first(recorded('rise-buffer')) < 0.5 && first(recorded('rise-dilute')) > 2" }
+    ],
+    "expectedObservations": [
+      { "id": "e-water", "statement": "Water's pH jumps by more than 4 at the first portion", "check": "recorded('pH-plain')[1] - recorded('pH-plain')[0] > 4", "source": "reference-standard" },
+      { "id": "e-dilute-exhausted", "statement": "The diluted buffer gives way once its acid is used up (after 2.5 mL)", "check": "recorded('pH-dilute')[3] - recorded('pH-dilute')[2] > 1", "source": "reference-standard" }
+    ]
+  },
+  "variation": { "noise": "default" },
+  "provenance": { "defaultClass": "reference-standard", "review": { "status": "draft" } }
+}
